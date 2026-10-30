@@ -75,7 +75,6 @@ export interface Snapshot {
   birthMonth?: number;
   spa: Tri;
   skipped: Partial<Record<StepId, string>>;
-  questionsLeft: number;
   /** Steps answered or declined so far, in path order */
   answered: Partial<Record<StepId, "done" | "declined">>;
   situation: Situation;
@@ -151,11 +150,9 @@ export function snapshot(
     reason[p.scheme] = settled.reason;
   }
   const skipped: Partial<Record<StepId, string>> = {};
-  let questionsLeft = 0;
   for (const p of planSteps(s, today)) {
     if (p.step.id === "review") continue;
     if (!p.shown && p.skipReason) skipped[p.step.id] = p.skipReason;
-    else if (p.shown && !answered[p.step.id]) questionsLeft += 1;
   }
   return {
     status,
@@ -175,7 +172,6 @@ export function snapshot(
             today,
           )),
     skipped,
-    questionsLeft,
     answered,
     situation: s,
     ms: performance.now() - started,
@@ -214,7 +210,10 @@ function keptLines(step: StepId, n: Snapshot): FeedItem[] {
       });
   };
   if (step === "money" && s.pensionIncome === "under-line")
-    say(["pension-credit"], (x) => `Income under the line, so ${x} stays in.`);
+    say(
+      ["pension-credit"],
+      (x) => `Income is under the Pension Credit level, so ${x} stays in.`,
+    );
   if (step === "money" && (s.earnings === "none" || s.earnings === "up-to-408"))
     say(["healthy-start"], (x) => `Take-home pay is within the ${x} limit.`);
   if (
@@ -224,21 +223,19 @@ function keptLines(step: StepId, n: Snapshot): FeedItem[] {
     s.savings !== "rather-not-say"
   )
     say(
-      ["pension-credit", "universal-credit", "housing-benefit"],
+      ["universal-credit", "housing-benefit"],
       (x) => `Savings are within the limit for ${x}.`,
     );
   if (
     step === "home" &&
     (s.home === "private-rent" || s.home === "council-or-housing-association")
   )
-    say(
-      ["housing-benefit", "council-tax-reduction"],
-      (x) => `You rent, so ${x} stay${x.includes(" and ") ? "" : "s"} in.`,
-    );
+    say(["housing-benefit"], (x) => `You rent, so ${x} stays in.`);
   if (step === "applies" && s.applies?.includes("health-condition"))
     say(
       ["attendance-allowance"],
-      (x) => `Needing help with daily care keeps ${x} in.`,
+      (x) =>
+        `A health condition or disability makes daily life harder, so ${x} stays in.`,
     );
   if (step === "applies" && s.applies?.includes("cares-35-hours"))
     say(["carers-allowance"], (x) => `Caring 35 hours or more keeps ${x} in.`);
@@ -281,7 +278,7 @@ export function diff(
       text:
         next.nation === "england"
           ? "Using the rules for England."
-          : `Noted ${NATION_NAME[next.nation] ?? next.nation}. Some support works differently there, and Beacon will say which.`,
+          : `Noted ${NATION_NAME[next.nation] ?? next.nation}. Beacon checks the rules for England, so support run differently there is set aside.`,
       tone: "neutral",
     });
   if (ageChanged && next.birthYear !== undefined && next.spa !== prev.spa)

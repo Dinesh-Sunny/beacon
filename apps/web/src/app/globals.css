@@ -1320,7 +1320,10 @@
     color: var(--text-on-inverse);
   }
   .ac-board-4 {
-    grid-template-columns: repeat(4, minmax(0, 1fr));
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+  }
+  .ag-beacon {
+    --agent: var(--beacon-amber);
   }
   .ac-card.is-reading {
     border-style: dashed;
@@ -1331,7 +1334,7 @@
     border-color: var(--beacon-amber);
     box-shadow: 0 0 0 2px rgb(245 165 36 / 0.2);
   }
-  .rl-settled .ac-card {
+  .rl-unlikely-right-now .ac-card {
     opacity: 0.8;
   }
   @media (max-width: 760px) {

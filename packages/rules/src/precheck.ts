@@ -61,7 +61,7 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
       return {
         scheme: id,
         status: "ruled-out",
-        reason: `${scheme.name} works differently where you live. We point you to the local version.`,
+        reason: `Where you live runs its own version of ${scheme.name}. Beacon doesn't check it yet.`,
       };
 
     switch (id) {

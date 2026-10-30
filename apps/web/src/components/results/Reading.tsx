@@ -57,6 +57,7 @@ export function Reading() {
   const [feed, setFeed] = useState<ReadEntry[]>([]);
   const [tokens, setTokens] = useState<Partial<Record<SchemeId, number>>>({});
   const [effort, setEffort] = useState<string>();
+  const [judged, setJudged] = useState(0);
   const feedId = useRef(1);
   const say = (
     who: ReadEntry["who"],
@@ -76,11 +77,15 @@ export function Reading() {
     const abort = new AbortController();
     const usage: Usage[] = [];
     let got: Finding[] = [];
+    // Who made each finding: the rules in code (precheck) or Beam's reading.
+    const settledInCode = new Set<SchemeId>();
+    const judged = new Set<SchemeId>();
     setPlan([]);
     setRows({});
     setFindings([]);
     setFeed([]);
     setTokens({});
+    setJudged(0);
     setFinished(false);
     setProblem(null);
     (async () => {
@@ -105,9 +110,12 @@ export function Reading() {
           if (e.type === "precheck") {
             setTotal(e.items.length);
             const open = e.items.filter((i) => i.status === "open").length;
+            for (const i of e.items)
+              if (i.status !== "open") settledInCode.add(i.scheme);
+            const settled = e.items.length - open;
             say(
               "rules",
-              `Settled ${e.items.length - open} kinds of support from the rules in code. Sending ${open} to Beam readers.`,
+              `Settled ${settled} kind${settled === 1 ? "" : "s"} of support straight from the rules, before any reading. Sending ${open} to Beam readers.`,
             );
           } else if (e.type === "plan") {
             setPlan(e.schemes);
@@ -124,7 +132,9 @@ export function Reading() {
             else if (e.status === "done")
               say(
                 "beam",
-                `Got the ${s.name} page. Beam is reading it against your answers.`,
+                e.snapshot
+                  ? `GOV.UK didn't answer, so Beam is reading Beacon's saved copy of the ${s.name} page against your answers.`
+                  : `Got the ${s.name} page. Beam is reading it against your answers.`,
                 page,
               );
             else
@@ -134,26 +144,31 @@ export function Reading() {
                 page,
               );
           } else if (e.type === "finding") {
-            const s = schemeById(e.finding.scheme);
-            if (e.finding.quoteVerified)
+            const f = e.finding;
+            const s = schemeById(f.scheme);
+            const label = VERDICT_LABEL[f.verdict];
+            if (settledInCode.has(f.scheme))
+              say("rules", `${s.name}: ${label}. ${f.why}`);
+            else if (f.quoteVerified) {
+              judged.add(f.scheme);
               say(
                 "checker",
-                `${s.name}: found the rule line word for word on the page. ${VERDICT_LABEL[e.finding.verdict]}.`,
-                { label: `GOV.UK: ${s.name}`, url: e.finding.source.url },
+                `${s.name}: ${label}. Found Beam's rule line word for word on the page.`,
+                { label: `GOV.UK: ${s.name}`, url: f.source.url },
               );
-            else if (
-              e.finding.verdict === "likely" ||
-              e.finding.verdict === "worth-checking"
-            )
+            } else if (!f.quote)
+              // Written by Beacon when a page didn't open or the reader couldn't finish.
+              say("beacon", `${s.name}: ${label}. ${f.why}`);
+            else {
+              judged.add(f.scheme);
               say(
                 "checker",
-                `${s.name}: no exact rule line, so it stays Worth checking.`,
+                f.verdict === "worth-checking"
+                  ? `${s.name}: the line Beam quoted isn't word for word on the page, so it says Worth checking.`
+                  : `${s.name}: Beam says ${label}. ${f.why}`,
               );
-            else
-              say(
-                "rules",
-                `${s.name}: ${VERDICT_LABEL[e.finding.verdict]}. ${e.finding.why}`,
-              );
+            }
+            setJudged(judged.size);
             got = [
               ...got.filter((f) => f.scheme !== e.finding.scheme),
               e.finding,
@@ -172,7 +187,7 @@ export function Reading() {
             if (e.scheme)
               say(
                 "beam",
-                `${schemeById(e.scheme).name}: thought at ${e.effort} effort, ${(e.inputTokens + e.outputTokens).toLocaleString("en-GB")} tokens.`,
+                `${schemeById(e.scheme).name}: ${e.effort === "default" ? "thought at its default effort" : `thought at ${e.effort} effort`}, ${(e.inputTokens + e.outputTokens).toLocaleString("en-GB")} tokens (the units Beam reads and writes in).`,
               );
           } else if (e.type === "error") {
             setProblem(e.message);
@@ -235,9 +250,12 @@ export function Reading() {
         <div className="stack gap-3">
           <h1 className="d2">Reading the rules on GOV.UK</h1>
           <p className="lead">
-            Beacon is checking {plan.length || "each"} kinds of support against
-            the official GOV.UK pages. You can see each result as soon as it is
-            ready.
+            Beacon is checking{" "}
+            {plan.length
+              ? `${plan.length} kind${plan.length === 1 ? "" : "s"} of support`
+              : "each kind of support"}{" "}
+            against the official GOV.UK pages. You can see each result as soon
+            as it is ready.
           </p>
         </div>
       ) : (
@@ -338,6 +356,7 @@ export function Reading() {
           findings={findings}
           feed={feed}
           tokens={tokens}
+          judged={judged}
           effort={effort}
           live={!finished && !problem}
         />

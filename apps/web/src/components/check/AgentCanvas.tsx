@@ -36,7 +36,7 @@ const LANES: { status: PrecheckStatus; title: string; empty: string }[] = [
   { status: "open", title: "Still possible", empty: "Nothing left to read" },
   {
     status: "already-get",
-    title: "Already yours",
+    title: "You get this",
     empty: "Anything you already get lands here",
   },
   {
@@ -157,6 +157,9 @@ export function AgentCanvas({
   const board = useRef<HTMLDivElement>(null);
   const cards = useRef(new Map<SchemeId, HTMLElement>());
   const latest = groups[0];
+  // Timed in the browser only (the first render can happen on the server).
+  const [ms, setMs] = useState<number | null>(null);
+  useEffect(() => setMs(snap.ms), [snap]);
 
   // Which agents acted on the latest answer, and how many cards each moved.
   useEffect(() => {
@@ -222,12 +225,9 @@ export function AgentCanvas({
         <p className="small muted">
           {questionsLeft === 0
             ? "All answered. Ready to read the rules."
-            : `${questionsLeft} question${questionsLeft === 1 ? "" : "s"} left.`}{" "}
-          The agents ran in{" "}
-          {snap.ms < 1
-            ? "under 1"
-            : Math.round(snap.ms).toLocaleString("en-GB")}{" "}
-          ms on your device.
+            : `${questionsLeft} more step${questionsLeft === 1 ? "" : "s"}, then you check your answers.`}
+          {ms !== null &&
+            ` The rule checks took ${ms < 1 ? "under 1" : Math.round(ms).toLocaleString("en-GB")} ms in your browser.`}
         </p>
       </header>
 
@@ -381,8 +381,9 @@ export function AgentCanvas({
 
       <p className="small muted ac-foot">
         <Icon name="lock" size={16} className="mt-0.5 flex-none" />
-        These agents run on your device. Only the first half of your postcode
-        leaves it, to find your council.
+        {current === "review"
+          ? "Reading the rules sends your answers, as bands, to Beam. Nothing is stored."
+          : "The rule checks run in your browser. So far only the first half of your postcode has left it, to find your council."}
       </p>
       <p className="sr-only" role="status" aria-live="polite">
         {latest?.summary ?? ""}
@@ -412,7 +413,7 @@ export function AgentStrip({
             Beacon at work
           </span>
           <span className="small muted">
-            {n("open")} still possible · {n("already-get")} yours ·{" "}
+            {n("open")} still possible · {n("already-get")} you get ·{" "}
             {n("ruled-out")} unlikely
           </span>
           {latest && (

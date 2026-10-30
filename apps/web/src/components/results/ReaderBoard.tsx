@@ -18,7 +18,7 @@ export type RowStatus = "waiting" | "reading" | "done" | "failed" | "stopped";
 
 export interface ReadEntry {
   id: number;
-  who: "beam" | "checker" | "rules";
+  who: "beam" | "checker" | "rules" | "beacon";
   text: string;
   source?: { label: string; url: string };
 }
@@ -27,9 +27,15 @@ const WHO = {
   beam: "Beam reader",
   checker: "Quote checker",
   rules: "Rules agent",
+  beacon: "Beacon",
 } as const;
 
-type LaneKey = "reading" | "likely" | "worth-checking" | "settled";
+type LaneKey =
+  | "reading"
+  | "likely"
+  | "worth-checking"
+  | "already-get"
+  | "unlikely-right-now";
 const LANES: { key: LaneKey; title: string; empty: string }[] = [
   { key: "reading", title: "Reading", empty: "All pages read" },
   { key: "likely", title: "Likely", empty: "Likely results land here" },
@@ -38,19 +44,15 @@ const LANES: { key: LaneKey; title: string; empty: string }[] = [
     title: "Worth checking",
     empty: "Results to look into land here",
   },
+  { key: "already-get", title: "You get this", empty: "Nothing here yet" },
   {
-    key: "settled",
-    title: "Yours or unlikely",
-    empty: "Already yours or unlikely now",
+    key: "unlikely-right-now",
+    title: "Unlikely right now",
+    empty: "Nothing here yet",
   },
 ];
 
-const laneOf = (f: Finding | undefined): LaneKey =>
-  !f
-    ? "reading"
-    : f.verdict === "likely" || f.verdict === "worth-checking"
-      ? f.verdict
-      : "settled";
+const laneOf = (f: Finding | undefined): LaneKey => (f ? f.verdict : "reading");
 
 const READERS = 5;
 
@@ -60,6 +62,7 @@ export function ReaderBoard({
   findings,
   feed,
   tokens,
+  judged,
   effort,
   live,
 }: {
@@ -69,6 +72,8 @@ export function ReaderBoard({
   feed: ReadEntry[];
   /** Model tokens per kind of support, from the usage events */
   tokens: Partial<Record<SchemeId, number>>;
+  /** Findings that came from Beam's reading (not from the rules in code or a page failure) */
+  judged: number;
   /** Reasoning effort Beam used to judge, from the usage events */
   effort?: string;
   /** False once reading has finished or stopped */
@@ -123,7 +128,7 @@ export function ReaderBoard({
   }, [key, judgingKey]);
 
   const totalTokens = Object.values(tokens).reduce((a, b) => a + (b ?? 0), 0);
-  const read = Object.keys(tokens).length;
+  const read = judged;
   const stopped = Object.values(rows).includes("stopped");
 
   return (
@@ -194,7 +199,7 @@ export function ReaderBoard({
                       <span className="ac-card-meta">
                         {f
                           ? f.quoteVerified
-                            ? "Rule line checked word for word"
+                            ? `${VERDICT_LABEL[f.verdict]} · rule line checked word for word`
                             : VERDICT_LABEL[f.verdict]
                           : st === "reading"
                             ? "Fetching the page"

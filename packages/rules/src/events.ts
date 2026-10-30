@@ -5,7 +5,8 @@ import type { Finding } from "./finding.ts";
 import type { Precheck } from "./precheck.ts";
 import type { SchemeId } from "./schemes.ts";
 
-export type Effort = "low" | "medium" | "high";
+/** "default" when the endpoint refused a reasoning effort and the model used its own */
+export type Effort = "low" | "medium" | "high" | "default";
 
 export type CheckEvent =
   /** Hard rules settled in code, before any reading */
@@ -19,6 +20,8 @@ export type CheckEvent =
       status: "reading" | "done" | "failed";
       title?: string;
       url?: string;
+      /** True when the live page couldn't be read and Beacon's dated saved copy was used */
+      snapshot?: boolean;
     }
   /** A settled finding (quote already verified in code) */
   | { type: "finding"; finding: Finding }

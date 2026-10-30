@@ -55,7 +55,6 @@ export const SCHEMES: Scheme[] = [
       "housing-benefit",
       "warm-home-discount",
       "free-tv-licence",
-      "winter-fuel-payment",
     ],
   },
   {

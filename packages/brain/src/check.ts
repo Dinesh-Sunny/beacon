@@ -35,6 +35,7 @@ import {
   addUsage,
   NO_USAGE,
   type StepModels,
+  sendsEffort,
   stepModels,
   type Usage,
   usageOf,
@@ -357,12 +358,14 @@ export async function* runCheck(
     const scheme = schemeById(pre.scheme);
     queue.push({ type: "reading", scheme: scheme.id, status: "reading" });
     let page: RulePage;
+    let usedSnapshot = false;
     try {
       const loaded = await loadRules(scheme.id, {
         fetcher: opts.fetcher,
         snapshotDir: opts.snapshotDir,
       });
       page = loaded.page;
+      usedSnapshot = loaded.snapshot;
       snapshot ||= loaded.snapshot;
     } catch {
       queue.push({ type: "reading", scheme: scheme.id, status: "failed" });
@@ -377,6 +380,7 @@ export async function* runCheck(
       status: "done",
       title: page.title,
       url: page.url,
+      snapshot: usedSnapshot,
     });
     if (signal?.aborted) return;
 
@@ -420,7 +424,8 @@ export async function* runCheck(
         queue.push({
           type: "usage",
           step: "judge",
-          effort: EFFORT.judge,
+          // The effort actually sent: "default" once the endpoint has refused reasoning_effort.
+          effort: sendsEffort() ? EFFORT.judge : "default",
           ...usage,
           scheme: scheme.id,
         });
