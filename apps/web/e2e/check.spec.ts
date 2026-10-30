@@ -231,5 +231,7 @@ test("Going home keeps a started check", async ({ page }) => {
   await page.getByRole("link", { name: "Beacon", exact: true }).click();
   await expect(page).toHaveURL(/\/$/);
   await page.getByRole("link", { name: "Continue my check" }).click();
-  await expect(page.getByText("Brent, England").first()).toBeVisible();
+  await expect(
+    page.getByText(/Your answers - 1 of/).filter({ visible: true }),
+  ).toBeVisible();
 });
