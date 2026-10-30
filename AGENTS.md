@@ -12,7 +12,7 @@ Find the support that's already yours: a private agent on Beam that reads the of
 
 - Language: TypeScript 7, Node 22.18+ (type stripping, no build step for packages)
 - Framework: Next.js 16 App Router, React 19
-- Package manager: pnpm 12 workspaces + turbo (never mix lockfiles)
+- Package manager: pnpm 12 workspaces (never mix lockfiles)
 - Agent: Deep Agents on LangGraph, model Beam 1.0 through an OpenAI-compatible endpoint (HF router by default)
 - Styling / UI: Tailwind 4, shadcn (radix), tokens from the Figma file "Beacon - UX & Design System"
 - Testing: node:test (rules, brain), Playwright (web)
