@@ -205,3 +205,31 @@ test("Back keeps answers", async ({ page }) => {
   await page.getByRole("button", { name: "Back", exact: true }).click();
   await expect(page.getByRole("textbox")).toHaveValue("1952");
 });
+
+test("Not sure of the postcode asks which part of the UK", async ({ page }) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("I'm not sure of the postcode").check();
+  await cont(page);
+  await expect(
+    page.getByRole("alert", { name: "There is a problem" }),
+  ).toContainText("Choose the part of the UK");
+  await page.getByLabel("Scotland").check();
+  await expect(
+    page.getByText("Beacon checks support in England"),
+  ).toBeVisible();
+  await cont(page);
+  await heading(page, /born/i);
+});
+
+test("Going home keeps a started check", async ({ page }) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("First half of the postcode").fill("HA9");
+  await cont(page);
+  await heading(page, /born/i);
+  await page.getByRole("link", { name: "Beacon", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole("link", { name: "Continue my check" }).click();
+  await expect(page.getByText("Brent, England").first()).toBeVisible();
+});
