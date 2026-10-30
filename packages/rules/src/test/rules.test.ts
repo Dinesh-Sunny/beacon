@@ -44,7 +44,7 @@ describe("State Pension age from birth year and month", () => {
       reachedStatePensionAge({ year: 1960, month: 1 }, TODAY),
       "yes",
     ));
-  it("born May 1960 (66 and 2 months) reaches it in July 2026", () =>
+  it("born May 1960 (66 and 1 or 2 months) reaches it in July 2026", () =>
     assert.equal(
       reachedStatePensionAge({ year: 1960, month: 5 }, TODAY),
       "yes",
@@ -119,6 +119,44 @@ describe("pre-check settles hard rules in code", () => {
     );
     assert.equal(r?.status, "already-get");
   });
+  const statusOf = (s: Situation, id: string) =>
+    precheck(s, TODAY).find((p) => p.scheme === id)?.status;
+  const carer: Situation = {
+    forSomeoneElse: false,
+    birthYear: 1985,
+    household: "partner",
+    partnerBirthYear: 1984,
+    earnings: "over-1083",
+    applies: ["cares-35-hours"],
+  };
+  it("should keep Carer's Allowance open when a couple's combined earnings are high", () =>
+    assert.equal(statusOf(carer, "carers-allowance"), "open"));
+  it("should rule out Carer's Allowance on earnings when living alone", () =>
+    assert.equal(
+      statusOf(
+        { ...carer, household: "alone", partnerBirthYear: undefined },
+        "carers-allowance",
+      ),
+      "ruled-out",
+    ));
+  it("should keep Pension Credit open for a mixed-age couple on Housing Benefit", () =>
+    assert.equal(
+      statusOf(
+        {
+          ...sample,
+          household: "partner",
+          partnerBirthYear: 1990,
+          benefits: ["housing-benefit"],
+        },
+        "pension-credit",
+      ),
+      "open",
+    ));
+  it("should keep Housing Benefit open without a settled home", () =>
+    assert.equal(
+      statusOf({ ...carer, home: "no-settled-home" }, "housing-benefit"),
+      "open",
+    ));
 });
 
 describe("quote checker", () => {

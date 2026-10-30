@@ -1,7 +1,11 @@
 // Age lines from birth year (and month only for 1960-61), never the full date of birth.
 // State Pension age timetable: https://www.gov.uk/state-pension-age (Pensions Acts 2011 and 2014).
 
-import { TV_LICENCE_FREE_AGE, WINTER_FUEL } from "./config.ts";
+import {
+  STATE_PENSION_AGE,
+  TV_LICENCE_FREE_AGE,
+  WINTER_FUEL,
+} from "./config.ts";
 
 export type Tri = "yes" | "no" | "unsure";
 
@@ -18,8 +22,8 @@ function spaFor(
   d: number,
 ): { years: number; months: number } {
   const born = y * 10_000 + m * 100 + d;
-  if (born < 19600406) return { years: 66, months: 0 };
-  if (born >= 19610306) return { years: 67, months: 0 };
+  if (born < STATE_PENSION_AGE.sixtySixBefore) return { years: 66, months: 0 };
+  if (born >= STATE_PENSION_AGE.sixtySevenFrom) return { years: 67, months: 0 };
   // 6 Apr 1960 to 5 Mar 1961: 66 plus one month for each step that starts on the 6th
   const stepsFromApril = (y - 1960) * 12 + (m - 4) + (d >= 6 ? 1 : 0);
   return { years: 66, months: stepsFromApril };
@@ -63,7 +67,7 @@ function forAllDays(
 
 /** Does the year (or year + month) need the month asked to settle State Pension age? */
 export const needsBirthMonth = (year: number): boolean =>
-  year === 1960 || year === 1961;
+  (STATE_PENSION_AGE.stepYears as readonly number[]).includes(year);
 
 export function reachedStatePensionAge(
   input: BirthInput,

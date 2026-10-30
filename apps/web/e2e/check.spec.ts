@@ -124,7 +124,7 @@ test("the sample person goes through the adaptive check to results", async ({
   await cont(page);
 
   await heading(page, "How much is in savings?");
-  await page.getByLabel("Under £10,000").check();
+  await page.getByLabel("£10,000 or less").check();
   await cont(page);
 
   await heading(page, "Do any of these apply to you?");
@@ -166,7 +166,7 @@ test("the sample person goes through the adaptive check to results", async ({
   await page.getByRole("button", { name: "Save and go back" }).click();
   await heading(page, "Is this all right?");
   await expect(page.getByText("Saved", { exact: true })).toBeVisible();
-  await expect(review).toContainText("Under £10,000");
+  await expect(review).toContainText("£10,000 or less");
 
   await page.getByRole("button", { name: "Read the rules for me" }).click();
   await expect(page.getByTestId("reveal")).toHaveText("1 looks likely for you");

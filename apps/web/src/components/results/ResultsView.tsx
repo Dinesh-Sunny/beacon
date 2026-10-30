@@ -165,8 +165,8 @@ export function ResultsView() {
         )}
 
         <p className="banner">
-          Guidance, not a decision. Only DWP and your council can decide. Check
-          with GOV.UK or a free adviser.
+          Guidance, not a decision. Only the people who run each kind of support
+          can decide. Check with GOV.UK or a free adviser.
         </p>
 
         <details className="why no-print">

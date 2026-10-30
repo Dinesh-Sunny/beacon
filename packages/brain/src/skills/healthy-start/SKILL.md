@@ -6,7 +6,7 @@ description: How to judge Healthy Start for pregnancy and children under 4.
 # Healthy Start
 
 Hard rules:
-- At least 10 weeks pregnant, or has a child under 4.
+- More than 10 weeks pregnant, or has a child under 4.
 - Gets Universal Credit with family take-home earnings of 408 a month or less, or Pension Credit with the child addition, or other listed benefits on the page.
 - Under 18 and pregnant qualifies without benefits.
 - Scotland has Best Start Foods instead.

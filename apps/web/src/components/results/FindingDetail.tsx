@@ -30,7 +30,7 @@ const HOW: Record<"phone" | "online" | "council" | "automatic", string> = {
   phone: "Claim by phone",
   online: "Apply online",
   council: "Apply to your council",
-  automatic: "Paid without a claim if you qualify",
+  automatic: "Usually paid without a claim",
 };
 const capFirst = (x: string): string => x.charAt(0).toUpperCase() + x.slice(1);
 

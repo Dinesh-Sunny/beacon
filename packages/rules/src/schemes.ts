@@ -1,3 +1,5 @@
+import { CARERS_ALLOWANCE, TV_LICENCE_FREE_AGE } from "./config.ts";
+
 // The support Beacon reads for England (the verified pack). Each scheme names the official pages the
 // agent reads; the GOV.UK Content API serves them at https://www.gov.uk/api/content/<path>.
 
@@ -89,7 +91,7 @@ export const SCHEMES: Scheme[] = [
     govukPaths: ["/attendance-allowance"],
     summary:
       "Extra money if you need help with personal care because of an illness or disability. Not means-tested.",
-    nations: ["england", "wales", "northern-ireland"],
+    nations: ["england", "wales"],
     claim: {
       route: "phone",
       detail:
@@ -117,9 +119,8 @@ export const SCHEMES: Scheme[] = [
     name: "Carer's Allowance",
     runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/carers-allowance"],
-    summary:
-      "Money for people who look after someone for 35 hours a week or more.",
-    nations: ["england", "wales", "northern-ireland"],
+    summary: `Money for people who look after someone for ${CARERS_ALLOWANCE.hoursPerWeek} hours a week or more.`,
+    nations: ["england", "wales"],
     claim: {
       route: "online",
       detail: "Apply online on GOV.UK",
@@ -162,7 +163,7 @@ export const SCHEMES: Scheme[] = [
     govukPaths: ["/winter-fuel-payment"],
     summary:
       "A yearly payment towards heating for people born on or before the cut-off date.",
-    nations: ["england", "wales", "northern-ireland"],
+    nations: ["england", "wales"],
     claim: {
       route: "automatic",
       detail: "Paid automatically to most people who qualify",
@@ -174,8 +175,7 @@ export const SCHEMES: Scheme[] = [
     name: "Free TV licence",
     runBy: "TV Licensing",
     govukPaths: ["/free-discount-tv-licence"],
-    summary:
-      "A free TV licence if you are 75 or over and you or your partner get Pension Credit.",
+    summary: `A free TV licence if you are ${TV_LICENCE_FREE_AGE} or over and you or your partner get Pension Credit.`,
     nations: ["england", "scotland", "wales", "northern-ireland"],
     claim: {
       route: "online",

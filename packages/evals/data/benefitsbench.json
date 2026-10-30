@@ -1366,9 +1366,9 @@
           "why": "Not in Northern Ireland."
         },
         "attendance-allowance": {
-          "verdict": "worth-checking",
-          "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Northern Ireland runs its own version (nidirect)."
         },
         "housing-benefit": {
           "verdict": "unlikely-right-now",
@@ -1387,8 +1387,9 @@
           "settledBy": "precheck"
         },
         "winter-fuel-payment": {
-          "verdict": "likely",
-          "settledBy": "model"
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Northern Ireland runs its own version (nidirect)."
         },
         "free-tv-licence": {
           "verdict": "worth-checking",
@@ -1774,7 +1775,7 @@
           "verdict": "worth-checking",
           "settledBy": "model",
           "alsoAccept": ["unlikely-right-now"],
-          "why": "Not paid in a council-funded care home while on Pension Credit; funding is not asked."
+          "why": "Not paid if you have lived in a care home since 29 June 2026 or earlier while getting Pension Credit, Universal Credit or income-related ESA."
         },
         "free-tv-licence": {
           "verdict": "worth-checking",

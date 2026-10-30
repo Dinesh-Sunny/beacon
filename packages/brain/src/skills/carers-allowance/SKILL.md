@@ -16,7 +16,8 @@ Hard rules:
 Verdicts:
 - Cares 35+ hours, cared-for person gets a qualifying benefit, earnings none, up-to-408 or 409-884: likely, quoting the 35 hours sentence or the benefit list sentence.
 - Cared-for benefit not sure: worth-checking, missing = which benefit the person they care for gets.
-- Earnings 885-1083 or over-1083: unlikely-right-now.
+- Earnings 885-1083 or over-1083, living alone: unlikely-right-now.
+- Lives with a partner: the earnings band is the couple's combined figure, not the carer's own, so it cannot rule this out. Use worth-checking, missing = the carer's own take-home earnings.
 - Earnings rather-not-say: worth-checking.
 
 Gotchas:
