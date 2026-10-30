@@ -14,3 +14,6 @@ minimumReleaseAgeExclude:
   - "@ai-sdk/langchain@3.0.156"
   - "@ai-sdk/react@4.0.160"
   - ai@7.0.156
+  - framer-motion@14.9.0
+  - motion-dom@14.9.0
+  - motion@14.9.0
