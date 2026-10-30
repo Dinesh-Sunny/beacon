@@ -1,0 +1,22 @@
+{
+  "name": "@beacon/evals",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/dataset.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test src/test/*.test.ts",
+    "eval": "node src/run.ts"
+  },
+  "dependencies": {
+    "@beacon/brain": "workspace:*",
+    "@beacon/rules": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "typescript": "7.0.2"
+  }
+}

@@ -1,0 +1,1986 @@
+{
+  "name": "BenefitsBench",
+  "version": "0.1.0",
+  "asOf": "2026-10-30",
+  "rulesAsOf": "2026-10-30",
+  "note": "Made-up situations, no real people. Expected verdicts written from the official rules (GOV.UK, NHS Healthy Start, Brent Council) checked on 30 Oct 2026.",
+  "schemes": [
+    "pension-credit",
+    "council-tax-reduction",
+    "warm-home-discount",
+    "attendance-allowance",
+    "housing-benefit",
+    "carers-allowance",
+    "universal-credit",
+    "healthy-start",
+    "winter-fuel-payment",
+    "free-tv-licence"
+  ],
+  "cases": [
+    {
+      "id": "pensioner-alone-brent",
+      "title": "Pensioner living alone, council tenant, State Pension only",
+      "story": "Born 1952, lives alone in a Brent council flat, State Pension is the only income, small savings, a health condition makes daily life harder. Has never claimed anything.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1952,
+        "household": "alone",
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": ["health-condition"]
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Over State Pension age with income under the Guarantee Credit line."
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"],
+          "why": "No qualifying benefit on 23 Aug 2026 yet; opens if Pension Credit is backdated."
+        },
+        "attendance-allowance": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "Needs help with daily life; the 6-month need is not asked yet."
+        },
+        "housing-benefit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Turns 74 in 2026, under 75."
+        }
+      }
+    },
+    {
+      "id": "pensioner-gets-pension-credit",
+      "title": "Pensioner over 75 who already gets Pension Credit",
+      "story": "Born 1948, lives alone, council tenant, already gets Pension Credit. No health needs mentioned.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1948,
+        "household": "alone",
+        "benefits": ["pension-credit"],
+        "home": "council-or-housing-association"
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Guarantee Credit passports to full pension-age Council Tax Reduction."
+        },
+        "warm-home-discount": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Guarantee Credit means maximum eligible rent, savings ignored."
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "75 or over and gets Pension Credit."
+        }
+      }
+    },
+    {
+      "id": "pensioner-gets-hb-ctr",
+      "title": "Pensioner who gets Housing Benefit and Council Tax Reduction but not Pension Credit",
+      "story": "Born 1955, lives alone, council tenant, gets Housing Benefit and Council Tax Reduction, income under the line.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "NW10",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1955,
+        "household": "alone",
+        "benefits": ["housing-benefit", "council-tax-reduction"],
+        "home": "council-or-housing-association",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Classic missed case: on Housing Benefit, income under the line, never claimed Pension Credit."
+        },
+        "council-tax-reduction": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "warm-home-discount": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Housing Benefit on the qualifying date counts in England and Wales."
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "pensioner-couple-comfortable",
+      "title": "Pensioner couple who own their home, good income and savings",
+      "story": "Both born 1949-1950, own outright, income well over the Pension Credit line, savings over £16,000.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1950,
+        "household": "partner",
+        "partnerBirthYear": 1949,
+        "benefits": [],
+        "home": "own-outright",
+        "pensionIncome": "well-over-line",
+        "savings": "16000-plus",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "No savings limit, but income is well over the line."
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Pension-age scheme has a £16,000 savings cap."
+        },
+        "warm-home-discount": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Paid; HMRC takes it back only if own income is over £35,000."
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "75 or over but no Pension Credit."
+        }
+      }
+    },
+    {
+      "id": "mixed-age-couple-older-claimant",
+      "title": "Mixed-age couple, the person is over State Pension age and the partner is not",
+      "story": "Born 1956, partner born 1970, renting privately, low income, no benefits yet.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1956,
+        "household": "partner",
+        "partnerBirthYear": 1970,
+        "benefits": [],
+        "home": "private-rent",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "One partner under State Pension age: Universal Credit applies instead."
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Mixed-age couples cannot make a new Housing Benefit claim; rent help comes through Universal Credit.",
+          "knownRulesGap": "precheck leaves Housing Benefit open for a mixed-age couple when the older partner is the one asking."
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Mixed-age couples claim Universal Credit."
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "mixed-age-couple-younger-claimant",
+      "title": "Mixed-age couple, the person is under State Pension age",
+      "story": "Born 1975, partner born 1958, council tenant, no earnings, small savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "NW10",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1975,
+        "household": "partner",
+        "partnerBirthYear": 1958,
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "working-parent-low-pay",
+      "title": "Working parent on low pay with a toddler",
+      "story": "Born 1990, partner and children including a child under 4, renting privately, take-home earnings £409 to £884 a month, gets Child Benefit.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1990,
+        "household": "partner-children",
+        "childUnder4": true,
+        "benefits": ["child-benefit"],
+        "home": "private-rent",
+        "work": "employed",
+        "earnings": "409-884",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Working does not rule out Universal Credit."
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Needs Universal Credit with family take-home earnings of £408 a month or less."
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "uc-parent-child-under-4",
+      "title": "Universal Credit parent with a child under 4",
+      "story": "Born 1995, lives with children, child under 4, council tenant, gets Universal Credit and Child Benefit.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "NW10",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1995,
+        "household": "children",
+        "childUnder4": true,
+        "benefits": ["universal-credit", "child-benefit"],
+        "home": "council-or-housing-association",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Universal Credit on the qualifying date, bill name not asked yet."
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "On Universal Credit with a child under 4; the £408 earnings line is not asked yet."
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "pregnant-not-working",
+      "title": "Pregnant, living alone, not working",
+      "story": "Born 2000, lives alone, 10+ weeks pregnant, renting privately, no earnings, no benefits yet.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 2000,
+        "household": "alone",
+        "expecting": true,
+        "benefits": [],
+        "home": "private-rent",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"],
+          "why": "Pregnant, but Healthy Start needs Universal Credit (or Pension Credit) first."
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "carer-qualifies",
+      "title": "Full-time carer of someone who gets a disability benefit",
+      "story": "Born 1980, lives with other adults, council tenant, cares 35+ hours a week, the person cared for gets Attendance Allowance, PIP daily living or DLA care, no earnings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1980,
+        "household": "other-adults",
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": ["cares-35-hours"],
+        "caredForGetsDisabilityBenefit": "yes"
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "carer-cared-for-no-benefit",
+      "title": "Full-time carer, the person cared for gets no disability benefit",
+      "story": "As above, but the person looked after does not get Attendance Allowance, PIP daily living or DLA care.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1980,
+        "household": "other-adults",
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": ["cares-35-hours"],
+        "caredForGetsDisabilityBenefit": "no"
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "carer-earns-over-limit",
+      "title": "Full-time carer who earns over the £204 a week limit",
+      "story": "Born 1982, lives alone, private rent, cares 35+ hours, cared-for person gets a disability benefit, take-home earnings £885 to £1,083 a month.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1982,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "employed",
+        "earnings": "885-1083",
+        "savings": "under-6000",
+        "applies": ["cares-35-hours"],
+        "caredForGetsDisabilityBenefit": "yes"
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Earnings over £204 a week (about £884 a month) after tax and expenses means no Carer's Allowance."
+        },
+        "universal-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "carer-under-35-hours",
+      "title": "Part-time carer, under 35 hours a week",
+      "story": "Born 1978, lives alone, private rent, cares for a parent but under 35 hours a week, no earnings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1978,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": ["cares-under-35-hours"]
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "working-age-savings-over-16k",
+      "title": "Working-age renter with savings over £16,000",
+      "story": "Born 1985, lives alone, private rent, take-home over £1,083 a month, savings £16,000 or more.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "NW10",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1985,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "employed",
+        "earnings": "over-1083",
+        "savings": "16000-plus",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Brent working-age scheme caps savings at £6,000."
+        },
+        "warm-home-discount": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "£16,000 savings limit."
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "working-age-savings-6k-16k",
+      "title": "Working-age renter, no earnings, savings between £6,000 and £16,000",
+      "story": "Born 1988, lives alone, private rent, not working, savings £6,000 to £15,999.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1988,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "no",
+        "earnings": "none",
+        "savings": "6000-15999",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Brent working-age scheme caps savings at £6,000."
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "Savings over £6,000 reduce Universal Credit; under £16,000 it can still be paid."
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "pensioner-savings-over-16k-low-income",
+      "title": "Pensioner with low income but savings over £16,000",
+      "story": "Born 1953, lives alone, council tenant, income under the line, savings £16,000 or more.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1953,
+        "household": "alone",
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "pensionIncome": "under-line",
+        "savings": "16000-plus",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"],
+          "why": "No upper savings limit; savings over £10,000 count as tariff income (£1 a week per £500)."
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "£16,000 savings limit without Guarantee Credit."
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "pensioner-with-pip",
+      "title": "Pensioner who already gets PIP",
+      "story": "Born 1957, lives alone, owns outright, gets PIP, income around the line.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1957,
+        "household": "alone",
+        "benefits": ["pip-or-dla"],
+        "home": "own-outright",
+        "pensionIncome": "around-line",
+        "savings": "under-10000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "Disability benefits can raise the Pension Credit line."
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Cannot get Attendance Allowance alongside PIP or DLA."
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "over-75-needs-care",
+      "title": "Over 75, owns home, needs help with personal care",
+      "story": "Born 1945, lives alone, owns outright, income around the line, savings £10,000 to £15,999, needs help with daily care.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1945,
+        "household": "alone",
+        "benefits": [],
+        "home": "own-outright",
+        "pensionIncome": "around-line",
+        "savings": "10000-15999",
+        "applies": ["health-condition"]
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "No means test; the 6-month need is not asked yet."
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"],
+          "why": "Over 75; free only with Pension Credit."
+        }
+      }
+    },
+    {
+      "id": "scotland-pensioner",
+      "title": "Pensioner in Scotland, renting, needs help with care",
+      "story": "Born 1950, lives alone in Edinburgh, private rent, income under the line, small savings, health condition.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "EH6",
+        "nation": "scotland",
+        "council": "City of Edinburgh",
+        "birthYear": 1950,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": ["health-condition"]
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Scotland has Pension Age Disability Payment instead."
+        },
+        "housing-benefit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Scotland has the Pension Age Winter Heating Payment instead."
+        },
+        "free-tv-licence": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        }
+      }
+    },
+    {
+      "id": "scotland-uc-parent",
+      "title": "Universal Credit parent in Scotland with a child under 4",
+      "story": "Born 1992, lives with children, child under 4, council tenant in Glasgow, gets Universal Credit.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "G31",
+        "nation": "scotland",
+        "council": "Glasgow City",
+        "birthYear": 1992,
+        "household": "children",
+        "childUnder4": true,
+        "benefits": ["universal-credit"],
+        "home": "council-or-housing-association",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"],
+          "why": "In Scotland it may need an application."
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Scotland has Best Start Foods instead."
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "northern-ireland-pensioner",
+      "title": "Pensioner in Northern Ireland over 75",
+      "story": "Born 1949, lives alone in Belfast, owns outright, income under the line, health condition.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "BT5",
+        "nation": "northern-ireland",
+        "council": "Belfast",
+        "birthYear": 1949,
+        "household": "alone",
+        "benefits": [],
+        "home": "own-outright",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": ["health-condition"]
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Northern Ireland runs its own Pension Credit."
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "warm-home-discount": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Not in Northern Ireland."
+        },
+        "attendance-allowance": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        }
+      }
+    },
+    {
+      "id": "wales-uc-renter",
+      "title": "Universal Credit renter in Wales",
+      "story": "Born 1987, lives alone in Cardiff, private rent, gets Universal Credit.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "CF24",
+        "nation": "wales",
+        "council": "Cardiff",
+        "birthYear": 1987,
+        "household": "alone",
+        "benefits": ["universal-credit"],
+        "home": "private-rent",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Universal Credit includes help with rent."
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "winter-fuel-born-june-1960",
+      "title": "Born June 1960, right on the Winter Fuel cut-off",
+      "story": "Born June 1960 (reached State Pension age in 2026), lives alone, owns outright, income under the line.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1960,
+        "birthMonth": 6,
+        "household": "alone",
+        "benefits": [],
+        "home": "own-outright",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "why": "Cut-off is 27 June 1960: depends on the day, which Beacon never asks."
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "born-august-1960-not-yet-spa",
+      "title": "Born August 1960, not yet at State Pension age",
+      "story": "Born August 1960, lives alone, has a mortgage, not working, small savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1960,
+        "birthMonth": 8,
+        "household": "alone",
+        "benefits": [],
+        "home": "mortgage",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "State Pension age arrives in winter 2026-27."
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Born after 27 June 1960."
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "born-may-1960-just-reached-spa",
+      "title": "Born May 1960, reached State Pension age in summer 2026",
+      "story": "Born May 1960, lives alone, council tenant, income under the line.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1960,
+        "birthMonth": 5,
+        "household": "alone",
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "pensionIncome": "under-line",
+        "savings": "under-10000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "council-tax-reduction": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "born-feb-1961-not-yet-spa",
+      "title": "Born February 1961, State Pension age not until 2028",
+      "story": "Born February 1961, lives alone, private rent, not working, small savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "NW10",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1961,
+        "birthMonth": 2,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "no",
+        "earnings": "none",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "care-home-resident",
+      "title": "Care home resident who gets Pension Credit and Attendance Allowance",
+      "story": "Born 1940, lives in a care home, gets Pension Credit and Attendance Allowance.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1940,
+        "household": "alone",
+        "benefits": ["attendance-allowance", "pension-credit"],
+        "home": "care-home",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck",
+          "why": "Council tax is not usually paid in a care home."
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "already-get",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"],
+          "why": "Not paid in a council-funded care home while on Pension Credit; funding is not asked."
+        },
+        "free-tv-licence": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"]
+        }
+      }
+    },
+    {
+      "id": "birth-year-withheld",
+      "title": "Would rather not give a birth year and is not sure about State Pension age",
+      "story": "Withheld birth year, not sure about State Pension age, lives alone, private rent, would rather not say savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "statePensionAge": "unsure",
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "savings": "rather-not-say",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"],
+          "why": "Age not settled, so every age-based answer stays Worth checking."
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "free-tv-licence": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        }
+      }
+    },
+    {
+      "id": "pensioner-couple-rather-not-say",
+      "title": "Pensioner couple who would rather not share income or savings",
+      "story": "Born 1954, partner born 1952, council tenant, would rather not say income or savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA0",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1954,
+        "household": "partner",
+        "partnerBirthYear": 1952,
+        "benefits": [],
+        "home": "council-or-housing-association",
+        "pensionIncome": "rather-not-say",
+        "savings": "rather-not-say",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"]
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely", "unlikely-right-now"]
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "likely",
+          "settledBy": "model"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    },
+    {
+      "id": "self-employed-gig-worker",
+      "title": "Self-employed gig worker with income that goes up and down",
+      "story": "Born 1993, lives alone, private rent, self-employed, take-home £409 to £884 a month, small savings.",
+      "situation": {
+        "forSomeoneElse": false,
+        "postcodeDistrict": "HA9",
+        "nation": "england",
+        "council": "Brent",
+        "birthYear": 1993,
+        "household": "alone",
+        "benefits": [],
+        "home": "private-rent",
+        "work": "self-employed",
+        "earnings": "409-884",
+        "savings": "under-6000",
+        "applies": []
+      },
+      "expected": {
+        "pension-credit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "council-tax-reduction": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["likely"]
+        },
+        "warm-home-discount": {
+          "verdict": "worth-checking",
+          "settledBy": "model",
+          "alsoAccept": ["unlikely-right-now"]
+        },
+        "attendance-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "housing-benefit": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "carers-allowance": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "universal-credit": {
+          "verdict": "likely",
+          "settledBy": "model",
+          "alsoAccept": ["worth-checking"],
+          "why": "Self-employed people can claim; irregular income is assessed monthly."
+        },
+        "healthy-start": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "winter-fuel-payment": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        },
+        "free-tv-licence": {
+          "verdict": "unlikely-right-now",
+          "settledBy": "precheck"
+        }
+      }
+    }
+  ]
+}
