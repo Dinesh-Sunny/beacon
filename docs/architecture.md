@@ -22,6 +22,7 @@ Packages are plain TypeScript run by Node's type stripping (erasable syntax only
 5. **Settle (code).** `settleFinding` runs `verifyQuote` against the page text. A Likely without a quote found word for word is downgraded to Worth checking. Nothing the model proposes reaches the person without this step.
 6. **Stream.** Each stage is a newline-delimited JSON `CheckEvent` (`packages/rules/src/events.ts`): `precheck`, `plan`, `reading`, `finding`, `usage` (tokens per step and effort), `done`, `error`.
 7. **Explain, on request (Beam, effort medium).** On a result page, "Help me with what to say" posts the settled finding to `/api/explain`, which returns next steps and a call script or letter written only from the scheme's claim details. Same rate limit as `/api/check`; nothing stored.
+8. **Explain my letter (Beam, effort medium).** `/api/letter` takes pasted letter text, `redactLetter` removes NI numbers, sort codes and long account numbers in code, then Beam returns what it says, what to do, how to disagree and scam signs. Nothing stored or logged.
 
 ## Model access
 
