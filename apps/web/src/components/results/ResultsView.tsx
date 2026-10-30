@@ -109,6 +109,16 @@ export function ResultsView() {
           )}
         </div>
 
+        {results.fromLink && (
+          <div className="banner info" role="note">
+            <Icon name="info" className="mt-0.5 flex-none" />
+            <span>
+              These results came from a shared link. Check each one on its
+              GOV.UK page, or <Link href="/check">start your own check</Link>.
+            </span>
+          </div>
+        )}
+
         {unread.length > 0 && (
           <section className="card stack gap-3" aria-labelledby="unread-title">
             <h2 id="unread-title" className="t-title">

@@ -28,6 +28,7 @@ import {
   EFFORT,
   LIMITS,
   loadBeamEnv,
+  MAX_OUTPUT_TOKENS,
   rulesFile,
 } from "./config.ts";
 import {
@@ -96,18 +97,23 @@ export class BudgetExceededError extends Error {
 }
 
 /** Shared by every reader in one check: model calls and tokens. */
+// Readers run in parallel, so each call reserves its largest possible output before it starts and
+// settles to the real usage after. The budget can no longer be overshot by calls already in flight.
 class Budget {
   calls = 0;
   tokens = 0;
-  take(): void {
+  reserved = 0;
+  take(reserve: number = MAX_OUTPUT_TOKENS.judge): void {
     if (
       this.calls >= LIMITS.modelCallsPerCheck ||
-      this.tokens >= LIMITS.tokensPerCheck
+      this.tokens + this.reserved + reserve > LIMITS.tokensPerCheck
     )
       throw new BudgetExceededError();
     this.calls += 1;
+    this.reserved += reserve;
   }
-  spend(u: Usage): void {
+  settle(u: Usage, reserve: number = MAX_OUTPUT_TOKENS.judge): void {
+    this.reserved -= reserve;
     this.tokens += u.inputTokens + u.outputTokens;
   }
 }
@@ -216,18 +222,25 @@ async function readScheme(
     wrapModelCall: async (request, handler) => {
       run.budget.take();
       calls += 1;
-      // Every call must use a tool; the last allowed call must record the finding.
-      const toolChoice =
-        calls >= LIMITS.modelCallsPerScheme
-          ? ({ type: "function", function: { name: RECORD_FINDING } } as const)
-          : ("required" as const);
-      const reply = await withEffortFallback(run.models, async (model) =>
-        handler({ ...request, model, toolChoice }),
-      );
-      const u = usageOf(reply);
-      usage = addUsage(usage, u);
-      run.budget.spend(u);
-      return reply;
+      let u = NO_USAGE;
+      try {
+        // Every call must use a tool; the last allowed call must record the finding.
+        const toolChoice =
+          calls >= LIMITS.modelCallsPerScheme
+            ? ({
+                type: "function",
+                function: { name: RECORD_FINDING },
+              } as const)
+            : ("required" as const);
+        const reply = await withEffortFallback(run.models, async (model) =>
+          handler({ ...request, model, toolChoice }),
+        );
+        u = usageOf(reply);
+        usage = addUsage(usage, u);
+        return reply;
+      } finally {
+        run.budget.settle(u);
+      }
     },
   });
   const agent = createDeepAgent({
@@ -395,8 +408,10 @@ export async function* runCheck(
           codeFinding(scheme, "worth-checking", MESSAGES.budget, page),
         );
       } else {
+        // Name and status only: provider errors can echo prompt text, which holds answers.
+        const e = error as { name?: string; status?: number };
         console.error(
-          `[brain] rule reader for ${scheme.id} failed: ${(error as Error).message}`,
+          `[brain] rule reader for ${scheme.id} failed: ${e.name ?? "Error"}${e.status ? ` ${e.status}` : ""}`,
         );
         failed.push({ scheme, page });
       }

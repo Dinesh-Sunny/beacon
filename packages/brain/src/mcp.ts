@@ -55,6 +55,8 @@ export interface EligibilityResult {
   model?: string;
   snapshot?: boolean;
   error?: string;
+  /** Model tokens the check used (input plus output) */
+  tokens: number;
 }
 
 /** Runs a full check and returns its result in one piece. */
@@ -64,9 +66,11 @@ export async function checkEligibility(
 ): Promise<EligibilityResult> {
   const { situation } = CheckEligibilityInput.parse(input);
   const events: CheckEvent[] = await collectCheck(situation, opts);
-  const result: EligibilityResult = { precheck: [], findings: [] };
+  const result: EligibilityResult = { precheck: [], findings: [], tokens: 0 };
   for (const e of events) {
     if (e.type === "precheck") result.precheck = e.items;
+    else if (e.type === "usage")
+      result.tokens += e.inputTokens + e.outputTokens;
     else if (e.type === "finding") result.findings.push(e.finding);
     else if (e.type === "done")
       Object.assign(result, {

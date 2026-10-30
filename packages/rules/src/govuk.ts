@@ -1,7 +1,7 @@
 // Reads official pages through the GOV.UK Content API (free, no key) and keeps a dated snapshot so
 // every run can be reproduced. https://content-api.publishing.service.gov.uk
 
-import { RULES_AS_OF } from "./config.ts";
+import { GOVUK_READ, RULES_AS_OF } from "./config.ts";
 
 export interface RulePage {
   path: string;
@@ -92,8 +92,11 @@ export async function readGovuk(
 ): Promise<RulePage> {
   const res = await fetcher(`https://www.gov.uk/api/content${path}`, {
     headers: { accept: "application/json" },
+    signal: AbortSignal.timeout(GOVUK_READ.timeoutMs),
   });
   if (!res.ok) throw new GovukReadError(path, res.status);
+  if (Number(res.headers.get("content-length") ?? "0") > GOVUK_READ.maxBytes)
+    throw new GovukReadError(path, 413);
   return pageFromContent(
     path,
     (await res.json()) as ContentItem,

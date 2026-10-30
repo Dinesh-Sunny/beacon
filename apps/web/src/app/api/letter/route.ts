@@ -1,8 +1,8 @@
 import { LIMITS } from "@beacon/brain/config";
 import { z } from "zod";
 import { explainLetter } from "@/lib/check-client";
-import { env } from "@/lib/env";
-import { clientIp, takeCheckSlot } from "@/lib/rate-limit";
+import { limit, logFailure, readBody } from "@/lib/guard";
+import { recordTokens } from "@/lib/rate-limit";
 
 const BodySchema = z.object({
   letter: z.string().trim().min(40).max(LIMITS.letterChars),
@@ -11,21 +11,9 @@ const BodySchema = z.object({
 // "Explain my letter": the pasted text is cleaned of identifiers in code, read once by Beam and
 // never stored or logged.
 export async function POST(request: Request) {
-  const limit = takeCheckSlot(
-    clientIp(request.headers),
-    env.BEACON_PER_IP_PER_MINUTE,
-    env.BEACON_DAILY_CAP,
-  );
-  if (!limit.ok)
-    return Response.json(
-      {
-        message:
-          "Lots of people are using Beacon right now. Try again in about 2 minutes.",
-      },
-      { status: 429 },
-    );
-
-  const parsed = BodySchema.safeParse(await request.json().catch(() => null));
+  const read = await readBody(request, "letter");
+  if (read instanceof Response) return read;
+  const parsed = BodySchema.safeParse(read.body);
   if (!parsed.success)
     return Response.json(
       {
@@ -33,14 +21,17 @@ export async function POST(request: Request) {
       },
       { status: 400 },
     );
+  const busy = limit(request, "letter");
+  if (busy) return busy;
 
   try {
-    const { text, removed } = await explainLetter(parsed.data.letter, {
+    const { text, removed, usage } = await explainLetter(parsed.data.letter, {
       signal: request.signal,
     });
+    recordTokens(usage.inputTokens + usage.outputTokens);
     return Response.json({ text, removed });
   } catch (error) {
-    console.error(`[letter] ${(error as Error).name}`);
+    logFailure("letter", error);
     return Response.json(
       {
         message:

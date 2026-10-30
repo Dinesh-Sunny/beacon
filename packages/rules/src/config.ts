@@ -3,6 +3,9 @@
 
 export const RULES_AS_OF = "2026-10-30";
 
+/** One GOV.UK Content API read: give up after this long or this size (guide pages are well under 1 MB). */
+export const GOVUK_READ = { timeoutMs: 10_000, maxBytes: 2_000_000 } as const;
+
 export const PENSION_CREDIT = {
   // Guarantee Credit standard minimum guarantee, per week
   singleWeekly: 238,

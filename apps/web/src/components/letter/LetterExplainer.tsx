@@ -2,7 +2,7 @@
 
 import { LIMITS } from "@beacon/brain/config";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/site";
 import { Icon } from "../Icon";
 import { Listen } from "../results/Listen";
@@ -21,6 +21,11 @@ export function LetterExplainer() {
   const [letter, setLetter] = useState("");
   const [state, setState] = useState<State>({ kind: "idle" });
   const result = useRef<HTMLHeadingElement>(null);
+
+  // Move focus to the answer once it is on screen, so screen readers start there.
+  useEffect(() => {
+    if (state.kind === "done") result.current?.focus();
+  }, [state.kind]);
 
   const explain = async (): Promise<void> => {
     if (letter.trim().length < MIN) {
@@ -47,7 +52,6 @@ export function LetterExplainer() {
           body.message ?? "We couldn't read your letter just now.",
         );
       setState({ kind: "done", text: body.text, removed: body.removed ?? 0 });
-      requestAnimationFrame(() => result.current?.focus());
     } catch (error) {
       setState({ kind: "error", message: (error as Error).message });
     }
@@ -66,8 +70,10 @@ export function LetterExplainer() {
       <div className="banner info">
         <Icon name="lock" className="mt-0.5 flex-none" />
         <span>
-          Leave out your name and address. We remove National Insurance numbers
-          and account numbers before the letter is read, and nothing is kept.
+          Leave out your name and address if you can. Before the letter is read,
+          we also remove National Insurance numbers, card, account and reference
+          numbers, sort codes, postcodes and the &quot;Dear ...&quot; line.
+          Nothing is kept.
         </span>
       </div>
 

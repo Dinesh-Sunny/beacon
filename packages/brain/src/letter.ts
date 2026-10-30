@@ -19,23 +19,32 @@ export interface LetterExplanation {
   usage: Usage & { step: "explain"; effort: (typeof EFFORT)["explain"] };
 }
 
-// National Insurance numbers (QQ 12 34 56 C), sort codes (12-34-56) and long digit runs (account,
-// card and reference numbers). UK phone numbers stay: they matter for the scam check.
+// Removed before Beam reads a letter: NI numbers, card numbers, sort codes, account and reference
+// numbers, full postcodes, and the greeting line (it usually holds the name). Order matters: longer
+// patterns run first. UK phone numbers stay when the letter says to call them, for the scam check.
 const IDENTIFIERS: Array<[RegExp, string]> = [
   [/\b[A-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b/gi, "[NI number]"],
-  [/\b\d{2}-\d{2}-\d{2}\b/g, "[sort code]"],
+  [/\b(?:\d[ -]?){12,18}\d\b/g, "[card number]"],
+  [/\b\d{2}[ -]\d{2}[ -]\d{2}\b/g, "[sort code]"],
+  [/\b\d{4}[ -]?\d{4}\b/g, "[number]"],
   [/\b\d{8,}\b/g, "[number]"],
+  [/\b[A-Z]{1,2}\d[A-Z\d]?\s*\d[A-Z]{2}\b/gi, "[postcode]"],
+  [/^\s*(?:Dear|Mr|Mrs|Ms|Miss|Mx|Dr)\b.*$/gim, "[greeting]"],
 ];
 
 const UK_PHONE = /^0\d{9,10}$/;
+const CALL_WORDS = /\b(?:call|phone|tel|telephone|ring|contact)\b[^\n]{0,30}$/i;
 
 /** Removes identifiers Beacon never needs. Returns the cleaned text and how many were removed. */
 export function redactLetter(text: string): { text: string; removed: number } {
   let removed = 0;
   let out = text;
   for (const [pattern, label] of IDENTIFIERS)
-    out = out.replace(pattern, (match) => {
-      if (label === "[number]" && UK_PHONE.test(match)) return match;
+    out = out.replace(pattern, (match: string, ...rest: unknown[]) => {
+      const offset = rest.find((x) => typeof x === "number") as number;
+      const before = out.slice(Math.max(0, offset - 40), offset);
+      const digits = match.replace(/[ -]/g, "");
+      if (UK_PHONE.test(digits) && CALL_WORDS.test(before)) return match;
       removed += 1;
       return label;
     });

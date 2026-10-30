@@ -1,40 +1,14 @@
 import { type CheckEvent, SituationSchema } from "@beacon/rules";
 import { runCheck } from "@/lib/check-client";
-import { env } from "@/lib/env";
-import { clientIp, takeCheckSlot } from "@/lib/rate-limit";
+import { limit, logFailure, readBody } from "@/lib/guard";
+import { recordTokens } from "@/lib/rate-limit";
 
 // Streams the check as newline-delimited JSON (packages/rules/src/events.ts). Nothing is stored.
 export async function POST(request: Request) {
-  const limit = takeCheckSlot(
-    clientIp(request.headers),
-    env.BEACON_PER_IP_PER_MINUTE,
-    env.BEACON_DAILY_CAP,
-  );
-  if (!limit.ok) {
-    const message =
-      limit.reason === "daily"
-        ? "Lots of people are checking today. Please try again tomorrow, or see the example."
-        : "Lots of people are checking right now. Try again in about 2 minutes.";
-    return Response.json(
-      { message },
-      {
-        status: 429,
-        headers: { "retry-after": limit.reason === "daily" ? "3600" : "60" },
-      },
-    );
-  }
-
-  let body: unknown;
-  try {
-    body = await request.json();
-  } catch {
-    return Response.json(
-      { message: "We could not read your answers. Please try again." },
-      { status: 400 },
-    );
-  }
-  const parsed = SituationSchema.safeParse(body);
-  if (!parsed.success) {
+  const read = await readBody(request, "check");
+  if (read instanceof Response) return read;
+  const parsed = SituationSchema.safeParse(read.body);
+  if (!parsed.success)
     return Response.json(
       {
         message:
@@ -42,7 +16,8 @@ export async function POST(request: Request) {
       },
       { status: 400 },
     );
-  }
+  const busy = limit(request, "check");
+  if (busy) return busy;
 
   const abort = new AbortController();
   request.signal.addEventListener("abort", () => abort.abort(), { once: true });
@@ -58,13 +33,17 @@ export async function POST(request: Request) {
           controller.close();
           return;
         }
+        if (value.type === "usage")
+          recordTokens(value.inputTokens + value.outputTokens);
         controller.enqueue(line(value));
-      } catch {
+      } catch (error) {
         if (!abort.signal.aborted) {
+          logFailure("check", error);
           controller.enqueue(
             line({
               type: "error",
-              message: "That took longer than usual. Your answers are safe.",
+              message:
+                "We couldn't finish reading just now. Your answers are safe.",
             }),
           );
         }

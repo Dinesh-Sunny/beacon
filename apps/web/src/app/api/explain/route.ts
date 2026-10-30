@@ -7,38 +7,30 @@ import {
 } from "@beacon/rules";
 import { z } from "zod";
 import { explainFinding } from "@/lib/check-client";
-import { env } from "@/lib/env";
-import { clientIp, takeCheckSlot } from "@/lib/rate-limit";
+import { limit, logFailure, readBody } from "@/lib/guard";
+import { recordTokens } from "@/lib/rate-limit";
 
 const IDS = new Set<string>(SCHEMES.map((s) => s.id));
 
-// The finding the browser already holds. It only shapes the text sent back to the same person,
-// so it is validated for shape and size, not trusted as a decision.
+// The finding the browser holds. It may have been edited or come from a shared link, so the server
+// re-reads the page and re-checks the quote before anything is written (explainFinding reverify).
 const BodySchema = ProposedFindingSchema.extend({
   scheme: z.string().refine((id) => IDS.has(id)),
   verdict: z.enum(VERDICTS),
   quoteVerified: z.boolean(),
   source: z.object({
-    url: z.url().max(300),
+    url: z.string().max(300),
     title: z.string().max(200),
     readAt: z.string().max(40),
     publicUpdatedAt: z.string().max(40),
   }),
 });
 
-const BUSY =
-  "Lots of people are using Beacon right now. Try again in about 2 minutes.";
-
 // "Help me with what to say": next steps and a call script or letter, written by Beam. Nothing is stored.
 export async function POST(request: Request) {
-  const limit = takeCheckSlot(
-    clientIp(request.headers),
-    env.BEACON_PER_IP_PER_MINUTE,
-    env.BEACON_DAILY_CAP,
-  );
-  if (!limit.ok) return Response.json({ message: BUSY }, { status: 429 });
-
-  const parsed = BodySchema.safeParse(await request.json().catch(() => null));
+  const read = await readBody(request, "explain");
+  if (read instanceof Response) return read;
+  const parsed = BodySchema.safeParse(read.body);
   if (!parsed.success)
     return Response.json(
       {
@@ -46,6 +38,8 @@ export async function POST(request: Request) {
       },
       { status: 400 },
     );
+  const busy = limit(request, "explain");
+  if (busy) return busy;
 
   try {
     const finding = {
@@ -54,10 +48,12 @@ export async function POST(request: Request) {
     } satisfies Finding;
     const { text, usage } = await explainFinding(finding, {
       signal: request.signal,
+      reverify: true,
     });
-    return Response.json({ text, usage });
+    recordTokens(usage.inputTokens + usage.outputTokens);
+    return Response.json({ text });
   } catch (error) {
-    console.error(`[explain] ${(error as Error).message}`);
+    logFailure("explain", error);
     return Response.json(
       {
         message:

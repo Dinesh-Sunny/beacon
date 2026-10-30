@@ -13,6 +13,8 @@ export interface Results {
   snapshot?: boolean;
   /** Kinds of support Beacon planned to read but couldn't, shown as "still need checking" */
   unread?: SchemeId[];
+  /** Opened from a shared link: shown as someone else's results, not re-checked */
+  fromLink?: boolean;
 }
 
 interface Store {

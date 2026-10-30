@@ -61,7 +61,7 @@ export const EFFORT = {
 // uses 16384 for short tasks.
 export const MAX_OUTPUT_TOKENS = {
   judge: 16_384,
-  explain: 8_192,
+  explain: 4_096, // reasoning included; the reply itself is a few hundred words
 } as const satisfies Record<Step, number>;
 
 // Sampling from the model card's EVALUATION.md (temperature 0.7, top_p 0.99).
