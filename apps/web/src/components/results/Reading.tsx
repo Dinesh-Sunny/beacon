@@ -6,6 +6,7 @@ import {
   rankFindings,
   type SchemeId,
   schemeById,
+  VERDICT_LABEL,
   type Verdict,
 } from "@beacon/rules";
 import Link from "next/link";
@@ -15,8 +16,7 @@ import { situationForCheck } from "@/lib/answers";
 import { type Usage, useCheck } from "@/lib/check-store";
 import { Icon } from "../Icon";
 import { VerdictBar } from "../Verdict";
-
-type RowStatus = "waiting" | "reading" | "done" | "failed";
+import { type ReadEntry, ReaderBoard, type RowStatus } from "./ReaderBoard";
 
 /** Reads the NDJSON stream from /api/check, one event per line. */
 async function* readEvents(res: Response): AsyncGenerator<CheckEvent> {
@@ -54,6 +54,16 @@ export function Reading() {
   const [total, setTotal] = useState(0);
   const [finished, setFinished] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
+  const [feed, setFeed] = useState<ReadEntry[]>([]);
+  const feedId = useRef(1);
+  const say = (
+    who: ReadEntry["who"],
+    text: string,
+    source?: ReadEntry["source"],
+  ) =>
+    setFeed((f) =>
+      [{ id: feedId.current++, who, text, source }, ...f].slice(0, 12),
+    );
   const [attempt, setAttempt] = useState(0);
   const h1 = useRef<HTMLHeadingElement>(null);
   const hasAnswers = Object.keys(draft.progress).length > 0;
@@ -67,6 +77,7 @@ export function Reading() {
     setPlan([]);
     setRows({});
     setFindings([]);
+    setFeed([]);
     setFinished(false);
     setProblem(null);
     (async () => {
@@ -88,20 +99,71 @@ export function Reading() {
           return;
         }
         for await (const e of readEvents(res)) {
-          if (e.type === "precheck") setTotal(e.items.length);
-          else if (e.type === "plan") {
+          if (e.type === "precheck") {
+            setTotal(e.items.length);
+            const open = e.items.filter((i) => i.status === "open").length;
+            say(
+              "rules",
+              `Settled ${e.items.length - open} kinds of support from the rules in code. Sending ${open} to Beam readers.`,
+            );
+          } else if (e.type === "plan") {
             setPlan(e.schemes);
             setRows(Object.fromEntries(e.schemes.map((s) => [s, "waiting"])));
-          } else if (e.type === "reading")
+          } else if (e.type === "reading") {
             setRows((r) => ({ ...r, [e.scheme]: e.status }));
-          else if (e.type === "finding") {
+            const s = schemeById(e.scheme);
+            const page = {
+              label: e.title ? `GOV.UK: ${e.title}` : `GOV.UK: ${s.name}`,
+              url: e.url ?? `https://www.gov.uk${s.govukPaths[0] ?? ""}`,
+            };
+            if (e.status === "reading")
+              say("beam", `Opened the official ${s.name} page.`);
+            else if (e.status === "done")
+              say(
+                "beam",
+                `Read the whole ${s.name} page. Judging it against your answers.`,
+                page,
+              );
+            else
+              say(
+                "beam",
+                `Couldn't open the ${s.name} page. It will say Worth checking.`,
+                page,
+              );
+          } else if (e.type === "finding") {
+            const s = schemeById(e.finding.scheme);
+            if (e.finding.quoteVerified)
+              say(
+                "checker",
+                `${s.name}: found the rule line word for word on the page. ${VERDICT_LABEL[e.finding.verdict]}.`,
+                { label: `GOV.UK: ${s.name}`, url: e.finding.source.url },
+              );
+            else if (
+              e.finding.verdict === "likely" ||
+              e.finding.verdict === "worth-checking"
+            )
+              say(
+                "checker",
+                `${s.name}: no exact rule line, so it stays Worth checking.`,
+              );
+            else
+              say(
+                "rules",
+                `${s.name}: ${VERDICT_LABEL[e.finding.verdict]}. ${e.finding.why}`,
+              );
             got = [
               ...got.filter((f) => f.scheme !== e.finding.scheme),
               e.finding,
             ];
             setFindings(got);
-          } else if (e.type === "usage") usage.push(e);
-          else if (e.type === "error") setProblem(e.message);
+          } else if (e.type === "usage") {
+            usage.push(e);
+            if (e.scheme)
+              say(
+                "beam",
+                `${schemeById(e.scheme).name}: thought at ${e.effort} effort, ${(e.inputTokens + e.outputTokens).toLocaleString("en-GB")} tokens.`,
+              );
+          } else if (e.type === "error") setProblem(e.message);
           else if (e.type === "done") {
             got = rankFindings(e.findings.length ? e.findings : got);
             setFindings(got);
@@ -152,7 +214,7 @@ export function Reading() {
   ).length;
 
   return (
-    <div className="wrap stack max-w-[760px] gap-8">
+    <div className="wrap stack max-w-[1000px] gap-8">
       {!finished ? (
         <div className="stack gap-3">
           <h1 className="d2">Reading the rules on GOV.UK</h1>
@@ -230,62 +292,26 @@ export function Reading() {
         </div>
       )}
 
-      {plan.length > 0 && (
-        <section className="card" aria-labelledby="plan-title">
-          <h2 id="plan-title" className="t-title">
-            Reading plan
-          </h2>
-          <ul className="m-0 list-none p-0" data-testid="reading-plan">
-            {plan.map((id) => {
-              const raw = rows[id] ?? "waiting";
-              const st: RowStatus =
-                problem && (raw === "waiting" || raw === "reading")
-                  ? "failed"
-                  : raw;
-              const scheme = schemeById(id);
-              return (
-                <li key={id} className="row-status">
-                  <span
-                    aria-hidden="true"
-                    className="inline-flex justify-center"
-                  >
-                    {st === "reading" ? (
-                      <span className="spin" />
-                    ) : st === "done" ? (
-                      <Icon name="check" />
-                    ) : st === "failed" ? (
-                      <Icon name="info" />
-                    ) : (
-                      <span className="dot todo !h-3 !w-3" />
-                    )}
-                  </span>
-                  <span>{scheme.name}</span>
-                  <span className="small muted">
-                    {st === "reading" && "Reading"}
-                    {st === "done" && "Read"}
-                    {st === "waiting" && "Next"}
-                    {st === "failed" && (
-                      <>
-                        We could not read the page.{" "}
-                        <a
-                          href={`https://www.gov.uk${scheme.govukPaths[0] ?? ""}`}
-                          target="_blank"
-                          rel="noreferrer"
-                        >
-                          Open it on GOV.UK
-                        </a>
-                      </>
-                    )}
-                  </span>
-                </li>
-              );
-            })}
-          </ul>
-          <p className="sr-only" role="status">
-            {doneCount} of {plan.length} read
-          </p>
-        </section>
+      {(plan.length > 0 || findings.length > 0) && (
+        <ReaderBoard
+          plan={plan}
+          rows={
+            problem
+              ? Object.fromEntries(
+                  Object.entries(rows).map(([k, v]) => [
+                    k,
+                    v === "done" ? v : "failed",
+                  ]),
+                )
+              : rows
+          }
+          findings={findings}
+          feed={feed}
+        />
       )}
+      <p className="sr-only" role="status">
+        {doneCount} of {plan.length} read
+      </p>
 
       {finished && (
         <div className="acts">

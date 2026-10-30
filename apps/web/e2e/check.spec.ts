@@ -292,3 +292,34 @@ test("Checking for someone else changes the questions to them", async ({
   await cont(page);
   await heading(page, "What year were they born?");
 });
+
+test("the agent canvas settles support as answers come in", async ({
+  page,
+}, info) => {
+  test.skip(
+    info.project.name === "mobile",
+    "the full canvas shows on wide screens",
+  );
+  await mockNetwork(page);
+  await page.goto("/check");
+  const canvas = page.getByRole("region", { name: "Beacon at work" });
+  await expect(
+    canvas.getByRole("region", { name: "Still possible: 10" }),
+  ).toBeVisible();
+  await page.getByLabel("First half of the postcode").fill("HA9");
+  await cont(page);
+  await expect(canvas.getByText(/Found Brent council/).first()).toBeVisible();
+  await page.getByRole("textbox").fill("1952");
+  await cont(page);
+  await expect(canvas.getByText(/Age agent\./).first()).toBeVisible();
+  const aside = canvas.getByRole("region", { name: /^Set aside/ });
+  await expect(
+    aside.getByText("Free TV licence", { exact: true }),
+  ).toBeVisible();
+  // Questions not asked yet never count as "no": Carer's Allowance is still possible.
+  await expect(
+    canvas
+      .getByRole("region", { name: /^Still possible/ })
+      .getByText("Carer's Allowance", { exact: true }),
+  ).toBeVisible();
+});

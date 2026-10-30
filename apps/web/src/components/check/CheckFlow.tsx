@@ -28,6 +28,7 @@ import { gaps, PATH, pathKeyOf, pathRows } from "@/lib/check-path";
 import { useCheck } from "@/lib/check-store";
 import { SITE } from "@/lib/site";
 import { Icon } from "../Icon";
+import { AgentCanvas, AgentStrip } from "./AgentCanvas";
 import { BeaconPath } from "./BeaconPath";
 import { Rail } from "./Rail";
 
@@ -961,15 +962,17 @@ export function CheckFlow() {
 
   return (
     <div className="wrap">
-      <div className="split">
-        <Rail
-          rows={rows}
-          draft={draft}
-          current={pathKey}
-          onGo={(id) => go(id, { review: true })}
-          onClear={clearAll}
-        />
+      <div className="split with-canvas">
         <div className="stack min-w-0 gap-7">
+          <Rail
+            compact
+            rows={rows}
+            draft={draft}
+            current={pathKey}
+            onGo={(id) => go(id, { review: true })}
+            onClear={clearAll}
+          />
+          <AgentStrip draft={draft} />
           <div className="stack gap-3">
             {(fromReview || current !== "area") && (
               <button
@@ -1116,6 +1119,7 @@ export function CheckFlow() {
             </>
           )}
         </div>
+        <AgentCanvas draft={draft} />
       </div>
     </div>
   );

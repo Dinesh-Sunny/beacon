@@ -7,6 +7,8 @@ import { PATH, type PathKey, type PathRow } from "@/lib/check-path";
 import { Icon } from "../Icon";
 
 interface Props {
+  /** Only the folding "Your answers" summary, at every width (the agent canvas has the side) */
+  compact?: boolean;
   rows: PathRow[];
   draft: Draft;
   current: PathKey;
@@ -138,6 +140,17 @@ export function Rail(props: Props) {
       )}
     </div>
   );
+  if (props.compact)
+    return (
+      <details className="rail-sum card !py-3" aria-label="Your answers">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 font-bold">
+          <Icon name="chevron-down" className="chev" />
+          Your answers - {answered} of {shown.length} done
+        </summary>
+        <RailList {...props} />
+        {clear}
+      </details>
+    );
   return (
     <aside className="rail stack gap-4" aria-label="Your check">
       <section
