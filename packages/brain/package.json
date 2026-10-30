@@ -1,0 +1,28 @@
+{
+  "name": "@beacon/brain",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./mcp": "./src/mcp.ts"
+  },
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "test": "node --test src/test/*.test.ts",
+    "eval": "pnpm --filter @beacon/evals eval"
+  },
+  "dependencies": {
+    "@beacon/rules": "workspace:*",
+    "@langchain/core": "1.3.1",
+    "@langchain/langgraph": "1.5.3",
+    "@langchain/openai": "1.7.1",
+    "deepagents": "1.16.0",
+    "langchain": "1.6.0",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "@types/node": "26.6.5",
+    "typescript": "7.0.2"
+  }
+}
