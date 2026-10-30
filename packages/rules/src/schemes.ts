@@ -65,7 +65,7 @@ export const SCHEMES: Scheme[] = [
     govukPaths: ['/attendance-allowance'],
     summary: 'Extra money if you need help with personal care because of an illness or disability. Not means-tested.',
     nations: ['england', 'wales', 'northern-ireland'],
-    claim: { route: 'phone', detail: 'Attendance Allowance helpline: 0800 731 0122 (Relay UK 18001 then 0800 731 0122)', url: 'https://www.gov.uk/attendance-allowance/how-to-claim' },
+    claim: { route: 'phone', detail: 'Attendance Allowance helpline: 0800 731 0122 (Relay UK 18001 then 0800 731 0122), Monday to Friday, 8am to 6pm', url: 'https://www.gov.uk/attendance-allowance/how-to-claim' },
     unlocks: ['pension-credit'],
   },
   {
