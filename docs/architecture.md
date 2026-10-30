@@ -8,7 +8,7 @@ For developers working on Beacon and for anyone reviewing how it reaches an answ
 | --- | --- | --- |
 | Web app | `apps/web` | Next.js 16 App Router. The question flow, the results page, `/api/check` (the check stream) and `/api/mcp` (the same tools for other agents). |
 | Rules | `packages/rules` | Everything that can be settled without judgement: the questions and when each is skipped, scheme catalogue, age lines, money lines (`config.ts`, each with its source link), `precheck`, the quote checker, the GOV.UK reader and the dated snapshot. |
-| Brain | `packages/brain` | The agent on Beam (Deep Agents on LangGraph): shortlist, read, judge through `record_finding`, explain. Emits `CheckEvent`s. |
+| Brain | `packages/brain` | The agent on Beam (Deep Agents on LangGraph): read each open scheme, judge through `record_finding`, explain. The precheck in code picks what to read. Emits `CheckEvent`s. |
 | Evals | `packages/evals` | BenefitsBench: 30 made-up situations, a deterministic test against `precheck`, and a runner that calls the agent at three effort levels. |
 
 Packages are plain TypeScript run by Node's type stripping (erasable syntax only, no build step). Next compiles them for the app.
