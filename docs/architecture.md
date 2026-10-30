@@ -17,16 +17,15 @@ Packages are plain TypeScript run by Node's type stripping (erasable syntax only
 
 1. **Answers.** The browser collects answers as bands (`Situation` in `situation.ts`). They live in page state and the link fragment only. `planSteps` decides which questions show; each skipped one carries a reason the answers rail can show ("Not needed - you get Pension Credit").
 2. **Pre-check (code).** `precheck(situation, today)` returns one status per scheme: `already-get`, `ruled-out` (with a plain reason) or `open`. Hard rules only: age lines worked out from birth year (and month for 1960-61), nation, home type, the £16,000 caps, benefits that block or include others.
-3. **Shortlist (Beam, effort low).** The open schemes and the situation go to Beam, which orders what to read.
-4. **Read.** Each open scheme's GOV.UK pages are fetched whole through the Content API (`readGovuk`), every guide part joined with its heading. If a live read fails, the snapshot in `packages/rules/snapshot/` is used and the result says so (`done.snapshot`).
-5. **Judge (Beam, effort high).** Beam must call `record_finding` (`ProposedFindingSchema`): verdict, reason, exact quote, the answers it relied on, what's missing.
-6. **Settle (code).** `settleFinding` runs `verifyQuote` against the page text. A Likely without a quote found word for word is downgraded to Worth checking. Nothing the model proposes reaches the person without this step.
-7. **Explain (Beam, effort medium).** Next steps in plain English.
-8. **Stream.** Each stage is a newline-delimited JSON `CheckEvent` (`packages/rules/src/events.ts`): `precheck`, `plan`, `reading`, `finding`, `usage` (tokens per step and effort), `done`, `error`.
+3. **Read.** Each open scheme's GOV.UK pages are fetched whole through the Content API (`readGovuk`), every guide part joined with its heading. If a live read fails, the snapshot in `packages/rules/snapshot/` is used and the result says so (`done.snapshot`).
+4. **Judge (Beam, effort high).** Beam must call `record_finding` (`ProposedFindingSchema`): verdict, reason, exact quote, the answers it relied on, what's missing.
+5. **Settle (code).** `settleFinding` runs `verifyQuote` against the page text. A Likely without a quote found word for word is downgraded to Worth checking. Nothing the model proposes reaches the person without this step.
+6. **Stream.** Each stage is a newline-delimited JSON `CheckEvent` (`packages/rules/src/events.ts`): `precheck`, `plan`, `reading`, `finding`, `usage` (tokens per step and effort), `done`, `error`.
+7. **Explain, on request (Beam, effort medium).** On a result page, "Help me with what to say" posts the settled finding to `/api/explain`, which returns next steps and a call script or letter written only from the scheme's claim details. Same rate limit as `/api/check`; nothing stored.
 
 ## Model access
 
-The model client is OpenAI-compatible. By default it calls the Hugging Face router with `HF_TOKEN` and `reflection/Beam-1.0-501B-A23B:auto`. Endpoint, model name and key can be overridden through environment variables (names in `apps/web/.env.example`), which is how an organisation points Beacon at its own vLLM server running Beam's open weights.
+The model client is OpenAI-compatible. By default it calls the Hugging Face router with `HF_TOKEN` and `reflection/Beam-1.0-501B-A23B`. Endpoint, model name and key can be overridden through environment variables (names in `apps/web/.env.example`), which is how an organisation points Beacon at its own vLLM server running Beam's open weights.
 
 ## Data and privacy
 

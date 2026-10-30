@@ -183,6 +183,23 @@ test("the sample person goes through the adaptive check to results", async ({
   ).toBeVisible();
   // The private link carries results only, never the answers.
   expect(page.url()).toContain("#r=");
+
+  await page.route("**/api/explain", (route) =>
+    route.fulfill({
+      json: {
+        text: "Next steps\n1. Call the Pension Credit claim line.",
+        usage: { inputTokens: 300, outputTokens: 120 },
+      },
+    }),
+  );
+  await page
+    .getByRole("link", { name: /See what to do next/ })
+    .first()
+    .click();
+  await page.getByRole("button", { name: "Help me with what to say" }).click();
+  await expect(
+    page.getByText("Call the Pension Credit claim line."),
+  ).toBeVisible();
 });
 
 test("Continue with no answer shows the error summary", async ({ page }) => {

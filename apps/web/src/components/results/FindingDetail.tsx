@@ -10,6 +10,7 @@ import { findingTitle, VerdictChip } from "../Verdict";
 import { RuleLine } from "./FindingCard";
 import { Listen } from "./Listen";
 import { useResults } from "./use-results";
+import { WhatToSay } from "./WhatToSay";
 
 /** Answers in the order the phone claim asks for them. Amounts are bands; the exact figure is the caller's. */
 const PACK_ORDER: Partial<Record<SchemeId, StepId[]>> = {
@@ -167,6 +168,8 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             How to claim on GOV.UK
           </a>
         </div>
+        {finding.verdict !== "unlikely-right-now" &&
+          scheme.claim.route !== "automatic" && <WhatToSay finding={finding} />}
       </section>
 
       {scheme.claim.route === "phone" && (
