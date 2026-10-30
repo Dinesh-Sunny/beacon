@@ -131,7 +131,7 @@ export async function withEffortFallback<T>(
   }
 }
 
-/** Plain-text call for one step (explain, shortlist), with usage. */
+/** Plain-text call for one step (explain), with usage. */
 export async function invokeText(
   m: StepModels,
   messages: BaseMessageLike[],

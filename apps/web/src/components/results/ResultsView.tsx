@@ -12,7 +12,6 @@ import { ReportSheet } from "./ReportSheet";
 import { useResults } from "./use-results";
 
 const STEP_LABEL = {
-  shortlist: "Choosing what to read",
   judge: "Checking the rule",
   explain: "Explaining it simply",
 } as const;

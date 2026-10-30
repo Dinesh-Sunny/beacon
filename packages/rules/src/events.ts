@@ -25,7 +25,7 @@ export type CheckEvent =
   /** Tokens used by one model step, for "How Beacon worked this out" */
   | {
       type: "usage";
-      step: "shortlist" | "judge" | "explain";
+      step: "judge" | "explain";
       effort: Effort;
       inputTokens: number;
       outputTokens: number;
