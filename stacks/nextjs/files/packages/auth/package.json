@@ -1,0 +1,35 @@
+{
+  "name": "@__NAME__/auth",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./access": "./src/access.ts",
+    "./client": "./src/client.ts",
+    "./config": "./src/config.ts",
+    "./origins": "./src/origins.ts"
+  },
+  "scripts": {
+    "auth:generate": "node --env-file-if-exists=../../apps/web/.env.local ./node_modules/auth/dist/index.mjs generate --config auth.cli.ts --output ../db/src/schema/auth.ts --yes",
+    "test": "node --env-file-if-exists=../../apps/web/.env.local --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit",
+    "stripe:seed": "node --env-file-if-exists=../../apps/web/.env.local src/scripts/stripe-seed.ts"
+  },
+  "dependencies": {
+    "@better-auth/api-key": "1.7.7",
+    "@better-auth/core": "1.7.7",
+    "@better-auth/drizzle-adapter": "1.7.7",
+    "@better-auth/stripe": "1.7.7",
+    "@__NAME__/db": "workspace:*",
+    "@__NAME__/ratelimit": "workspace:*",
+    "@opentelemetry/api": "1.9.1",
+    "better-auth": "1.7.7",
+    "stripe": "^22.6.2"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "auth": "1.7.7",
+    "typescript": "^7.0.2"
+  }
+}

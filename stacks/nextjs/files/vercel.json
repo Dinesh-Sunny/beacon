@@ -1,0 +1,40 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "services": {
+    "web": {
+      "root": "apps/web",
+      "installCommand": "npx --yes corepack pnpm install --frozen-lockfile",
+      "buildCommand": "npx --yes corepack pnpm run migrate:deploy && npx --yes corepack pnpm run build",
+      "bindings": [
+        {
+          "type": "service",
+          "service": "api",
+          "format": "url",
+          "env": "BACKEND_INTERNAL_URL"
+        }
+      ]
+    },
+    "api": {
+      "root": "python/api",
+      "entrypoint": "src/__PYNAME___api/main.py",
+      "installCommand": "uv sync --active --package __NAME__-api --frozen --no-dev --no-editable"
+    }
+  },
+  "rewrites": [
+    {
+      "source": "/(.*)",
+      "destination": {
+        "service": "web"
+      }
+    }
+  ],
+  "crons": [
+    {
+      "path": "/api/payload-jobs/run?allQueues=true&limit=25&silent=true",
+      "schedule": "* * * * *"
+    }
+  ],
+  "git": {
+    "deploymentEnabled": false
+  }
+}

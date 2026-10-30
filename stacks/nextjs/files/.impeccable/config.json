@@ -1,0 +1,19 @@
+{
+  "hook": {
+    "enabled": true,
+    "limits": {
+      "maxFindings": 5,
+      "maxChars": 8000
+    }
+  },
+  "detector": {
+    "ignoreRules": [],
+    "ignoreFiles": [
+      "apps/web/src/components/ui/**",
+      "apps/web/src/app/(frontend)/design/_preview/**",
+      "apps/web/src/app/(frontend)/design/_preview-02/**",
+      "apps/web/src/hooks/use-mobile.ts"
+    ],
+    "ignoreValues": []
+  }
+}

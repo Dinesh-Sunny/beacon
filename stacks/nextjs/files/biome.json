@@ -1,0 +1,63 @@
+{
+  "$schema": "https://biomejs.dev/schemas/2.5.15/schema.json",
+  "vcs": {
+    "enabled": true,
+    "clientKind": "git",
+    "useIgnoreFile": true
+  },
+  "files": {
+    "ignoreUnknown": true,
+    "includes": [
+      "**",
+      "!**/node_modules",
+      "!**/.next",
+      "!**/dist",
+      "!**/build",
+      "!**/.venv",
+      "!python",
+      "!packages/db/migrations",
+      "!apps/web/src/app/(payload)",
+      "!apps/web/src/payload-types.ts",
+      "!apps/web/src/migrations",
+      "!.claude",
+      "!context-pack.md",
+      "!.impeccable/hook.cache.json",
+      "!apps/web/src/components/ui",
+      "!apps/web/src/components/animate-ui",
+      "!apps/web/src/components/assistant-ui/elements",
+      "!apps/web/src/app/(frontend)/design/_preview",
+      "!apps/web/src/app/(frontend)/design/_preview-02",
+      "!apps/web/src/hooks/use-mobile.ts",
+      "!apps/web/src/hooks/use-auto-height.tsx",
+      "!apps/web/src/hooks/use-controlled-state.tsx",
+      "!apps/web/src/lib/get-strict-context.tsx"
+    ]
+  },
+  "formatter": {
+    "enabled": true,
+    "indentStyle": "space",
+    "indentWidth": 2
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "preset": "recommended"
+    },
+    "domains": {
+      "next": "recommended",
+      "react": "recommended"
+    }
+  },
+  "assist": {
+    "actions": {
+      "source": {
+        "organizeImports": "on"
+      }
+    }
+  }
+}

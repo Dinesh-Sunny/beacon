@@ -1,0 +1,72 @@
+# Monorepo CI: pnpm (JS/TS) + uv (Python). Runs the same `pnpm check` and `pnpm build` used locally.
+name: ci
+on:
+  pull_request:
+  push:
+    branches: [main]
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    # Same image as compose.yaml, so DB integration tests and migrations run against Postgres 18.
+    services:
+      postgres:
+        image: pgvector/pgvector:0.8.7-pg18
+        env:
+          POSTGRES_USER: __NAME__
+          POSTGRES_PASSWORD: __NAME__
+          POSTGRES_DB: __NAME__
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd "pg_isready -U __NAME__ -d __NAME__"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+      # Same pair as compose.yaml: Upstash's REST API over a plain Redis, for the rate-limit tests.
+      redis:
+        image: redis:8.10-alpine
+        options: >-
+          --health-cmd "redis-cli ping"
+          --health-interval 2s
+          --health-timeout 3s
+          --health-retries 30
+      redis-http:
+        image: hiett/serverless-redis-http:0.0.10
+        env:
+          SRH_MODE: env
+          SRH_TOKEN: __NAME__-local-token
+          SRH_CONNECTION_STRING: redis://redis:6379
+        ports:
+          - 8079:80
+    env:
+      DATABASE_URL: postgresql://__NAME__:__NAME__@localhost:5432/__NAME__
+      DATABASE_URL_UNPOOLED: postgresql://__NAME__:__NAME__@localhost:5432/__NAME__
+      # Payload refuses to start without a secret; CI only migrates and builds, so any value works.
+      PAYLOAD_SECRET: ci-only-not-a-real-secret
+      BETTER_AUTH_SECRET: ci-only-not-a-real-secret-32-chars-min
+      UPSTASH_REDIS_REST_URL: http://localhost:8079
+      UPSTASH_REDIS_REST_TOKEN: __NAME__-local-token
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6          # version from package.json "packageManager"
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 24
+          cache: pnpm
+      - uses: astral-sh/setup-uv@v10.3.0
+        with:
+          enable-cache: true                 # Python version from .python-version
+      - run: pnpm install --frozen-lockfile
+      - run: uv sync --all-packages --locked
+      # Service containers without a health check aren't waited for; the rate-limit tests need SRH.
+      - name: Wait for Redis HTTP
+        run: |
+          timeout 60 sh -c 'until curl -sf -H "Authorization: Bearer $UPSTASH_REDIS_REST_TOKEN" -H "content-type: application/json" -d "[\"PING\"]" "$UPSTASH_REDIS_REST_URL" | grep -q PONG; do sleep 1; done'
+      - run: pnpm db:migrate
+      - run: pnpm check
+      # typecheck regenerates Payload types and the import map; fail if the committed copies are stale.
+      - run: git diff --exit-code -- apps/web/src/payload-types.ts "apps/web/src/app/(payload)/admin/importMap.js"
+      - run: pnpm build

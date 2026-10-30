@@ -1,0 +1,18 @@
+{
+  "next-devtools": {
+    "type": "stdio",
+    "command": "npx",
+    "args": [
+      "-y",
+      "next-devtools-mcp@latest"
+    ]
+  },
+  "shadcn": {
+    "type": "stdio",
+    "command": "sh",
+    "args": [
+      "-c",
+      "cd \"$CLAUDE_PROJECT_DIR/apps/web\" && exec npx -y shadcn@latest mcp"
+    ]
+  }
+}

@@ -1,0 +1,44 @@
+# Files the nextjs profile lays over a project (paths relative to the project root).
+# capture.sh copies them FROM a project (git-tracked files only); setup.sh copies them INTO a project.
+# Lines ending in / are directories. The project name is replaced by __NAME__ / __PYNAME__ placeholders.
+# Never list project content: AGENTS.md (see agents.sections.md), PRODUCT.md, VOICE.md, docs/plans/,
+# .claude/inbox.md, generated adapters, or settings/.mcp.json/.gitignore (merged from *.fragment files).
+
+# Workspace root
+package.json
+pnpm-workspace.yaml
+pnpm-lock.yaml
+biome.json
+pyproject.toml
+uv.lock
+.editorconfig
+.python-version
+vercel.json
+compose.yaml
+skills-lock.json
+.impeccable/config.json
+.github/workflows/ci.yml
+.github/workflows/ui-catalog.yml
+
+# Code: Next.js app, shared JS packages, Python workspace
+apps/web/
+packages/
+python/
+
+# Knowledge and decisions
+docs/adr/
+docs/knowledge/
+
+# Claude Code: stack rules, skills, design hooks, reviewer lessons
+.claude/rules/
+.claude/skills/design-system/
+.claude/skills/plan/
+.claude/skills/review/
+.claude/skills/test/
+.claude/skills/stripe-best-practices
+.claude/skills/upstash-ratelimit-js
+.claude/skills/upstash-redis-js
+.agents/skills/
+.claude/hooks/design-gate.sh
+.claude/hooks/design-tokens.sh
+.claude/agent-memory/

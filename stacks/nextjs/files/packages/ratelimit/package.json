@@ -1,0 +1,21 @@
+{
+  "name": "@__NAME__/ratelimit",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./config": "./src/config.ts"
+  },
+  "scripts": {
+    "test": "node --env-file-if-exists=../../apps/web/.env.local --test \"src/**/*.test.ts\"",
+    "typecheck": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/node": "^24.19.2",
+    "typescript": "^7.0.2"
+  },
+  "dependencies": {
+    "@upstash/redis": "1.39.0"
+  }
+}

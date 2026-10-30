@@ -1,0 +1,2 @@
+/* Admin-only overrides. The site's Tailwind styles (globals.css) never load here, so admin and
+   site CSS can't leak into each other. Payload's own styles sit in @layer payload-default. */

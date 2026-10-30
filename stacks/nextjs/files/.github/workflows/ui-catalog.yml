@@ -1,0 +1,33 @@
+# Weekly refresh of the animated UI catalog (.claude/skills/design-system/catalog/) from the registries
+# in apps/web/components.json. Opens a PR when libraries add, rename, or remove components.
+# Needs: Settings → Actions → General → "Allow GitHub Actions to create and approve pull requests".
+name: ui-catalog
+on:
+  schedule:
+    - cron: "0 5 * * 1" # Mondays 05:00 UTC
+  workflow_dispatch:
+permissions:
+  contents: write
+  pull-requests: write
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-python@v7
+        with: { python-version: "3.12" }
+      - run: python3 .claude/skills/design-system/scripts/build-catalog.py .
+      - name: Open PR if the catalog changed
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if git diff --quiet -- .claude/skills/design-system/catalog; then echo "catalog unchanged"; exit 0; fi
+          branch="chore/ui-catalog-$(date -u +%Y%m%d)"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -b "$branch"
+          git add .claude/skills/design-system/catalog
+          git commit -m "chore(design): refresh animated UI catalog"
+          git push origin "$branch"
+          gh pr create --head "$branch" --title "chore(design): refresh animated UI catalog" \
+            --body "Weekly refresh from the registries in apps/web/components.json. Review new or removed components, then merge."

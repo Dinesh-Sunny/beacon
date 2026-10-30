@@ -1,0 +1,31 @@
+# --- JS / Next.js (pnpm) ---
+node_modules/
+.next/
+out/
+dist/
+build/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+# Payload uploads on local disk (development only; production uses S3/R2)
+apps/web/media/
+.vercel
+.pnpm-debug.log*
+
+# --- Python (uv) ---
+.venv/
+__pycache__/
+*.py[cod]
+.ruff_cache/
+.mypy_cache/
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Impeccable hook runtime cache
+**/.impeccable/hook.cache.json
+# Impeccable working files: review screenshots and decision-page payloads (contain test data)
+**/.impeccable/review/
+**/.impeccable/decision/
+**/.impeccable/questions/
+**/.impeccable/live/

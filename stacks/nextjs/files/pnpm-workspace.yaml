@@ -1,0 +1,34 @@
+# pnpm workspace: JS/TS apps and packages. Python lives in python/ (uv workspace, see pyproject.toml).
+packages:
+  - "apps/*"
+  - "packages/*"
+
+# Native build scripts are opt-in (pnpm 10+). Defaults from create-next-app.
+allowBuilds:
+  # drizzle-kit's esbuild ships its binary as an optional dependency; no postinstall needed.
+  esbuild: false
+  # posthog-js pulls in core-js, whose postinstall only prints a funding banner.
+  core-js: false
+  sharp: false
+  unrs-resolver: false
+
+minimumReleaseAgeExclude:
+  - "@next/env@16.3.8"
+  - "@next/swc-darwin-arm64@16.3.8"
+  - "@next/swc-darwin-x64@16.3.8"
+  - "@next/swc-linux-arm64-gnu@16.3.8"
+  - "@next/swc-linux-arm64-musl@16.3.8"
+  - "@next/swc-linux-x64-gnu@16.3.8"
+  - "@next/swc-linux-x64-musl@16.3.8"
+  - "@next/swc-win32-arm64-msvc@16.3.8"
+  - "@next/swc-win32-x64-msvc@16.3.8"
+  - next@16.3.8
+  - "@c15t/backend@2.3.0"
+  - "@c15t/logger@2.1.1"
+  - "@c15t/nextjs@2.3.0"
+  - "@c15t/react@2.3.0"
+  - "@c15t/schema@2.3.0"
+  - "@c15t/scripts@2.3.0"
+  - "@c15t/translations@2.3.0"
+  - "@c15t/ui@2.2.2"
+  - c15t@2.3.0

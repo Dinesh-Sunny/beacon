@@ -1,0 +1,29 @@
+# --- Claude Code: personal / machine-local ---
+CLAUDE.local.md
+.claude/settings.local.json
+.claude/agent-memory-local/
+.claude/logs/
+context-pack.*.md
+
+# --- Secrets ---
+.env
+.env.*
+!.env.example
+
+# --- OS / editor ---
+.DS_Store
+*.swp
+.idea/
+.vscode/*
+!.vscode/extensions.json
+
+node_modules/
+.next/
+out/
+dist/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+coverage/
+playwright-report/
+test-results/

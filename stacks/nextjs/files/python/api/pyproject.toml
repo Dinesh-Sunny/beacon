@@ -1,0 +1,27 @@
+[project]
+name = "__NAME__-api"
+version = "0.1.0"
+description = "Private Python sidecar for Python-only libraries, called by the Next.js app"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "ag-ui-langgraph==0.0.47",
+    "__NAME__-core",
+    "fastapi[standard]>=0.143.0",
+    "langchain==1.4.5",
+    "langfuse==4.17.0",
+    "langgraph==1.2.15",
+    "langgraph-checkpoint-postgres==3.1.3",
+    "sentry-sdk[fastapi]>=2.72.0",
+]
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
+
+# Vercel loads `app` from this module (src layout). See https://vercel.com/docs/functions/runtimes/python
+[tool.vercel]
+entrypoint = "__PYNAME___api.main:app"
+
+[tool.uv.sources]
+__NAME__-core = { workspace = true }

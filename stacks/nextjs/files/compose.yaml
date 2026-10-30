@@ -1,0 +1,59 @@
+# Local Postgres and Redis for development and tests (`pnpm db:up`). Previews use Neon branches and
+# production uses PlanetScale; see docs/knowledge/database.md.
+# pgvector 0.8.5 is the lowest version across providers (PlanetScale 0.8.5, Neon 0.8.6), so
+# nothing that works locally is missing in production. Bump it with them.
+services:
+  postgres:
+    image: pgvector/pgvector:0.8.7-pg18
+    # Server settings Neon and PlanetScale manage for us (docs/knowledge/database.md, "Settings"):
+    # query stats (pg_stat_statements must be preloaded), I/O timing in EXPLAIN and stats, and a
+    # log line for any statement over 500 ms so slow queries show up while developing.
+    command:
+      - postgres
+      - -c
+      - shared_preload_libraries=pg_stat_statements
+      - -c
+      - track_io_timing=on
+      - -c
+      - log_min_duration_statement=500ms
+    environment:
+      POSTGRES_USER: __NAME__
+      POSTGRES_PASSWORD: __NAME__
+      POSTGRES_DB: __NAME__
+    ports:
+      # Localhost only: the credentials are public defaults.
+      - "127.0.0.1:${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      # Postgres 18 images keep data under a versioned subdirectory of /var/lib/postgresql.
+      - postgres-data:/var/lib/postgresql
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U __NAME__ -d __NAME__"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  # Upstash speaks REST, not the Redis protocol. Serverless Redis HTTP is Upstash's documented local
+  # stand-in: the same API in front of a plain Redis, so @upstash/ratelimit runs unchanged.
+  redis:
+    image: redis:8.10-alpine
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 2s
+      timeout: 3s
+      retries: 30
+
+  redis-http:
+    image: hiett/serverless-redis-http:0.0.10
+    environment:
+      SRH_MODE: env
+      # Localhost only, like Postgres: a public default, not a secret.
+      SRH_TOKEN: __NAME__-local-token
+      SRH_CONNECTION_STRING: redis://redis:6379
+    ports:
+      - "127.0.0.1:${REDIS_HTTP_PORT:-8079}:80"
+    depends_on:
+      redis:
+        condition: service_healthy
+
+volumes:
+  postgres-data:

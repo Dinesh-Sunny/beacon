@@ -1,0 +1,37 @@
+{
+  "name": "__NAME__",
+  "private": true,
+  "packageManager": "pnpm@12.11.2",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "setup": "pnpm install && uv sync --all-packages && pnpm env:init",
+    "env:init": "node apps/web/src/scripts/env-init.ts",
+    "dev": "pnpm --filter web dev",
+    "dev:py": "pnpm env:init && uv run --env-file apps/web/.env.local --package __NAME__-api fastapi dev python/api/src/__PYNAME___api/main.py --port 8000",
+    "dev:all": "vercel dev -L",
+    "db:up": "docker compose up -d --wait",
+    "db:down": "docker compose down",
+    "db:migrate": "pnpm --filter web migrate",
+    "db:generate": "pnpm --filter @__NAME__/db generate",
+    "db:studio": "pnpm --filter @__NAME__/db studio",
+    "build": "pnpm -r --if-present build",
+    "lint": "pnpm lint:js && pnpm lint:py",
+    "lint:js": "biome check .",
+    "lint:py": "uv run ruff check . && uv run ruff format --check .",
+    "format": "biome check --write . && uv run ruff check --fix . && uv run ruff format .",
+    "typecheck": "pnpm -r --if-present typecheck && uv run mypy",
+    "design:check": "impeccable detect apps/web/src",
+    "design:sync": "python3 .claude/skills/design-system/scripts/design-tokens.py sync .",
+    "design:tokens": "python3 .claude/skills/design-system/scripts/design-tokens.py check .",
+    "copy:check": "python3 .claude/skills/direct-response-copywriting/scripts/voice-check.py check .",
+    "test": "pnpm -r --if-present test && uv run pytest",
+    "check": "pnpm lint && pnpm typecheck && pnpm design:tokens && pnpm copy:check && pnpm design:check && pnpm test",
+    "cms:migrate:create": "pnpm --filter web cms:migrate:create"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.15",
+    "impeccable": "4.5.2"
+  }
+}

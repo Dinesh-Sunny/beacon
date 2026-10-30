@@ -1,0 +1,1 @@
+CREATE UNIQUE INDEX "subscription_stripeSubscriptionId_uidx" ON "auth"."subscription" USING btree ("stripe_subscription_id");

@@ -1,0 +1,8 @@
+{
+  "$comment": "Values setup.sh writes into the template's AGENTS.md {{...}} stubs for this stack. Keep in sync with the agency AGENTS.md.",
+  "{{BRANCH_PATTERN}}": "feat/<slug>`, `fix/<slug>",
+  "{{GENERATED_PATHS}}": "lockfiles, `next-env.d.ts`, `apps/web/.next/`",
+  "{{PROTECTED_PATHS}}": "applied migrations (`packages/db/migrations/`, `apps/web/src/migrations/`), `.github/workflows/`, or generated `packages/db/src/schema/consent.ts`",
+  "{{ENV_EXAMPLE_FILE}}": "apps/web/.env.example",
+  "{{LOCAL_SERVICES}}": "Postgres 18 in Docker (`pnpm db:up`); env in `apps/web/.env.local`, shared by every service"
+}
