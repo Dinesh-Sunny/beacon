@@ -281,3 +281,14 @@ test("Explain my letter shows the plain meaning", async ({ page }) => {
   ).toBeVisible();
   expect(sent).toContain("Pension Credit");
 });
+
+test("Checking for someone else changes the questions to them", async ({
+  page,
+}) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("I'm checking for someone else, with their OK").check();
+  await page.getByLabel("First half of the postcode").fill("HA9");
+  await cont(page);
+  await heading(page, "What year were they born?");
+});

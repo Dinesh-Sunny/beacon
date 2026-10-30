@@ -36,11 +36,11 @@ async function* readEvents(res: Response): AsyncGenerator<CheckEvent> {
   if (buffer.trim()) yield JSON.parse(buffer) as CheckEvent;
 }
 
-export function headline(findings: Finding[]): string {
+export function headline(findings: Finding[], forSomeoneElse = false): string {
   const likely = findings.filter((f) => f.verdict === "likely").length;
   const worth = findings.filter((f) => f.verdict === "worth-checking").length;
   if (likely > 0)
-    return `${likely} ${likely === 1 ? "looks" : "look"} likely for you`;
+    return `${likely} ${likely === 1 ? "looks" : "look"} likely for ${forSomeoneElse ? "them" : "you"}`;
   if (worth > 0) return `${worth} ${worth === 1 ? "is" : "are"} worth checking`;
   return "Nothing clear today";
 }
@@ -170,7 +170,7 @@ export function Reading() {
             className="d2 outline-none"
             data-testid="reveal"
           >
-            {headline(findings)}
+            {headline(findings, draft.situation.forSomeoneElse)}
           </h1>
           <p className="lead">
             Each result quotes the rule it comes from, with the page and the

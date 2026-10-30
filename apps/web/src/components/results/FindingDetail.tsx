@@ -120,14 +120,18 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           tabIndex={-1}
           className="d2 outline-none"
         >
-          {findingTitle(scheme.name, finding.verdict)}
+          {findingTitle(
+            scheme.name,
+            finding.verdict,
+            draft.situation.forSomeoneElse,
+          )}
         </h1>
         <p className="lead">{finding.why}</p>
         <div className="card !p-7">
           <RuleLine finding={finding} big />
         </div>
         <Listen
-          text={`${findingTitle(scheme.name, finding.verdict)}. ${finding.why} The rule says: ${finding.quote}`}
+          text={`${findingTitle(scheme.name, finding.verdict, draft.situation.forSomeoneElse)}. ${finding.why} The rule says: ${finding.quote}`}
         />
       </section>
 

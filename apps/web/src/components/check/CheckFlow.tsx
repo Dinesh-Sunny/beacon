@@ -1061,6 +1061,29 @@ export function CheckFlow() {
                 )}
                 <div className="clear-both">{body}</div>
               </fieldset>
+              {current === "area" && (
+                <div className="stack gap-2">
+                  <Choice
+                    type="checkbox"
+                    name="for-someone-else"
+                    id="for-someone-else"
+                    label="I'm checking for someone else, with their OK"
+                    checked={s.forSomeoneElse}
+                    onChange={() =>
+                      setDraft({
+                        ...draft,
+                        situation: { ...s, forSomeoneElse: !s.forSomeoneElse },
+                      })
+                    }
+                  />
+                  {s.forSomeoneElse && (
+                    <p className="small muted">
+                      Answer the questions about them. Results will say
+                      &quot;them&quot; instead of &quot;you&quot;.
+                    </p>
+                  )}
+                </div>
+              )}
               <WhyWeAsk text={q.whyWeAsk} />
               <div className="acts">
                 <button

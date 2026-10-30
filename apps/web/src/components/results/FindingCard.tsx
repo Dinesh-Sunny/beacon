@@ -52,13 +52,15 @@ export function FindingCard({
   finding,
   startHere,
   onReport,
+  forSomeoneElse = false,
 }: {
   finding: Finding;
   startHere?: boolean;
   onReport: (f: Finding) => void;
+  forSomeoneElse?: boolean;
 }) {
   const scheme = schemeById(finding.scheme);
-  const title = findingTitle(scheme.name, finding.verdict);
+  const title = findingTitle(scheme.name, finding.verdict, forSomeoneElse);
   return (
     <article
       id={startHere ? "start-here" : undefined}

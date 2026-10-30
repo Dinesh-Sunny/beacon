@@ -3,6 +3,7 @@
 import { type Finding, rankFindings, schemeById } from "@beacon/rules";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useCheck } from "@/lib/check-store";
 import { SITE } from "@/lib/site";
 import { Icon } from "../Icon";
 import { VerdictBar } from "../Verdict";
@@ -18,6 +19,7 @@ const STEP_LABEL = {
 
 export function ResultsView() {
   const { results, ready, shareUrl } = useResults();
+  const them = useCheck().draft.situation.forSomeoneElse;
   const [report, setReport] = useState<Finding | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [canShare, setCanShare] = useState(false);
@@ -87,7 +89,7 @@ export function ResultsView() {
               ? "Nothing clear today"
               : noneClear
                 ? "We couldn't finish reading today"
-                : headline(ranked)}
+                : headline(ranked, them)}
           </h1>
           <p className="lead">
             {nothing
@@ -98,7 +100,7 @@ export function ResultsView() {
           </p>
           <VerdictBar
             verdicts={ranked.map((f) => f.verdict)}
-            label={headline(ranked)}
+            label={headline(ranked, them)}
           />
           {topLikely && (
             <a className="small self-start" href="#start-here">
@@ -138,6 +140,7 @@ export function ResultsView() {
         <div className="stack gap-5">
           {main.map((f) => (
             <FindingCard
+              forSomeoneElse={them}
               key={f.scheme}
               finding={f}
               startHere={f.scheme === topLikely}
@@ -158,7 +161,12 @@ export function ResultsView() {
             </p>
             <div className="stack mt-3 gap-4">
               {unlikely.map((f) => (
-                <FindingCard key={f.scheme} finding={f} onReport={setReport} />
+                <FindingCard
+                  key={f.scheme}
+                  finding={f}
+                  onReport={setReport}
+                  forSomeoneElse={them}
+                />
               ))}
             </div>
           </details>
