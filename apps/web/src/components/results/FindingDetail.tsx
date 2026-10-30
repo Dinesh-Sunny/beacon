@@ -8,6 +8,7 @@ import { useCheck } from "@/lib/check-store";
 import { Icon } from "../Icon";
 import { findingTitle, VerdictChip } from "../Verdict";
 import { RuleLine } from "./FindingCard";
+import { Listen } from "./Listen";
 import { useResults } from "./use-results";
 
 /** Answers in the order the phone claim asks for them. Amounts are bands; the exact figure is the caller's. */
@@ -126,6 +127,9 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
         <div className="card !p-7">
           <RuleLine finding={finding} big />
         </div>
+        <Listen
+          text={`${findingTitle(scheme.name, finding.verdict)}. ${finding.why} The rule says: ${finding.quote}`}
+        />
       </section>
 
       <section className="stack gap-4" aria-labelledby="next-title">
