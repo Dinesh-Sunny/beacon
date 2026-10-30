@@ -1,8 +1,9 @@
 "use client";
 
-import { type Finding, rankFindings } from "@beacon/rules";
+import { type Finding, rankFindings, schemeById } from "@beacon/rules";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
+import { useCheck } from "@/lib/check-store";
 import { SITE } from "@/lib/site";
 import { Icon } from "../Icon";
 import { VerdictBar } from "../Verdict";
@@ -12,13 +13,13 @@ import { ReportSheet } from "./ReportSheet";
 import { useResults } from "./use-results";
 
 const STEP_LABEL = {
-  shortlist: "Choosing what to read",
   judge: "Checking the rule",
   explain: "Explaining it simply",
 } as const;
 
 export function ResultsView() {
   const { results, ready, shareUrl } = useResults();
+  const them = useCheck().draft.situation.forSomeoneElse;
   const [report, setReport] = useState<Finding | null>(null);
   const [toast, setToast] = useState<string | null>(null);
   const [canShare, setCanShare] = useState(false);
@@ -56,9 +57,11 @@ export function ResultsView() {
   const main = ranked.filter((f) => f.verdict !== "unlikely-right-now");
   const unlikely = ranked.filter((f) => f.verdict === "unlikely-right-now");
   const topLikely = ranked.find((f) => f.verdict === "likely")?.scheme;
-  const nothing = !ranked.some(
+  const unread = results.unread ?? [];
+  const noneClear = !ranked.some(
     (f) => f.verdict === "likely" || f.verdict === "worth-checking",
   );
+  const nothing = noneClear && unread.length === 0;
 
   const copy = async () => {
     try {
@@ -82,16 +85,22 @@ export function ResultsView() {
         <div className={`stack gap-4 ${topLikely ? "glow" : ""}`}>
           <p className="cap">What may be yours</p>
           <h1 ref={h1} tabIndex={-1} className="d2 outline-none">
-            {nothing ? "Nothing clear today" : headline(ranked)}
+            {nothing
+              ? "Nothing clear today"
+              : noneClear
+                ? "We couldn't finish reading today"
+                : headline(ranked, them)}
           </h1>
           <p className="lead">
             {nothing
               ? "That can change when life does. A free adviser can look at things we can't."
-              : "Each card shows the rule it comes from. Start with the first one."}
+              : noneClear
+                ? "Here is what we could settle. The rest still need checking."
+                : "Each card shows the rule it comes from. Start with the first one."}
           </p>
           <VerdictBar
             verdicts={ranked.map((f) => f.verdict)}
-            label={headline(ranked)}
+            label={headline(ranked, them)}
           />
           {topLikely && (
             <a className="small self-start" href="#start-here">
@@ -100,9 +109,48 @@ export function ResultsView() {
           )}
         </div>
 
+        {results.fromLink && (
+          <div className="banner info" role="note">
+            <Icon name="info" className="mt-0.5 flex-none" />
+            <span>
+              These results came from a shared link. Check each one on its
+              GOV.UK page, or <Link href="/check">start your own check</Link>.
+            </span>
+          </div>
+        )}
+
+        {unread.length > 0 && (
+          <section className="card stack gap-3" aria-labelledby="unread-title">
+            <h2 id="unread-title" className="t-title">
+              These still need checking ({unread.length})
+            </h2>
+            <p className="small muted">
+              We couldn&apos;t read these today. Try again later, or open the
+              official page.
+            </p>
+            <ul className="m-0 stack gap-2 pl-5">
+              {unread.map((id) => {
+                const s = schemeById(id);
+                return (
+                  <li key={id}>
+                    <a
+                      href={`https://www.gov.uk${s.govukPaths[0] ?? ""}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {s.name} on GOV.UK
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
+
         <div className="stack gap-5">
           {main.map((f) => (
             <FindingCard
+              forSomeoneElse={them}
               key={f.scheme}
               finding={f}
               startHere={f.scheme === topLikely}
@@ -123,15 +171,20 @@ export function ResultsView() {
             </p>
             <div className="stack mt-3 gap-4">
               {unlikely.map((f) => (
-                <FindingCard key={f.scheme} finding={f} onReport={setReport} />
+                <FindingCard
+                  key={f.scheme}
+                  finding={f}
+                  onReport={setReport}
+                  forSomeoneElse={them}
+                />
               ))}
             </div>
           </details>
         )}
 
         <p className="banner">
-          Guidance, not a decision. Only DWP and your council can decide. Check
-          with GOV.UK or a free adviser.
+          Guidance, not a decision. Only the people who run each kind of support
+          can decide. Check with GOV.UK or a free adviser.
         </p>
 
         <details className="why no-print">

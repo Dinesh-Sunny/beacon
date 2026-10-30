@@ -12,8 +12,8 @@ export const SITE = {
   leaveShiftWindowMs: 1200,
   postcodesApi: "https://api.postcodes.io/outcodes/",
   freeHelpUrl: "https://www.citizensadvice.org.uk/",
-  // TODO(Dinesh): public repository link, funding line and contact email. Leave null until confirmed.
-  repositoryUrl: null as string | null,
+  repositoryUrl: "https://github.com/Dinesh-Sunny/beacon" as string | null,
+  // TODO(Dinesh): funding line and contact email. Leave null until confirmed.
   contactEmail: null as string | null,
 } as const;
 

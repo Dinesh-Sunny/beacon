@@ -1,3 +1,5 @@
+import { CARERS_ALLOWANCE, TV_LICENCE_FREE_AGE } from "./config.ts";
+
 // The support Beacon reads for England (the verified pack). Each scheme names the official pages the
 // agent reads; the GOV.UK Content API serves them at https://www.gov.uk/api/content/<path>.
 
@@ -37,7 +39,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "pension-credit",
     name: "Pension Credit",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/pension-credit"],
     summary:
       "Tops up weekly income for people over State Pension age, and opens the door to more help.",
@@ -85,11 +87,11 @@ export const SCHEMES: Scheme[] = [
   {
     id: "attendance-allowance",
     name: "Attendance Allowance",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/attendance-allowance"],
     summary:
       "Extra money if you need help with personal care because of an illness or disability. Not means-tested.",
-    nations: ["england", "wales", "northern-ireland"],
+    nations: ["england", "wales"],
     claim: {
       route: "phone",
       detail:
@@ -115,11 +117,10 @@ export const SCHEMES: Scheme[] = [
   {
     id: "carers-allowance",
     name: "Carer's Allowance",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/carers-allowance"],
-    summary:
-      "Money for people who look after someone for 35 hours a week or more.",
-    nations: ["england", "wales", "northern-ireland"],
+    summary: `Money for people who look after someone for ${CARERS_ALLOWANCE.hoursPerWeek} hours a week or more.`,
+    nations: ["england", "wales"],
     claim: {
       route: "online",
       detail: "Apply online on GOV.UK",
@@ -129,7 +130,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "universal-credit",
     name: "Universal Credit",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/universal-credit"],
     summary:
       "Monthly payment for living costs for people under State Pension age on a low income or out of work.",
@@ -158,11 +159,11 @@ export const SCHEMES: Scheme[] = [
   {
     id: "winter-fuel-payment",
     name: "Winter Fuel Payment",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/winter-fuel-payment"],
     summary:
       "A yearly payment towards heating for people born on or before the cut-off date.",
-    nations: ["england", "wales", "northern-ireland"],
+    nations: ["england", "wales"],
     claim: {
       route: "automatic",
       detail: "Paid automatically to most people who qualify",
@@ -174,8 +175,7 @@ export const SCHEMES: Scheme[] = [
     name: "Free TV licence",
     runBy: "TV Licensing",
     govukPaths: ["/free-discount-tv-licence"],
-    summary:
-      "A free TV licence if you are 75 or over and you or your partner get Pension Credit.",
+    summary: `A free TV licence if you are ${TV_LICENCE_FREE_AGE} or over and you or your partner get Pension Credit.`,
     nations: ["england", "scotland", "wales", "northern-ireland"],
     claim: {
       route: "online",

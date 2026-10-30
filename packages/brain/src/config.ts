@@ -50,9 +50,9 @@ export function loadBeamEnv(
 
 // Beam accepts low / medium / high / xhigh / max (default medium). The stream contract reports
 // only low / medium / high, so steps stay within those.
-export type Step = "shortlist" | "judge" | "explain";
+// Which schemes to read is settled in code (precheck), so the model only judges and explains.
+export type Step = "judge" | "explain";
 export const EFFORT = {
-  shortlist: "low",
   judge: "high",
   explain: "medium",
 } as const satisfies Record<Step, "low" | "medium" | "high">;
@@ -60,9 +60,8 @@ export const EFFORT = {
 // Output budget per call, reasoning included (Beam always reasons). The model card's eval guide
 // uses 16384 for short tasks.
 export const MAX_OUTPUT_TOKENS = {
-  shortlist: 2_048,
   judge: 16_384,
-  explain: 8_192,
+  explain: 4_096, // reasoning included; the reply itself is a few hundred words
 } as const satisfies Record<Step, number>;
 
 // Sampling from the model card's EVALUATION.md (temperature 0.7, top_p 0.99).
@@ -81,6 +80,8 @@ export const LIMITS = {
   retries: 1,
   /** LangGraph steps for one reader (each model call plus each tool call is a step) */
   readerRecursionLimit: 20,
+  /** Longest pasted letter Beacon reads, in characters (a few pages) */
+  letterChars: 8_000,
 } as const;
 
 /** Where each scheme's page sits in a rule reader's filesystem. */

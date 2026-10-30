@@ -6,3 +6,4 @@
   Promotion rule: an entry needs 2+ occurrences OR an explicit user correction before it becomes a rule.
 -->
 # Inbox
+- Rule-outs must use the same unit as the rule: Carer's Allowance limits the carer's own earnings, so a couple's combined band can only make it worth checking.

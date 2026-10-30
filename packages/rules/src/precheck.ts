@@ -2,6 +2,15 @@
 // answers rule out, and what is open for Beam to judge from the official page. Code never says Likely
 // on its own: a Likely always needs a verified quote from the page.
 
+import {
+  CARERS_ALLOWANCE,
+  EARNINGS_EDGES,
+  longDate,
+  pounds,
+  SAVINGS_EDGES,
+  TV_LICENCE_FREE_AGE,
+  WINTER_FUEL,
+} from "./config.ts";
 import { deriveFacts } from "./facts.ts";
 import { SCHEMES, type SchemeId } from "./schemes.ts";
 import {
@@ -63,7 +72,12 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
             status: "ruled-out",
             reason: "Pension Credit starts at State Pension age.",
           };
-        if (livesWithPartner(s) && f.partnerOverStatePensionAge === "no")
+        // Mixed-age couples already on pension-age Housing Benefit can still get it (gov.uk/pension-credit/eligibility).
+        if (
+          livesWithPartner(s) &&
+          f.partnerOverStatePensionAge === "no" &&
+          !has(s, "housing-benefit")
+        )
           return {
             scheme: id,
             status: "ruled-out",
@@ -85,10 +99,17 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason: "Universal Credit has a £16,000 savings limit.",
+            reason: `Universal Credit has a ${pounds(SAVINGS_EDGES.upperCap)} savings limit.`,
           };
         break;
       case "housing-benefit":
+        if (s.home === "no-settled-home")
+          return {
+            scheme: id,
+            status: "open",
+            reason:
+              "Housing Benefit can still help in temporary, supported or sheltered housing, at any age.",
+          };
         if (
           s.home &&
           !["council-or-housing-association", "private-rent"].includes(s.home)
@@ -122,7 +143,7 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason: "Housing Benefit has a £16,000 savings limit.",
+            reason: `Housing Benefit has a ${pounds(SAVINGS_EDGES.upperCap)} savings limit.`,
           };
         return {
           scheme: id,
@@ -162,22 +183,24 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason:
-              "Carer's Allowance is for 35 hours of caring a week or more.",
+            reason: `Carer's Allowance is for ${CARERS_ALLOWANCE.hoursPerWeek} hours of caring a week or more.`,
           };
-        if (s.earnings === "885-1083" || s.earnings === "over-1083")
+        // The limit is on the carer's own earnings; a couple's answer is combined, so it can't rule out.
+        if (
+          !livesWithPartner(s) &&
+          (s.earnings === "885-1083" || s.earnings === "over-1083")
+        )
           return {
             scheme: id,
             status: "ruled-out",
-            reason:
-              "Carer's Allowance has an earnings limit of £204 a week after tax and expenses.",
+            reason: `Carer's Allowance has an earnings limit of ${pounds(EARNINGS_EDGES.carersAllowanceWeekly)} a week after tax and expenses.`,
           };
         if (s.caredForGetsDisabilityBenefit === "no")
           return {
             scheme: id,
             status: "ruled-out",
             reason:
-              "The person you look after needs to get Attendance Allowance, PIP daily living or DLA care.",
+              "The person you look after needs to get a disability benefit such as Attendance Allowance, PIP daily living or DLA middle or highest care.",
           };
         return {
           scheme: id,
@@ -198,8 +221,7 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason:
-              "Winter Fuel Payment is for people born on or before 27 June 1960.",
+            reason: `Winter Fuel Payment is for people born on or before ${longDate(WINTER_FUEL.bornOnOrBefore)}.`,
           };
         break;
       case "free-tv-licence":
@@ -207,7 +229,7 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason: "The free TV licence starts at 75.",
+            reason: `The free TV licence starts at ${TV_LICENCE_FREE_AGE}.`,
           };
         break;
       case "council-tax-reduction":

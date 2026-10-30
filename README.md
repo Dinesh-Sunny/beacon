@@ -40,13 +40,13 @@ Beam does the reading and judging. Code does everything that can be settled with
 | Step | What happens | Beam reasoning effort |
 | --- | --- | --- |
 | 1. Pre-check | Code settles hard rules from the answers (age lines, nation, savings caps, benefits you already get). No model call. | none |
-| 2. Shortlist | Beam looks at the situation and the open schemes and picks what to read first. | **low** |
-| 3. Read | Each open scheme's GOV.UK pages go into the context **whole**, every guide part in one read. Beam's 1M-token window means no chunking, no retrieval, no missed exception three parts down. | - |
-| 4. Judge | Beam must answer through a **forced tool call**, `record_finding`: verdict, a one-line reason, the exact quoted rule line, the answers it relied on, and what's missing. | **high** |
-| 5. Verify | **Code, not the model**, checks the quote is really on the page (`verifyQuote`, after folding spaces, curly quotes and dashes). No verified quote, no Likely: code downgrades it to Worth checking. | none |
-| 6. Explain | Beam writes the next steps in plain English: who to contact, what to say. | **medium** |
+| 2. Read | Each open scheme's GOV.UK pages go into the context **whole**, every guide part in one read. Beam's 1M-token window means no chunking, no retrieval, no missed exception three parts down. | - |
+| 3. Judge | Beam must answer through a **forced tool call**, `record_finding`: verdict, a one-line reason, the exact quoted rule line, the answers it relied on, and what's missing. | **high** |
+| 4. Verify | **Code, not the model**, checks the quote is really on the page (`verifyQuote`, after folding spaces, curly quotes and dashes). No verified quote, no Likely: code downgrades it to Worth checking. | none |
+| 5. Explain (on request) | On a result, "Help me with what to say" asks Beam for next steps and a call script or letter, from the scheme's official claim details only (`/api/explain`). | **medium** |
+| 6. Explain my letter (`/letter`) | Paste a letter; code removes NI numbers, sort codes and account numbers, then Beam says what it means, what to do and by when, how to disagree, and common scam signs. Nothing is stored. | **medium** |
 
-- **Effort where it pays.** Sorting is cheap, judging the rules is where mistakes cost people money, so effort goes up only for the judge step. Every model step reports its tokens, and the result screen has a token meter ("How Beacon worked this out") that shows the input and output tokens per step and effort level.
+- **Effort where it pays.** Choosing what to read is done in code, for free. Judging the rules is where mistakes cost people money, so that step runs at high effort and writing help runs at medium. Every model step reports its tokens, and the result screen has a token meter ("How Beacon worked this out") that shows the input and output tokens per step and effort level.
 - **Tools, not free text.** Findings only reach the person through `record_finding` and `settleFinding`, so the shape is fixed and the verdict can be checked. The same tools are offered to other agents over MCP at `/api/mcp` (`list_schemes`, `get_rules`, `check_eligibility`).
 - **Long context instead of retrieval.** Rule pages are read whole, which is what makes the quote checker fair: the line Beam quotes has to exist in exactly what it read.
 - **Open, so it can be private.** The model client is OpenAI-compatible and the endpoint and model name come from environment variables. Point it at the Hugging Face router (default), a provider directly, or your own vLLM server running Beam's open weights. Nothing else changes.
@@ -58,17 +58,16 @@ flowchart LR
   P[Person in the browser<br/>answers as bands] -->|answers, never stored| API["/api/check<br/>(Next.js on the Space)"]
   API --> PC["precheck()<br/>hard rules in code"]
   PC -->|ruled out / already get| S
-  PC -->|open schemes| SL["Shortlist<br/>Beam, effort low"]
-  SL --> RD["Read whole GOV.UK pages<br/>Content API or dated snapshot"]
+  PC -->|open schemes| RD["Read whole GOV.UK pages<br/>Content API or dated snapshot"]
   RD --> J["Judge<br/>Beam, effort high<br/>forced record_finding"]
   J --> V["settleFinding()<br/>quote checker in code"]
-  V --> EX["Explain next steps<br/>Beam, effort medium"]
-  EX --> S["NDJSON stream<br/>findings + token usage"]
+  V --> S["NDJSON stream<br/>findings + token usage"]
   S --> P
+  P -->|"Help me with what to say"| EX["/api/explain<br/>Beam, effort medium"]
   MCP["/api/mcp<br/>other agents"] --> PC
   GOV[(GOV.UK Content API)] --> RD
   SNAP[(rules snapshot<br/>Hub dataset)] --> RD
-  BEAM{{"Beam 1.0<br/>HF router or self-hosted"}} -.-> SL & J & EX
+  BEAM{{"Beam 1.0<br/>HF router or self-hosted"}} -.-> J & EX
 ```
 
 More detail, including the stream contract and what lives where: [docs/architecture.md](docs/architecture.md). Decisions: [docs/adr/](docs/adr/).
@@ -85,7 +84,7 @@ More detail, including the stream contract and what lives where: [docs/architect
 
 Beacon is measured on **BenefitsBench**, 30 made-up situations (no real people) with the verdict the official rules give for each of the ten schemes, written from the rules and not from Beacon's output. It covers people over and under State Pension age, mixed-age couples, the Pension Credit passport, Universal Credit, carers, Healthy Start, Scotland and Northern Ireland, savings edges and the Winter Fuel cut-off. Dataset and card: [`packages/evals/`](packages/evals/), published on the Hub as `beacon-benefitsbench`.
 
-**Code-settled half (no model).** Every scheme that code rules out or marks as "you already get this" is checked against `precheck()` on every commit: 301 of 302 checks agree. The one gap is known and listed in the dataset (Housing Benefit for a mixed-age couple when the older partner asks; the rules say Universal Credit covers rent instead).
+**Code-settled half (no model).** Of the 300 judgements in the set, 189 are settled by code (ruled out, or "you already get this") and 111 are left for Beam. `precheck()` is checked against all of them on every commit: 189 of 189 agree, and every open one stays open for Beam. The live numbers are on the app's [How Beacon is checked](/transparency) page.
 
 **Beam half.** Filled in from `packages/evals/results/summary.md` after a real run. No numbers are written here until they have been measured.
 
@@ -119,7 +118,7 @@ pnpm dev                                        # http://localhost:7860
 
 The model settings live in `apps/web/.env.example` (names only, never commit values):
 
-- `HF_TOKEN` - a Hugging Face token with Inference Providers access. With only this set, Beacon uses the HF router and `reflection/Beam-1.0-501B-A23B:auto`.
+- `HF_TOKEN` - a Hugging Face token with Inference Providers access. With only this set, Beacon uses the HF router and `reflection/Beam-1.0-501B-A23B`.
 - `BEAM_BASE_URL`, `BEAM_MODEL`, `BEAM_API_KEY` - point Beacon at any OpenAI-compatible endpoint instead, such as your own vLLM server running Beam's open weights (`vllm serve reflection/Beam-1.0-501B-A23B --tensor-parallel-size 16`) or a provider's endpoint.
 
 ### On a Hugging Face Space

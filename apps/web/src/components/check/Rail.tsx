@@ -98,7 +98,7 @@ function RailList({ rows, draft, current, onGo }: Omit<Props, "onClear">) {
 
 export function Rail(props: Props) {
   const [confirm, setConfirm] = useState(false);
-  const shown = props.rows.filter((r) => r.shown);
+  const shown = props.rows.filter((r) => r.shown && r.key !== "review");
   const answered = shown.filter(
     (r) => r.status === "done" || r.status === "declined",
   ).length;
@@ -150,8 +150,9 @@ export function Rail(props: Props) {
         <RailList {...props} />
         {clear}
       </section>
-      <details className="card !py-3 lg:hidden">
-        <summary className="flex min-h-11 cursor-pointer items-center font-bold">
+      <details className="rail-sum card !py-3 lg:hidden">
+        <summary className="flex min-h-11 cursor-pointer list-none items-center gap-2 font-bold">
+          <Icon name="chevron-down" className="chev" />
           Your answers - {answered} of {shown.length} done
         </summary>
         <RailList {...props} />

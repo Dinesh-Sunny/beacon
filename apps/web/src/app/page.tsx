@@ -1,3 +1,5 @@
+import { CARERS_ALLOWANCE } from "@beacon/rules";
+import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { StartButtons } from "@/components/StartButtons";
 import { BeaconMark, VerdictChip } from "@/components/Verdict";
@@ -15,14 +17,15 @@ const PREVIEWS = [
     name: "Carer's Allowance",
     verdict: "unlikely-right-now" as const,
     title: "Carer's Allowance looks unlikely right now",
-    line: "It is for 35 hours of caring a week or more.",
+    line: `It is for ${CARERS_ALLOWANCE.hoursPerWeek} hours of caring a week or more.`,
     style: { right: 0, top: 70, transform: "rotate(6deg)" },
   },
   {
     name: "Pension Credit",
     verdict: "likely" as const,
     title: "Pension Credit looks likely for you",
-    line: '"You must have reached State Pension age."',
+    // Word for word from gov.uk/pension-credit/eligibility (checked 30 Oct 2026).
+    line: '"You must live in England, Scotland or Wales and have reached State Pension age to qualify for Pension Credit."',
     style: { left: "50%", top: 0, transform: "translateX(-50%)" },
   },
 ];
@@ -36,9 +39,13 @@ export default function Landing() {
         </h1>
         <p className="lead max-w-[560px]">
           Answer a few simple questions. Beacon reads the official rules and
-          shows what you may be owed - in about a minute.
+          shows what you may be owed.
         </p>
         <StartButtons />
+        <p className="small">
+          Got a letter about benefits?{" "}
+          <Link href="/letter">Explain my letter</Link>
+        </p>
         <p className="small muted flex max-w-[560px] gap-2">
           <Icon name="lock" size={18} className="mt-0.5 flex-none" />
           <span>
@@ -47,8 +54,8 @@ export default function Landing() {
           </span>
         </p>
         <p className="small muted max-w-[560px]">
-          Beacon never asks for your name, bank details, National Insurance
-          number or any money.
+          Beacon never asks for your name, bank details or National Insurance
+          number, and never asks you to pay.
         </p>
       </section>
 

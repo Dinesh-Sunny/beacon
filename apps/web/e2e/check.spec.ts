@@ -120,11 +120,11 @@ test("the sample person goes through the adaptive check to results", async ({
 
   // Work is skipped over State Pension age.
   await heading(page, "How much money comes in each month?");
-  await page.getByLabel(/^Under about £1,031/).check();
+  await page.getByLabel(/^Less than £1,031/).check();
   await cont(page);
 
   await heading(page, "How much is in savings?");
-  await page.getByLabel("Under £10,000").check();
+  await page.getByLabel("£10,000 or less").check();
   await cont(page);
 
   await heading(page, "Do any of these apply to you?");
@@ -166,7 +166,7 @@ test("the sample person goes through the adaptive check to results", async ({
   await page.getByRole("button", { name: "Save and go back" }).click();
   await heading(page, "Is this all right?");
   await expect(page.getByText("Saved", { exact: true })).toBeVisible();
-  await expect(review).toContainText("Under £10,000");
+  await expect(review).toContainText("£10,000 or less");
 
   await page.getByRole("button", { name: "Read the rules for me" }).click();
   await expect(page.getByTestId("reveal")).toHaveText("1 looks likely for you");
@@ -183,6 +183,23 @@ test("the sample person goes through the adaptive check to results", async ({
   ).toBeVisible();
   // The private link carries results only, never the answers.
   expect(page.url()).toContain("#r=");
+
+  await page.route("**/api/explain", (route) =>
+    route.fulfill({
+      json: {
+        text: "Next steps\n1. Call the Pension Credit claim line.",
+        usage: { inputTokens: 300, outputTokens: 120 },
+      },
+    }),
+  );
+  await page
+    .getByRole("link", { name: /See what to do next/ })
+    .first()
+    .click();
+  await page.getByRole("button", { name: "Help me with what to say" }).click();
+  await expect(
+    page.getByText("Call the Pension Credit claim line."),
+  ).toBeVisible();
 });
 
 test("Continue with no answer shows the error summary", async ({ page }) => {
@@ -204,4 +221,74 @@ test("Back keeps answers", async ({ page }) => {
   await cont(page);
   await page.getByRole("button", { name: "Back", exact: true }).click();
   await expect(page.getByRole("textbox")).toHaveValue("1952");
+});
+
+test("Not sure of the postcode asks which part of the UK", async ({ page }) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("I'm not sure of the postcode").check();
+  await cont(page);
+  await expect(
+    page.getByRole("alert", { name: "There is a problem" }),
+  ).toContainText("Choose the part of the UK");
+  await page.getByLabel("Scotland").check();
+  await expect(
+    page.getByText("Beacon checks support in England"),
+  ).toBeVisible();
+  await cont(page);
+  await heading(page, /born/i);
+});
+
+test("Going home keeps a started check", async ({ page }) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("First half of the postcode").fill("HA9");
+  await cont(page);
+  await heading(page, /born/i);
+  await page.getByRole("link", { name: "Beacon", exact: true }).click();
+  await expect(page).toHaveURL(/\/$/);
+  await page.getByRole("link", { name: "Continue my check" }).click();
+  await expect(
+    page.getByText(/Your answers - 1 of/).filter({ visible: true }),
+  ).toBeVisible();
+});
+
+test("Explain my letter shows the plain meaning", async ({ page }) => {
+  let sent = "";
+  await page.route("**/api/letter", async (route) => {
+    sent = (route.request().postDataJSON() as { letter: string }).letter;
+    await route.fulfill({
+      json: {
+        text: "What it says\nYour Pension Credit claim was received.",
+        removed: 1,
+      },
+    });
+  });
+  await page.goto("/letter");
+  await page.getByRole("button", { name: "Explain this letter" }).click();
+  await expect(page.getByText("Paste a bit more")).toBeVisible();
+  await page
+    .getByLabel("The words from your letter")
+    .fill(
+      "Dear customer, we have received your claim for Pension Credit. We will write to you within 4 weeks.",
+    );
+  await page.getByRole("button", { name: "Explain this letter" }).click();
+  await expect(
+    page.getByRole("heading", { name: "What your letter means" }),
+  ).toBeFocused();
+  await expect(
+    page.getByText("Your Pension Credit claim was received."),
+  ).toBeVisible();
+  expect(sent).toContain("Pension Credit");
+});
+
+test("Checking for someone else changes the questions to them", async ({
+  page,
+}) => {
+  await mockNetwork(page);
+  await page.goto("/check");
+  await page.getByLabel("I'm checking for someone else, with their OK").check();
+  await page.getByLabel("First half of the postcode").fill("HA9");
+  await cont(page);
+  await heading(page, "What year were they born?");
 });

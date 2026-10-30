@@ -5,10 +5,15 @@ import {
   deriveFacts,
   type Finding,
   type Option,
+  ProposedFindingSchema,
+  SCHEMES,
+  type SchemeId,
   type Situation,
   SituationSchema,
   STEPS,
   type StepId,
+  schemeById,
+  VERDICTS,
 } from "@beacon/rules";
 import { z } from "zod";
 import type { Progress } from "./check-path";
@@ -20,6 +25,8 @@ export interface Draft {
   areaLabel?: string;
   elseChips: string[];
   elseText: string;
+  /** The sample person from "Try an example", so the UI never presents it as the person's own answers */
+  example?: boolean;
 }
 
 export const emptyDraft = (): Draft => ({
@@ -35,6 +42,7 @@ const DraftSchema = z.object({
   areaLabel: z.string().max(120).optional(),
   elseChips: z.array(z.string().max(60)).max(10),
   elseText: z.string().max(1000),
+  example: z.boolean().optional(),
 });
 
 function toBase64Url(text: string): string {
@@ -74,14 +82,42 @@ export interface SavedResults {
   model?: string;
 }
 
+const SCHEME_IDS = new Set<string>(SCHEMES.map((s) => s.id));
+
+// A shared link can be edited by anyone, so it is parsed strictly and the source link is rebuilt
+// from the scheme: a link can never point a "See this line on GOV.UK" button anywhere else.
+const SharedFindingSchema = ProposedFindingSchema.extend({
+  scheme: z.string().refine((id) => SCHEME_IDS.has(id)),
+  verdict: z.enum(VERDICTS),
+  quoteVerified: z.boolean(),
+  source: z.object({
+    readAt: z.string().max(40).default(""),
+    publicUpdatedAt: z.string().max(40).default(""),
+  }),
+});
+const SharedSchema = z.object({
+  findings: z.array(SharedFindingSchema).max(SCHEMES.length),
+  model: z.string().max(80).optional(),
+});
+
 export function parseResults(value: unknown): SavedResults | undefined {
-  if (
-    !value ||
-    typeof value !== "object" ||
-    !Array.isArray((value as SavedResults).findings)
-  )
-    return undefined;
-  return value as SavedResults;
+  const r = SharedSchema.safeParse(value);
+  if (!r.success) return undefined;
+  return {
+    model: r.data.model,
+    findings: r.data.findings.map((f) => {
+      const scheme = schemeById(f.scheme as SchemeId);
+      return {
+        ...f,
+        scheme: scheme.id,
+        source: {
+          ...f.source,
+          url: `https://www.gov.uk${scheme.govukPaths[0] ?? ""}`,
+          title: scheme.name,
+        },
+      };
+    }),
+  };
 }
 
 /** The text sent as "anything else": chips and the person's own words. */

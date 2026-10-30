@@ -180,6 +180,13 @@ function WhyWeAsk({ text }: { text: string }) {
   );
 }
 
+const NATION_OPTIONS = [
+  ["england", "England"],
+  ["scotland", "Scotland"],
+  ["wales", "Wales"],
+  ["northern-ireland", "Northern Ireland"],
+] as const;
+
 function Choice({
   type,
   name,
@@ -359,6 +366,7 @@ export function CheckFlow() {
 
   // ---------- postcode lookup (postcodes.io, from the browser) ----------
   const lookUp = async (): Promise<Draft | null> => {
+    setProblem(null);
     const d = pc.trim().toUpperCase().split(/\s+/)[0] ?? "";
     if (!OUTCODE.test(d)) {
       fail(
@@ -430,6 +438,8 @@ export function CheckFlow() {
   const onContinue = async () => {
     const kind = q.kind;
     if (current === "area") {
+      if (pcNotSure && !s.nation)
+        return fail("Choose the part of the UK you live in", "#nation-england");
       if (pcNotSure)
         return advance(
           mark(
@@ -439,7 +449,6 @@ export function CheckFlow() {
                 ...s,
                 postcodeDistrict: undefined,
                 council: undefined,
-                nation: undefined,
               },
               areaLabel: undefined,
             },
@@ -626,7 +635,7 @@ export function CheckFlow() {
             onKeyDown={(e) => {
               if (e.key === "Enter") {
                 e.preventDefault();
-                void lookUp();
+                void onContinue();
               }
             }}
           />
@@ -687,6 +696,35 @@ export function CheckFlow() {
           checked={pcNotSure}
           onChange={() => setPcNotSure(true)}
         />
+        {pcNotSure && (
+          <fieldset className="stack m-0 mt-2 gap-3 border-0 p-0">
+            <legend className="mb-2 font-bold">
+              Which part of the UK do you live in?
+            </legend>
+            {NATION_OPTIONS.map(([value, label]) => (
+              <Choice
+                key={value}
+                type="radio"
+                name="nation"
+                id={`nation-${value}`}
+                label={label}
+                checked={s.nation === value}
+                onChange={() =>
+                  setDraft({ ...draft, situation: { ...s, nation: value } })
+                }
+              />
+            ))}
+          </fieldset>
+        )}
+        {s.nation && s.nation !== "england" && (
+          <div className="banner info">
+            <Icon name="info" className="mt-0.5 flex-none" />
+            <span>
+              Beacon checks support in England. Some results may be different
+              where you live, and we&apos;ll say which.
+            </span>
+          </div>
+        )}
       </div>
     );
   } else if (q.kind === "year") {
@@ -829,6 +867,24 @@ export function CheckFlow() {
                 rules for you.
               </p>
             </div>
+            {draft.example && (
+              <div className="banner info" role="note">
+                <Icon name="info" className="mt-0.5 flex-none" />
+                <div className="stack gap-2">
+                  <span>
+                    This is an example person, not you. Read the rules to see
+                    how results look, or start your own check.
+                  </span>
+                  <button
+                    type="button"
+                    className="btn txt self-start !pl-0"
+                    onClick={clearAll}
+                  >
+                    Start my own check
+                  </button>
+                </div>
+              </div>
+            )}
             {declined && (
               <div className="banner">
                 <span>
@@ -881,7 +937,7 @@ export function CheckFlow() {
             </div>
           </div>
           <aside
-            className="rail stack gap-4 lg:col-start-1 lg:row-start-1"
+            className="rail rail-after stack gap-4 lg:col-start-1 lg:row-start-1"
             aria-label="What happens next"
           >
             <section className="card">
@@ -915,13 +971,15 @@ export function CheckFlow() {
         />
         <div className="stack min-w-0 gap-7">
           <div className="stack gap-3">
-            <button
-              type="button"
-              className="btn txt self-start !pl-0"
-              onClick={back}
-            >
-              {fromReview ? "Cancel - keep my answer" : "Back"}
-            </button>
+            {(fromReview || current !== "area") && (
+              <button
+                type="button"
+                className="btn txt self-start !pl-0"
+                onClick={back}
+              >
+                {fromReview ? "Cancel - keep my answer" : "Back"}
+              </button>
+            )}
             <BeaconPath rows={rows} current={pathKey} />
           </div>
 
@@ -979,7 +1037,7 @@ export function CheckFlow() {
                   </h1>
                   {current === "area" && (
                     <p className="lead mt-3">
-                      Up to 12 short questions. We skip the ones that don&apos;t
+                      A few short questions. We skip the ones that don&apos;t
                       apply to you.
                     </p>
                   )}
@@ -1003,6 +1061,29 @@ export function CheckFlow() {
                 )}
                 <div className="clear-both">{body}</div>
               </fieldset>
+              {current === "area" && (
+                <div className="stack gap-2">
+                  <Choice
+                    type="checkbox"
+                    name="for-someone-else"
+                    id="for-someone-else"
+                    label="I'm checking for someone else, with their OK"
+                    checked={s.forSomeoneElse}
+                    onChange={() =>
+                      setDraft({
+                        ...draft,
+                        situation: { ...s, forSomeoneElse: !s.forSomeoneElse },
+                      })
+                    }
+                  />
+                  {s.forSomeoneElse && (
+                    <p className="small muted">
+                      Answer the questions about them. Results will say
+                      &quot;them&quot; instead of &quot;you&quot;.
+                    </p>
+                  )}
+                </div>
+              )}
               <WhyWeAsk text={q.whyWeAsk} />
               <div className="acts">
                 <button

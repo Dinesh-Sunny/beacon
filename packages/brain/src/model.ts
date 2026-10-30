@@ -65,7 +65,7 @@ function markEffortUnsupported(error: unknown): void {
   if (!effortSupported) return;
   effortSupported = false;
   console.warn(
-    `[brain] endpoint rejected reasoning_effort, continuing without it: ${(error as Error).message}`,
+    `[brain] endpoint rejected reasoning_effort, continuing without it (${(error as { status?: number }).status ?? "no status"})`,
   );
 }
 
@@ -131,7 +131,7 @@ export async function withEffortFallback<T>(
   }
 }
 
-/** Plain-text call for one step (explain, shortlist), with usage. */
+/** Plain-text call for one step (explain), with usage. */
 export async function invokeText(
   m: StepModels,
   messages: BaseMessageLike[],

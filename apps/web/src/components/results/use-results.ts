@@ -21,7 +21,12 @@ export function useResults(): {
     if (!results) {
       const saved = parseResults(readFragment(window.location.hash, "r"));
       if (saved)
-        setResults({ findings: saved.findings, usage: [], model: saved.model });
+        setResults({
+          findings: saved.findings,
+          usage: [],
+          model: saved.model,
+          fromLink: true,
+        });
     }
     setReady(true);
   }, [results, setResults]);

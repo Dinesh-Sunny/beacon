@@ -3,6 +3,7 @@ import type { Draft } from "./answers";
 // The sample person from the design (kit11a PERSONAS.sample): Brent, born 1952, lives alone, council
 // tenant, State Pension only, under the Pension Credit line, health condition. No real person.
 export const EXAMPLE_DRAFT: Draft = {
+  example: true,
   situation: {
     forSomeoneElse: false,
     postcodeDistrict: "HA9",

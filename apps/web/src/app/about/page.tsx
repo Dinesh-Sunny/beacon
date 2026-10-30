@@ -62,8 +62,8 @@ export default function About() {
           What it never asks
         </h2>
         <p>
-          Beacon never asks for your name, address, bank details, National
-          Insurance number or any money.
+          Beacon never asks for your name, address, bank details or National
+          Insurance number, and never asks you to pay.
         </p>
         <p>
           We ask for the first half of your postcode, your birth year and rough

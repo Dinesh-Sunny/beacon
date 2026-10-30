@@ -10,12 +10,17 @@ export const env = createEnv({
     HF_TOKEN: z.string().min(1).optional(),
     // Checks allowed per UTC day across the whole Space; protects the free model quota.
     BEACON_DAILY_CAP: z.coerce.number().int().positive().default(500),
-    // Checks allowed per IP per minute.
+    // Requests allowed per IP per minute, per route.
     BEACON_PER_IP_PER_MINUTE: z.coerce.number().int().positive().default(5),
+    // Model tokens (input plus output) allowed per UTC day across the whole Space.
+    BEACON_DAILY_TOKENS: z.coerce.number().int().positive().default(30_000_000),
     LANGSMITH_TRACING: z.enum(["true", "false"]).optional(),
     LANGSMITH_API_KEY: z.string().optional(),
     LANGSMITH_ENDPOINT: z.url().optional(),
     LANGSMITH_PROJECT: z.string().optional(),
+    // Tracing must never record answers or letters: both must be "true" whenever tracing is on.
+    LANGSMITH_HIDE_INPUTS: z.enum(["true", "false"]).optional(),
+    LANGSMITH_HIDE_OUTPUTS: z.enum(["true", "false"]).optional(),
   },
   client: {
     // Where "This looks wrong" reports go. Unset: the sheet points to GOV.UK and free help instead.

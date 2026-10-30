@@ -74,7 +74,14 @@ export const SituationSchema = z.object({
     .regex(/^[A-Z]{1,2}\d[A-Z\d]?$/)
     .optional(),
   nation: z.enum(NATIONS).optional(),
-  council: z.string().optional(),
+  // A council name from postcodes.io: letters and simple punctuation only, so it can't carry instructions.
+  // Real names run to 5 words ("King's Lynn and West Norfolk"); a Likely still needs a verified quote.
+  council: z
+    .string()
+    .max(60)
+    .regex(/^[\p{L} .,'&()-]+$/u)
+    .refine((v) => v.trim().split(/\s+/).length <= 6)
+    .optional(),
   birthYear: z.number().int().optional(),
   birthMonth: z.number().int().min(1).max(12).optional(),
   /** Only asked when the birth year is withheld or the month cannot settle it */

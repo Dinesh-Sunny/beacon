@@ -8,7 +8,9 @@ import { useCheck } from "@/lib/check-store";
 import { Icon } from "../Icon";
 import { findingTitle, VerdictChip } from "../Verdict";
 import { RuleLine } from "./FindingCard";
+import { Listen } from "./Listen";
 import { useResults } from "./use-results";
+import { WhatToSay } from "./WhatToSay";
 
 /** Answers in the order the phone claim asks for them. Amounts are bands; the exact figure is the caller's. */
 const PACK_ORDER: Partial<Record<SchemeId, StepId[]>> = {
@@ -25,6 +27,13 @@ const PACK_ORDER: Partial<Record<SchemeId, StepId[]>> = {
   "attendance-allowance": ["area", "birth-year", "applies", "benefits", "home"],
 };
 const NEEDS_EXACT: StepId[] = ["money", "savings"];
+const HOW: Record<"phone" | "online" | "council" | "automatic", string> = {
+  phone: "Claim by phone",
+  online: "Apply online",
+  council: "Apply to your council",
+  automatic: "Usually paid without a claim",
+};
+const capFirst = (x: string): string => x.charAt(0).toUpperCase() + x.slice(1);
 
 export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
   const { results, ready } = useResults();
@@ -46,6 +55,38 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           {scheme.name}
         </h1>
         <p className="lead">{scheme.summary}</p>
+        <section className="card stack gap-3" aria-labelledby="about-title">
+          <h2 id="about-title" className="t-title">
+            About this support
+          </h2>
+          <dl className="m-0 grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
+            <dt className="muted">Run by</dt>
+            <dd className="m-0">{capFirst(scheme.runBy)}</dd>
+            <dt className="muted">How you get it</dt>
+            <dd className="m-0">{HOW[scheme.claim.route]}</dd>
+            {scheme.unlocks?.length ? (
+              <>
+                <dt className="muted">Can open the door to</dt>
+                <dd className="m-0">
+                  {scheme.unlocks.map((u, i) => (
+                    <span key={u}>
+                      {i > 0 && ", "}
+                      <Link href={`/results/${u}`}>{schemeById(u).name}</Link>
+                    </span>
+                  ))}
+                </dd>
+              </>
+            ) : null}
+          </dl>
+          <a
+            className="btn txt self-start !pl-0"
+            href={scheme.claim.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Official page on GOV.UK <Icon name="arrow-right" />
+          </a>
+        </section>
         <p>
           Do a check to see if it may be yours, with the rule line behind it.
         </p>
@@ -56,9 +97,7 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
     );
   }
 
-  const runBy = scheme.runBy.startsWith("your ")
-    ? scheme.runBy.replace("your ", "Your ")
-    : scheme.runBy;
+  const runBy = capFirst(scheme.runBy);
   const order =
     scheme.claim.route === "phone" ? (PACK_ORDER[schemeId] ?? []) : [];
   const packRows = order.filter((id) => draft.progress[id] === "done");
@@ -81,12 +120,19 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           tabIndex={-1}
           className="d2 outline-none"
         >
-          {findingTitle(scheme.name, finding.verdict)}
+          {findingTitle(
+            scheme.name,
+            finding.verdict,
+            draft.situation.forSomeoneElse,
+          )}
         </h1>
         <p className="lead">{finding.why}</p>
         <div className="card !p-7">
           <RuleLine finding={finding} big />
         </div>
+        <Listen
+          text={`${findingTitle(scheme.name, finding.verdict, draft.situation.forSomeoneElse)}. ${finding.why} The rule says: ${finding.quote}`}
+        />
       </section>
 
       <section className="stack gap-4" aria-labelledby="next-title">
@@ -126,6 +172,8 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             How to claim on GOV.UK
           </a>
         </div>
+        {finding.verdict !== "unlikely-right-now" &&
+          scheme.claim.route !== "automatic" && <WhatToSay finding={finding} />}
       </section>
 
       {scheme.claim.route === "phone" && (
@@ -155,17 +203,20 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             </dl>
           ) : (
             <p className="small">
-              Open this from your own check in this browser tab to get your
-              answers ready.
+              Your answers aren&apos;t in this browser tab.{" "}
+              <Link href="/check">Do a check</Link> to get your call answers
+              ready.
             </p>
           )}
-          <button
-            type="button"
-            className="btn sec self-start no-print"
-            onClick={() => window.print()}
-          >
-            <Icon name="print" /> Print my call answers
-          </button>
+          {packRows.length > 0 && (
+            <button
+              type="button"
+              className="btn sec self-start no-print"
+              onClick={() => window.print()}
+            >
+              <Icon name="print" /> Print my call answers
+            </button>
+          )}
         </section>
       )}
 
@@ -185,12 +236,12 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="stack gap-2">
               <h3 className="t-title">Beacon did</h3>
-              <ul className="m-0 stack gap-1 pl-5">
+              <ul className="m-0 stack list-disc gap-1 pl-5">
                 <li>Read the official rules on GOV.UK</li>
                 {finding.quoteVerified && (
                   <li>Checked the rule line word for word</li>
                 )}
-                {scheme.claim.route === "phone" && (
+                {scheme.claim.route === "phone" && packRows.length > 0 && (
                   <li>Got your answers ready for the call</li>
                 )}
               </ul>
@@ -202,7 +253,7 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
               >
                 <Icon name="hand" /> Only you can
               </h3>
-              <ul className="m-0 stack gap-1 pl-5">
+              <ul className="m-0 stack list-disc gap-1 pl-5">
                 <li>
                   {scheme.claim.route === "phone"
                     ? "Make the call"
@@ -216,8 +267,8 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             </div>
           </div>
           <p className="small">
-            Only {runBy === "DWP" ? "DWP" : scheme.runBy} can decide. A free
-            adviser can check this with you.
+            Only {scheme.runBy} can decide. A free adviser can check this with
+            you.
           </p>
         </section>
       )}

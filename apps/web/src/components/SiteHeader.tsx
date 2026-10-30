@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useEffect } from "react";
 import { SITE } from "@/lib/site";
 import { Icon } from "./Icon";
@@ -9,6 +10,7 @@ import { Icon } from "./Icon";
 const leave = () => window.location.replace(SITE.leaveUrl);
 
 export function SiteHeader() {
+  const pathname = usePathname();
   // Pressing Shift 3 times quickly leaves the page (safety exit, same as the button).
   useEffect(() => {
     let presses: number[] = [];
@@ -32,7 +34,11 @@ export function SiteHeader() {
         Beacon
       </Link>
       <div className="hright">
-        <Link className="btn txt small max-sm:hidden" href="/about">
+        <Link
+          className="btn txt small max-sm:hidden"
+          href="/about"
+          aria-current={pathname === "/about" ? "page" : undefined}
+        >
           About Beacon
         </Link>
         <a

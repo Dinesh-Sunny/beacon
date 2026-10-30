@@ -1,8 +1,16 @@
-// The check: 12 steps in the order that settles the most first. A step shows only when its answer
+// The check: 17 steps (folded into a 12-dot path) in the order that settles the most first. A step shows only when its answer
 // can still change a result; otherwise the rail says why it was not needed.
 
 import { needsBirthMonth } from "./age.ts";
-import { EARNINGS_EDGES, PENSION_CREDIT, weeklyToMonthly } from "./config.ts";
+import {
+  CARERS_ALLOWANCE,
+  EARNINGS_EDGES,
+  HEALTHY_START_PREGNANCY_WEEKS,
+  PENSION_CREDIT,
+  pounds,
+  SAVINGS_EDGES,
+  weeklyToMonthly,
+} from "./config.ts";
 import { deriveFacts, type Facts } from "./facts.ts";
 import {
   has,
@@ -166,11 +174,18 @@ export const STEPS: Step[] = [
     id: "children",
     section: "Your home and family",
     kind: "checkbox",
-    question: () => "Do any of these apply?",
+    question: () => "Do any of these apply to your family?",
     options: () => [
       { value: "child-under-4", label: "A child under 4" },
-      { value: "expecting", label: "Expecting a baby (10 weeks or more)" },
-      { value: "none", label: "None of these", exclusive: true },
+      {
+        value: "expecting",
+        label: `Expecting a baby (more than ${HEALTHY_START_PREGNANCY_WEEKS} weeks)`,
+      },
+      {
+        value: "none",
+        label: "No - our children are all 4 or older",
+        exclusive: true,
+      },
     ],
     private: true,
     whyWeAsk: "Healthy Start help is for pregnancy and young children.",
@@ -268,33 +283,42 @@ export const STEPS: Step[] = [
           ),
     hint: (s, f) =>
       f.overStatePensionAge === "no"
-        ? "After tax. Count only earnings, not benefits."
-        : `Count your State Pension, any other pensions and earnings${livesWithPartner(s) ? ", for both of you" : ""}.`,
+        ? `After tax. Count only earnings, not benefits.${livesWithPartner(s) ? " Add both of you together." : ""} A rough guess is fine.`
+        : `Count your State Pension, any other pensions and earnings${livesWithPartner(s) ? ", for both of you" : ""}. A rough guess is fine.`,
     options: (s, f) =>
       f.overStatePensionAge === "no"
         ? [
             { value: "none", label: "Nothing from work" },
             {
               value: "up-to-408",
-              label: `Up to £${EARNINGS_EDGES.healthyStartMonthly}`,
+              label: `Up to ${pounds(EARNINGS_EDGES.healthyStartMonthly)}`,
             },
-            { value: "409-884", label: "£409 to £884" },
-            { value: "885-1083", label: "£885 to £1,083" },
-            { value: "over-1083", label: "More than £1,083" },
+            {
+              value: "409-884",
+              label: `${pounds(EARNINGS_EDGES.healthyStartMonthly + 1)} to ${pounds(weeklyToMonthly(EARNINGS_EDGES.carersAllowanceWeekly))}`,
+            },
+            {
+              value: "885-1083",
+              label: `${pounds(weeklyToMonthly(EARNINGS_EDGES.carersAllowanceWeekly) + 1)} to ${pounds(weeklyToMonthly(EARNINGS_EDGES.brentCtrWorkingAgeWeekly))}`,
+            },
+            {
+              value: "over-1083",
+              label: `More than ${pounds(weeklyToMonthly(EARNINGS_EDGES.brentCtrWorkingAgeWeekly))}`,
+            },
             { value: "rather-not-say", label: "I'd rather not say" },
           ]
         : [
             {
               value: "under-line",
-              label: `Under about £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Less than £${pcLineMonthly(s).toLocaleString("en-GB")}`,
             },
             {
               value: "around-line",
-              label: `Around £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Close to £${pcLineMonthly(s).toLocaleString("en-GB")}, or I'm not sure`,
             },
             {
               value: "well-over-line",
-              label: `Well over £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Clearly more than £${pcLineMonthly(s).toLocaleString("en-GB")}`,
             },
             { value: "rather-not-say", label: "I'd rather not say" },
           ],
@@ -317,15 +341,34 @@ export const STEPS: Step[] = [
     options: (_s, f) =>
       f.overStatePensionAge === "no"
         ? [
-            { value: "under-6000", label: "Under £6,000" },
-            { value: "6000-15999", label: "£6,000 to £15,999" },
-            { value: "16000-plus", label: "£16,000 or more" },
+            // Limits are "or less" on GOV.UK; value ids are kept for saved answers and evals.
+            {
+              value: "under-6000",
+              label: `${pounds(SAVINGS_EDGES.ucReductionsFrom)} or less`,
+            },
+            {
+              value: "6000-15999",
+              label: `${pounds(SAVINGS_EDGES.ucReductionsFrom + 1)} to ${pounds(SAVINGS_EDGES.upperCap)}`,
+            },
+            {
+              value: "16000-plus",
+              label: `More than ${pounds(SAVINGS_EDGES.upperCap)}`,
+            },
             { value: "rather-not-say", label: "I'd rather not say" },
           ]
         : [
-            { value: "under-10000", label: "Under £10,000" },
-            { value: "10000-15999", label: "£10,000 to £15,999" },
-            { value: "16000-plus", label: "£16,000 or more" },
+            {
+              value: "under-10000",
+              label: `${pounds(SAVINGS_EDGES.pensionCreditTariffFrom)} or less`,
+            },
+            {
+              value: "10000-15999",
+              label: `${pounds(SAVINGS_EDGES.pensionCreditTariffFrom + 1)} to ${pounds(SAVINGS_EDGES.upperCap)}`,
+            },
+            {
+              value: "16000-plus",
+              label: `More than ${pounds(SAVINGS_EDGES.upperCap)}`,
+            },
             { value: "rather-not-say", label: "I'd rather not say" },
           ],
     whyWeAsk: "Some help has a savings limit. A band is enough.",
@@ -342,7 +385,10 @@ export const STEPS: Step[] = [
     kind: "radio",
     question: () => "Is anyone in your home pregnant?",
     options: () => [
-      { value: "yes", label: "Yes, 10 weeks or more" },
+      {
+        value: "yes",
+        label: `Yes, more than ${HEALTHY_START_PREGNANCY_WEEKS} weeks`,
+      },
       { value: "no", label: "No" },
       { value: "rather-not-say", label: "I'd rather not say" },
     ],
@@ -379,7 +425,7 @@ export const STEPS: Step[] = [
       if (!has(s, "carers-allowance")) {
         out.push({
           value: "cares-35-hours",
-          label: "I look after someone for 35 hours a week or more",
+          label: `I look after someone for ${CARERS_ALLOWANCE.hoursPerWeek} hours a week or more`,
         });
         out.push({
           value: "cares-under-35-hours",
@@ -407,7 +453,8 @@ export const STEPS: Step[] = [
     options: () => [
       {
         value: "yes",
-        label: "Attendance Allowance, PIP daily living or DLA care",
+        label:
+          "Attendance Allowance, PIP daily living, DLA middle or highest care, or a similar disability payment",
       },
       { value: "no", label: "None of these" },
       { value: "unsure", label: "Not sure" },

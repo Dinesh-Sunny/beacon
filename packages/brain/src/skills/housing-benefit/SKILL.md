@@ -22,3 +22,4 @@ Verdicts:
 Gotchas:
 - Never name an amount: it depends on rent, which Beacon never asks.
 - A mixed-age couple cannot make a new claim: they get help with rent through Universal Credit.
+- No settled home: open at any age if they are in temporary accommodation (such as a council B&B), a refuge, or supported or sheltered housing. Use worth-checking, missing = the kind of place they stay in.
