@@ -1,0 +1,26 @@
+# Keep the image small and secrets out of it
+.git
+**/node_modules
+**/.next
+**/.turbo
+**/dist
+**/coverage
+**/playwright-report
+**/test-results
+**/*.tsbuildinfo
+.env
+.env.*
+!.env.example
+**/.env
+**/.env.*
+!**/.env.example
+.claude
+.cursor
+.github
+.vscode
+.idea
+.DS_Store
+CLAUDE.local.md
+context-pack*.md
+stacks
+packages/evals/results/*.jsonl
