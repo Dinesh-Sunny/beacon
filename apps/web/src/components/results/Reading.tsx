@@ -200,6 +200,24 @@ export function Reading() {
             >
               Try again
             </button>
+            {findings.length > 0 && (
+              <button
+                type="button"
+                className="btn sec"
+                onClick={() => {
+                  setResults({
+                    findings: rankFindings(findings),
+                    usage: [],
+                    model: "",
+                    snapshot: false,
+                  });
+                  router.push("/results");
+                }}
+              >
+                See the {findings.length === 1 ? "one" : findings.length} we
+                could settle
+              </button>
+            )}
             <Link className="btn txt" href="/check">
               Back to my answers
             </Link>
