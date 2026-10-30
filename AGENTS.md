@@ -1,82 +1,73 @@
 <!--
   AGENTS.md: CANONICAL, tool-neutral project instructions. Single source of truth.
-  Read natively by Codex, Cursor, Copilot and others. Claude Code includes it via CLAUDE.md → @AGENTS.md.
   Generated from this file (never edit those): GEMINI.md, .github/copilot-instructions.md, context-pack.md.
-  Rules: ≤120 lines · one fact per bullet · ≤30 words per bullet · no derivable facts. Run `python3 .claude/scripts/ctx.py check`.
-  last-verified: 2026-10-01
+  Rules: <=120 lines, one fact per bullet, <=30 words per bullet, no derivable facts.
 -->
 
-# {{PROJECT_NAME}}
+# Beacon
 
-{{ONE_LINE_PROJECT_DESCRIPTION}}
+Find the support that's already yours: a private agent on Beam that reads the official rules, shows what may be yours with the exact rule line, and does the safe steps.
 
 ## Stack
 
-- Language: {{LANGUAGE_AND_VERSION}}
-- Framework: {{FRAMEWORK_AND_VERSION}}
-- Package manager: {{PACKAGE_MANAGER}} (never mix lockfiles)
-- Database / ORM: {{DATABASE}} / {{ORM}}
-- Styling / UI: {{STYLING}} / {{UI_LIBRARY}}
-- Testing: {{UNIT_TEST_RUNNER}} (unit), {{E2E_RUNNER}} (e2e)
-- Hosting / CI: {{HOSTING}} / {{CI}}
+- Language: TypeScript 7, Node 22.18+ (type stripping, no build step for packages)
+- Framework: Next.js 16 App Router, React 19
+- Package manager: pnpm 12 workspaces + turbo (never mix lockfiles)
+- Agent: Deep Agents on LangGraph, model Beam 1.0 through an OpenAI-compatible endpoint (HF router by default)
+- Styling / UI: Tailwind 4, shadcn (radix), tokens from the Figma file "Beacon - UX & Design System"
+- Testing: node:test (rules, brain), Playwright (web)
+- Hosting: Hugging Face Space (Docker); evals and rules snapshot as Hub datasets
 
 ## Commands
 
-<!-- Once a manifest exists (package.json, pyproject, Makefile), prefer the auto-injected command list over this table. -->
 | Task | Command |
 | --- | --- |
-| Install | `{{INSTALL_CMD}}` |
-| Dev server | `{{DEV_CMD}}` |
-| Build | `{{BUILD_CMD}}` |
-| Lint | `{{LINT_CMD}}` |
-| Format | `{{FORMAT_CMD}}` |
-| Type-check | `{{TYPECHECK_CMD}}` |
-| Test (all) | `{{TEST_CMD}}` |
-| Test (one file) | `{{TEST_FILE_CMD}} <path>` |
-| E2E | `{{E2E_CMD}}` |
-| DB migrate | `{{DB_MIGRATE_CMD}}` |
+| Install | `pnpm install` |
+| Dev server | `pnpm dev` (http://localhost:7860) |
+| Build | `pnpm build` |
+| Lint / format | `pnpm lint` / `pnpm format` (Biome) |
+| Type-check | `pnpm typecheck` |
+| Test | `pnpm test` |
+| Rules snapshot | `pnpm snapshot` (reads GOV.UK, writes `packages/rules/snapshot/`) |
+| Evals | `pnpm eval` (needs `HF_TOKEN`) |
 
-Before calling a task done, run lint → type-check → tests for the areas you touched.
+Before calling a task done, run lint, type-check and tests for the areas you touched.
 
 ## Architecture
 
-- Layout: `{{SRC_DIR}}/` ({{WHAT}}), `{{TESTS_DIR}}/` ({{WHAT}}), `docs/` (architecture, ADRs, plans, knowledge)
-- Entry points: {{ENTRY_POINTS}}
-- Data flow: {{REQUEST_FLOW_SUMMARY}}
-- External services: {{EXTERNAL_SERVICES}}
-- Copy context: `VOICE.md` (voice, tone, vocabulary, claims policy). All user-facing words follow it
-- Deep dives live in `docs/knowledge/`. See its README index; load only what the task needs.
+- Layout: `apps/web` (Next app, `/api/check` stream, `/api/mcp`), `packages/rules` (questions, schemes, age lines, pre-check, quote checker, GOV.UK reader), `packages/brain` (agent on Beam, evals).
+- Data flow: answers (bands only), `precheck` settles hard rules in code, agent reads open schemes' GOV.UK pages, `record_finding` tool, `settleFinding` verifies the quote, stream to UI.
+- A Likely needs a verified quote; code downgrades anything else to Worth checking.
+- Anonymous checks store nothing on the server; answers live in the browser (state + link fragment).
+- External services: GOV.UK Content API, postcodes.io, Beam endpoint, LangSmith (optional, inputs never logged).
+- Stream contract: `packages/rules/src/events.ts` (`CheckEvent`), newline-delimited JSON.
+- Copy follows `VOICE.md`. Design source: Figma file `BoqfTuFaLElMzRR85xViC6` and vault notes `Hackathons/Build with Beam 2026`.
 
 ## Conventions
 
 - Read existing code before writing; follow nearby patterns, naming, and structure.
-- Reuse first: search for existing utilities, components, and types before writing new ones.
-- Prefer libraries already in the project; ask before adding a dependency.
+- Every rule number, date and age edge lives in `packages/rules/src/config.ts` with its source link.
+- Never ask or store name, full address, NI number, bank details, exact amounts or full date of birth.
+- Questions show only when the answer can still change a result (`skipReason` in `questions.ts`).
+- User-facing copy: plain English, "you" voice, regular hyphens, no "eligible", no "AI", warm and positive.
+- Packages are plain `.ts` with erasable syntax only (no enums, parameter properties or namespaces).
 - Verify library APIs against current docs, not memory.
-- Single source of truth for constants, types, and config. No magic strings.
-- Small, focused modules placed where project conventions say.
-- Comment *why*, not *what*; match the surrounding comment density.
 
 ## Workflow
 
-- Non-trivial work: plan first, then implement in small verifiable steps.
-- One branch per change: `{{BRANCH_PATTERN}}`. Conventional Commits.
-- Never commit secrets, `.env*`, or build output. Never force-push shared branches.
-- Get an independent review before merging.
+- One branch per change: `feat|fix|chore|docs/<slug>`. Conventional Commits. No AI credit lines in commits.
+- Never commit secrets, `.env*`, or build output.
 
 ## Do not
 
-- Edit generated files: {{GENERATED_PATHS}}, `GEMINI.md`, `context-pack*.md`, `.github/copilot-instructions.md`, `.cursor/rules/`.
-- Touch {{PROTECTED_PATHS}} without asking.
+- Edit generated files: `GEMINI.md`, `context-pack*.md`, `.github/copilot-instructions.md`, `.cursor/rules/`.
+- Let the model's verdict reach the person without `settleFinding`.
 - Disable lint rules, type checks, or tests to make something pass.
-- Run destructive commands (DB drops, `rm -rf`, `git reset --hard`, force push) without explicit confirmation.
 
 ## Environment
 
-- Required env var names are in `{{ENV_EXAMPLE_FILE}}`. Never read or print secret values.
-- Local services: {{LOCAL_SERVICES}}
+- Required env var names are in `apps/web/.env.example`. Never read or print secret values.
 
 ## Knowledge upkeep
 
 - Record new lessons in `.claude/inbox.md` (one line each); never append to this file directly.
-- This file has a hard budget. When it's full, demote detail to `docs/knowledge/` and leave a one-line pointer.
