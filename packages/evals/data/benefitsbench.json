@@ -32,36 +32,48 @@
         "home": "council-or-housing-association",
         "pensionIncome": "under-line",
         "savings": "under-10000",
-        "applies": ["health-condition"]
+        "applies": [
+          "health-condition"
+        ]
       },
       "expected": {
         "pension-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Over State Pension age with income under the Guarantee Credit line."
         },
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"],
+          "alsoAccept": [
+            "unlikely-right-now"
+          ],
           "why": "No qualifying benefit on 23 Aug 2026 yet; opens if Pension Credit is backdated."
         },
         "attendance-allowance": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "Needs help with daily life; the 6-month need is not asked yet."
         },
         "housing-benefit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -97,7 +109,9 @@
         "council": "Brent",
         "birthYear": 1948,
         "household": "alone",
-        "benefits": ["pension-credit"],
+        "benefits": [
+          "pension-credit"
+        ],
         "home": "council-or-housing-association"
       },
       "expected": {
@@ -108,13 +122,17 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Guarantee Credit passports to full pension-age Council Tax Reduction."
         },
         "warm-home-discount": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -123,7 +141,9 @@
         "housing-benefit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Guarantee Credit means maximum eligible rent, savings ignored."
         },
         "carers-allowance": {
@@ -145,7 +165,9 @@
         "free-tv-licence": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "75 or over and gets Pension Credit."
         }
       }
@@ -161,7 +183,10 @@
         "council": "Brent",
         "birthYear": 1955,
         "household": "alone",
-        "benefits": ["housing-benefit", "council-tax-reduction"],
+        "benefits": [
+          "housing-benefit",
+          "council-tax-reduction"
+        ],
         "home": "council-or-housing-association",
         "pensionIncome": "under-line",
         "savings": "under-10000",
@@ -171,7 +196,9 @@
         "pension-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Classic missed case: on Housing Benefit, income under the line, never claimed Pension Credit."
         },
         "council-tax-reduction": {
@@ -181,7 +208,9 @@
         "warm-home-discount": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Housing Benefit on the qualifying date counts in England and Wales."
         },
         "attendance-allowance": {
@@ -236,13 +265,17 @@
         "pension-credit": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "No savings limit, but income is well over the line."
         },
         "council-tax-reduction": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Pension-age scheme has a £16,000 savings cap."
         },
         "warm-home-discount": {
@@ -272,13 +305,17 @@
         "winter-fuel-payment": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Paid; HMRC takes it back only if own income is over £35,000."
         },
         "free-tv-licence": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "75 or over but no Pension Credit."
         }
       }
@@ -310,12 +347,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -324,8 +365,7 @@
         "housing-benefit": {
           "verdict": "unlikely-right-now",
           "settledBy": "precheck",
-          "why": "Mixed-age couples cannot make a new Housing Benefit claim; rent help comes through Universal Credit.",
-          "knownRulesGap": "precheck leaves Housing Benefit open for a mixed-age couple when the older partner is the one asking."
+          "why": "Mixed-age couples cannot make a new Housing Benefit claim; rent help comes through Universal Credit."
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -334,7 +374,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Mixed-age couples claim Universal Credit."
         },
         "healthy-start": {
@@ -378,12 +420,16 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -400,7 +446,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -428,7 +476,9 @@
         "birthYear": 1990,
         "household": "partner-children",
         "childUnder4": true,
-        "benefits": ["child-benefit"],
+        "benefits": [
+          "child-benefit"
+        ],
         "home": "private-rent",
         "work": "employed",
         "earnings": "409-884",
@@ -443,12 +493,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -465,13 +519,17 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Working does not rule out Universal Credit."
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Needs Universal Credit with family take-home earnings of £408 a month or less."
         },
         "winter-fuel-payment": {
@@ -496,7 +554,10 @@
         "birthYear": 1995,
         "household": "children",
         "childUnder4": true,
-        "benefits": ["universal-credit", "child-benefit"],
+        "benefits": [
+          "universal-credit",
+          "child-benefit"
+        ],
         "home": "council-or-housing-association",
         "applies": []
       },
@@ -508,12 +569,16 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Universal Credit on the qualifying date, bill name not asked yet."
         },
         "attendance-allowance": {
@@ -535,7 +600,9 @@
         "healthy-start": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "On Universal Credit with a child under 4; the £408 earnings line is not asked yet."
         },
         "winter-fuel-payment": {
@@ -575,12 +642,16 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -597,12 +668,16 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"],
+          "alsoAccept": [
+            "unlikely-right-now"
+          ],
           "why": "Pregnant, but Healthy Start needs Universal Credit (or Pension Credit) first."
         },
         "winter-fuel-payment": {
@@ -631,7 +706,9 @@
         "work": "no",
         "earnings": "none",
         "savings": "under-6000",
-        "applies": ["cares-35-hours"],
+        "applies": [
+          "cares-35-hours"
+        ],
         "caredForGetsDisabilityBenefit": "yes"
       },
       "expected": {
@@ -642,12 +719,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -660,12 +741,16 @@
         "carers-allowance": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -697,7 +782,9 @@
         "work": "no",
         "earnings": "none",
         "savings": "under-6000",
-        "applies": ["cares-35-hours"],
+        "applies": [
+          "cares-35-hours"
+        ],
         "caredForGetsDisabilityBenefit": "no"
       },
       "expected": {
@@ -708,12 +795,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -730,7 +821,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -762,7 +855,9 @@
         "work": "employed",
         "earnings": "885-1083",
         "savings": "under-6000",
-        "applies": ["cares-35-hours"],
+        "applies": [
+          "cares-35-hours"
+        ],
         "caredForGetsDisabilityBenefit": "yes"
       },
       "expected": {
@@ -773,12 +868,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -790,14 +889,15 @@
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
-          "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
-          "why": "Earnings over £204 a week (about £884 a month) after tax and expenses means no Carer's Allowance."
+          "settledBy": "precheck",
+          "why": "Carer's Allowance has an earnings limit of £204 a week after tax and expenses."
         },
         "universal-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -829,7 +929,9 @@
         "work": "no",
         "earnings": "none",
         "savings": "under-6000",
-        "applies": ["cares-under-35-hours"]
+        "applies": [
+          "cares-under-35-hours"
+        ]
       },
       "expected": {
         "pension-credit": {
@@ -839,12 +941,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -861,7 +967,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -903,13 +1011,17 @@
         "council-tax-reduction": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Brent working-age scheme caps savings at £6,000."
         },
         "warm-home-discount": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -968,13 +1080,17 @@
         "council-tax-reduction": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Brent working-age scheme caps savings at £6,000."
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -991,7 +1107,9 @@
         "universal-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "Savings over £6,000 reduce Universal Credit; under £16,000 it can still be paid."
         },
         "healthy-start": {
@@ -1029,18 +1147,25 @@
         "pension-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"],
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ],
           "why": "No upper savings limit; savings over £10,000 count as tariff income (£1 a week per £500)."
         },
         "council-tax-reduction": {
           "verdict": "unlikely-right-now",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1084,7 +1209,9 @@
         "council": "Brent",
         "birthYear": 1957,
         "household": "alone",
-        "benefits": ["pip-or-dla"],
+        "benefits": [
+          "pip-or-dla"
+        ],
         "home": "own-outright",
         "pensionIncome": "around-line",
         "savings": "under-10000",
@@ -1094,18 +1221,24 @@
         "pension-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "Disability benefits can raise the Pension Credit line."
         },
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1153,28 +1286,39 @@
         "home": "own-outright",
         "pensionIncome": "around-line",
         "savings": "10000-15999",
-        "applies": ["health-condition"]
+        "applies": [
+          "health-condition"
+        ]
       },
       "expected": {
         "pension-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"]
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "No means test; the 6-month need is not asked yet."
         },
         "housing-benefit": {
@@ -1200,7 +1344,9 @@
         "free-tv-licence": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"],
+          "alsoAccept": [
+            "unlikely-right-now"
+          ],
           "why": "Over 75; free only with Pension Credit."
         }
       }
@@ -1220,23 +1366,31 @@
         "home": "private-rent",
         "pensionIncome": "under-line",
         "savings": "under-10000",
-        "applies": ["health-condition"]
+        "applies": [
+          "health-condition"
+        ]
       },
       "expected": {
         "pension-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1246,7 +1400,9 @@
         "housing-benefit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -1268,7 +1424,9 @@
         "free-tv-licence": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         }
       }
     },
@@ -1284,7 +1442,9 @@
         "birthYear": 1992,
         "household": "children",
         "childUnder4": true,
-        "benefits": ["universal-credit"],
+        "benefits": [
+          "universal-credit"
+        ],
         "home": "council-or-housing-association",
         "applies": []
       },
@@ -1296,12 +1456,16 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"],
+          "alsoAccept": [
+            "likely"
+          ],
           "why": "In Scotland it may need an application."
         },
         "attendance-allowance": {
@@ -1350,7 +1514,9 @@
         "home": "own-outright",
         "pensionIncome": "under-line",
         "savings": "under-10000",
-        "applies": ["health-condition"]
+        "applies": [
+          "health-condition"
+        ]
       },
       "expected": {
         "pension-credit": {
@@ -1370,7 +1536,9 @@
         "attendance-allowance": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "housing-benefit": {
           "verdict": "unlikely-right-now",
@@ -1395,7 +1563,9 @@
         "free-tv-licence": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         }
       }
     },
@@ -1410,7 +1580,9 @@
         "council": "Cardiff",
         "birthYear": 1987,
         "household": "alone",
-        "benefits": ["universal-credit"],
+        "benefits": [
+          "universal-credit"
+        ],
         "home": "private-rent",
         "applies": []
       },
@@ -1422,12 +1594,16 @@
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1482,17 +1658,23 @@
         "pension-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1553,12 +1735,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1575,7 +1761,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -1614,17 +1802,23 @@
         "pension-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "council-tax-reduction": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1633,7 +1827,9 @@
         "housing-benefit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -1684,12 +1880,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1706,7 +1906,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"]
+          "alsoAccept": [
+            "worth-checking"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -1733,7 +1935,10 @@
         "council": "Brent",
         "birthYear": 1940,
         "household": "alone",
-        "benefits": ["attendance-allowance", "pension-credit"],
+        "benefits": [
+          "attendance-allowance",
+          "pension-credit"
+        ],
         "home": "care-home",
         "applies": []
       },
@@ -1750,7 +1955,9 @@
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "already-get",
@@ -1775,13 +1982,18 @@
         "winter-fuel-payment": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"],
+          "alsoAccept": [
+            "unlikely-right-now"
+          ],
           "why": "Not paid in a council-funded care home while on Pension Credit; funding is not asked."
         },
         "free-tv-licence": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"]
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ]
         }
       }
     },
@@ -1805,18 +2017,24 @@
         "pension-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"],
+          "alsoAccept": [
+            "unlikely-right-now"
+          ],
           "why": "Age not settled, so every age-based answer stays Worth checking."
         },
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1825,7 +2043,9 @@
         "housing-benefit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -1834,7 +2054,9 @@
         "universal-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "healthy-start": {
           "verdict": "unlikely-right-now",
@@ -1843,12 +2065,16 @@
         "winter-fuel-payment": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "free-tv-licence": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         }
       }
     },
@@ -1874,17 +2100,25 @@
         "pension-credit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"]
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ]
         },
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"]
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1893,7 +2127,10 @@
         "housing-benefit": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely", "unlikely-right-now"]
+          "alsoAccept": [
+            "likely",
+            "unlikely-right-now"
+          ]
         },
         "carers-allowance": {
           "verdict": "unlikely-right-now",
@@ -1943,12 +2180,16 @@
         "council-tax-reduction": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["likely"]
+          "alsoAccept": [
+            "likely"
+          ]
         },
         "warm-home-discount": {
           "verdict": "worth-checking",
           "settledBy": "model",
-          "alsoAccept": ["unlikely-right-now"]
+          "alsoAccept": [
+            "unlikely-right-now"
+          ]
         },
         "attendance-allowance": {
           "verdict": "unlikely-right-now",
@@ -1965,7 +2206,9 @@
         "universal-credit": {
           "verdict": "likely",
           "settledBy": "model",
-          "alsoAccept": ["worth-checking"],
+          "alsoAccept": [
+            "worth-checking"
+          ],
           "why": "Self-employed people can claim; irregular income is assessed monthly."
         },
         "healthy-start": {

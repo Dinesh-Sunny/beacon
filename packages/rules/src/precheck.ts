@@ -51,6 +51,8 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return { scheme: id, status: 'ruled-out', reason: 'Housing Benefit is help with rent.' };
         if (has(s, 'universal-credit')) return { scheme: id, status: 'ruled-out', reason: 'Universal Credit includes help with rent.' };
         if (f.overStatePensionAge === 'no') return { scheme: id, status: 'ruled-out', reason: 'For people under State Pension age, help with rent comes through Universal Credit.' };
+        if (livesWithPartner(s) && f.partnerOverStatePensionAge === 'no')
+          return { scheme: id, status: 'ruled-out', reason: 'When one partner is under State Pension age, help with rent comes through Universal Credit.' };
         if (s.savings === '16000-plus' && !has(s, 'pension-credit')) return { scheme: id, status: 'ruled-out', reason: 'Housing Benefit has a £16,000 savings limit.' };
         return { scheme: id, status: 'open', reason: 'Depends on your rent and income.', oneMoreQuestion: 'landlord-close-relative' };
       case 'attendance-allowance':
@@ -61,6 +63,8 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
         return { scheme: id, status: 'open', reason: 'Depends on the help you need and how long you have needed it.', oneMoreQuestion: 'care-needed-6-months' };
       case 'carers-allowance':
         if (!s.applies?.includes('cares-35-hours')) return { scheme: id, status: 'ruled-out', reason: "Carer's Allowance is for 35 hours of caring a week or more." };
+        if (s.earnings === '885-1083' || s.earnings === 'over-1083')
+          return { scheme: id, status: 'ruled-out', reason: "Carer's Allowance has an earnings limit of £204 a week after tax and expenses." };
         if (s.caredForGetsDisabilityBenefit === 'no')
           return { scheme: id, status: 'ruled-out', reason: "The person you look after needs to get Attendance Allowance, PIP daily living or DLA care." };
         return { scheme: id, status: 'open', reason: 'Depends on the person you care for and your earnings.', oneMoreQuestion: 'cared-for' };
