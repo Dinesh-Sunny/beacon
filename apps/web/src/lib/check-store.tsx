@@ -1,6 +1,6 @@
 "use client";
 
-import type { CheckEvent, Finding } from "@beacon/rules";
+import type { CheckEvent, Finding, SchemeId } from "@beacon/rules";
 import { createContext, type ReactNode, useContext, useState } from "react";
 import { type Draft, emptyDraft } from "./answers";
 
@@ -11,6 +11,8 @@ export interface Results {
   usage: Usage[];
   model?: string;
   snapshot?: boolean;
+  /** Kinds of support Beacon planned to read but couldn't, shown as "still need checking" */
+  unread?: SchemeId[];
 }
 
 interface Store {

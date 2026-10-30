@@ -198,17 +198,20 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             </dl>
           ) : (
             <p className="small">
-              Open this from your own check in this browser tab to get your
-              answers ready.
+              Your answers aren&apos;t in this browser tab.{" "}
+              <Link href="/check">Do a check</Link> to get your call answers
+              ready.
             </p>
           )}
-          <button
-            type="button"
-            className="btn sec self-start no-print"
-            onClick={() => window.print()}
-          >
-            <Icon name="print" /> Print my call answers
-          </button>
+          {packRows.length > 0 && (
+            <button
+              type="button"
+              className="btn sec self-start no-print"
+              onClick={() => window.print()}
+            >
+              <Icon name="print" /> Print my call answers
+            </button>
+          )}
         </section>
       )}
 
@@ -228,12 +231,12 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           <div className="grid gap-6 sm:grid-cols-2">
             <div className="stack gap-2">
               <h3 className="t-title">Beacon did</h3>
-              <ul className="m-0 stack gap-1 pl-5">
+              <ul className="m-0 stack list-disc gap-1 pl-5">
                 <li>Read the official rules on GOV.UK</li>
                 {finding.quoteVerified && (
                   <li>Checked the rule line word for word</li>
                 )}
-                {scheme.claim.route === "phone" && (
+                {scheme.claim.route === "phone" && packRows.length > 0 && (
                   <li>Got your answers ready for the call</li>
                 )}
               </ul>
@@ -245,7 +248,7 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
               >
                 <Icon name="hand" /> Only you can
               </h3>
-              <ul className="m-0 stack gap-1 pl-5">
+              <ul className="m-0 stack list-disc gap-1 pl-5">
                 <li>
                   {scheme.claim.route === "phone"
                     ? "Make the call"

@@ -3,7 +3,7 @@ import Link from "next/link";
 export function SiteFooter() {
   return (
     <footer className="no-print border-t border-hairline bg-surface">
-      <div className="wrap flex flex-wrap items-center gap-x-6 gap-y-2 !py-6">
+      <div className="wrap flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-center !py-6">
         <p className="small muted">
           Beacon gives guidance, not a decision. Always confirm with GOV.UK or a
           free adviser.

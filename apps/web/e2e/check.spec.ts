@@ -120,7 +120,7 @@ test("the sample person goes through the adaptive check to results", async ({
 
   // Work is skipped over State Pension age.
   await heading(page, "How much money comes in each month?");
-  await page.getByLabel(/^Under about £1,031/).check();
+  await page.getByLabel(/^Less than £1,031/).check();
   await cont(page);
 
   await heading(page, "How much is in savings?");

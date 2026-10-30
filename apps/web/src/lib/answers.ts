@@ -20,6 +20,8 @@ export interface Draft {
   areaLabel?: string;
   elseChips: string[];
   elseText: string;
+  /** The sample person from "Try an example", so the UI never presents it as the person's own answers */
+  example?: boolean;
 }
 
 export const emptyDraft = (): Draft => ({
@@ -35,6 +37,7 @@ const DraftSchema = z.object({
   areaLabel: z.string().max(120).optional(),
   elseChips: z.array(z.string().max(60)).max(10),
   elseText: z.string().max(1000),
+  example: z.boolean().optional(),
 });
 
 function toBase64Url(text: string): string {

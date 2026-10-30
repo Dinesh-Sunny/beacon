@@ -96,6 +96,8 @@
     --status-warning-soft: #324653;
     --status-error: #ff9b98;
     --status-error-bg: #3b2526;
+    --bg-inverse: #ffffff;
+    --text-on-inverse: #202020;
     color-scheme: dark;
   }
 }
@@ -123,6 +125,8 @@
   --status-warning-soft: #324653;
   --status-error: #ff9b98;
   --status-error-bg: #3b2526;
+  --bg-inverse: #ffffff;
+  --text-on-inverse: #202020;
   color-scheme: dark;
 }
 
@@ -317,10 +321,6 @@
     text-decoration: none;
     white-space: nowrap;
     border: 2px solid var(--border-strong);
-  }
-  :root[data-theme="dark"] .leave {
-    background: var(--action-primary);
-    color: var(--action-on-primary);
   }
   .skip {
     position: absolute;
@@ -529,13 +529,16 @@
     color: var(--text-link);
     cursor: pointer;
   }
-  .why summary::-webkit-details-marker {
+  .why summary::-webkit-details-marker,
+  .rail-sum summary::-webkit-details-marker {
     display: none;
   }
-  .why .chev {
+  .why .chev,
+  .rail-sum .chev {
     transition: transform 0.2s;
   }
-  .why[open] .chev {
+  .why[open] .chev,
+  .rail-sum[open] .chev {
     transform: rotate(180deg);
   }
 
@@ -608,10 +611,6 @@
     background: var(--bg-inverse);
     color: var(--text-on-inverse);
   }
-  :root[data-theme="dark"] .dot.done {
-    background: var(--action-primary);
-    color: var(--action-on-primary);
-  }
   .dot.cur {
     border: 2px solid var(--border-strong);
     background: var(--bg-surface);
@@ -679,6 +678,10 @@
     .rail {
       position: static;
       order: -1;
+    }
+    /* The review page's side cards come after the main action on small screens */
+    .rail.rail-after {
+      order: 1;
     }
   }
 
@@ -748,7 +751,7 @@
   .glow::before {
     content: "";
     position: absolute;
-    inset: -40px;
+    inset: -40px 0;
     z-index: -1;
     border-radius: 50%;
     background: radial-gradient(
@@ -901,5 +904,33 @@
     border-style: dashed;
     border-color: var(--border-control);
     animation: none;
+  }
+}
+
+@layer components {
+  main {
+    overflow-x: clip;
+  }
+  .verdict {
+    align-self: flex-start;
+  }
+  details.card:not([open]) {
+    gap: 0;
+  }
+  a.small {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: underline;
+  }
+  .row-status:last-child {
+    border-bottom: 0;
+  }
+  .acts .btn.txt {
+    padding-inline: 0;
+  }
+  .hright a[aria-current="page"] {
+    text-decoration: none;
+    color: var(--text-primary);
   }
 }

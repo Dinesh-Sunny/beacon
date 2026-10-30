@@ -166,11 +166,15 @@ export const STEPS: Step[] = [
     id: "children",
     section: "Your home and family",
     kind: "checkbox",
-    question: () => "Do any of these apply?",
+    question: () => "Do any of these apply to your family?",
     options: () => [
       { value: "child-under-4", label: "A child under 4" },
       { value: "expecting", label: "Expecting a baby (10 weeks or more)" },
-      { value: "none", label: "None of these", exclusive: true },
+      {
+        value: "none",
+        label: "No - our children are all 4 or older",
+        exclusive: true,
+      },
     ],
     private: true,
     whyWeAsk: "Healthy Start help is for pregnancy and young children.",
@@ -268,8 +272,8 @@ export const STEPS: Step[] = [
           ),
     hint: (s, f) =>
       f.overStatePensionAge === "no"
-        ? "After tax. Count only earnings, not benefits."
-        : `Count your State Pension, any other pensions and earnings${livesWithPartner(s) ? ", for both of you" : ""}.`,
+        ? `After tax. Count only earnings, not benefits.${livesWithPartner(s) ? " Add both of you together." : ""} A rough guess is fine.`
+        : `Count your State Pension, any other pensions and earnings${livesWithPartner(s) ? ", for both of you" : ""}. A rough guess is fine.`,
     options: (s, f) =>
       f.overStatePensionAge === "no"
         ? [
@@ -286,15 +290,15 @@ export const STEPS: Step[] = [
         : [
             {
               value: "under-line",
-              label: `Under about £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Less than £${pcLineMonthly(s).toLocaleString("en-GB")}`,
             },
             {
               value: "around-line",
-              label: `Around £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Close to £${pcLineMonthly(s).toLocaleString("en-GB")}, or I'm not sure`,
             },
             {
               value: "well-over-line",
-              label: `Well over £${pcLineMonthly(s).toLocaleString("en-GB")}`,
+              label: `Clearly more than £${pcLineMonthly(s).toLocaleString("en-GB")}`,
             },
             { value: "rather-not-say", label: "I'd rather not say" },
           ],

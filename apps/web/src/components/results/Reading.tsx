@@ -83,7 +83,7 @@ export function Reading() {
           };
           setProblem(
             body.message ??
-              "That took longer than usual. Your answers are safe.",
+              "We couldn't connect just now. Your answers are safe in this browser.",
           );
           return;
         }
@@ -116,7 +116,9 @@ export function Reading() {
         }
       } catch {
         if (!abort.signal.aborted)
-          setProblem("That took longer than usual. Your answers are safe.");
+          setProblem(
+            "We couldn't connect just now. Your answers are safe in this browser.",
+          );
       }
     })();
     return () => abort.abort();
@@ -190,7 +192,7 @@ export function Reading() {
 
       {problem && (
         <div className="err-summary" role="alert">
-          <h2 className="t-title">That took longer than usual</h2>
+          <h2 className="t-title">We couldn&apos;t read the rules just now</h2>
           <p>{problem}</p>
           <div className="acts">
             <button
@@ -210,6 +212,9 @@ export function Reading() {
                     usage: [],
                     model: "",
                     snapshot: false,
+                    unread: plan.filter(
+                      (s) => !findings.some((f) => f.scheme === s),
+                    ),
                   });
                   router.push("/results");
                 }}
@@ -232,7 +237,11 @@ export function Reading() {
           </h2>
           <ul className="m-0 list-none p-0" data-testid="reading-plan">
             {plan.map((id) => {
-              const st = rows[id] ?? "waiting";
+              const raw = rows[id] ?? "waiting";
+              const st: RowStatus =
+                problem && (raw === "waiting" || raw === "reading")
+                  ? "failed"
+                  : raw;
               const scheme = schemeById(id);
               return (
                 <li key={id} className="row-status">

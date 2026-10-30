@@ -1,6 +1,6 @@
 "use client";
 
-import { type Finding, rankFindings } from "@beacon/rules";
+import { type Finding, rankFindings, schemeById } from "@beacon/rules";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { SITE } from "@/lib/site";
@@ -56,9 +56,11 @@ export function ResultsView() {
   const main = ranked.filter((f) => f.verdict !== "unlikely-right-now");
   const unlikely = ranked.filter((f) => f.verdict === "unlikely-right-now");
   const topLikely = ranked.find((f) => f.verdict === "likely")?.scheme;
-  const nothing = !ranked.some(
+  const unread = results.unread ?? [];
+  const noneClear = !ranked.some(
     (f) => f.verdict === "likely" || f.verdict === "worth-checking",
   );
+  const nothing = noneClear && unread.length === 0;
 
   const copy = async () => {
     try {
@@ -82,12 +84,18 @@ export function ResultsView() {
         <div className={`stack gap-4 ${topLikely ? "glow" : ""}`}>
           <p className="cap">What may be yours</p>
           <h1 ref={h1} tabIndex={-1} className="d2 outline-none">
-            {nothing ? "Nothing clear today" : headline(ranked)}
+            {nothing
+              ? "Nothing clear today"
+              : noneClear
+                ? "We couldn't finish reading today"
+                : headline(ranked)}
           </h1>
           <p className="lead">
             {nothing
               ? "That can change when life does. A free adviser can look at things we can't."
-              : "Each card shows the rule it comes from. Start with the first one."}
+              : noneClear
+                ? "Here is what we could settle. The rest still need checking."
+                : "Each card shows the rule it comes from. Start with the first one."}
           </p>
           <VerdictBar
             verdicts={ranked.map((f) => f.verdict)}
@@ -99,6 +107,34 @@ export function ResultsView() {
             </a>
           )}
         </div>
+
+        {unread.length > 0 && (
+          <section className="card stack gap-3" aria-labelledby="unread-title">
+            <h2 id="unread-title" className="t-title">
+              These still need checking ({unread.length})
+            </h2>
+            <p className="small muted">
+              We couldn&apos;t read these today. Try again later, or open the
+              official page.
+            </p>
+            <ul className="m-0 stack gap-2 pl-5">
+              {unread.map((id) => {
+                const s = schemeById(id);
+                return (
+                  <li key={id}>
+                    <a
+                      href={`https://www.gov.uk${s.govukPaths[0] ?? ""}`}
+                      target="_blank"
+                      rel="noreferrer"
+                    >
+                      {s.name} on GOV.UK
+                    </a>
+                  </li>
+                );
+              })}
+            </ul>
+          </section>
+        )}
 
         <div className="stack gap-5">
           {main.map((f) => (

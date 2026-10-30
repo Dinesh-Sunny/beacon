@@ -36,7 +36,7 @@ export default function Landing() {
         </h1>
         <p className="lead max-w-[560px]">
           Answer a few simple questions. Beacon reads the official rules and
-          shows what you may be owed - in about a minute.
+          shows what you may be owed.
         </p>
         <StartButtons />
         <p className="small muted flex max-w-[560px] gap-2">
@@ -47,8 +47,8 @@ export default function Landing() {
           </span>
         </p>
         <p className="small muted max-w-[560px]">
-          Beacon never asks for your name, bank details, National Insurance
-          number or any money.
+          Beacon never asks for your name, bank details or National Insurance
+          number, and never asks you to pay.
         </p>
       </section>
 
