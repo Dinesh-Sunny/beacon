@@ -252,3 +252,32 @@ test("Going home keeps a started check", async ({ page }) => {
     page.getByText(/Your answers - 1 of/).filter({ visible: true }),
   ).toBeVisible();
 });
+
+test("Explain my letter shows the plain meaning", async ({ page }) => {
+  let sent = "";
+  await page.route("**/api/letter", async (route) => {
+    sent = (route.request().postDataJSON() as { letter: string }).letter;
+    await route.fulfill({
+      json: {
+        text: "What it says\nYour Pension Credit claim was received.",
+        removed: 1,
+      },
+    });
+  });
+  await page.goto("/letter");
+  await page.getByRole("button", { name: "Explain this letter" }).click();
+  await expect(page.getByText("Paste a bit more")).toBeVisible();
+  await page
+    .getByLabel("The words from your letter")
+    .fill(
+      "Dear customer, we have received your claim for Pension Credit. We will write to you within 4 weeks.",
+    );
+  await page.getByRole("button", { name: "Explain this letter" }).click();
+  await expect(
+    page.getByRole("heading", { name: "What your letter means" }),
+  ).toBeFocused();
+  await expect(
+    page.getByText("Your Pension Credit claim was received."),
+  ).toBeVisible();
+  expect(sent).toContain("Pension Credit");
+});

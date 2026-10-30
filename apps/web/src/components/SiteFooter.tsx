@@ -11,6 +11,9 @@ export function SiteFooter() {
         <Link className="small" href="/about">
           How Beacon works and your privacy
         </Link>
+        <Link className="small" href="/letter">
+          Explain my letter
+        </Link>
         <Link className="small" href="/transparency">
           How Beacon is checked
         </Link>

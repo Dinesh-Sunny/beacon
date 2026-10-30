@@ -20,6 +20,12 @@ export {
   explainFinding,
 } from "./explain.ts";
 export {
+  explainLetter,
+  type LetterExplanation,
+  type LetterOptions,
+  redactLetter,
+} from "./letter.ts";
+export {
   BeamUnavailableError,
   createBeamModel,
   isEffortRejected,

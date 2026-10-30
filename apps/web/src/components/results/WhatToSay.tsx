@@ -4,6 +4,7 @@ import type { Finding } from "@beacon/rules";
 import { useState } from "react";
 import { Icon } from "../Icon";
 import { Listen } from "./Listen";
+import { SectionedText } from "./SectionedText";
 
 type State =
   | { kind: "idle" }
@@ -76,7 +77,7 @@ export function WhatToSay({ finding }: { finding: Finding }) {
         Written for you by the Beam model from the official claim details. Check
         it before you use it.
       </p>
-      <div className="whitespace-pre-line">{state.text}</div>
+      <SectionedText text={state.text} />
       <div className="acts">
         <button
           type="button"

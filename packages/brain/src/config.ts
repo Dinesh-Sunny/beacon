@@ -80,6 +80,8 @@ export const LIMITS = {
   retries: 1,
   /** LangGraph steps for one reader (each model call plus each tool call is a step) */
   readerRecursionLimit: 20,
+  /** Longest pasted letter Beacon reads, in characters (a few pages) */
+  letterChars: 8_000,
 } as const;
 
 /** Where each scheme's page sits in a rule reader's filesystem. */

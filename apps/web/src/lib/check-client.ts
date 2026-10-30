@@ -4,4 +4,4 @@
 
 import "server-only";
 
-export { explainFinding, runCheck } from "@beacon/brain";
+export { explainFinding, explainLetter, runCheck } from "@beacon/brain";

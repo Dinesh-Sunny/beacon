@@ -1,4 +1,5 @@
 import { CARERS_ALLOWANCE } from "@beacon/rules";
+import Link from "next/link";
 import { Icon } from "@/components/Icon";
 import { StartButtons } from "@/components/StartButtons";
 import { BeaconMark, VerdictChip } from "@/components/Verdict";
@@ -41,6 +42,10 @@ export default function Landing() {
           shows what you may be owed.
         </p>
         <StartButtons />
+        <p className="small">
+          Got a letter about benefits?{" "}
+          <Link href="/letter">Explain my letter</Link>
+        </p>
         <p className="small muted flex max-w-[560px] gap-2">
           <Icon name="lock" size={18} className="mt-0.5 flex-none" />
           <span>
