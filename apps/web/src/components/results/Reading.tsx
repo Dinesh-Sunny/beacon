@@ -55,6 +55,8 @@ export function Reading() {
   const [finished, setFinished] = useState(false);
   const [problem, setProblem] = useState<string | null>(null);
   const [feed, setFeed] = useState<ReadEntry[]>([]);
+  const [tokens, setTokens] = useState<Partial<Record<SchemeId, number>>>({});
+  const [effort, setEffort] = useState<string>();
   const feedId = useRef(1);
   const say = (
     who: ReadEntry["who"],
@@ -62,7 +64,7 @@ export function Reading() {
     source?: ReadEntry["source"],
   ) =>
     setFeed((f) =>
-      [{ id: feedId.current++, who, text, source }, ...f].slice(0, 12),
+      [{ id: feedId.current++, who, text, source }, ...f].slice(0, 40),
     );
   const [attempt, setAttempt] = useState(0);
   const h1 = useRef<HTMLHeadingElement>(null);
@@ -78,6 +80,7 @@ export function Reading() {
     setRows({});
     setFindings([]);
     setFeed([]);
+    setTokens({});
     setFinished(false);
     setProblem(null);
     (async () => {
@@ -117,11 +120,11 @@ export function Reading() {
               url: e.url ?? `https://www.gov.uk${s.govukPaths[0] ?? ""}`,
             };
             if (e.status === "reading")
-              say("beam", `Opened the official ${s.name} page.`);
+              say("beam", `Fetching the official ${s.name} page.`);
             else if (e.status === "done")
               say(
                 "beam",
-                `Read the whole ${s.name} page. Judging it against your answers.`,
+                `Got the ${s.name} page. Beam is reading it against your answers.`,
                 page,
               );
             else
@@ -158,13 +161,26 @@ export function Reading() {
             setFindings(got);
           } else if (e.type === "usage") {
             usage.push(e);
+            const sc = e.scheme;
+            if (sc) {
+              setTokens((tk) => ({
+                ...tk,
+                [sc]: (tk[sc] ?? 0) + e.inputTokens + e.outputTokens,
+              }));
+              setEffort(e.effort);
+            }
             if (e.scheme)
               say(
                 "beam",
                 `${schemeById(e.scheme).name}: thought at ${e.effort} effort, ${(e.inputTokens + e.outputTokens).toLocaleString("en-GB")} tokens.`,
               );
-          } else if (e.type === "error") setProblem(e.message);
-          else if (e.type === "done") {
+          } else if (e.type === "error") {
+            setProblem(e.message);
+            say(
+              "beam",
+              "Reading stopped. Pages not read yet are marked on the board.",
+            );
+          } else if (e.type === "done") {
             got = rankFindings(e.findings.length ? e.findings : got);
             setFindings(got);
             setResults({
@@ -312,13 +328,18 @@ export function Reading() {
               ? Object.fromEntries(
                   Object.entries(rows).map(([k, v]) => [
                     k,
-                    v === "done" ? v : "failed",
+                    findings.some((f) => f.scheme === k) || v === "failed"
+                      ? v
+                      : "stopped",
                   ]),
                 )
               : rows
           }
           findings={findings}
           feed={feed}
+          tokens={tokens}
+          effort={effort}
+          live={!finished && !problem}
         />
       )}
       <p className="sr-only" role="status">

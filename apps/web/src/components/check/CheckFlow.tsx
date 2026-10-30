@@ -850,8 +850,9 @@ export function CheckFlow() {
     const declined = Object.values(draft.progress).includes("declined");
     return (
       <div className="wrap">
-        <div className="split">
-          <div className="stack gap-7 lg:col-start-2">
+        <div className="split with-canvas">
+          <div className="stack min-w-0 gap-7">
+            <AgentStrip draft={draft} current={current} />
             <button
               type="button"
               className="btn txt self-start !pl-0"
@@ -937,22 +938,7 @@ export function CheckFlow() {
               </button>
             </div>
           </div>
-          <aside
-            className="rail rail-after stack gap-4 lg:col-start-1 lg:row-start-1"
-            aria-label="What happens next"
-          >
-            <section className="card">
-              <h2 className="t-title">What happens next</h2>
-              <p className="small">
-                We read the official rules for you and show the line behind
-                every answer.
-              </p>
-            </section>
-            <p className="small muted flex gap-2 px-3">
-              <Icon name="lock" size={18} className="mt-0.5 flex-none" />
-              Private. Nothing is saved unless you choose to.
-            </p>
-          </aside>
+          <AgentCanvas draft={draft} questionsLeft={0} current={current} />
         </div>
       </div>
     );
@@ -972,7 +958,7 @@ export function CheckFlow() {
             onGo={(id) => go(id, { review: true })}
             onClear={clearAll}
           />
-          <AgentStrip draft={draft} />
+          <AgentStrip draft={draft} current={current} />
           <div className="stack gap-3">
             {(fromReview || current !== "area") && (
               <button
@@ -1119,7 +1105,19 @@ export function CheckFlow() {
             </>
           )}
         </div>
-        <AgentCanvas draft={draft} />
+        <AgentCanvas
+          draft={draft}
+          current={current}
+          questionsLeft={
+            rows.filter(
+              (r) =>
+                r.shown &&
+                r.key !== "review" &&
+                r.status !== "done" &&
+                r.status !== "declined",
+            ).length
+          }
+        />
       </div>
     </div>
   );

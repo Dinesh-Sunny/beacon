@@ -312,7 +312,7 @@ test("the agent canvas settles support as answers come in", async ({
   await page.getByRole("textbox").fill("1952");
   await cont(page);
   await expect(canvas.getByText(/Age agent\./).first()).toBeVisible();
-  const aside = canvas.getByRole("region", { name: /^Set aside/ });
+  const aside = canvas.getByRole("region", { name: /^Unlikely right now/ });
   await expect(
     aside.getByText("Free TV licence", { exact: true }),
   ).toBeVisible();

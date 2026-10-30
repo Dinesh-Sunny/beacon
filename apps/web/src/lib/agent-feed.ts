@@ -42,6 +42,16 @@ export interface Source {
   url: string;
 }
 
+export interface FeedGroup {
+  /** The answer that set this off, e.g. "Year of birth" */
+  title: string;
+  items: FeedItem[];
+  /** One sentence for screen readers and the phone strip */
+  summary: string;
+  /** Only the "nothing ruled out" line: dropped when the same question already showed activity */
+  filler: boolean;
+}
+
 export interface FeedItem {
   agent: AgentId;
   text: string;
@@ -66,6 +76,11 @@ export interface Snapshot {
   spa: Tri;
   skipped: Partial<Record<StepId, string>>;
   questionsLeft: number;
+  /** Steps answered or declined so far, in path order */
+  answered: Partial<Record<StepId, "done" | "declined">>;
+  situation: Situation;
+  /** How long the agents took on this answer, measured */
+  ms: number;
 }
 
 const POSTCODES: Source = {
@@ -111,9 +126,10 @@ function hopeful(s: Situation, partnerOver: Tri): Situation {
 
 export function snapshot(
   s: Situation,
-  answered: Partial<Record<StepId, unknown>>,
+  answered: Partial<Record<StepId, "done" | "declined">>,
   today: Date = new Date(),
 ): Snapshot {
+  const started = performance.now();
   const actual = new Map(precheck(s, today).map((p) => [p.scheme, p]));
   const status = {} as Record<SchemeId, PrecheckStatus>;
   const reason = {} as Record<SchemeId, string>;
@@ -160,6 +176,9 @@ export function snapshot(
           )),
     skipped,
     questionsLeft,
+    answered,
+    situation: s,
+    ms: performance.now() - started,
   };
 }
 
@@ -175,13 +194,71 @@ const list = (names: string[]): string =>
     ? (names[0] ?? "")
     : `${names.slice(0, -1).join(", ")} and ${names.at(-1)}`;
 
-/** What changed between two snapshots, told as agent activity. The first snapshot tells nothing. */
+const name = (id: SchemeId): string => schemeById(id).name;
+const stillIn = (n: Snapshot, ids: SchemeId[]): SchemeId[] =>
+  ids.filter((id) => n.status[id] === "open");
+
+/** Answers that keep support in play, said out loud so a "no change" answer still shows progress. */
+function keptLines(step: StepId, n: Snapshot): FeedItem[] {
+  const s = n.situation;
+  const out: FeedItem[] = [];
+  const say = (ids: SchemeId[], text: (names: string) => string) => {
+    const open = stillIn(n, ids);
+    if (open.length)
+      out.push({
+        agent: "rules",
+        scheme: open[0],
+        source: pageOf(open[0] as SchemeId),
+        tone: "good",
+        text: text(list(open.map(name))),
+      });
+  };
+  if (step === "money" && s.pensionIncome === "under-line")
+    say(["pension-credit"], (x) => `Income under the line, so ${x} stays in.`);
+  if (step === "money" && (s.earnings === "none" || s.earnings === "up-to-408"))
+    say(["healthy-start"], (x) => `Take-home pay is within the ${x} limit.`);
+  if (
+    step === "savings" &&
+    s.savings &&
+    s.savings !== "16000-plus" &&
+    s.savings !== "rather-not-say"
+  )
+    say(
+      ["pension-credit", "universal-credit", "housing-benefit"],
+      (x) => `Savings are within the limit for ${x}.`,
+    );
+  if (
+    step === "home" &&
+    (s.home === "private-rent" || s.home === "council-or-housing-association")
+  )
+    say(
+      ["housing-benefit", "council-tax-reduction"],
+      (x) => `You rent, so ${x} stay${x.includes(" and ") ? "" : "s"} in.`,
+    );
+  if (step === "applies" && s.applies?.includes("health-condition"))
+    say(
+      ["attendance-allowance"],
+      (x) => `Needing help with daily care keeps ${x} in.`,
+    );
+  if (step === "applies" && s.applies?.includes("cares-35-hours"))
+    say(["carers-allowance"], (x) => `Caring 35 hours or more keeps ${x} in.`);
+  return out;
+}
+
+/** What changed between two snapshots, told as one group of agent activity. The first snapshot tells nothing. */
 export function diff(
   prev: Snapshot | null,
   next: Snapshot,
-): { items: FeedItem[]; moves: Move[] } {
-  if (!prev) return { items: [], moves: [] };
+  /** The question on screen, which names activity from choices not yet saved with Continue */
+  current?: StepId,
+): { group: FeedGroup | null; moves: Move[] } {
+  if (!prev) return { group: null, moves: [] };
   const items: FeedItem[] = [];
+  const newly = (Object.keys(next.answered) as StepId[]).filter(
+    (k) => next.answered[k] !== prev.answered[k],
+  );
+  const step = newly.at(-1);
+  const titleStep = step ?? current;
 
   const ageChanged =
     prev.birthYear !== next.birthYear ||
@@ -212,9 +289,9 @@ export function diff(
       agent: "age",
       text:
         next.spa === "yes"
-          ? "Reached State Pension age. Pension-age help is in play."
+          ? "Reached State Pension age, so help for people over it can apply."
           : next.spa === "no"
-            ? "Under State Pension age. Working-age help is in play."
+            ? "Under State Pension age, so help for working-age people can apply."
             : `Born in ${next.birthYear}: the month decides State Pension age.`,
       source: SPA_SOURCE,
       tone: "neutral",
@@ -222,31 +299,48 @@ export function diff(
 
   const moves: Move[] = [];
   const nowYours: SchemeId[] = [];
+  const unlikely: SchemeId[] = [];
   for (const sc of SCHEMES) {
     const was = prev.status[sc.id];
     const now = next.status[sc.id];
     if (was === now) continue;
     const agent: AgentId = now === "already-get" ? "rules" : cause;
     moves.push({ scheme: sc.id, agent, to: now });
-    if (now === "already-get") nowYours.push(sc.id);
-    items.push({
-      agent,
-      scheme: sc.id,
-      source: pageOf(sc.id),
-      tone:
-        now === "ruled-out"
-          ? "set-aside"
-          : now === "already-get"
-            ? "good"
-            : "neutral",
-      text:
-        now === "ruled-out"
-          ? `${sc.name} set aside: ${next.reason[sc.id]}`
-          : now === "already-get"
-            ? `You already get ${sc.name}, so Beacon won't re-check it.`
-            : `${sc.name} is back on the reading list.`,
-    });
+    if (now === "already-get") {
+      nowYours.push(sc.id);
+      items.push({
+        agent,
+        scheme: sc.id,
+        source: pageOf(sc.id),
+        tone: "good",
+        text: `You already get ${sc.name}, so Beacon won't check it again.`,
+      });
+    } else if (now === "ruled-out") unlikely.push(sc.id);
+    else
+      items.push({
+        agent,
+        scheme: sc.id,
+        source: pageOf(sc.id),
+        tone: "good",
+        text: `${sc.name} is possible again.`,
+      });
   }
+  // Three or more at once read as one line; fewer keep their reasons.
+  if (unlikely.length >= 3)
+    items.push({
+      agent: cause,
+      tone: "set-aside",
+      text: `${unlikely.length} now look unlikely: ${list(unlikely.map(name))}. Each card says why.`,
+    });
+  else
+    for (const id of unlikely)
+      items.push({
+        agent: cause,
+        scheme: id,
+        source: pageOf(id),
+        tone: "set-aside",
+        text: `${name(id)} looks unlikely right now. ${next.reason[id]}`,
+      });
   for (const id of nowYours) {
     const opens = (schemeById(id).unlocks ?? []).filter(
       (u) => next.status[u] === "open",
@@ -257,9 +351,11 @@ export function diff(
         scheme: id,
         source: pageOf(id),
         tone: "good",
-        text: `${schemeById(id).name} can open the door to ${list(opens.map((u) => schemeById(u).name))}.`,
+        text: `${name(id)} can open the door to ${list(opens.map(name))}.`,
       });
   }
+  if (step && next.answered[step] === "done")
+    items.push(...keptLines(step, next));
 
   const newlySkipped = (Object.keys(next.skipped) as StepId[]).filter(
     (k) => !(k in prev.skipped) && ROW_LABEL[k],
@@ -271,5 +367,32 @@ export function diff(
       tone: "neutral",
     });
 
-  return { items, moves };
+  const open = SCHEMES.filter((s) => next.status[s.id] === "open").length;
+  const filler = items.length === 0;
+  if (!items.length) {
+    if (!step) return { group: null, moves };
+    items.push({
+      agent: "rules",
+      tone: "neutral",
+      text:
+        next.answered[step] === "declined"
+          ? `No answer, so nothing is ruled out on it. ${open} still possible.`
+          : `Checked: nothing ruled out. ${open} still possible.`,
+    });
+  }
+  const title = titleStep
+    ? (ROW_LABEL[titleStep] ?? "Your answer")
+    : "Your answer";
+  const moved = moves.length
+    ? `${moves.length} card${moves.length === 1 ? "" : "s"} moved. `
+    : "";
+  return {
+    group: {
+      title,
+      items,
+      summary: `${title}: ${moved}${open} still possible.`,
+      filler,
+    },
+    moves,
+  };
 }

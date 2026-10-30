@@ -169,7 +169,8 @@ export function precheck(s: Situation, today: Date = new Date()): Precheck[] {
           return {
             scheme: id,
             status: "ruled-out",
-            reason: "You did not mention needing help with daily care.",
+            reason:
+              "Attendance Allowance is for people who need help with daily care, and you said that does not apply.",
           };
         return {
           scheme: id,

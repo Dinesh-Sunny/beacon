@@ -1348,4 +1348,101 @@
       grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
+  .ac-latest {
+    flex: none;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding: 10px 12px;
+    border-left: 3px solid var(--beacon-amber);
+    border-radius: var(--radius-sm);
+    background: var(--verdict-likely-soft);
+  }
+  .ac-feed-list.ac-latest-list,
+  .ac-feed-list.ac-plain {
+    max-height: none;
+    padding: 0;
+    overflow: visible;
+    mask-image: none;
+  }
+  .ac-group {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .ac-group-title {
+    margin: 0;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text-secondary);
+  }
+  .ac-why summary {
+    display: block;
+    list-style: none;
+    cursor: pointer;
+  }
+  .ac-why summary::-webkit-details-marker {
+    display: none;
+  }
+  .ac-why summary::after {
+    content: " +";
+    color: var(--text-secondary);
+    font-weight: 400;
+  }
+  .ac-why[open] summary::after {
+    content: " -";
+  }
+  .ac-why[open] .ac-card-meta {
+    display: block;
+    -webkit-line-clamp: unset;
+    margin: 4px 0 6px;
+  }
+  .ac-why:not([open]) .ac-source {
+    display: none;
+  }
+  .ac-meter {
+    align-self: flex-start;
+    margin: 4px 0 0;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--bg-inverse);
+    color: var(--text-on-inverse);
+    font-size: 13px;
+    font-weight: 700;
+    font-variant-numeric: tabular-nums;
+  }
+  .ac-quote {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 2px 0;
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 13px;
+    line-height: 1.35;
+    animation: ac-quote-in 0.6s ease-out;
+  }
+  @keyframes ac-quote-in {
+    from {
+      background: var(--verdict-likely-soft);
+      opacity: 0;
+    }
+  }
+  .ac-card-tokens {
+    font-size: 11px;
+    font-variant-numeric: tabular-nums;
+    color: var(--text-secondary);
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .ac-quote {
+      animation: none;
+    }
+  }
+  .ac-more summary {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--text-link);
+  }
 }
