@@ -13,9 +13,10 @@
     "format": "biome check --write .",
     "typecheck": "pnpm -r --parallel typecheck",
     "test": "pnpm -r --parallel test",
-    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "check": "pnpm lint && pnpm typecheck && pnpm test && pnpm copy:check",
     "eval": "pnpm --filter @beacon/brain eval",
-    "snapshot": "pnpm --filter @beacon/rules snapshot"
+    "snapshot": "pnpm --filter @beacon/rules snapshot",
+    "copy:check": "python3 .claude/skills/direct-response-copywriting/scripts/voice-check.py check ."
   },
   "devDependencies": {
     "@biomejs/biome": "2.6.3"
