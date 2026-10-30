@@ -37,7 +37,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "pension-credit",
     name: "Pension Credit",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/pension-credit"],
     summary:
       "Tops up weekly income for people over State Pension age, and opens the door to more help.",
@@ -85,7 +85,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "attendance-allowance",
     name: "Attendance Allowance",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/attendance-allowance"],
     summary:
       "Extra money if you need help with personal care because of an illness or disability. Not means-tested.",
@@ -115,7 +115,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "carers-allowance",
     name: "Carer's Allowance",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/carers-allowance"],
     summary:
       "Money for people who look after someone for 35 hours a week or more.",
@@ -129,7 +129,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "universal-credit",
     name: "Universal Credit",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/universal-credit"],
     summary:
       "Monthly payment for living costs for people under State Pension age on a low income or out of work.",
@@ -158,7 +158,7 @@ export const SCHEMES: Scheme[] = [
   {
     id: "winter-fuel-payment",
     name: "Winter Fuel Payment",
-    runBy: "DWP",
+    runBy: "the Department for Work and Pensions (DWP)",
     govukPaths: ["/winter-fuel-payment"],
     summary:
       "A yearly payment towards heating for people born on or before the cut-off date.",

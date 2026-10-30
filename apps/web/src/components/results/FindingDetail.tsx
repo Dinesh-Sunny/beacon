@@ -96,9 +96,7 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
     );
   }
 
-  const runBy = scheme.runBy.startsWith("your ")
-    ? scheme.runBy.replace("your ", "Your ")
-    : scheme.runBy;
+  const runBy = capFirst(scheme.runBy);
   const order =
     scheme.claim.route === "phone" ? (PACK_ORDER[schemeId] ?? []) : [];
   const packRows = order.filter((id) => draft.progress[id] === "done");
@@ -262,8 +260,8 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
             </div>
           </div>
           <p className="small">
-            Only {runBy === "DWP" ? "DWP" : scheme.runBy} can decide. A free
-            adviser can check this with you.
+            Only {scheme.runBy} can decide. A free adviser can check this with
+            you.
           </p>
         </section>
       )}
