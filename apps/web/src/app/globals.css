@@ -597,8 +597,10 @@
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: 700;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: -0.02em;
     margin-top: 1px;
     box-sizing: border-box;
   }

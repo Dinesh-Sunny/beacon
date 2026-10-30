@@ -979,7 +979,7 @@ export function CheckFlow() {
                   </h1>
                   {current === "area" && (
                     <p className="lead mt-3">
-                      Up to 12 short questions. We skip the ones that don&apos;t
+                      A few short questions. We skip the ones that don&apos;t
                       apply to you.
                     </p>
                   )}

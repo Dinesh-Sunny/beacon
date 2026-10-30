@@ -25,6 +25,13 @@ const PACK_ORDER: Partial<Record<SchemeId, StepId[]>> = {
   "attendance-allowance": ["area", "birth-year", "applies", "benefits", "home"],
 };
 const NEEDS_EXACT: StepId[] = ["money", "savings"];
+const HOW: Record<"phone" | "online" | "council" | "automatic", string> = {
+  phone: "Claim by phone",
+  online: "Apply online",
+  council: "Apply to your council",
+  automatic: "Paid without a claim if you qualify",
+};
+const capFirst = (x: string): string => x.charAt(0).toUpperCase() + x.slice(1);
 
 export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
   const { results, ready } = useResults();
@@ -46,6 +53,38 @@ export function FindingDetail({ schemeId }: { schemeId: SchemeId }) {
           {scheme.name}
         </h1>
         <p className="lead">{scheme.summary}</p>
+        <section className="card stack gap-3" aria-labelledby="about-title">
+          <h2 id="about-title" className="t-title">
+            About this support
+          </h2>
+          <dl className="m-0 grid gap-x-6 gap-y-2 sm:grid-cols-[auto_1fr]">
+            <dt className="muted">Run by</dt>
+            <dd className="m-0">{capFirst(scheme.runBy)}</dd>
+            <dt className="muted">How you get it</dt>
+            <dd className="m-0">{HOW[scheme.claim.route]}</dd>
+            {scheme.unlocks?.length ? (
+              <>
+                <dt className="muted">Can open the door to</dt>
+                <dd className="m-0">
+                  {scheme.unlocks.map((u, i) => (
+                    <span key={u}>
+                      {i > 0 && ", "}
+                      <Link href={`/results/${u}`}>{schemeById(u).name}</Link>
+                    </span>
+                  ))}
+                </dd>
+              </>
+            ) : null}
+          </dl>
+          <a
+            className="btn txt self-start !pl-0"
+            href={scheme.claim.url}
+            target="_blank"
+            rel="noreferrer"
+          >
+            Official page on GOV.UK <Icon name="arrow-right" />
+          </a>
+        </section>
         <p>
           Do a check to see if it may be yours, with the rule line behind it.
         </p>
