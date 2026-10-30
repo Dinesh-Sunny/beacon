@@ -4,7 +4,8 @@
   "private": true,
   "type": "module",
   "exports": {
-    ".": "./src/dataset.ts"
+    ".": "./src/dataset.ts",
+    "./data": "./data/benefitsbench.json"
   },
   "scripts": {
     "typecheck": "tsc --noEmit",

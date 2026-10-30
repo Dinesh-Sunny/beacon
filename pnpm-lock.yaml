@@ -175,6 +175,9 @@ importers:
       '@beacon/brain':
         specifier: workspace:*
         version: link:../../packages/brain
+      '@beacon/evals':
+        specifier: workspace:*
+        version: link:../../packages/evals
       '@beacon/rules':
         specifier: workspace:*
         version: link:../../packages/rules
