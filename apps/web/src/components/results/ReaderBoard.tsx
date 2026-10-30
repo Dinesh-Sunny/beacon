@@ -33,8 +33,15 @@ const LANES: { key: LaneKey; title: string }[] = [
   { key: "reading", title: "Reading" },
   { key: "likely", title: "Likely" },
   { key: "worth-checking", title: "Worth checking" },
-  { key: "settled", title: "Not now or already yours" },
+  { key: "settled", title: "Not now" },
 ];
+
+const EMPTY: Record<LaneKey, string> = {
+  reading: "All pages read",
+  likely: "Likely results land here",
+  "worth-checking": "Results to look into land here",
+  settled: "Already yours or unlikely now",
+};
 
 const laneOf = (f: Finding | undefined): LaneKey =>
   !f
@@ -80,8 +87,8 @@ export function ReaderBoard({
         rects.current.get(id) ?? cards.current.get(id)?.getBoundingClientRect();
       if (r)
         next[id] = {
-          x: r.left - host.left + r.width * 0.62,
-          y: r.top - host.top + r.height * 0.5,
+          x: Math.min(r.right - host.left - 14, host.width - 130),
+          y: r.bottom - host.top - 6,
         };
     }
     setSpots(next);
@@ -89,7 +96,7 @@ export function ReaderBoard({
 
   return (
     <section
-      className="agent-canvas !static !max-h-none"
+      className="agent-canvas reader-board !static !max-h-none"
       aria-labelledby="rb-title"
     >
       <header className="ac-head">
@@ -151,6 +158,9 @@ export function ReaderBoard({
                     </li>
                   );
                 })}
+                {items.length === 0 && (
+                  <li className="ac-empty">{EMPTY[lane.key]}</li>
+                )}
               </ul>
             </section>
           );

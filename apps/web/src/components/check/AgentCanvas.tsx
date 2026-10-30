@@ -48,6 +48,8 @@ interface Cursor {
   x: number;
   y: number;
   shown: boolean;
+  /** Near the right edge the label hangs to the left so it isn't cut off */
+  flip: boolean;
 }
 
 export function AgentCanvas({ draft }: { draft: Draft }) {
@@ -98,13 +100,21 @@ export function AgentCanvas({ draft }: { draft: Draft }) {
     for (const m of moves) {
       const r = rects.current.get(m.scheme);
       if (!r) continue;
+      const x = r.right - origin.left - 14;
       next[m.agent] = {
-        x: r.left - origin.left + r.width * 0.7,
-        y: r.top - origin.top + r.height * 0.55,
+        x,
+        y: r.bottom - origin.top - 6,
         shown: true,
+        flip: x > origin.width - 110,
       };
     }
-    setCursors((c) => ({ ...c, ...next }));
+    // Only the agents that just acted show their cursor; earlier ones step back.
+    setCursors((c) => ({
+      ...Object.fromEntries(
+        Object.entries(c).map(([k, v]) => [k, { ...v, shown: false }]),
+      ),
+      ...next,
+    }));
     const t = window.setTimeout(
       () =>
         setCursors((c) =>
@@ -150,13 +160,17 @@ export function AgentCanvas({ draft }: { draft: Draft }) {
         {AGENT_ORDER.map((a) => (
           <li
             key={a}
+            aria-label={`${AGENTS[a].name}: ${AGENTS[a].job}`}
+            title={AGENTS[a].job}
             className={`ac-agent ag-${a} ${working(a) ? "is-working" : ""}`}
           >
             <span className="ac-avatar" aria-hidden="true">
               {AGENTS[a].name.charAt(0)}
             </span>
             <span className="flex min-w-0 flex-col">
-              <span className="ac-agent-name">{AGENTS[a].name}</span>
+              <span className="ac-agent-name">
+                {AGENTS[a].name.replace(/ agent$/, "")}
+              </span>
               <span className="ac-agent-state">
                 {working(a) ? "Working" : "Watching"}
               </span>
@@ -188,11 +202,7 @@ export function AgentCanvas({ draft }: { draft: Draft }) {
                   title={snap.reason[s.id]}
                 >
                   <span className="ac-card-name">{s.name}</span>
-                  {lane.status === "open" ? (
-                    <span className="ac-card-meta">
-                      Beam reads gov.uk{s.govukPaths[0]}
-                    </span>
-                  ) : (
+                  {lane.status !== "open" && (
                     <span className="ac-card-meta">{snap.reason[s.id]}</span>
                   )}
                 </li>
@@ -210,7 +220,7 @@ export function AgentCanvas({ draft }: { draft: Draft }) {
             <span
               key={a}
               aria-hidden="true"
-              className={`ac-cursor ag-${a} ${c.shown ? "is-shown" : ""}`}
+              className={`ac-cursor ag-${a} ${c.shown ? "is-shown" : ""} ${c.flip ? "is-flip" : ""}`}
               style={{ transform: `translate(${c.x}px, ${c.y}px)` }}
             >
               <svg

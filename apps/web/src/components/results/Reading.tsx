@@ -292,6 +292,18 @@ export function Reading() {
         </div>
       )}
 
+      {finished && (
+        <div className="acts">
+          <button
+            type="button"
+            className="btn pri"
+            onClick={() => router.push("/results")}
+          >
+            See what may be yours <Icon name="arrow-right" />
+          </button>
+        </div>
+      )}
+
       {(plan.length > 0 || findings.length > 0) && (
         <ReaderBoard
           plan={plan}
@@ -312,18 +324,6 @@ export function Reading() {
       <p className="sr-only" role="status">
         {doneCount} of {plan.length} read
       </p>
-
-      {finished && (
-        <div className="acts">
-          <button
-            type="button"
-            className="btn pri"
-            onClick={() => router.push("/results")}
-          >
-            See what may be yours <Icon name="arrow-right" />
-          </button>
-        </div>
-      )}
     </div>
   );
 }
