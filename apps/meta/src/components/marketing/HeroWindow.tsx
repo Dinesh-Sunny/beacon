@@ -66,7 +66,16 @@ export function HeroWindow({ country }: { country: "GB" | "US" }) {
       const el = tabs.current?.querySelector<HTMLElement>(
         '[aria-selected="true"]',
       );
-      if (el) setPill({ x: el.offsetLeft, w: el.offsetWidth });
+      if (el) {
+        setPill({ x: el.offsetLeft, w: el.offsetWidth });
+        // Where the tabs scroll (long languages on a phone), keep the open one in view.
+        const box = tabs.current;
+        if (box && box.scrollWidth > box.clientWidth)
+          box.scrollTo({
+            left: el.offsetLeft - (box.clientWidth - el.offsetWidth) / 2,
+            behavior: "smooth",
+          });
+      }
     };
     measure();
     addEventListener("resize", measure);

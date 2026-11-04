@@ -40,6 +40,8 @@ export interface Fact {
   /** The same question about someone else; {n} is who it's for, for example "Mum". */
   qThey: string;
   why: string;
+  /** The reason in US terms, where the UK one names UK rules or pounds. */
+  whyUs?: string;
   label: string;
   opts?: [string, string][];
   none?: string;
@@ -58,6 +60,7 @@ export const FACTS: Record<FactId, Fact> = {
     q: "When were you born?",
     qThey: "When was {n} born?",
     why: "Month and year are enough. Age decides a lot, like State Pension age.",
+    whyUs: "Month and year are enough. Age decides a lot, like Medicare at 65.",
     label: "Born",
   },
   benefits: {
@@ -86,6 +89,8 @@ export const FACTS: Record<FactId, Fact> = {
     q: "How much do you have in savings?",
     qThey: "How much does {n} have in savings?",
     why: "Some help has a savings limit, often £16,000.",
+    whyUs:
+      "Some programmes have a savings limit, like Medicare Savings Programs.",
     label: "Savings",
   },
   difficulties: {

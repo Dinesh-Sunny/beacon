@@ -3,6 +3,8 @@ import type { Answers } from "@/engine/facts";
 
 export interface Example {
   id: string;
+  /** Whose rules the example runs on; the menu shows the person's own country's examples. */
+  country: "GB" | "US";
   name: string;
   line: string;
   answers: Answers;
@@ -11,6 +13,7 @@ export interface Example {
 export const EXAMPLES: Example[] = [
   {
     id: "margaret",
+    country: "GB",
     name: "Margaret, 78, Wembley",
     line: "Lives alone on her State Pension. Needs a hand getting dressed.",
     answers: {
@@ -34,6 +37,7 @@ export const EXAMPLES: Example[] = [
   },
   {
     id: "aled",
+    country: "GB",
     name: "Aled, 32, Cardiff",
     line: "New dad working 12 hours a week.",
     answers: {
@@ -57,6 +61,7 @@ export const EXAMPLES: Example[] = [
   },
   {
     id: "fiona",
+    country: "GB",
     name: "Fiona, 46, Glasgow",
     line: "Cares for her brother 50 hours a week.",
     answers: {
@@ -80,6 +85,7 @@ export const EXAMPLES: Example[] = [
   },
   {
     id: "kirsty",
+    country: "GB",
     name: "Kirsty, 23, Dundee",
     line: "Single mum of a 3-year-old, working 15 hours in a cafe.",
     answers: {
@@ -101,4 +107,68 @@ export const EXAMPLES: Example[] = [
       bereaved: "no",
     },
   },
+  {
+    id: "walter",
+    country: "US",
+    name: "Walter, 74, Columbus",
+    line: "Lives alone on Social Security. His Medicare costs keep going up.",
+    answers: {
+      country: "US",
+      zip: "43215",
+      dob: "1952-04-15",
+      people: 1,
+      benefitsUs: [],
+      income: { amt: 1300, per: "month" },
+      savings: 3000,
+      difficulties: [],
+      work: { status: "none" },
+      child: "none",
+      pregnant: "no",
+      veteran: "no",
+    },
+  },
+  {
+    id: "rosa",
+    country: "US",
+    name: "Rosa, 31, Houston",
+    line: "Mum of two, working 30 hours a week in a store.",
+    answers: {
+      country: "US",
+      zip: "77002",
+      dob: "1995-06-15",
+      people: 3,
+      benefitsUs: [],
+      income: { amt: 1900, per: "month" },
+      savings: 400,
+      difficulties: [],
+      work: { status: "employed", hours: 30 },
+      child: "2023-02-15",
+      pregnant: "no",
+      veteran: "no",
+    },
+  },
+  {
+    id: "dwayne",
+    country: "US",
+    name: "Dwayne, 58, Phoenix",
+    line: "Army veteran, out of work after a back injury.",
+    answers: {
+      country: "US",
+      zip: "85004",
+      dob: "1968-09-15",
+      people: 2,
+      benefitsUs: [],
+      income: { amt: 900, per: "month" },
+      savings: 1200,
+      difficulties: ["move"],
+      work: { status: "sick" },
+      child: "none",
+      pregnant: "no",
+      veteran: "yes",
+    },
+  },
 ];
+
+/** The examples for one country, so a check never mixes UK and US rules. */
+export const examplesFor = (country: string | undefined): Example[] =>
+  EXAMPLES.filter((e) => e.country === (country === "US" ? "US" : "GB"));

@@ -843,6 +843,11 @@ html[data-dark="on"] .hb-rot i {
   .hw-tabs {
     justify-content: flex-start;
   }
+  /* All five tabs fit a phone; longer languages still scroll. */
+  .hw-tabs button {
+    font-size: 0.86rem;
+    padding: 8px 10px;
+  }
   .mk-hero .hero-input {
     border-radius: 22px;
   }
@@ -2312,5 +2317,12 @@ html[data-dark="on"] .hb-rot i {
   }
   .mk-pill {
     font-size: 0.82rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .hw-tabs button {
+    padding: 8px 7px;
+    font-size: 0.8rem;
   }
 }

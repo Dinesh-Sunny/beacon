@@ -801,7 +801,7 @@ button {
   max-width: 280px;
 }
 .money span {
-  border: 2px solid var(--ink);
+  border: 1.5px solid #a79d91;
   border-right: 0;
   border-radius: 10px 0 0 10px;
   padding: 12px 14px;
@@ -3105,12 +3105,47 @@ button {
 }
 
 /* Option groups are fieldsets for screen readers; keep them looking like the segmented rows */
-fieldset.seg,
+fieldset.seg {
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
 fieldset.track-row {
   border: 0;
   margin: 0;
   padding: 0;
   min-width: 0;
+}
+
+/* Question cards: the inputs stack with breathing room, options wrap as separate chips (a joined
+   bar breaks apart when it wraps on a phone), and the two buttons wrap instead of running off. */
+.qbody {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.qcard .seg {
+  border: 0;
+  border-radius: 0;
+  overflow: visible;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+.qcard .seg button,
+.qcard .seg button + button {
+  border: 1.5px solid #a79d91;
+  border-radius: 10px;
+  padding: 10px 16px;
+}
+.qcard .seg button[aria-pressed="true"] {
+  border-color: var(--ink);
+}
+.qactions {
+  flex-wrap: wrap;
+}
+.qactions .btn {
+  flex: 1 1 auto;
 }
 
 /* Money: what the likely help adds up to, and each scheme's published rate */
@@ -3714,6 +3749,7 @@ details.constellation[open] > summary::after {
   border-bottom: 1px solid var(--line);
 }
 .pd-search input {
+  min-height: 40px;
   flex: 1;
   border: 0;
   outline: 0;
@@ -4149,4 +4185,49 @@ html[data-focus="on"]
 }
 .more-help ul.us-local li .hint {
   font-size: 0.85em;
+}
+
+/* Bigger tap areas for small text links on phones, without changing how they look. */
+.quiet-link,
+.site-foot a {
+  min-height: 40px;
+  display: inline-flex;
+  align-items: center;
+}
+
+/* The place dialog on a phone: tabs scroll if they must, Close always stays in view, and the
+   keyboard hints go away where there is no keyboard. */
+.pd-tabs {
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+.pd-tabs [role="tab"] {
+  flex: none;
+  white-space: nowrap;
+}
+.pd-tabs .iconbtn {
+  flex: none;
+  position: sticky;
+  right: 0;
+  background: var(--surface);
+}
+@media (max-width: 420px) {
+  .pd-tabs {
+    gap: 0;
+    padding-inline: 6px;
+  }
+  .pd-tabs [role="tab"] {
+    padding: 12px 7px;
+    font-size: 0.86rem;
+  }
+  .pd-tabs [role="tab"] svg,
+  .pd-tabs .aa {
+    display: none;
+  }
+}
+@media (hover: none) and (pointer: coarse) {
+  .pd-foot,
+  .place-dialog kbd {
+    display: none;
+  }
 }

@@ -140,7 +140,8 @@
     "spa": "Wiek State Pension: {age}",
     "pensionAge": "Osiągnięty wiek emerytalny",
     "workingAge": "Wiek produkcyjny",
-    "perWeek": "£{amount} tygodniowo",
+    "perWeek": "{amount} tygodniowo",
+    "medicareAge": "Wiek uprawniający do Medicare",
     "noHelp": "Bez potrzeby codziennej pomocy",
     "dailyHelp": "Pomoc w codziennym życiu",
     "careHelp": "Pomoc w higienie i opiece osobistej",
@@ -170,7 +171,8 @@
       "q": "Kiedy się urodziłeś lub urodziłaś?",
       "qThey": "Kiedy urodziła się osoba {n}?",
       "why": "Wystarczy miesiąc i rok. Od wieku zależy wiele, np. wiek State Pension.",
-      "label": "Data urodzenia"
+      "label": "Data urodzenia",
+      "whyUs": "Wystarczy miesiąc i rok. Wiek decyduje o wielu rzeczach, np. o Medicare od 65 lat."
     },
     "benefits": {
       "q": "Które z tych świadczeń już otrzymujesz?",
@@ -195,7 +197,8 @@
       "q": "Ile masz oszczędności?",
       "qThey": "Ile oszczędności ma osoba {n}?",
       "why": "Niektóre formy pomocy mają limit oszczędności, często £16,000.",
-      "label": "Oszczędności"
+      "label": "Oszczędności",
+      "whyUs": "Niektóre programy mają limit oszczędności, np. Medicare Savings Programs."
     },
     "difficulties": {
       "q": "Z czym masz trudność na co dzień z powodu stanu zdrowia?",
