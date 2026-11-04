@@ -44,7 +44,11 @@ const KINDS: { kind: Kind; icon: string; source: string }[] = [
 
 export function UsLocalHelp() {
   const { answers } = useCheck();
-  const zip = typeof answers.zip === "string" ? answers.zip : null;
+  // Only for a US check: a ZIP code left over from switching country shows nothing.
+  const zip =
+    answers.country === "US" && typeof answers.zip === "string"
+      ? answers.zip
+      : null;
   const [data, setData] = useState<UsLocal | null>(null);
   useEffect(() => {
     setData(null);
