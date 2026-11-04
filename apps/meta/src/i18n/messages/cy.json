@@ -98,7 +98,13 @@
     "askFirst": "Beth ddylen ni ei hawlio gyntaf?",
     "askExplain": "Esboniwch {name} mewn geiriau syml",
     "askClashMe": "Allai hawlio un peth leihau rhywbeth arall i mi?",
-    "askClashThey": "Allai hawlio un peth leihau rhywbeth arall ar gyfer {who}?"
+    "askClashThey": "Allai hawlio un peth leihau rhywbeth arall ar gyfer {who}?",
+    "savedN": "{count, plural, zero {Wedi cadw # manylyn} one {Wedi cadw # manylyn} two {Wedi cadw # fanylyn} few {Wedi cadw # manylyn} many {Wedi cadw # manylyn} other {Wedi cadw # manylyn}}. {progress}.",
+    "fallback": "Wedi cadw. Edrychwch ar y cwestiwn nesaf.",
+    "errOffline": "Mae fy offer darllen yn gorffwys ar hyn o bryd. Mae fy nghwestiynau yma'n dal i weithio, ac mae pob ateb yn cyfrif.",
+    "errBusy": "Mae llawer o bobl yn gwirio ar yr un pryd. Arhoswch funud a rhowch gynnig arall arni.",
+    "errSlow": "Cymerodd hynny'n hirach na'r arfer. Rhowch gynnig arall arni, neu ewch ymlaen gyda fy nghwestiynau.",
+    "errModel": "Doeddwn i ddim yn gallu gorffen hynny. Ceisiwch ei ddweud mewn ffordd wahanol, neu ewch ymlaen gyda fy nghwestiynau."
   },
   "events": {
     "job": "Wedi colli swydd neu oriau",

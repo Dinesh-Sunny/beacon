@@ -98,7 +98,13 @@
     "askFirst": "¿Qué deberíamos solicitar primero?",
     "askExplain": "Explícame {name} con palabras sencillas",
     "askClashMe": "¿Solicitar una cosa podría reducir otra en mi caso?",
-    "askClashThey": "¿Solicitar una cosa podría reducir otra en el caso de {who}?"
+    "askClashThey": "¿Solicitar una cosa podría reducir otra en el caso de {who}?",
+    "savedN": "{count, plural, one {Guardé # dato} other {Guardé # datos}}. {progress}.",
+    "fallback": "Guardado. Mira la siguiente pregunta.",
+    "errOffline": "Mis herramientas de lectura están descansando ahora mismo. Mis preguntas siguen funcionando y cada respuesta cuenta.",
+    "errBusy": "Mucha gente está comprobando a la vez. Espera un minuto y vuelve a intentarlo.",
+    "errSlow": "Ha tardado más de lo normal. Inténtalo otra vez o sigue con mis preguntas.",
+    "errModel": "No he podido terminar eso. Prueba a decirlo de otra forma o sigue con mis preguntas."
   },
   "events": {
     "job": "Pérdida de trabajo u horas",

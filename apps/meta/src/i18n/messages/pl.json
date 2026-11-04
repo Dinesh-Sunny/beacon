@@ -98,7 +98,13 @@
     "askFirst": "O co powinniśmy się ubiegać najpierw?",
     "askExplain": "Wyjaśnij prostymi słowami: {name}",
     "askClashMe": "Czy ubieganie się o jedno może zmniejszyć coś innego w moim przypadku?",
-    "askClashThey": "Czy ubieganie się o jedno może zmniejszyć coś innego w przypadku osoby {who}?"
+    "askClashThey": "Czy ubieganie się o jedno może zmniejszyć coś innego w przypadku osoby {who}?",
+    "savedN": "{count, plural, one {Zapisano # informację} few {Zapisano # informacje} many {Zapisano # informacji} other {Zapisano # informacji}}. {progress}.",
+    "fallback": "Zapisano. Zobacz następne pytanie.",
+    "errOffline": "Moje narzędzia do czytania teraz odpoczywają. Moje pytania tutaj nadal działają i każda odpowiedź się liczy.",
+    "errBusy": "Wiele osób sprawdza w tej chwili. Poczekaj minutę i spróbuj ponownie.",
+    "errSlow": "To trwało dłużej niż zwykle. Spróbuj jeszcze raz albo odpowiadaj dalej na moje pytania.",
+    "errModel": "Nie udało mi się tego dokończyć. Spróbuj powiedzieć to inaczej albo odpowiadaj dalej na moje pytania."
   },
   "events": {
     "job": "Utrata pracy lub godzin",

@@ -7,6 +7,7 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon, Logo } from "@/components/Icon";
+import { isFactId } from "@/engine/answers-schema";
 import {
   type Answers,
   ask,
@@ -58,16 +59,15 @@ export interface LetterView {
   deadlines: { what: string; date: string | null }[];
 }
 
-const ERRORS: Record<string, string> = {
-  offline:
-    "My reading tools are resting right now. My questions here still work, and every answer counts.",
-  busy: "Lots of people are checking at once. Give it a minute and try again.",
-  slow: "That took longer than usual. Try once more, or carry on with my questions.",
-  model:
-    "I couldn't finish that one. Try saying it a different way, or carry on with my questions.",
-};
-export const errorText = (code?: string) =>
-  ERRORS[code ?? "model"] ?? ERRORS.model;
+const ERRORS = {
+  offline: "errOffline",
+  busy: "errBusy",
+  slow: "errSlow",
+  model: "errModel",
+} as const;
+/** The message id for an error code from the server. */
+const errorKey = (code?: string) =>
+  ERRORS[(code ?? "model") as keyof typeof ERRORS] ?? ERRORS.model;
 
 // Random ids stay unique even when the module reloads while messages are on screen.
 const nextId = () => crypto.randomUUID();
@@ -210,19 +210,27 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
           note("model", "Muse Spark agent", n.text);
         push({
           role: "bot",
-          text:
-            data.reply ||
-            "Saved. Have a look at the next question on the right.",
-          notes: (data.notes ?? [])
-            .filter((n) => n.name === "save_details")
-            .map((n) => n.text),
+          text: data.reply || tc("fallback"),
+          // The save line is worded here, in the reader's language, from what was saved.
+          notes:
+            (data.notes ?? []).some((n) => n.name === "save_details") &&
+            Object.keys(saved).filter(isFactId).length
+              ? [
+                  tc("savedN", {
+                    count: Object.keys(saved).filter(isFactId).length,
+                    progress: ft.progress(
+                      evaluate({ ...answersRef.current, ...saved }),
+                    ),
+                  }),
+                ]
+              : [],
           saved,
           agent: "Muse Spark",
         });
       } catch (e) {
         push({
           role: "bot",
-          text: errorText((e as Error).message),
+          text: tc(errorKey((e as Error).message)),
           error: true,
         });
       } finally {
@@ -230,7 +238,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         setBusy("Muse Spark agent", false);
       }
     },
-    [apply, note, push, setBusy, setSubject, setMsgs, locale],
+    [apply, note, push, setBusy, setSubject, setMsgs, locale, tc, ft],
   );
 
   const onVoice = useCallback(
@@ -268,7 +276,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         setBusy("Muse Voice Transcribe", false);
         push({
           role: "bot",
-          text: errorText((e as Error).message),
+          text: tc(errorKey((e as Error).message)),
           error: true,
         });
       }
@@ -342,7 +350,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       } catch (e) {
         push({
           role: "bot",
-          text: errorText((e as Error).message),
+          text: tc(errorKey((e as Error).message)),
           error: true,
         });
       } finally {

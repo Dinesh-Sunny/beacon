@@ -98,7 +98,13 @@
     "askFirst": "What should we claim first?",
     "askExplain": "Explain {name} in plain words",
     "askClashMe": "Could claiming one thing lower another for me?",
-    "askClashThey": "Could claiming one thing lower another for {who}?"
+    "askClashThey": "Could claiming one thing lower another for {who}?",
+    "savedN": "{count, plural, one {Saved # detail} other {Saved # details}}. {progress}.",
+    "fallback": "Saved. Have a look at the next question.",
+    "errOffline": "My reading tools are resting right now. My questions here still work, and every answer counts.",
+    "errBusy": "Lots of people are checking at once. Give it a minute and try again.",
+    "errSlow": "That took longer than usual. Try once more, or carry on with my questions.",
+    "errModel": "I couldn't finish that one. Try saying it a different way, or carry on with my questions."
   },
   "events": {
     "job": "Lost a job or hours",
