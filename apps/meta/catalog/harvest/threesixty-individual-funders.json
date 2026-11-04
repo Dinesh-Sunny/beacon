@@ -1,0 +1,472 @@
+{
+ "source": "https://registry.threesixtygiving.org/data.json",
+ "api": "https://api.threesixtygiving.org/api/v1",
+ "read": "2026-11-04",
+ "funders": [
+  {
+   "name": "Barnwood Trust",
+   "orgId": "GB-CHC-1162855",
+   "website": "http://www.barnwoodtrust.org/",
+   "licence": "Creative Commons Public Domain Dedication 1.0 Universal",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 1502,
+   "latest": "2025-02-06T00:00:00+00:00",
+   "programmes": [
+    "Grants for You",
+    "Grants for Your Home",
+    "Grants for Individuals 2023",
+    "Grants for Individuals 2025 ",
+    "Grants for Individuals 2024"
+   ],
+   "places": [
+    "Cam East",
+    "Stroud",
+    "Dursley",
+    "Newent & Taynton",
+    "Forest of Dean",
+    "Tewkesbury South",
+    "Tewkesbury",
+    "Matson, Robinswood and White City"
+   ]
+  },
+  {
+   "name": "Buttle UK",
+   "orgId": "GB-CHC-313007",
+   "website": "www.buttleuk.org/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 200,
+   "latest": "2026-03-26T00:00:00+00:00",
+   "programmes": [
+    "Chances for Children",
+    "School Fees Grant"
+   ],
+   "places": [
+    "Wakefield East",
+    "Wakefield",
+    "Eccleshill",
+    "Bradford",
+    "Ham, Petersham & Richmond Riverside",
+    "Richmond upon Thames",
+    "Great Bridge",
+    "Sandwell"
+   ]
+  },
+  {
+   "name": "Community Foundation in Wales",
+   "orgId": "GB-CHC-1074655",
+   "website": "www.communityfoundationwales.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 1500,
+   "latest": "2025-10-17",
+   "programmes": [
+    "Thomas John Jones Memorial Fund",
+    "Cardiff Education Trust",
+    "Education Trust of John Vaughan",
+    "Monmouthshire Further Education Trust EFG",
+    "Rudbaxton Parish Education Fund",
+    "The Thomas Carroll Community Trust"
+   ],
+   "places": [
+    "Powys",
+    "Blaenau Gwent",
+    "Vale of Glamorgan",
+    "Monmouthshire",
+    "Carmarthenshire",
+    "Pembrokeshire",
+    "Caerphilly",
+    "Wrexham"
+   ]
+  },
+  {
+   "name": "Firstport",
+   "orgId": "GB-SC-SC037942",
+   "website": "https://www.firstport.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 5000,
+   "latest": "2026-05-06T00:00:00+00:00",
+   "programmes": [
+    "Build It ",
+    "Start It ",
+    "Pounds for Purpose",
+    "Start It"
+   ],
+   "places": [
+    "Liberton/Gilmerton",
+    "City of Edinburgh",
+    "Trossachs and Teith",
+    "Stirling",
+    "Canal",
+    "Glasgow City",
+    "Cambuslang East",
+    "South Lanarkshire"
+   ]
+  },
+  {
+   "name": "Foothold",
+   "orgId": "GB-CHC-208925",
+   "website": "https://www.myfoothold.org/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 500,
+   "latest": "2022-12-09",
+   "programmes": [
+    "General Fund",
+    "Speirs Fund",
+    "Lord Hirst Fund",
+    "Wilde Fund"
+   ],
+   "places": [
+    "Beauchief and Greenhill",
+    "Spain",
+    "Moulton",
+    "Brixton Acre Lane",
+    "Holgate",
+    "Newtown",
+    "South Beddington & Roundshaw",
+    "Bordesley & Highgate"
+   ]
+  },
+  {
+   "name": "Freemasons’ Charity",
+   "orgId": "GB-CHC-1164703",
+   "website": "https://freemasonscharity.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 720,
+   "latest": "2026-08-24",
+   "programmes": [
+    "Daily living costs",
+    "Health, care and wellbeing",
+    "Children, young people and education"
+   ],
+   "places": [
+    "London",
+    "Monmouthshire",
+    "Hampshire and Isle of Wight",
+    "Herefordshire",
+    "Surrey",
+    "Leicestershire and Rutland",
+    "Devonshire",
+    "Sussex"
+   ]
+  },
+  {
+   "name": "Hampton Fund",
+   "orgId": "GB-CHC-211756",
+   "website": "https://www.hamptonfund.co.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 520,
+   "latest": "2023-09-07T00:00:00+00:00",
+   "programmes": [
+    "Individual Grants"
+   ],
+   "places": [
+    "Whitton",
+    "Richmond upon Thames",
+    "Teddington",
+    "Fulwell & Hampton Hill",
+    "Heathfield",
+    "St Margarets & North Twickenham",
+    "Hampton",
+    "Twickenham Riverside"
+   ]
+  },
+  {
+   "name": "Imperial Health Charity",
+   "orgId": "GB-CHC-1166084",
+   "website": "https://www.imperialcharity.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 474,
+   "latest": "2025-06-14T00:00:00+00:00",
+   "programmes": [
+    "Patient Hardship",
+    "Research Fellowship"
+   ],
+   "places": [
+    "London"
+   ]
+  },
+  {
+   "name": "Longleigh Foundation",
+   "orgId": "GB-CHC-1169016",
+   "website": "www.longleigh.org",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 913.97,
+   "latest": "2024-03-06T00:00:00+00:00",
+   "programmes": [
+    "Hardship Grant",
+    "Critical Incident Grant",
+    "Flooring Grant",
+    "Education Training & Employment Grant",
+    "Stonewater Employee Support Fund",
+    "Crisis Grant"
+   ],
+   "places": [
+    "Tilehurst",
+    "Reading",
+    "Warwick All Saints & Woodloes",
+    "Warwick",
+    "Cauldwell",
+    "Bedford",
+    "Fordingbridge, Godshill & Hyde",
+    "New Forest"
+   ]
+  },
+  {
+   "name": "R L Glasspool Charity Trust",
+   "orgId": "GB-CHC-214648",
+   "website": "https://www.glasspool.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 100,
+   "latest": "2016-09-05T00:00:00+00:00",
+   "programmes": [
+    "Glasspool Core Programme"
+   ],
+   "places": [
+    "Northwood",
+    "Knowsley",
+    "St Michaels",
+    "Prescot North",
+    "Cherryfield",
+    "Shevington",
+    "Clubmoor West",
+    "Liverpool"
+   ]
+  },
+  {
+   "name": "Somerset Community Foundation",
+   "orgId": "GB-COH-04530979",
+   "website": "www.somersetcf.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 100,
+   "latest": "2026-02-11T00:00:00+00:00",
+   "programmes": [],
+   "places": [
+    "Comeytrowe & Trull",
+    "Somerset",
+    "Taunton South",
+    "Taunton East",
+    "Taunton North",
+    "Bishop's Hull & Taunton West",
+    "Lydeard",
+    "Rowbarton & Staplegrove"
+   ]
+  },
+  {
+   "name": "St. Martin-in-the-Fields Charity",
+   "orgId": "GB-CHC-1156305",
+   "website": "https://www.smitfc.org/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 435.59,
+   "latest": "2024-06-28T00:00:00+00:00",
+   "programmes": [
+    "Accessing accommodation",
+    "Preventing eviction"
+   ],
+   "places": [
+    "Wakefield",
+    "Plymouth",
+    "Bath and North East Somerset",
+    "County Durham",
+    "Kirklees",
+    "Denbighshire (Sir Ddinbych)",
+    "Stoke-on-Trent",
+    "Amber Valley"
+   ]
+  },
+  {
+   "name": "The Greggs Foundation",
+   "orgId": "GB-CHC-296590",
+   "website": "www.greggsfoundation.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 100,
+   "latest": "2025-11-18T00:00:00+00:00",
+   "programmes": [
+    "Hardship Grants"
+   ],
+   "places": [
+    "Higham Hill",
+    "Waltham Forest",
+    "Boulsworth & Foulridge",
+    "Pendle",
+    "Ayr North",
+    "South Ayrshire",
+    "Calton",
+    "Glasgow City"
+   ]
+  },
+  {
+   "name": "The Paul Mellon Centre for Studies in British Art",
+   "orgId": "GB-CHC-313838",
+   "website": "https://www.paul-mellon-centre.ac.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 2900,
+   "latest": "2025-11-25T00:00:00+00:00",
+   "programmes": [
+    "Andrew Wyld Research Support Grant",
+    "Doctoral Scholarship",
+    "Research Support Grant",
+    "Author Grant (Large)",
+    "Early Career Fellowship",
+    "Junior Fellowship"
+   ],
+   "places": []
+  },
+  {
+   "name": "The Teaching Staff Trust",
+   "orgId": "GB-CHC-1168445",
+   "website": "https://teachingstafftrust.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 200,
+   "medianAward": 700,
+   "latest": "2021-03-31T00:00:00+00:00",
+   "programmes": [
+    "Payments to individuals 2020/21"
+   ],
+   "places": []
+  },
+  {
+   "name": "The Eaton Fund",
+   "orgId": "GB-CHC-1197452",
+   "website": "http://www.eatonfund.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 124,
+   "medianAward": 350,
+   "latest": "2024-05-01T00:00:00+00:00",
+   "programmes": [],
+   "places": []
+  },
+  {
+   "name": "Haberdashers' Company",
+   "orgId": "GB-CHC-275067",
+   "website": "https://www.haberdashers.co.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 69,
+   "medianAward": 1000,
+   "latest": "2023-05-31",
+   "programmes": [
+    "Restricted Grants Programme",
+    "Regular Grants Programme"
+   ],
+   "places": [
+    "Shropshire",
+    "Monmouthshire",
+    "Lewisham",
+    "Cheshire",
+    "London",
+    "Elstree",
+    "West Bromwich"
+   ]
+  },
+  {
+   "name": "Barking & Dagenham Giving",
+   "orgId": "GB-CHC-1166335",
+   "website": "https://bdgiving.org.uk/",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 51,
+   "medianAward": 300,
+   "latest": "2025-06-16T00:00:00+00:00",
+   "programmes": [
+    "Renew Fund",
+    "Rapid Response Fund",
+    "Communities' Pot",
+    "Give it a Go",
+    "Riverside Fire Fund"
+   ],
+   "places": [
+    "East London"
+   ]
+  },
+  {
+   "name": "Fenton Arts Trust",
+   "orgId": "GB-CHC-294629",
+   "website": "https://www.fentonartstrust.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 35,
+   "medianAward": 2460,
+   "latest": "2025-03-31T00:00:00+00:00",
+   "programmes": [],
+   "places": [
+    "Exminster, Devon",
+    "Stirling",
+    "Cenarth, Ceredigion",
+    "Brighton",
+    "Newcastle",
+    "Tring/Oxford",
+    "Edinburgh",
+    "London"
+   ]
+  },
+  {
+   "name": "Historic Environment Scotland",
+   "orgId": "GB-SC-SC045925",
+   "website": "https://www.historicenvironment.scot/",
+   "licence": "Open Government Licence 3.0 (United Kingdom)",
+   "sampled": 200,
+   "toIndividuals": 12,
+   "medianAward": 3900,
+   "latest": "2024-12-19T00:00:00+00:00",
+   "programmes": [
+    "Historic Environment Support Fund",
+    "Archaeology Programme Funding",
+    "Historic Environment Grants Programme"
+   ],
+   "places": [
+    "Na h-Eileanan Siar",
+    "Scotland",
+    "Orkney Islands",
+    "East Lothian",
+    "Argyll and Bute",
+    "Perth and Kinross",
+    "Scottish Borders",
+    "Angus"
+   ]
+  },
+  {
+   "name": "Two Ridings Community Foundation",
+   "orgId": "GB-CHC-1166471",
+   "website": "www.tworidingscf.org.uk",
+   "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)",
+   "sampled": 200,
+   "toIndividuals": 2,
+   "medianAward": 347,
+   "latest": "2023-11-07T00:00:00+00:00",
+   "programmes": [
+    "Disaster and Recovery Fund - East Yorkshire"
+   ],
+   "places": [
+    "East Riding of Yorkshire"
+   ]
+  }
+ ]
+}

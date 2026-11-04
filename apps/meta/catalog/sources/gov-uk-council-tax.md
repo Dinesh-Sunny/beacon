@@ -1,0 +1,301 @@
+# How Council Tax works
+
+Source: https://www.gov.uk/council-tax
+Fetched: 2026-11-04
+Publisher updated: 2025-02-05T14:40:44+00:00
+
+## Working out your Council Tax
+
+You’ll need to know 3 things:
+
+ the valuation band for your home in England and Wales or in Scotland 
+
+ how much your local council charges for that band
+
+ whether you can get a discount or exemption from the full bill
+
+ You may be able to get Council Tax Reduction (this used to be called Council Tax Benefit) if you’re on a low income or get benefits.
+
+ You can challenge your Council Tax band if you think your home is in the wrong valuation band.
+
+ Changes that may affect your Council Tax band
+
+ Your property may be put in a different band in some circumstances, for example if:
+
+ you demolish part of your property and do not rebuild it
+
+ you alter your property to create 2 or more self-contained units, for example an annexe - each unit will have its own band
+
+ you split a single property into self-contained flats
+
+ you convert flats into a single property
+
+ you start or stop working from home 
+
+ the previous owner made changes to your property
+
+ there are significant changes to your local area, like a new road being built
+
+ a similar property in your area has its Council Tax band changed
+
+ Ask the Valuation Office ( VO ) if you want to know if changes to your property will affect your Council Tax band.
+
+## Who has to pay
+
+You’ll usually have to pay Council Tax if you’re 18 or over.
+
+ A full Council Tax bill is based on at least 2 adults living in a home. Spouses and partners who live together are jointly responsible for paying the bill.
+
+ Who is not counted (‘disregarded’)
+
+ Some people are not counted (‘disregarded’) when working out how many people live in a property. This means you might be able to apply for a discount on your Council Tax bill if you get one.
+
+ You’re disregarded if you’re:
+
+ under 18 years old
+
+ on certain apprentice schemes
+
+ 18 or 19 years old and in full-time education
+
+ a full-time student at college or university
+
+ under 25 years old and get funding from the Education and Skills Funding Agency
+
+ a student nurse
+
+ a foreign language assistant registered with the British Council
+
+ severely mentally impaired 
+
+ a live-in carer for someone who is not your partner, spouse, or child under 18
+
+ a diplomat
+
+ Apply for a discount or exemption
+
+ You need to apply for a Council Tax discount or an exemption , even if you’re disregarded.
+
+ You’ll get 50% off your bill if everyone living in your household is disregarded.
+
+ You’ll get 25% off your bill if you pay Council Tax and either:
+
+ you live on your own
+
+ everyone else in your home is disregarded
+
+ Contact your local council if you’re unsure about whether you can get a discount or who’s responsible for paying.
+
+ People on apprentice schemes
+
+ To show that you do not qualify as an adult for Council Tax, you’ll need a declaration from your employer stating that:
+
+ you will not be paid more than £195 a week
+
+ the training leads to a qualification accredited by a body recognised by the Office of Qualifications and Examinations Regulation (Ofqual) or the Scottish Vocational Education Council (SVEC)
+
+ If you get a Council Tax discount by mistake
+
+ You must contact your local council . If you do not, you could get a fine.
+
+ The council may ask you to pay back the discount.
+
+## Discounts for full-time students
+
+Households where everyone’s a full-time student do not have to pay Council Tax. If you do get a bill, you can apply for an exemption .
+
+ To count as a full-time student, your course must:
+
+ last at least 1 year
+
+ involve at least 21 hours study per week
+
+ If you study for a qualification up to A level and you’re under 20, your course must:
+
+ last at least 3 months
+
+ involve at least 12 hours study per week
+
+ You’ll get a Council Tax bill if there’s someone in your household who’s not a full-time student, but your household might still qualify for a discount .
+
+## Discounts for disabled people
+
+You might be able to apply for a Council Tax discount or exemption if you or someone you live with is disabled.
+
+ Disabled Band Reduction Scheme
+
+ You may be eligible for the scheme if you live in a larger property than you would need if you or another occupant were not disabled.
+
+ If you qualify, your bill will be reduced to the next lowest Council Tax band. For example, if your property is in Band D, you’ll pay the Band C rate. If your home is already in the lowest band (Band A), you’ll get a 17% discount on your Council Tax bill instead.
+
+ You’ll have to show that you have either:
+
+ an extra bathroom, kitchen or other room that you need for the disabled person
+
+ extra space inside the property for using a wheelchair
+
+ The property must be the main home of at least 1 disabled person. This can be an adult or a child - it does not have to be the person responsible for paying the Council Tax.
+
+ How to apply
+
+ Check if you qualify for the Disabled Band Reduction Scheme.
+
+ Discounts for severely mentally impaired people
+
+ You might be able to apply for a discount on your Council Tax bill if you or someone you live with is severely mentally impaired.
+
+ You’ll need to:
+
+ get a certificate to say you’re severely mentally impaired from a medical professional, such as your GP
+
+ prove your eligibility for certain benefits - check with your local council 
+
+ If you qualify as severely mentally impaired
+
+ You’ll get a 100% discount if you qualify as severely mentally impaired and one of the following applies:
+
+ you live on your own
+
+ any other adults in your household either qualify as severely mentally impaired or are full-time students
+
+ There’ll be a 50% discount on the council tax bill if everyone else in your household is ‘disregarded’ .
+
+ If you live with someone who is severely mentally impaired
+
+ You’ll get a 25% discount if you live with someone who qualifies as severely mentally impaired and either:
+
+ there are no other adults in your household
+
+ everyone else in your home is disregarded
+
+ How to apply
+
+ Check if you qualify for a Council Tax discount.
+
+## Second homes and empty properties
+
+Second homes
+
+ You’ll usually have to pay Council Tax on another property you own or rent, such as a holiday home. These properties are furnished and do not have anyone living in them as their main home. They are also known as ‘second homes’.
+
+ Your local council will decide whether the property is a second home and how much Council Tax to charge you.
+
+ They may give you a discount - it’s up to them how much you get. Contact your council to ask about a discount.
+
+ You can also be charged up to 2 times your normal Council Tax. This is sometimes known as the second homes premium.
+
+ Exceptions
+
+ If your council charges additional Council Tax on second homes in your local area, you may not have to pay the premium if:
+
+ the second home is an annex which forms part of the same property, and is being used as part of the main residence
+
+ your main or second home is provided by your employer and you need to live there for your job
+
+ the second home has planning restrictions or other conditions about what it’s used for and who can live there, which means you cannot use it as a permanent residence
+
+ You may not have to pay the premium for up to 12 months if: 
+
+ you recently received a grant of probate (or letters of administration) for the second home
+
+ the second home is being marketed for sale or to rent
+
+ You will still need to pay the standard rate of council tax on the property, unless you’re eligible for a discount or exemption .
+
+ To apply for an exception, contact your council .
+
+ The rules are different in Scotland .
+
+ Empty properties
+
+ You’ll usually have to pay Council Tax on an empty home, but your council can decide to give you a discount - the amount is up to them. Contact your council to ask about a discount.
+
+ If your home has been empty for at least one year
+
+ You can be charged additional Council Tax if your home has been empty for at least one year. This is also known as the empty home premium.
+
+ How much you pay will depend on how long the property has been empty. You can be charged up to 4 times your normal Council Tax bill if your home has been empty for at least 10 years.
+
+ You will not have to pay the empty home premium if either:
+
+ the empty property is an annex
+
+ you’re in the armed forces and you have to move into armed forces accommodation as part of your work
+
+ You may not have to pay the premium for up to 12 months if:
+
+ you recently received a grant of probate (or letters of administration) for the empty home
+
+ the empty home is being marketed for sale or to rent
+
+ the empty home is undergoing major repairs or structural alterations
+
+ You will still need to pay the standard rate of council tax on the property, unless you’re eligible for a discount or exemption .
+
+ To apply for an exception, contact your council .
+
+ The rules are different in Scotland .
+
+ When you do not pay Council Tax
+
+ If you’re selling a property on behalf of an owner who’s died, you do not need to pay Council Tax until after you get probate as long as the property remains empty. After probate is granted, you may be able to get a Council Tax exemption for another 6 months if the property is both:
+
+ unoccupied
+
+ still owned and in the name of the person who died
+
+ Some homes do not get a Council Tax bill for as long as they stay empty. They include homes:
+
+ of someone in prison (except for not paying a fine or Council Tax)
+
+ of someone who’s moved into a care home or hospital
+
+ that have been repossessed
+
+ that cannot be lived in by law, for example if they’re derelict
+
+ that are empty because they’ve been compulsory purchased and will be demolished
+
+ You may get a discount if your home is undergoing major repair work or structural changes, for example your walls are being rebuilt.
+
+ If you’re renovating your property
+
+ If you’re making major home improvements to your property and cannot live in it, you can ask to have it removed (deleted) from the Council Tax list. This means you will not pay Council Tax on it. Find out more in the guidance on removing properties from the Council Tax list .
+
+ You must contact your council to tell them when the works are finished and your property is capable of being lived in. You will have to start paying Council Tax again at this point. Your bill may be backdated if you do not tell the council straight away.
+
+ If your property’s derelict
+
+ Your property’s only considered derelict if it:
+
+ is not possible to live in it, for example because it’s been damaged by weather, rot or vandalism
+
+ would need major structural works to make it ‘wind and watertight’ again
+
+ You can challenge your Council Tax band if you think a derelict property should be removed from the Council Tax valuation list.
+
+## Paying your bill
+
+Your Council Tax bill tells you:
+
+ how much you have to pay for the year
+
+ how that amount has been worked out
+
+ the dates you have to pay
+
+ The cost is usually split into 10 monthly payments. Contact your local council immediately if you’re having trouble paying - they can help you, for example by spreading your payments over 12 months instead of 10.
+
+ The council can take action to reclaim any debts you owe if you get behind with your payments .
+
+ Ways to pay
+
+ You can usually pay your Council Tax online .
+
+ You can also use ‘Paypoint’, ‘Payzone’ or ‘Quickcards’ for cash payments at post offices, banks, newsagents and convenience stores.
+
+ Check your bill to find out which other payment methods you can use.
+
+ If you’ve overpaid
+
+ Contact your local council if you’ve paid too much Council Tax and have not received an automatic refund.

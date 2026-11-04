@@ -1,0 +1,83 @@
+{
+  "$schema": "./pack.schema.json",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "id": "uk-unclaimed",
+  "topics": [
+    [
+      "found",
+      "Money already yours"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "ctf",
+      "name": "Child Trust Fund",
+      "topic": "found",
+      "by": "HMRC",
+      "gives": "Your own tax-free savings account, opened by the government when you were born. Many are still unclaimed.",
+      "how": "Ask HMRC's free tool where it was opened. Never pay a company to find it.",
+      "url": "https://www.gov.uk/child-trust-funds/find-a-child-trust-fund",
+      "act": "Find it for free",
+      "rule": [
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "bornOn",
+                "op": "gte",
+                "v": 20020901
+              },
+              {
+                "f": "bornOn",
+                "op": "lte",
+                "v": 20110102
+              }
+            ]
+          },
+          "expr": "born between 1 September 2002 and 2 January 2011",
+          "txt": "Born between September 2002 and January 2011",
+          "fail": "Born outside the Child Trust Fund years"
+        }
+      ]
+    },
+    {
+      "id": "ctfkid",
+      "name": "Your child's Child Trust Fund",
+      "topic": "found",
+      "by": "HMRC",
+      "gives": "A tax-free savings account the government opened for your child. You can add to it and find where it is.",
+      "how": "Ask HMRC's free tool where it was opened. It's free, so never pay a finder company.",
+      "url": "https://www.gov.uk/child-trust-funds/find-a-child-trust-fund",
+      "act": "Find it for free",
+      "rule": [
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "childBornOn",
+                "op": "gte",
+                "v": 20020901
+              },
+              {
+                "f": "childBornOn",
+                "op": "lte",
+                "v": 20110102
+              }
+            ]
+          },
+          "expr": "youngest child born between September 2002 and January 2011",
+          "txt": "A child born between September 2002 and January 2011",
+          "fail": "Youngest child born outside the Child Trust Fund years"
+        }
+      ]
+    }
+  ]
+}

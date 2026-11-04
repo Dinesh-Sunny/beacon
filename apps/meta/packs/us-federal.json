@@ -1,0 +1,1981 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "us-federal",
+  "country": "US",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "lines": {
+    "fplBase": {
+      "value": 15960,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026 HHS poverty guideline, 1 person, 48 contiguous states and DC"
+    },
+    "fplAdd": {
+      "value": 5680,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026, added for each extra person"
+    },
+    "fplBaseAK": {
+      "value": 19950,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026 HHS poverty guideline, 1 person, Alaska"
+    },
+    "fplAddAK": {
+      "value": 7100,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026, Alaska, added for each extra person"
+    },
+    "fplBaseHI": {
+      "value": 18360,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026 HHS poverty guideline, 1 person, Hawaii"
+    },
+    "fplAddHI": {
+      "value": 6530,
+      "source": "https://aspe.hhs.gov/topics/poverty-economic-mobility/poverty-guidelines",
+      "note": "2026, Hawaii, added for each extra person"
+    },
+    "snapGrossPct": {
+      "value": 130,
+      "source": "https://www.fna.usda.gov/snap/recipient/eligibility",
+      "note": "gross income test, % of poverty, Oct 2026 to Sep 2027"
+    },
+    "wicPct": {
+      "value": 185,
+      "source": "https://www.fna.usda.gov/wic/fr-042926",
+      "note": "% of poverty, July 2026 to June 2027"
+    },
+    "mealsReducedPct": {
+      "value": 185,
+      "source": "https://www.fna.usda.gov/schoolmeals/fr-040926",
+      "note": "reduced-price meals, % of poverty, July 2026 to June 2027 (free meals at 130%)"
+    },
+    "lifelinePct": {
+      "value": 135,
+      "source": "https://www.lifelinesupport.org/do-i-qualify/"
+    },
+    "medicaidPct": {
+      "value": 138,
+      "source": "https://www.kff.org/affordable-care-act/issue-brief/status-of-state-medicaid-expansion-decisions/",
+      "note": "adults in expansion states"
+    },
+    "chipMaxPct": {
+      "value": 405,
+      "source": "https://www.kff.org/affordable-care-act/state-indicator/medicaid-and-chip-income-eligibility-limits-for-children-as-a-percent-of-the-federal-poverty-level/",
+      "note": "highest state limit for children (New York), January 2026; the median state is 255%"
+    },
+    "ptcMinPct": {
+      "value": 100,
+      "source": "https://www.healthcare.gov/glossary/premium-tax-credit/"
+    },
+    "ptcMaxPct": {
+      "value": 400,
+      "source": "https://www.healthcare.gov/glossary/premium-tax-credit/"
+    },
+    "mspIncomeYear": {
+      "value": 21792,
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "note": "2026 QI limit $1,816 a month, single"
+    },
+    "mspIncomeYearCouple": {
+      "value": 29460,
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "note": "2026 QI limit $2,455 a month, married couple"
+    },
+    "mspSavings": {
+      "value": 9950,
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "note": "2026, single"
+    },
+    "mspSavingsCouple": {
+      "value": 14910,
+      "source": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "note": "2026, married couple"
+    },
+    "xhelpIncomeYear": {
+      "value": 23940,
+      "source": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "note": "2026, single"
+    },
+    "xhelpIncomeYearCouple": {
+      "value": 32460,
+      "source": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "note": "2026, married couple"
+    },
+    "xhelpSavings": {
+      "value": 18090,
+      "source": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "note": "2026, single"
+    },
+    "xhelpSavingsCouple": {
+      "value": 36100,
+      "source": "https://www.medicare.gov/basics/costs/help/drug-costs",
+      "note": "2026, married couple"
+    },
+    "ssiIncomeYear": {
+      "value": 11928,
+      "source": "https://www.ssa.gov/ssi/amount",
+      "note": "screening estimate: 2026 federal payment $994 a month x 12, single"
+    },
+    "ssiIncomeYearCouple": {
+      "value": 17892,
+      "source": "https://www.ssa.gov/ssi/amount",
+      "note": "screening estimate: 2026 federal payment $1,491 a month x 12, couple"
+    },
+    "ssiSavings": {
+      "value": 2000,
+      "source": "https://www.ssa.gov/ssi/eligibility",
+      "note": "single"
+    },
+    "ssiSavingsCouple": {
+      "value": 3000,
+      "source": "https://www.ssa.gov/ssi/eligibility",
+      "note": "couple"
+    },
+    "eitcIncomeKids": {
+      "value": 61555,
+      "source": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables",
+      "note": "tax year 2025, 3 or more children, single or head of household"
+    },
+    "eitcIncomeKidsJoint": {
+      "value": 68675,
+      "source": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables",
+      "note": "tax year 2025, 3 or more children, married filing jointly"
+    },
+    "eitcIncomeNoKids": {
+      "value": 19104,
+      "source": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables",
+      "note": "tax year 2025, no children, single"
+    },
+    "eitcIncomeNoKidsJoint": {
+      "value": 26214,
+      "source": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/earned-income-and-earned-income-tax-credit-eitc-tables",
+      "note": "tax year 2025, no children, married filing jointly"
+    },
+    "ctcIncome": {
+      "value": 200000,
+      "source": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
+      "note": "full credit up to this income, single"
+    },
+    "ctcIncomeJoint": {
+      "value": 400000,
+      "source": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
+      "note": "full credit up to this income, filing jointly"
+    },
+    "freeFileIncome": {
+      "value": 95000,
+      "source": "https://www.irs.gov/filing/irs-free-file-do-your-taxes-for-free",
+      "note": "IRS Free File guided software, AGI limit"
+    },
+    "liheapPct": {
+      "value": 150,
+      "source": "https://www.law.cornell.edu/uscode/text/42/8624",
+      "note": "federal maximum is the greater of 150% of poverty or 60% of state median income"
+    },
+    "wapPct": {
+      "value": 200,
+      "source": "https://www.ecfr.gov/current/title-10/chapter-II/subchapter-D/part-440/section-440.22"
+    },
+    "headStartPct": {
+      "value": 100,
+      "source": "https://headstart.gov/ersea/article/poverty-guidelines-determining-eligibility-participation-head-start-programs"
+    },
+    "tanfScreenPct": {
+      "value": 100,
+      "source": "https://www.usa.gov/welfare-benefits",
+      "note": "screening estimate: each state sets its own limit, usually lower"
+    },
+    "rentScreenPct": {
+      "value": 200,
+      "source": "https://www.hud.gov/helping-americans/public-housing",
+      "note": "screening estimate: HUD limits are 50% and 80% of area median income, which vary by area"
+    },
+    "healthCenterPct": {
+      "value": 200,
+      "source": "https://bphc.hrsa.gov/about-health-center-program/what-health-center",
+      "note": "about 90% of health centre patients have incomes under 200% of poverty"
+    },
+    "vaPensionIncome": {
+      "value": 17441,
+      "source": "https://www.va.gov/pension/veterans-pension-rates/",
+      "note": "MAPR, veteran with no dependents, from 1 Dec 2025"
+    },
+    "vaNetWorth": {
+      "value": 163699,
+      "source": "https://www.va.gov/pension/veterans-pension-rates/",
+      "note": "1 Dec 2025 to 30 Nov 2026"
+    }
+  },
+  "gateways": [
+    "snap",
+    "medicaid",
+    "ssi"
+  ],
+  "topics": [
+    [
+      "food",
+      "Food"
+    ],
+    [
+      "health",
+      "Health care"
+    ],
+    [
+      "tax",
+      "Tax credits and filing"
+    ],
+    [
+      "vets",
+      "Veterans"
+    ],
+    [
+      "rent",
+      "Housing"
+    ],
+    [
+      "learn",
+      "College"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "snap",
+      "name": "SNAP (food stamps)",
+      "topic": "food",
+      "by": "Your state SNAP office",
+      "gives": "Money each month on an EBT card to spend on food. Up to $306 a month for one person, or $808 for three.",
+      "how": "Apply to your state's SNAP office, online, by phone or in person.",
+      "url": "https://www.fna.usda.gov/snap/recipient/eligibility",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "snapGrossPct"
+            }
+          },
+          "expr": "income at or under 130% of the poverty line (gross income test)",
+          "txt": "Income under 130% of the poverty line",
+          "fail": "Income over 130% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "snapGrossPct"
+          }
+        }
+      ],
+      "opens": [
+        "wic",
+        "nslp",
+        "lifeline",
+        "liheap"
+      ]
+    },
+    {
+      "id": "medicaid",
+      "name": "Medicaid",
+      "topic": "health",
+      "by": "Your state Medicaid office",
+      "gives": "Free or very low-cost health cover for you or your children, including doctor visits, hospital care and prescriptions.",
+      "how": "Apply through HealthCare.gov or straight to your state Medicaid office, any time of year.",
+      "phone": "1-800-318-2596",
+      "url": "https://www.healthcare.gov/medicaid-chip/getting-medicaid-chip/",
+      "timing": "From January 2027, adults covered on income alone may need to meet a monthly work rule.",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "zip",
+            "income",
+            "people",
+            "pregnant",
+            "child",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "all": [
+                  {
+                    "f": "state",
+                    "op": "in",
+                    "v": [
+                      "AK",
+                      "AZ",
+                      "AR",
+                      "CA",
+                      "CO",
+                      "CT",
+                      "DE",
+                      "DC",
+                      "HI",
+                      "ID",
+                      "IL",
+                      "IN",
+                      "IA",
+                      "KY",
+                      "LA",
+                      "ME",
+                      "MD",
+                      "MA",
+                      "MI",
+                      "MN",
+                      "MO",
+                      "MT",
+                      "NE",
+                      "NV",
+                      "NH",
+                      "NJ",
+                      "NM",
+                      "NY",
+                      "NC",
+                      "ND",
+                      "OH",
+                      "OK",
+                      "OR",
+                      "PA",
+                      "RI",
+                      "SD",
+                      "UT",
+                      "VT",
+                      "VA",
+                      "WA",
+                      "WV"
+                    ]
+                  },
+                  {
+                    "f": "fplPct",
+                    "op": "lte",
+                    "v": {
+                      "line": "medicaidPct"
+                    }
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "any": [
+                      {
+                        "f": "pregnant",
+                        "op": "eq",
+                        "v": true
+                      },
+                      {
+                        "f": "childAge",
+                        "op": "lt",
+                        "v": 19
+                      }
+                    ]
+                  },
+                  {
+                    "f": "fplPct",
+                    "op": "lte",
+                    "v": {
+                      "line": "medicaidPct"
+                    }
+                  }
+                ]
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 138% of the poverty line in an expansion state, or pregnant or with children at that income, or gets SSI",
+          "txt": "Income under your state's Medicaid line",
+          "fail": "Your state covers few adults on income alone, but children, pregnancy and disability can still qualify"
+        }
+      ],
+      "opens": [
+        "wic",
+        "lifeline",
+        "extrahelp"
+      ]
+    },
+    {
+      "id": "ssi",
+      "name": "Supplemental Security Income (SSI)",
+      "topic": "low",
+      "by": "Social Security Administration",
+      "gives": "A monthly payment if you're 65 or over, blind or disabled, with little income or savings. Up to $994 a month, or $1,491 for a couple.",
+      "how": "Apply online or call Social Security to book an appointment.",
+      "phone": "1-800-772-1213",
+      "url": "https://www.ssa.gov/ssi/eligibility",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "dob",
+            "difficulties"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 65
+              },
+              {
+                "f": "health",
+                "op": "ne",
+                "v": "none"
+              }
+            ]
+          },
+          "expr": "aged 65 or over, or has a disability",
+          "txt": "Aged 65 or over, or has a health condition",
+          "fail": "Under 65 with no health condition"
+        },
+        {
+          "needs": [
+            "income",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "incYear",
+                "op": "lt",
+                "v": {
+                  "line": "ssiIncomeYear"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lt",
+                    "v": {
+                      "line": "ssiIncomeYearCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "yearly income under $11,928, or $17,892 for a couple",
+          "txt": "Income under the SSI payment level",
+          "fail": "Income likely above the SSI payment level",
+          "near": {
+            "f": "incYear",
+            "line": "ssiIncomeYear"
+          }
+        },
+        {
+          "needs": [
+            "savings",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "sav",
+                "op": "lte",
+                "v": {
+                  "line": "ssiSavings"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "sav",
+                    "op": "lte",
+                    "v": {
+                      "line": "ssiSavingsCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "savings $2,000 or less, or $3,000 for a couple",
+          "txt": "Savings $2,000 or less ($3,000 for a couple)",
+          "fail": "Savings over the SSI limit",
+          "near": {
+            "f": "sav",
+            "line": "ssiSavings"
+          }
+        }
+      ],
+      "opens": [
+        "medicaid",
+        "snap",
+        "extrahelp",
+        "lifeline",
+        "liheap",
+        "wap"
+      ],
+      "worth": {
+        "max": 994,
+        "per": "month",
+        "source": "https://www.ssa.gov/ssi/amount",
+        "year": "2026/27"
+      }
+    },
+    {
+      "id": "wic",
+      "name": "WIC",
+      "topic": "food",
+      "by": "Your local WIC clinic",
+      "gives": "Healthy food and nutrition help while you're pregnant, after birth, and for children under 5.",
+      "how": "Contact your local WIC clinic to book an appointment. If you get SNAP or Medicaid, bring proof and you can skip the income check.",
+      "url": "https://www.fna.usda.gov/wic/wic-eligibility-requirements",
+      "rule": [
+        {
+          "needs": [
+            "pregnant",
+            "child"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "childAge",
+                "op": "lt",
+                "v": 5
+              }
+            ]
+          },
+          "expr": "pregnant, or has a child under 5",
+          "txt": "Pregnant or has a child under 5",
+          "fail": "No pregnancy or child under 5"
+        },
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "wicPct"
+                }
+              },
+              {
+                "f": "snap",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "medicaid",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 185% of the poverty line, or gets SNAP or Medicaid",
+          "txt": "Income under 185% of the poverty line, or gets SNAP or Medicaid",
+          "fail": "Income over 185% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "wicPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "nslp",
+      "name": "Free and reduced-price school meals",
+      "topic": "food",
+      "by": "Your child's school",
+      "gives": "Free school lunch and breakfast if your income is under 130% of the poverty line, or meals at a reduced price under 185%.",
+      "how": "Ask your child's school for a meal application. If you get SNAP, your children are usually signed up without one.",
+      "url": "https://www.fna.usda.gov/nslp",
+      "act": "Ask the school",
+      "rule": [
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lt",
+            "v": 19
+          },
+          "expr": "has a child under 19",
+          "txt": "Has a child under 19",
+          "fail": "No children at home"
+        },
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "mealsReducedPct"
+                }
+              },
+              {
+                "f": "snap",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 185% of the poverty line, or gets SNAP",
+          "txt": "Income under 185% of the poverty line, or gets SNAP",
+          "fail": "Income over 185% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "mealsReducedPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "headstart",
+      "name": "Head Start",
+      "topic": "fam",
+      "by": "Your local Head Start programme",
+      "gives": "Free early learning for children from birth to age 5.",
+      "how": "Contact a Head Start programme near you. Children in families who get TANF or SSI, or who are homeless or in foster care, can join whatever the income.",
+      "url": "https://headstart.gov/ersea/article/poverty-guidelines-determining-eligibility-participation-head-start-programs",
+      "act": "Find a programme",
+      "rule": [
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lt",
+            "v": 5
+          },
+          "expr": "has a child under 5",
+          "txt": "Has a child under 5",
+          "fail": "No child under 5"
+        },
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "headStartPct"
+                }
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income under the poverty line, or gets SSI",
+          "txt": "Income under the poverty line, or gets SSI",
+          "fail": "Income over the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "headStartPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "chip",
+      "name": "Children's Health Insurance Program (CHIP)",
+      "topic": "health",
+      "by": "Your state Medicaid office",
+      "gives": "Low-cost health cover for children, and in some states pregnant women, when your income is too high for Medicaid. You won't pay more than 5% of your income a year.",
+      "how": "Apply any time of year through HealthCare.gov or your state. Cover can start straight away.",
+      "phone": "1-877-543-7669",
+      "url": "https://www.healthcare.gov/medicaid-chip/childrens-health-insurance-program/",
+      "worthChecking": "Each state sets its own income limit, so your state decides",
+      "rule": [
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lt",
+            "v": 19
+          },
+          "expr": "has a child under 19",
+          "txt": "Has a child under 19",
+          "fail": "No child under 19"
+        },
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "chipMaxPct"
+            }
+          },
+          "expr": "income at or under 405% of the poverty line (the highest state limit)",
+          "txt": "Income within the range states cover",
+          "fail": "Income above every state's CHIP limit"
+        }
+      ]
+    },
+    {
+      "id": "ptc",
+      "name": "Marketplace premium tax credit",
+      "topic": "health",
+      "by": "HealthCare.gov",
+      "gives": "Money off the monthly cost of a health plan you buy through the Marketplace.",
+      "how": "Apply at HealthCare.gov or your state's Marketplace, using your best estimate of this year's income.",
+      "phone": "1-800-318-2596",
+      "url": "https://www.healthcare.gov/lower-costs/",
+      "timing": "Enrol by December 15 for cover from January 1.",
+      "worthChecking": "Depends on plan prices where you live and whether a job offers you health cover",
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people",
+            "zip"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "fplPct",
+                "op": "gte",
+                "v": {
+                  "line": "ptcMinPct"
+                }
+              },
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "ptcMaxPct"
+                }
+              },
+              {
+                "any": [
+                  {
+                    "f": "fplPct",
+                    "op": "gt",
+                    "v": {
+                      "line": "medicaidPct"
+                    }
+                  },
+                  {
+                    "f": "state",
+                    "op": "in",
+                    "v": [
+                      "AL",
+                      "FL",
+                      "GA",
+                      "KS",
+                      "MS",
+                      "SC",
+                      "TN",
+                      "TX",
+                      "WI",
+                      "WY"
+                    ]
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "income between 100% and 400% of the poverty line, and above the Medicaid line where Medicaid is expanded",
+          "txt": "Income between 100% and 400% of the poverty line",
+          "fail": "Income outside the 100% to 400% range, or Medicaid covers you instead",
+          "near": {
+            "f": "fplPct",
+            "line": "ptcMaxPct"
+          }
+        },
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "age",
+            "op": "lt",
+            "v": 65
+          },
+          "expr": "under 65",
+          "txt": "Under 65",
+          "fail": "Aged 65 or over: Medicare is the usual cover"
+        },
+        {
+          "needs": [
+            "benefitsUs"
+          ],
+          "test": {
+            "f": "medicaid",
+            "op": "eq",
+            "v": false
+          },
+          "expr": "doesn't get Medicaid",
+          "txt": "Doesn't get Medicaid",
+          "fail": "Already gets Medicaid"
+        }
+      ]
+    },
+    {
+      "id": "msp",
+      "name": "Medicare Savings Program",
+      "topic": "health",
+      "by": "Your state Medicaid office",
+      "gives": "Your state pays your Medicare Part B premium, and at the lowest incomes your deductibles and copays too. It also gives you Extra Help with drug costs.",
+      "how": "Apply to your state Medicaid office. Some states accept you even above these limits, so apply if you're close.",
+      "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
+      "rule": [
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "age",
+            "op": "gte",
+            "v": 65
+          },
+          "expr": "aged 65 or over",
+          "txt": "Aged 65 or over",
+          "fail": "Under 65, when Medicare usually starts"
+        },
+        {
+          "needs": [
+            "income",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "incYear",
+                "op": "lte",
+                "v": {
+                  "line": "mspIncomeYear"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "mspIncomeYearCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "yearly income $21,792 or less, or $29,460 for a couple",
+          "txt": "Income under the Medicare Savings Program limit",
+          "fail": "Income over the Medicare Savings Program limit",
+          "near": {
+            "f": "incYear",
+            "line": "mspIncomeYear"
+          }
+        },
+        {
+          "needs": [
+            "savings",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "sav",
+                "op": "lte",
+                "v": {
+                  "line": "mspSavings"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "sav",
+                    "op": "lte",
+                    "v": {
+                      "line": "mspSavingsCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "savings $9,950 or less, or $14,910 for a couple",
+          "txt": "Savings $9,950 or less ($14,910 for a couple)",
+          "fail": "Savings over the limit",
+          "near": {
+            "f": "sav",
+            "line": "mspSavings"
+          }
+        }
+      ],
+      "opens": [
+        "extrahelp"
+      ],
+      "worth": {
+        "max": 202.9,
+        "per": "month",
+        "source": "https://www.medicare.gov/basics/costs/medicare-costs",
+        "year": "2026/27"
+      }
+    },
+    {
+      "id": "extrahelp",
+      "name": "Extra Help with Medicare drug costs",
+      "topic": "health",
+      "by": "Social Security Administration",
+      "gives": "Help paying for Medicare Part D: no premium or deductible, and low fixed prices for each prescription.",
+      "how": "Apply online or by phone with Social Security. You get it without applying if you have full Medicaid, SSI or a Medicare Savings Program.",
+      "phone": "1-800-772-1213",
+      "url": "https://www.ssa.gov/medicare/part-d-extra-help",
+      "rule": [
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "age",
+            "op": "gte",
+            "v": 65
+          },
+          "expr": "aged 65 or over",
+          "txt": "Aged 65 or over",
+          "fail": "Under 65, when Medicare usually starts"
+        },
+        {
+          "needs": [
+            "income",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "incYear",
+                "op": "lte",
+                "v": {
+                  "line": "xhelpIncomeYear"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "xhelpIncomeYearCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "yearly income $23,940 or less, or $32,460 for a couple",
+          "txt": "Income under the Extra Help limit",
+          "fail": "Income over the Extra Help limit",
+          "near": {
+            "f": "incYear",
+            "line": "xhelpIncomeYear"
+          }
+        },
+        {
+          "needs": [
+            "savings",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "sav",
+                "op": "lte",
+                "v": {
+                  "line": "xhelpSavings"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "sav",
+                    "op": "lte",
+                    "v": {
+                      "line": "xhelpSavingsCouple"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "savings $18,090 or less, or $36,100 for a couple",
+          "txt": "Savings $18,090 or less ($36,100 for a couple)",
+          "fail": "Savings over the limit",
+          "near": {
+            "f": "sav",
+            "line": "xhelpSavings"
+          }
+        }
+      ]
+    },
+    {
+      "id": "healthcenter",
+      "name": "Community health centers",
+      "topic": "health",
+      "by": "Your local health centre",
+      "gives": "Medical, dental and mental health care with fees based on your income. They see everyone, even if you can't pay.",
+      "how": "Find a health centre near you and call to book. Tell them your income and household size so they can lower your fee.",
+      "url": "https://bphc.hrsa.gov/about-health-center-program/what-health-center",
+      "act": "Find a health centre",
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "healthCenterPct"
+            }
+          },
+          "expr": "income at or under 200% of the poverty line",
+          "txt": "Income under 200% of the poverty line",
+          "fail": "Income over 200% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "healthCenterPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "lifeline",
+      "name": "Lifeline phone and internet discount",
+      "topic": "home",
+      "by": "Your phone or internet company",
+      "gives": "Up to $9.25 off your phone or internet bill each month, or up to $34.25 on Tribal lands.",
+      "how": "Check and apply on the Lifeline website, then choose a phone or internet company that offers Lifeline.",
+      "url": "https://www.lifelinesupport.org/do-i-qualify/",
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "lifelinePct"
+                }
+              },
+              {
+                "f": "snap",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "medicaid",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 135% of the poverty line, or gets SNAP, Medicaid or SSI",
+          "txt": "Income under 135% of the poverty line, or gets SNAP, Medicaid or SSI",
+          "fail": "Income over 135% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "lifelinePct"
+          }
+        }
+      ],
+      "worth": {
+        "max": 9.25,
+        "per": "month",
+        "source": "https://www.fcc.gov/lifeline-consumers",
+        "year": "2026/27"
+      }
+    },
+    {
+      "id": "liheap",
+      "name": "LIHEAP energy bill help",
+      "topic": "home",
+      "by": "Your state LIHEAP office",
+      "gives": "Help paying your home energy bills.",
+      "how": "Contact your state or local LIHEAP office. Some take applications online; others ask you to come in.",
+      "url": "https://www.usa.gov/help-with-energy-bills",
+      "worthChecking": "Your state sets its own limit and funding can run out, so apply early",
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "liheapPct"
+                }
+              },
+              {
+                "f": "snap",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 150% of the poverty line, or gets SNAP or SSI",
+          "txt": "Income under 150% of the poverty line, or gets SNAP or SSI",
+          "fail": "Income over 150% of the poverty line, though some states go higher",
+          "near": {
+            "f": "fplPct",
+            "line": "liheapPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "wap",
+      "name": "Weatherization Assistance Program",
+      "topic": "home",
+      "by": "Your state weatherization provider",
+      "gives": "Home improvements that lower your energy costs, paid for by the programme.",
+      "how": "Contact your state weatherization office to find your local provider and apply.",
+      "url": "https://www.energy.gov/scep/wap/how-apply-weatherization-assistance",
+      "worthChecking": "Your local provider checks your home, and there can be a wait",
+      "rule": [
+        {
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "fplPct",
+                "op": "lte",
+                "v": {
+                  "line": "wapPct"
+                }
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "income at or under 200% of the poverty line, or gets SSI",
+          "txt": "Income under 200% of the poverty line, or gets SSI",
+          "fail": "Income over 200% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "wapPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "tanf",
+      "name": "TANF cash assistance",
+      "topic": "fam",
+      "by": "Your state TANF office",
+      "gives": "Cash help for families with children to pay for food, housing, energy and child care, plus help with job training.",
+      "how": "Apply to the TANF office in the state where you live. It may have a different name in your state.",
+      "url": "https://www.usa.gov/welfare-benefits",
+      "worthChecking": "Each state sets its own rules and income limit, often well under the poverty line",
+      "rule": [
+        {
+          "needs": [
+            "pregnant",
+            "child"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "childAge",
+                "op": "lt",
+                "v": 18
+              },
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "has a child under 18 or is pregnant",
+          "txt": "Has a child under 18 or is pregnant",
+          "fail": "No children at home"
+        },
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "tanfScreenPct"
+            }
+          },
+          "expr": "income at or under 100% of the poverty line",
+          "txt": "Income under 100% of the poverty line",
+          "fail": "Income over 100% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "tanfScreenPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "hcv",
+      "name": "Housing Choice Voucher (Section 8)",
+      "topic": "rent",
+      "by": "Your local public housing agency",
+      "gives": "Help paying your rent, through a voucher from your local housing agency.",
+      "how": "Apply to your local public housing agency. Waiting lists are long, so it helps to apply to several agencies.",
+      "url": "https://www.hud.gov/helping-americans/housing-choice-vouchers-tenants",
+      "act": "Find your housing agency",
+      "worthChecking": "Limits depend on your area's median income, and waiting lists can be long or closed",
+      "rule": [
+        {
+          "needs": [
+            "housing"
+          ],
+          "test": {
+            "f": "housing",
+            "op": "in",
+            "v": [
+              "private",
+              "family"
+            ]
+          },
+          "expr": "rents privately or lives with family or friends",
+          "txt": "Rents or lives with others",
+          "fail": "Already in public housing or owns the home"
+        },
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "rentScreenPct"
+            }
+          },
+          "expr": "income at or under 200% of the poverty line (screening estimate)",
+          "txt": "Income under 200% of the poverty line",
+          "fail": "Income over 200% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "rentScreenPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "pubhousing",
+      "name": "Public housing",
+      "topic": "rent",
+      "by": "Your local public housing agency",
+      "gives": "A home rented from your local housing agency, for people on low incomes.",
+      "how": "Contact your local housing agency. If you're accepted, you join a waiting list until a home is free.",
+      "url": "https://www.hud.gov/helping-americans/public-housing",
+      "act": "Contact your housing agency",
+      "worthChecking": "Limits depend on your area's median income, and waiting lists can be long or closed",
+      "rule": [
+        {
+          "needs": [
+            "housing"
+          ],
+          "test": {
+            "f": "housing",
+            "op": "in",
+            "v": [
+              "private",
+              "family"
+            ]
+          },
+          "expr": "rents privately or lives with family or friends",
+          "txt": "Rents or lives with others",
+          "fail": "Already in public housing or owns the home"
+        },
+        {
+          "needs": [
+            "income",
+            "people"
+          ],
+          "test": {
+            "f": "fplPct",
+            "op": "lte",
+            "v": {
+              "line": "rentScreenPct"
+            }
+          },
+          "expr": "income at or under 200% of the poverty line (screening estimate)",
+          "txt": "Income under 200% of the poverty line",
+          "fail": "Income over 200% of the poverty line",
+          "near": {
+            "f": "fplPct",
+            "line": "rentScreenPct"
+          }
+        }
+      ]
+    },
+    {
+      "id": "eitc",
+      "name": "Earned Income Tax Credit",
+      "topic": "tax",
+      "by": "IRS",
+      "gives": "A tax credit for people who work on a low or moderate income, worth up to $8,231 with three or more children.",
+      "how": "Claim it on your federal tax return. Free filing help can do this for you.",
+      "url": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/who-qualifies-for-the-earned-income-tax-credit-eitc",
+      "rule": [
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "in",
+            "v": [
+              "employed",
+              "self"
+            ]
+          },
+          "expr": "works or is self-employed",
+          "txt": "Has earned income",
+          "fail": "No earned income from work"
+        },
+        {
+          "needs": [
+            "income",
+            "child",
+            "household",
+            "dob"
+          ],
+          "test": {
+            "any": [
+              {
+                "all": [
+                  {
+                    "f": "childAge",
+                    "op": "lt",
+                    "v": 19
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "eitcIncomeKids"
+                    }
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "f": "childAge",
+                    "op": "lt",
+                    "v": 19
+                  },
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "eitcIncomeKidsJoint"
+                    }
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "f": "age",
+                    "op": "gte",
+                    "v": 25
+                  },
+                  {
+                    "f": "age",
+                    "op": "lt",
+                    "v": 65
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "eitcIncomeNoKids"
+                    }
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "f": "age",
+                    "op": "gte",
+                    "v": 25
+                  },
+                  {
+                    "f": "age",
+                    "op": "lt",
+                    "v": 65
+                  },
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "eitcIncomeNoKidsJoint"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "income under the EITC limit for the family (with children up to $61,555, or $68,675 filing jointly; without children aged 25 to 64 and up to $19,104, or $26,214 jointly)",
+          "txt": "Income under the EITC limit",
+          "fail": "Income over the EITC limit"
+        }
+      ],
+      "worth": {
+        "max": 8231,
+        "per": "year",
+        "source": "https://www.irs.gov/newsroom/irs-releases-tax-inflation-adjustments-for-tax-year-2026-including-amendments-from-the-one-big-beautiful-bill",
+        "year": "2026/27"
+      }
+    },
+    {
+      "id": "ctc",
+      "name": "Child Tax Credit",
+      "topic": "tax",
+      "by": "IRS",
+      "gives": "Up to $2,200 off your tax for each child under 17. If you owe little tax, up to $1,700 per child can come back as a refund.",
+      "how": "Claim it on your federal tax return. You and each child need a Social Security number.",
+      "url": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
+      "rule": [
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lt",
+            "v": 17
+          },
+          "expr": "has a child under 17",
+          "txt": "Has a child under 17",
+          "fail": "No child under 17"
+        },
+        {
+          "needs": [
+            "income",
+            "household"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "incYear",
+                "op": "lte",
+                "v": {
+                  "line": "ctcIncome"
+                }
+              },
+              {
+                "all": [
+                  {
+                    "f": "couple",
+                    "op": "eq",
+                    "v": true
+                  },
+                  {
+                    "f": "incYear",
+                    "op": "lte",
+                    "v": {
+                      "line": "ctcIncomeJoint"
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "income $200,000 or less, or $400,000 filing jointly",
+          "txt": "Income under $200,000 ($400,000 jointly)",
+          "fail": "Income over the full credit limit"
+        }
+      ],
+      "worth": {
+        "max": 2200,
+        "per": "year",
+        "source": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
+        "year": "2025/26"
+      }
+    },
+    {
+      "id": "taxprep",
+      "name": "Free tax filing help",
+      "topic": "tax",
+      "by": "IRS",
+      "gives": "File your federal return for free: IRS Free File software if your income is $95,000 or less, or free help from IRS-certified volunteers (VITA) if you earn about $70,244 or less.",
+      "how": "Use IRS Free File online, or find a free VITA or TCE site near you. Never pay to claim credits you can claim for free.",
+      "phone": "1-800-906-9887",
+      "url": "https://www.irs.gov/individuals/free-tax-return-preparation-for-qualifying-taxpayers",
+      "timing": "IRS Free File opens again in January 2027.",
+      "rule": [
+        {
+          "needs": [
+            "income"
+          ],
+          "test": {
+            "f": "incYear",
+            "op": "lte",
+            "v": {
+              "line": "freeFileIncome"
+            }
+          },
+          "expr": "income $95,000 or less",
+          "txt": "Income $95,000 or less",
+          "fail": "Income over the Free File limit"
+        }
+      ]
+    },
+    {
+      "id": "ssdi",
+      "name": "Social Security Disability Insurance (SSDI)",
+      "topic": "sick",
+      "by": "Social Security Administration",
+      "gives": "Monthly payments if a condition stops you working for a year or more and you've paid into Social Security.",
+      "how": "Apply online or call Social Security. Generally you need 40 work credits, 20 of them in the last 10 years.",
+      "phone": "1-800-772-1213",
+      "url": "https://www.ssa.gov/benefits/disability/qualify.html",
+      "worthChecking": "Depends on your work record and Social Security's medical decision",
+      "rule": [
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "in",
+            "v": [
+              "sick",
+              "none"
+            ]
+          },
+          "expr": "not working, or off sick",
+          "txt": "Not working or off sick",
+          "fail": "Working"
+        },
+        {
+          "needs": [
+            "difficulties"
+          ],
+          "test": {
+            "f": "health",
+            "op": "ne",
+            "v": "none"
+          },
+          "expr": "has a health condition that makes daily life hard",
+          "txt": "Health condition affects daily life",
+          "fail": "No health condition affecting daily life"
+        }
+      ]
+    },
+    {
+      "id": "sssurv",
+      "name": "Social Security survivors benefits",
+      "topic": "death",
+      "by": "Social Security Administration",
+      "gives": "Monthly payments if your husband or wife has died, from age 60 (50 if you're disabled) or at any age if you care for their child under 16. There's also a one-time $255 payment.",
+      "how": "Call Social Security to apply. You can't apply online.",
+      "phone": "1-800-772-1213",
+      "url": "https://www.ssa.gov/survivors",
+      "worthChecking": "Depends on your age and your partner's work record",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "bereaved"
+          ],
+          "test": {
+            "f": "bereaved",
+            "op": "eq",
+            "v": "partner"
+          },
+          "expr": "husband, wife or partner died",
+          "txt": "Lost a husband, wife or partner",
+          "fail": "Not widowed"
+        }
+      ]
+    },
+    {
+      "id": "unemployment",
+      "name": "Unemployment insurance",
+      "topic": "work",
+      "by": "Your state unemployment office",
+      "gives": "Weekly payments while you look for work, if you lost your job through no fault of your own.",
+      "how": "File with the state where you worked, ideally the week you lose your job.",
+      "url": "https://www.usa.gov/unemployment-benefits",
+      "worthChecking": "Your state checks why the job ended and what you earned in the last year or two",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "eq",
+            "v": "none"
+          },
+          "expr": "not working",
+          "txt": "Not working",
+          "fail": "Working"
+        }
+      ]
+    },
+    {
+      "id": "pell",
+      "name": "Federal Pell Grant",
+      "topic": "learn",
+      "by": "Federal Student Aid",
+      "gives": "A grant for college that you don't have to pay back, up to $7,395 a year.",
+      "how": "Fill in the FAFSA form for the year you plan to study. Your college works out the amount.",
+      "url": "https://fsapartners.ed.gov/knowledge-center/library/dear-colleague-letters/2026-01-30/2026-27-federal-pell-grant-maximum-and-minimum-award-amounts",
+      "worthChecking": "Only if you're going to college, or plan to",
+      "rule": [
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "age",
+            "op": "gte",
+            "v": 17
+          },
+          "expr": "aged 17 or over",
+          "txt": "Aged 17 or over",
+          "fail": "Too young for college yet"
+        }
+      ],
+      "worth": {
+        "min": 740,
+        "max": 7395,
+        "per": "year",
+        "source": "https://fsapartners.ed.gov/knowledge-center/library/dear-colleague-letters/2026-01-30/2026-27-federal-pell-grant-maximum-and-minimum-award-amounts",
+        "year": "2026/27"
+      }
+    },
+    {
+      "id": "vahealth",
+      "name": "VA health care",
+      "topic": "vets",
+      "by": "Department of Veterans Affairs",
+      "gives": "Health care for veterans through VA.",
+      "how": "Apply online or call the VA health care hotline, weekdays 8 a.m. to 8 p.m. ET.",
+      "phone": "1-877-222-8387",
+      "url": "https://www.va.gov/health-care/how-to-apply/",
+      "worthChecking": "VA checks your service length and discharge",
+      "rule": [
+        {
+          "needs": [
+            "veteran"
+          ],
+          "test": {
+            "f": "veteran",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "served in the US military",
+          "txt": "Served in the military",
+          "fail": "Hasn't served in the military"
+        }
+      ]
+    },
+    {
+      "id": "vapension",
+      "name": "Veterans Pension",
+      "topic": "vets",
+      "by": "Department of Veterans Affairs",
+      "gives": "A monthly payment for wartime veterans on a low income who are 65 or over or disabled. Up to $17,441 a year for a veteran on their own.",
+      "how": "Apply online with VA, or get help from an accredited representative.",
+      "url": "https://www.va.gov/pension/eligibility/",
+      "worthChecking": "Needs wartime service, and VA counts your whole net worth",
+      "rule": [
+        {
+          "needs": [
+            "veteran"
+          ],
+          "test": {
+            "f": "veteran",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "served in the US military",
+          "txt": "Served in the military",
+          "fail": "Hasn't served in the military"
+        },
+        {
+          "needs": [
+            "dob",
+            "difficulties",
+            "benefitsUs"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 65
+              },
+              {
+                "f": "health",
+                "op": "ne",
+                "v": "none"
+              },
+              {
+                "f": "ssi",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "aged 65 or over, or has a disability, or gets SSI",
+          "txt": "Aged 65 or over, or disabled",
+          "fail": "Under 65 with no disability"
+        },
+        {
+          "needs": [
+            "income"
+          ],
+          "test": {
+            "f": "incYear",
+            "op": "lt",
+            "v": {
+              "line": "vaPensionIncome"
+            }
+          },
+          "expr": "yearly income under $17,441",
+          "txt": "Income under the pension rate",
+          "fail": "Income over the pension rate",
+          "near": {
+            "f": "incYear",
+            "line": "vaPensionIncome"
+          }
+        },
+        {
+          "needs": [
+            "savings"
+          ],
+          "test": {
+            "f": "sav",
+            "op": "lte",
+            "v": {
+              "line": "vaNetWorth"
+            }
+          },
+          "expr": "savings $163,699 or less",
+          "txt": "Savings under the net worth limit",
+          "fail": "Savings over the net worth limit"
+        }
+      ],
+      "worth": {
+        "max": 17441,
+        "per": "year",
+        "source": "https://www.va.gov/pension/veterans-pension-rates/",
+        "year": "2025/26"
+      }
+    },
+    {
+      "id": "vadisability",
+      "name": "VA disability compensation",
+      "topic": "vets",
+      "by": "Department of Veterans Affairs",
+      "gives": "A monthly payment if an illness or injury was caused or made worse by your military service.",
+      "how": "File a claim online, by mail, in person or through an accredited representative.",
+      "url": "https://www.va.gov/disability/eligibility/",
+      "worthChecking": "VA decides whether your condition is linked to your service",
+      "rule": [
+        {
+          "needs": [
+            "veteran"
+          ],
+          "test": {
+            "f": "veteran",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "served in the US military",
+          "txt": "Served in the military",
+          "fail": "Hasn't served in the military"
+        },
+        {
+          "needs": [
+            "difficulties"
+          ],
+          "test": {
+            "f": "health",
+            "op": "ne",
+            "v": "none"
+          },
+          "expr": "has a health condition that makes daily life hard",
+          "txt": "Health condition affects daily life",
+          "fail": "No health condition affecting daily life"
+        }
+      ]
+    },
+    {
+      "id": "usfound",
+      "name": "Unclaimed money",
+      "topic": "found",
+      "by": "Your state unclaimed property office",
+      "gives": "Money owed to you that's been handed to the state. Old savings bonds, FHA mortgage refunds and lost pensions can be found too.",
+      "how": "Search free with your state's unclaimed property office, and every state you've lived in. Never pay a finder company.",
+      "url": "https://www.usa.gov/unclaimed-money",
+      "act": "Search for free",
+      "rule": [
+        {
+          "needs": [
+            "zip"
+          ],
+          "test": {
+            "f": "country",
+            "op": "eq",
+            "v": "US"
+          },
+          "expr": "lives in the US",
+          "txt": "Lives in the US",
+          "fail": "Not in the US"
+        }
+      ]
+    }
+  ],
+  "clashes": [
+    {
+      "ids": [
+        "medicaid",
+        "ptc"
+      ],
+      "tone": "warn",
+      "text": "If Medicaid covers you, you can't also get Marketplace savings, so apply for Medicaid first."
+    },
+    {
+      "ids": [
+        "msp",
+        "extrahelp"
+      ],
+      "tone": "boost",
+      "text": "A Medicare Savings Program that pays your Part B premium gives you Extra Help without a separate application."
+    },
+    {
+      "ids": [
+        "eitc",
+        "ctc"
+      ],
+      "tone": "boost",
+      "text": "Both are claimed on the same tax return, and free filing help can claim them for you."
+    },
+    {
+      "ids": [
+        "snap",
+        "nslp"
+      ],
+      "tone": "boost",
+      "text": "With SNAP, your children usually get free school meals without filling in a form."
+    },
+    {
+      "ids": [
+        "snap",
+        "wic"
+      ],
+      "tone": "boost",
+      "text": "SNAP and WIC can be used together, and SNAP means you skip WIC's income check."
+    }
+  ]
+}

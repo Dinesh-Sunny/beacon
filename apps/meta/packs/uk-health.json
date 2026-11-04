@@ -1,0 +1,252 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "uk-health",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "topics": [
+    [
+      "nhs",
+      "NHS costs"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "rx",
+      "name": "Free NHS prescriptions",
+      "topic": "nhs",
+      "by": "NHS",
+      "gives": "Prescriptions without the charge.",
+      "how": "Tick the box on the back of the prescription that matches the reason.",
+      "url": "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs/free-nhs-prescriptions",
+      "act": "Who gets them free",
+      "auto": [
+        "sco",
+        "wal"
+      ],
+      "rule": [
+        {
+          "needs": [
+            "postcode",
+            "dob",
+            "pregnant"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "nation",
+                "op": "in",
+                "v": [
+                  "sco",
+                  "wal"
+                ]
+              },
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 60
+              },
+              {
+                "f": "age",
+                "op": "lt",
+                "v": 16
+              },
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "lives in Scotland or Wales, 60 or over, or pregnant",
+          "txt": "Lives in Scotland or Wales, is 60 or over, or is pregnant",
+          "fail": "None of the usual reasons apply. A prepayment certificate caps the cost."
+        }
+      ],
+      "local": {
+        "sco": {
+          "how": "Prescriptions are free for everyone in Scotland."
+        },
+        "wal": {
+          "how": "Prescriptions are free for everyone in Wales."
+        }
+      }
+    },
+    {
+      "id": "eye",
+      "name": "Free NHS eye test",
+      "topic": "nhs",
+      "by": "Your optician",
+      "gives": "A sight test without the charge.",
+      "how": "Tell the optician when you book.",
+      "url": "https://www.nhs.uk/nhs-services/opticians/free-nhs-eye-tests-and-optical-vouchers/",
+      "act": "Who gets one free",
+      "rule": [
+        {
+          "needs": [
+            "postcode",
+            "dob"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "nation",
+                "op": "eq",
+                "v": "sco"
+              },
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 60
+              },
+              {
+                "f": "age",
+                "op": "lt",
+                "v": 16
+              }
+            ]
+          },
+          "expr": "lives in Scotland, or is 60 or over",
+          "txt": "Lives in Scotland, or is 60 or over",
+          "fail": "Not by age. Some health conditions and benefits also make it free."
+        }
+      ],
+      "local": {
+        "sco": {
+          "how": "Eye tests are free for everyone in Scotland. Just book."
+        }
+      }
+    },
+    {
+      "id": "dent",
+      "name": "Free NHS dental treatment",
+      "topic": "nhs",
+      "by": "Your dentist",
+      "gives": "NHS dental treatment without the charge, during pregnancy and for 12 months after the birth.",
+      "how": "Tell your dentist before treatment and show your maternity exemption certificate.",
+      "url": "https://www.nhs.uk/nhs-services/dentists/who-is-entitled-to-free-nhs-dental-treatment-in-england/",
+      "act": "Who gets it free",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland and Wales set their own dental charges: ask your dentist"
+        },
+        {
+          "needs": [
+            "pregnant",
+            "child"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "childAge",
+                "op": "lt",
+                "v": 1
+              }
+            ]
+          },
+          "expr": "pregnant, or had a baby in the last 12 months",
+          "txt": "Pregnant, or had a baby in the last 12 months",
+          "fail": "Not pregnant and no baby under 1"
+        }
+      ]
+    },
+    {
+      "id": "lis",
+      "name": "NHS Low Income Scheme",
+      "topic": "nhs",
+      "by": "NHS Business Services Authority",
+      "gives": "Help with prescriptions, dental, eye and travel costs for hospital visits, in full or in part.",
+      "how": "Apply online or on an HC1 form. It looks at income, council tax and rent, so it can help people whose income is too high for benefits.",
+      "phone": "0300 330 1343",
+      "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/nhs-low-income-scheme-lis/",
+      "timing": "Refunds must be claimed within 3 months of paying.",
+      "worthChecking": "Depends on a full look at income and housing costs",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland and Wales run their own help with health costs"
+        },
+        {
+          "needs": [
+            "savings"
+          ],
+          "test": {
+            "f": "sav",
+            "op": "lt",
+            "v": {
+              "line": "savingsCap"
+            }
+          },
+          "expr": "savings under £16,000",
+          "txt": "Savings under £16,000",
+          "fail": "Savings over £16,000"
+        }
+      ]
+    },
+    {
+      "id": "htcs",
+      "name": "Healthcare Travel Costs Scheme",
+      "topic": "nhs",
+      "by": "NHS",
+      "gives": "A refund of travel costs to hospital or specialist appointments you were referred to.",
+      "how": "Claim at the hospital, usually on the day, with proof of your benefit. Only for referred appointments, not GP visits.",
+      "phone": "0300 330 1343",
+      "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/healthcare-travel-costs-scheme-htcs/",
+      "act": "How to claim",
+      "worthChecking": "Only for appointments you were referred to",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland, Wales and Northern Ireland have their own travel help"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
+    }
+  ]
+}

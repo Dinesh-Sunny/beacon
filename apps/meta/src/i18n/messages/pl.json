@@ -1,0 +1,1126 @@
+{
+  "header": {
+    "home": "Strona główna Beacon",
+    "showChat": "Pokaż czat",
+    "fullView": "Pełny widok",
+    "hideChat": "Ukryj czat",
+    "yourCheck": "Twoje sprawdzenie",
+    "checkFor": "Sprawdzenie dla: {name}",
+    "exampleOf": "Przykład: {name}",
+    "exitFull": "Zamknij pełny widok",
+    "example": "Przykład",
+    "stop": "Zatrzymaj",
+    "exampleReplaces": "Przykład zastąpi odpowiedzi zapisane na tym urządzeniu.",
+    "startAgain": "Zacznij od nowa",
+    "startAgainAsk": "Zacząć od nowa? To usunie wszystkie odpowiedzi z tego urządzenia.",
+    "keepAnswers": "Zachowaj moje odpowiedzi",
+    "details": "Szczegóły",
+    "chat": "Czat",
+    "results": "Wyniki",
+    "views": "Widoki",
+    "chatWith": "Porozmawiaj z Beacon",
+    "checked": "Sprawdzono {done} z {total}",
+    "checkedLabel": "Sprawdzone rodzaje pomocy",
+    "skip": "Przejdź do wyników"
+  },
+  "lang": {
+    "button": "Język: {name}",
+    "menu": "Wybierz język",
+    "checked": "Sprawdzone przez człowieka",
+    "machine": "Tłumaczenie maszynowe - pomóż nam je sprawdzić",
+    "suggestTitle": "Czytać Beacon w języku: {name}?",
+    "suggestYes": "Tak, {name}",
+    "keepEnglish": "Zostań przy angielskim (English)",
+    "suggestWhy": "Na podstawie ustawień języka w Twojej przeglądarce - nigdy na podstawie tego, gdzie jesteś.",
+    "switched": "Beacon jest teraz w języku: {name}. Możesz to zmienić w każdej chwili przyciskiem z globusem na górze.",
+    "back": "Wróć do angielskiego (English)",
+    "official": "Oficjalne nazwy i zasady zostają po angielsku, tak jak zapisuje je dana instytucja."
+  },
+  "first": {
+    "you": "Ty lub ktoś, kim się opiekujesz",
+    "givers": "Rząd, rady lokalne, NHS, organizacje charytatywne",
+    "giversUs": "Rząd, stany, przychodnie, organizacje charytatywne",
+    "mapLabel": "Ty po jednej stronie, wszyscy, którzy dają pomoc, po drugiej, a pośrodku Beacon, który was łączy.",
+    "headline": "{names} i jeszcze {more}",
+    "lead": "W miarę jak odpowiadasz, tutaj pojawia się to, co może Ci przysługiwać, razem z oficjalną zasadą, na której się opiera.",
+    "example": "Zobacz przykład",
+    "stillPossible": "{live} z {total} nadal możliwe"
+  },
+  "chat": {
+    "hello": "Cześć, jestem Beacon. Sprawdzam, z jakiej pomocy możesz nie korzystać - Ty albo ktoś, kim się opiekujesz.",
+    "howTo": "Opowiedz mi własnymi słowami, co się dzieje, albo odpowiedz na pytania poniżej. Możesz też mówić albo dodać zdjęcie listu.",
+    "startFrom": "Albo zacznij od tego, co się zmieniło",
+    "placeholder": "Albo opowiedz Beacon własnymi słowami",
+    "placeholderAfter": "Opowiedz Beacon o swojej sytuacji",
+    "add": "Dodaj",
+    "send": "Wyślij",
+    "speak": "Mów",
+    "saved": "Zapisano. {progress}.",
+    "savedNew": "Zapisano. {progress}. Nowe: {names}.",
+    "likelySoFar": "{count, plural, one {# wynik wygląda na prawdopodobny} few {# wyniki wyglądają na prawdopodobne} many {# wyników wygląda na prawdopodobne} other {# wyniku wygląda na prawdopodobne}} jak dotąd",
+    "checkSoFar": "Warto sprawdzić jak dotąd: {count}",
+    "appearAsYouAnswer": "Wyniki pojawiają się w miarę odpowiadania",
+    "nothingYet": "Na razie nic nie pasuje",
+    "examplePlay": "Oto wymyślony przykład: {name}. {line} Zobacz, jak wyniki zapalają się z każdą odpowiedzią.",
+    "exampleDone": "To wszystkie odpowiedzi, które mają znaczenie w tym przykładzie. Spróbuj ze swoimi, kiedy zechcesz, albo zapytaj mnie o cokolwiek w sprawie tych wyników.",
+    "shared": "Ktoś udostępnił Ci to sprawdzenie. Zmień, co chcesz, w Szczegółach - zmiany zostaną na tym urządzeniu.",
+    "message": "Napisz do Beacon",
+    "addLetter": "Dodaj list lub zdjęcie",
+    "addLetterHint": "Agent przeczyta go za Ciebie",
+    "takePhoto": "Zrób zdjęcie",
+    "takePhotoHint": "Najlepiej na telefonie",
+    "sample": "Wypróbuj przykładowy list",
+    "sampleHint": "Wymyślony rachunek za council tax",
+    "saidAloud": "Powiedziane na głos",
+    "askTitle": "Zapytaj mnie o wyniki",
+    "askFirst": "O co powinniśmy się ubiegać najpierw?",
+    "askExplain": "Wyjaśnij prostymi słowami: {name}",
+    "askClashMe": "Czy ubieganie się o jedno może zmniejszyć coś innego w moim przypadku?",
+    "askClashThey": "Czy ubieganie się o jedno może zmniejszyć coś innego w przypadku osoby {who}?",
+    "savedN": "{count, plural, one {Zapisano # informację} few {Zapisano # informacje} many {Zapisano # informacji} other {Zapisano # informacji}}. {progress}.",
+    "fallback": "Zapisano. Zobacz następne pytanie.",
+    "errOffline": "Moje narzędzia do czytania teraz odpoczywają. Moje pytania tutaj nadal działają i każda odpowiedź się liczy.",
+    "errBusy": "Wiele osób sprawdza w tej chwili. Poczekaj minutę i spróbuj ponownie.",
+    "errSlow": "To trwało dłużej niż zwykle. Spróbuj jeszcze raz albo odpowiadaj dalej na moje pytania.",
+    "errModel": "Nie udało mi się tego dokończyć. Spróbuj powiedzieć to inaczej albo odpowiadaj dalej na moje pytania."
+  },
+  "events": {
+    "job": "Utrata pracy lub godzin",
+    "baby": "Ciąża lub narodziny dziecka",
+    "death": "Śmierć bliskiej osoby",
+    "health": "Problem ze zdrowiem",
+    "caring": "Opieka nad kimś",
+    "money": "Brakuje pieniędzy"
+  },
+  "q": {
+    "answerHere": "Odpowiedz tutaj",
+    "change": "Zmień odpowiedź",
+    "unsure": "Nie wiem na pewno",
+    "save": "Zapisz i dalej",
+    "cancel": "Anuluj",
+    "skip": "Pomiń na razie",
+    "postcode": "Kod pocztowy",
+    "month": "Miesiąc",
+    "year": "Rok",
+    "notSure": "Nie wiem",
+    "noChildren": "Brak dzieci",
+    "amount": "Kwota",
+    "amountAfterTax": "Kwota po opodatkowaniu",
+    "howOften": "Jak często",
+    "per": "{per, select, week {tygodniowo} month {miesięcznie} year {rocznie} other {}}",
+    "workSituation": "Sytuacja zawodowa",
+    "employed": "Praca u pracodawcy",
+    "self": "Samozatrudnienie",
+    "none": "Nie pracuję",
+    "sick": "Na zwolnieniu lekarskim",
+    "hoursWeek": "Godziny tygodniowo",
+    "onCall": "Wlicz też czas dyżuru.",
+    "yes": "Tak",
+    "no": "Nie",
+    "fewer": "{n} mniej",
+    "more": "{n} więcej",
+    "errFit": "Ta odpowiedź nie pasuje. Spróbuj jeszcze raz.",
+    "errPostcode": "Wpisz pełny kod pocztowy, np. HA9 0WS",
+    "errYear": "Wpisz rok, np. 1948",
+    "errFuture": "To dopiero przed nami. Wybierz miesiąc z przeszłości.",
+    "errAmount": "Wpisz kwotę w funtach, np. 4000",
+    "errHours": "Ile godzin tygodniowo, mniej więcej?",
+    "errHoursRange": "Wpisz liczbę godzin od 0 do 168",
+    "emptyChecklist": "Zaznacz te, które pasują, albo „Żadne z tych”",
+    "emptyWork": "Wybierz to, co pasuje najlepiej",
+    "emptyOther": "Dodaj odpowiedź albo wybierz „Nie wiem na pewno”",
+    "zip": "Kod ZIP",
+    "people": "Liczba osób w Twoim gospodarstwie domowym",
+    "errZip": "Wpisz 5-cyfrowy kod ZIP, np. 10001.",
+    "errCount": "Wpisz liczbę od 1 do 20."
+  },
+  "chips": {
+    "livesIn": "Kraj w UK: {nation}",
+    "age": "Wiek: {age}",
+    "spa": "Wiek State Pension: {age}",
+    "pensionAge": "Osiągnięty wiek emerytalny",
+    "workingAge": "Wiek produkcyjny",
+    "perWeek": "£{amount} tygodniowo",
+    "noHelp": "Bez potrzeby codziennej pomocy",
+    "dailyHelp": "Pomoc w codziennym życiu",
+    "careHelp": "Pomoc w higienie i opiece osobistej",
+    "opens": "Otwiera powiązaną pomoc",
+    "noLinked": "Na razie brak powiązanej pomocy",
+    "lowWork": "Poniżej 16 godzin lub brak pracy",
+    "fullWork": "16 godzin lub więcej",
+    "noChildren": "Brak dzieci",
+    "youngest": "Wiek najmłodszego dziecka: {age}",
+    "care35": "35 godzin lub więcej",
+    "careUnder": "Poniżej 35 godzin"
+  },
+  "nations": {
+    "eng": "Anglia",
+    "sco": "Szkocja",
+    "wal": "Walia",
+    "ni": "Irlandia Północna"
+  },
+  "facts": {
+    "postcode": {
+      "q": "Jaki jest Twój kod pocztowy?",
+      "qThey": "Jaki jest kod pocztowy osoby {n}?",
+      "why": "Od Twojego kraju w UK i rady lokalnej zależy wiele programów pomocy.",
+      "label": "Kod pocztowy"
+    },
+    "dob": {
+      "q": "Kiedy się urodziłeś lub urodziłaś?",
+      "qThey": "Kiedy urodziła się osoba {n}?",
+      "why": "Wystarczy miesiąc i rok. Od wieku zależy wiele, np. wiek State Pension.",
+      "label": "Data urodzenia"
+    },
+    "benefits": {
+      "q": "Które z tych świadczeń już otrzymujesz?",
+      "qThey": "Które z tych świadczeń już otrzymuje osoba {n}?",
+      "why": "Niektóre formy pomocy otwierają drogę do kolejnych.",
+      "label": "Już otrzymuje",
+      "opts": {
+        "uc": "Universal Credit",
+        "pc": "Pension Credit",
+        "pip": "PIP lub Attendance Allowance",
+        "cb": "Child Benefit"
+      },
+      "none": "Żadne z tych"
+    },
+    "income": {
+      "q": "Ile pieniędzy wpływa do Twojego domu?",
+      "qThey": "Ile pieniędzy wpływa do domu osoby {n}?",
+      "why": "Wlicz wynagrodzenia, emerytury i świadczenia, po opodatkowaniu.",
+      "label": "Dochód"
+    },
+    "savings": {
+      "q": "Ile masz oszczędności?",
+      "qThey": "Ile oszczędności ma osoba {n}?",
+      "why": "Niektóre formy pomocy mają limit oszczędności, często £16,000.",
+      "label": "Oszczędności"
+    },
+    "difficulties": {
+      "q": "Z czym masz trudność na co dzień z powodu stanu zdrowia?",
+      "qThey": "Z czym osoba {n} ma trudność na co dzień z powodu stanu zdrowia?",
+      "why": "To otwiera świadczenia z tytułu niepełnosprawności i pomoc w poruszaniu się.",
+      "label": "Pomoc na co dzień",
+      "opts": {
+        "wash": "Mycie, ubieranie się lub korzystanie z toalety",
+        "night": "Bezpieczne przebywanie w pojedynkę, w dzień lub w nocy",
+        "cook": "Gotowanie lub pilnowanie leków",
+        "move": "Chodzenie lub poruszanie się"
+      },
+      "none": "Żadne z tych"
+    },
+    "work": {
+      "q": "Jaka jest Twoja sytuacja zawodowa?",
+      "qThey": "Jaką sytuację zawodową ma osoba {n}?",
+      "why": "Od tego zależy pomoc związana z pracą, chorobą, opieką nad kimś i opieką nad dziećmi.",
+      "label": "Praca"
+    },
+    "ni": {
+      "q": "Czy w ciągu ostatnich 2 do 3 lat płaciłeś lub płaciłaś National Insurance?",
+      "qThey": "Czy osoba {n} płaciła National Insurance w ciągu ostatnich 2 do 3 lat?",
+      "why": "New Style JSA i ESA zależą od składek, a nie od dochodu.",
+      "label": "Płacone National Insurance"
+    },
+    "child": {
+      "q": "Kiedy urodziło się Twoje najmłodsze dziecko?",
+      "qThey": "Kiedy urodziło się najmłodsze dziecko osoby {n}?",
+      "why": "Wystarczy miesiąc i rok. Pomoc dla rodzin zależy od wieku dziecka.",
+      "label": "Najmłodsze dziecko"
+    },
+    "pregnant": {
+      "q": "Czy ktoś w Twoim domu spodziewa się dziecka?",
+      "qThey": "Czy ktoś w domu osoby {n} spodziewa się dziecka?",
+      "why": "To otwiera pomoc związaną z macierzyństwem i wczesnym dzieciństwem.",
+      "label": "Oczekiwanie na dziecko"
+    },
+    "careHours": {
+      "q": "Ile godzin tygodniowo opiekujesz się kimś?",
+      "qThey": "Ile godzin tygodniowo osoba {n} opiekuje się kimś?",
+      "why": "Świadczenia dla opiekunów zaczynają się od 35 godzin tygodniowo.",
+      "label": "Godziny opieki"
+    },
+    "ctax": {
+      "q": "Czy płacisz council tax (podatek lokalny)?",
+      "qThey": "Czy osoba {n} płaci council tax?",
+      "why": "Twoja rada lokalna może go obniżyć.",
+      "label": "Płaci council tax"
+    },
+    "housing": {
+      "q": "Gdzie mieszkasz?",
+      "qThey": "Gdzie mieszka osoba {n}?",
+      "why": "Wynajem może otworzyć pomoc w opłacaniu czynszu.",
+      "label": "Mieszkanie",
+      "opts": {
+        "social": "Wynajem od rady lokalnej lub housing association",
+        "private": "Wynajem prywatny",
+        "own": "Własne mieszkanie lub dom",
+        "family": "Mieszkanie u rodziny lub znajomych"
+      }
+    },
+    "household": {
+      "q": "Kto z Tobą mieszka?",
+      "qThey": "Kto mieszka z osobą {n}?",
+      "why": "Mieszkanie w pojedynkę może obniżyć rachunek za council tax.",
+      "label": "Mieszka z",
+      "opts": {
+        "alone": "Nikt",
+        "children": "Tylko dzieci poniżej 18 lat",
+        "partner": "Partner lub partnerka",
+        "adults": "Inni dorośli"
+      }
+    },
+    "debt": {
+      "q": "Czy zalegasz z jakimiś rachunkami lub płatnościami?",
+      "qThey": "Czy osoba {n} zalega z jakimiś rachunkami lub płatnościami?",
+      "why": "Jest bezpłatna pomoc w sprawie długów i dotacje, które spłacają długi za energię.",
+      "label": "Zaległe rachunki"
+    },
+    "bereaved": {
+      "q": "Czy ktoś Ci bliski niedawno zmarł?",
+      "qThey": "Czy ktoś bliski osobie {n} niedawno zmarł?",
+      "why": "To otwiera pomoc po stracie bliskiej osoby i pomoc w kosztach pogrzebu.",
+      "label": "Żałoba",
+      "opts": {
+        "no": "Nie",
+        "partner": "Mój mąż, moja żona lub mój civil partner",
+        "funeral": "Ktoś inny, a ja płacę za pogrzeb"
+      }
+    },
+    "zip": {
+      "q": "Jaki jest Twój kod ZIP?",
+      "qThey": "Jaki jest kod ZIP osoby {n}?",
+      "why": "Twój stan decyduje o wielu programach i ich kwotach.",
+      "label": "Kod ZIP"
+    },
+    "people": {
+      "q": "Ile osób mieszka w Twoim domu, łącznie z Tobą?",
+      "qThey": "Ile osób mieszka w domu osoby {n}, łącznie z nią?",
+      "why": "Większość programów porównuje dochód z progiem ubóstwa dla wielkości Twojego gospodarstwa domowego.",
+      "label": "Wielkość gospodarstwa domowego"
+    },
+    "benefitsUs": {
+      "q": "Które z tych świadczeń już otrzymujesz?",
+      "qThey": "Które z tych świadczeń już otrzymuje osoba {n}?",
+      "why": "Otrzymywanie jednego często ułatwia uzyskanie kolejnych.",
+      "label": "Świadczenia, które otrzymujesz",
+      "opts": {
+        "snap": "SNAP (bony żywnościowe)",
+        "medicaid": "Medicaid",
+        "ssi": "SSI",
+        "tanf": "TANF (pomoc pieniężna)",
+        "wic": "WIC",
+        "ssdi": "Social Security Disability (SSDI)"
+      },
+      "none": "Żadne z tych"
+    },
+    "veteran": {
+      "q": "Czy masz za sobą służbę w wojsku USA?",
+      "qThey": "Czy osoba {n} ma za sobą służbę w wojsku USA?",
+      "why": "Weterani mogą dostać opiekę zdrowotną VA, emerytury i więcej.",
+      "label": "Służba w wojsku USA"
+    }
+  },
+  "results": {
+    "nothingTitle": "Na razie nic się nie wyróżnia",
+    "nothingBody": "To może się zmienić, gdy zmieni się życie. Wróć po zmianie w pracy, zdrowiu, finansach lub rodzinie.",
+    "yours": "Twoje wyniki",
+    "soFar": "Znalezione do tej pory",
+    "headlineMe": "{count, plural, one {# rzecz wygląda na Twoją} few {# rzeczy wyglądają na Twoje} many {# rzeczy wygląda na Twoje} other {# rzeczy wygląda na Twoje}}",
+    "headlineThey": "Dla osoby {name}: {count, plural, one {# rzecz wygląda obiecująco} few {# rzeczy wyglądają obiecująco} many {# rzeczy wygląda obiecująco} other {# rzeczy wygląda obiecująco}}",
+    "likelyN": "Prawdopodobne: {count}",
+    "checkN": "Warto sprawdzić: {count}",
+    "unlockN": "Jeszcze {count} po przyznaniu pierwszego świadczenia",
+    "worthUpTo": "Łącznie do {amounts}",
+    "perYear": "{amount} rocznie",
+    "oneOff": "{amount} w jednorazowych wypłatach",
+    "and": " i ",
+    "worthFrom": "na podstawie {count, plural, one {# wyniku} few {# wyników} many {# wyników} other {# wyniku}} z opublikowaną kwotą",
+    "worthPlusMe": ", plus {count} z kwotą zależną od Twojej sytuacji",
+    "worthPlusThey": ", plus {count} z kwotą zależną od sytuacji tej osoby",
+    "worthDecides": ". Ostateczną kwotę ustala każda instytucja.",
+    "readUpTo": "Do {amount} rocznie według opublikowanych stawek.",
+    "readAnd": "I jeszcze {count} po przyznaniu pierwszego świadczenia.",
+    "first": "Zacznij od tego",
+    "then": "Potem",
+    "worth": "Warto sprawdzić",
+    "auto": "Przychodzi samo",
+    "later": "Po pierwszym przyznaniu",
+    "finalDecision": "Ostateczną decyzję podejmuje instytucja, która prowadzi dany program.",
+    "print": "Zapisz lub wydrukuj",
+    "outMe": "{count} nie dla Ciebie na tę chwilę",
+    "outThey": "{count} nie dla osoby {name} na tę chwilę",
+    "andWhy": "i dlaczego",
+    "already": "Już otrzymywane: {names}.",
+    "howKeep": "Jak to utrzymać",
+    "more": "Więcej",
+    "goodToKnow": "Warto wiedzieć",
+    "fewer": "Pokaż mniej",
+    "moreNotes": "{count, plural, one {Jeszcze # uwaga} few {Jeszcze # uwagi} many {Jeszcze # uwag} other {Jeszcze # uwagi}}",
+    "startNow": "Zacznij teraz",
+    "thisWeek": "W tym tygodniu",
+    "afterFirst": "Po pierwszym przyznaniu",
+    "new": "Nowe",
+    "rates": "Stawki na {year}",
+    "whyWaits": "Dlaczego czeka",
+    "howArrives": "Jak przychodzi",
+    "howClaim": "Jak się ubiegać",
+    "applyTo": "Złóż wniosek: {council}",
+    "officialPage": "Oficjalna strona",
+    "claimOnline": "Złóż wniosek online",
+    "whatToSay": "Co powiedzieć",
+    "hideWhatToSay": "Ukryj, co powiedzieć",
+    "writing": "Piszę notatki do rozmowy…",
+    "offline": "Notatki do rozmowy wymagają narzędzi do czytania, które teraz odpoczywają. Numer i oficjalna strona powyżej nadal działają.",
+    "failed": "Te notatki nie dotarły. Spróbuj ponownie za chwilę.",
+    "sayThis": "Warto powiedzieć",
+    "haveReady": "Miej pod ręką",
+    "mayAsk": "Mogą zapytać",
+    "localServices": "{council}: {count, plural, one {# usługa, która może pasować} few {# usługi, które mogą pasować} many {# usług, które mogą pasować} other {# usługi, które mogą pasować}}",
+    "localNote": "Każdy link prowadzi do strony samej rady, wymienionej na",
+    "showAll": "Pokaż wszystkie ({count})",
+    "moreHelp": "Więcej pomocy do sprawdzenia"
+  },
+  "details": {
+    "title": "Szczegóły",
+    "close": "Zamknij szczegóły",
+    "whereMe": "Gdzie mieszkasz",
+    "whereThey": "Gdzie mieszka ta osoba",
+    "aboutMe": "O Tobie",
+    "aboutThey": "O tej osobie",
+    "money": "Pieniądze",
+    "work": "Praca",
+    "family": "Rodzina i opieka",
+    "from": {
+      "form": "Twoja odpowiedź",
+      "chat": "Z czatu",
+      "voice": "Z Twojej wypowiedzi",
+      "letter": "Odczytane z listu",
+      "example": "Z przykładu",
+      "link": "Z udostępnionego linku"
+    },
+    "savedHere": "Zapisane na tym urządzeniu",
+    "checkingMe": "Sprawdzenie dla Ciebie",
+    "checkingThey": "Sprawdzenie dla: {name}",
+    "change": "Zmień",
+    "answer": "Odpowiedz",
+    "forget": "Zapomnij: {label}",
+    "changeLabel": "Zmień: {label}",
+    "answerLabel": "Odpowiedz: {label}",
+    "progress": "Sprawdzono {done} z {total} · {count, plural, one {# informacja zapisana} few {# informacje zapisane} many {# informacji zapisanych} other {# informacji zapisanej}} na tym urządzeniu",
+    "groupCount": "{done} z {total}",
+    "forgotten": "Zapomniane.",
+    "undo": "Cofnij",
+    "checksN": "{count, plural, one {Sprawdza # program} few {Sprawdza # programy} many {Sprawdza # programów} other {Sprawdza # programu}}",
+    "whoFor": "Dla kogo jest to sprawdzenie?",
+    "me": "Dla mnie",
+    "people": {
+      "mum": "Mama",
+      "dad": "Tata",
+      "partner": "Mój partner lub partnerka",
+      "son": "Mój syn",
+      "daughter": "Moja córka",
+      "friend": "Przyjaciel lub przyjaciółka"
+    },
+    "someoneElse": "Ktoś inny",
+    "someoneElseHint": "Ktoś inny, np. babcia",
+    "use": "Użyj"
+  },
+  "track": {
+    "applied": "Wniosek złożony",
+    "awarded": "Przyznane",
+    "refused": "Odmowa",
+    "markDone": "Oznacz jako zrobione",
+    "iApplied": "Mój wniosek jest złożony",
+    "theyApplied": "Ta osoba złożyła wniosek",
+    "done": "Zrobione",
+    "undo": "Cofnij",
+    "progressWith": "Postęp: {name}",
+    "appliedHint": "Zachowaj listy, które przyślą. Jeśli decyzja nie przyjdzie w ciągu kilku tygodni, zadzwoń i zapytaj, co się z nią dzieje.",
+    "awardedOpens": "Dobra wiadomość. Pomoc, którą to otwiera, jest teraz ponownie sprawdzona powyżej.",
+    "awardedPay": "Dobra wiadomość. Gdy przyjdzie pierwsza wypłata, sprawdź, czy jest prawidłowa.",
+    "toKeep": "Aby to utrzymać:",
+    "more": "Więcej",
+    "challenge": "Jak się odwołać",
+    "refusedHint": "List z odmową wyjaśnia, jak poprosić o ponowne rozpatrzenie. Citizens Advice może pomóc za darmo.",
+    "awardedOpened": "Przyznano: {name}. To otworzyło jeszcze {count}: {names}.",
+    "awardedOnly": "Przyznano: {name}."
+  },
+  "share": {
+    "button": "Udostępnij",
+    "titleMe": "Moje sprawdzenie w Beacon",
+    "titleThey": "Sprawdzenie w Beacon dla: {name}",
+    "text": "Co wygląda na prawdopodobne i plan, jak się o to ubiegać.",
+    "copied": "Link skopiowany. Każdy, kto go ma, zobaczy te odpowiedzi, więc wysyłaj go tylko zaufanym osobom.",
+    "failed": "Nie udało się udostępnić z tej przeglądarki. Zamiast tego użyj opcji Zapisz lub wydrukuj."
+  },
+  "read": {
+    "aloud": "Czytaj na głos",
+    "stop": "Przestań czytać"
+  },
+  "site": {
+    "how": "Jak to działa",
+    "start": "Zacznij sprawdzanie",
+    "h1": "Znajdź wsparcie, które już jest Twoje.",
+    "lead": "Opowiedz Beacon o swoim życiu albo o życiu osoby, którą się opiekujesz, własnymi słowami i we własnym języku. Beacon pokaże pomoc, która prawdopodobnie Ci przysługuje, i przygotuje Cię do jej uzyskania.",
+    "inputLabel": "Opowiedz Beacon o swojej sytuacji",
+    "inputHint": "Moja mama ma 78 lat i ciężko jej chodzić po schodach",
+    "alsoSpeak": "Możesz też mówić albo dodać list",
+    "go": "Start",
+    "watch": "albo zobacz sprawdzenie Margaret",
+    "statText": "Tyle wsparcia zależnego od dochodu i taryf socjalnych zostaje co roku nieodebrane w Wielkiej Brytanii. Beacon pomaga Ci znaleźć Twoją część.",
+    "perYear": "rocznie",
+    "ctaTitle": "Sprawdź dla siebie albo dla kogoś bliskiego",
+    "ctaText": "Zacznij od kilku słów o tej osobie. Beacon dopyta o resztę, jedno krótkie pytanie naraz.",
+    "factBrowser": "Odpowiedzi zostają w Twojej przeglądarce",
+    "factNoId": "Bez imienia, numeru National Insurance i danych bankowych",
+    "factFree": "Za darmo",
+    "footer": "Beacon podaje ogólne informacje, nie porady. Decyzję podejmuje instytucja, która prowadzi dany program, a każdy wynik prowadzi do jej oficjalnej strony.",
+    "code": "Kod na GitHubie",
+    "skip": "Przejdź do treści",
+    "pillAll": "Za darmo · rodzaje pomocy: {count} · Wielka Brytania i USA · języki: {languages}",
+    "factNoIdShort": "Nigdy nie pyta o dokumenty ani dane bankowe",
+    "forLabel": "Dla kogo jest sprawdzenie?",
+    "forOther": "Ktoś, kim się opiekuję",
+    "forMe": "Ja",
+    "inputHintMe": "Mam 67 lat, mieszkam samotnie i mam małą emeryturę",
+    "tryExample": "Wypróbuj przykładowe sprawdzenie",
+    "pillCountry": "Bezpłatnie · rodzaje pomocy {country}: {count} · języki: {languages}",
+    "inputHintUs": "Mój tata ma 70 lat i jego koszty Medicare ciągle rosną",
+    "inputHintMeUs": "Mam 66 lat, mieszkam sam w Ohio i brakuje mi pieniędzy",
+    "factNoIdUs": "Bez imienia, numeru Social Security i danych bankowych"
+  },
+  "status": {
+    "open": "Nadal otwarte",
+    "likely": "Prawdopodobne",
+    "check": "Warto sprawdzić",
+    "unlock": "Otworzy się później",
+    "out": "Wykluczone",
+    "have": "Już otrzymywane"
+  },
+  "topics": {
+    "home": "Energia i internet",
+    "low": "Pieniądze i rachunki",
+    "dis": "Zdrowie i niepełnosprawność",
+    "care": "Opieka nad kimś",
+    "fam": "Rodziny",
+    "work": "Szukanie pracy",
+    "sick": "Niezdolność do pracy",
+    "death": "Gdy ktoś umiera",
+    "local": "Rada lokalna i transport",
+    "nhs": "Koszty NHS",
+    "debt": "Długi i zaległości",
+    "found": "Pieniądze, które już są Twoje",
+    "food": "Jedzenie",
+    "health": "Opieka zdrowotna",
+    "tax": "Ulgi podatkowe i rozliczenia",
+    "vets": "Weterani",
+    "rent": "Mieszkanie",
+    "learn": "Studia"
+  },
+  "board": {
+    "seeAll": "Zobacz wszystkie rodzaje pomocy sprawdzone przez Beacon ({count})",
+    "legendLikely": "Prawdopodobne",
+    "legendCheck": "Warto sprawdzić",
+    "legendUnlock": "Otwiera się po pierwszym przyznaniu",
+    "legendHave": "Już otrzymywane",
+    "countLikely": "Prawdopodobne: {count}",
+    "countCheck": "Warto sprawdzić: {count}",
+    "countUnlock": "Otworzą się później: {count}",
+    "countHave": "Już otrzymywane: {count}",
+    "toCheck": "Do sprawdzenia: {count}",
+    "noneFit": "Na razie nic nie pasuje",
+    "close": "Zamknij",
+    "conditions": "Jak wygląda każdy warunek",
+    "met": "(spełniony)",
+    "notMet": "(niespełniony)",
+    "unknown": "(jeszcze nie wiadomo)",
+    "opens": "Po przyznaniu otwiera też: {names}.",
+    "officialPage": "Oficjalna strona"
+  },
+  "more": {
+    "intro": "Znalezione na GOV.UK dla osób w podobnej sytuacji. Beacon nie może jeszcze tego za Ciebie sprawdzić, więc każda pozycja prowadzi do oficjalnej strony.",
+    "search": "Szukaj więcej pomocy",
+    "searchHint": "Szukaj, np. energia albo szkoła",
+    "showAll": "Pokaż wszystkie ({count})",
+    "shown": "Pokazano {shown} z {total}",
+    "noMatch": "Nic nie pasuje do tego wyszukiwania.",
+    "kind": {
+      "payment": "Wypłata",
+      "grant": "Dotacja",
+      "discount": "Zniżka",
+      "free": "Za darmo",
+      "loan": "Pożyczka",
+      "tax": "Ulga podatkowa",
+      "credit": "Kredyt",
+      "register": "Rejestr",
+      "concession": "Ulga",
+      "compensation": "Odszkodowanie",
+      "unclaimed": "Nieodebrane pieniądze",
+      "advice": "Porady"
+    }
+  },
+  "lists": {
+    "local": "Lokalne",
+    "fewer": "Pokaż mniej",
+    "all": "Wszystkie ({count})",
+    "charitiesNear": "Organizacje charytatywne dające dotacje w Twojej okolicy",
+    "fromRegister": "Z <link>rejestru Charity Commission</link>, {date}. Każda ma własne zasady.",
+    "gaveRecently": "Niedawno przyznały dotacje",
+    "typical": "Typowa dotacja, według otwartych danych <link>360Giving</link>, odczytanych {date}.",
+    "cheapest": "Najtaniej w Twojej okolicy",
+    "cheapestThey": "Najtaniej w okolicy tej osoby",
+    "tariffNote": "Miesięcznie, według <link>listy Ofcom</link>, odczytanej {date}."
+  },
+  "watch": {
+    "newRules": "Od Twojego ostatniego sprawdzenia Beacon poznał więcej zasad. Nowe dla Ciebie: {names}."
+  },
+  "activity": {
+    "reading": "Czytam, co napisałeś lub napisałaś",
+    "listening": "Odsłuchuję",
+    "finding": "Szukam listu",
+    "letter": "Czytam Twój list",
+    "notes": "Piszę notatki do rozmowy",
+    "painting": "Układam cały obraz",
+    "working": "Pracuję nad tym",
+    "checked": "Ponownie sprawdzono zasady",
+    "close": "Zamknij",
+    "steps": "Kroki",
+    "log": "Wszystko, co zrobili agenci"
+  },
+  "offline": {
+    "note": "Jesteś offline. Twoje odpowiedzi są bezpieczne na tym urządzeniu, a Beacon będzie działać dalej, gdy wrócisz."
+  },
+  "meta": {
+    "homeTitle": "Beacon - znajdź wsparcie, które już Ci przysługuje",
+    "homeDesc": "Opowiedz Beacon o swoim życiu: napisz, powiedz albo zrób zdjęcie listu, w siedmiu językach. Beacon znajdzie pomoc, która prawdopodobnie Ci przysługuje w Wielkiej Brytanii lub USA, ostrzeże przed kolizjami i przygotuje Cię do jej uzyskania.",
+    "howTitle": "Jak to działa",
+    "howDesc": "Jak agenci Beacon zamieniają rozmowę, nagranie głosowe albo zdjęcie listu w sprawdzoną listę wsparcia i plan złożenia wniosków.",
+    "checkTitle": "Twoje sprawdzenie"
+  },
+  "errors": {
+    "title": "Coś poszło nie tak na tej stronie",
+    "body": "Twoje odpowiedzi są nadal zapisane na tym urządzeniu. Spróbuj ponownie, a jeśli to się powtarza, zacznij od nowa.",
+    "retry": "Spróbuj ponownie",
+    "notFoundTitle": "Tej strony tu nie ma",
+    "notFoundBody": "Link może być nieaktualny. Zacznij sprawdzanie albo wróć na stronę główną.",
+    "home": "Strona główna",
+    "loading": "Przygotowuję Twoje sprawdzenie"
+  },
+  "dialog": {
+    "button": "Miejsce i język: {place}, {language}. Także ustawienia wyświetlania.",
+    "title": "Miejsce, język i wyświetlanie",
+    "place": "Miejsce",
+    "display": "Wyświetlanie",
+    "close": "Zamknij",
+    "current": "Wybrane",
+    "searchPlace": "Wyszukaj dowolny kraj lub wpisz swój kod pocztowy albo kod ZIP",
+    "searchLanguage": "Szukaj języków",
+    "results": "Opcje",
+    "suggested": "Sugerowane",
+    "allCountries": "Wszystkie kraje",
+    "allLanguages": "Wszystkie języki",
+    "yourCouncil": "Twój samorząd lokalny",
+    "noMatch": "Nic nie pasuje. Spróbuj innej pisowni.",
+    "lookingUp": "Szukamy Twojego samorządu…",
+    "placeNote": "Kod pocztowy służy tylko do znalezienia Twojego samorządu i kraju. Beacon nigdy nie pyta o Twój adres.",
+    "zipNote": "Kod ZIP służy tylko do ustalenia stanu i hrabstwa. Beacon nigdy nie pyta o Twój adres.",
+    "machine": "tłumaczenie maszynowe",
+    "gapTitle": "Beacon nie może jeszcze sprawdzić zasad dla kraju {country}",
+    "gapBody": "Pomoc, którą Beacon dziś sprawdza, jest dla osób w Wielkiej Brytanii i w USA. Jeśli mieszkasz w kraju {country}, wyniki nie będą do Ciebie pasować, więc Beacon nie będzie zgadywać.",
+    "useUk": "Mieszkam w Wielkiej Brytanii",
+    "useUs": "Mieszkam w USA",
+    "chooseAgain": "Wybierz ponownie",
+    "move": "przesuń",
+    "choose": "wybierz",
+    "closeKey": "zamknij",
+    "nation": {
+      "eng": "Anglia",
+      "sco": "Szkocja",
+      "wal": "Walia",
+      "ni": "Irlandia Północna"
+    }
+  },
+  "display": {
+    "previewTitle": "Tak będą wyglądać Twoje strony",
+    "previewBody": "Tekst, odstępy i kolory są zgodne z Twoimi wyborami.",
+    "previewSimple": "Krótkie słowa. Jedna myśl naraz.",
+    "play": "Odtwórz",
+    "stop": "Zatrzymaj",
+    "back": "Wstecz",
+    "preset": {
+      "read": "Łatwiejsze czytanie",
+      "colours": "Wyraźniejsze kolory",
+      "bigger": "Większe i grubsze",
+      "listen": "Posłuchaj",
+      "calmer": "Spokojniej",
+      "focus": "Mniej rozpraszaczy",
+      "simple": "Proste słowa",
+      "tap": "Łatwiejsze dotykanie"
+    },
+    "need": {
+      "read": "Dysleksja",
+      "colours": "Daltonizm",
+      "bigger": "Słabe widzenie",
+      "listen": "Utrata wzroku",
+      "calmer": "Lęk, migrena",
+      "focus": "ADHD, autyzm",
+      "simple": "Niepełnosprawność intelektualna",
+      "tap": "Drżenie, zapalenie stawów"
+    },
+    "each": "Ustaw każdą opcję osobno",
+    "changes": "{count, plural, one {# zmiana} few {# zmiany} many {# zmian} other {# zmiany}}",
+    "textSize": "Rozmiar tekstu",
+    "size": {
+      "0": "Mały tekst",
+      "1": "Standardowy tekst",
+      "2": "Duży tekst",
+      "3": "Największy tekst"
+    },
+    "setting": {
+      "dark": "Ciemny",
+      "contrast": "Wysoki kontrast",
+      "soft": "Łagodne tło",
+      "spacing": "Większe odstępy",
+      "readAloud": "Czytanie na głos",
+      "captions": "Napisy",
+      "simple": "Proste słowa",
+      "calm": "Spokojniej",
+      "colours": "Wyraźniejsze kolory",
+      "links": "Podkreślone linki",
+      "tap": "Łatwiejsze dotykanie",
+      "focus": "Mniej rozpraszaczy"
+    },
+    "speed": "Szybkość czytania na głos",
+    "speeds": {
+      "slower": "Wolniej",
+      "normal": "Normalnie",
+      "faster": "Szybciej"
+    },
+    "systemWins": "Ustawienia przeglądarki i systemu, takie jak powiększenie i ograniczenie ruchu, zawsze mają pierwszeństwo.",
+    "standard": "Przywróć standardowe",
+    "done": "Gotowe"
+  },
+  "home": {
+    "statLabel": "Wsparcie, które czeka na odebranie",
+    "statUnit": " mld",
+    "frame": {
+      "tag": "Model Beacon",
+      "title": "Ci, którzy potrzebują pomocy, poznają tych, którzy jej udzielają",
+      "lead": "Po jednej stronie ludzie. Po drugiej rządy, rady lokalne, stany USA, NHS, centra zdrowia, organizacje charytatywne i dostawcy mediów. Agenci Beacon łączą obie strony."
+    },
+    "map": {
+      "aria": "Po lewej ludzie, którzy potrzebują pomocy, po prawej wszyscy, którzy jej udzielają, a pośrodku Beacon, który ich łączy.",
+      "peopleHead": "Ludzie, którzy potrzebują pomocy",
+      "giversHead": "Wszyscy, którzy udzielają pomocy",
+      "sub": "agenci łączą obie strony",
+      "people": {
+        "older": "Osoby starsze",
+        "disabled": "Osoby z niepełnosprawnością",
+        "carers": "Opiekunowie",
+        "families": "Rodziny",
+        "young": "Młodzi ludzie",
+        "outOfWork": "Bez pracy",
+        "lowWage": "Niska pensja",
+        "bereavement": "Żałoba i ważne wydarzenia życiowe",
+        "someoneElse": "Sprawdzanie dla kogoś innego"
+      },
+      "givers": {
+        "government": "Rządy Wielkiej Brytanii i USA",
+        "councils": "Rady lokalne i stany",
+        "nhs": "NHS i centra zdrowia",
+        "charities": "Organizacje charytatywne",
+        "utilities": "Dostawcy mediów",
+        "employers": "Pracodawcy",
+        "unclaimed": "Nieodebrane pieniądze i odszkodowania"
+      }
+    },
+    "steps": {
+      "tag": "Osiem kroków",
+      "title": "Te same osiem kroków dla każdej osoby",
+      "lead": "Wszystkie osiem działa już dziś, w Twojej przeglądarce."
+    },
+    "loop": {
+      "understand": {
+        "title": "Zrozum",
+        "text": "Poznaj osobę, jedno małe pytanie naraz"
+      },
+      "match": {
+        "title": "Dopasuj",
+        "text": "Sprawdź każdy program i zobacz, co otwiera jeden wniosek"
+      },
+      "warn": {
+        "title": "Ostrzeż",
+        "text": "Wskaż każdy wniosek, który mógłby obniżyć inne świadczenie"
+      },
+      "act": {
+        "title": "Działaj",
+        "text": "Ułóż wnioski w kolejności i przygotuj każdą rozmowę"
+      },
+      "confirm": {
+        "title": "Potwierdź",
+        "text": "Zapisz, co przyznano, i pomóż zakwestionować błędną decyzję"
+      },
+      "receive": {
+        "title": "Odbierz",
+        "text": "Złóż wnioski, które otwiera przyznane świadczenie, i sprawdź pierwszą wypłatę"
+      },
+      "keep": {
+        "title": "Utrzymaj",
+        "text": "Zgłaszaj zmiany na czas, żeby nic nie trzeba było oddawać"
+      },
+      "watch": {
+        "title": "Czuwaj",
+        "text": "Sprawdź ponownie, gdy zmienią się przepisy, i powiedz, co nowego"
+      }
+    },
+    "rail": {
+      "live": "Działa dziś",
+      "coming": "Dokąd zmierzamy",
+      "liveSr": "Działa dziś.",
+      "comingSr": "Wkrótce."
+    },
+    "todayHead": {
+      "tag": "Jak to działa dziś",
+      "title": "Wszystko zaczyna się od rozmowy",
+      "lead": "Powiedz Beacon, co się dzieje, własnymi słowami. Beacon zadaje jedno małe pytanie naraz i pokazuje wyniki na bieżąco."
+    },
+    "today": {
+      "type": "Pisz",
+      "speak": "Mów",
+      "snap": "Zrób zdjęcie listu",
+      "waysTitle": "Pisz, mów albo zrób zdjęcie listu",
+      "waysText": "Napisz własnymi słowami, powiedz na głos albo zrób zdjęcie listu. Beacon przeczyta go za Ciebie i wybierze to, co ważne.",
+      "resultsTitle": "Wyniki pojawiają się, gdy odpowiadasz",
+      "resultsText": "Prawdopodobne, warto sprawdzić albo otworzy się później. Każdy wynik pokazuje warunki, na których się opiera, i prowadzi do oficjalnej strony.",
+      "askBubble": "Czy mieszkasz w Anglii, Szkocji czy Walii?",
+      "askTitle": "Jedno małe pytanie naraz",
+      "askText": "Beacon pyta tylko o to, co wciąż może zmienić wynik.",
+      "warnArt": "Ten wniosek może obniżyć inne świadczenie. Najpierw przeczytaj to.",
+      "warnTitle": "Ostrzeżenie, zanim złożysz wniosek",
+      "warnText": "Jeśli jeden wniosek mógłby obniżyć inne świadczenie, dowiesz się o tym najpierw, prostymi słowami.",
+      "callArt": "Co powiedzieć",
+      "orderTitle": "Wnioski po kolei, z tym, co powiedzieć",
+      "orderText": "Beacon układa Twoje wnioski we właściwej kolejności i przygotowuje notatki do każdej rozmowy telefonicznej.",
+      "codeTitle": "Kod decyduje o każdym wyniku",
+      "codeText": "Zwykły kod sprawdza oficjalne przepisy, więc te same odpowiedzi zawsze dają ten sam wynik. Modele Meta słuchają, czytają i wyjaśniają. Twoje odpowiedzi zostają w Twojej przeglądarce.",
+      "chipsLabel": "Modele Meta w Beacon",
+      "langTitle": "Twój język, Twój sposób",
+      "langText": "Korzystaj z Beacon w siedmiu językach. Powiększ tekst, włącz czytanie na głos albo wybierz spokojniejsze kolory. Ustawienia zostają na Twoim urządzeniu.",
+      "nearTitle": "Pomoc w Twojej okolicy",
+      "nearText": "Twój kod pocztowy lub kod ZIP wskazuje właściwe strony rady lokalnej, organizacje charytatywne, centra zdrowia i pomoc mieszkaniową, od najbliższych.",
+      "nearCouncil": "Strona Twojej rady lokalnej",
+      "nearClinic": "Środowiskowe centrum zdrowia",
+      "nearCharity": "Lokalna organizacja przyznająca dotacje"
+    },
+    "demo": {
+      "tag": "Przykładowe sprawdzenie",
+      "you1": "Moja mama ma 78 lat, mieszka sama w Wembley i ciężko jej chodzić po schodach.",
+      "ask": "Dziękuję. Czy potrzebuje pomocy przy myciu, ubieraniu się albo w nocy?",
+      "you2": "Tak, prawie każdego ranka.",
+      "note": "Attendance Allowance może podnieść jej Pension Credit, więc złóż ten wniosek najpierw.",
+      "call": "Gotowe: co powiedzieć przez telefon"
+    },
+    "cover": {
+      "tag": "Co sprawdza dziś",
+      "titleAll": "Rodzaje pomocy w Wielkiej Brytanii i USA: {schemes}",
+      "leadAll": "Od Pension Credit po SNAP, każdy rodzaj pomocy sprawdzony według oficjalnych zasad. Do tego lokalne usługi dopasowane do miejsca, w którym mieszkasz: {places, number}."
+    },
+    "grow": {
+      "tag": "Dokąd zmierzamy",
+      "title": "Od jednej rodziny do ogólnoświatowej sieci"
+    },
+    "growth": {
+      "now": "Teraz",
+      "today": "Dziś",
+      "planned": "W planach",
+      "promise": "Beacon nigdy nie weźmie części niczego, co zostanie Ci przyznane.",
+      "stages": {
+        "people": {
+          "title": "Ludzie i rodziny",
+          "text": "Pomoc dla Ciebie i osób, którymi się opiekujesz, w Wielkiej Brytanii i USA."
+        },
+        "orgs": {
+          "title": "Firmy i organizacje",
+          "text": "Wsparcie, o które może ubiegać się firma lub organizacja, znalezione w ten sam sposób."
+        },
+        "countries": {
+          "title": "Więcej krajów",
+          "text": "Wielka Brytania i USA już działają. Każdy nowy kraj ma własne oficjalne zasady."
+        },
+        "network": {
+          "title": "Ogólnoświatowa sieć",
+          "text": "Instytucje kierują ludzi do siebie nawzajem przez Beacon."
+        }
+      },
+      "plans": {
+        "free": {
+          "title": "Bezpłatne sprawdzenie",
+          "text": "Zobacz, co prawdopodobnie jest Twoje, z ostrzeżeniami, kolejnością wniosków i tym, co powiedzieć przez telefon."
+        },
+        "pro": {
+          "title": "Pro",
+          "text": "Czuwa także po złożeniu wniosku: decyzja, pierwsza wypłata, zmiany do zgłoszenia i nowe przepisy."
+        },
+        "funded": {
+          "title": "Pro opłacane przez innych",
+          "text": "Rady lokalne, stowarzyszenia mieszkaniowe i pracodawcy mogą opłacić Pro dla osób, którym służą."
+        }
+      }
+    },
+    "countries": {
+      "uk": {
+        "name": "Wielka Brytania",
+        "where": "Anglia, Szkocja i Walia",
+        "councilPages": "strony rad lokalnych",
+        "charities": "organizacje charytatywne przyznające dotacje",
+        "short": "w Wielkiej Brytanii"
+      },
+      "us": {
+        "name": "Stany Zjednoczone",
+        "where": "Wszystkie 50 stanów i DC",
+        "centers": "środowiskowe centra zdrowia",
+        "agencies": "agencje mieszkaniowe",
+        "counselors": "doradcy mieszkaniowi",
+        "short": "w USA"
+      },
+      "kinds": "rodzaje pomocy, obszary życia: {topics}",
+      "localLabel": "Lokalne usługi, które dopasowuje Beacon"
+    },
+    "statUs": {
+      "num": "1 na 5",
+      "text": "osób, które mogłyby dostać Earned Income Tax Credit (ulgę podatkową dla pracujących), nie ubiega się o nią - szacuje IRS. Beacon pomaga Ci znaleźć Twoją część.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Przykładowe sprawdzenie",
+      "you1": "Mój tata ma 70 lat, mieszka sam w Ohio i jego koszty Medicare ciągle rosną.",
+      "ask": "Dziękuję. Mniej więcej ile pieniędzy dostaje co miesiąc?",
+      "you2": "Około $1,300 z Social Security.",
+      "note": "Medicare Savings Program daje mu też Extra Help na koszty leków, więc złóż ten wniosek najpierw."
+    }
+  },
+  "how": {
+    "tag": "Jak to działa",
+    "h1": "Mali agenci, każdy z jednym zadaniem",
+    "lead": "Modele Muse słuchają, czytają i wyjaśniają. Każdą decyzję podejmuje zwykły kod, więc te same odpowiedzi zawsze dają ten sam wynik.",
+    "stats": {
+      "schemes": "Rodzaje pomocy",
+      "councilPages": "Strony rad lokalnych",
+      "charities": "Organizacje przyznające granty",
+      "countries": "Kraje",
+      "languages": "Języki",
+      "usPlaces": "Lokalne usługi w USA"
+    },
+    "flow": {
+      "tag": "Przepływ",
+      "title": "Od rozmowy do planu",
+      "lead": "To, co mówisz, wchodzi po lewej. Sprawdzony plan wychodzi po prawej."
+    },
+    "lanes": {
+      "you": "Ty",
+      "read": "Modele Meta czytają",
+      "code": "Kod decyduje",
+      "get": "Otrzymujesz"
+    },
+    "items": {
+      "type": {
+        "title": "Pisz",
+        "text": "Zwykłe słowa w czacie"
+      },
+      "speak": {
+        "title": "Mów",
+        "text": "Nagrywane w Twojej przeglądarce"
+      },
+      "snap": {
+        "title": "Zrób zdjęcie listu",
+        "text": "Najpierw pomniejszone i pozbawione danych zdjęcia"
+      },
+      "answer": {
+        "title": "Odpowiedz na pytanie",
+        "text": "Właściwe pole dla każdej informacji"
+      },
+      "transcribe": {
+        "text": "Mowa na tekst"
+      },
+      "sam": {
+        "text": "Znajduje list na zdjęciu"
+      },
+      "reader": {
+        "title": "Muse Spark, czytnik listów",
+        "text": "Wypełnia stały formularz i nie może nic zrobić"
+      },
+      "agent": {
+        "title": "Muse Spark, agent",
+        "text": "Zapisuje informacje tylko przez narzędzia"
+      },
+      "validate": {
+        "title": "Walidacja",
+        "text": "Każde pole sprawdzane przed użyciem"
+      },
+      "engine": {
+        "title": "Silnik reguł",
+        "text": "{count, plural, one {# program} few {# programy} many {# programów} other {# programu}}, każdy warunek: prawda, fałsz albo nieznany"
+      },
+      "planner": {
+        "title": "Planer pytań",
+        "text": "Pyta o to, co rozstrzyga najwięcej programów"
+      },
+      "chains": {
+        "title": "Łańcuchy i konflikty",
+        "text": "Co otwiera co, a co obniża co"
+      },
+      "results": {
+        "title": "Prawdopodobne, warto sprawdzić, otworzy się później",
+        "text": "Z pokazanym każdym warunkiem"
+      },
+      "plan": {
+        "title": "Plan wniosków",
+        "text": "Najpierw wnioski, które otwierają drogę do innych"
+      },
+      "say": {
+        "title": "Co powiedzieć",
+        "text": "Notatki do rozmów od Muse Spark"
+      },
+      "picture": {
+        "title": "Obraz Twoich wyników",
+        "text": "Namalowany przez Muse Image"
+      }
+    },
+    "loop": {
+      "tag": "Osiem kroków",
+      "title": "Osiem kroków dla każdej osoby",
+      "lead": "Wszystkie osiem działa dziś w Beacon. Późniejsze kroki działają w Twojej przeglądarce, więc Twoje wnioski zostają na Twoim urządzeniu."
+    },
+    "models": {
+      "tag": "Modele",
+      "title": "Modele Meta w Beacon",
+      "lead": "Każdy model ma jedno zadanie. Kod sprawdza wszystko, co zwracają, zanim to zobaczysz.",
+      "jobs": {
+        "spark": "Czat agenta z wywoływaniem narzędzi, czytanie listów z widzeniem i ustrukturyzowanym wynikiem, notatki do rozmów",
+        "voice": "Zamienia odpowiedź mówioną na tekst",
+        "sam": "Obrysowuje list na zdjęciu, żeby było widać, co zostało przeczytane",
+        "image": "Maluje baner wyników tylko na podstawie obszarów życia, nigdy danych osobowych"
+      }
+    },
+    "rules": {
+      "tag": "Obietnice",
+      "title": "Zasady, których Beacon przestrzega",
+      "lead": "Zapisane w kodzie, więc obowiązują przy każdym sprawdzeniu.",
+      "list": {
+        "r1": "Kod decyduje o każdym wyniku. Modele czytają, pytają i wyjaśniają.",
+        "r2": "Nic, co napisze model, nie trafia do reguł, dopóki kod tego nie sprawdzi.",
+        "r3": "Listy są czytane w izolacji i zamieniane w uporządkowane dane, zanim zobaczy je jakikolwiek agent, który może działać.",
+        "r4": "Beacon nigdy nie pyta o imię i nazwisko, numer National Insurance ani Social Security, ani o dane bankowe, i nie kopiuje ich z listów.",
+        "r5": "Odpowiedzi są przechowywane w Twojej przeglądarce. Serwer zapomina je, gdy kończy się zapytanie.",
+        "r6": "Każdy program prowadzi do swojej oficjalnej strony. Decyzję podejmuje instytucja, która go prowadzi."
+      }
+    },
+    "cover": {
+      "tag": "Zakres",
+      "title": "Co sprawdza dziś",
+      "leadAll": "Rodzaje pomocy w dwóch krajach: {schemes}. W Wielkiej Brytanii Beacon obejmuje: {nations}. Progi dochodu to wstępne szacunki, więc wszystko, co jest blisko granicy, wraca jako warte sprawdzenia.",
+      "uk": "Wielka Brytania - rodzaje pomocy: {schemes}, obszary życia: {topics}",
+      "us": "Stany Zjednoczone - rodzaje pomocy: {schemes}, obszary życia: {topics}"
+    },
+    "ctaTitle": "Zobacz, co jest Twoje",
+    "ctaText": "Pisz, mów albo zrób zdjęcie listu. Sprawdzaniem zajmie się Beacon."
+  },
+  "usLocal": {
+    "away": "{miles} mil stąd",
+    "health": {
+      "title": "{count, plural, one {# środowiskowe centrum zdrowia} few {# środowiskowe centra zdrowia} many {# środowiskowych centrów zdrowia} other {# środowiskowego centrum zdrowia}} w Twoim stanie, od najbliższego",
+      "what": "Lekarze, dentyści i opieka psychologiczna. Opłata zależy od tego, ile możesz zapłacić, i możesz przyjść z ubezpieczeniem lub bez.",
+      "note": "Z oficjalnej listy HRSA.",
+      "more": "Znajdź centrum zdrowia"
+    },
+    "housing": {
+      "title": "Agencje mieszkaniowe w pobliżu",
+      "what": "Agencje mieszkaniowe prowadzą mieszkania komunalne i bony Section 8. Zapytaj, jak złożyć wniosek i jak długa jest lista oczekujących.",
+      "note": "Z listy HUD: {count, plural, one {# agencja} few {# agencje} many {# agencji} other {# agencji}} w Twoim stanie.",
+      "more": "Wszystkie agencje mieszkaniowe"
+    },
+    "counselors": {
+      "title": "{count, plural, one {# bezpłatny doradca mieszkaniowy} few {# bezpłatnych doradców mieszkaniowych} many {# bezpłatnych doradców mieszkaniowych} other {# bezpłatnego doradcy mieszkaniowego}} w Twoim stanie, od najbliższego",
+      "what": "Doradcy zatwierdzeni przez HUD pomagają bezpłatnie lub tanio, jeśli zalegasz z czynszem lub kredytem hipotecznym, grozi Ci eksmisja albo chcesz ułożyć budżet.",
+      "note": "Z listy zatwierdzonych agencji HUD.",
+      "more": "Znajdź doradcę mieszkaniowego"
+    },
+    "note": {
+      "mobile": "Mobilna przychodnia",
+      "seasonal": "Sezonowe",
+      "public": "Mieszkania komunalne",
+      "vouchers": "Bony Section 8",
+      "both": "Mieszkania komunalne i Section 8"
+    },
+    "helps": {
+      "rent": "Wynajem",
+      "homeless": "Bezdomność",
+      "mortgage": "Zaległości w kredycie",
+      "money": "Budżet i kredyt",
+      "buying": "Kupno domu",
+      "reverse": "Odwrócona hipoteka"
+    }
+  },
+  "hero": {
+    "tabsLabel": "Zobacz przykładowe sprawdzenie",
+    "windowTitle": "Sprawdzenie: {name}",
+    "tabs": {
+      "chat": "Czat",
+      "results": "Wyniki",
+      "plan": "Plan",
+      "call": "Notatki do rozmowy",
+      "near": "W pobliżu"
+    },
+    "captions": {
+      "chat": "Opowiedz Beacon własnymi słowami. Zadaje jedno krótkie pytanie naraz, tylko o to, co może zmienić wynik.",
+      "results": "Każdy wynik pokazuje przepisy, na których się opiera, i link do oficjalnej strony.",
+      "plan": "Wnioski w dobrej kolejności, z ostrzeżeniem, gdy jeden może obniżyć inny.",
+      "call": "Do kogo zadzwonić, pod jaki numer i co powiedzieć.",
+      "near": "Strony Twojej rady lokalnej i lokalne organizacje charytatywne, znalezione po kodzie pocztowym.",
+      "nearUs": "Centra zdrowia, agencje mieszkaniowe i doradcy mieszkaniowi, znalezieni po kodzie ZIP."
+    },
+    "chat": {
+      "saved": "Zapisano: wiek, dom i codzienna pomoc",
+      "savedUs": "Zapisano: wiek, dom i dochód"
+    },
+    "results": {
+      "head": "{count, plural, one {Na razie # rzecz wygląda na prawdopodobną} few {Na razie # rzeczy wyglądają na prawdopodobne} many {Na razie # rzeczy wygląda na prawdopodobne} other {Na razie # rzeczy wygląda na prawdopodobne}}",
+      "range": "{min} do {max} tygodniowo",
+      "topUp": "Cotygodniowy dodatek do jej dochodu",
+      "council": "Ustala ją jej rada lokalna",
+      "upToMonth": "Do {max} miesięcznie",
+      "drugs": "Niższe koszty leków na receptę",
+      "state": "Ustala to jego stan"
+    },
+    "plan": {
+      "now": "Zacznij teraz"
+    },
+    "call": {
+      "head": "Rozmowa w sprawie {name}",
+      "say": "\"Dzwonię, żeby poprosić o formularz wniosku dla mojej mamy. Ma 78 lat i prawie każdego ranka potrzebuje pomocy.\"",
+      "after": "Dalej: {next}",
+      "sayUs": "\"Dzwonię, żeby złożyć wniosek o Extra Help dla mojego taty. Ma 70 lat i dostaje Social Security.\""
+    },
+    "near": {
+      "head": "Od Brent Council i z okolicy",
+      "ctr": "Council Tax Reduction",
+      "care": "Ocena potrzeb opiekuńczych",
+      "adapt": "Przystosowanie domu i pomoce",
+      "charity": "Organizacje charytatywne dające granty osobom starszym",
+      "headUs": "W jego okolicy w Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Rejestr organizacji charytatywnych",
+      "clinic": "Środowiskowe centrum zdrowia",
+      "clinicFrom": "HRSA",
+      "housing": "Lokalna agencja mieszkaniowa",
+      "housingFrom": "HUD",
+      "counsellor": "Bezpłatny doradca mieszkaniowy",
+      "counsellorFrom": "HUD",
+      "found": "Nieodebrane pieniądze",
+      "foundFrom": "Biuro nieodebranych środków stanu Ohio"
+    }
+  }
+}

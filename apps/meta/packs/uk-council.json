@@ -1,0 +1,234 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "uk-council",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "topics": [
+    [
+      "local",
+      "Council and travel"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "hb",
+      "name": "Housing Benefit",
+      "topic": "local",
+      "by": "Your council",
+      "gives": "Help with the rent, paid by your council.",
+      "how": "Claim from your council. A couple can make a new claim only when both have reached State Pension age.",
+      "url": "https://www.gov.uk/housing-benefit/eligibility",
+      "timing": "Claim soon: it's paid from the week you claim.",
+      "rule": [
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "spa",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "reached State Pension age",
+          "txt": "Reached State Pension age",
+          "fail": "Under State Pension age, so rent help comes through Universal Credit"
+        },
+        {
+          "needs": [
+            "housing"
+          ],
+          "test": {
+            "f": "housing",
+            "op": "in",
+            "v": [
+              "social",
+              "private"
+            ]
+          },
+          "expr": "rents their home",
+          "txt": "Rents their home",
+          "fail": "Doesn't pay rent"
+        },
+        {
+          "needs": [
+            "savings",
+            "benefits"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "sav",
+                "op": "lte",
+                "v": {
+                  "line": "savingsCap"
+                }
+              },
+              {
+                "f": "gateway",
+                "op": "eq",
+                "v": true
+              }
+            ]
+          },
+          "expr": "savings of £16,000 or less, or gets Pension Credit",
+          "txt": "Savings of £16,000 or less, or gets Pension Credit",
+          "fail": "Savings over £16,000"
+        },
+        {
+          "needs": [
+            "income"
+          ],
+          "test": {
+            "f": "incWeek",
+            "op": "lt",
+            "v": {
+              "line": "ctrIncomeWeek"
+            }
+          },
+          "expr": "weekly income under the screening line",
+          "txt": "Income low enough to check",
+          "fail": "Income likely too high",
+          "near": {
+            "f": "incWeek",
+            "line": "ctrIncomeWeek"
+          }
+        }
+      ],
+      "council": "apply-housing-benefit-from-council"
+    },
+    {
+      "id": "bus",
+      "name": "Free bus pass",
+      "topic": "local",
+      "by": "Your council",
+      "gives": "Free off-peak travel on local buses.",
+      "how": "Apply to your council.",
+      "url": "https://www.gov.uk/apply-for-elderly-person-bus-pass",
+      "act": "Apply for a bus pass",
+      "rule": [
+        {
+          "needs": [
+            "postcode",
+            "dob"
+          ],
+          "test": {
+            "any": [
+              {
+                "all": [
+                  {
+                    "f": "nation",
+                    "op": "eq",
+                    "v": "eng"
+                  },
+                  {
+                    "f": "spa",
+                    "op": "eq",
+                    "v": true
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "f": "nation",
+                    "op": "in",
+                    "v": [
+                      "sco",
+                      "wal",
+                      "ni"
+                    ]
+                  },
+                  {
+                    "f": "age",
+                    "op": "gte",
+                    "v": 60
+                  }
+                ]
+              }
+            ]
+          },
+          "expr": "State Pension age in England, or 60 in Scotland, Wales and Northern Ireland",
+          "txt": "Old enough for a bus pass where they live",
+          "fail": "Not old enough yet. A disabled person's pass has no age limit."
+        }
+      ],
+      "council": "apply-for-elderly-person-bus-pass",
+      "local": {
+        "sco": {
+          "how": "Apply for a National Entitlement Card through your council or Transport Scotland."
+        },
+        "ni": {
+          "how": "Apply for a SmartPass through nidirect."
+        }
+      }
+    },
+    {
+      "id": "crf",
+      "name": "Crisis and Resilience Fund",
+      "topic": "local",
+      "by": "Your council",
+      "gives": "Help when money runs out, like food, energy or a gap in the rent.",
+      "how": "Ask your council. Each one sets its own rules and some help comes as cash.",
+      "url": "https://www.gov.uk/government/news/1-billion-resilience-fund-and-next-step-towards-removal-of-two-child-limit-provide-safety-net-for-families",
+      "act": "About the fund",
+      "worthChecking": "Each council decides who it helps",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland and Wales run their own emergency funds"
+        },
+        {
+          "needs": [
+            "benefits",
+            "income"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "gateway",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "incWeek",
+                "op": "lt",
+                "v": {
+                  "line": "ucIncomeWeek"
+                }
+              }
+            ]
+          },
+          "expr": "gets Universal Credit or Pension Credit, or on a low income",
+          "txt": "On a low income",
+          "fail": "Income above what councils usually help with"
+        }
+      ]
+    }
+  ],
+  "clashes": [
+    {
+      "ids": [
+        "pc",
+        "hb"
+      ],
+      "tone": "boost",
+      "text": "With the Guarantee Credit part of Pension Credit, savings over £16,000 don't stop Housing Benefit."
+    }
+  ],
+  "challenges": {
+    "Your council": {
+      "text": "Ask the council to review its decision, and you can then appeal to a tribunal. Citizens Advice and Shelter can help for free.",
+      "url": "https://www.gov.uk/appeal-housing-benefit-decision"
+    }
+  }
+}

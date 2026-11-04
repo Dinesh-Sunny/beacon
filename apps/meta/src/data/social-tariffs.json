@@ -1,0 +1,138 @@
+{
+  "source": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
+  "read": "2026-11-04",
+  "tariffs": [
+    {
+      "package": "O2 Essential Plan",
+      "monthly": 10,
+      "speed": "5G where available",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "VOXI For Now",
+      "monthly": 10,
+      "speed": "5G where available",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "EE Basics",
+      "monthly": 12,
+      "speed": "Up to 25 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Hyperoptic Fair Fibre Fast",
+      "monthly": 12,
+      "speed": "50 Mbit/s",
+      "nations": ["eng", "sco", "wal"]
+    },
+    {
+      "package": "SMARTY Social Tariff",
+      "monthly": 12,
+      "speed": "5G where available",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Virgin Media Essential Broadband",
+      "monthly": 12.5,
+      "speed": "15 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Hyperoptic Fair Fibre Superfast",
+      "monthly": 13,
+      "speed": "150 Mbit/s",
+      "nations": ["eng", "sco", "wal"]
+    },
+    {
+      "package": "4th Utility Social Tariff",
+      "monthly": 13.99,
+      "speed": "30 Mbit/s",
+      "nations": ["eng"]
+    },
+    {
+      "package": "FibreNest Social Tarrif",
+      "monthly": 14.5,
+      "speed": "36 Mbit/s",
+      "nations": ["eng", "sco", "wal"]
+    },
+    {
+      "package": "Fibrus Full Fibre Essential",
+      "monthly": 14.99,
+      "speed": "50 Mbit/s",
+      "nations": ["ni"]
+    },
+    {
+      "package": "BT Home Essentials No Income",
+      "monthly": 16.5,
+      "speed": "36 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Hyperoptic Fair Fibre Ultrafast",
+      "monthly": 17,
+      "speed": "500 Mbit/s",
+      "nations": ["eng", "sco", "wal"]
+    },
+    {
+      "package": "Hyperoptic Fair Fibre Hyperfast",
+      "monthly": 20,
+      "speed": "1Gb/s",
+      "nations": ["eng", "sco", "wal"]
+    },
+    {
+      "package": "NOW Broadband Basics",
+      "monthly": 20,
+      "speed": "36 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Sky Superfast 35",
+      "monthly": 20,
+      "speed": "35 Mbps",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Virgin Media Essential Broadband Plus",
+      "monthly": 20,
+      "speed": "54 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Vodafone Fibre 2 Essentials",
+      "monthly": 20,
+      "speed": "80 Mbps",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "BT Home Essentials Unlimited 36 Mbp/s",
+      "monthly": 22,
+      "speed": "36 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "Gigabit IQ Connect",
+      "monthly": 22.99,
+      "speed": "100 Mbit/s",
+      "nations": ["eng"]
+    },
+    {
+      "package": "Highland Broadband Social Tariff",
+      "monthly": 23.99,
+      "speed": "100 Mbit/s",
+      "nations": ["sco"]
+    },
+    {
+      "package": "Sky Full Fibre 75",
+      "monthly": 24,
+      "speed": "75 Mbps",
+      "nations": ["eng", "sco", "wal", "ni"]
+    },
+    {
+      "package": "BT Home Essentials Unlimited 67 Mbp/s",
+      "monthly": 25,
+      "speed": "67 Mbit/s",
+      "nations": ["eng", "sco", "wal", "ni"]
+    }
+  ]
+}

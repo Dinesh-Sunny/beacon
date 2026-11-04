@@ -1,0 +1,1126 @@
+{
+  "header": {
+    "home": "Beacon home",
+    "showChat": "Show chat",
+    "fullView": "Full view",
+    "hideChat": "Hide chat",
+    "yourCheck": "Your check",
+    "checkFor": "Check for {name}",
+    "exampleOf": "{name}'s example",
+    "exitFull": "Exit full view",
+    "example": "Example",
+    "stop": "Stop",
+    "exampleReplaces": "An example replaces the answers on this device.",
+    "startAgain": "Start again",
+    "startAgainAsk": "Start again? This clears every answer on this device.",
+    "keepAnswers": "Keep my answers",
+    "details": "Details",
+    "chat": "Chat",
+    "results": "Results",
+    "views": "Views",
+    "chatWith": "Chat with Beacon",
+    "checked": "{done} of {total} checked",
+    "checkedLabel": "Kinds of help checked",
+    "skip": "Skip to results"
+  },
+  "lang": {
+    "button": "Language: {name}",
+    "menu": "Choose a language",
+    "checked": "Checked by a person",
+    "machine": "Machine translated - help us check",
+    "suggestTitle": "Read Beacon in {name}?",
+    "suggestYes": "Yes, {name}",
+    "keepEnglish": "Keep English",
+    "suggestWhy": "Suggested from your browser's language setting - never from where you are.",
+    "switched": "Beacon is now in {name}. You can change it any time with the globe button at the top.",
+    "back": "Back to English",
+    "official": "Official names and rules stay in English, as the organisation writes them."
+  },
+  "first": {
+    "you": "You, or someone you look after",
+    "givers": "Government, councils, NHS, charities",
+    "giversUs": "Government, states, clinics, charities",
+    "mapLabel": "You on one side, everyone who gives help on the other, and Beacon connecting the two.",
+    "headline": "{names}, and {more} more",
+    "lead": "As you answer, what may be yours shows up here with the official rule behind it.",
+    "example": "See an example",
+    "stillPossible": "{live} of {total} still possible"
+  },
+  "chat": {
+    "hello": "Hi, I'm Beacon. I check what help you could be missing, for you or someone you look after.",
+    "howTo": "Tell me what's going on in your own words, or answer the questions below. You can also talk, or add a photo of a letter.",
+    "startFrom": "Or start from what's changed",
+    "placeholder": "Or tell Beacon in your own words",
+    "placeholderAfter": "Tell Beacon about your situation",
+    "add": "Add",
+    "send": "Send",
+    "speak": "Speak",
+    "saved": "Saved. {progress}.",
+    "savedNew": "Saved. {progress}. New: {names}.",
+    "likelySoFar": "{count, plural, one {# looks} other {# look}} likely so far",
+    "checkSoFar": "{count} worth checking so far",
+    "appearAsYouAnswer": "Results appear as you answer",
+    "nothingYet": "Nothing matches yet",
+    "examplePlay": "Here's a made-up example: {name}. {line} Watch the results light up as each answer goes in.",
+    "exampleDone": "That's every answer that matters for this example. Try your own whenever you're ready, or ask me anything about these results.",
+    "shared": "This check was shared with you. Change anything in Details, and it stays on this device.",
+    "message": "Message Beacon",
+    "addLetter": "Add a letter or photo",
+    "addLetterHint": "An agent reads it for you",
+    "takePhoto": "Take a photo",
+    "takePhotoHint": "Best on a phone",
+    "sample": "Try a sample letter",
+    "sampleHint": "A made-up council tax bill",
+    "saidAloud": "Said aloud",
+    "askTitle": "Ask me about the results",
+    "askFirst": "What should we claim first?",
+    "askExplain": "Explain {name} in plain words",
+    "askClashMe": "Could claiming one thing lower another for me?",
+    "askClashThey": "Could claiming one thing lower another for {who}?",
+    "savedN": "{count, plural, one {Saved # detail} other {Saved # details}}. {progress}.",
+    "fallback": "Saved. Have a look at the next question.",
+    "errOffline": "My reading tools are resting right now. My questions here still work, and every answer counts.",
+    "errBusy": "Lots of people are checking at once. Give it a minute and try again.",
+    "errSlow": "That took longer than usual. Try once more, or carry on with my questions.",
+    "errModel": "I couldn't finish that one. Try saying it a different way, or carry on with my questions."
+  },
+  "events": {
+    "job": "Lost a job or hours",
+    "baby": "Expecting or had a baby",
+    "death": "Someone close died",
+    "health": "A health condition",
+    "caring": "Caring for someone",
+    "money": "Money is tight"
+  },
+  "q": {
+    "answerHere": "Answer here",
+    "change": "Change an answer",
+    "unsure": "I'm not sure",
+    "save": "Save and continue",
+    "cancel": "Cancel",
+    "skip": "Skip for now",
+    "postcode": "Postcode",
+    "month": "Month",
+    "year": "Year",
+    "notSure": "Not sure",
+    "noChildren": "No children",
+    "amount": "Amount",
+    "amountAfterTax": "Amount after tax",
+    "howOften": "How often",
+    "per": "{per, select, week {a week} month {a month} year {a year} other {}}",
+    "workSituation": "Work situation",
+    "employed": "Employed",
+    "self": "Self-employed",
+    "none": "Not working",
+    "sick": "Off sick",
+    "hoursWeek": "Hours a week",
+    "onCall": "Count time on call too.",
+    "yes": "Yes",
+    "no": "No",
+    "fewer": "{n} fewer",
+    "more": "{n} more",
+    "errFit": "That answer doesn't fit. Try again.",
+    "errPostcode": "Try the full postcode, like HA9 0WS",
+    "errYear": "Try a year, like 1948",
+    "errFuture": "That's still to come. Try a past month.",
+    "errAmount": "Try an amount in pounds, like 4000",
+    "errHours": "How many hours a week, roughly?",
+    "errHoursRange": "Try a number of hours between 0 and 168",
+    "emptyChecklist": "Tick any that fit, or 'None of these'",
+    "emptyWork": "Pick the one that fits best",
+    "emptyOther": "Add an answer, or choose 'I'm not sure'",
+    "zip": "ZIP code",
+    "people": "People in your household",
+    "errZip": "Enter a 5-digit ZIP code, like 10001.",
+    "errCount": "Enter a number from 1 to 20."
+  },
+  "chips": {
+    "livesIn": "Lives in {nation}",
+    "age": "Age {age}",
+    "spa": "State Pension age {age}",
+    "pensionAge": "Pension age reached",
+    "workingAge": "Working age",
+    "perWeek": "£{amount} a week",
+    "noHelp": "No daily help needed",
+    "dailyHelp": "Daily living help",
+    "careHelp": "Personal care help",
+    "opens": "Opens linked help",
+    "noLinked": "No linked help yet",
+    "lowWork": "Under 16 hours or not working",
+    "fullWork": "16 hours or more",
+    "noChildren": "No children",
+    "youngest": "Youngest is {age}",
+    "care35": "35 hours or more",
+    "careUnder": "Under 35 hours"
+  },
+  "nations": {
+    "eng": "England",
+    "sco": "Scotland",
+    "wal": "Wales",
+    "ni": "Northern Ireland"
+  },
+  "facts": {
+    "postcode": {
+      "q": "What's your postcode?",
+      "qThey": "What's {n}'s postcode?",
+      "why": "Your nation and council decide many schemes.",
+      "label": "Postcode"
+    },
+    "dob": {
+      "q": "When were you born?",
+      "qThey": "When was {n} born?",
+      "why": "Month and year are enough. Age decides a lot, like State Pension age.",
+      "label": "Born"
+    },
+    "benefits": {
+      "q": "Which of these do you already get?",
+      "qThey": "Which of these does {n} already get?",
+      "why": "Some help opens the door to more help.",
+      "label": "Already gets",
+      "opts": {
+        "uc": "Universal Credit",
+        "pc": "Pension Credit",
+        "pip": "PIP or Attendance Allowance",
+        "cb": "Child Benefit"
+      },
+      "none": "None of these"
+    },
+    "income": {
+      "q": "How much money comes into your home?",
+      "qThey": "How much money comes into {n}'s home?",
+      "why": "Include wages, pensions and benefits, after tax.",
+      "label": "Income"
+    },
+    "savings": {
+      "q": "How much do you have in savings?",
+      "qThey": "How much does {n} have in savings?",
+      "why": "Some help has a savings limit, often £16,000.",
+      "label": "Savings"
+    },
+    "difficulties": {
+      "q": "Because of a health condition, what feels hard day to day?",
+      "qThey": "Because of a health condition, what does {n} find hard day to day?",
+      "why": "This opens disability payments and help getting around.",
+      "label": "Day-to-day help",
+      "opts": {
+        "wash": "Washing, dressing or using the toilet",
+        "night": "Being safe on your own, day or night",
+        "cook": "Cooking or managing medicines",
+        "move": "Walking or getting around"
+      },
+      "none": "None of these"
+    },
+    "work": {
+      "q": "What's your work situation?",
+      "qThey": "What's {n}'s work situation?",
+      "why": "Decides help with jobs, sickness, caring and childcare.",
+      "label": "Work"
+    },
+    "ni": {
+      "q": "Have you paid National Insurance in the last 2 to 3 years?",
+      "qThey": "Has {n} paid National Insurance in the last 2 to 3 years?",
+      "why": "New Style JSA and ESA depend on contributions, not income.",
+      "label": "Paid National Insurance"
+    },
+    "child": {
+      "q": "When was your youngest child born?",
+      "qThey": "When was {n}'s youngest child born?",
+      "why": "Month and year are enough. Family help depends on your child's age.",
+      "label": "Youngest child"
+    },
+    "pregnant": {
+      "q": "Is anyone at home expecting a baby?",
+      "qThey": "Is anyone in {n}'s home expecting a baby?",
+      "why": "Opens maternity and early-years help.",
+      "label": "Expecting a baby"
+    },
+    "careHours": {
+      "q": "How many hours a week do you care for someone?",
+      "qThey": "How many hours a week does {n} care for someone?",
+      "why": "Carer payments start at 35 hours a week.",
+      "label": "Caring hours"
+    },
+    "ctax": {
+      "q": "Do you pay council tax?",
+      "qThey": "Does {n} pay council tax?",
+      "why": "Your council can reduce it.",
+      "label": "Pays council tax"
+    },
+    "housing": {
+      "q": "Where do you live?",
+      "qThey": "Where does {n} live?",
+      "why": "Renting can open help with the rent.",
+      "label": "Home",
+      "opts": {
+        "social": "Rent from the council or a housing association",
+        "private": "Rent privately",
+        "own": "Own it",
+        "family": "Live with family or friends"
+      }
+    },
+    "household": {
+      "q": "Who lives with you?",
+      "qThey": "Who lives with {n}?",
+      "why": "Living alone can take money off the council tax bill.",
+      "label": "Lives with",
+      "opts": {
+        "alone": "Nobody",
+        "children": "Only children under 18",
+        "partner": "A partner",
+        "adults": "Other adults"
+      }
+    },
+    "debt": {
+      "q": "Are you behind on any bills or payments?",
+      "qThey": "Is {n} behind on any bills or payments?",
+      "why": "There's free help with debt, and grants that clear energy debts.",
+      "label": "Behind on bills"
+    },
+    "bereaved": {
+      "q": "Has someone close to you died recently?",
+      "qThey": "Has someone close to {n} died recently?",
+      "why": "Opens bereavement and funeral help.",
+      "label": "Bereavement",
+      "opts": {
+        "no": "No",
+        "partner": "My husband, wife or civil partner",
+        "funeral": "Someone else, and I'm paying for the funeral"
+      }
+    },
+    "zip": {
+      "q": "What's your ZIP code?",
+      "qThey": "What's {n}'s ZIP code?",
+      "why": "Your state decides many programmes, and their amounts.",
+      "label": "ZIP code"
+    },
+    "people": {
+      "q": "How many people live in your home, including you?",
+      "qThey": "How many people live in {n}'s home, including them?",
+      "why": "Most programmes compare income with the poverty guideline for your household's size.",
+      "label": "Household size"
+    },
+    "benefitsUs": {
+      "q": "Which of these do you already get?",
+      "qThey": "Which of these does {n} already get?",
+      "why": "Getting one often means you qualify more easily for others.",
+      "label": "Benefits you get",
+      "opts": {
+        "snap": "SNAP (food stamps)",
+        "medicaid": "Medicaid",
+        "ssi": "SSI",
+        "tanf": "TANF (cash assistance)",
+        "wic": "WIC",
+        "ssdi": "Social Security Disability (SSDI)"
+      },
+      "none": "None of these"
+    },
+    "veteran": {
+      "q": "Have you served in the US military?",
+      "qThey": "Has {n} served in the US military?",
+      "why": "Veterans can get VA health care, pensions and more.",
+      "label": "Served in the US military"
+    }
+  },
+  "results": {
+    "nothingTitle": "Nothing stands out right now",
+    "nothingBody": "That can change when life does. Come back after a change in work, health, money or family.",
+    "yours": "Your results",
+    "soFar": "Found so far",
+    "headlineMe": "{count, plural, one {# thing looks} other {# things look}} like yours",
+    "headlineThey": "{count, plural, one {# thing looks} other {# things look}} like {name}'s",
+    "likelyN": "{count} likely",
+    "checkN": "{count} worth checking",
+    "unlockN": "{count} more once a first claim is awarded",
+    "worthUpTo": "Worth up to {amounts}",
+    "perYear": "{amount} a year",
+    "oneOff": "{amount} in one-off payments",
+    "and": " and ",
+    "worthFrom": "from {count, plural, one {# result} other {# results}} with a published amount",
+    "worthPlusMe": ", plus {count} where the amount depends on you",
+    "worthPlusThey": ", plus {count} where the amount depends on them",
+    "worthDecides": ". Each organisation decides the final amount.",
+    "readUpTo": "Up to {amount} a year at the published rates.",
+    "readAnd": "And {count} more once a first claim is awarded.",
+    "first": "Do these first",
+    "then": "Then",
+    "worth": "Worth checking",
+    "auto": "Comes by itself",
+    "later": "After the first award",
+    "finalDecision": "The organisation that runs each one makes the final decision.",
+    "print": "Save or print",
+    "outMe": "{count} not for you right now",
+    "outThey": "{count} not for {name} right now",
+    "andWhy": "and why",
+    "already": "Already getting: {names}.",
+    "howKeep": "How to keep it",
+    "more": "More",
+    "goodToKnow": "Good to know",
+    "fewer": "Show fewer",
+    "moreNotes": "{count, plural, one {# more note} other {# more notes}}",
+    "startNow": "Start now",
+    "thisWeek": "This week",
+    "afterFirst": "After the first award",
+    "new": "New",
+    "rates": "{year} rates",
+    "whyWaits": "Why it waits",
+    "howArrives": "How it arrives",
+    "howClaim": "How to claim",
+    "applyTo": "Apply to {council}",
+    "officialPage": "Official page",
+    "claimOnline": "Claim online",
+    "whatToSay": "What to say",
+    "hideWhatToSay": "Hide what to say",
+    "writing": "Writing your call notes…",
+    "offline": "Call notes need the reading tools, which are resting right now. The number and the official page above still work.",
+    "failed": "Those notes didn't come through. Try again in a moment.",
+    "sayThis": "Worth saying",
+    "haveReady": "Have these to hand",
+    "mayAsk": "They may ask",
+    "localServices": "{count, plural, one {# service} other {# services}} from {council} that may fit",
+    "localNote": "Each link goes to the council's own page, listed on",
+    "showAll": "Show all {count}",
+    "moreHelp": "More help to look at"
+  },
+  "details": {
+    "title": "Details",
+    "close": "Close details",
+    "whereMe": "Where you live",
+    "whereThey": "Where they live",
+    "aboutMe": "About you",
+    "aboutThey": "About them",
+    "money": "Money",
+    "work": "Work",
+    "family": "Family and caring",
+    "from": {
+      "form": "You answered",
+      "chat": "From the chat",
+      "voice": "From what you said",
+      "letter": "Read from a letter",
+      "example": "From the example",
+      "link": "From a shared link"
+    },
+    "savedHere": "Saved on this device",
+    "checkingMe": "Checking for you",
+    "checkingThey": "Checking for {name}",
+    "change": "Change",
+    "answer": "Answer",
+    "forget": "Forget {label}",
+    "changeLabel": "Change {label}",
+    "answerLabel": "Answer {label}",
+    "progress": "{done} of {total} checked · {count, plural, one {# detail} other {# details}} saved on this device",
+    "groupCount": "{done} of {total}",
+    "forgotten": "Forgotten.",
+    "undo": "Undo",
+    "checksN": "{count, plural, one {Checks # scheme} other {Checks # schemes}}",
+    "whoFor": "Who is this check for?",
+    "me": "Me",
+    "people": {
+      "mum": "Mum",
+      "dad": "Dad",
+      "partner": "My partner",
+      "son": "My son",
+      "daughter": "My daughter",
+      "friend": "A friend"
+    },
+    "someoneElse": "Someone else",
+    "someoneElseHint": "Someone else, like Nan",
+    "use": "Use"
+  },
+  "track": {
+    "applied": "Applied",
+    "awarded": "Awarded",
+    "refused": "Refused",
+    "markDone": "Mark as done",
+    "iApplied": "I've applied",
+    "theyApplied": "They've applied",
+    "done": "Done",
+    "undo": "Undo",
+    "progressWith": "Progress with {name}",
+    "appliedHint": "Keep the letters they send. If a decision hasn't come in a few weeks, call and ask where it is.",
+    "awardedOpens": "Good news. The help it opens is now checked again above.",
+    "awardedPay": "Good news. Check the first payment is right when it arrives.",
+    "toKeep": "To keep it:",
+    "more": "More",
+    "challenge": "How to challenge",
+    "refusedHint": "The refusal letter says how to ask for a review. Citizens Advice can help for free.",
+    "awardedOpened": "{name} awarded. It opened {count} more: {names}.",
+    "awardedOnly": "{name} awarded."
+  },
+  "share": {
+    "button": "Share",
+    "titleMe": "My Beacon check",
+    "titleThey": "Beacon check for {name}",
+    "text": "What looks likely, and the plan to claim it.",
+    "copied": "Link copied. Anyone with it can see these answers, so send it only to people you trust.",
+    "failed": "Couldn't share from this browser. Save or print works instead."
+  },
+  "read": {
+    "aloud": "Read aloud",
+    "stop": "Stop reading"
+  },
+  "site": {
+    "how": "How it works",
+    "start": "Start a check",
+    "h1": "Find the support that's already yours.",
+    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
+    "inputLabel": "Tell Beacon about your situation",
+    "inputHint": "My mum is 78 and finds stairs hard",
+    "alsoSpeak": "You can also speak or add a letter",
+    "go": "Start",
+    "watch": "or watch Margaret's check",
+    "statText": "That's how much income-related support and social tariffs goes unclaimed in Great Britain each year. Beacon helps you find your share.",
+    "perYear": "a year",
+    "ctaTitle": "Check for yourself, or for someone you love",
+    "ctaText": "Start with a few words about the person. Beacon asks the rest, one small question at a time.",
+    "factBrowser": "Answers stay in your browser",
+    "factNoId": "No name, National Insurance number or bank details",
+    "factFree": "Free to use",
+    "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
+    "code": "Code on GitHub",
+    "skip": "Skip to content",
+    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages",
+    "factNoIdShort": "Never asks for ID or bank details",
+    "forLabel": "Who is the check for?",
+    "forOther": "Someone I look after",
+    "forMe": "Me",
+    "inputHintMe": "I'm 67, live alone and my pension is small",
+    "tryExample": "Try an example check",
+    "pillCountry": "Free · {count} kinds of help in {country} · {languages} languages",
+    "inputHintUs": "My dad is 70 and his Medicare costs keep going up",
+    "inputHintMeUs": "I'm 66, I live alone in Ohio and money is tight",
+    "factNoIdUs": "No name, Social Security number or bank details"
+  },
+  "status": {
+    "open": "Still open",
+    "likely": "Likely",
+    "check": "Worth checking",
+    "unlock": "Unlocks next",
+    "out": "Ruled out",
+    "have": "Already getting"
+  },
+  "topics": {
+    "home": "Energy and broadband",
+    "low": "Money and bills",
+    "dis": "Health and disability",
+    "care": "Caring for someone",
+    "fam": "Families",
+    "work": "Looking for work",
+    "sick": "Unable to work",
+    "death": "When someone dies",
+    "local": "Council and travel",
+    "nhs": "NHS costs",
+    "debt": "Debt and arrears",
+    "found": "Money already yours",
+    "food": "Food",
+    "health": "Health care",
+    "tax": "Tax credits and filing",
+    "vets": "Veterans",
+    "rent": "Housing",
+    "learn": "College"
+  },
+  "board": {
+    "seeAll": "See all {count} kinds of help Beacon checked",
+    "legendLikely": "Likely",
+    "legendCheck": "Worth checking",
+    "legendUnlock": "Opens after a first award",
+    "legendHave": "Already getting",
+    "countLikely": "{count} likely",
+    "countCheck": "{count} worth checking",
+    "countUnlock": "{count} unlock later",
+    "countHave": "{count} already getting",
+    "toCheck": "{count} to check",
+    "noneFit": "None fit yet",
+    "close": "Close",
+    "conditions": "How each condition stands",
+    "met": "(met)",
+    "notMet": "(not met)",
+    "unknown": "(not known yet)",
+    "opens": "Once awarded, it also opens: {names}.",
+    "officialPage": "Official page"
+  },
+  "more": {
+    "intro": "Found on GOV.UK for people in a similar situation. Beacon can't check these for you yet, so each links to its official page.",
+    "search": "Search more help",
+    "searchHint": "Search, like energy or school",
+    "showAll": "Show all {count}",
+    "shown": "{shown} of {total} shown",
+    "noMatch": "Nothing matches that search.",
+    "kind": {
+      "payment": "Payment",
+      "grant": "Grant",
+      "discount": "Discount",
+      "free": "Free",
+      "loan": "Loan",
+      "tax": "Tax relief",
+      "credit": "Credit",
+      "register": "Register",
+      "concession": "Concession",
+      "compensation": "Compensation",
+      "unclaimed": "Unclaimed money",
+      "advice": "Advice"
+    }
+  },
+  "lists": {
+    "local": "Local",
+    "fewer": "Show fewer",
+    "all": "All {count}",
+    "charitiesNear": "Charities that give grants near you",
+    "fromRegister": "From the <link>Charity Commission register</link>, {date}. Each sets its own rules.",
+    "gaveRecently": "Gave grants to people recently",
+    "typical": "Typical grant, from <link>360Giving</link> open data, read {date}.",
+    "cheapest": "Cheapest where you live",
+    "cheapestThey": "Cheapest where they live",
+    "tariffNote": "A month, from <link>Ofcom's list</link>, read on {date}."
+  },
+  "watch": {
+    "newRules": "Since your last check, Beacon has learned more rules. New for you: {names}."
+  },
+  "activity": {
+    "reading": "Reading what you said",
+    "listening": "Listening back",
+    "finding": "Finding the letter",
+    "letter": "Reading your letter",
+    "notes": "Writing your call notes",
+    "painting": "Painting your picture",
+    "working": "Working on it",
+    "checked": "Checked the rules again",
+    "close": "Close",
+    "steps": "Steps",
+    "log": "Everything the agents did"
+  },
+  "offline": {
+    "note": "You're offline. Your answers are safe on this device, and Beacon carries on when you're back."
+  },
+  "meta": {
+    "homeTitle": "Beacon - find the support that's already yours",
+    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
+    "howTitle": "How it works",
+    "howDesc": "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
+    "checkTitle": "Your check"
+  },
+  "errors": {
+    "title": "Something went wrong on this page",
+    "body": "Your answers are still saved on this device. Try again, and if it keeps happening, start a fresh check.",
+    "retry": "Try again",
+    "notFoundTitle": "This page isn't here",
+    "notFoundBody": "The link may be old. Start a check, or go back to the home page.",
+    "home": "Home",
+    "loading": "Getting your check ready"
+  },
+  "dialog": {
+    "button": "Place and language: {place}, {language}. Display settings too.",
+    "title": "Place, language and display",
+    "place": "Place",
+    "display": "Display",
+    "close": "Close",
+    "current": "Chosen",
+    "searchPlace": "Search any country, or type your postcode or ZIP code",
+    "searchLanguage": "Search languages",
+    "results": "Choices",
+    "suggested": "Suggested",
+    "allCountries": "All countries",
+    "allLanguages": "All languages",
+    "yourCouncil": "Your council",
+    "noMatch": "Nothing matches. Try another spelling.",
+    "lookingUp": "Looking up your council…",
+    "placeNote": "Your postcode only finds your council and nation. Beacon never asks for your address.",
+    "zipNote": "Your ZIP code only finds your state and county. Beacon never asks for your address.",
+    "machine": "machine translated",
+    "gapTitle": "Beacon can't check {country}'s rules yet",
+    "gapBody": "The help Beacon checks today is for people in the UK and the US. If you live in {country}, the results won't fit you, so Beacon won't guess.",
+    "useUk": "I live in the UK",
+    "useUs": "I live in the US",
+    "chooseAgain": "Choose again",
+    "move": "move",
+    "choose": "choose",
+    "closeKey": "close",
+    "nation": {
+      "eng": "England",
+      "sco": "Scotland",
+      "wal": "Wales",
+      "ni": "Northern Ireland"
+    }
+  },
+  "display": {
+    "previewTitle": "This is how your pages will look",
+    "previewBody": "Text, spacing and colour follow your choices.",
+    "previewSimple": "Short words. One idea at a time.",
+    "play": "Play",
+    "stop": "Stop",
+    "back": "Back",
+    "preset": {
+      "read": "Easier to read",
+      "colours": "Clearer colours",
+      "bigger": "Bigger and bolder",
+      "listen": "Listen to it",
+      "calmer": "Calmer",
+      "focus": "Fewer distractions",
+      "simple": "Simple words",
+      "tap": "Easier to tap"
+    },
+    "need": {
+      "read": "Dyslexia",
+      "colours": "Colour blindness",
+      "bigger": "Low vision",
+      "listen": "Sight loss",
+      "calmer": "Anxiety, migraine",
+      "focus": "ADHD, autism",
+      "simple": "Learning disability",
+      "tap": "Tremor, arthritis"
+    },
+    "each": "Choose each setting",
+    "changes": "{count, plural, one {# change} other {# changes}}",
+    "textSize": "Text size",
+    "size": {
+      "0": "Small text",
+      "1": "Standard text",
+      "2": "Large text",
+      "3": "Largest text"
+    },
+    "setting": {
+      "dark": "Dark",
+      "contrast": "High contrast",
+      "soft": "Soft background",
+      "spacing": "Wider spacing",
+      "readAloud": "Read aloud",
+      "captions": "Captions",
+      "simple": "Simple words",
+      "calm": "Calmer",
+      "colours": "Clearer colours",
+      "links": "Underlined links",
+      "tap": "Easier to tap",
+      "focus": "Fewer distractions"
+    },
+    "speed": "Read-aloud speed",
+    "speeds": {
+      "slower": "Slower",
+      "normal": "Normal",
+      "faster": "Faster"
+    },
+    "systemWins": "Your browser and system settings, like zoom and reduced motion, always win.",
+    "standard": "Back to standard",
+    "done": "Done"
+  },
+  "home": {
+    "statLabel": "Support waiting to be claimed",
+    "statUnit": "bn",
+    "frame": {
+      "tag": "The Beacon Framework",
+      "title": "Everyone who needs help, meet everyone who gives it",
+      "lead": "People on one side. Governments, councils, US states, the NHS, health centres, charities and utilities on the other. Beacon's agents connect the two."
+    },
+    "map": {
+      "aria": "People who need help on the left, everyone who gives help on the right, and Beacon in the middle connecting them.",
+      "peopleHead": "People who need help",
+      "giversHead": "Everyone who gives help",
+      "sub": "agents connect the two",
+      "people": {
+        "older": "Older people",
+        "disabled": "Disabled people",
+        "carers": "Carers",
+        "families": "Families",
+        "young": "Young people",
+        "outOfWork": "Out of work",
+        "lowWage": "On a low wage",
+        "bereavement": "Bereavement and life events",
+        "someoneElse": "Checking for someone else"
+      },
+      "givers": {
+        "government": "UK and US governments",
+        "councils": "Councils and states",
+        "nhs": "NHS and health centres",
+        "charities": "Charities",
+        "utilities": "Utility companies",
+        "employers": "Employers",
+        "unclaimed": "Unclaimed money and redress"
+      }
+    },
+    "steps": {
+      "tag": "Eight steps",
+      "title": "The same eight steps for every person",
+      "lead": "All eight work today, in your browser."
+    },
+    "loop": {
+      "understand": {
+        "title": "Understand",
+        "text": "Learn about the person, one small question at a time"
+      },
+      "match": {
+        "title": "Match",
+        "text": "Check every scheme and find what one claim opens up"
+      },
+      "warn": {
+        "title": "Warn",
+        "text": "Flag any claim that could lower another"
+      },
+      "act": {
+        "title": "Act",
+        "text": "Put claims in order and prepare each call"
+      },
+      "confirm": {
+        "title": "Confirm",
+        "text": "Record what was awarded and help challenge a wrong decision"
+      },
+      "receive": {
+        "title": "Receive",
+        "text": "Start the claims an award opens, and check the first payment"
+      },
+      "keep": {
+        "title": "Keep",
+        "text": "Report changes on time so nothing has to be paid back"
+      },
+      "watch": {
+        "title": "Watch",
+        "text": "Check again when the rules change, and say what's new"
+      }
+    },
+    "rail": {
+      "live": "Live today",
+      "coming": "Where it's going",
+      "liveSr": "Live today.",
+      "comingSr": "Coming next."
+    },
+    "todayHead": {
+      "tag": "How it works today",
+      "title": "It starts with a chat",
+      "lead": "Tell Beacon what's going on, in your own words. It asks one small question at a time and shows results as you answer."
+    },
+    "today": {
+      "type": "Type",
+      "speak": "Speak",
+      "snap": "Snap a letter",
+      "waysTitle": "Type, speak or snap a letter",
+      "waysText": "Write in your own words, talk, or take a photo of a letter. Beacon reads it for you and picks out what matters.",
+      "resultsTitle": "Results light up as you answer",
+      "resultsText": "Likely, worth checking, or unlocks next. Each one shows the conditions behind it and links to the official page.",
+      "askBubble": "Do you live in England, Scotland or Wales?",
+      "askTitle": "One small question at a time",
+      "askText": "Beacon only asks what could still change a result.",
+      "warnArt": "Claiming this could lower another payment. Read this first.",
+      "warnTitle": "A warning before you claim",
+      "warnText": "If one claim could lower another, you hear about it first, in plain words.",
+      "callArt": "What to say",
+      "orderTitle": "Claims in order, with what to say",
+      "orderText": "Beacon puts your claims in the right order and writes notes for each phone call.",
+      "codeTitle": "Code decides every result",
+      "codeText": "Plain code checks the official rules, so the same answers always give the same result. Meta's models listen, read and explain. Your answers stay in your browser.",
+      "chipsLabel": "Meta models in Beacon",
+      "langTitle": "Your language, your way",
+      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
+      "nearTitle": "Help near you",
+      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centres and housing help, nearest first.",
+      "nearCouncil": "Your council's page",
+      "nearClinic": "Community health centre",
+      "nearCharity": "Local grant charity"
+    },
+    "demo": {
+      "tag": "Example check",
+      "you1": "My mum is 78, lives alone in Wembley and finds stairs hard.",
+      "ask": "Thanks. Does she need help with washing, dressing or at night?",
+      "you2": "Yes, most mornings.",
+      "note": "Attendance Allowance can raise her Pension Credit, so claim it first.",
+      "call": "What to say on the phone is ready"
+    },
+    "cover": {
+      "tag": "What it checks today",
+      "titleAll": "{schemes} kinds of help in the UK and the US",
+      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
+    },
+    "grow": {
+      "tag": "Where it's going",
+      "title": "From one family to a worldwide network"
+    },
+    "growth": {
+      "now": "Now",
+      "today": "Today",
+      "planned": "Planned",
+      "promise": "Beacon will never take a cut of anything you're awarded.",
+      "stages": {
+        "people": {
+          "title": "People and families",
+          "text": "Help for you and the people you look after, in the UK and the US."
+        },
+        "orgs": {
+          "title": "Businesses and organisations",
+          "text": "Support that a business or organisation can claim, found the same way."
+        },
+        "countries": {
+          "title": "More countries",
+          "text": "The UK and the US are live. Each new country brings its own official rules."
+        },
+        "network": {
+          "title": "A worldwide network",
+          "text": "Providers refer people to each other through Beacon."
+        }
+      },
+      "plans": {
+        "free": {
+          "title": "Free check",
+          "text": "See what's likely yours, with warnings, the order to claim and what to say on the phone."
+        },
+        "pro": {
+          "title": "Pro",
+          "text": "Keeps watching after you claim: the decision, the first payment, changes to report and new rules."
+        },
+        "funded": {
+          "title": "Funded Pro",
+          "text": "Councils, housing associations and employers can pay for Pro for the people they serve."
+        }
+      }
+    },
+    "countries": {
+      "uk": {
+        "name": "United Kingdom",
+        "where": "England, Scotland and Wales",
+        "councilPages": "council pages",
+        "charities": "grant-giving charities",
+        "short": "the UK"
+      },
+      "us": {
+        "name": "United States",
+        "where": "All 50 states and DC",
+        "centers": "community health centres",
+        "agencies": "housing agencies",
+        "counselors": "housing counsellors",
+        "short": "the US"
+      },
+      "kinds": "kinds of help across {topics} areas of life",
+      "localLabel": "Local services Beacon matches"
+    },
+    "statUs": {
+      "num": "1 in 5",
+      "text": "people who could get the Earned Income Tax Credit don't claim it, the IRS estimates. Beacon helps you find your share.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Example check",
+      "you1": "My dad is 70, lives alone in Ohio and his Medicare costs keep going up.",
+      "ask": "Thanks. Roughly how much does he have coming in each month?",
+      "you2": "About $1,300 from Social Security.",
+      "note": "A Medicare Savings Program also gets him Extra Help with drug costs, so apply for it first."
+    }
+  },
+  "how": {
+    "tag": "How it works",
+    "h1": "Small agents, one job each",
+    "lead": "The Muse models listen, read and explain. Plain code makes every decision, so the same answers always give the same result.",
+    "stats": {
+      "schemes": "Kinds of help",
+      "councilPages": "Council pages",
+      "charities": "Grant-giving charities",
+      "countries": "Countries",
+      "languages": "Languages",
+      "usPlaces": "US local services"
+    },
+    "flow": {
+      "tag": "The flow",
+      "title": "From a chat to a plan",
+      "lead": "What you say goes in on the left. A checked plan comes out on the right."
+    },
+    "lanes": {
+      "you": "You",
+      "read": "Meta models read",
+      "code": "Code decides",
+      "get": "You get"
+    },
+    "items": {
+      "type": {
+        "title": "Type",
+        "text": "Plain words in the chat"
+      },
+      "speak": {
+        "title": "Speak",
+        "text": "Recorded in your browser"
+      },
+      "snap": {
+        "title": "Snap a letter",
+        "text": "Shrunk and stripped of photo data first"
+      },
+      "answer": {
+        "title": "Answer a question",
+        "text": "The right input for each fact"
+      },
+      "transcribe": {
+        "text": "Speech to text"
+      },
+      "sam": {
+        "text": "Finds the letter in the photo"
+      },
+      "reader": {
+        "title": "Muse Spark, letter reader",
+        "text": "Fills a fixed form and can't take actions"
+      },
+      "agent": {
+        "title": "Muse Spark, agent",
+        "text": "Saves facts only through tools"
+      },
+      "validate": {
+        "title": "Validate",
+        "text": "Every field checked before use"
+      },
+      "engine": {
+        "title": "Rules engine",
+        "text": "{count, plural, one {# scheme} other {# schemes}}, each condition true, false or unknown"
+      },
+      "planner": {
+        "title": "Question planner",
+        "text": "Asks what settles the most schemes"
+      },
+      "chains": {
+        "title": "Chains and clashes",
+        "text": "What opens up what, and what lowers what"
+      },
+      "results": {
+        "title": "Likely, worth checking, unlocks next",
+        "text": "With every condition shown"
+      },
+      "plan": {
+        "title": "A claim plan",
+        "text": "Gateway claims first"
+      },
+      "say": {
+        "title": "What to say",
+        "text": "Call notes from Muse Spark"
+      },
+      "picture": {
+        "title": "A picture of your results",
+        "text": "Painted by Muse Image"
+      }
+    },
+    "loop": {
+      "tag": "Eight steps",
+      "title": "Eight steps for every person",
+      "lead": "All eight run in Beacon today. The later steps run in your browser, so your claims stay on your device."
+    },
+    "models": {
+      "tag": "Models",
+      "title": "Meta models in Beacon",
+      "lead": "Each model has one job. Code checks everything they hand back before you see it.",
+      "jobs": {
+        "spark": "Agent chat with tool calling, letter reading with vision and structured output, call notes",
+        "voice": "Turns a spoken answer into text",
+        "sam": "Outlines the letter in a photo so you see what was read",
+        "image": "Paints the results banner from life areas only, never personal details"
+      }
+    },
+    "rules": {
+      "tag": "Promises",
+      "title": "Rules Beacon keeps",
+      "lead": "Written into the code, so they hold for every check.",
+      "list": {
+        "r1": "Code decides each result. Models read, ask and explain.",
+        "r2": "Nothing a model writes reaches the rules until code has checked it.",
+        "r3": "Letters are read in quarantine and become typed data before any agent that can act sees them.",
+        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
+        "r5": "Answers live in your browser. The server forgets them when the request ends.",
+        "r6": "Every scheme links to its official page. The organisation that runs it decides."
+      }
+    },
+    "cover": {
+      "tag": "Coverage",
+      "title": "What it checks today",
+      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
+      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
+      "us": "United States: {schemes} kinds of help, {topics} areas of life"
+    },
+    "ctaTitle": "See what's yours",
+    "ctaText": "Type, speak or snap a letter. Beacon does the checking."
+  },
+  "usLocal": {
+    "away": "{miles} miles away",
+    "health": {
+      "title": "{count, plural, one {# community health centre} other {# community health centres}} in your state, nearest first",
+      "what": "Doctors, dentists and mental health care. They charge by what you can pay, and you can go with or without insurance.",
+      "note": "From the official HRSA list.",
+      "more": "Find a health centre"
+    },
+    "housing": {
+      "title": "Housing agencies near you",
+      "what": "Housing agencies run public housing and Section 8 vouchers. Ask them how to apply and how long the waiting list is.",
+      "note": "From HUD's list of {count, plural, one {# agency} other {# agencies}} in your state.",
+      "more": "All housing agencies"
+    },
+    "counselors": {
+      "title": "{count, plural, one {# free housing counsellor} other {# free housing counsellors}} in your state, nearest first",
+      "what": "HUD-approved counsellors help for free or at low cost if you're behind on rent or your mortgage, facing eviction, or want to budget.",
+      "note": "From HUD's list of approved agencies.",
+      "more": "Find a housing counsellor"
+    },
+    "note": {
+      "mobile": "Mobile clinic",
+      "seasonal": "Seasonal",
+      "public": "Public housing",
+      "vouchers": "Section 8 vouchers",
+      "both": "Public housing and Section 8"
+    },
+    "helps": {
+      "rent": "Renting",
+      "homeless": "Homelessness",
+      "mortgage": "Behind on a mortgage",
+      "money": "Budgeting and credit",
+      "buying": "Buying a home",
+      "reverse": "Reverse mortgages"
+    }
+  },
+  "hero": {
+    "tabsLabel": "See an example check",
+    "windowTitle": "{name}'s check",
+    "tabs": {
+      "chat": "Chat",
+      "results": "Results",
+      "plan": "Plan",
+      "call": "Call notes",
+      "near": "Near you"
+    },
+    "captions": {
+      "chat": "Tell Beacon in your own words. It asks one small question at a time, only what could change a result.",
+      "results": "Each result shows the rules it rests on and links to the official page.",
+      "plan": "Claims in the right order, with a warning when one could lower another.",
+      "call": "Who to call, the number, and what to say.",
+      "near": "Your council's own pages and local charities, found from your postcode.",
+      "nearUs": "Health centres, housing agencies and housing counsellors, found from your ZIP code."
+    },
+    "chat": {
+      "saved": "Saved: age, home and daily help",
+      "savedUs": "Saved: age, home and income"
+    },
+    "results": {
+      "head": "{count, plural, one {# thing looks likely so far} other {# things look likely so far}}",
+      "range": "{min} to {max} a week",
+      "topUp": "A weekly top-up to her income",
+      "council": "Set by her council",
+      "upToMonth": "Up to {max} a month",
+      "drugs": "Lower prescription drug costs",
+      "state": "Set by his state"
+    },
+    "plan": {
+      "now": "Start now"
+    },
+    "call": {
+      "head": "Calling about {name}",
+      "say": "\"I'd like to ask for a claim form for my mum. She's 78 and needs help most mornings.\"",
+      "after": "Next: {next}",
+      "sayUs": "\"I'd like to apply for Extra Help for my dad. He's 70 and gets Social Security.\""
+    },
+    "near": {
+      "head": "From Brent Council and nearby",
+      "ctr": "Council Tax Reduction",
+      "care": "Care needs assessment",
+      "adapt": "Home adaptations and aids",
+      "charity": "Grant-giving charities for older people",
+      "headUs": "Near him in Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Charity register",
+      "clinic": "Community health centre",
+      "clinicFrom": "HRSA",
+      "housing": "Local housing agency",
+      "housingFrom": "HUD",
+      "counsellor": "Free housing counsellor",
+      "counsellorFrom": "HUD",
+      "found": "Unclaimed money",
+      "foundFrom": "Ohio's unclaimed funds office"
+    }
+  }
+}

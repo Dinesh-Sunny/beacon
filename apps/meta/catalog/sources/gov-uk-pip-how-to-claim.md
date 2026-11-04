@@ -1,0 +1,574 @@
+# Personal Independence Payment (PIP)
+
+Source: https://www.gov.uk/pip/how-to-claim
+Fetched: 2026-11-04
+Publisher updated: 2024-11-06T10:53:35+00:00
+
+## What PIP is for
+
+Personal Independence Payment ( PIP ) can help with extra living costs if you have both:
+
+ a long-term physical or mental health condition or disability
+
+ difficulty doing certain everyday tasks or getting around because of your condition
+
+ You can get PIP even if you’re working, have savings or are getting most other benefits.
+
+ You can also read about PIP in Welsh (Cymraeg) .
+
+ How PIP works
+
+ There are 2 parts to PIP :
+
+ a daily living part - if you need help with everyday tasks
+
+ a mobility part - if you need help with getting around
+
+ Whether you get one or both parts and how much you get depends on how difficult you find everyday tasks and getting around.
+
+ If you’re nearing the end of life (for example, due to a life-limiting illness), you’ll automatically get the daily living part. Whether you get the mobility part depends on your needs. Find out how to claim and how much you’ll get if you’re nearing the end of life .
+
+ Daily living part
+
+ You might get the daily living part of PIP if you need help with:
+
+ preparing food
+
+ eating and drinking
+
+ managing your medicines or treatments
+
+ washing and bathing
+
+ using the toilet
+
+ dressing and undressing
+
+ reading
+
+ managing your money
+
+ socialising and being around other people
+
+ talking, listening and understanding
+
+ Mobility part
+
+ You might get the mobility part of PIP if you need help with:
+
+ working out a route and following it
+
+ physically moving around
+
+ leaving your home
+
+ You do not have to have a physical disability to get the mobility part. You might also be eligible if you have difficulty getting around because of a cognitive or mental health condition, like anxiety.
+
+ How difficulty with tasks is assessed
+
+ The Department for Work and Pensions ( DWP ) will assess how difficult you find daily living and mobility tasks. For each task they’ll look at:
+
+ whether you can do it safely
+
+ how long it takes you
+
+ whether you need help to do it, from a person or using extra equipment
+
+ Your carer could get Carer’s Allowance if you have substantial caring needs.
+
+ How often your condition affects tasks
+
+ To get PIP you must experience difficulty with tasks most of the time. This means that you expect to have difficulty more than half of the days over a 12-month period.
+
+ Help with PIP 
+
+ If you need help understanding or applying for PIP you can:
+
+ get help from Citizens Advice 
+
+ watch PIP video guides with British Sign Language 
+
+ use easy read guides which explain PIP 
+
+ You may be able to get a home visit from a Department for Work and Pensions ( DWP ) officer to help you with your claim. Ask the advisor when you call the PIP new claims phone line.
+
+ If you live in Scotland
+
+ You need to apply for Adult Disability Payment ( ADP ) instead of PIP .
+
+ If you move from Scotland to England or Wales
+
+ If you get ADP and move from Scotland to England or Wales, you must: 
+
+ tell Social Security Scotland that you have moved
+
+ make a new claim for PIP 
+
+ Social Security Scotland will tell you when your ADP will stop.
+
+ Apply for PIP as soon as you move to England or Wales. If you do not, your payments could be affected.
+
+ If you move from England or Wales to Scotland 
+
+ If you get PIP and move from England or Wales to Scotland, you must:
+
+ tell DWP that you have moved
+
+ make a new claim for ADP 
+
+ You must also tell DWP and apply for ADP if either:
+
+ you’re waiting for the outcome of a PIP application
+
+ you’ve challenged a decision about your PIP claim
+
+ Your PIP will stop 13 weeks after you move – apply for ADP as soon as possible after moving or your payments could be affected.
+
+ If you get Disability Living Allowance ( DLA )
+
+ Disability Living Allowance ( DLA ) is being replaced by PIP for most adults. You’ll keep getting DLA if:
+
+ you’re under 16
+
+ you were born on or before 8 April 1948
+
+ If you were born after 8 April 1948, DWP will invite you to apply for PIP . You do not need to do anything until DWP writes to you about your DLA unless your circumstances change.
+
+##  Eligibility
+
+You can get Personal Independence Payment ( PIP ) if all of the following apply to you:
+
+ you’re 16 or over
+
+ you have a long-term physical or mental health condition or disability
+
+ you have difficulty doing certain everyday tasks or getting around 
+
+ you expect the difficulties to last for at least 12 months from when they started
+
+ You also usually need to be under State Pension age to make a new PIP claim.
+
+ If you live in Scotland, you need to apply for Adult Disability Payment ( ADP ) instead.
+
+ There are different eligibility rules if you’re nearing the end of life (for example, due to a life-limiting illness). You might be able to get PIP more quickly and at a higher rate.
+
+ If you’re over State Pension age
+
+ If you’re over State Pension age , you cannot usually make a new claim for PIP . You can apply for Attendance Allowance instead.
+
+ You can make a new claim for PIP if you got PIP or Adult Disability Payment ( ADP ) in the last 12 months.
+
+ If you get other benefits or income
+
+ You can get PIP at the same time as all other benefits, except Armed Forces Independence Payment .
+
+ If you get Constant Attendance Allowance you’ll get less of the daily living part of PIP .
+
+ If you get War Pensioners’ Mobility Supplement you will not get the mobility part of PIP .
+
+ You can get PIP if you’re working or have savings.
+
+ If you’ve recently returned from living abroad
+
+ To apply for PIP , you usually need to:
+
+ have lived in England, Scotland or Wales for at least 2 of the last 3 years
+
+ be living in England or Wales when you apply
+
+ If you’ve recently returned from living in the EU, Switzerland, Norway, Iceland or Liechtenstein, you might be able to get PIP sooner.
+
+ Find out about PIP if you live in Northern Ireland .
+
+ If you live abroad
+
+ You might still be able to get PIP if you either:
+
+ live in the EU, Switzerland, Norway, Iceland or Liechtenstein - you can only get help with daily living tasks
+
+ work in the Armed Forces, or are a family member of someone who does
+
+ If you’re not a British citizen
+
+ You must:
+
+ normally live in or show that you intend to settle in the UK, Ireland, the Isle of Man or the Channel Islands
+
+ not be subject to immigration control (unless you’re a sponsored immigrant)
+
+ If you’re from the EU, Switzerland, Norway, Iceland or Liechtenstein, you and your family usually also need settled or pre-settled status under the EU Settlement Scheme to get PIP . The deadline to apply to the scheme was 30 June 2021 for most people, but you might still be able to apply. Check if you can still apply to the EU Settlement Scheme .
+
+ You might still be able to get PIP if you’re a refugee or have humanitarian protection status.
+
+## How much you’ll get
+
+How much Personal Independence Payment ( PIP ) you get depends on how difficult you find:
+
+ everyday activities (‘daily living’ tasks)
+
+ getting around (‘mobility’ tasks)
+
+ Find out what tasks count as daily living and mobility tasks .
+
+ PIP amounts
+
+ Lower weekly rate 
+ Higher weekly rate 
+
+ Daily living part 
+ £76.70 
+ £114.60 
+
+ Mobility part 
+ £30.30 
+ £80 
+
+ PIP is tax free. The amount you get is not affected by your income or savings.
+
+ Tell the Department for Work and Pensions ( DWP ) straight away if there’s a change in your personal circumstances or how your condition affects you.
+
+ How you’re paid
+
+ PIP is usually paid every 4 weeks.
+
+ Your decision letter tells you:
+
+ the date of your first payment
+
+ what day of the week you’ll usually be paid
+
+ how long you’ll get PIP for
+
+ when and if your claim will be reviewed
+
+ If your payment date is on a bank holiday, you’ll usually be paid before the bank holiday. After that you’ll continue to get paid as normal.
+
+ All benefits, pensions and allowances are paid into your bank, building society or credit union account .
+
+ Other help you can get
+
+ If you get the mobility part of PIP , you might be eligible for a:
+
+ Blue Badge 
+
+ vehicle tax discount or exemption 
+
+ Motability Scheme vehicle , if you get the higher mobility rate of PIP 
+
+ If you get either the daily living or mobility part of PIP you’re eligible for a Disabled Persons Railcard .
+
+ You may be able to get a discount on Council Tax and local bus travel. Contact your local council to check.
+
+ If someone helps to care for you, they may be able to get Carer’s Allowance or Carer’s Credit .
+
+ Find out about other financial support for people with disabilities or health conditions .
+
+ If you get other benefits and PIP 
+
+ You may get a top-up (called a disability premium ) if you get:
+
+ income-related Employment and Support Allowance ( ESA )
+
+ Housing Benefit
+
+ If you get Constant Attendance Allowance you’ll get less of the daily living part of PIP .
+
+ If you get War Pensioners’ Mobility Supplement you will not get the mobility part of PIP .
+
+## How to claim
+
+Before you apply for Personal Independence Payment ( PIP ), check if you’re eligible .
+
+ If you live in:
+
+ Northern Ireland - find out how to claim if you live in Northern Ireland 
+
+ Scotland - you need to apply for Adult Disability Payment ( ADP ) instead
+
+ There’s a different way to claim if you’re nearing the end of life (for example, due to a life-limiting illness).
+
+ Start your claim by phone
+
+ You need to:
+
+ Call the ‘ PIP new claims’ phone line and answer some basic questions about you and your disability or condition.
+
+ Complete a form that asks about how your disability or condition affects you. You can do this online or by post.
+
+ You might need to have an assessment, if more information is needed.
+
+ If you need someone to help you
+
+ You can:
+
+ ask for them to be added to your call - you cannot do this if you use textphone
+
+ ask someone else to call on your behalf - you’ll need to be with them when they call
+
+ ask for a Welsh speaker - you’ll be given this option when the call begins
+
+ You may be able to get a home visit from a Department for Work and Pensions ( DWP ) officer to help you with your claim. Ask the advisor when you call the PIP new claims phone line.
+
+ Before you start
+
+ You’ll need:
+
+ your contact details, for example telephone number
+
+ your date of birth
+
+ your National Insurance number, if you have one (you can find this on letters about tax, pensions and benefits)
+
+ your bank or building society account number and sort code
+
+ your doctor or health worker’s name, address and telephone number
+
+ dates and addresses for any time you’ve spent in a care home or hospital
+
+ dates for any time you spent abroad for more than 4 weeks at a time, and the countries you visited
+
+ information about any money or support you or a close family member (husband, wife, civil partner or dependent parent) get from an EEA country or Switzerland
+
+ PIP new claims phone line
+
+ Telephone: 0800 917 2222 
+ Relay UK (if you cannot hear or speak on the phone): 18001 then 0800 917 2222 
+British Sign Language (BSL) video relay service if you’re on a computer - find out how to use the service on mobile or tablet 
+
+ Calling from abroad: +44 191 218 7766 
+Relay UK if you’re calling from abroad (if you cannot hear or speak on the phone): +44 151 494 1260 then 0800 917 2222
+
+ Monday to Friday, 8am to 5pm 
+ Find out about call charges 
+
+ Start your claim by post
+
+ Write a letter saying you want to start a PIP claim. Include your name and address.
+
+ Send the letter to:
+
+Freepost DWP PIP 1
+
+ You do not need to put a postcode or stamp on the envelope.  
+
+ You’ll be sent a form to complete asking some basic questions about you and your disability or condition. Fill in and return the form.
+
+ You’ll then get a second form which asks for information about how your disability or condition affects you.
+
+ Completing the form about your condition
+
+ You’ll need to complete a form called ‘How your disability affects you’. You can usually do this:
+
+ online, if you applied by phone (you’ll be emailed a link to the form after your phone call)
+
+ by post, if you applied by phone or post (you’ll usually receive the form within 2 weeks)
+
+ Fill in the form using the guidance that comes with it.
+
+ Include supporting documents if you have them - for example, prescription lists, care plans, or information from your doctor or others involved in your care.
+
+ You should return the form by post or complete it online within 1 month.
+
+ Contact the PIP enquiry line if you need more time or have questions.
+
+ You can read Citizens Advice’s help on filling in the form .
+
+ Check if you can apply online
+
+ You can make your full application online in some areas. You’ll need to check your postcode when you start your application.
+
+ Check if you can apply for PIP online 
+
+ If you’ve already registered, you can sign in to your PIP account .
+
+## After you've applied
+
+You might be invited to an assessment with a health professional if more information is needed. They’ll ask about:
+
+ how your condition affects your daily living and mobility tasks 
+
+ any treatments you’ve had or will have
+
+ They might ask you to do some simple movements to show how you manage some activities.
+
+ The assessment can take place at an assessment centre, at your home, over the phone or by video call.  It usually takes 1 hour.  
+
+ You can have someone else with you, for example a friend or support worker.
+
+ The audio of your assessment will be recorded. If you do not want it recorded, contact your health assessment provider using the details in your invitation letter.
+
+ You can read Citizens Advice’s help on preparing for an assessment .
+
+ Getting a decision
+
+ You’ll get a letter that tells you whether you’ll get PIP. 
+
+ If you’re eligible, your letter will also tell you:
+
+ the date of your first payment
+
+ how long until your claim is reviewed 
+
+ Your first award will be between 9 months and 10 years, depending on whether your needs are likely to change.
+
+ If you disagree with a decision
+
+ You can challenge a decision about your claim. This is called asking for ‘mandatory reconsideration’.
+
+## If your PIP claim is reviewed
+
+The letter you got when your Personal Independence Payment ( PIP ) was approved will tell you when your claim will end and if it will be reviewed.
+
+ How PIP reviews work
+
+ You will continue to get PIP while your claim is being reviewed.
+
+ You’ll get a letter asking you to fill in a form called ‘Personal Independence Payment Review.’
+
+ Fill in the form using the notes that come with it.
+
+ Send the form and any supporting information you have not shared with the Department for Work and Pensions ( DWP ) before - the form explains what to include and where to send it. You’ll need to return it within 1 month. Contact the PIP enquiry line if you need more time.
+
+ DWP will review your form. If they need more information, an independent health professional might phone you to ask some questions or send a letter inviting you to an assessment. Assessments can be in person, over the phone or by video call.
+
+ You’ll get a letter that tells you what will happen with your PIP . If your needs have changed, your PIP might be increased, reduced or stopped.
+
+ If you disagree with a decision
+
+ You can challenge a decision about your claim. This is called asking for mandatory reconsideration.
+
+## Report a change to your needs or circumstances
+
+You must contact the Personal Independence Payment ( PIP ) enquiry line straight away if:
+
+ you need more or less help with daily living and mobility tasks
+
+ your health professional tells you that your condition will last for a longer or shorter time than you reported before
+
+ a medical professional has said you might have 12 months or less to live (you could get PIP at a higher rate under ‘special rules for end of life’)
+
+ you go into a hospital, a hospice, a nursing home or a care home
+
+ you go into a residential school or college
+
+ you go into foster care or into the care of a local authority or health and social care trust
+
+ you’re imprisoned or held in detention
+
+ you plan to go abroad for more than 4 weeks
+
+ your immigration status changes and you’re not a British or Irish citizen
+
+ you start or stop getting pensions or benefits from an EU country, Switzerland, Norway, Iceland or Liechtenstein
+
+ your husband, wife, civil partner or a parent you depend on starts or stops getting benefits from an EU country, Switzerland, Norway, Iceland or Liechtenstein
+
+ If you go into a care home, you’ll also need to report if: 
+
+ there’s a change to the way your care home fees are funded (for example, you start or stop getting funding from the NHS or local council)
+
+ you were staying in the care home temporarily and you become a permanent resident
+
+ you move to another care home
+
+ you go into hospital
+
+ These changes can affect your PIP award. Depending on the change, your PIP could go up, go down, stay the same or stop.
+
+ You could be taken to court or have to pay a penalty if you give wrong information or do not report a change straight away.
+
+ You must also contact the PIP enquiry line straight away if:
+
+ your personal details change, for example your name, address, phone numbers, bank account or doctor
+
+ someone is acting on your behalf and that person changes
+
+ These changes will not normally affect your eligibility for PIP or how much you get.
+
+ If you move from England or Wales to Scotland, you must contact the PIP enquiry line and make a new claim for Adult Disability Payment (ADP) .
+
+ How to report a change
+
+ Call the ‘ PIP enquiry line’.
+
+ If you need someone to help you, you can:
+
+ ask for them to be added to your call - you cannot do this if you use textphone
+
+ ask someone else to call on your behalf - you’ll need to be with them when they call
+
+ PIP enquiry line 
+Telephone: 0800 121 4433 
+ Relay UK (if you cannot hear or speak on the phone): 18001 then 0800 121 4433 
+British Sign Language (BSL) video relay service if you’re on a computer - find out how to use the service on mobile or tablet 
+Monday to Friday, 9am to 5pm 
+ Find out about call charges 
+
+ If you’ve been paid too much
+
+ You may have to repay the money if you:
+
+ did not report a change straight away
+
+ gave wrong information
+
+ were overpaid by mistake
+
+ Find out how to repay the money you owe from benefit overpayment .
+
+## Claiming PIP if you’re nearing the end of life
+
+If you’re nearing the end of life (for example, due to a life-limiting illness) you might be able to get Personal Independence Payment ( PIP ) more quickly and at a higher rate. 
+
+ This is sometimes called ‘special rules for end of life’.
+
+ Eligibility
+
+ You’re eligible to claim PIP under the special rules for end of life if:
+
+ your doctor or medical professional has said that you might have 12 months or less to live
+
+ you’re aged 16 or over
+
+ You must also be under State Pension age if you’ve not received PIP before.
+
+ It can be difficult to predict how long someone might live for. If a medical professional has not talked to you about this, you can still ask them to support your claim under the special rules for end of life.
+
+ If you live in Scotland, you may need to apply for Adult Disability Payment ( ADP ) instead. Check if you are eligible for ADP .
+
+ What you’ll get
+
+ You’ll get the higher daily living part of £114.60 per week.
+
+ Whether you get the mobility part and how much you’ll get depends on your needs. The lower weekly rate is £30.30 and the higher weekly rate is £80.
+
+ How to claim
+
+ You can claim for yourself or someone else can do it for you.
+
+ Call the PIP claims line and ask to start a ‘special rules for end of life’ claim. The PIP team will ask questions about your condition and how it affects your ability to get around.
+
+ Ask a medical professional for form SR1. They’ll either fill it in and give the form to you or send it directly to the Department for Work and Pensions ( DWP ).
+
+ If you also claim Universal Credit, sign in to your online account and use your journal to say that you have sent an SR1 to DWP .
+
+ You will not need to go to a face-to-face assessment.
+
+ If you need someone to help you, you can:
+
+ ask for them to be added to your call - you cannot do this if you use textphone
+
+ ask someone else to call on your behalf - you’ll need to be with them when they call
+
+ PIP claims 
+Telephone: 0800 917 2222 
+ Relay UK (if you cannot hear or speak on the phone): 18001 then 0800 917 2222 
+British Sign Language (BSL) video relay service if you’re on a computer - find out how to use the service on mobile or tablet 
+
+ Calling from abroad: +44 191 218 7766 
+Relay UK if you’re calling from abroad (if you cannot hear or speak on the phone): +44 151 494 1260 then 0800 917 2222
+
+ Monday to Friday, 9am to 5pm 
+ Find out about call charges 
+
+ You may also be able to get other benefits if you’re nearing the end of life .

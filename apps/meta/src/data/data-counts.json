@@ -1,0 +1,18 @@
+{
+  "councilLinks": {
+    "links": 7165,
+    "councils": 380,
+    "services": 33
+  },
+  "charityFunds": {
+    "funds": 12231,
+    "local": 8145,
+    "read": "2026-11-04"
+  },
+  "usLocal": {
+    "centers": 13275,
+    "agencies": 3774,
+    "counselors": 1286,
+    "states": 59
+  }
+}

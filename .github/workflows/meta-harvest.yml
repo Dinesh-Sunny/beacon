@@ -1,0 +1,41 @@
+# Weekly harvest of public support data (GOV.UK and other connectors) for the Meta app.
+# Runs in the background on GitHub's machines, where official sites are reachable, and opens a
+# pull request with the new catalogue so changes are reviewed before any rule pack uses them.
+name: meta harvest
+
+on:
+  schedule:
+    - cron: "41 3 * * 1"
+  workflow_dispatch:
+    inputs:
+      connectors:
+        description: "Connector ids, space separated (empty = all)"
+        required: false
+        default: ""
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  harvest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    defaults:
+      run:
+        working-directory: apps/meta
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v5
+        with:
+          node-version: 24
+      - run: node scripts/harvest.ts ${{ inputs.connectors }}
+      - uses: peter-evans/create-pull-request@v7
+        with:
+          branch: knowledge/harvest
+          commit-message: "chore(meta): weekly harvest"
+          title: "Harvest: new public support data"
+          body: "Weekly harvest of the connectors in `apps/meta/src/knowledge/connectors`. Review new pages in `catalog/harvest` before adding them to a pack."
+          add-paths: |
+            apps/meta/catalog/harvest/**
+            apps/meta/catalog/sources/**

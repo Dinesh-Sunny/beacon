@@ -1,0 +1,55 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "uk-charity",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "topics": [],
+  "schemes": [
+    {
+      "id": "chg",
+      "name": "Charity grants",
+      "topic": "low",
+      "by": "Charities",
+      "gives": "One-off grants for things like bills, essentials, a deposit or a crisis, from charities that help people directly.",
+      "how": "Many charity grants go through a support worker or adviser. Pick one that fits and read its rules first.",
+      "url": "https://www.turn2us.org.uk/get-support/grants-search",
+      "act": "Search every charity grant",
+      "worthChecking": "Each charity sets its own rules",
+      "list": "charityGrants",
+      "rule": [
+        {
+          "needs": [
+            "benefits",
+            "debt",
+            "income"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "gateway",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "debt",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "incWeek",
+                "op": "lt",
+                "v": {
+                  "line": "ucIncomeWeek"
+                }
+              }
+            ]
+          },
+          "expr": "on a low income, getting Universal Credit or Pension Credit, or behind on bills",
+          "txt": "Money is tight",
+          "fail": "Income above what most charity grants help with"
+        }
+      ]
+    }
+  ]
+}
