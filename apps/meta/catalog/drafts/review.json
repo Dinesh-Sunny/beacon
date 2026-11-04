@@ -1,20 +1,20 @@
 {
  "counts": {
   "invalid": 109,
-  "needsFacts": 165,
-  "duplicate": 18,
+  "needsFacts": 160,
+  "duplicate": 23,
   "ready": 8
  },
  "roadmap": [
   {
    "fact": "other",
-   "unlocks": 69,
-   "alsoNeeds": 80
+   "unlocks": 81,
+   "alsoNeeds": 68
   },
   {
    "fact": "inEducation",
    "unlocks": 4,
-   "alsoNeeds": 29
+   "alsoNeeds": 28
   },
   {
    "fact": "legalIssue",
@@ -22,9 +22,9 @@
    "alsoNeeds": 7
   },
   {
-   "fact": "married",
-   "unlocks": 2,
-   "alsoNeeds": 16
+   "fact": "veteran",
+   "unlocks": 1,
+   "alsoNeeds": 7
   },
   {
    "fact": "epc",
@@ -34,22 +34,12 @@
   {
    "fact": "employer",
    "unlocks": 0,
-   "alsoNeeds": 14
-  },
-  {
-   "fact": "veteran",
-   "unlocks": 0,
-   "alsoNeeds": 9
+   "alsoNeeds": 13
   },
   {
    "fact": "conditionList",
    "unlocks": 0,
-   "alsoNeeds": 8
-  },
-  {
-   "fact": "debt",
-   "unlocks": 0,
-   "alsoNeeds": 8
+   "alsoNeeds": 7
   },
   {
    "fact": "childDisabled",
@@ -356,78 +346,7 @@
     "other"
    ],
    "issues": [],
-   "status": "needsFacts",
-   "scheme": {
-    "id": "accesstowork",
-    "name": "Access to Work",
-    "topic": "central",
-    "by": "GOV.UK",
-    "gives": "You get a grant for practical support at work or help with your mental health at work.",
-    "how": "Apply online or by phone on 0800 121 7479. Access to Work will talk to you and may check your workplace before you get a letter with a choice.",
-    "url": "https://www.gov.uk/access-to-work",
-    "worthChecking": "An adviser checks your needs and works out what help and grant you get.",
-    "rule": [
-     {
-      "needs": [
-       "postcode"
-      ],
-      "test": {
-       "f": "nation",
-       "op": "in",
-       "v": [
-        "eng",
-        "sco",
-        "wal"
-       ]
-      },
-      "expr": "lives in eng, sco, wal",
-      "txt": "Lives where this is offered",
-      "fail": "Not offered where they live"
-     },
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "age",
-       "op": "gte",
-       "v": 16
-      },
-      "expr": "you are 16 or over",
-      "txt": "You are 16 or over",
-      "fail": "You must be 16 or over"
-     },
-     {
-      "needs": [
-       "work"
-      ],
-      "test": {
-       "f": "work",
-       "op": "in",
-       "v": [
-        "employed",
-        "self"
-       ]
-      },
-      "expr": "you are in paid work",
-      "txt": "You are in paid work",
-      "fail": "You must be in paid work now"
-     },
-     {
-      "needs": [
-       "work"
-      ],
-      "test": {
-       "f": "hours",
-       "op": "gt",
-       "v": 1
-      },
-      "expr": "you work more than 1 hour a week",
-      "txt": "You work more than 1 hour a week",
-      "fail": "You must work more than 1 hour a week"
-     }
-    ]
-   }
+   "status": "duplicate"
   },
   {
    "url": "https://www.gov.uk/additional-state-pension",
@@ -440,7 +359,6 @@
     "whether you can inherit part of a late spouse or civil partner's payment"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -482,7 +400,7 @@
    ],
    "wants": [
     "epc",
-    "married"
+    "other"
    ],
    "issues": [],
    "status": "needsFacts",
@@ -1817,7 +1735,6 @@
     "value of qualifying business and farm property against the 2.5 million pound cap and any unused allowance from a spouse or civil partner"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -2196,58 +2113,7 @@
     "other"
    ],
    "issues": [],
-   "status": "needsFacts",
-   "scheme": {
-    "id": "carercredit",
-    "name": "Carer’s Credit",
-    "topic": "central",
-    "by": "GOV.UK",
-    "gives": "You get National Insurance credits to help protect your State Pension.",
-    "how": "Fill in the Carer’s Credit claim form with the Care Certificate signed by a health or social care worker and post it to Freepost DWP Carers Allowance Unit. You do not need to claim if you already get Carer’s Allowance or Child Benefit for a child under 12.",
-    "url": "https://www.gov.uk/carers-credit",
-    "worthChecking": "a signed Care Certificate can stand in for the usual benefit test",
-    "rule": [
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "age",
-       "op": "gte",
-       "v": 16
-      },
-      "expr": "you are 16 or over",
-      "txt": "you are 16 or over",
-      "fail": "you must be 16 or over"
-     },
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "spa",
-       "op": "eq",
-       "v": false
-      },
-      "expr": "you are under state pension age",
-      "txt": "you are under State Pension age",
-      "fail": "you must be under State Pension age"
-     },
-     {
-      "needs": [
-       "careHours"
-      ],
-      "test": {
-       "f": "careHours",
-       "op": "gte",
-       "v": 20
-      },
-      "expr": "you care for someone for at least 20 hours a week",
-      "txt": "you care for someone for at least 20 hours a week",
-      "fail": "you must care for someone for at least 20 hours a week"
-     }
-    ]
-   }
+   "status": "duplicate"
   },
   {
    "url": "https://www.gov.uk/challenge-council-tax-band",
@@ -2584,7 +2450,6 @@
     "whether you or your partner get Income Support or other qualifying benefits which can mean weekly pay"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [
@@ -2756,45 +2621,7 @@
     "other"
    ],
    "issues": [],
-   "status": "needsFacts",
-   "scheme": {
-    "id": "childtrust",
-    "name": "Child Trust Fund",
-    "topic": "unclaimed",
-    "by": "HM Revenue and Customs",
-    "gives": "You can find and keep your tax-free savings account.",
-    "how": "Ask HMRC to find the provider if you do not know who it is. Then contact the provider to manage the account and to take money out when you are 18.",
-    "url": "https://www.gov.uk/child-trust-funds",
-    "auto": true,
-    "rule": [
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "age",
-       "op": "gte",
-       "v": 15
-      },
-      "expr": "you are at least 15 years old",
-      "txt": "You are at least 15 years old",
-      "fail": "This fund is only for children born between 1 September 2002 and 2 January 2011"
-     },
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "age",
-       "op": "lte",
-       "v": 24
-      },
-      "expr": "you are 24 or younger",
-      "txt": "You are 24 or younger",
-      "fail": "This fund is only for children born between 1 September 2002 and 2 January 2011"
-     }
-    ]
-   }
+   "status": "duplicate"
   },
   {
    "url": "https://www.gov.uk/childcare-grant",
@@ -2814,7 +2641,6 @@
    ],
    "wants": [
     "inEducation",
-    "married",
     "other"
    ],
    "issues": [],
@@ -3020,7 +2846,6 @@
     "if you are abroad for medical treatment, to care for a partner or child, for work duties or as a mariner"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -3248,8 +3073,7 @@
    ],
    "wants": [
     "employer",
-    "redundant",
-    "debt"
+    "redundant"
    ],
    "issues": [
     "applies to everyone, so it's a service rather than help to find"
@@ -3405,7 +3229,6 @@
     "where the company was registered"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -3515,7 +3338,6 @@
    ],
    "wants": [
     "childDisabled",
-    "married",
     "other"
    ],
    "issues": [],
@@ -4067,7 +3889,6 @@
    ],
    "wants": [
     "epc",
-    "debt",
     "other"
    ],
    "issues": [
@@ -4126,61 +3947,7 @@
     "other"
    ],
    "issues": [],
-   "status": "needsFacts",
-   "scheme": {
-    "id": "ctaxsingle",
-    "name": "Council Tax single-person discount",
-    "topic": "councils",
-    "by": "GOV.UK - How Council Tax works",
-    "gives": "You get 25% off your Council Tax bill.",
-    "how": "Apply to your local council for a discount. You must apply even if you or others in your home are disregarded.",
-    "url": "https://www.gov.uk/council-tax",
-    "rule": [
-     {
-      "needs": [
-       "postcode"
-      ],
-      "test": {
-       "f": "nation",
-       "op": "in",
-       "v": [
-        "eng",
-        "sco",
-        "wal"
-       ]
-      },
-      "expr": "lives in eng, sco, wal",
-      "txt": "Lives where this is offered",
-      "fail": "Not offered where they live"
-     },
-     {
-      "needs": [
-       "dob"
-      ],
-      "test": {
-       "f": "age",
-       "op": "gte",
-       "v": 18
-      },
-      "expr": "you are 18 or over",
-      "txt": "you are 18 or over",
-      "fail": "you are under 18"
-     },
-     {
-      "needs": [
-       "ctax"
-      ],
-      "test": {
-       "f": "ctax",
-       "op": "eq",
-       "v": true
-      },
-      "expr": "you pay council tax",
-      "txt": "you pay Council Tax",
-      "fail": "you do not pay Council Tax"
-     }
-    ]
-   }
+   "status": "duplicate"
   },
   {
    "url": "https://www.gov.uk/day-care-centres",
@@ -4232,7 +3999,7 @@
     "you have debt problems you want help with"
    ],
    "wants": [
-    "debt"
+    "other"
    ],
    "issues": [
     "applies to everyone, so it's a service rather than help to find"
@@ -4306,8 +4073,6 @@
     "any time you or your partner got Pension Credit, Universal Credit, income-related Employment and Support Allowance, Carer's Allowance, Carer Support Payment, Incapacity Benefit, Severe Disablement Allowance, Widow's Pension, Widowed Parent's Allowance or Unemployability Supplement, which does not count"
    ],
    "wants": [
-    "married",
-    "debt",
     "carer",
     "other"
    ],
@@ -4933,8 +4698,7 @@
     "what insolvency, debt, redundancy or company issue you need help with"
    ],
    "wants": [
-    "redundant",
-    "debt"
+    "redundant"
    ],
    "issues": [
     "applies to everyone, so it's a service rather than help to find"
@@ -4966,48 +4730,11 @@
     "combined take-home pay with your partner if you claim Universal Credit as a couple"
    ],
    "wants": [
-    "married",
-    "veteran"
+    "veteran",
+    "other"
    ],
    "issues": [],
-   "status": "needsFacts",
-   "scheme": {
-    "id": "helptosave",
-    "name": "Help to Save",
-    "topic": "central",
-    "by": "GOV.UK",
-    "gives": "Get a 50p bonus for every 1 pound you save, up to 1,200 pounds over 4 years.",
-    "how": "Apply online on GOV.UK with your National Insurance number and UK bank details. You can pay in by debit card, standing order or bank transfer.",
-    "url": "https://www.gov.uk/get-help-savings-low-income",
-    "rule": [
-     {
-      "needs": [
-       "benefits"
-      ],
-      "test": {
-       "f": "gateway",
-       "op": "eq",
-       "v": true
-      },
-      "expr": "you get universal credit",
-      "txt": "You get Universal Credit",
-      "fail": "You need to get Universal Credit to open this account"
-     },
-     {
-      "needs": [
-       "income"
-      ],
-      "test": {
-       "f": "incYear",
-       "op": "gte",
-       "v": 12
-      },
-      "expr": "you had take-home pay of 1 pound or more in your last monthly assessment period",
-      "txt": "You had take-home pay of 1 pound or more in your last monthly assessment period",
-      "fail": "You need take-home pay of 1 pound or more in your last monthly assessment period"
-     }
-    ]
-   }
+   "status": "duplicate"
   },
   {
    "url": "https://www.gov.uk/get-money-from-court-funds-office",
@@ -5121,7 +4848,6 @@
     "whether the company's main activities are trading in goods or services rather than investment"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -5519,7 +5245,6 @@
     "other money towards costs from insurance, the estate or a pre-paid funeral plan"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -5789,7 +5514,6 @@
     "you have written authority such as lasting power of attorney, deputyship or appointeeship if you want to manage the claim alone"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [
@@ -5852,7 +5576,6 @@
     "which tax you owe and for which tax years - Income Tax, Capital Gains Tax or Class 4 National Insurance"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -5898,7 +5621,6 @@
     "whether you are in a group that does not need a local connection, such as armed forces, bereaved military partner, Reservist with a service injury, care leaver under 25, or survivor of domestic abuse"
    ],
    "wants": [
-    "married",
     "veteran",
     "other"
    ],
@@ -5946,7 +5668,6 @@
     "whether you paid reduced rate National Insurance as a married woman or widow, which stops you getting it for that year"
    ],
    "wants": [
-    "married",
     "carer",
     "other"
    ],
@@ -6074,7 +5795,6 @@
     "whether you are a Crown tenant or live in service family housing"
    ],
    "wants": [
-    "married",
     "inEducation",
     "other"
    ],
@@ -6376,7 +6096,6 @@
     "you transfer your business and all its assets except cash to a company in return for shares"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [
@@ -6490,7 +6209,6 @@
     "whether the tax is from woodlands or heritage deferral or from a trust where no death has happened"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -6902,7 +6620,6 @@
     "whether you live in the UK, or you are a member of the armed forces or a crown servant living abroad, or their spouse or civil partner"
    ],
    "wants": [
-    "married",
     "veteran"
    ],
    "issues": [],
@@ -7013,7 +6730,7 @@
     "neither of you gets Married Couple’s Allowance"
    ],
    "wants": [
-    "married"
+    "other"
    ],
    "issues": [],
    "status": "needsFacts",
@@ -7114,7 +6831,6 @@
     "if your baby was stillborn from 24 weeks of pregnancy or born alive at any point"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -7234,7 +6950,6 @@
     "whether you are the widow or widower of an ex-employee who would have qualified"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -7539,7 +7254,6 @@
     "for pay you have worked for your employer for at least 26 weeks and earn at least 129 pounds a week on average"
    ],
    "wants": [
-    "married",
     "employer",
     "other"
    ],
@@ -7678,7 +7392,6 @@
     "whether you have had a Debt Relief Order in the last 6 years"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -7828,8 +7541,8 @@
     "whether you have worked for your employer without a break for at least 26 weeks up to the qualifying week and stayed with them up to the birth"
    ],
    "wants": [
-    "married",
-    "employer"
+    "employer",
+    "other"
    ],
    "issues": [],
    "status": "needsFacts",
@@ -7909,7 +7622,6 @@
     "help you have had with debts in the past"
    ],
    "wants": [
-    "debt",
     "other"
    ],
    "issues": [],
@@ -7960,7 +7672,6 @@
     "time spent outside Great Britain"
    ],
    "wants": [
-    "married",
     "carer",
     "other"
    ],
@@ -8001,7 +7712,7 @@
     "your partner's work and pay and your child's due, birth or placement date"
    ],
    "wants": [
-    "married"
+    "other"
    ],
    "issues": [],
    "status": "needsFacts",
@@ -8146,7 +7857,7 @@
     "you are the donor, an attorney named in the power of attorney, or the executor of the donor's estate if the donor has died"
    ],
    "wants": [
-    "debt"
+    "other"
    ],
    "issues": [
     "applies to everyone, so it's a service rather than help to find"
@@ -8600,8 +8311,6 @@
     "whether you are married or widowed"
    ],
    "wants": [
-    "married",
-    "debt",
     "other"
    ],
    "issues": [
@@ -8822,7 +8531,6 @@
     "whether you are an employee or a worker, and your partner's work and pay history"
    ],
    "wants": [
-    "married",
     "employer",
     "other"
    ],
@@ -9305,7 +9013,6 @@
     "whether the child you care for is someone else's"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -9673,7 +9380,6 @@
     "whether you or your partner get Housing Benefit or income-related Employment and Support Allowance, which can also help you qualify"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],
@@ -9907,8 +9613,6 @@
     "you have paid off any past Budgeting Advance"
    ],
    "wants": [
-    "debt",
-    "married",
     "other"
    ],
    "issues": [],
@@ -9951,7 +9655,6 @@
    ],
    "wants": [
     "inEducation",
-    "married",
     "other"
    ],
    "issues": [],
@@ -10191,7 +9894,6 @@
     "you are not in prison"
    ],
    "wants": [
-    "married",
     "other"
    ],
    "issues": [],

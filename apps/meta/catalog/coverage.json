@@ -491,7 +491,8 @@
         "csp",
         "scp",
         "bsg",
-        "pawhp"
+        "pawhp",
+        "lpa"
       ],
       "next": [
         {
@@ -602,22 +603,6 @@
           "checked": "2026-11-04"
         },
         {
-          "id": "lpa",
-          "name": "Lone Pensioner Allowance (rates)",
-          "nation": [
-            "ni"
-          ],
-          "url": "https://www.nidirect.gov.uk/articles/lone-pensioner-allowance",
-          "rule": "Homeowners and tenants in Northern Ireland aged 70 or over who live alone get a discount on their rates; some living with a carer or child also qualify.",
-          "facts": [
-            "dob",
-            "livesAlone",
-            "housing",
-            "postcode"
-          ],
-          "checked": "2026-11-04"
-        },
-        {
           "id": "ndpa",
           "name": "Disabled Person's Allowance (rates)",
           "nation": [
@@ -679,7 +664,8 @@
         "hb",
         "bus",
         "crf",
-        "bb"
+        "bb",
+        "ctsingle"
       ],
       "next": [
         {
@@ -715,22 +701,6 @@
             "difficulties",
             "ctax",
             "homeAdapt"
-          ],
-          "checked": "2026-11-04"
-        },
-        {
-          "id": "ctsingle",
-          "name": "Council Tax single person discount",
-          "nation": [
-            "eng",
-            "sco",
-            "wal"
-          ],
-          "url": "https://www.gov.uk/council-tax/who-has-to-pay",
-          "rule": "A quarter off the bill when the bill payer lives alone or only with people who are disregarded, such as under-18s, full-time students or live-in carers.",
-          "facts": [
-            "ctax",
-            "livesAlone"
           ],
           "checked": "2026-11-04"
         },
@@ -877,7 +847,8 @@
       "live": [
         "whd",
         "bsoc",
-        "psr"
+        "psr",
+        "bget"
       ],
       "next": [
         {
@@ -911,22 +882,6 @@
             "income",
             "benefits",
             "postcode"
-          ],
-          "checked": "2026-11-04"
-        },
-        {
-          "id": "bget",
-          "name": "British Gas Energy Trust debt grants",
-          "nation": [
-            "eng",
-            "sco",
-            "wal"
-          ],
-          "url": "https://britishgasenergytrust.org.uk/",
-          "rule": "Households with domestic gas or electricity debt up to the Trust's limit, with any supplier, not only British Gas.",
-          "facts": [
-            "energyDebt",
-            "income"
           ],
           "checked": "2026-11-04"
         },
@@ -1288,7 +1243,9 @@
       "phase": 1,
       "scale": "Over 1,700 UK organisations offering grants to individuals (Turn2us Grants Search); 171,539 registered charities in England and Wales at end of June 2026 and 24,982 in Scotland",
       "scaleSource": "https://www.turn2us.org.uk/get-support/grants-search",
-      "live": [],
+      "live": [
+        "chg"
+      ],
       "next": [
         {
           "id": "famf",
@@ -1597,23 +1554,11 @@
       "phase": 1,
       "scale": null,
       "scaleSource": null,
-      "live": [],
+      "live": [
+        "dal",
+        "bspace"
+      ],
       "next": [
-        {
-          "id": "bspace",
-          "name": "Breathing Space (Debt Respite Scheme)",
-          "nation": [
-            "eng",
-            "wal"
-          ],
-          "url": "https://www.gov.uk/government/publications/debt-respite-scheme-breathing-space-guidance",
-          "rule": "People in England or Wales with problem debt can get legal protection from creditors, started by a debt adviser.",
-          "facts": [
-            "postcode",
-            "debt"
-          ],
-          "checked": "2026-11-04"
-        },
         {
           "id": "bba",
           "name": "Fee-free basic bank account",
@@ -1662,22 +1607,6 @@
             "housing"
           ],
           "checked": null
-        },
-        {
-          "id": "dal",
-          "name": "Free debt advice",
-          "nation": [
-            "eng",
-            "sco",
-            "wal",
-            "ni"
-          ],
-          "url": "https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt/debt-advice-locator",
-          "rule": "Anyone who has missed payments can get free, confidential debt advice, which also checks benefits.",
-          "facts": [
-            "debt"
-          ],
-          "checked": "2026-11-04"
         }
       ],
       "connectors": [
