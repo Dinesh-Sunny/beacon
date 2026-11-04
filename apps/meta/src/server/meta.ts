@@ -78,6 +78,7 @@ export async function chat(opts: {
   };
   if (opts.tools?.length) body.tools = opts.tools;
   if (opts.schema) body.response_format = { type: "json_schema", json_schema: { name: opts.schema.name, schema: opts.schema.schema } };
+  const started = Date.now();
   const res = await call(
     "/chat/completions",
     { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) },
@@ -86,6 +87,10 @@ export async function chat(opts: {
   const json = (await res.json()) as { choices: { message: { content: string | null; tool_calls?: ToolCall[] } }[]; usage?: Usage };
   const message = json.choices?.[0]?.message;
   if (!message) throw new MetaError(502, "Empty reply");
+  // Cost telemetry: model, tokens and time only, never content.
+  console.info(
+    JSON.stringify({ evt: "model_call", model: META.text, tools: Boolean(opts.tools?.length), in: json.usage?.prompt_tokens ?? 0, out: json.usage?.completion_tokens ?? 0, ms: Date.now() - started }),
+  );
   return { message, usage: json.usage };
 }
 

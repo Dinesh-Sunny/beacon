@@ -6,7 +6,8 @@ import "server-only";
 
 import { z } from "zod";
 import { type Answers, FACTS, type FactId, formatAnswer } from "@/engine/facts";
-import { byId, evaluate } from "@/engine/rules";
+import { byId, evaluate, PACK } from "@/engine/rules";
+import { cached, keyOf, Lru } from "./cache";
 import { chat } from "./meta";
 
 const SCHEMA = {
@@ -30,14 +31,26 @@ const Out = z.object({
 
 const NO_DIGITS_LONG = /\b\d{5,}\b/g;
 
+const notes = new Lru<Awaited<ReturnType<typeof writeNotes>>>(5000, 24 * 60 * 60 * 1000);
+const inflight = new Map<string, Promise<Awaited<ReturnType<typeof writeNotes>>>>();
+
 export async function prepareCall(schemeId: string, answers: Answers, subject: { who: "me" | "other"; label?: string } = { who: "me" }) {
   const s = byId[schemeId];
   if (!s) return null;
-  const st = evaluate(answers)[s.id];
   const needs = [...new Set(s.rule.flatMap((r) => r.needs))] as FactId[];
   const facts = needs
     .filter((f) => answers[f] !== undefined)
     .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
+  // Same scheme, same rule pack, same relevant answers and same "who": same notes.
+  const key = keyOf({ s: s.id, v: PACK.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
+  const { value, hit } = await cached(notes, inflight, key, () => writeNotes(schemeId, answers, subject, facts));
+  return value ? { ...value, cached: hit } : null;
+}
+
+async function writeNotes(schemeId: string, answers: Answers, subject: { who: "me" | "other"; label?: string }, facts: string[]) {
+  const s = byId[schemeId];
+  if (!s) return null;
+  const st = evaluate(answers)[s.id];
   const { message } = await chat({
     messages: [
       {

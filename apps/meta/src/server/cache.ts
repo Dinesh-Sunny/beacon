@@ -1,68 +1,79 @@
 import "server-only";
-
-// A small LRU with time-to-live for model answers that many people share. Call notes depend only
-// on the scheme, the answers that scheme reads (bucketed), who the check is for and the pack
-// version; the banner depends only on life areas. Similar people get the same answer without a
-// second model call. Keys are hashed, values hold no raw answers, and entries expire.
-//
-// One instance per server process is enough for the demo. At scale the same interface sits on a
-// shared store (Redis or a KV) without changing callers.
-
 import { createHash } from "node:crypto";
 
-interface Entry<V> {
-  value: V;
+// A small in-process LRU with a time limit. Model answers that depend only on the rules and a
+// few bucketed inputs (call notes, banners) are reused, so the same question never costs tokens
+// twice on one instance. Keys are hashes: nothing personal is kept in readable form.
+// At scale this sits behind a shared store (Redis or Vercel Runtime Cache) with the same keys.
+
+interface Entry<T> {
+  value: T;
   expires: number;
 }
 
-export class TtlLru<V> {
-  private map = new Map<string, Entry<V>>();
+export class Lru<T> {
+  private map = new Map<string, Entry<T>>();
   hits = 0;
   misses = 0;
   constructor(
-    private readonly max: number,
-    private readonly ttlMs: number,
+    private max: number,
+    private ttlMs: number,
   ) {}
 
-  get(key: string): V | undefined {
+  get(key: string): T | undefined {
     const e = this.map.get(key);
     if (!e || e.expires < Date.now()) {
       if (e) this.map.delete(key);
       this.misses += 1;
       return undefined;
     }
-    // Refresh recency.
     this.map.delete(key);
     this.map.set(key, e);
     this.hits += 1;
     return e.value;
   }
 
-  set(key: string, value: V): void {
-    if (this.map.has(key)) this.map.delete(key);
-    this.map.set(key, { value, expires: Date.now() + this.ttlMs });
-    while (this.map.size > this.max) {
+  set(key: string, value: T): void {
+    if (this.map.size >= this.max) {
       const oldest = this.map.keys().next().value;
-      if (oldest === undefined) break;
-      this.map.delete(oldest);
+      if (oldest !== undefined) this.map.delete(oldest);
     }
+    this.map.set(key, { value, expires: Date.now() + this.ttlMs });
   }
 
-  get size(): number {
+  get size() {
     return this.map.size;
   }
 }
 
-/** Stable key: a hash of the parts, so no answer is ever stored as plain text in a key. */
-export function cacheKey(...parts: unknown[]): string {
-  return createHash("sha256").update(JSON.stringify(parts)).digest("base64url").slice(0, 32);
+/** Stable hash of any JSON-safe value (keys sorted). */
+export function keyOf(parts: unknown): string {
+  const stable = (v: unknown): unknown =>
+    Array.isArray(v)
+      ? v.map(stable)
+      : v && typeof v === "object"
+        ? Object.fromEntries(
+            Object.keys(v as object)
+              .sort()
+              .map((k) => [k, stable((v as Record<string, unknown>)[k])]),
+          )
+        : v;
+  return createHash("sha256").update(JSON.stringify(stable(parts))).digest("base64url");
 }
 
-/** Collapse a weekly amount into bands so near-identical answers share one cache entry. */
-export function band(n: number | undefined, step: number): number | undefined {
-  return n === undefined ? undefined : Math.round(n / step) * step;
+/** Runs `make` once per key; concurrent callers for the same key share one model call. */
+export async function cached<T>(cache: Lru<T>, inflight: Map<string, Promise<T>>, key: string, make: () => Promise<T>): Promise<{ value: T; hit: boolean }> {
+  const have = cache.get(key);
+  if (have !== undefined) return { value: have, hit: true };
+  const running = inflight.get(key);
+  if (running) return { value: await running, hit: true };
+  const p = make();
+  inflight.set(key, p);
+  try {
+    const value = await p;
+    cache.set(key, value);
+    return { value, hit: false };
+  } finally {
+    inflight.delete(key);
+  }
 }
-
-const DAY = 24 * 60 * 60 * 1000;
-export const notesCache = new TtlLru<unknown>(5_000, 7 * DAY);
-export const bannerCache = new TtlLru<string>(64, 30 * DAY);
