@@ -6,6 +6,8 @@ import "server-only";
 export const META = {
   base: process.env.META_BASE_URL || "https://api.meta.ai/v1",
   text: process.env.META_TEXT_MODEL || "muse-spark-1.3",
+  /** Muse Wonder: Meta's stronger reasoning model, for the call notes people rely on most. */
+  wonder: process.env.META_WONDER_MODEL || "muse-wonder-1.0",
   image: "muse-image-1.0",
   voice: "muse-voice-transcribe-1.0",
   sam: "sam-3.1",
@@ -78,12 +80,15 @@ export async function chat(opts: {
   timeoutMs?: number;
   /** Groups requests that share a long fixed prefix so Meta's automatic prompt cache hits more often. */
   cacheKey?: string;
+  /** A Meta model other than the default text model (for example Muse Wonder). */
+  model?: string;
 }): Promise<{
   message: { content: string | null; tool_calls?: ToolCall[] };
   usage?: Usage;
 }> {
+  const model = opts.model ?? META.text;
   const body: Record<string, unknown> = {
-    model: META.text,
+    model,
     messages: opts.messages,
     reasoning_effort: opts.effort ?? "low",
     max_completion_tokens: opts.maxTokens ?? 1500,
@@ -116,7 +121,7 @@ export async function chat(opts: {
     JSON.stringify({
       evt: "model_call",
       job: opts.cacheKey ?? "other",
-      model: META.text,
+      model,
       tools: Boolean(opts.tools?.length),
       in: json.usage?.prompt_tokens ?? 0,
       cached: json.usage?.prompt_tokens_details?.cached_tokens ?? 0,
