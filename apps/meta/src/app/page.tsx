@@ -75,7 +75,9 @@ export default async function Home() {
                   {t("site.pillCountry", {
                     count: schemesOf(country).length,
                     country: t(
-                      us ? "home.countries.us.name" : "home.countries.uk.name",
+                      us
+                        ? "home.countries.us.short"
+                        : "home.countries.uk.short",
                     ),
                     languages: LOCALES.length,
                   })}
