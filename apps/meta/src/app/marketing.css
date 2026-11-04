@@ -192,19 +192,28 @@
   animation-delay: 0.3s;
 }
 
-/* ---------- Hero: a calm sky with the beacon rising behind the words ---------- */
+/* ---------- Hero: first light over a bank of cloud ---------- */
 .mk-hero {
+  /* Sky and cloud tones live here so dark mode can swap them as one set. */
+  --hs-sky-top: #dfe6ec;
+  --hs-sky-mid: #eeeae4;
+  --hs-sky-low: #f7e6cc;
+  --hs-sun: var(--beam);
+  --hs-cloud-back: #f3dfc3;
+  --hs-cloud-mid: #f8efe3;
+  --hs-cloud-front: var(--bg);
   position: relative;
   isolation: isolate;
   overflow: clip;
   margin-top: calc(-1 * var(--mk-head, 72px));
-  padding: calc(var(--mk-head, 72px) + clamp(28px, 6vh, 88px)) 0
-    clamp(56px, 8vw, 112px);
+  min-height: min(100svh, 980px);
+  padding: calc(var(--mk-head, 72px) + clamp(28px, 6vh, 80px)) 0
+    clamp(120px, 16vh, 200px);
   background: linear-gradient(
     180deg,
-    color-mix(in srgb, var(--lamp) 55%, var(--sky-top)) 0%,
-    var(--sky-top) 38%,
-    var(--bg) 100%
+    var(--hs-sky-top) 0%,
+    var(--hs-sky-mid) 48%,
+    var(--hs-sky-low) 100%
   );
 }
 .mk-hero-copy {
@@ -212,50 +221,45 @@
   z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  text-align: center;
+  align-items: flex-start;
 }
 .mk-hero h1 {
-  /* Sized by height too, so the composer is in view on a laptop screen. */
-  font-size: clamp(2.6rem, min(7vw, 10.5vh), 6rem);
-  line-height: 0.98;
+  font-size: clamp(2.6rem, min(6.4vw, 10vh), 5.8rem);
+  line-height: 0.96;
   letter-spacing: -0.035em;
-  margin-top: 20px;
-  max-width: 14ch;
+  margin-top: 18px;
+  max-width: 12.5ch;
   text-wrap: balance;
 }
 .mk-hero .mk-lead {
   margin-top: 22px;
-  max-width: 54ch;
+  max-width: 44ch;
+  font-size: clamp(1.12rem, 1.7vw, 1.3rem);
+  color: color-mix(in srgb, var(--ink) 78%, var(--hs-sky-mid));
   text-wrap: pretty;
 }
 .mk-hero .home-start {
-  width: min(680px, 100%);
-  margin-top: 34px;
-  align-items: center;
+  width: min(600px, 100%);
+  margin-top: 32px;
 }
 .mk-hero .hero-input {
   width: 100%;
-  text-align: start;
-  border-radius: 24px;
+  border-radius: 20px;
   padding: 12px;
-  background: color-mix(in srgb, var(--surface) 78%, transparent);
-  border: 1px solid color-mix(in srgb, var(--surface) 60%, var(--line));
-  backdrop-filter: blur(18px) saturate(1.15);
-  -webkit-backdrop-filter: blur(18px) saturate(1.15);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--surface) 90%, transparent) inset,
-    0 2px 6px rgba(32, 32, 32, 0.04),
-    0 30px 80px -20px rgba(138, 74, 0, 0.28);
+  background: var(--surface);
+  border: 2px solid var(--ink);
+  box-shadow: 6px 6px 0 var(--beam);
   transition:
-    box-shadow 0.3s ease,
-    border-color 0.3s ease;
+    box-shadow 0.2s ease,
+    translate 0.2s ease;
 }
 .mk-hero .hero-input:focus-within {
-  border-color: var(--beam);
-  box-shadow:
-    0 0 0 6px color-mix(in srgb, var(--beam) 18%, transparent),
-    0 30px 80px -20px rgba(138, 74, 0, 0.34);
+  border-color: var(--ink);
+  box-shadow: 8px 8px 0 var(--beam);
+  translate: -2px -2px;
+}
+.mk-hero .hero-input textarea {
+  font-size: 1.15rem;
 }
 .hero-starters {
   list-style: none;
@@ -263,40 +267,31 @@
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
   gap: 8px;
 }
 .hero-starters button {
   font: inherit;
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   color: var(--ink);
   cursor: pointer;
-  border: 1px solid color-mix(in srgb, var(--surface) 50%, var(--line));
-  background: color-mix(in srgb, var(--surface) 62%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  border: 1.5px solid color-mix(in srgb, var(--ink) 22%, transparent);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
   border-radius: 999px;
-  padding: 8px 14px;
-  transition:
-    background 0.2s ease,
-    border-color 0.2s ease,
-    transform 0.2s ease;
+  padding: 7px 14px;
 }
 .hero-starters button:hover {
+  border-color: var(--ink);
   background: var(--surface);
-  border-color: var(--beam);
-  transform: translateY(-1px);
 }
 .mk-trust {
   list-style: none;
-  margin: 26px 0 0;
+  margin: 22px 0 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 8px 22px;
-  color: var(--muted);
-  font-size: 0.92rem;
+  gap: 8px 20px;
+  color: color-mix(in srgb, var(--ink) 72%, var(--hs-sky-mid));
+  font-size: 0.95rem;
 }
 .mk-trust li {
   display: inline-flex;
@@ -310,13 +305,11 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 0.9rem;
+  font-size: 0.92rem;
   font-weight: 700;
-  color: var(--muted);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--line);
+  color: var(--ink);
+  background: color-mix(in srgb, var(--surface) 60%, transparent);
+  border: 1px solid color-mix(in srgb, var(--ink) 14%, transparent);
   border-radius: 18px;
   padding: 6px 14px 6px 10px;
   line-height: 1.35;
@@ -329,294 +322,56 @@
   box-shadow: 0 0 0 4px var(--beam-soft);
 }
 
-/* The sky layer */
+/* The sky: one SVG along the bottom, the sun rising once behind the cloud. */
 .hs-sky {
   position: absolute;
   inset: 0;
   z-index: 0;
   pointer-events: none;
-  --px: 0;
-  --py: 0;
 }
-.hs-glow {
+.hs-bank {
   position: absolute;
-  left: 50%;
-  top: 34%;
-  width: min(1100px, 130vw);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--beam) 46%, transparent) 0%,
-    color-mix(in srgb, var(--beam) 18%, transparent) 38%,
-    transparent 72%
-  );
-  animation: hs-breathe 9s ease-in-out infinite;
+  inset: 0 0 -1px;
+  width: 100%;
+  height: calc(100% + 1px);
 }
-.hs-rays {
-  position: absolute;
-  left: 50%;
-  top: 34%;
-  width: min(1400px, 160vw);
-  aspect-ratio: 1;
-  translate: -50% -50%;
-  background: repeating-conic-gradient(
-    from 0deg,
-    color-mix(in srgb, var(--beam) 10%, transparent) 0deg 4deg,
-    transparent 4deg 15deg
-  );
-  mask: radial-gradient(closest-side, #000 18%, transparent 68%);
-  -webkit-mask: radial-gradient(closest-side, #000 18%, transparent 68%);
-  animation: hs-turn 140s linear infinite;
-  opacity: 0.7;
+.hs-sun {
+  animation: hs-rise 2.4s cubic-bezier(0.2, 0.7, 0.1, 1) 0.2s both;
 }
-.hs-cloud {
-  position: absolute;
-  border-radius: 50%;
-  background: radial-gradient(
-    closest-side,
-    color-mix(in srgb, var(--surface) 92%, transparent),
-    color-mix(in srgb, var(--surface) 55%, transparent) 55%,
-    transparent
-  );
-  filter: blur(6px);
-  animation: hs-drift var(--t, 70s) ease-in-out infinite alternate;
-}
-.hs-cloud::before,
-.hs-cloud::after {
-  content: "";
-  position: absolute;
-  border-radius: 50%;
-  background: inherit;
-}
-.hs-cloud::before {
-  width: 62%;
-  height: 120%;
-  left: 12%;
-  top: -46%;
-}
-.hs-cloud::after {
-  width: 48%;
-  height: 96%;
-  right: 8%;
-  top: -30%;
-}
-.hs-cloud.c1 {
-  width: 520px;
-  height: 150px;
-  left: -140px;
-  top: 62%;
-  --t: 80s;
-}
-.hs-cloud.c2 {
-  width: 440px;
-  height: 130px;
-  right: -120px;
-  top: 52%;
-  --t: 95s;
-  animation-direction: alternate-reverse;
-}
-.hs-cloud.c3 {
-  width: 300px;
-  height: 90px;
-  left: 18%;
-  top: 14%;
-  opacity: 0.7;
-  --t: 110s;
-}
-.hs-cloud.c4 {
-  width: 360px;
-  height: 100px;
-  right: 14%;
-  top: 8%;
-  opacity: 0.6;
-  --t: 120s;
-  animation-direction: alternate-reverse;
-}
-.hs-cloud.c5 {
-  width: 900px;
-  height: 200px;
-  left: 50%;
-  bottom: -110px;
-  translate: -50% 0;
-  opacity: 0.95;
-  --t: 150s;
-}
-
-/* Glass cards from a real check, floating at the edges of the sky */
-.hs-card {
-  position: absolute;
-  max-width: 230px;
-  padding: 12px 14px;
-  border-radius: 18px;
-  font-size: 0.88rem;
-  line-height: 1.4;
-  text-align: start;
-  color: var(--ink);
-  background: color-mix(in srgb, var(--surface) 70%, transparent);
-  border: 1px solid color-mix(in srgb, var(--surface) 70%, var(--line));
-  backdrop-filter: blur(16px) saturate(1.2);
-  -webkit-backdrop-filter: blur(16px) saturate(1.2);
-  box-shadow:
-    0 1px 0 color-mix(in srgb, var(--surface) 90%, transparent) inset,
-    0 18px 50px -18px rgba(138, 74, 0, 0.3);
-  translate: calc(var(--px) * var(--d, 20) * 1px)
-    calc(var(--py) * var(--d, 20) * 1px);
-  transition: translate 0.6s cubic-bezier(0.2, 0.7, 0.2, 1);
-  opacity: 0;
-  animation:
-    hs-in 0.9s cubic-bezier(0.2, 0.7, 0.2, 1) forwards,
-    hs-bob 8s ease-in-out infinite;
-}
-.hs-card p {
-  margin: 0;
-}
-.hs-you {
-  left: max(20px, calc(50% - 640px));
-  top: 30%;
-  background: color-mix(in srgb, var(--ink) 88%, transparent);
-  color: var(--bg);
-  border-color: transparent;
-  border-bottom-right-radius: 6px;
-  animation-delay: 0.3s, 0.3s;
-}
-.hs-results {
-  right: max(20px, calc(50% - 650px));
-  top: 22%;
-  width: 236px;
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  animation-delay: 0.6s, 1.2s;
-}
-.hs-bar {
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 0.85rem;
-  margin-bottom: 2px;
-}
-.hs-row {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  align-items: center;
-  gap: 4px 8px;
-  padding: 7px 10px;
-  border-radius: 10px;
-  background: var(--surface);
-  font-weight: 700;
-  font-size: 0.82rem;
-  opacity: 0;
-  animation: hs-in 0.6s ease forwards;
-}
-.hs-row em {
-  flex: none;
-  font-style: normal;
-  font-family: var(--f-mono);
-  font-size: 0.6rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  border-radius: 999px;
-  padding: 2px 7px;
-}
-.hs-row.likely em {
-  background: var(--good-soft);
-  color: var(--good);
-}
-.hs-row.check em {
-  background: var(--check-soft);
-  color: var(--check);
-}
-.hs-note {
-  right: max(28px, calc(50% - 600px));
-  top: 64%;
-  display: flex;
-  gap: 8px;
-  animation-delay: 1.6s, 2s;
-}
-.hs-note .icon {
-  color: var(--good);
-  flex: none;
-  margin-top: 2px;
-}
-.hs-call {
-  left: max(28px, calc(50% - 590px));
-  top: 60%;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-weight: 700;
-  color: var(--beam-ink);
-  animation-delay: 2.2s, 0.8s;
-}
-
-@keyframes hs-breathe {
-  50% {
-    scale: 1.06;
-    opacity: 0.85;
-  }
-}
-@keyframes hs-turn {
-  to {
-    rotate: 360deg;
-  }
-}
-@keyframes hs-drift {
-  to {
-    transform: translateX(90px);
-  }
-}
-@keyframes hs-in {
+@keyframes hs-rise {
   from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-@keyframes hs-bob {
-  0%,
-  100% {
-    margin-top: 0;
-  }
-  50% {
-    margin-top: -8px;
-  }
-}
-
-/* The floating cards need room either side of the words. */
-@media (max-width: 1320px) {
-  .hs-note,
-  .hs-call {
-    display: none;
-  }
-}
-@media (max-width: 1100px), (max-height: 520px) {
-  .hs-card {
-    display: none;
+    transform: translateY(150px);
+    opacity: 0.4;
   }
 }
 @media (prefers-reduced-motion: reduce) {
-  .hs-glow,
-  .hs-rays,
-  .hs-cloud,
-  .hs-card,
-  .hs-row {
+  .hs-sun {
     animation: none;
-    opacity: 1;
   }
 }
-html[data-calm="on"] .hs-glow,
-html[data-calm="on"] .hs-rays,
-html[data-calm="on"] .hs-cloud,
-html[data-calm="on"] .hs-card,
-html[data-calm="on"] .hs-row {
+html[data-calm="on"] .hs-sun {
   animation: none;
-  opacity: 1;
+}
+html[data-dark="on"] .mk-hero {
+  --hs-sky-top: #10141c;
+  --hs-sky-mid: #191a1d;
+  --hs-sky-low: #2b2116;
+  --hs-cloud-back: #3a2a17;
+  --hs-cloud-mid: #241e17;
+}
+@media (max-width: 760px) {
+  .mk-hero {
+    min-height: 0;
+    padding-bottom: 210px;
+  }
+  /* On a phone the scene sits below the words, where the sun still clears the cloud. */
+  .hs-bank {
+    inset: auto 0 -1px;
+    height: 360px;
+  }
+  .mk-hero .hero-input {
+    box-shadow: 4px 4px 0 var(--beam);
+  }
 }
 
 /* ---------- Stat band ---------- */
@@ -2071,5 +1826,18 @@ html[data-calm="on"] .hs-row {
 @media (max-width: 760px) {
   .mk-countries {
     grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+/* Small phones: the header keeps the place button and Start; How it works is in the footer. */
+@media (max-width: 520px) {
+  .mk-head nav a:not(.btn) {
+    display: none;
+  }
+  .mk-head .btn {
+    white-space: nowrap;
+  }
+  .mk-pill {
+    font-size: 0.82rem;
   }
 }
