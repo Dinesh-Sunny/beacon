@@ -166,6 +166,7 @@ export async function runAgent(
   history: { role: "user" | "assistant"; content: string }[],
   answers: Answers,
   subject: { who: "me" | "other"; label?: string } = { who: "me" },
+  onStep?: (step: ToolNote) => void,
 ) {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM }];
   messages.push({
@@ -200,7 +201,9 @@ export async function runAgent(
     }
     messages.push({ role: "assistant", content: message.content ?? null, tool_calls: message.tool_calls });
     for (const call of message.tool_calls) {
+      const before = notes.length;
       messages.push({ role: "tool", tool_call_id: call.id, content: runTool(call.function.name, call.function.arguments, answers, saved, notes, who) });
+      for (const n of notes.slice(before)) onStep?.(n);
     }
   }
   return { reply: "I've saved what you told me. My next question is just below.", saved, notes, usage, subject: who.value };

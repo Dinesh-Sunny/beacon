@@ -106,16 +106,40 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: { "Content-Type": "application/json", Accept: "application/x-ndjson" },
           body: JSON.stringify({ messages: history, answers: answersRef.current, subject: subjectRef.current }),
         });
-        const data = (await res.json()) as {
+        type Done = {
           reply?: string;
           saved?: Answers;
           notes?: { name: string; text: string }[];
           subject?: { who: "me" | "other"; label?: string } | null;
           error?: string;
         };
+        let data: Done = {};
+        if (!res.ok || !res.body) {
+          data = (await res.json().catch(() => ({ error: "model" }))) as Done;
+        } else {
+          // Each line is one step; show it as it happens so the wait feels like work, not a spinner.
+          const reader = res.body.getReader();
+          const dec = new TextDecoder();
+          let buf = "";
+          for (;;) {
+            const { value, done } = await reader.read();
+            if (done) break;
+            buf += dec.decode(value, { stream: true });
+            let nl = buf.indexOf("\n");
+            while (nl >= 0) {
+              const line = buf.slice(0, nl).trim();
+              buf = buf.slice(nl + 1);
+              nl = buf.indexOf("\n");
+              if (!line) continue;
+              const ev = JSON.parse(line) as { type: string; text?: string } & Done;
+              if (ev.type === "step" && ev.text && myEpoch === epoch.current) setWorking(ev.text);
+              if (ev.type === "done" || ev.type === "error") data = ev;
+            }
+          }
+        }
         if (!res.ok || data.error) throw new Error(data.error ?? "model");
         if (myEpoch !== epoch.current) return;
         if (data.subject) setSubject(data.subject);

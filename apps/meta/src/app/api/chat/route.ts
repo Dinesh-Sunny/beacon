@@ -21,10 +21,30 @@ export async function POST(req: Request) {
   if (blocked) return json({ error: blocked.message }, blocked.status);
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "bad-request" }, 400);
-  try {
-    const out = await runAgent(parsed.data.messages, parsed.data.answers, parsed.data.subject);
-    return json(out);
-  } catch (err) {
-    return failure(err);
+  const { messages, answers, subject } = parsed.data;
+  if (!req.headers.get("accept")?.includes("application/x-ndjson")) {
+    try {
+      return json(await runAgent(messages, answers, subject));
+    } catch (err) {
+      return failure(err);
+    }
   }
+  // Streamed: one JSON line per tool step as it happens, then the final reply.
+  const enc = new TextEncoder();
+  const stream = new ReadableStream({
+    async start(controller) {
+      const send = (o: unknown) => controller.enqueue(enc.encode(`${JSON.stringify(o)}\n`));
+      try {
+        const out = await runAgent(messages, answers, subject, (step) => send({ type: "step", ...step }));
+        send({ type: "done", ...out });
+      } catch (err) {
+        const res = failure(err);
+        const body = (await res.json()) as { error?: string };
+        send({ type: "error", error: body.error ?? "model" });
+      } finally {
+        controller.close();
+      }
+    },
+  });
+  return new Response(stream, { headers: { "Content-Type": "application/x-ndjson", "Cache-Control": "no-store" } });
 }
