@@ -25,6 +25,9 @@ const PostcodesIo = z.object({
   result: z
     .object({
       country: z.string(),
+      admin_district: z.string().nullable().optional(),
+      admin_county: z.string().nullable().optional(),
+      region: z.string().nullable().optional(),
       codes: z
         .object({
           admin_district: z.string().optional(),
@@ -55,6 +58,8 @@ export type Place = {
   council: Council | null;
   nation: Nation | null;
   local: LocalLink[];
+  /** District, county and region names, for matching local charities. */
+  areas: string[];
 };
 
 const SERVICES = LINKS.services as Record<
@@ -119,6 +124,9 @@ export async function placeFor(postcode: string): Promise<Place> {
         : null,
       nation: (country && COUNTRY[country]) || null,
       local: localLinks([r?.codes?.admin_district, r?.codes?.admin_county]),
+      areas: [r?.admin_district, r?.admin_county, r?.region].filter(
+        (a): a is string => !!a,
+      ),
     };
   });
   return value;

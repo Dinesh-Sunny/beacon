@@ -19,7 +19,7 @@ export async function GET(req: Request) {
     return json(await placeFor(q.data.postcode));
   } catch {
     return json(
-      { council: null, nation: null, local: [], error: "lookup" },
+      { council: null, nation: null, local: [], areas: [], error: "lookup" },
       502,
     );
   }

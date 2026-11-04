@@ -23,10 +23,11 @@ export interface Place {
   council: Council | null;
   nation: PlaceNation | null;
   local: LocalLink[];
+  areas: string[];
 }
 
 const known = new Map<string, Promise<Place>>();
-const NONE: Place = { council: null, nation: null, local: [] };
+const NONE: Place = { council: null, nation: null, local: [], areas: [] };
 
 function lookup(postcode: string): Promise<Place> {
   const key = postcode.replace(/\s+/g, "").toUpperCase();

@@ -3484,3 +3484,19 @@ details.constellation[open] > summary::after {
   margin: 0;
   color: var(--muted);
 }
+
+/* Grant-giving charities: name, then what it does in one quiet clamped line */
+.mini-list .funds li {
+  align-items: start;
+}
+.fund-does {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  font-size: 0.85rem;
+  text-transform: lowercase;
+}
+.fund-does::first-letter {
+  text-transform: uppercase;
+}

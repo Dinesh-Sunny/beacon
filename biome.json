@@ -30,7 +30,9 @@
       "!.agents",
       "!skills-lock.json",
       "!**/worker-configuration.d.ts",
-      "!**/.wrangler"
+      "!**/.wrangler",
+      "!apps/meta/src/data/council-links.json",
+      "!apps/meta/src/data/charity-funds.json"
     ]
   },
   "formatter": {
