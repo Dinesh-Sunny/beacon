@@ -392,13 +392,12 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         <div className="msg bot welcome">
           <Logo size={30} />
           <p className="bubble plain">
-            Hi, I'm Beacon. I'll find the support that's already yours, or yours
-            to claim for someone you look after.
+            Hi, I'm Beacon. I check what help you could be missing, for you or
+            someone you look after.
           </p>
           <p className="bubble plain">
-            Tell me about your situation in your own words, or answer my
-            questions one at a time. You can type, speak or add a photo of a
-            letter.
+            Tell me what's going on in your own words, or answer the questions
+            below. You can also talk, or add a photo of a letter.
           </p>
         </div>
         {msgs.map((m, i) => (

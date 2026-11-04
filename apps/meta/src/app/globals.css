@@ -3426,6 +3426,54 @@ details.constellation[open] > summary::after {
   width: 88px;
   height: 88px;
 }
+.fl-map {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(24px, 64px) auto minmax(
+      24px,
+      64px
+    ) minmax(0, 1fr);
+  align-items: center;
+  width: min(100%, 600px);
+  margin-bottom: 12px;
+}
+.fl-map .lamp {
+  width: 72px;
+  height: 72px;
+}
+.fl-end {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  line-height: 1.3;
+  color: var(--ink);
+  text-align: center;
+}
+.fl-beam {
+  height: 2px;
+  background:
+    linear-gradient(90deg, var(--line) 0 40%, #f5a524 50%, var(--line) 60% 100%)
+    0 0 / 300% 100%;
+  animation: fl-beam 2.4s linear infinite;
+}
+.fl-beam.out {
+  animation-delay: 1.2s;
+}
+@keyframes fl-beam {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: 0 0;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fl-beam {
+    animation: none;
+    background: var(--line);
+  }
+}
 .first-look h2 {
   font-size: clamp(1.5rem, 2.6vw, 2rem);
   text-wrap: balance;
