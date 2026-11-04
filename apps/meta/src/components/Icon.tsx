@@ -28,6 +28,8 @@ const PATHS: Record<string, string> = {
   arrow: "M5 12h14M13 6l6 6-6 6",
   shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
   search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4",
+  speaker:
+    "M4 9h4l5-4v14l-5-4H4zM16.5 8.5a5 5 0 0 1 0 7M19 6a8.5 8.5 0 0 1 0 12",
   pencil: "M4 20l4-1 11-11-3-3L5 16zM14 6l3 3",
   dots: "M5 12h.01M12 12h.01M19 12h.01",
   person: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0",

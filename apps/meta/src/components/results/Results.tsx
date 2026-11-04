@@ -24,6 +24,7 @@ import {
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
+import { ReadAloud } from "./ReadAloud";
 
 interface Prep {
   opening: string;
@@ -99,6 +100,25 @@ export function Results() {
         {have.length > 0 && (
           <p className="hint">Already getting: {have.join(", ")}.</p>
         )}
+        <ReadAloud
+          lines={[
+            `${total} ${total === 1 ? "thing looks" : "things look"} like ${whose}.`,
+            ...(worth.yearly
+              ? [
+                  `Up to ${worth.yearly.toLocaleString("en-GB")} pounds a year at the published rates.`,
+                ]
+              : []),
+            ...order
+              .filter((p) => p.status !== "unlock")
+              .map(
+                (p, i) =>
+                  `${i + 1}. ${byId[p.id]?.name}. ${p.when}. ${theyify(byId[p.id]?.gives ?? "", subject)}`,
+              ),
+            ...(unlock
+              ? [`And ${unlock} more once a first claim is awarded.`]
+              : []),
+          ]}
+        />
       </div>
 
       {warns.length > 0 && <GoodToKnow warns={warns} />}

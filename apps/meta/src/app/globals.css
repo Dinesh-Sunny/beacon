@@ -3146,3 +3146,11 @@ fieldset.track-row {
   color: var(--muted);
   margin-left: 6px;
 }
+
+.res-head .read-aloud {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
