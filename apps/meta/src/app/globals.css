@@ -3500,3 +3500,25 @@ details.constellation[open] > summary::after {
 .fund-does::first-letter {
   text-transform: uppercase;
 }
+
+/* First look in a narrow canvas (Details open, small screens): drop the beams, keep the three parts */
+.first-look {
+  container-type: inline-size;
+}
+@container (max-width: 520px) {
+  .fl-map {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+    gap: 8px;
+  }
+  .fl-beam {
+    display: none;
+  }
+  .fl-end {
+    font-size: 0.8rem;
+    padding: 6px 8px;
+  }
+  .fl-map .lamp {
+    width: 56px;
+    height: 56px;
+  }
+}
