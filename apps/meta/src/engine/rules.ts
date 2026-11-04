@@ -272,52 +272,6 @@ export const timingFor = (
 };
 
 // ---------- Framework groups ----------
-/** Who gives each kind of help, grouped the way the Beacon Framework draws the right-hand side. */
-const PROVIDER_OF: Record<string, string> = {
-  DWP: "UK government",
-  HMRC: "UK government",
-  "TV Licensing": "UK government",
-  "Department for Education": "UK government",
-  "Social Security Scotland": "Scottish Government",
-  "Your council": "Councils",
-  "Land & Property Services": "Councils",
-  NHS: "NHS",
-  "Your optician": "NHS",
-  "Your dentist": "NHS",
-  "NHS Business Services Authority": "NHS",
-  "Your electricity supplier": "Energy and broadband",
-  "Your energy supplier": "Energy and broadband",
-  "Your broadband provider": "Energy and broadband",
-  "British Gas Energy Trust": "Charities",
-  Charities: "Charities",
-  MoneyHelper: "Free advice",
-  "Your debt adviser": "Free advice",
-  "Your child's school": "Schools",
-};
-export const providerOf = (s: Scheme): string => PROVIDER_OF[s.by] ?? "Other";
-
-/** How many kinds of help each provider group gives, largest first. */
-export function providerCounts(list: Scheme[] = SCHEMES): [string, number][] {
-  const m = new Map<string, number>();
-  for (const s of list) m.set(providerOf(s), (m.get(providerOf(s)) ?? 0) + 1);
-  return [...m.entries()].sort((a, b) => b[1] - a[1]);
-}
-
-/** How many questions the planner asks to finish a check for these full answers. */
-export function questionsToFinish(full: Answers): number {
-  const A: Answers = {};
-  let n = 0;
-  for (
-    let next = plan(A, evaluate(A));
-    next && n < ORDER.length;
-    next = plan(A, evaluate(A))
-  ) {
-    (A as Record<string, unknown>)[next.f] = full[next.f] ?? UNSURE;
-    n++;
-  }
-  return n;
-}
-
 /** Which of the Beacon Framework's people groups the answers place someone in. */
 export function peopleGroups(A: Answers): string[] {
   const d = derive(A);
