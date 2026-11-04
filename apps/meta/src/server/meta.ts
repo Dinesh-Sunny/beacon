@@ -166,8 +166,13 @@ export async function segment(imageDataUrl: string, prompt: string): Promise<Box
       /* keep-alive or [DONE] */
     }
   }
+  if (process.env.NODE_ENV !== "production" && !out) console.warn("[sam] empty output", text.slice(0, 400));
+  lastSamRaw = text.slice(0, 600);
   return parseBoxes(out);
 }
+
+/** Last raw SAM stream (development only, for debugging the parser). */
+export let lastSamRaw = "";
 
 export function parseBoxes(out: string): Box[] {
   const boxes: Box[] = [];
