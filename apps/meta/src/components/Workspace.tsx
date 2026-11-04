@@ -149,6 +149,9 @@ function Shell() {
       data-details={details ? "open" : "closed"}
       data-view={view}
     >
+      <a className="skip-link" href="#canvas">
+        {t("skip")}
+      </a>
       <header className="strip">
         <Link href="/" className="brand" aria-label={t("home")}>
           <Logo />

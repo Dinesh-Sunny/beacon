@@ -6,20 +6,28 @@ import { getT } from "@/i18n/server";
 export async function SiteHeader({ current }: { current?: "how" }) {
   const t = await getT();
   return (
-    <header className="site-head mk-head">
-      <Link href="/" className="brand">
-        <Logo />
-        <span>Beacon</span>
-      </Link>
-      <nav>
-        <LanguageMenu />
-        <Link href="/how" aria-current={current === "how" ? "page" : undefined}>
-          {t("site.how")}
+    <>
+      <a className="skip-link" href="#main">
+        {t("site.skip")}
+      </a>
+      <header className="site-head mk-head">
+        <Link href="/" className="brand">
+          <Logo />
+          <span>Beacon</span>
         </Link>
-        <Link href="/check" className="btn small">
-          {t("site.start")}
-        </Link>
-      </nav>
-    </header>
+        <nav>
+          <LanguageMenu />
+          <Link
+            href="/how"
+            aria-current={current === "how" ? "page" : undefined}
+          >
+            {t("site.how")}
+          </Link>
+          <Link href="/check" className="btn small">
+            {t("site.start")}
+          </Link>
+        </nav>
+      </header>
+    </>
   );
 }

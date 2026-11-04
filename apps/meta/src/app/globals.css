@@ -3663,3 +3663,19 @@ details.constellation[open] > summary::after {
 .strip .btn {
   white-space: nowrap;
 }
+
+/* Skip link: hidden until it gets keyboard focus */
+.skip-link {
+  position: absolute;
+  inset-inline-start: 12px;
+  top: -60px;
+  z-index: 100;
+  padding: 10px 16px;
+  background: var(--ink);
+  color: var(--surface);
+  border-radius: 10px;
+  font-weight: 700;
+}
+.skip-link:focus {
+  top: 12px;
+}

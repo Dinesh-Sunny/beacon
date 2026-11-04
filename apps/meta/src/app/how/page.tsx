@@ -114,7 +114,7 @@ export default function How() {
   return (
     <div className="site mk-page">
       <SiteHeader current="how" />
-      <main>
+      <main id="main">
         <section className="mk-wrap mk-howhero" aria-labelledby="how-h">
           <span className="mk-tag">How it works</span>
           <h1 id="how-h">Small agents, one job each</h1>

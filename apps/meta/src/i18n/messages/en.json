@@ -20,7 +20,8 @@
     "views": "Views",
     "chatWith": "Chat with Beacon",
     "checked": "{done} of {total} checked",
-    "checkedLabel": "Kinds of help checked"
+    "checkedLabel": "Kinds of help checked",
+    "skip": "Skip to results"
   },
   "lang": {
     "button": "Language: {name}",
@@ -457,7 +458,8 @@
     "factNoId": "No name, National Insurance number or bank details",
     "factFree": "Free to use",
     "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
-    "code": "Code on GitHub"
+    "code": "Code on GitHub",
+    "skip": "Skip to content"
   },
   "status": {
     "open": "Still open",

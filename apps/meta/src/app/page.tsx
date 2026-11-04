@@ -33,7 +33,7 @@ export default async function Home() {
     <div className="site mk-page">
       <SiteHeader />
 
-      <main>
+      <main id="main">
         <section className="mk-wrap mk-hero" aria-labelledby="hero-h">
           <div className="mk-hero-copy">
             <p className="mk-pill">
