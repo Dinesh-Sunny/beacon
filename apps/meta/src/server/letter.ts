@@ -35,13 +35,24 @@ const SCHEMA = {
       items: {
         type: "object",
         additionalProperties: false,
-        properties: { what: { type: "string" }, date: { type: ["string", "null"], description: "YYYY-MM-DD" } },
+        properties: {
+          what: { type: "string" },
+          date: { type: ["string", "null"], description: "YYYY-MM-DD" },
+        },
         required: ["what", "date"],
       },
     },
     facts: FACT_PATCH_JSON,
   },
-  required: ["readable", "from", "kind", "summary", "action", "deadlines", "facts"],
+  required: [
+    "readable",
+    "from",
+    "kind",
+    "summary",
+    "action",
+    "deadlines",
+    "facts",
+  ],
 };
 
 const Reading = z.object({
@@ -50,13 +61,20 @@ const Reading = z.object({
   kind: z.string().max(120).nullable(),
   summary: z.string().max(600).nullable(),
   action: z.string().max(300).nullable(),
-  deadlines: z.array(z.object({ what: z.string().max(200), date: z.string().nullable() })).max(6),
+  deadlines: z
+    .array(z.object({ what: z.string().max(200), date: z.string().nullable() }))
+    .max(6),
   facts: FactPatch,
 });
 
 // Outbound check: drop anything shaped like an NI number, a long account number or an email.
-const SCRUB = [/\b[A-CEGHJ-PR-TW-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b/gi, /\b\d{8,}\b/g, /\S+@\S+\.\S+/g];
-const scrub = (t: string | null) => (t ? SCRUB.reduce((s, re) => s.replace(re, "[removed]"), t) : t);
+const SCRUB = [
+  /\b[A-CEGHJ-PR-TW-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b/gi,
+  /\b\d{8,}\b/g,
+  /\S+@\S+\.\S+/g,
+];
+const scrub = (t: string | null) =>
+  t ? SCRUB.reduce((s, re) => s.replace(re, "[removed]"), t) : t;
 
 // SAM 3.1 takes one short noun phrase. Try the words most likely to match a page, in order.
 const PAGE_WORDS = ["paper", "document", "sheet of paper", "letter"];
@@ -92,7 +110,8 @@ export async function readLetter(dataUrl: string) {
     }),
   ]);
   if (read.status === "rejected") throw read.reason;
-  if (process.env.NODE_ENV !== "production" && sam.status === "rejected") console.error("[sam]", sam.reason);
+  if (process.env.NODE_ENV !== "production" && sam.status === "rejected")
+    console.error("[sam]", sam.reason);
   let parsed: z.infer<typeof Reading>;
   try {
     parsed = Reading.parse(JSON.parse(read.value.message.content ?? "{}"));
@@ -100,11 +119,22 @@ export async function readLetter(dataUrl: string) {
     return { readable: false as const, box: null, reading: null, saved: {} };
   }
   const boxes = sam.status === "fulfilled" ? sam.value : [];
-  const box = boxes.sort((a, b) => (b.x2 - b.x1) * (b.y2 - b.y1) - (a.x2 - a.x1) * (a.y2 - a.y1))[0] ?? null;
+  const box =
+    boxes.sort(
+      (a, b) => (b.x2 - b.x1) * (b.y2 - b.y1) - (a.x2 - a.x1) * (a.y2 - a.y1),
+    )[0] ?? null;
   const saved = parsed.readable ? toAnswers(parsed.facts) : {};
   const debug =
     process.env.NODE_ENV !== "production"
-      ? { sam: sam.status === "fulfilled" ? `${sam.value.length} boxes; tried ${samTried.join(" ")}; last: ${lastSamRaw.slice(0, 200)}` : String((sam.reason as Error)?.message ?? sam.reason).slice(0, 400) }
+      ? {
+          sam:
+            sam.status === "fulfilled"
+              ? `${sam.value.length} boxes; tried ${samTried.join(" ")}; last: ${lastSamRaw.slice(0, 200)}`
+              : String((sam.reason as Error)?.message ?? sam.reason).slice(
+                  0,
+                  400,
+                ),
+        }
       : undefined;
   return {
     debug,
@@ -116,7 +146,10 @@ export async function readLetter(dataUrl: string) {
       kind: scrub(parsed.kind),
       summary: scrub(parsed.summary),
       action: scrub(parsed.action),
-      deadlines: parsed.deadlines.map((d) => ({ what: scrub(d.what) ?? "", date: d.date && /^\d{4}-\d{2}-\d{2}$/.test(d.date) ? d.date : null })),
+      deadlines: parsed.deadlines.map((d) => ({
+        what: scrub(d.what) ?? "",
+        date: d.date && /^\d{4}-\d{2}-\d{2}$/.test(d.date) ? d.date : null,
+      })),
     },
   };
 }

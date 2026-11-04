@@ -4,6 +4,12 @@ import { writeFile } from "node:fs/promises";
 import { z } from "zod";
 import { PackSchema } from "../src/engine/pack.ts";
 
-const schema = z.toJSONSchema(PackSchema, { io: "input", unrepresentable: "any" });
-await writeFile(new URL("../packs/pack.schema.json", import.meta.url), `${JSON.stringify(schema, null, 2)}\n`);
+const schema = z.toJSONSchema(PackSchema, {
+  io: "input",
+  unrepresentable: "any",
+});
+await writeFile(
+  new URL("../packs/pack.schema.json", import.meta.url),
+  `${JSON.stringify(schema, null, 2)}\n`,
+);
 console.log("packs/pack.schema.json written");

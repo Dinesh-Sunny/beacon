@@ -5,7 +5,17 @@
 import { useEffect, useRef, useState } from "react";
 import { prefersReducedMotion, useInView } from "./useInView";
 
-export function Ticker({ value, decimals = 0, prefix = "", suffix = "" }: { value: number; decimals?: number; prefix?: string; suffix?: string }) {
+export function Ticker({
+  value,
+  decimals = 0,
+  prefix = "",
+  suffix = "",
+}: {
+  value: number;
+  decimals?: number;
+  prefix?: string;
+  suffix?: string;
+}) {
   const ref = useRef<HTMLSpanElement>(null);
   const seen = useInView(ref);
   const [n, setN] = useState(value);

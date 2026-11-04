@@ -13,32 +13,106 @@ const read = async <T>(f: string, fallback: T): Promise<T> => {
     return fallback;
   }
 };
-const esc = (s: unknown) => String(s ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] ?? c);
+const esc = (s: unknown) =>
+  String(s ?? "").replace(
+    /[&<>"]/g,
+    (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" })[c] ?? c,
+  );
 
-interface Conn { name: string; kind: string; url: string; access: string; covers: string; notes?: string }
-interface Provider { id: string; label: string; phase: number; scale: number | string | null; scaleSource: string | null; live: string[]; next: { id: string; name: string; nation: string[]; url: string; checked: string | null }[]; connectors: Conn[] }
-interface Coverage { version: string; people: { id: string; label: string; phase: number; facts: string[]; missingFacts: string[] }[]; providers: Provider[]; strategy: { group: string; provider: string; why: string; schemesEstimate: string; connector: string }[] }
+interface Conn {
+  name: string;
+  kind: string;
+  url: string;
+  access: string;
+  covers: string;
+  notes?: string;
+}
+interface Provider {
+  id: string;
+  label: string;
+  phase: number;
+  scale: number | string | null;
+  scaleSource: string | null;
+  live: string[];
+  next: {
+    id: string;
+    name: string;
+    nation: string[];
+    url: string;
+    checked: string | null;
+  }[];
+  connectors: Conn[];
+}
+interface Coverage {
+  version: string;
+  people: {
+    id: string;
+    label: string;
+    phase: number;
+    facts: string[];
+    missingFacts: string[];
+  }[];
+  providers: Provider[];
+  strategy: {
+    group: string;
+    provider: string;
+    why: string;
+    schemesEstimate: string;
+    connector: string;
+  }[];
+}
 
 const files = (await readdir("packs")).filter((f) => /^[a-z-]+\.json$/.test(f));
-const packs = await Promise.all(files.map(async (f) => PackSchema.parse(JSON.parse(await readFile(`packs/${f}`, "utf8")))));
-const cov = await read<Coverage>("catalog/coverage.json", { version: "", people: [], providers: [], strategy: [] });
-const sources = await read<Record<string, unknown>>("catalog/sources/index.json", {});
-const triage = await read<Record<string, { support: boolean; provider: string | null; people: string[] }>>("catalog/harvest/triage.json", {});
-const reviewed = await read<{ counts: Record<string, number>; roadmap: { fact: string; unlocks: number; alsoNeeds: number }[]; rows: { provider: string; status: string }[] }>("catalog/drafts/review.json", { counts: {}, roadmap: [], rows: [] });
+const packs = await Promise.all(
+  files.map(async (f) =>
+    PackSchema.parse(JSON.parse(await readFile(`packs/${f}`, "utf8"))),
+  ),
+);
+const cov = await read<Coverage>("catalog/coverage.json", {
+  version: "",
+  people: [],
+  providers: [],
+  strategy: [],
+});
+const sources = await read<Record<string, unknown>>(
+  "catalog/sources/index.json",
+  {},
+);
+const triage = await read<
+  Record<
+    string,
+    { support: boolean; provider: string | null; people: string[] }
+  >
+>("catalog/harvest/triage.json", {});
+const reviewed = await read<{
+  counts: Record<string, number>;
+  roadmap: { fact: string; unlocks: number; alsoNeeds: number }[];
+  rows: { provider: string; status: string }[];
+}>("catalog/drafts/review.json", { counts: {}, roadmap: [], rows: [] });
 
 const live = packs.reduce((n, p) => n + p.schemes.length, 0);
 const help = Object.values(triage).filter((t) => t.support);
 const found = (pid: string) => help.filter((t) => t.provider === pid).length;
-const foundFor = (gid: string) => help.filter((t) => t.people.includes(gid)).length;
-const ready = (pid: string) => reviewed.rows.filter((r) => r.provider === pid && r.status === "ready").length;
+const foundFor = (gid: string) =>
+  help.filter((t) => t.people.includes(gid)).length;
+const ready = (pid: string) =>
+  reviewed.rows.filter((r) => r.provider === pid && r.status === "ready")
+    .length;
 const today = new Date().toISOString().slice(0, 10);
 const phase1 = (x: { phase: number }) => x.phase === 1;
-const connectors = cov.providers.flatMap((p) => p.connectors.map((c) => ({ ...c, provider: p.label })));
+const connectors = cov.providers.flatMap((p) =>
+  p.connectors.map((c) => ({ ...c, provider: p.label })),
+);
 const uniqConn = [...new Map(connectors.map((c) => [c.name, c])).values()];
 
-const stat = (v: number | string, k: string) => `<div class="stat"><b>${esc(v)}</b><span>${esc(k)}</span></div>`;
-const bar = (n: number, max: number, cls: string) => `<i class="${cls}" style="width:${max ? Math.max(2, (n / max) * 100) : 0}%"></i>`;
-const maxP = Math.max(1, ...cov.providers.map((p) => p.live.length + found(p.id) + p.next.length));
+const stat = (v: number | string, k: string) =>
+  `<div class="stat"><b>${esc(v)}</b><span>${esc(k)}</span></div>`;
+const bar = (n: number, max: number, cls: string) =>
+  `<i class="${cls}" style="width:${max ? Math.max(2, (n / max) * 100) : 0}%"></i>`;
+const maxP = Math.max(
+  1,
+  ...cov.providers.map((p) => p.live.length + found(p.id) + p.next.length),
+);
 
 const html = `<title>Beacon Coverage</title>
 <meta name="claude:viewport-fit-sides" content="cover">
@@ -109,7 +183,10 @@ a{color:var(--ink)}
     <div class="stats">${[
       stat(live, "kinds of help live in checks"),
       stat(packs.length, "rule packs"),
-      stat(Object.keys(sources).length.toLocaleString("en-GB"), "official pages stored"),
+      stat(
+        Object.keys(sources).length.toLocaleString("en-GB"),
+        "official pages stored",
+      ),
       stat(help.length, "pages marked as help"),
       stat(reviewed.counts.ready ?? 0, "drafts ready to review"),
       stat(uniqConn.length, "data connectors mapped"),
@@ -121,7 +198,13 @@ a{color:var(--ink)}
     <h2 id="map-h">People, Beacon, help</h2>
     <div class="frame">
       <div class="col"><span class="eyebrow p">People who need help</span>
-        ${cov.people.filter(phase1).map((g) => `<div class="pill"><b>${esc(g.label)}</b><span class="n">${foundFor(g.id)} found</span><small>Asks: ${esc(g.facts.map((f) => (FACTS as Record<string, { label: string }>)[f]?.label.toLowerCase() ?? f).join(", "))}${g.missingFacts.length ? ` · next: ${esc(g.missingFacts.length)} new questions` : ""}</small></div>`).join("")}
+        ${cov.people
+          .filter(phase1)
+          .map(
+            (g) =>
+              `<div class="pill"><b>${esc(g.label)}</b><span class="n">${foundFor(g.id)} found</span><small>Asks: ${esc(g.facts.map((f) => (FACTS as Record<string, { label: string }>)[f]?.label.toLowerCase() ?? f).join(", "))}${g.missingFacts.length ? ` · next: ${esc(g.missingFacts.length)} new questions` : ""}</small></div>`,
+          )
+          .join("")}
       </div>
       <div class="lamp"><b>Beacon</b><span class="eyebrow">How help gets in</span>
         <ol>
@@ -134,7 +217,13 @@ a{color:var(--ink)}
         </ol>
       </div>
       <div class="col"><span class="eyebrow h">Who helps</span>
-        ${cov.providers.filter(phase1).map((p) => `<div class="pill"><b>${esc(p.label.replace(/ \\(.*\\)$/, ""))}</b><span class="n">${p.live.length} live</span><small>${found(p.id)} found in harvest · ${p.next.length} next · ${p.connectors.length} sources</small></div>`).join("")}
+        ${cov.providers
+          .filter(phase1)
+          .map(
+            (p) =>
+              `<div class="pill"><b>${esc(p.label.replace(/ \\(.*\\)$/, ""))}</b><span class="n">${p.live.length} live</span><small>${found(p.id)} found in harvest · ${p.next.length} next · ${p.connectors.length} sources</small></div>`,
+          )
+          .join("")}
       </div>
     </div>
   </section>
@@ -149,7 +238,7 @@ a{color:var(--ink)}
         (p) => `<div class="row">
         <div><h3>${esc(p.label)}</h3><div class="meter" aria-hidden="true">${bar(p.live.length, maxP, "live")}${bar(found(p.id), maxP, "found")}${bar(p.next.length, maxP, "next")}</div>
           <div class="counts"><span>${p.live.length} live</span><span>${found(p.id)} found</span><span>${ready(p.id)} ready</span><span>${p.next.length} next</span>${p.scale ? `<span>~${esc(p.scale)} in the UK</span>` : ""}</div></div>
-        <div class="chips">${p.next.map((n) => `<a href="${esc(n.url)}" target="_blank" rel="noreferrer" class="${n.checked ? "ok" : ""}" title="${n.checked ? `Checked ${esc(n.checked)}` : "Not checked yet"}">${esc(n.name)}</a>`).join("") || '<span>Phase ' + p.phase + "</span>"}</div>
+        <div class="chips">${p.next.map((n) => `<a href="${esc(n.url)}" target="_blank" rel="noreferrer" class="${n.checked ? "ok" : ""}" title="${n.checked ? `Checked ${esc(n.checked)}` : "Not checked yet"}">${esc(n.name)}</a>`).join("") || "<span>Phase " + p.phase + "</span>"}</div>
         <div class="conn">${p.connectors.map((c) => `<span><b>${esc(c.name)}</b> · <span class="acc ${esc(c.access)}">${esc(c.access)}</span></span>`).join("") || "<span>No source mapped yet</span>"}</div>
       </div>`,
       )
@@ -162,7 +251,15 @@ a{color:var(--ink)}
     <h2 id="road-h">Which new question unlocks the most help</h2>
     <p class="lede">From Muse Spark's drafts: each draft lists what it needs that Beacon doesn't ask yet. "Unlocks" counts drafts that need only that one question.</p>
     <div class="tbl"><table><thead><tr><th>Question</th><th class="num">Unlocks</th><th class="num">Also needed by</th></tr></thead><tbody>
-    ${reviewed.roadmap.slice(0, 15).map((r) => `<tr><td>${esc(r.fact)}</td><td class="num">${r.unlocks}</td><td class="num">${r.alsoNeeds}</td></tr>`).join("") || '<tr><td colspan="3">Drafts still running</td></tr>'}
+    ${
+      reviewed.roadmap
+        .slice(0, 15)
+        .map(
+          (r) =>
+            `<tr><td>${esc(r.fact)}</td><td class="num">${r.unlocks}</td><td class="num">${r.alsoNeeds}</td></tr>`,
+        )
+        .join("") || '<tr><td colspan="3">Drafts still running</td></tr>'
+    }
     </tbody></table></div>
   </section>
 
@@ -185,4 +282,6 @@ a{color:var(--ink)}
   <p class="foot">Nothing here reaches a person until it passes the rule pack schema and review. Live checks run on the last good packs while new data is harvested in the background. Built from apps/meta/catalog in the Beacon repo.</p>
 </div>`;
 await writeFile("catalog/coverage.html", html);
-console.log(`catalog/coverage.html: ${live} live, ${help.length} found, ${uniqConn.length} connectors`);
+console.log(
+  `catalog/coverage.html: ${live} live, ${help.length} found, ${uniqConn.length} connectors`,
+);

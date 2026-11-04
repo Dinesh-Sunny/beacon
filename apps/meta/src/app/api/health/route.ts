@@ -5,7 +5,11 @@ import { json } from "@/server/http";
 export function GET() {
   return json({
     ok: true,
-    rules: { version: REGISTRY.version, packs: REGISTRY.packs, schemes: SCHEMES.length },
+    rules: {
+      version: REGISTRY.version,
+      packs: REGISTRY.packs,
+      schemes: SCHEMES.length,
+    },
     models: Boolean(process.env.MODEL_API_KEY),
   });
 }

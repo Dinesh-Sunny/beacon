@@ -116,7 +116,7 @@
           "how": {
             "type": "string"
           },
-          "howIn": {
+          "local": {
             "type": "object",
             "propertyNames": {
               "type": "string",
@@ -128,7 +128,16 @@
               ]
             },
             "additionalProperties": {
-              "type": "string"
+              "type": "object",
+              "properties": {
+                "how": {
+                  "type": "string"
+                },
+                "timing": {
+                  "type": "string"
+                }
+              },
+              "additionalProperties": false
             }
           },
           "phone": {

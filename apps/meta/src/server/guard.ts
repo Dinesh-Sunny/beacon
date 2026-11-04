@@ -15,17 +15,23 @@ export type GuardFail = { status: number; message: string };
 export function guard(req: Request, weight = 1): GuardFail | null {
   const origin = req.headers.get("origin");
   const host = req.headers.get("host");
-  if (origin && host && new URL(origin).host !== host) return { status: 403, message: "Cross-site requests are not allowed" };
-  const ip = req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() || req.headers.get("x-real-ip") || "local";
+  if (origin && host && new URL(origin).host !== host)
+    return { status: 403, message: "Cross-site requests are not allowed" };
+  const ip =
+    req.headers.get("x-forwarded-for")?.split(",")[0]?.trim() ||
+    req.headers.get("x-real-ip") ||
+    "local";
   const now = Date.now();
   const today = new Date(now).toISOString().slice(0, 10);
   if (today !== day) {
     day = today;
     dayCount = 0;
   }
-  if (dayCount + weight > DAILY) return { status: 429, message: "Beacon is very busy today" };
+  if (dayCount + weight > DAILY)
+    return { status: 429, message: "Beacon is very busy today" };
   const recent = (perIp.get(ip) ?? []).filter((t) => now - t < 60_000);
-  if (recent.length >= PER_MIN) return { status: 429, message: "Slow down a little" };
+  if (recent.length >= PER_MIN)
+    return { status: 429, message: "Slow down a little" };
   recent.push(now);
   perIp.set(ip, recent);
   if (perIp.size > 10_000) perIp.clear();

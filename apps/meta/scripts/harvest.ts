@@ -3,4 +3,7 @@
 import { harvest } from "../src/knowledge/harvest.ts";
 
 const status = await harvest(process.cwd(), process.argv.slice(2));
-for (const [id, c] of Object.entries(status.connectors)) console.log(`${id}: ${c.state}${c.items !== undefined ? `, ${c.items} items` : ""}${c.error ? `, ${c.error}` : ""}`);
+for (const [id, c] of Object.entries(status.connectors))
+  console.log(
+    `${id}: ${c.state}${c.items !== undefined ? `, ${c.items} items` : ""}${c.error ? `, ${c.error}` : ""}`,
+  );

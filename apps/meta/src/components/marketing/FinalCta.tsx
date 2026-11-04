@@ -16,7 +16,8 @@ export function FinalCta({ title, text }: { title: string; text: string }) {
             <Icon name="lock" size={18} /> Answers stay in your browser
           </li>
           <li>
-            <Icon name="shield" size={18} /> No name, National Insurance number or bank details
+            <Icon name="shield" size={18} /> No name, National Insurance number
+            or bank details
           </li>
           <li>
             <Icon name="check" size={18} /> Free to use

@@ -4,10 +4,19 @@
 // it, saves the facts through tools, and the form, board and Details update straight away.
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Icon, Logo } from "@/components/Icon";
-import { type Answers, ask, callerPhrase, FACTS, type FactId, formatAnswer, ORDER, showAnswer } from "@/engine/facts";
-import { evaluate, progressLine, SCHEMES } from "@/engine/rules";
 import { QuestionCard } from "@/components/check/QuestionCard";
+import { Icon, Logo } from "@/components/Icon";
+import {
+  type Answers,
+  ask,
+  callerPhrase,
+  FACTS,
+  type FactId,
+  formatAnswer,
+  ORDER,
+  showAnswer,
+} from "@/engine/facts";
+import { evaluate, progressLine, SCHEMES } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 import { shrink } from "@/lib/image";
 import { Composer } from "./Composer";
@@ -31,7 +40,14 @@ export interface LetterView {
   image: string;
   w: number;
   h: number;
-  box: { x1: number; y1: number; x2: number; y2: number; w: number; h: number } | null;
+  box: {
+    x1: number;
+    y1: number;
+    x2: number;
+    y2: number;
+    w: number;
+    h: number;
+  } | null;
   from: string | null;
   kind: string | null;
   summary: string | null;
@@ -40,12 +56,15 @@ export interface LetterView {
 }
 
 const ERRORS: Record<string, string> = {
-  offline: "My reading tools are resting right now. My questions here still work, and every answer counts.",
+  offline:
+    "My reading tools are resting right now. My questions here still work, and every answer counts.",
   busy: "Lots of people are checking at once. Give it a minute and try again.",
   slow: "That took longer than usual. Try once more, or carry on with my questions.",
-  model: "I couldn't finish that one. Try saying it a different way, or carry on with my questions.",
+  model:
+    "I couldn't finish that one. Try saying it a different way, or carry on with my questions.",
 };
-export const errorText = (code?: string) => ERRORS[code ?? "model"] ?? ERRORS.model;
+export const errorText = (code?: string) =>
+  ERRORS[code ?? "model"] ?? ERRORS.model;
 
 let seq = 0;
 const nextId = () => {
@@ -54,7 +73,17 @@ const nextId = () => {
 };
 
 export function ChatPanel({ playing = false }: { playing?: boolean }) {
-  const { answers, apply, note, setBusy, subject, setSubject, next, resets, announcement } = useCheck();
+  const {
+    answers,
+    apply,
+    note,
+    setBusy,
+    subject,
+    setSubject,
+    next,
+    resets,
+    announcement,
+  } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
   const [msgs, setMsgsState] = useState<Msg[]>([]);
@@ -85,10 +114,18 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: show each announcement once
   useEffect(() => {
-    if (announcement) setMsgs((list) => [...list, { id: nextId(), role: "bot", text: announcement.text }]);
+    if (announcement)
+      setMsgs((list) => [
+        ...list,
+        { id: nextId(), role: "bot", text: announcement.text },
+      ]);
   }, [announcement?.id]);
 
-  const push = useCallback((m: Omit<Msg, "id">) => setMsgs((list) => [...list, { ...m, id: nextId() }]), []);
+  const push = useCallback(
+    (m: Omit<Msg, "id">) =>
+      setMsgs((list) => [...list, { ...m, id: nextId() }]),
+    [],
+  );
 
   const send = useCallback(
     async (text: string, via?: "voice") => {
@@ -98,7 +135,10 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       const history = [...msgsRef.current, mine]
         .filter((m) => !m.error && m.text.trim())
         .slice(-12)
-        .map((m) => ({ role: m.role === "user" ? ("user" as const) : ("assistant" as const), content: m.text.slice(0, 4000) }));
+        .map((m) => ({
+          role: m.role === "user" ? ("user" as const) : ("assistant" as const),
+          content: m.text.slice(0, 4000),
+        }));
       setMsgs((list) => [...list, mine]);
       const myEpoch = epoch.current;
       setWorking("Reading what you said");
@@ -106,8 +146,15 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       try {
         const res = await fetch("/api/chat", {
           method: "POST",
-          headers: { "Content-Type": "application/json", Accept: "application/x-ndjson" },
-          body: JSON.stringify({ messages: history, answers: answersRef.current, subject: subjectRef.current }),
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/x-ndjson",
+          },
+          body: JSON.stringify({
+            messages: history,
+            answers: answersRef.current,
+            subject: subjectRef.current,
+          }),
         });
         type Done = {
           reply?: string;
@@ -134,8 +181,12 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
               buf = buf.slice(nl + 1);
               nl = buf.indexOf("\n");
               if (!line) continue;
-              const ev = JSON.parse(line) as { type: string; text?: string } & Done;
-              if (ev.type === "step" && ev.text && myEpoch === epoch.current) setWorking(ev.text);
+              const ev = JSON.parse(line) as {
+                type: string;
+                text?: string;
+              } & Done;
+              if (ev.type === "step" && ev.text && myEpoch === epoch.current)
+                setWorking(ev.text);
               if (ev.type === "done" || ev.type === "error") data = ev;
             }
           }
@@ -145,16 +196,25 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         if (data.subject) setSubject(data.subject);
         const saved = data.saved ?? {};
         if (Object.keys(saved).length) apply(saved, "chat");
-        for (const n of data.notes ?? []) note("model", "Muse Spark agent", n.text);
+        for (const n of data.notes ?? [])
+          note("model", "Muse Spark agent", n.text);
         push({
           role: "bot",
-          text: data.reply || "Saved. Have a look at the next question on the right.",
-          notes: (data.notes ?? []).filter((n) => n.name === "save_details").map((n) => n.text),
+          text:
+            data.reply ||
+            "Saved. Have a look at the next question on the right.",
+          notes: (data.notes ?? [])
+            .filter((n) => n.name === "save_details")
+            .map((n) => n.text),
           saved,
           agent: "Muse Spark",
         });
       } catch (e) {
-        push({ role: "bot", text: errorText((e as Error).message), error: true });
+        push({
+          role: "bot",
+          text: errorText((e as Error).message),
+          error: true,
+        });
       } finally {
         setWorking(null);
         setBusy("Muse Spark agent", false);
@@ -171,21 +231,36 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         const form = new FormData();
         form.append("audio", wav, "speech.wav");
         const res = await fetch("/api/voice", { method: "POST", body: form });
-        const data = (await res.json()) as { transcript?: string; error?: string };
+        const data = (await res.json()) as {
+          transcript?: string;
+          error?: string;
+        };
         if (!res.ok || data.error) throw new Error(data.error ?? "model");
         const words = data.transcript?.split(/\s+/).filter(Boolean).length ?? 0;
-        note("model", "Muse Voice Transcribe", words ? `Heard ${words} words` : "Heard nothing clear");
+        note(
+          "model",
+          "Muse Voice Transcribe",
+          words ? `Heard ${words} words` : "Heard nothing clear",
+        );
         setBusy("Muse Voice Transcribe", false);
         if (!words) {
           setWorking(null);
-          push({ role: "bot", text: "I didn't quite catch that. Try again a little closer to the microphone, or type it.", error: true });
+          push({
+            role: "bot",
+            text: "I didn't quite catch that. Try again a little closer to the microphone, or type it.",
+            error: true,
+          });
           return;
         }
         await send(data.transcript ?? "", "voice");
       } catch (e) {
         setWorking(null);
         setBusy("Muse Voice Transcribe", false);
-        push({ role: "bot", text: errorText((e as Error).message), error: true });
+        push({
+          role: "bot",
+          text: errorText((e as Error).message),
+          error: true,
+        });
       }
     },
     [note, push, send, setBusy],
@@ -197,7 +272,11 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       try {
         img = await shrink(file);
       } catch {
-        push({ role: "bot", text: "That file didn't open as a photo. Try a JPEG or PNG picture of the letter.", error: true });
+        push({
+          role: "bot",
+          text: "That file didn't open as a photo. Try a JPEG or PNG picture of the letter.",
+          error: true,
+        });
         return;
       }
       push({ role: "user", text: "Here's a letter", image: img.dataUrl });
@@ -222,10 +301,18 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         if (myEpoch !== epoch.current) return;
         if (data.box) note("model", "SAM 3.1", "Found the letter in the photo");
         if (!data.readable || !data.reading) {
-          push({ role: "bot", text: "I couldn't read that one. A flat, well-lit photo of the whole page works best.", error: true });
+          push({
+            role: "bot",
+            text: "I couldn't read that one. A flat, well-lit photo of the whole page works best.",
+            error: true,
+          });
           return;
         }
-        note("model", "Letter reader", `Read ${data.reading.kind ?? "a letter"}${data.reading.from ? ` from ${data.reading.from}` : ""}`);
+        note(
+          "model",
+          "Letter reader",
+          `Read ${data.reading.kind ?? "a letter"}${data.reading.from ? ` from ${data.reading.from}` : ""}`,
+        );
         const saved = data.saved ?? {};
         if (Object.keys(saved).length) apply(saved, "letter");
         push({
@@ -234,10 +321,20 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
             ? "I've added what it shows to your check. Change anything that looks different in Details."
             : "Nothing in it changes your check, but here's what it says.",
           saved,
-          letter: { image: img.dataUrl, w: img.width, h: img.height, box: data.box ?? null, ...data.reading },
+          letter: {
+            image: img.dataUrl,
+            w: img.width,
+            h: img.height,
+            box: data.box ?? null,
+            ...data.reading,
+          },
         });
       } catch (e) {
-        push({ role: "bot", text: errorText((e as Error).message), error: true });
+        push({
+          role: "bot",
+          text: errorText((e as Error).message),
+          error: true,
+        });
       } finally {
         setWorking(null);
         setBusy("SAM 3.1", false);
@@ -253,8 +350,15 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       const before = evaluate(answersRef.current);
       const after = evaluate({ ...answersRef.current, [f]: v });
       apply({ [f]: v }, "form");
-      push({ role: "user", text: formatAnswer(f, v), qa: { q: ask(f, subjectRef.current), a: formatAnswer(f, v) } });
-      const gained = SCHEMES.filter((s) => after[s.id]?.status === "likely" && before[s.id]?.status !== "likely").map((s) => s.name);
+      push({
+        role: "user",
+        text: formatAnswer(f, v),
+        qa: { q: ask(f, subjectRef.current), a: formatAnswer(f, v) },
+      });
+      const gained = SCHEMES.filter(
+        (s) =>
+          after[s.id]?.status === "likely" && before[s.id]?.status !== "likely",
+      ).map((s) => s.name);
       push({
         role: "bot",
         text: "",
@@ -285,17 +389,21 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         <div className="msg bot welcome">
           <Logo size={30} />
           <p className="bubble plain">
-            Hi, I'm Beacon. I'll find the support that's already yours, or yours to claim for someone you look after.
+            Hi, I'm Beacon. I'll find the support that's already yours, or yours
+            to claim for someone you look after.
           </p>
           <p className="bubble plain">
-            Tell me about your situation in your own words, or answer my questions one at a time. You can type, speak or add a photo
-            of a letter.
+            Tell me about your situation in your own words, or answer my
+            questions one at a time. You can type, speak or add a photo of a
+            letter.
           </p>
         </div>
         {msgs.map((m, i) => (
           <Message key={m.id} m={m} last={i === msgs.length - 1} />
         ))}
-        {!working && !playing && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
+        {!working && !playing && next && (
+          <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />
+        )}
         {!working && !next && <AskChips onAsk={(q) => void send(q)} />}
         {working && (
           <div className="working" role="status">
@@ -309,7 +417,12 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         )}
         <div ref={end} />
       </div>
-      <Composer onSend={(t) => void send(t)} onVoice={(w) => void onVoice(w)} onPhoto={(f) => void onPhoto(f)} busy={Boolean(working) || playing} />
+      <Composer
+        onSend={(t) => void send(t)}
+        onVoice={(w) => void onVoice(w)}
+        onPhoto={(f) => void onPhoto(f)}
+        busy={Boolean(working) || playing}
+      />
     </>
   );
 }
@@ -359,10 +472,22 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
       {m.text && <p className="bubble plain">{m.text}</p>}
       {!m.error && m.text && (
         <div className={`msg-actions${last ? " show" : ""}`}>
-          <button type="button" className="iconbtn sm" aria-label="Helpful" aria-pressed={rated === "up"} onClick={() => setRated("up")}>
+          <button
+            type="button"
+            className="iconbtn sm"
+            aria-label="Helpful"
+            aria-pressed={rated === "up"}
+            onClick={() => setRated("up")}
+          >
             <Icon name="thumbup" size={16} />
           </button>
-          <button type="button" className="iconbtn sm" aria-label="Not helpful" aria-pressed={rated === "down"} onClick={() => setRated("down")}>
+          <button
+            type="button"
+            className="iconbtn sm"
+            aria-label="Not helpful"
+            aria-pressed={rated === "down"}
+            onClick={() => setRated("down")}
+          >
             <Icon name="thumbdown" size={16} />
           </button>
           <button
@@ -370,7 +495,9 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
             className="iconbtn sm"
             aria-label={copied ? "Copied" : "Copy"}
             onClick={() => {
-              void navigator.clipboard?.writeText(m.text).then(() => setCopied(true));
+              void navigator.clipboard
+                ?.writeText(m.text)
+                .then(() => setCopied(true));
             }}
           >
             <Icon name={copied ? "check" : "copy"} size={16} />

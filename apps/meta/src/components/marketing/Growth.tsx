@@ -1,15 +1,36 @@
 // Where Beacon grows: rings spreading out from the lamp, then the plans and the promise.
 
 const STAGES = [
-  { t: "UK people and families", d: "Help for you and the people you look after.", now: true },
-  { t: "Businesses and organisations", d: "Support that a business or organisation can claim, found the same way." },
-  { t: "More countries", d: "The same eight steps, with each country's own rules." },
-  { t: "A worldwide network", d: "Providers refer people to each other through Beacon." },
+  {
+    t: "UK people and families",
+    d: "Help for you and the people you look after.",
+    now: true,
+  },
+  {
+    t: "Businesses and organisations",
+    d: "Support that a business or organisation can claim, found the same way.",
+  },
+  {
+    t: "More countries",
+    d: "The same eight steps, with each country's own rules.",
+  },
+  {
+    t: "A worldwide network",
+    d: "Providers refer people to each other through Beacon.",
+  },
 ];
 
 const PLANS = [
-  { t: "Free check", when: "Today", d: "See what's likely yours, with warnings, the order to claim and what to say on the phone." },
-  { t: "Pro", when: "Planned", d: "Keeps watching after you claim: the decision, the first payment, changes to report and new rules." },
+  {
+    t: "Free check",
+    when: "Today",
+    d: "See what's likely yours, with warnings, the order to claim and what to say on the phone.",
+  },
+  {
+    t: "Pro",
+    when: "Planned",
+    d: "Keeps watching after you claim: the decision, the first payment, changes to report and new rules.",
+  },
   {
     t: "Funded Pro",
     when: "Planned",
@@ -53,7 +74,9 @@ export function Plans() {
           </li>
         ))}
       </ul>
-      <p className="mk-promise">Beacon will never take a cut of anything you're awarded.</p>
+      <p className="mk-promise">
+        Beacon will never take a cut of anything you're awarded.
+      </p>
     </div>
   );
 }

@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import "../marketing.css";
 import { Icon } from "@/components/Icon";
-import { SiteFooter } from "@/components/SiteFooter";
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { Pipeline } from "@/components/marketing/Pipeline";
 import { Reveal } from "@/components/marketing/Reveal";
@@ -9,11 +8,13 @@ import { SectionHead } from "@/components/marketing/SectionHead";
 import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
+import { SiteFooter } from "@/components/SiteFooter";
 import { SCHEMES, TOPICS } from "@/engine/rules";
 
 export const metadata: Metadata = {
   title: "How it works",
-  description: "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
+  description:
+    "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
 };
 
 const FLOW = [
@@ -33,7 +34,10 @@ const FLOW = [
     items: [
       { t: "Muse Voice Transcribe", d: "Speech to text" },
       { t: "SAM 3.1", d: "Finds the letter in the photo" },
-      { t: "Muse Spark, letter reader", d: "Fills a fixed form and can't take actions" },
+      {
+        t: "Muse Spark, letter reader",
+        d: "Fills a fixed form and can't take actions",
+      },
       { t: "Muse Spark, agent", d: "Saves facts only through tools" },
     ],
   },
@@ -42,16 +46,25 @@ const FLOW = [
     icon: "shield",
     items: [
       { t: "Validate", d: "Every field checked before use" },
-      { t: "Rules engine", d: `${SCHEMES.length} schemes, each condition true, false or unknown` },
+      {
+        t: "Rules engine",
+        d: `${SCHEMES.length} schemes, each condition true, false or unknown`,
+      },
       { t: "Question planner", d: "Asks what settles the most schemes" },
-      { t: "Chains and clashes", d: "What opens up what, and what lowers what" },
+      {
+        t: "Chains and clashes",
+        d: "What opens up what, and what lowers what",
+      },
     ],
   },
   {
     lane: "You get",
     icon: "spark",
     items: [
-      { t: "Likely, worth checking, unlocks next", d: "With every condition shown" },
+      {
+        t: "Likely, worth checking, unlocks next",
+        d: "With every condition shown",
+      },
       { t: "A claim plan", d: "Gateway claims first" },
       { t: "What to say", d: "Call notes from Muse Spark" },
       { t: "A picture of your results", d: "Painted by Muse Image" },
@@ -69,10 +82,26 @@ const RULES = [
 ];
 
 const MODELS = [
-  ["Muse Spark 1.3", "muse-spark-1.3", "Agent chat with tool calling, letter reading with vision and structured output, call notes"],
-  ["Muse Voice Transcribe", "muse-voice-transcribe-1.0", "Turns a spoken answer into text"],
-  ["SAM 3.1", "sam-3.1", "Outlines the letter in a photo so you see what was read"],
-  ["Muse Image", "muse-image-1.0", "Paints the results banner from life areas only, never personal details"],
+  [
+    "Muse Spark 1.3",
+    "muse-spark-1.3",
+    "Agent chat with tool calling, letter reading with vision and structured output, call notes",
+  ],
+  [
+    "Muse Voice Transcribe",
+    "muse-voice-transcribe-1.0",
+    "Turns a spoken answer into text",
+  ],
+  [
+    "SAM 3.1",
+    "sam-3.1",
+    "Outlines the letter in a photo so you see what was read",
+  ],
+  [
+    "Muse Image",
+    "muse-image-1.0",
+    "Paints the results banner from life areas only, never personal details",
+  ],
 ];
 
 export default function How() {
@@ -84,7 +113,8 @@ export default function How() {
           <span className="mk-tag">How it works</span>
           <h1 id="how-h">Small agents, one job each</h1>
           <p className="mk-lead">
-            The Muse models listen, read and explain. Plain code makes every decision, so the same answers always give the same result.
+            The Muse models listen, read and explain. Plain code makes every
+            decision, so the same answers always give the same result.
           </p>
           <dl className="mk-stats">
             <div>
@@ -116,8 +146,13 @@ export default function How() {
 
         <section className="mk-wrap mk-section" aria-labelledby="flow-h">
           <Reveal>
-            <SectionHead tag="The flow" id="flow-h" title="From a chat to a plan">
-              What you say goes in on the left. A checked plan comes out on the right.
+            <SectionHead
+              tag="The flow"
+              id="flow-h"
+              title="From a chat to a plan"
+            >
+              What you say goes in on the left. A checked plan comes out on the
+              right.
             </SectionHead>
           </Reveal>
           <Reveal>
@@ -127,8 +162,13 @@ export default function How() {
 
         <section className="mk-wrap mk-section" aria-labelledby="loop-h">
           <Reveal>
-            <SectionHead tag="Eight steps" id="loop-h" title="Eight steps for every person">
-              Seven run in Beacon today. Keeping help safe through life changes is next.
+            <SectionHead
+              tag="Eight steps"
+              id="loop-h"
+              title="Eight steps for every person"
+            >
+              Seven run in Beacon today. Keeping help safe through life changes
+              is next.
             </SectionHead>
           </Reveal>
           <Reveal>
@@ -138,8 +178,13 @@ export default function How() {
 
         <section className="mk-wrap mk-section" aria-labelledby="models-h">
           <Reveal>
-            <SectionHead tag="Models" id="models-h" title="Meta models in Beacon">
-              Each model has one job. Code checks everything they hand back before you see it.
+            <SectionHead
+              tag="Models"
+              id="models-h"
+              title="Meta models in Beacon"
+            >
+              Each model has one job. Code checks everything they hand back
+              before you see it.
             </SectionHead>
           </Reveal>
           <Reveal>
@@ -160,7 +205,11 @@ export default function How() {
         <section className="mk-wrap mk-section" aria-labelledby="rules-h">
           <div className="mk-rules">
             <Reveal>
-              <SectionHead tag="Promises" id="rules-h" title="Rules Beacon keeps">
+              <SectionHead
+                tag="Promises"
+                id="rules-h"
+                title="Rules Beacon keeps"
+              >
                 Written into the code, so they hold for every check.
               </SectionHead>
             </Reveal>
@@ -180,9 +229,15 @@ export default function How() {
 
         <section className="mk-wrap mk-section" aria-labelledby="cover-h">
           <Reveal>
-            <SectionHead tag="Coverage" id="cover-h" title="What it checks today">
-              {SCHEMES.length} kinds of help across {TOPICS.length} areas of life in England, Scotland and Wales, from Pension Credit to
-              Healthy Start. Income lines are screening estimates, so anything close comes back as worth checking.
+            <SectionHead
+              tag="Coverage"
+              id="cover-h"
+              title="What it checks today"
+            >
+              {SCHEMES.length} kinds of help across {TOPICS.length} areas of
+              life in England, Scotland and Wales, from Pension Credit to
+              Healthy Start. Income lines are screening estimates, so anything
+              close comes back as worth checking.
             </SectionHead>
           </Reveal>
           <Reveal>
@@ -207,7 +262,10 @@ export default function How() {
           </Reveal>
         </section>
 
-        <FinalCta title="See what's yours" text="Type, speak or snap a letter. Beacon does the checking." />
+        <FinalCta
+          title="See what's yours"
+          text="Type, speak or snap a letter. Beacon does the checking."
+        />
       </main>
       <SiteFooter />
     </div>

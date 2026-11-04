@@ -13,10 +13,17 @@ export function SchemeMarquee() {
         ))}
       </ul>
       {rows.map((row, r) => (
-        <div key={r} className={`mk-marquee-row${r ? " rev" : ""}`} aria-hidden="true">
+        <div
+          key={r}
+          className={`mk-marquee-row${r ? " rev" : ""}`}
+          aria-hidden="true"
+        >
           <div className="mk-marquee-track">
             {[...row, ...row].map((n, i) => (
-              <span key={`${n}-${i}`} className={i >= row.length ? "dup" : undefined}>
+              <span
+                key={`${n}-${i}`}
+                className={i >= row.length ? "dup" : undefined}
+              >
                 {n}
               </span>
             ))}

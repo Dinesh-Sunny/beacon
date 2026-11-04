@@ -5,7 +5,13 @@ import "server-only";
 // come from code, never from the model.
 
 import { z } from "zod";
-import { type Answers, callerPhrase, FACTS, type FactId, formatAnswer } from "@/engine/facts";
+import {
+  type Answers,
+  callerPhrase,
+  FACTS,
+  type FactId,
+  formatAnswer,
+} from "@/engine/facts";
 import { byId, evaluate, REGISTRY } from "@/engine/rules";
 import { cached, keyOf, Lru } from "./cache";
 import { chat } from "./meta";
@@ -14,10 +20,29 @@ const SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
-    opening: { type: "string", description: "What to say first, one or two natural sentences, naming the scheme and who it's for" },
-    mention: { type: "array", items: { type: "string" }, description: "Up to 4 facts from their answers that matter for the conditions, in plain words" },
-    have_ready: { type: "array", items: { type: "string" }, description: "Up to 5 practical things to have to hand for this kind of claim" },
-    they_may_ask: { type: "array", items: { type: "string" }, description: "Up to 3 questions the call handler will likely ask, with no answers" },
+    opening: {
+      type: "string",
+      description:
+        "What to say first, one or two natural sentences, naming the scheme and who it's for",
+    },
+    mention: {
+      type: "array",
+      items: { type: "string" },
+      description:
+        "Up to 4 facts from their answers that matter for the conditions, in plain words",
+    },
+    have_ready: {
+      type: "array",
+      items: { type: "string" },
+      description:
+        "Up to 5 practical things to have to hand for this kind of claim",
+    },
+    they_may_ask: {
+      type: "array",
+      items: { type: "string" },
+      description:
+        "Up to 3 questions the call handler will likely ask, with no answers",
+    },
   },
   required: ["opening", "mention", "have_ready", "they_may_ask"],
 };
@@ -31,10 +56,20 @@ const Out = z.object({
 
 const NO_DIGITS_LONG = /\b\d{5,}\b/g;
 
-const notes = new Lru<Awaited<ReturnType<typeof writeNotes>>>(5000, 24 * 60 * 60 * 1000);
-const inflight = new Map<string, Promise<Awaited<ReturnType<typeof writeNotes>>>>();
+const notes = new Lru<Awaited<ReturnType<typeof writeNotes>>>(
+  5000,
+  24 * 60 * 60 * 1000,
+);
+const inflight = new Map<
+  string,
+  Promise<Awaited<ReturnType<typeof writeNotes>>>
+>();
 
-export async function prepareCall(schemeId: string, answers: Answers, subject: { who: "me" | "other"; label?: string } = { who: "me" }) {
+export async function prepareCall(
+  schemeId: string,
+  answers: Answers,
+  subject: { who: "me" | "other"; label?: string } = { who: "me" },
+) {
   const s = byId[schemeId];
   if (!s) return null;
   const needs = [...new Set(s.rule.flatMap((r) => r.needs))] as FactId[];
@@ -42,12 +77,26 @@ export async function prepareCall(schemeId: string, answers: Answers, subject: {
     .filter((f) => answers[f] !== undefined)
     .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
   // Same scheme, same rule pack, same relevant answers and same "who": same notes.
-  const key = keyOf({ p: 2, s: s.id, v: REGISTRY.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
-  const { value, hit } = await cached(notes, inflight, key, () => writeNotes(schemeId, answers, subject, facts));
+  const key = keyOf({
+    p: 2,
+    s: s.id,
+    v: REGISTRY.version,
+    facts,
+    who: subject.who,
+    label: subject.label?.toLowerCase() ?? null,
+  });
+  const { value, hit } = await cached(notes, inflight, key, () =>
+    writeNotes(schemeId, answers, subject, facts),
+  );
   return value ? { ...value, cached: hit } : null;
 }
 
-async function writeNotes(schemeId: string, answers: Answers, subject: { who: "me" | "other"; label?: string }, facts: string[]) {
+async function writeNotes(
+  schemeId: string,
+  answers: Answers,
+  subject: { who: "me" | "other"; label?: string },
+  facts: string[],
+) {
   const s = byId[schemeId];
   if (!s) return null;
   const st = evaluate(answers)[s.id];

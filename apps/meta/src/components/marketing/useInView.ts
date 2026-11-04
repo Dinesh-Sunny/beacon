@@ -6,10 +6,16 @@
 import { type RefObject, useEffect, useState } from "react";
 
 export function prefersReducedMotion(): boolean {
-  return typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  return (
+    typeof window !== "undefined" &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+  );
 }
 
-export function useInView(ref: RefObject<Element | null>, margin = "0px 0px -12% 0px"): boolean {
+export function useInView(
+  ref: RefObject<Element | null>,
+  margin = "0px 0px -12% 0px",
+): boolean {
   const [seen, setSeen] = useState(false);
   useEffect(() => {
     const el = ref.current;

@@ -18,7 +18,10 @@ export const Housing = z.enum(["social", "private", "own", "family"]);
 export const Household = z.enum(["alone", "children", "partner", "adults"]);
 
 export const Money = z.object({ amt: z.number().min(0), per: Period });
-export const Work = z.object({ status: WorkStatus, hours: z.number().min(0).max(168).optional() });
+export const Work = z.object({
+  status: WorkStatus,
+  hours: z.number().min(0).max(168).optional(),
+});
 
 export const AnswersSchema = z
   .object({
@@ -45,4 +48,6 @@ export const AnswersSchema = z
 
 export type Answers = z.infer<typeof AnswersSchema>;
 export type FactId = Exclude<keyof Answers, "dobApprox">;
-export const FACT_IDS = AnswersSchema.keyof().options.filter((k): k is FactId => k !== "dobApprox");
+export const FACT_IDS = AnswersSchema.keyof().options.filter(
+  (k): k is FactId => k !== "dobApprox",
+);

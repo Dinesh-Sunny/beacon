@@ -62,7 +62,9 @@
 }
 
 .mk-reveal {
-  transition: opacity 0.7s ease, transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
+  transition:
+    opacity 0.7s ease,
+    transform 0.7s cubic-bezier(0.2, 0.7, 0.2, 1);
 }
 .mk-reveal.is-waiting {
   opacity: 0;
@@ -86,7 +88,11 @@
   font-size: 0.95rem;
   background: var(--surface);
   opacity: 0.35;
-  transition: opacity 0.5s ease, background-color 0.5s ease, border-color 0.5s ease, transform 0.5s ease;
+  transition:
+    opacity 0.5s ease,
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    transform 0.5s ease;
 }
 .mk-row em {
   flex: none;
@@ -134,7 +140,9 @@
   line-height: 1.4;
   opacity: 0;
   transform: translateY(8px);
-  transition: opacity 0.45s ease, transform 0.45s ease;
+  transition:
+    opacity 0.45s ease,
+    transform 0.45s ease;
 }
 .mk-bubble.on {
   opacity: 1;
@@ -224,7 +232,11 @@
 .mk-demo-glow {
   position: absolute;
   inset: -10% -10% -10% -10%;
-  background: radial-gradient(closest-side, rgba(245, 165, 36, 0.4), rgba(245, 165, 36, 0));
+  background: radial-gradient(
+    closest-side,
+    rgba(245, 165, 36, 0.4),
+    rgba(245, 165, 36, 0)
+  );
   animation: mk-breathe 6s ease-in-out infinite;
 }
 .mk-demo-frame {
@@ -232,7 +244,9 @@
   width: min(440px, 100%);
   background: var(--surface);
   border-radius: 24px;
-  box-shadow: 0 1px 2px rgba(32, 32, 32, 0.06), 0 24px 60px rgba(138, 74, 0, 0.14);
+  box-shadow:
+    0 1px 2px rgba(32, 32, 32, 0.06),
+    0 24px 60px rgba(138, 74, 0, 0.14);
   border: 1px solid rgba(32, 32, 32, 0.06);
   overflow: hidden;
 }
@@ -356,7 +370,11 @@
   border-radius: 28px;
   padding: clamp(16px, 3vw, 36px);
   box-shadow: var(--shadow);
-  background-image: radial-gradient(520px 320px at 50% 52%, rgba(245, 165, 36, 0.12), transparent 70%);
+  background-image: radial-gradient(
+    520px 320px at 50% 52%,
+    rgba(245, 165, 36, 0.12),
+    transparent 70%
+  );
 }
 .mk-map-wide {
   display: block;
@@ -765,7 +783,13 @@
   display: flex;
   flex-direction: column;
   gap: 12px;
-  mask-image: linear-gradient(90deg, transparent, #000 10%, #000 90%, transparent);
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
 }
 .mk-marquee-row {
   overflow: hidden;
@@ -971,7 +995,11 @@
   max-width: 160%;
   aspect-ratio: 1;
   transform: translateX(-50%);
-  background: radial-gradient(closest-side, rgba(245, 165, 36, 0.28), rgba(245, 165, 36, 0));
+  background: radial-gradient(
+    closest-side,
+    rgba(245, 165, 36, 0.28),
+    rgba(245, 165, 36, 0)
+  );
   pointer-events: none;
 }
 .mk-cta > *:not(.mk-cta-glow) {

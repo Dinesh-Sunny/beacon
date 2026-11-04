@@ -4,8 +4,26 @@
 // Every change goes through apply(), which also writes the agent log, so the canvas can show
 // exactly what each agent did and why.
 
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { type Answers, FACTS, type FactId, ME, ORDER, showAnswer, type Subject, UNSURE } from "@/engine/facts";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
+  type Answers,
+  FACTS,
+  type FactId,
+  ME,
+  ORDER,
+  type Subject,
+  showAnswer,
+  UNSURE,
+} from "@/engine/facts";
 import {
   byId,
   derive,
@@ -100,7 +118,9 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   const [changed, setChanged] = useState<string[]>([]);
   const [selected, select] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
-  const [sources, setSources] = useState<Partial<Record<FactId, { source: Source; at: number }>>>({});
+  const [sources, setSources] = useState<
+    Partial<Record<FactId, { source: Source; at: number }>>
+  >({});
   const [editing, edit] = useState<FactId | null>(null);
   const [subject, setSubjectState] = useState<Subject>(ME);
   const setSubject = useCallback((sub: Subject) => {
@@ -113,10 +133,19 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
   const [skipped, setSkipped] = useState<FactId[]>([]);
   const [resets, setResets] = useState(0);
-  const [announcement, setAnnouncement] = useState<{ id: number; text: string } | null>(null);
-  const announce = useCallback((text: string) => setAnnouncement({ id: Date.now(), text }), []);
+  const [announcement, setAnnouncement] = useState<{
+    id: number;
+    text: string;
+  } | null>(null);
+  const announce = useCallback(
+    (text: string) => setAnnouncement({ id: Date.now(), text }),
+    [],
+  );
   const [busy, setBusyMap] = useState<Record<string, boolean>>({});
-  const setBusy = useCallback((agent: string, on: boolean) => setBusyMap((b) => ({ ...b, [agent]: on })), []);
+  const setBusy = useCallback(
+    (agent: string, on: boolean) => setBusyMap((b) => ({ ...b, [agent]: on })),
+    [],
+  );
   const seq = useRef(0);
 
   useEffect(() => {
@@ -136,7 +165,9 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   const states = useMemo(() => evaluate(answers), [answers]);
   const next = useMemo(() => {
     const withoutSkipped: Answers = { ...answers };
-    for (const f of skipped) if (withoutSkipped[f] === undefined) (withoutSkipped as Record<string, unknown>)[f] = "__skip";
+    for (const f of skipped)
+      if (withoutSkipped[f] === undefined)
+        (withoutSkipped as Record<string, unknown>)[f] = "__skip";
     return plan(withoutSkipped, states) ?? plan(answers, states);
   }, [answers, states, skipped]);
   const current: FactId | null = editing ?? next?.f ?? null;
@@ -166,26 +197,65 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     items.push({
       kind: "you",
       who: SOURCE_WHO[source],
-      text: keys.map((k) => `${FACTS[k].label}: ${showAnswer(after, k)}`).join(" · "),
+      text: keys
+        .map((k) => `${FACTS[k].label}: ${showAnswer(after, k)}`)
+        .join(" · "),
     });
-    const chips = keys.flatMap((k) => (after[k] === UNSURE ? [] : derivedChips(k, d)));
-    if (chips.length) items.push({ kind: "derive", who: "Fact deriver", text: chips.join(" · ") });
-    const moved = SCHEMES.filter((s) => before[s.id]?.status !== st[s.id]?.status);
-    const group = (k: Status) => moved.filter((s) => st[s.id]?.status === k).map((s) => s.name);
+    const chips = keys.flatMap((k) =>
+      after[k] === UNSURE ? [] : derivedChips(k, d),
+    );
+    if (chips.length)
+      items.push({
+        kind: "derive",
+        who: "Fact deriver",
+        text: chips.join(" · "),
+      });
+    const moved = SCHEMES.filter(
+      (s) => before[s.id]?.status !== st[s.id]?.status,
+    );
+    const group = (k: Status) =>
+      moved.filter((s) => st[s.id]?.status === k).map((s) => s.name);
     const lik = group("likely");
     const chk = group("check");
     const unl = group("unlock");
     const out = group("out");
-    if (lik.length) items.push({ kind: "rules", who: "Rules engine", text: `Likely: ${lik.join(", ")}` });
-    if (chk.length) items.push({ kind: "rules", who: "Rules engine", text: `Worth checking: ${chk.join(", ")}` });
-    if (unl.length) items.push({ kind: "rules", who: "Chain finder", text: `${unl.join(", ")} unlock once a first claim is awarded` });
-    if (out.length) items.push({ kind: "rules", who: "Rules engine", text: `Set aside ${out.length}: ${out.join(", ")}` });
-    if (!moved.length) items.push({ kind: "rules", who: "Rules engine", text: "Narrowed the open rules" });
+    if (lik.length)
+      items.push({
+        kind: "rules",
+        who: "Rules engine",
+        text: `Likely: ${lik.join(", ")}`,
+      });
+    if (chk.length)
+      items.push({
+        kind: "rules",
+        who: "Rules engine",
+        text: `Worth checking: ${chk.join(", ")}`,
+      });
+    if (unl.length)
+      items.push({
+        kind: "rules",
+        who: "Chain finder",
+        text: `${unl.join(", ")} unlock once a first claim is awarded`,
+      });
+    if (out.length)
+      items.push({
+        kind: "rules",
+        who: "Rules engine",
+        text: `Set aside ${out.length}: ${out.join(", ")}`,
+      });
+    if (!moved.length)
+      items.push({
+        kind: "rules",
+        who: "Rules engine",
+        text: "Narrowed the open rules",
+      });
     const nx = plan(after, st);
     items.push({
       kind: "planner",
       who: "Question planner",
-      text: nx ? `Next: "${FACTS[nx.f].label}" checks ${nx.hits.length} more` : "All set: nothing left that could change a result",
+      text: nx
+        ? `Next: "${FACTS[nx.f].label}" checks ${nx.hits.length} more`
+        : "All set: nothing left that could change a result",
     });
     const stamped = items.map((it) => {
       seq.current += 1;
@@ -243,7 +313,10 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     },
     [note],
   );
-  const skip = useCallback((f: FactId) => setSkipped((sk) => (sk.includes(f) ? sk : [...sk, f])), []);
+  const skip = useCallback(
+    (f: FactId) => setSkipped((sk) => (sk.includes(f) ? sk : [...sk, f])),
+    [],
+  );
 
   const reset = useCallback(() => {
     setResets((n) => n + 1);
@@ -269,7 +342,35 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const asked = ORDER.filter((k) => answers[k] !== undefined).length;
-  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current, subject, setSubject, resets, announcement, announce };
+  const value: Ctx = {
+    answers,
+    states,
+    next,
+    log,
+    changed,
+    selected,
+    asked,
+    hydrated,
+    select,
+    apply,
+    back,
+    reset,
+    note,
+    busy,
+    setBusy,
+    sources,
+    editing,
+    edit,
+    forget,
+    skipped,
+    skip,
+    current,
+    subject,
+    setSubject,
+    resets,
+    announcement,
+    announce,
+  };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
 

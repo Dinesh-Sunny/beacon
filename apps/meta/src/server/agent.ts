@@ -7,7 +7,17 @@ import "server-only";
 import type { Answers } from "@/engine/facts";
 import { FACTS } from "@/engine/facts";
 import { FACT_PATCH_JSON, FactPatch, toAnswers } from "@/engine/patch";
-import { byId, claimOrder, derive, evaluate, plan, progressLine, SCHEMES, summarise, warnings } from "@/engine/rules";
+import {
+  byId,
+  claimOrder,
+  derive,
+  evaluate,
+  plan,
+  progressLine,
+  SCHEMES,
+  summarise,
+  warnings,
+} from "@/engine/rules";
 import { type ChatMessage, chat, type Usage } from "./meta";
 
 const SYSTEM = `You are Beacon, a calm and kind helper in the UK. You help people find the money and support they are already entitled to, often for an older parent or someone they care for.
@@ -30,10 +40,16 @@ const TOOLS = [
     type: "function",
     function: {
       name: "set_who",
-      description: "Record who the check is for, as soon as it is clear. Use a short relationship word like Mum, Dad, My partner, or 'me' if it is for themselves.",
+      description:
+        "Record who the check is for, as soon as it is clear. Use a short relationship word like Mum, Dad, My partner, or 'me' if it is for themselves.",
       parameters: {
         type: "object",
-        properties: { who: { type: "string", description: "'me', or a relationship word of up to 20 letters" } },
+        properties: {
+          who: {
+            type: "string",
+            description: "'me', or a relationship word of up to 20 letters",
+          },
+        },
         required: ["who"],
         additionalProperties: false,
       },
@@ -43,7 +59,8 @@ const TOOLS = [
     type: "function",
     function: {
       name: "save_details",
-      description: "Save facts the person has just told you. Only include fields they actually stated.",
+      description:
+        "Save facts the person has just told you. Only include fields they actually stated.",
       parameters: FACT_PATCH_JSON,
     },
   },
@@ -51,18 +68,26 @@ const TOOLS = [
     type: "function",
     function: {
       name: "check_results",
-      description: "Current results from the rules engine: likely, worth checking, unlocks later, still open, and the next useful question.",
-      parameters: { type: "object", properties: {}, additionalProperties: false },
+      description:
+        "Current results from the rules engine: likely, worth checking, unlocks later, still open, and the next useful question.",
+      parameters: {
+        type: "object",
+        properties: {},
+        additionalProperties: false,
+      },
     },
   },
   {
     type: "function",
     function: {
       name: "explain_scheme",
-      description: "Everything Beacon knows about one scheme: what it gives, who runs it, each condition and whether it is met.",
+      description:
+        "Everything Beacon knows about one scheme: what it gives, who runs it, each condition and whether it is met.",
       parameters: {
         type: "object",
-        properties: { scheme_id: { type: "string", enum: SCHEMES.map((s) => s.id) } },
+        properties: {
+          scheme_id: { type: "string", enum: SCHEMES.map((s) => s.id) },
+        },
         required: ["scheme_id"],
         additionalProperties: false,
       },
@@ -72,8 +97,13 @@ const TOOLS = [
     type: "function",
     function: {
       name: "plan_claims",
-      description: "The order to claim in, with how to claim, phone numbers, deadlines and clash warnings.",
-      parameters: { type: "object", properties: {}, additionalProperties: false },
+      description:
+        "The order to claim in, with how to claim, phone numbers, deadlines and clash warnings.",
+      parameters: {
+        type: "object",
+        properties: {},
+        additionalProperties: false,
+      },
     },
   },
 ];
@@ -85,7 +115,14 @@ export interface ToolNote {
 
 type Who = { who: "me" | "other"; label?: string };
 
-function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers, notes: ToolNote[], who: { value: Who | null }): string {
+function runTool(
+  name: string,
+  rawArgs: string,
+  answers: Answers,
+  saved: Answers,
+  notes: ToolNote[],
+  who: { value: Who | null },
+): string {
   let args: Record<string, unknown> = {};
   try {
     args = rawArgs ? (JSON.parse(rawArgs) as Record<string, unknown>) : {};
@@ -94,16 +131,29 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
   }
   const now = { ...answers, ...saved };
   if (name === "set_who") {
-    const raw = String(args.who ?? "").replace(/[^\p{L} '-]/gu, "").trim().slice(0, 20);
+    const raw = String(args.who ?? "")
+      .replace(/[^\p{L} '-]/gu, "")
+      .trim()
+      .slice(0, 20);
     if (!raw) return JSON.stringify({ error: "Empty" });
     const label = raw.charAt(0).toUpperCase() + raw.slice(1);
-    who.value = /^(me|myself|i)$/i.test(raw) ? { who: "me" } : { who: "other", label };
-    notes.push({ name, text: who.value.who === "me" ? "Checking for you" : `Checking for ${label}` });
+    who.value = /^(me|myself|i)$/i.test(raw)
+      ? { who: "me" }
+      : { who: "other", label };
+    notes.push({
+      name,
+      text:
+        who.value.who === "me" ? "Checking for you" : `Checking for ${label}`,
+    });
     return JSON.stringify({ ok: true });
   }
   if (name === "save_details") {
     const parsed = FactPatch.safeParse(args);
-    if (!parsed.success) return JSON.stringify({ error: "Some fields were not valid", issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")) });
+    if (!parsed.success)
+      return JSON.stringify({
+        error: "Some fields were not valid",
+        issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")),
+      });
     const patch = toAnswers(parsed.data);
     const keys = Object.keys(patch).filter((k) => k !== "dobApprox");
     Object.assign(saved, patch);
@@ -118,8 +168,12 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
     });
     return JSON.stringify({
       saved: keys.map((k) => FACTS[k as keyof typeof FACTS].label),
-      likely: SCHEMES.filter((s) => st[s.id]?.status === "likely").map((s) => s.name),
-      worth_checking: SCHEMES.filter((s) => st[s.id]?.status === "check").map((s) => s.name),
+      likely: SCHEMES.filter((s) => st[s.id]?.status === "likely").map(
+        (s) => s.name,
+      ),
+      worth_checking: SCHEMES.filter((s) => st[s.id]?.status === "check").map(
+        (s) => s.name,
+      ),
       more_questions_to_come: Boolean(nx),
     });
   }
@@ -127,7 +181,10 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
   if (name === "check_results") {
     notes.push({ name, text: `${progressLine(st)}.` });
     const s = summarise(now, st);
-    return JSON.stringify({ ...s, next_question: s.nextQuestion ? FACTS[s.nextQuestion].q : null });
+    return JSON.stringify({
+      ...s,
+      next_question: s.nextQuestion ? FACTS[s.nextQuestion].q : null,
+    });
   }
   if (name === "explain_scheme") {
     const s = byId[String(args.scheme_id)];
@@ -140,7 +197,10 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
       gives: s.gives,
       status: state?.status,
       reason: state?.reason,
-      conditions: s.rule.map((r, i) => ({ condition: r.txt, met: state?.marks[i] ?? null })),
+      conditions: s.rule.map((r, i) => ({
+        condition: r.txt,
+        met: state?.marks[i] ?? null,
+      })),
       how_to_claim: s.how,
       phone: s.phone ?? null,
       official_page: s.url,
@@ -150,11 +210,21 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
   }
   if (name === "plan_claims") {
     const order = claimOrder(st, derive(now).nation);
-    notes.push({ name, text: `Put ${order.length} claims in order and checked for clashes` });
+    notes.push({
+      name,
+      text: `Put ${order.length} claims in order and checked for clashes`,
+    });
     return JSON.stringify({
       order: order.map((p) => {
         const s = byId[p.id];
-        return { scheme: s?.name, when: p.when, how: s?.how, phone: s?.phone ?? null, page: s?.url, timing: s?.timing ?? null };
+        return {
+          scheme: s?.name,
+          when: p.when,
+          how: s?.how,
+          phone: s?.phone ?? null,
+          page: s?.url,
+          timing: s?.timing ?? null,
+        };
       }),
       warnings: warnings(st, now).map((w) => w.text),
     });
@@ -193,18 +263,51 @@ export async function runAgent(
   const who: { value: Who | null } = { value: null };
   const usage: Usage = { prompt_tokens: 0, completion_tokens: 0 };
   for (let round = 0; round < 5; round++) {
-    const { message, usage: u } = await chat({ messages, tools: TOOLS, effort: "low", maxTokens: 2500, cacheKey: "beacon-agent-v1" });
+    const { message, usage: u } = await chat({
+      messages,
+      tools: TOOLS,
+      effort: "low",
+      maxTokens: 2500,
+      cacheKey: "beacon-agent-v1",
+    });
     usage.prompt_tokens += u?.prompt_tokens ?? 0;
     usage.completion_tokens += u?.completion_tokens ?? 0;
     if (!message.tool_calls?.length) {
-      return { reply: (message.content ?? "").trim(), saved, notes, usage, subject: who.value };
+      return {
+        reply: (message.content ?? "").trim(),
+        saved,
+        notes,
+        usage,
+        subject: who.value,
+      };
     }
-    messages.push({ role: "assistant", content: message.content ?? null, tool_calls: message.tool_calls });
+    messages.push({
+      role: "assistant",
+      content: message.content ?? null,
+      tool_calls: message.tool_calls,
+    });
     for (const call of message.tool_calls) {
       const before = notes.length;
-      messages.push({ role: "tool", tool_call_id: call.id, content: runTool(call.function.name, call.function.arguments, answers, saved, notes, who) });
+      messages.push({
+        role: "tool",
+        tool_call_id: call.id,
+        content: runTool(
+          call.function.name,
+          call.function.arguments,
+          answers,
+          saved,
+          notes,
+          who,
+        ),
+      });
       for (const n of notes.slice(before)) onStep?.(n);
     }
   }
-  return { reply: "I've saved what you told me. My next question is just below.", saved, notes, usage, subject: who.value };
+  return {
+    reply: "I've saved what you told me. My next question is just below.",
+    saved,
+    notes,
+    usage,
+    subject: who.value,
+  };
 }

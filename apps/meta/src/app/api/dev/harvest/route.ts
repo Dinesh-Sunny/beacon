@@ -9,9 +9,12 @@ export const runtime = "nodejs";
 let running: Promise<unknown> | null = null;
 
 export async function POST(req: Request) {
-  if (process.env.NODE_ENV !== "development") return json({ error: "not found" }, 404);
+  if (process.env.NODE_ENV !== "development")
+    return json({ error: "not found" }, 404);
   if (running) return json({ started: false, reason: "already running" }, 409);
-  const { only = [] } = (await req.json().catch(() => ({}))) as { only?: string[] };
+  const { only = [] } = (await req.json().catch(() => ({}))) as {
+    only?: string[];
+  };
   running = harvest(process.cwd(), only).finally(() => {
     running = null;
   });
@@ -19,7 +22,8 @@ export async function POST(req: Request) {
 }
 
 export async function GET() {
-  if (process.env.NODE_ENV !== "development") return json({ error: "not found" }, 404);
+  if (process.env.NODE_ENV !== "development")
+    return json({ error: "not found" }, 404);
   const file = path.join(process.cwd(), "catalog/harvest/status.json");
   return json(JSON.parse(await readFile(file, "utf8").catch(() => "{}")));
 }

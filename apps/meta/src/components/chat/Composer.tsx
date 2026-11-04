@@ -57,7 +57,9 @@ export function Composer({
       setSecs(0);
       setRec(await startRecording());
     } catch {
-      setMicError("Your browser didn't let Beacon use the microphone. You can allow it in the address bar, or type instead.");
+      setMicError(
+        "Your browser didn't let Beacon use the microphone. You can allow it in the address bar, or type instead.",
+      );
     }
   };
   const stop = async () => {
@@ -85,12 +87,16 @@ export function Composer({
         <div className="rec">
           <span className="dot" aria-hidden="true" />
           <span>
-            Listening {Math.floor(secs / 60)}:{String(secs % 60).padStart(2, "0")}
+            Listening {Math.floor(secs / 60)}:
+            {String(secs % 60).padStart(2, "0")}
           </span>
           <span className="bars" aria-hidden="true">
             {levels.map((l, i) => (
               // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length meter
-              <i key={i} style={{ height: `${Math.max(8, Math.min(100, l * 260))}%` }} />
+              <i
+                key={i}
+                style={{ height: `${Math.max(8, Math.min(100, l * 260))}%` }}
+              />
             ))}
           </span>
         </div>
@@ -99,7 +105,12 @@ export function Composer({
             Cancel
           </button>
           <span className="spacer" />
-          <button type="button" className="btn small" onClick={() => void stop()} data-testid="stop-rec">
+          <button
+            type="button"
+            className="btn small"
+            onClick={() => void stop()}
+            data-testid="stop-rec"
+          >
             <Icon name="check" size={18} /> Done
           </button>
         </div>
@@ -133,22 +144,52 @@ export function Composer({
         }}
         data-testid="chat-input"
       />
-      <input ref={file} type="file" accept="image/jpeg,image/png,image/webp" hidden onChange={pick} data-testid="file-input" />
-      <input ref={camera} type="file" accept="image/*" capture="environment" hidden onChange={pick} />
+      <input
+        ref={file}
+        type="file"
+        accept="image/jpeg,image/png,image/webp"
+        hidden
+        onChange={pick}
+        data-testid="file-input"
+      />
+      <input
+        ref={camera}
+        type="file"
+        accept="image/*"
+        capture="environment"
+        hidden
+        onChange={pick}
+      />
       <div className="row">
         <div className="menu-wrap">
-          <button type="button" className="iconbtn" aria-label="Add" aria-expanded={menu} onClick={() => setMenu((m) => !m)} data-testid="add">
+          <button
+            type="button"
+            className="iconbtn"
+            aria-label="Add"
+            aria-expanded={menu}
+            onClick={() => setMenu((m) => !m)}
+            data-testid="add"
+          >
             <Icon name="plus" />
           </button>
           {menu && (
             <div className="menu up" role="menu">
-              <button type="button" role="menuitem" onClick={() => file.current?.click()} data-testid="add-letter">
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => file.current?.click()}
+                data-testid="add-letter"
+              >
                 <b>
                   <Icon name="upload" size={18} /> Add a letter or photo
                 </b>
                 <span>An agent reads it for you</span>
               </button>
-              <button type="button" role="menuitem" onClick={() => camera.current?.click()}>
+              <button
+                type="button"
+                role="menuitem"
+                onClick={() => camera.current?.click()}
+              >
                 <b>
                   <Icon name="camera" size={18} /> Take a photo
                 </b>
@@ -160,8 +201,14 @@ export function Composer({
                 data-testid="sample-letter"
                 onClick={async () => {
                   setMenu(false);
-                  const blob = await fetch("/samples/sample-council-tax-bill.jpg").then((r) => r.blob());
-                  onPhoto(new File([blob], "sample-council-tax-bill.jpg", { type: "image/jpeg" }));
+                  const blob = await fetch(
+                    "/samples/sample-council-tax-bill.jpg",
+                  ).then((r) => r.blob());
+                  onPhoto(
+                    new File([blob], "sample-council-tax-bill.jpg", {
+                      type: "image/jpeg",
+                    }),
+                  );
                 }}
               >
                 <b>
@@ -174,11 +221,24 @@ export function Composer({
         </div>
         <span className="spacer" />
         {text.trim() ? (
-          <button type="submit" className="send" disabled={busy} aria-label="Send" data-testid="send">
+          <button
+            type="submit"
+            className="send"
+            disabled={busy}
+            aria-label="Send"
+            data-testid="send"
+          >
             <Icon name="up" size={20} />
           </button>
         ) : (
-          <button type="button" className="send mic" onClick={() => void start()} disabled={busy} aria-label="Speak" data-testid="mic">
+          <button
+            type="button"
+            className="send mic"
+            onClick={() => void start()}
+            disabled={busy}
+            aria-label="Speak"
+            data-testid="mic"
+          >
             <Icon name="mic" size={20} />
           </button>
         )}

@@ -5,8 +5,26 @@
 
 import type { Connector } from "./types.ts";
 
-const ROOTS = ["benefits", "disabilities", "childcare-parenting", "births-deaths-marriages", "housing-local-services", "working", "education", "tax", "driving"];
-const FORMATS = new Set(["guide", "transaction", "answer", "simple_smart_answer", "local_transaction", "place", "calculator"]);
+const ROOTS = [
+  "benefits",
+  "disabilities",
+  "childcare-parenting",
+  "births-deaths-marriages",
+  "housing-local-services",
+  "working",
+  "education",
+  "tax",
+  "driving",
+];
+const FORMATS = new Set([
+  "guide",
+  "transaction",
+  "answer",
+  "simple_smart_answer",
+  "local_transaction",
+  "place",
+  "calculator",
+]);
 
 interface SearchRow {
   title: string;
@@ -29,10 +47,15 @@ export const govuk: Connector = {
     const sections: { root: string; path: string; title: string }[] = [];
     for (const root of ROOTS) {
       try {
-        const page = await json<{ title: string; links?: { children?: { base_path: string; title: string }[] } }>(`https://www.gov.uk/api/content/browse/${root}`);
+        const page = await json<{
+          title: string;
+          links?: { children?: { base_path: string; title: string }[] };
+        }>(`https://www.gov.uk/api/content/browse/${root}`);
         const kids = page.links?.children ?? [];
-        if (!kids.length) sections.push({ root, path: `/browse/${root}`, title: page.title });
-        for (const k of kids) sections.push({ root, path: k.base_path, title: k.title });
+        if (!kids.length)
+          sections.push({ root, path: `/browse/${root}`, title: page.title });
+        for (const k of kids)
+          sections.push({ root, path: k.base_path, title: k.title });
       } catch (e) {
         log(`skip ${root}: ${(e as Error).message}`);
       }
@@ -57,12 +80,21 @@ export const govuk: Connector = {
       }
     }
     const rows = [...pages.entries()]
-      .map(([url, r]) => ({ url, title: r.title, description: r.description ?? "", format: r.format ?? null, updated: r.public_timestamp ?? null, sections: [...new Set(r.sections)] }))
+      .map(([url, r]) => ({
+        url,
+        title: r.title,
+        description: r.description ?? "",
+        format: r.format ?? null,
+        updated: r.public_timestamp ?? null,
+        sections: [...new Set(r.sections)],
+      }))
       .sort((a, b) => a.url.localeCompare(b.url));
     await save("govuk.json", { connector: "govuk", sections, pages: rows });
     log(`${rows.length} pages listed`);
     const stored = await store(rows.map((r) => r.url));
-    log(`stored text: ${stored.added.length} new, ${stored.skipped.length} already kept, ${stored.failed.length} failed`);
+    log(
+      `stored text: ${stored.added.length} new, ${stored.skipped.length} already kept, ${stored.failed.length} failed`,
+    );
     return { items: rows.length };
   },
 };

@@ -2,7 +2,8 @@
 // between them, retries with backoff on 429 and 5xx, and an honest User-Agent. Connectors
 // never call fetch directly, so rate limits and caching are decided in one place.
 
-const UA = "Beacon knowledge harvester (+https://github.com/Dinesh-Sunny/beacon)";
+const UA =
+  "Beacon knowledge harvester (+https://github.com/Dinesh-Sunny/beacon)";
 
 export interface FetcherOptions {
   perHost?: number;
@@ -10,7 +11,11 @@ export interface FetcherOptions {
   retries?: number;
 }
 
-export function createFetcher({ perHost = 3, gapMs = 250, retries = 3 }: FetcherOptions = {}) {
+export function createFetcher({
+  perHost = 3,
+  gapMs = 250,
+  retries = 3,
+}: FetcherOptions = {}) {
   const queues = new Map<string, { active: number; waiting: (() => void)[] }>();
   const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
@@ -27,13 +32,22 @@ export function createFetcher({ perHost = 3, gapMs = 250, retries = 3 }: Fetcher
     };
   }
 
-  return async function politeFetch(url: string, init: RequestInit = {}): Promise<Response> {
+  return async function politeFetch(
+    url: string,
+    init: RequestInit = {},
+  ): Promise<Response> {
     const release = await slot(new URL(url).host);
     try {
       for (let attempt = 0; ; attempt++) {
-        const res = await fetch(url, { ...init, headers: { "User-Agent": UA, ...init.headers }, signal: AbortSignal.timeout(20_000) });
+        const res = await fetch(url, {
+          ...init,
+          headers: { "User-Agent": UA, ...init.headers },
+          signal: AbortSignal.timeout(20_000),
+        });
         if ((res.status === 429 || res.status >= 500) && attempt < retries) {
-          const wait = Number(res.headers.get("retry-after")) * 1000 || 1000 * 2 ** attempt;
+          const wait =
+            Number(res.headers.get("retry-after")) * 1000 ||
+            1000 * 2 ** attempt;
           await sleep(wait);
           continue;
         }
@@ -48,7 +62,11 @@ export function createFetcher({ perHost = 3, gapMs = 250, retries = 3 }: Fetcher
 export type PoliteFetch = ReturnType<typeof createFetcher>;
 
 /** Runs `fn` over items with at most `n` in flight. */
-export async function mapLimit<T, R>(items: T[], n: number, fn: (item: T) => Promise<R>): Promise<R[]> {
+export async function mapLimit<T, R>(
+  items: T[],
+  n: number,
+  fn: (item: T) => Promise<R>,
+): Promise<R[]> {
   const out: R[] = new Array(items.length);
   let i = 0;
   await Promise.all(

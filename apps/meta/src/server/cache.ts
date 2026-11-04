@@ -58,11 +58,18 @@ export function keyOf(parts: unknown): string {
               .map((k) => [k, stable((v as Record<string, unknown>)[k])]),
           )
         : v;
-  return createHash("sha256").update(JSON.stringify(stable(parts))).digest("base64url");
+  return createHash("sha256")
+    .update(JSON.stringify(stable(parts)))
+    .digest("base64url");
 }
 
 /** Runs `make` once per key; concurrent callers for the same key share one model call. */
-export async function cached<T>(cache: Lru<T>, inflight: Map<string, Promise<T>>, key: string, make: () => Promise<T>): Promise<{ value: T; hit: boolean }> {
+export async function cached<T>(
+  cache: Lru<T>,
+  inflight: Map<string, Promise<T>>,
+  key: string,
+  make: () => Promise<T>,
+): Promise<{ value: T; hit: boolean }> {
   const have = cache.get(key);
   if (have !== undefined) return { value: have, hit: true };
   const running = inflight.get(key);

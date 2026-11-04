@@ -6,7 +6,10 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 
 export const metadata: Metadata = {
-  title: { default: "Beacon - find the support that's already yours", template: "%s · Beacon" },
+  title: {
+    default: "Beacon - find the support that's already yours",
+    template: "%s · Beacon",
+  },
   description:
     "Tell Beacon about your life by typing, speaking or snapping a letter. Its agents find the help and money you're entitled to, warn you about clashes and get you ready to claim.",
 };

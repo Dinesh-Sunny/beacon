@@ -5,10 +5,9 @@
 
 import { useEffect } from "react";
 import { Icon } from "@/components/Icon";
-import { byId, howFor, nationOf } from "@/engine/rules";
 import { theyify } from "@/engine/facts";
+import { byId, howFor, nationOf } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
-
 
 export function SchemeSheet() {
   const { selected, select, states, subject, answers } = useCheck();
@@ -42,7 +41,12 @@ export function SchemeSheet() {
               {s.name}
             </h2>
           </div>
-          <button type="button" className="iconbtn" onClick={() => select(null)} aria-label="Close">
+          <button
+            type="button"
+            className="iconbtn"
+            onClick={() => select(null)}
+            aria-label="Close"
+          >
             <Icon name="close" />
           </button>
         </div>
@@ -57,12 +61,21 @@ export function SchemeSheet() {
             const m = st.marks[i];
             return (
               <li key={r.expr}>
-                <span className={`m ${m === true ? "t" : m === false ? "f" : "u"}`} aria-hidden="true">
+                <span
+                  className={`m ${m === true ? "t" : m === false ? "f" : "u"}`}
+                  aria-hidden="true"
+                >
                   {m === true ? "✓" : m === false ? "×" : "?"}
                 </span>
                 <span>
                   {r.txt}
-                  <span className="sr-only">{m === true ? " (met)" : m === false ? " (not met)" : " (not known yet)"}</span>
+                  <span className="sr-only">
+                    {m === true
+                      ? " (met)"
+                      : m === false
+                        ? " (not met)"
+                        : " (not known yet)"}
+                  </span>
                   <code>{r.expr}</code>
                 </span>
               </li>
@@ -70,10 +83,28 @@ export function SchemeSheet() {
           })}
         </ul>
         {s.opens ? (
-          <p className="hint">Once awarded, it also opens: {s.opens.map((o) => byId[o]?.name).join(", ")}.</p>
+          <p className="hint">
+            Once awarded, it also opens:{" "}
+            {s.opens.map((o) => byId[o]?.name).join(", ")}.
+          </p>
         ) : null}
-        <p className="hint">{theyify(howFor(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null), subject)}</p>
-        <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
+        <p className="hint">
+          {theyify(
+            howFor(
+              s,
+              typeof answers.postcode === "string"
+                ? nationOf(answers.postcode)
+                : null,
+            ),
+            subject,
+          )}
+        </p>
+        <a
+          className="btn ghost small"
+          href={s.url}
+          target="_blank"
+          rel="noreferrer"
+        >
           Official page <Icon name="link" size={16} />
         </a>
       </div>

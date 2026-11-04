@@ -14,7 +14,9 @@ export function StepsRail() {
             <span className="mk-rail-dot">{i + 1}</span>
             <b>{s.t}</b>
             <span className="mk-rail-d">{s.d}</span>
-            <span className="sr-only">{s.live ? "Live today." : "Coming next."}</span>
+            <span className="sr-only">
+              {s.live ? "Live today." : "Coming next."}
+            </span>
           </li>
         ))}
       </ol>

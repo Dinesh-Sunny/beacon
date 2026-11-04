@@ -23,9 +23,13 @@ export interface Recorder {
 }
 
 export async function startRecording(): Promise<Recorder> {
-  const stream = await navigator.mediaDevices.getUserMedia({ audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true } });
+  const stream = await navigator.mediaDevices.getUserMedia({
+    audio: { channelCount: 1, echoCancellation: true, noiseSuppression: true },
+  });
   const ctx = new AudioContext();
-  const url = URL.createObjectURL(new Blob([WORKLET], { type: "application/javascript" }));
+  const url = URL.createObjectURL(
+    new Blob([WORKLET], { type: "application/javascript" }),
+  );
   await ctx.audioWorklet.addModule(url);
   URL.revokeObjectURL(url);
   const src = ctx.createMediaStreamSource(stream);
@@ -51,7 +55,10 @@ export async function startRecording(): Promise<Recorder> {
     stop: async () => {
       const rate = ctx.sampleRate;
       end();
-      return encodeWav(downsample(join(chunks), rate, TARGET_RATE), TARGET_RATE);
+      return encodeWav(
+        downsample(join(chunks), rate, TARGET_RATE),
+        TARGET_RATE,
+      );
     },
   };
 }
@@ -66,7 +73,11 @@ function join(chunks: Float32Array[]): Float32Array {
   return out;
 }
 
-function downsample(input: Float32Array, from: number, to: number): Float32Array {
+function downsample(
+  input: Float32Array,
+  from: number,
+  to: number,
+): Float32Array {
   if (from === to) return input;
   const ratio = from / to;
   const out = new Float32Array(Math.floor(input.length / ratio));

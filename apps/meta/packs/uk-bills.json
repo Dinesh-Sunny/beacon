@@ -58,8 +58,11 @@
         }
       ],
       "act": "Ask your supplier",
-      "howIn": {
-        "sco": "In Scotland you may need to ask your electricity supplier for it, so contact them this winter."
+      "local": {
+        "sco": {
+          "how": "In Scotland you may need to ask your electricity supplier for it, so contact them this winter.",
+          "timing": ""
+        }
       }
     },
     {

@@ -4,7 +4,14 @@
 // claim (applied, awarded, refused), kept in this browser only. An award of a gateway benefit
 // is fed back into the answers, so the help it opens moves from "unlocks next" to "likely".
 
-import { createContext, type ReactNode, useCallback, useContext, useEffect, useState } from "react";
+import {
+  createContext,
+  type ReactNode,
+  useCallback,
+  useContext,
+  useEffect,
+  useState,
+} from "react";
 import { useCheck } from "./check-store";
 
 export type ClaimState = "applied" | "awarded" | "refused";
@@ -15,7 +22,10 @@ export interface Claim {
 type Claims = Record<string, Claim>;
 
 const KEY = "beacon:claims:v1";
-const Ctx = createContext<{ claims: Claims; setClaim: (id: string, state: ClaimState | null) => void } | null>(null);
+const Ctx = createContext<{
+  claims: Claims;
+  setClaim: (id: string, state: ClaimState | null) => void;
+} | null>(null);
 
 export function ClaimsProvider({ children }: { children: ReactNode }) {
   const { resets } = useCheck();

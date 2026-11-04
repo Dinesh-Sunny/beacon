@@ -6,13 +6,26 @@
 import { type ReactNode, useEffect, useRef, useState } from "react";
 import { prefersReducedMotion } from "./useInView";
 
-export function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
+export function Reveal({
+  children,
+  className = "",
+  delay = 0,
+}: {
+  children: ReactNode;
+  className?: string;
+  delay?: number;
+}) {
   const ref = useRef<HTMLDivElement>(null);
   const [state, setState] = useState<"idle" | "wait" | "in">("idle");
 
   useEffect(() => {
     const el = ref.current;
-    if (!el || prefersReducedMotion() || typeof IntersectionObserver === "undefined") return;
+    if (
+      !el ||
+      prefersReducedMotion() ||
+      typeof IntersectionObserver === "undefined"
+    )
+      return;
     if (el.getBoundingClientRect().top < window.innerHeight * 0.9) return;
     setState("wait");
     const io = new IntersectionObserver(

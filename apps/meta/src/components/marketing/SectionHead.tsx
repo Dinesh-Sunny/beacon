@@ -1,6 +1,18 @@
 import type { ReactNode } from "react";
 
-export function SectionHead({ tag, title, id, children, center }: { tag: string; title: ReactNode; id: string; children?: ReactNode; center?: boolean }) {
+export function SectionHead({
+  tag,
+  title,
+  id,
+  children,
+  center,
+}: {
+  tag: string;
+  title: ReactNode;
+  id: string;
+  children?: ReactNode;
+  center?: boolean;
+}) {
   return (
     <div className={`mk-shead${center ? " center" : ""}`}>
       <span className="mk-tag">{tag}</span>

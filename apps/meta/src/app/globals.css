@@ -24,7 +24,8 @@
   --gate-bg: #fff5ed;
   --focus: #ffdd00;
   --lamp: #fff4d6;
-  --shadow: 0 1px 2px rgba(32, 32, 32, 0.05), 0 10px 30px rgba(32, 32, 32, 0.06);
+  --shadow:
+    0 1px 2px rgba(32, 32, 32, 0.05), 0 10px 30px rgba(32, 32, 32, 0.06);
   --f-display: "Fraunces Variable", Georgia, serif;
   --f-body: "Atkinson Hyperlegible", Arial, sans-serif;
   --f-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
@@ -35,7 +36,6 @@
   --r-sm: 10px;
   color-scheme: light;
 }
-
 
 * {
   box-sizing: border-box;
@@ -82,7 +82,9 @@ button {
 }
 :focus-visible {
   outline: 3px solid transparent;
-  box-shadow: 0 0 0 2px #000, 0 0 0 5px var(--focus);
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 5px var(--focus);
   border-radius: 6px;
 }
 [hidden] {
@@ -187,7 +189,8 @@ button {
   display: flex;
   align-items: center;
   gap: 6px;
-  padding: 0 max(12px, env(safe-area-inset-right)) 0 max(12px, env(safe-area-inset-left));
+  padding: 0 max(12px, env(safe-area-inset-right)) 0
+    max(12px, env(safe-area-inset-left));
   background: var(--surface);
   border-bottom: 1px solid var(--line);
   z-index: 12;
@@ -443,7 +446,11 @@ button {
   min-width: 0;
   position: relative;
   background-color: var(--bg);
-  background-image: radial-gradient(circle, color-mix(in srgb, var(--control) 45%, transparent) 1px, transparent 1.2px);
+  background-image: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--control) 45%, transparent) 1px,
+    transparent 1.2px
+  );
   background-size: 22px 22px;
 }
 .canvas-inner {
@@ -1015,11 +1022,16 @@ button {
   border-radius: 12px;
   padding: 9px 11px;
   background: var(--surface);
-  transition: opacity 0.45s, background 0.45s, border-color 0.45s;
+  transition:
+    opacity 0.45s,
+    background 0.45s,
+    border-color 0.45s;
 }
 .sc:focus-visible {
   outline: 3px solid transparent;
-  box-shadow: 0 0 0 2px #000, 0 0 0 5px var(--focus);
+  box-shadow:
+    0 0 0 2px #000,
+    0 0 0 5px var(--focus);
   border-radius: 6px;
 }
 .sc .nm {
@@ -1028,7 +1040,7 @@ button {
   line-height: 1.25;
 }
 .sc .rs {
-  grid-column: 1/-1;
+  grid-column: 1 / -1;
   font-size: 0.8rem;
   color: var(--muted);
 }
@@ -1584,7 +1596,12 @@ button {
 }
 .banner {
   aspect-ratio: 1792 / 640;
-  background: linear-gradient(120deg, var(--beam-soft), var(--surface-2) 60%, var(--chain-soft));
+  background: linear-gradient(
+    120deg,
+    var(--beam-soft),
+    var(--surface-2) 60%,
+    var(--chain-soft)
+  );
   position: relative;
   overflow: hidden;
 }
@@ -1598,7 +1615,11 @@ button {
 .banner-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 70% 40%, rgba(245, 165, 36, 0.35), transparent 55%);
+  background: radial-gradient(
+    circle at 70% 40%,
+    rgba(245, 165, 36, 0.35),
+    transparent 55%
+  );
   animation: blink 2.4s ease-in-out infinite;
 }
 .res-head {
@@ -1878,7 +1899,13 @@ button {
   min-height: 100dvh;
   display: flex;
   flex-direction: column;
-  background: radial-gradient(1200px 600px at 85% -10%, rgba(245, 165, 36, 0.18), transparent 60%), var(--bg);
+  background:
+    radial-gradient(
+      1200px 600px at 85% -10%,
+      rgba(245, 165, 36, 0.18),
+      transparent 60%
+    ),
+    var(--bg);
 }
 .site main {
   flex: 1;
@@ -1975,7 +2002,11 @@ button {
   width: 360px;
   height: 360px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(245, 165, 36, 0.45), rgba(245, 165, 36, 0) 65%);
+  background: radial-gradient(
+    circle,
+    rgba(245, 165, 36, 0.45),
+    rgba(245, 165, 36, 0) 65%
+  );
   animation: blink 5s ease-in-out infinite;
 }
 .preview {
@@ -2458,7 +2489,9 @@ button {
   opacity: 0;
   transform: translateY(-6px);
   pointer-events: none;
-  transition: opacity 0.35s ease, transform 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s ease;
   margin-bottom: -10px;
 }
 .activity.on {
@@ -2610,7 +2643,9 @@ button {
   transform: none;
   max-height: 0;
   overflow: hidden;
-  transition: opacity 0.35s ease, max-height 0.35s ease;
+  transition:
+    opacity 0.35s ease,
+    max-height 0.35s ease;
 }
 .activity.on {
   max-height: 60vh;
@@ -2700,7 +2735,9 @@ button {
   height: 9px;
   border-radius: 50%;
   background: var(--line);
-  transition: background 0.5s ease, box-shadow 0.5s ease;
+  transition:
+    background 0.5s ease,
+    box-shadow 0.5s ease;
 }
 .dots i.likely {
   background: var(--good);
@@ -3044,4 +3081,32 @@ button {
 .track a {
   color: var(--ink);
   font-weight: 700;
+}
+
+/* Phones: denser plan steps so actions sit on one or two lines */
+@media (max-width: 560px) {
+  .plan {
+    padding: 12px 14px 18px;
+  }
+  .plan .step {
+    grid-template-columns: 28px minmax(0, 1fr);
+    gap: 10px;
+  }
+  .plan .step:not(:last-child)::before {
+    left: 13px;
+    top: 30px;
+  }
+  .plan .num {
+    width: 28px;
+    height: 28px;
+    font-size: 0.85rem;
+  }
+  .step-actions {
+    gap: 6px;
+  }
+  .step-actions .btn.small {
+    min-height: 36px;
+    padding: 6px 11px;
+    font-size: 0.86rem;
+  }
 }

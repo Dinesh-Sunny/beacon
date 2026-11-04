@@ -6,10 +6,21 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { ClaimTrack } from "./ClaimTrack";
-import { byId, claimOrder, count, howFor, isAuto, nationOf, SCHEMES, type Status, warnings } from "@/engine/rules";
-import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { type Answers, theyify } from "@/engine/facts";
+import {
+  byId,
+  claimOrder,
+  count,
+  howFor,
+  isAuto,
+  nationOf,
+  SCHEMES,
+  type Status,
+  timingFor,
+  warnings,
+} from "@/engine/rules";
+import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { ClaimTrack } from "./ClaimTrack";
 
 interface Prep {
   opening: string;
@@ -27,16 +38,22 @@ export function Results() {
   const likely = count(states, "likely");
   const check = count(states, "check");
   const unlock = count(states, "unlock");
-  const nation = typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const nation =
+    typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
   const order = claimOrder(states, nation);
   const warns = warnings(states, answers);
   const out = SCHEMES.filter((s) => states[s.id]?.status === "out");
-  const have = SCHEMES.filter((s) => states[s.id]?.status === "have").map((s) => s.name);
+  const have = SCHEMES.filter((s) => states[s.id]?.status === "have").map(
+    (s) => s.name,
+  );
   if (!likely && !check && !unlock) {
     return done ? (
       <section className="results empty" data-testid="results">
         <h2>Nothing stands out right now</h2>
-        <p className="why">That can change when life does. Come back after a change in work, health, money or family.</p>
+        <p className="why">
+          That can change when life does. Come back after a change in work,
+          health, money or family.
+        </p>
       </section>
     ) : null;
   }
@@ -45,17 +62,25 @@ export function Results() {
     <section className="results" data-testid="results" aria-labelledby="res-h">
       <Banner done={done} likely={likely} />
       <div className="res-head">
-        <span className="eyebrow">{done ? "Your results" : "Found so far"}</span>
+        <span className="eyebrow">
+          {done ? "Your results" : "Found so far"}
+        </span>
         <h2 id="res-h">
           {total} {total === 1 ? "thing looks" : "things look"} like {whose}
         </h2>
         <p className="why">
-          {[likely ? `${likely} likely` : "", check ? `${check} worth checking` : "", unlock ? `${unlock} more once a first claim is awarded` : ""]
+          {[
+            likely ? `${likely} likely` : "",
+            check ? `${check} worth checking` : "",
+            unlock ? `${unlock} more once a first claim is awarded` : "",
+          ]
             .filter(Boolean)
             .join(", ")}
           .
         </p>
-        {have.length > 0 && <p className="hint">Already getting: {have.join(", ")}.</p>}
+        {have.length > 0 && (
+          <p className="hint">Already getting: {have.join(", ")}.</p>
+        )}
       </div>
 
       {warns.length > 0 && (
@@ -72,14 +97,27 @@ export function Results() {
 
       <ol className="plan" aria-label="Your claim plan">
         {order.map((p, i) => (
-          <PlanStep key={p.id} id={p.id} n={i + 1} when={p.when} status={p.status} answers={answers} />
+          <PlanStep
+            key={p.id}
+            id={p.id}
+            n={i + 1}
+            when={p.when}
+            status={p.status}
+            answers={answers}
+          />
         ))}
       </ol>
 
       <div className="res-foot">
-        <p className="hint">The organisation that runs each one makes the final decision.</p>
+        <p className="hint">
+          The organisation that runs each one makes the final decision.
+        </p>
         {done && (
-          <button type="button" className="btn ghost small" onClick={() => window.print()}>
+          <button
+            type="button"
+            className="btn ghost small"
+            onClick={() => window.print()}
+          >
             <Icon name="download" size={16} /> Save or print
           </button>
         )}
@@ -88,12 +126,14 @@ export function Results() {
       {out.length > 0 && (
         <details className="ruled-out">
           <summary>
-            {out.length} not for {subject.who === "me" ? "you" : subject.label} right now <span className="hint">and why</span>
+            {out.length} not for {subject.who === "me" ? "you" : subject.label}{" "}
+            right now <span className="hint">and why</span>
           </summary>
           <ul>
             {out.map((s) => (
               <li key={s.id}>
-                <b>{s.name}</b> <span className="hint">{states[s.id]?.reason}</span>
+                <b>{s.name}</b>{" "}
+                <span className="hint">{states[s.id]?.reason}</span>
               </li>
             ))}
           </ul>
@@ -103,9 +143,25 @@ export function Results() {
   );
 }
 
-const WHEN_TONE: Record<string, string> = { "Start now": "now", "This week": "week", "After the first award": "later" };
+const WHEN_TONE: Record<string, string> = {
+  "Start now": "now",
+  "This week": "week",
+  "After the first award": "later",
+};
 
-function PlanStep({ id, n, when, status, answers }: { id: string; n: number; when: string; status: Status; answers: Answers }) {
+function PlanStep({
+  id,
+  n,
+  when,
+  status,
+  answers,
+}: {
+  id: string;
+  n: number;
+  when: string;
+  status: Status;
+  answers: Answers;
+}) {
   const s = byId[id];
   const { states, note, setBusy, subject } = useCheck();
   const [prep, setPrep] = useState<Prep | null>(null);
@@ -130,13 +186,20 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
       setPrep(data);
       note("model", "Call coach", `Wrote a call script for ${s.name}`);
     } catch (e) {
-      setErr((e as Error).message === "offline" ? "Call notes need the reading tools, which are resting right now. The number and the official page above still work." : "Those notes didn't come through. Try again in a moment.");
+      setErr(
+        (e as Error).message === "offline"
+          ? "Call notes need the reading tools, which are resting right now. The number and the official page above still work."
+          : "Those notes didn't come through. Try again in a moment.",
+      );
     } finally {
       setLoading(false);
       setBusy("Call coach", false);
     }
   };
-  const auto = isAuto(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null);
+  const nation =
+    typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const auto = isAuto(s, nation);
+  const timing = timingFor(s, nation);
   return (
     <li className={`step ${status}`} data-testid={`plan-${id}`}>
       <span className="num" aria-hidden="true">
@@ -149,31 +212,67 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
           ) : (
             <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
           )}
-          {status !== "likely" && <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>}
+          {status !== "likely" && (
+            <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>
+          )}
         </div>
         <h3>{s.name}</h3>
         <p>{theyify(s.gives, subject)}</p>
-        {status === "check" && states[id]?.reason && <p className="hint">{states[id]?.reason}</p>}
+        {status === "check" && states[id]?.reason && (
+          <p className="hint">{states[id]?.reason}</p>
+        )}
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
-        {(auto || s.act) && status !== "unlock" && <p className="hint">{theyify(howFor(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null), subject)}</p>}
-        {s.timing && status !== "unlock" && (
+        {(auto || s.act) && status !== "unlock" && (
+          <p className="hint">
+            {theyify(
+              howFor(
+                s,
+                typeof answers.postcode === "string"
+                  ? nationOf(answers.postcode)
+                  : null,
+              ),
+              subject,
+            )}
+          </p>
+        )}
+        {timing && status !== "unlock" && (
           <p className="timing">
-            <Icon name="clock" size={16} /> {theyify(s.timing, subject)}
+            <Icon name="clock" size={16} /> {theyify(timing, subject)}
           </p>
         )}
         {status !== "unlock" && (
           <div className="step-actions">
             {s.phone && (
-              <a className="btn small" href={`tel:${s.phone.replace(/\s/g, "")}`}>
+              <a
+                className="btn small"
+                href={`tel:${s.phone.replace(/\s/g, "")}`}
+              >
                 <Icon name="phone" size={16} /> {s.phone}
               </a>
             )}
-            <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
-              {auto ? "Official page" : s.act ? theyify(s.act, subject) : "Claim online"} <Icon name="link" size={16} />
+            <a
+              className="btn ghost small"
+              href={s.url}
+              target="_blank"
+              rel="noreferrer"
+            >
+              {auto
+                ? "Official page"
+                : s.act
+                  ? theyify(s.act, subject)
+                  : "Claim online"}{" "}
+              <Icon name="link" size={16} />
             </a>
             {!auto && (
-              <button type="button" className="btn ghost small" onClick={() => (open ? setOpen(false) : void load())} aria-expanded={open} data-testid={`prep-${id}`}>
-                <Icon name="spark" size={16} /> {open ? "Hide what to say" : "What to say"}
+              <button
+                type="button"
+                className="btn ghost small"
+                onClick={() => (open ? setOpen(false) : void load())}
+                aria-expanded={open}
+                data-testid={`prep-${id}`}
+              >
+                <Icon name="spark" size={16} />{" "}
+                {open ? "Hide what to say" : "What to say"}
               </button>
             )}
           </div>
@@ -229,7 +328,13 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
 function Banner({ done, likely }: { done: boolean; likely: number }) {
   const { states, note, setBusy } = useCheck();
   const [img, setImg] = useState<string | null>(null);
-  const topics = [...new Set(SCHEMES.filter((s) => ["likely", "check"].includes(states[s.id]?.status ?? "")).map((s) => s.topic))];
+  const topics = [
+    ...new Set(
+      SCHEMES.filter((s) =>
+        ["likely", "check"].includes(states[s.id]?.status ?? ""),
+      ).map((s) => s.topic),
+    ),
+  ];
   const key = `beacon:banner:${topics.sort().join(",")}`;
   // biome-ignore lint/correctness/useExhaustiveDependencies: paint once per topic set
   useEffect(() => {
@@ -245,7 +350,11 @@ function Banner({ done, likely }: { done: boolean; likely: number }) {
     }
     let alive = true;
     setBusy("Muse Image", true);
-    fetch("/api/card", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ topics }) })
+    fetch("/api/card", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ topics }),
+    })
       .then((r) => r.json() as Promise<{ image?: string }>)
       .then((d) => {
         if (!alive || !d.image) return;

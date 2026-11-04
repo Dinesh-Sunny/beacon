@@ -17,7 +17,12 @@ export function LetterCard({ l }: { l: LetterView }) {
         {b && (
           <span
             className="letter-box"
-            style={{ left: `${b.x1 * sx}%`, top: `${b.y1 * sy}%`, width: `${(b.x2 - b.x1) * sx}%`, height: `${(b.y2 - b.y1) * sy}%` }}
+            style={{
+              left: `${b.x1 * sx}%`,
+              top: `${b.y1 * sy}%`,
+              width: `${(b.x2 - b.x1) * sx}%`,
+              height: `${(b.y2 - b.y1) * sy}%`,
+            }}
           >
             <em>Letter found</em>
           </span>
@@ -35,7 +40,9 @@ export function LetterCard({ l }: { l: LetterView }) {
         {l.deadlines.map((d) => (
           <p key={d.what} className="letter-deadline">
             <Icon name="clock" size={16} /> {d.what}
-            {d.date ? ` by ${new Date(d.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}` : ""}
+            {d.date
+              ? ` by ${new Date(d.date).toLocaleDateString("en-GB", { day: "numeric", month: "long", year: "numeric" })}`
+              : ""}
           </p>
         ))}
       </div>

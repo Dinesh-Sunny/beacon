@@ -9,11 +9,21 @@ export const maxDuration = 60;
 
 const Body = z.object({
   messages: z
-    .array(z.object({ role: z.enum(["user", "assistant"]), content: z.string().min(1).max(4000) }))
+    .array(
+      z.object({
+        role: z.enum(["user", "assistant"]),
+        content: z.string().min(1).max(4000),
+      }),
+    )
     .min(1)
     .max(16),
   answers: AnswersSchema,
-  subject: z.object({ who: z.enum(["me", "other"]), label: z.string().max(20).optional() }).optional(),
+  subject: z
+    .object({
+      who: z.enum(["me", "other"]),
+      label: z.string().max(20).optional(),
+    })
+    .optional(),
 });
 
 export async function POST(req: Request) {
@@ -33,9 +43,12 @@ export async function POST(req: Request) {
   const enc = new TextEncoder();
   const stream = new ReadableStream({
     async start(controller) {
-      const send = (o: unknown) => controller.enqueue(enc.encode(`${JSON.stringify(o)}\n`));
+      const send = (o: unknown) =>
+        controller.enqueue(enc.encode(`${JSON.stringify(o)}\n`));
       try {
-        const out = await runAgent(messages, answers, subject, (step) => send({ type: "step", ...step }));
+        const out = await runAgent(messages, answers, subject, (step) =>
+          send({ type: "step", ...step }),
+        );
         send({ type: "done", ...out });
       } catch (err) {
         const res = failure(err);
@@ -46,5 +59,10 @@ export async function POST(req: Request) {
       }
     },
   });
-  return new Response(stream, { headers: { "Content-Type": "application/x-ndjson", "Cache-Control": "no-store" } });
+  return new Response(stream, {
+    headers: {
+      "Content-Type": "application/x-ndjson",
+      "Cache-Control": "no-store",
+    },
+  });
 }

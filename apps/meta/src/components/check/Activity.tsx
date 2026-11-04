@@ -40,13 +40,25 @@ export function Activity() {
   if (!log.length && !working.length) return null;
   return (
     <div className={`activity${visible ? " on" : ""}`} data-testid="activity">
-      <button type="button" className="activity-pill" onClick={() => setOpen((o) => !o)} aria-expanded={open}>
-        <span className={`pulse${working.length ? " busy" : ""}`} aria-hidden="true" />
+      <button
+        type="button"
+        className="activity-pill"
+        onClick={() => setOpen((o) => !o)}
+        aria-expanded={open}
+      >
+        <span
+          className={`pulse${working.length ? " busy" : ""}`}
+          aria-hidden="true"
+        />
         <span className="activity-text">
           {working.length ? (
             <b>{PLAIN[working[0] ?? ""] ?? "Working on it"}…</b>
           ) : last ? (
-            <>{last.kind === "model" || last.kind === "rules" ? last.text : "Checked the rules again"}</>
+            <>
+              {last.kind === "model" || last.kind === "rules"
+                ? last.text
+                : "Checked the rules again"}
+            </>
           ) : null}
         </span>
         <span className="activity-more">{open ? "Close" : "Steps"}</span>

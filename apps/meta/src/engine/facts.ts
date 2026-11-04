@@ -4,7 +4,13 @@
 import type { z } from "zod";
 import type * as S from "./answers-schema.ts";
 
-export { type Answers, type FactId, UNSURE, type Unsure } from "./answers-schema.ts";
+export {
+  type Answers,
+  type FactId,
+  UNSURE,
+  type Unsure,
+} from "./answers-schema.ts";
+
 import { type Answers, type FactId, UNSURE } from "./answers-schema.ts";
 
 export type Period = z.infer<typeof S.Period>;
@@ -192,14 +198,17 @@ export interface Subject {
 }
 export const ME: Subject = { who: "me" };
 
-const RELATION = /^(my |a |mum|dad|mom|nan|gran|grandma|grandad|friend|partner|husband|wife|son|daughter|brother|sister|aunt|uncle)/i;
+const RELATION =
+  /^(my |a |mum|dad|mom|nan|gran|grandma|grandad|friend|partner|husband|wife|son|daughter|brother|sister|aunt|uncle)/i;
 
 /** How the caller names the person: "my mum" for a relationship, the name itself for a name like "Fiona". */
 export function callerPhrase(sub: Subject): string {
   const label = (sub.label ?? "").replace(/[^\p{L} '-]/gu, "").trim();
   if (sub.who === "me") return "I";
   if (!label) return "my relative";
-  return RELATION.test(label) ? `my ${label.toLowerCase().replace(/^(my|a) /, "")}` : label;
+  return RELATION.test(label)
+    ? `my ${label.toLowerCase().replace(/^(my|a) /, "")}`
+    : label;
 }
 
 export function ask(f: FactId, sub: Subject): string {
@@ -211,28 +220,38 @@ export function ask(f: FactId, sub: Subject): string {
 /** Turns "you" copy into "they" copy when the check is for someone else. */
 export function theyify(text: string, sub: Subject): string {
   if (sub.who === "me") return text;
-  return text
-    .replace(/\bYour\b/g, "Their")
-    .replace(/\byour\b/g, "their")
-    .replace(/\byou're\b/g, "they're")
-    .replace(/\bYou\b/g, "They")
-    // "you" as an object becomes "them": after a verb or preposition, or before punctuation.
-    .replace(/\b(add|adds|help|helps|to|for|with|give|gives|tell|ask|let|contact|call|send|pay|pays|protect|protects|stop|stops|reach|support|supports|from|about) you\b/g, "$1 them")
-    .replace(/\byou(?=[.,;:!?])/g, "them")
-    .replace(/\byou\b/g, "they");
+  return (
+    text
+      .replace(/\bYour\b/g, "Their")
+      .replace(/\byour\b/g, "their")
+      .replace(/\byou're\b/g, "they're")
+      .replace(/\bYou\b/g, "They")
+      // "you" as an object becomes "them": after a verb or preposition, or before punctuation.
+      .replace(
+        /\b(add|adds|help|helps|to|for|with|give|gives|tell|ask|let|contact|call|send|pay|pays|protect|protects|stop|stops|reach|support|supports|from|about) you\b/g,
+        "$1 them",
+      )
+      .replace(/\byou(?=[.,;:!?])/g, "them")
+      .replace(/\byou\b/g, "they")
+  );
 }
 
 /** Option wording that changes with who the check is for. */
 export function optLabel(label: string, sub: Subject): string {
   if (sub.who === "me") return label;
-  return label.replace(/^My /, "Their ").replace(/I'm paying/, "they're paying");
+  return label
+    .replace(/^My /, "Their ")
+    .replace(/I'm paying/, "they're paying");
 }
 
 export const REGISTRY: Record<FactType, { comp: string; why: string }> = {
   postcode: { comp: "Postcode", why: "one field gives nation and council" },
   date: { comp: "Date", why: "exact date, age worked out for you" },
   money: { comp: "Money", why: "exact amount, checked against limits" },
-  moneyPeriod: { comp: "Money + period", why: "week, month or year, all made weekly" },
+  moneyPeriod: {
+    comp: "Money + period",
+    why: "week, month or year, all made weekly",
+  },
   checklist: { comp: "Checklist", why: "several can be true at once" },
   work: { comp: "Status + hours", why: "hours only if employed" },
   hours: { comp: "Hours", why: "compared with the 35-hour line" },
@@ -259,11 +278,20 @@ const WORK_TXT: Record<WorkStatus, string> = {
 
 /** Reads back an answer using everything known, so an age stays an age. */
 export function showAnswer(a: Answers, f: FactId): string {
-  if (f === "dob" && a.dobApprox && typeof a.dob === "string" && a.dob !== UNSURE) {
+  if (
+    f === "dob" &&
+    a.dobApprox &&
+    typeof a.dob === "string" &&
+    a.dob !== UNSURE
+  ) {
     const b = new Date(a.dob);
     const now = new Date();
     let age = now.getFullYear() - b.getFullYear();
-    if (now.getMonth() < b.getMonth() || (now.getMonth() === b.getMonth() && now.getDate() < b.getDate())) age--;
+    if (
+      now.getMonth() < b.getMonth() ||
+      (now.getMonth() === b.getMonth() && now.getDate() < b.getDate())
+    )
+      age--;
     return `About ${age}`;
   }
   return formatAnswer(f, a[f]);
