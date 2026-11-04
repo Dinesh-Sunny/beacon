@@ -64,7 +64,7 @@ export type Cond = z.infer<typeof CondSchema>;
 const Id = z.string().regex(/^[a-z]+$/);
 export type Topic = string;
 
-const SchemeSchema = z.strictObject({
+export const SchemeSchema = z.strictObject({
   id: Id,
   name: z.string(),
   topic: Id,
