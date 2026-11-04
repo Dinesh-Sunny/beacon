@@ -16,6 +16,7 @@ import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
 import { COVERED_NATIONS, SCHEMES, TOPICS } from "@/engine/rules";
+import { intlTag } from "@/i18n/locales";
 import { getLocale, getT } from "@/i18n/server";
 
 export const metadata: Metadata = {
@@ -25,9 +26,9 @@ export const metadata: Metadata = {
 export default async function Home() {
   const t = await getT();
   const locale = await getLocale();
-  const nations = new Intl.ListFormat(locale, { type: "conjunction" }).format(
-    COVERED_NATIONS.map((n) => t(`nations.${n}`)),
-  );
+  const nations = new Intl.ListFormat(intlTag(locale), {
+    type: "conjunction",
+  }).format(COVERED_NATIONS.map((n) => t(`nations.${n}`)));
   return (
     <div className="site mk-page">
       <SiteHeader />

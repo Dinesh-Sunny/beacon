@@ -46,3 +46,7 @@ export function fromBrowser(langs: readonly string[]): Locale | null {
   }
   return null;
 }
+
+/** The tag for Intl formatting: British English for English. */
+export const intlTag = (code: Locale): string =>
+  code === "en" ? "en-GB" : code;
