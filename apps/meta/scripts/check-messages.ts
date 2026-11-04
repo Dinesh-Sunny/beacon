@@ -9,7 +9,7 @@ const { IntlMessageFormat } = require(
   require.resolve("intl-messageformat", {
     paths: [require.resolve("use-intl")],
   }),
-) as typeof import("intl-messageformat");
+) as { IntlMessageFormat: new (message: string, locale: string) => unknown };
 
 type Tree = { [k: string]: string | Tree };
 const flat = (t: Tree, p = ""): Map<string, string> =>
