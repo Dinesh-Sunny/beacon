@@ -1,40 +1,18 @@
 // Raw facts a person gives, and the input component each fact type resolves to.
 // Wording here is the single source for the question card, the chat and the agent tools.
 
-export const UNSURE = "unsure" as const;
-export type Unsure = typeof UNSURE;
+import type { z } from "zod";
+import type * as S from "./answers-schema.ts";
 
-export type Period = "week" | "month" | "year";
-export interface Money {
-  amt: number;
-  per: Period;
-}
-export type WorkStatus = "employed" | "self" | "none" | "sick";
-export interface Work {
-  status: WorkStatus;
-  hours?: number;
-}
-export type YesNo = "yes" | "no";
-export type Bereaved = "no" | "partner" | "funeral";
+export { type Answers, type FactId, UNSURE, type Unsure } from "./answers-schema.ts";
+import { type Answers, type FactId, UNSURE } from "./answers-schema.ts";
 
-export interface Answers {
-  postcode?: string | Unsure;
-  dob?: string | Unsure;
-  benefits?: string[] | Unsure;
-  income?: Money | Unsure;
-  savings?: number | Unsure;
-  difficulties?: string[] | Unsure;
-  work?: Work | Unsure;
-  ni?: YesNo | Unsure;
-  child?: string | "none" | Unsure;
-  pregnant?: YesNo | Unsure;
-  careHours?: number | Unsure;
-  ctax?: YesNo | Unsure;
-  bereaved?: Bereaved | Unsure;
-  /** True when the date of birth was worked out from an age, so it reads back as an age. */
-  dobApprox?: boolean;
-}
-export type FactId = Exclude<keyof Answers, "dobApprox">;
+export type Period = z.infer<typeof S.Period>;
+export type Money = z.infer<typeof S.Money>;
+export type WorkStatus = z.infer<typeof S.WorkStatus>;
+export type Work = z.infer<typeof S.Work>;
+export type YesNo = z.infer<typeof S.YesNo>;
+export type Bereaved = z.infer<typeof S.Bereaved>;
 
 export type FactType =
   | "postcode"
@@ -157,6 +135,19 @@ export const FACTS: Record<FactId, Fact> = {
     qThey: "Does {n} pay council tax?",
     why: "Your council can reduce it.",
     label: "Pays council tax",
+  },
+  housing: {
+    type: "choice",
+    q: "Where do you live?",
+    qThey: "Where does {n} live?",
+    why: "Renting can open help with the rent.",
+    label: "Home",
+    opts: [
+      ["social", "Rent from the council or a housing association"],
+      ["private", "Rent privately"],
+      ["own", "Own it"],
+      ["family", "Live with family or friends"],
+    ],
   },
   bereaved: {
     type: "choice",

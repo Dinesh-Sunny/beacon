@@ -5,6 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
+import { AnswersSchema } from "@/engine/answers-schema";
 import { type Answers, ask, FACTS, type FactId, type Money, optLabel, type Period, theyify, UNSURE, type Work, type WorkStatus } from "@/engine/facts";
 import { derive, derivedChips, POSTCODE_RE, SCHEMES } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
@@ -23,8 +24,17 @@ interface Draft {
 }
 
 type Read = { v: Answers[FactId] } | { err: string } | { empty: true };
+type RawRead = { v: unknown } | { err: string } | { empty: true };
 
+/** Reads the inputs, then lets the answers schema have the final say on the value's shape. */
 function readDraft(f: FactId, x: Draft, today = new Date()): Read {
+  const r = readRaw(f, x, today);
+  if (!("v" in r)) return r;
+  const parsed = AnswersSchema.shape[f].safeParse(r.v);
+  return parsed.success ? { v: parsed.data } : { err: "That answer doesn't fit. Try again." };
+}
+
+function readRaw(f: FactId, x: Draft, today: Date): RawRead {
   const t = FACTS[f].type;
   if (t === "postcode") {
     const v = (x.pc ?? "").trim().toUpperCase().replace(/\s+/g, " ");

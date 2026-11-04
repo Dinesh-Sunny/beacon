@@ -179,6 +179,7 @@
                       "pregnant",
                       "careHours",
                       "ctax",
+                      "housing",
                       "bereaved"
                     ]
                   }
@@ -218,7 +219,8 @@
                         "pregnant",
                         "careHours",
                         "ctax",
-                        "bereaved"
+                        "bereaved",
+                        "housing"
                       ]
                     },
                     "line": {
@@ -337,7 +339,8 @@
                 "pregnant",
                 "careHours",
                 "ctax",
-                "bereaved"
+                "bereaved",
+                "housing"
               ]
             },
             "op": {
@@ -405,7 +408,8 @@
                 "pregnant",
                 "careHours",
                 "ctax",
-                "bereaved"
+                "bereaved",
+                "housing"
               ]
             },
             "op": {

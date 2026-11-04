@@ -4,6 +4,7 @@
 
 import ukBills from "../../packs/uk-bills.json";
 import ukCore from "../../packs/uk-core.json";
+import ukCouncil from "../../packs/uk-council.json";
 import ukHealth from "../../packs/uk-health.json";
 import { type Answers, FACTS, type FactId, ORDER, UNSURE } from "./facts.ts";
 import { type Cond, type DerivedValues, type PackedScheme, RegistrySchema, run, type Topic } from "./pack.ts";
@@ -87,6 +88,7 @@ export interface Derived {
   careHours?: number;
   ctax?: boolean;
   bereaved?: string;
+  housing?: string;
 }
 
 const isSet = <T>(v: T | undefined | typeof UNSURE): v is T =>
@@ -127,6 +129,7 @@ export function derive(A: Answers, today = new Date()): Derived {
   if (isSet(A.careHours)) d.careHours = A.careHours;
   if (isSet(A.ctax)) d.ctax = A.ctax === "yes";
   if (isSet(A.bereaved)) d.bereaved = A.bereaved;
+  if (isSet(A.housing)) d.housing = A.housing;
   return d;
 }
 
@@ -155,7 +158,7 @@ export function derivedChips(f: FactId, d: Derived): string[] {
 // ---------- The packs ----------
 // Load order is layer order: the core benefits first, then each group of help built on them.
 // Adding a group is a new JSON file here; the registry check fails the build on any bad reference.
-export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth]);
+export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth, ukCouncil]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
 export const LINES = REGISTRY.lines;
@@ -216,23 +219,24 @@ export function evaluate(A: Answers, today = new Date()): States {
     let fail: string | null = null;
     let gateNo = false;
     let near = false;
+    let nearMiss = false;
     const unknown: FactId[] = [];
     const marks: Tri[] = [];
     for (const cond of s.rule) {
       const r = test(cond, d, A);
       marks.push(r);
+      // A miss by a small margin only softens its own condition; any clear miss still rules it out.
+      const close = r !== null && isNear(cond, d);
+      if (close) near = true;
       if (r === false && cond.gate) gateNo = true;
-      else if (r === false && !fail) fail = cond.fail;
-      if (r !== null && isNear(cond, d)) near = true;
+      else if (r === false && !close && !fail) fail = cond.fail;
+      else if (r === false && close) nearMiss = true;
       if (r === null) unknown.push(...(cond.needs as FactId[]).filter((f) => !known(A, f)));
     }
     let status: Status;
     let reason = "";
     const unk = [...new Set(unknown)];
-    if (fail && near) {
-      status = "check";
-      reason = "Close to the line, worth a proper check";
-    } else if (fail) {
+    if (fail) {
       status = "out";
       reason = fail;
     } else if (gateNo) {
@@ -244,6 +248,9 @@ export function evaluate(A: Answers, today = new Date()): States {
         status = "out";
         reason = "Needs Universal Credit or Pension Credit";
       }
+    } else if (nearMiss && !unk.length) {
+      status = "check";
+      reason = "Close to the line, worth a proper check";
     } else if (!unk.length) {
       status = near || s.worthChecking ? "check" : "likely";
       if (near) reason = "Close to the line, worth a proper check";

@@ -6,6 +6,7 @@
 // or to a named screening line, and combine with any / all.
 
 import { z } from "zod";
+import { FACT_IDS } from "./answers-schema.ts";
 
 export const DERIVED_KEYS = [
   "nation",
@@ -26,10 +27,10 @@ export const DERIVED_KEYS = [
   "careHours",
   "ctax",
   "bereaved",
+  "housing",
 ] as const;
 export type DerivedKey = (typeof DERIVED_KEYS)[number];
 
-const FACT_IDS = ["postcode", "dob", "benefits", "income", "savings", "difficulties", "work", "ni", "child", "pregnant", "careHours", "ctax", "bereaved"] as const;
 
 const Scalar = z.union([z.string(), z.number(), z.boolean()]);
 const LineRef = z.strictObject({ line: z.string() });
