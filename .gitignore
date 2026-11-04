@@ -27,3 +27,6 @@ next-env.d.ts
 coverage/
 playwright-report/
 test-results/
+
+# Harvest run log (local progress only)
+apps/meta/catalog/harvest/status.json
