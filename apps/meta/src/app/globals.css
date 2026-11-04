@@ -4148,3 +4148,10 @@ html[data-focus="on"]
   align-items: center;
   gap: 4px;
 }
+/* On wide screens, captions sit over the canvas, clear of the chat box. */
+@media (min-width: 900px) {
+  .caption-bar {
+    inset-inline-start: calc(var(--chat-w) + 24px);
+    bottom: 24px;
+  }
+}
