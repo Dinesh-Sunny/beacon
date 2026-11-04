@@ -1,0 +1,443 @@
+{
+  "version": "2026-11-04",
+  "people": [
+    {
+      "id": "older",
+      "label": "Older people",
+      "phase": 1,
+      "facts": ["dob", "income", "savings", "housing", "ctax", "benefits", "difficulties"],
+      "missingFacts": ["whether they live alone (NI Lone Pensioner Allowance, single person discount)", "whether they have a private or workplace pension pot (Pension Wise, lost pensions)"]
+    },
+    {
+      "id": "disabled",
+      "label": "Disabled people and people with a long-term health condition",
+      "phase": 1,
+      "facts": ["difficulties", "benefits", "dob", "work", "housing"],
+      "missingFacts": ["whether the home needs adapting (Disabled Facilities Grant)", "whether a disabled person needs an extra room or wheelchair space (Council Tax disabled band reduction)", "whether a child in the home is disabled (DLA for children, Child Disability Payment, Family Fund)", "whether the condition was caused by work (Industrial Injuries Disablement Benefit)", "whether they need help to get or keep a job because of the condition (Access to Work)"]
+    },
+    {
+      "id": "carers",
+      "label": "Unpaid carers",
+      "phase": 1,
+      "facts": ["careHours", "dob", "benefits", "work", "income"],
+      "missingFacts": ["whether the carer is in education (Young Carer Grant)", "whether the person cared for gets a disability benefit"]
+    },
+    {
+      "id": "families",
+      "label": "Families with children and people expecting a baby",
+      "phase": 1,
+      "facts": ["child", "pregnant", "income", "work", "benefits", "postcode"],
+      "missingFacts": ["number of children and each child's age band", "school stage of each child (primary, secondary, 16 to 19)", "distance to the nearest suitable school (school transport)", "whether they use or need childcare", "whether they are bringing up someone else's child after a parent died (Guardian's Allowance)"]
+    },
+    {
+      "id": "young",
+      "label": "Young people (16 to 24)",
+      "phase": 1,
+      "facts": ["dob", "work", "child", "careHours", "income"],
+      "missingFacts": ["whether they are in school, college or training", "whether they are a care leaver", "whether they live without parental support"]
+    },
+    {
+      "id": "outofwork",
+      "label": "People out of work or about to lose work",
+      "phase": 1,
+      "facts": ["work", "ni", "benefits", "income", "savings"],
+      "missingFacts": ["whether they were made redundant and how long they worked there (statutory redundancy pay)", "whether the employer has gone bust (Redundancy Payments Service)", "how long they have been on benefits (Budgeting Loan, Job Start Payment)"]
+    },
+    {
+      "id": "lowpay",
+      "label": "People in low-paid work",
+      "phase": 1,
+      "facts": ["income", "work", "benefits", "savings", "housing", "ctax"],
+      "missingFacts": ["whether they pay for work items themselves (tax relief for job expenses)", "whether they are married or in a civil partnership and who earns less (Marriage Allowance)", "whether they think they were paid less than the minimum wage"]
+    },
+    {
+      "id": "events",
+      "label": "People going through a life event",
+      "phase": 1,
+      "facts": ["bereaved", "pregnant", "child", "work"],
+      "missingFacts": ["recent job loss or redundancy", "separation or divorce", "being a victim of violent crime (criminal injuries compensation)", "a home emergency such as fire or flood (crisis grants)", "a recent death with no will or known family (bona vacantia)"]
+    },
+    {
+      "id": "migrants",
+      "label": "People who moved to the UK",
+      "phase": 1,
+      "facts": ["postcode", "work", "ni"],
+      "missingFacts": ["whether they can get public funds, asked only as yes, no or unsure, never the visa type (most benefits are closed to people with no recourse to public funds; many charity, school and NHS help still applies)"]
+    },
+    {
+      "id": "helpers",
+      "label": "People helping someone else (family, advisers, support workers)",
+      "phase": 1,
+      "facts": ["postcode", "dob", "benefits", "difficulties", "careHours"],
+      "missingFacts": ["a 'checking for someone else' mode that changes the 'you' voice", "whether the person helped agrees to the check"]
+    },
+    {
+      "id": "sole",
+      "label": "Self-employed and sole traders",
+      "phase": 2,
+      "facts": ["work", "income"],
+      "missingFacts": ["trading income band and how long they have traded", "whether they pay Class 2 or Class 4 National Insurance"]
+    },
+    {
+      "id": "firms",
+      "label": "Small firms",
+      "phase": 2,
+      "facts": [],
+      "missingFacts": ["sector, size, nation and council area of the business", "rateable value band (business rates relief)"]
+    },
+    {
+      "id": "groups",
+      "label": "Community groups and small charities",
+      "phase": 2,
+      "facts": [],
+      "missingFacts": ["legal form and charity number if any", "area of work and annual income band"]
+    },
+    {
+      "id": "employers",
+      "label": "Employers checking support for staff",
+      "phase": 2,
+      "facts": [],
+      "missingFacts": ["number of staff and payroll size band", "whether they take on apprentices or disabled staff"]
+    },
+    {
+      "id": "landlords",
+      "label": "Landlords",
+      "phase": 2,
+      "facts": [],
+      "missingFacts": ["property type, EPC band and council area", "whether tenants get housing support"]
+    },
+    {
+      "id": "abroad",
+      "label": "UK people living abroad",
+      "phase": 3,
+      "facts": ["dob", "ni"],
+      "missingFacts": ["country of residence", "years of UK National Insurance record"]
+    },
+    {
+      "id": "community",
+      "label": "Communities checking together",
+      "phase": 4,
+      "facts": [],
+      "missingFacts": ["area-level answers only, never personal ones"]
+    }
+  ],
+  "providers": [
+    {
+      "id": "central",
+      "label": "UK government (DWP, HMRC, DfE and others)",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": ["pc", "uc", "cwp", "wfp", "tv", "pip", "aa", "ca", "cb", "tfc", "ma", "ssmg", "jsa", "esa", "bsp", "fep"],
+      "next": [
+        { "id": "hts", "name": "Help to Save", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/get-help-savings-low-income", "rule": "Some people getting Universal Credit can save each month and get a government bonus; the eligibility page has the earnings conditions.", "facts": ["benefits", "income"], "checked": "2026-11-04" },
+        { "id": "mar", "name": "Marriage Allowance", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/marriage-allowance", "rule": "Married couples or civil partners where the lower earner earns under the Personal Allowance and the higher earner pays basic-rate tax.", "facts": ["income", "work", "married"], "checked": "2026-11-04" },
+        { "id": "atw", "name": "Access to Work", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/access-to-work", "rule": "People with a physical or mental health condition or disability who need help to get or keep a job.", "facts": ["difficulties", "work"], "checked": "2026-11-04" },
+        { "id": "carc", "name": "Carer's Credit", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/carers-credit", "rule": "People caring for someone for at least 20 hours a week, to fill gaps in their National Insurance record.", "facts": ["careHours", "dob", "ni"], "checked": "2026-11-04" },
+        { "id": "ga", "name": "Guardian's Allowance", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/guardians-allowance", "rule": "People bringing up a child whose parents have died (sometimes when one parent is still alive), usually alongside Child Benefit.", "facts": ["child", "bereaved", "benefits"], "checked": "2026-11-04" },
+        { "id": "jobexp", "name": "Tax relief for job expenses", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/tax-relief-for-employees", "rule": "Employees who paid tax and paid for things their job needs, used only for work and not paid back by the employer.", "facts": ["work", "jobCosts"], "checked": "2026-11-04" },
+        { "id": "dlac", "name": "Disability Living Allowance for children", "nation": ["eng", "wal"], "url": "https://www.gov.uk/disability-living-allowance-children", "rule": "Children under 16 with walking difficulties or who need much more care than other children their age; children in Scotland get Child Disability Payment instead.", "facts": ["child", "childDisabled", "postcode"], "checked": "2026-11-04" },
+        { "id": "iidb", "name": "Industrial Injuries Disablement Benefit", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/industrial-injuries-disablement-benefit", "rule": "People ill or disabled because of an accident at work, an approved training scheme or a listed work disease.", "facts": ["difficulties", "workInjury"], "checked": "2026-11-04" },
+        { "id": "bl", "name": "Budgeting Loan", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/budgeting-help-benefits", "rule": "People who have been on certain benefits for 6 months, for essential one-off costs; interest-free and paid back.", "facts": ["benefits", "benefitMonths"], "checked": "2026-11-04" },
+        { "id": "fch", "name": "Free childcare for working parents", "nation": ["eng"], "url": "https://www.gov.uk/free-childcare-if-working", "rule": "Working parents in England, earning above a minimum, with a child aged 9 months to 4 years.", "facts": ["child", "work", "income", "postcode"], "checked": "2026-11-04" },
+        { "id": "twos", "name": "15 hours free childcare for 2-year-olds (extra support)", "nation": ["eng"], "url": "https://www.gov.uk/help-with-childcare-costs/free-childcare-2-year-olds", "rule": "Families in England getting certain benefits or support, with a 2-year-old.", "facts": ["child", "benefits", "postcode"], "checked": null },
+        { "id": "smi", "name": "Support for Mortgage Interest", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/support-for-mortgage-interest", "rule": "Homeowners on certain income-related benefits can get a loan towards mortgage interest.", "facts": ["housing", "benefits"], "checked": null },
+        { "id": "pw", "name": "Pension Wise free guidance", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.moneyhelper.org.uk/en/pensions-and-retirement/pension-wise", "rule": "People aged 50 or over with a UK defined contribution pension pot, or who inherited one or can take it early through ill health.", "facts": ["dob", "pensionPot"], "checked": "2026-11-04" }
+      ],
+      "connectors": [
+        { "name": "GOV.UK Content API", "kind": "api", "url": "https://content-api.publishing.service.gov.uk/", "access": "open", "covers": "The structured JSON behind any GOV.UK page: GET https://www.gov.uk/api/content/<path>. Gives body text, parts, updated dates and links for every central scheme page.", "notes": "No key. Max 10 requests a second per client. Content under the Open Government Licence v3.0. The API is in beta and may change. Checked 2026-11-04." },
+        { "name": "GOV.UK Search API", "kind": "search", "url": "https://www.gov.uk/api/search.json", "access": "open", "covers": "Finds GOV.UK pages by filters such as content_store_document_type, mainstream_browse_pages and organisations, with aggregates. Use it to list every benefit, grant and 'answer' page to diff against the packs.", "notes": "No key. Endpoint answered on 2026-11-04 (769 documents of type 'answer'). Filter names change over time, so read the live response rather than hard-coding counts." },
+        { "name": "GOV.UK benefits calculators page", "kind": "page", "url": "https://www.gov.uk/benefits-calculators", "access": "open", "covers": "Names the government-endorsed independent calculators (entitledto, Turn2us, Policy in Practice) and the groups they do not serve well.", "notes": "Comparator list only. Checked 2026-11-04." },
+        { "name": "entitledto", "kind": "page", "url": "https://www.entitledto.co.uk/", "access": "licence", "covers": "Comparator: public benefits calculator and a paid adviser calculator. Use to sanity-check Beacon results by hand, not as a data source.", "notes": "The homepage does not mention an API or reuse terms. Any automated use needs a commercial agreement." },
+        { "name": "Policy in Practice Better Off Calculator", "kind": "page", "url": "https://policyinpractice.co.uk/", "access": "licence", "covers": "Comparator: Better Off Calculator, plus LIFT analytics that councils license to find residents missing support.", "notes": "Free for individuals. Council licensing terms are not published; contact the company. Not a source for Beacon rules." },
+        { "name": "Turn2us benefits calculator", "kind": "page", "url": "https://www.turn2us.org.uk/", "access": "licence", "covers": "Comparator: benefits calculator that organisations can embed.", "notes": "Site terms limit use to personal, non-commercial purposes; anything else needs written permission from Turn2us." }
+      ]
+    },
+    {
+      "id": "devolved",
+      "label": "Scottish Government, Welsh Government and Northern Ireland departments",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": ["adp", "csp"],
+      "next": [
+        { "id": "scp", "name": "Scottish Child Payment", "nation": ["sco"], "url": "https://www.mygov.scot/scottish-child-payment", "rule": "People in Scotland looking after a child under 16 who get a qualifying benefit such as Universal Credit; paid weekly per child.", "facts": ["child", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "bsg", "name": "Best Start Grant and Best Start Foods", "nation": ["sco"], "url": "https://www.mygov.scot/best-start-grant-best-start-foods", "rule": "People in Scotland who are pregnant or caring for a young child; Best Start Foods runs from pregnancy until the child turns 3.", "facts": ["pregnant", "child", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "ycg", "name": "Young Carer Grant", "nation": ["sco"], "url": "https://www.mygov.scot/young-carer-grant", "rule": "Young carers in Scotland aged 16 or over and under 19 who have cared for about 16 hours a week on average over the last three months.", "facts": ["dob", "careHours", "postcode"], "checked": "2026-11-04" },
+        { "id": "chwp", "name": "Child Winter Heating Payment", "nation": ["sco"], "url": "https://www.mygov.scot/child-winter-heating-payment", "rule": "Families in Scotland of disabled children and young people getting certain disability benefits; paid once a year from October.", "facts": ["child", "childDisabled", "postcode"], "checked": "2026-11-04" },
+        { "id": "pawhp", "name": "Pension Age Winter Heating Payment", "nation": ["sco"], "url": "https://www.mygov.scot/pension-age-winter-heating-payment", "rule": "People of State Pension age in Scotland, mostly paid automatically; taken back through tax if individual income is over the set limit.", "facts": ["dob", "postcode", "income"], "checked": "2026-11-04" },
+        { "id": "jsp", "name": "Job Start Payment", "nation": ["sco"], "url": "https://www.mygov.scot/job-start-payment", "rule": "Young people in Scotland, including care leavers, starting a job after a time out of work on certain benefits.", "facts": ["dob", "work", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "cdp", "name": "Child Disability Payment", "nation": ["sco"], "url": "https://www.mygov.scot/child-disability-payment", "rule": "Children in Scotland with a disability or long-term health condition who need extra care or help getting around.", "facts": ["child", "childDisabled", "postcode"], "checked": null },
+        { "id": "swf", "name": "Scottish Welfare Fund (Crisis Grant, Community Care Grant)", "nation": ["sco"], "url": "https://www.mygov.scot/scottish-welfare-fund", "rule": "People in Scotland aged 16 or over on a low income or certain benefits, facing an emergency or needing help to live independently; apply to the council, not paid back.", "facts": ["dob", "income", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "daf", "name": "Discretionary Assistance Fund (EAP and IAP)", "nation": ["wal"], "url": "https://www.gov.wales/discretionary-assistance-fund-daf", "rule": "People in Wales in extreme financial hardship, after job loss or waiting for a first benefit payment (EAP), or needing help to live independently (IAP).", "facts": ["income", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "nids", "name": "Discretionary Support", "nation": ["ni"], "url": "https://www.nidirect.gov.uk/articles/discretionary-support", "rule": "People in Northern Ireland aged 18 or over (or 16 or over without parental support) with household income at or below the set yearly limit, facing an emergency.", "facts": ["dob", "income", "postcode"], "checked": "2026-11-04" },
+        { "id": "lpa", "name": "Lone Pensioner Allowance (rates)", "nation": ["ni"], "url": "https://www.nidirect.gov.uk/articles/lone-pensioner-allowance", "rule": "Homeowners and tenants in Northern Ireland aged 70 or over who live alone get a discount on their rates; some living with a carer or child also qualify.", "facts": ["dob", "livesAlone", "housing", "postcode"], "checked": "2026-11-04" },
+        { "id": "ndpa", "name": "Disabled Person's Allowance (rates)", "nation": ["ni"], "url": "https://www.nidirect.gov.uk/articles/disabled-persons-allowance", "rule": "Homes in Northern Ireland adapted or with extra facilities for a disabled person may get a rates reduction.", "facts": ["difficulties", "housing", "postcode"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "mygov.scot", "kind": "page", "url": "https://www.mygov.scot/", "access": "scrape", "covers": "Official pages for Social Security Scotland benefits and the Scottish Welfare Fund.", "notes": "No content API found. Reuse terms not checked; most Scottish Government content is under the Open Government Licence, but confirm before bulk copying. Fetch politely and snapshot like the GOV.UK reader." },
+        { "name": "gov.wales", "kind": "page", "url": "https://www.gov.wales/", "access": "scrape", "covers": "Welsh Government schemes: DAF, School Essentials Grant, EMA Wales, Nest and Council Tax Reduction Scheme.", "notes": "No content API found. Some pages failed to fetch on 2026-11-04 (client error), so expect fetch retries." },
+        { "name": "nidirect", "kind": "page", "url": "https://www.nidirect.gov.uk/", "access": "scrape", "covers": "Northern Ireland benefits, Discretionary Support, rate relief and free school meals.", "notes": "No content API found. Several pages failed to fetch on 2026-11-04 (client error); expect bot blocking and plan for a slower, cached reader." },
+        { "name": "Scottish Welfare Fund via councils", "kind": "page", "url": "https://www.mygov.scot/scottish-welfare-fund", "access": "open", "covers": "SWF is national policy but applied through each of Scotland's councils, so link the person to their council's SWF page using the council lookup.", "notes": "Council lookup comes from postcodes.io or the GOV.UK local-authority API (see councils)." }
+      ]
+    },
+    {
+      "id": "councils",
+      "label": "Councils and housing",
+      "phase": 1,
+      "scale": "317 councils in England (plus councils in Scotland, Wales and Northern Ireland), each running its own Council Tax Reduction, discounts, Discretionary Housing Payments and local crisis help",
+      "scaleSource": "https://www.gov.uk/guidance/local-government-structure-and-elections",
+      "live": ["ctr", "hb", "bus", "crf", "bb"],
+      "next": [
+        { "id": "dfg", "name": "Disabled Facilities Grant", "nation": ["eng", "wal", "ni"], "url": "https://www.gov.uk/disabled-facilities-grants", "rule": "Disabled people who need changes to their home, such as widened doors, ramps or an accessible bathroom; means-tested for adults.", "facts": ["difficulties", "housing", "income", "savings", "homeAdapt"], "checked": "2026-11-04" },
+        { "id": "ctdis", "name": "Council Tax Disabled Band Reduction", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/council-tax/discounts-for-disabled-people", "rule": "The home is the main home of a disabled adult or child and has an extra room, bathroom or wheelchair space they need.", "facts": ["difficulties", "ctax", "homeAdapt"], "checked": "2026-11-04" },
+        { "id": "ctsingle", "name": "Council Tax single person discount", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/council-tax/who-has-to-pay", "rule": "A quarter off the bill when the bill payer lives alone or only with people who are disregarded, such as under-18s, full-time students or live-in carers.", "facts": ["ctax", "livesAlone"], "checked": "2026-11-04" },
+        { "id": "dhp", "name": "Discretionary Housing Payment", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/claim-discretionary-housing-payment", "rule": "People getting Housing Benefit or the housing part of Universal Credit who still cannot cover their rent; decided by the council.", "facts": ["housing", "benefits"], "checked": null },
+        { "id": "ctsmi", "name": "Council Tax severe mental impairment disregard", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/council-tax/discounts-for-disabled-people", "rule": "People with a severe mental impairment, such as dementia, who get a qualifying benefit are ignored for Council Tax.", "facts": ["difficulties", "benefits", "ctax"], "checked": null },
+        { "id": "whlg", "name": "Warm Homes: Local Grant", "nation": ["eng"], "url": "https://www.gov.uk/apply-warm-homes-local-grant", "rule": "Privately owned homes in England with an EPC of D to G and household income usually under the set limit (higher in some postcodes or with certain benefits), for free insulation, heating and solar.", "facts": ["housing", "income", "benefits", "postcode", "epc"], "checked": "2026-11-04" },
+        { "id": "lwa", "name": "Local welfare assistance (council crisis schemes)", "nation": ["eng"], "url": "https://www.gov.uk/government/publications/local-welfare-provision-review", "rule": "Each English council decides its own emergency help (food, fuel, furniture); there is no national rule and no national list.", "facts": ["postcode", "income", "benefits"], "checked": null },
+        { "id": "ctrw", "name": "Council Tax Reduction Scheme (Wales)", "nation": ["wal"], "url": "https://www.gov.wales/council-tax-reduction-scheme", "rule": "People in Wales on a low income or certain benefits; one national scheme run by every Welsh council.", "facts": ["income", "benefits", "savings", "ctax", "postcode"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "GOV.UK local-authority API", "kind": "api", "url": "https://www.gov.uk/api/local-authority?postcode=HA90WS", "access": "open", "covers": "Postcode to council name, homepage URL, tier and slug. Answered on 2026-11-04 with {name: 'London Borough of Brent', tier: 'unitary', slug: 'brent'}.", "notes": "Undocumented public endpoint used by GOV.UK's Find your local council page; no key. Treat as unstable and cache. Two-tier areas return county and district separately." },
+        { "name": "GOV.UK local transactions (Local Links Manager via Content API)", "kind": "api", "url": "https://www.gov.uk/api/content/apply-council-tax-reduction", "access": "open", "covers": "GOV.UK 'local transaction' pages carry an LGSL service code; GOV.UK maps each code to the right page on every council's website. This is the fastest way to get a per-council link for services like Council Tax Reduction, Blue Badge and bus passes.", "notes": "Not verified field by field on 2026-11-04. The per-council link table lives in GOV.UK's Local Links Manager; confirm whether its export is public before relying on it." },
+        { "name": "postcodes.io", "kind": "api", "url": "https://postcodes.io/", "access": "open", "covers": "Postcode to admin_district and its ONS code (for example Brent, E09000005), country, ward, parish, LSOA and deprivation index. Already used by Beacon for nation.", "notes": "Free, no key mentioned, open-source (MIT). Data from Ordnance Survey and ONS. Rate limits not published on the homepage; cache and use the bulk endpoint. Checked 2026-11-04." },
+        { "name": "ONS Open Geography Portal", "kind": "dataset", "url": "https://geoportal.statistics.gov.uk/", "access": "open", "covers": "Official names and codes lists for every local authority district and county in the UK, and lookups between them. The master list of councils for 'councils x local schemes'.", "notes": "Homepage did not render on 2026-11-04, so licence and dataset names were not confirmed; ONS geography products are normally Open Government Licence." },
+        { "name": "Council websites", "kind": "page", "url": "https://www.gov.uk/find-local-council", "access": "scrape", "covers": "Each council's own pages for crisis help, DHP, discounts and local grants.", "notes": "No common format. Start from the LGSL links, then fetch and snapshot each page like the GOV.UK reader. Respect robots.txt and each council's terms." },
+        { "name": "Policy in Practice LIFT", "kind": "dataset", "url": "https://policyinpractice.co.uk/", "access": "licence", "covers": "Council-licensed analytics that link council data to find residents missing support. A possible partner route, not a source.", "notes": "Commercial; terms not published." }
+      ]
+    },
+    {
+      "id": "utilities",
+      "label": "Energy, water, broadband and phone companies",
+      "phase": 1,
+      "scale": "34 broadband and mobile social tariffs from 28 providers; 20 water and sewerage companies in England and Wales, all offering WaterSure",
+      "scaleSource": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
+      "live": ["whd", "bsoc", "psr"],
+      "next": [
+        { "id": "wats", "name": "WaterSure", "nation": ["eng", "wal"], "url": "https://www.ccw.org.uk/news/help-for-households-that-cannot-afford-their-water-bill/", "rule": "Metered homes on certain benefits that also have three or more children under 19 on Child Benefit, or someone with a medical condition needing a lot of water; the bill is capped at the regional average.", "facts": ["benefits", "child", "childCount", "difficulties", "waterMeter"], "checked": "2026-11-04" },
+        { "id": "wsoc", "name": "Water social tariffs", "nation": ["eng", "wal"], "url": "https://www.ccw.org.uk/news/help-for-households-that-cannot-afford-their-water-bill/", "rule": "Each water company runs its own low-income tariff; rules and discounts differ by company.", "facts": ["income", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "bget", "name": "British Gas Energy Trust debt grants", "nation": ["eng", "sco", "wal"], "url": "https://britishgasenergytrust.org.uk/", "rule": "Households with domestic gas or electricity debt up to the Trust's limit, with any supplier, not only British Gas.", "facts": ["energyDebt", "income"], "checked": "2026-11-04" },
+        { "id": "bups", "name": "Boiler Upgrade Scheme", "nation": ["eng", "wal"], "url": "https://www.gov.uk/apply-boiler-upgrade-scheme", "rule": "Homes and businesses in England and Wales replacing oil, gas, electric or LPG heating with a heat pump or biomass boiler, applied for by the installer.", "facts": ["housing", "postcode"], "checked": "2026-11-04" },
+        { "id": "eco", "name": "Energy Company Obligation (ECO4)", "nation": ["eng", "sco", "wal"], "url": "https://www.ofgem.gov.uk/environmental-and-social-schemes/energy-company-obligation-eco", "rule": "Low-income or vulnerable households in poorly insulated homes, through energy suppliers or council flexible eligibility.", "facts": ["income", "benefits", "housing", "epc"], "checked": null },
+        { "id": "hes", "name": "Home Energy Scotland grant and loan", "nation": ["sco"], "url": "https://www.homeenergyscotland.org/", "rule": "Homeowners in Scotland installing energy efficiency or clean heating measures.", "facts": ["housing", "postcode"], "checked": null },
+        { "id": "nest", "name": "Nest (Warm Homes Programme Wales)", "nation": ["wal"], "url": "https://www.gov.wales/nest", "rule": "Low-income households in Wales in hard-to-heat homes can get free energy efficiency improvements.", "facts": ["income", "benefits", "housing", "postcode"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "Ofcom social tariffs list", "kind": "page", "url": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs", "access": "scrape", "covers": "Every broadband and mobile social tariff: provider, tariff, monthly price and which benefits count (34 tariffs from 28 providers on 2026-11-04).", "notes": "HTML table, no API or download found. Page first published 6 March 2024 with no visible last-updated date, so diff it weekly." },
+        { "name": "CCW water company list and help pages", "kind": "page", "url": "https://www.ccw.org.uk/advice-and-support/households/water-companies/", "access": "scrape", "covers": "The 20 water and sewerage companies (plus 11 NAV companies) and CCW's own guidance on social tariffs and WaterSure.", "notes": "Company links go to general contact pages, not to each social tariff, so each tariff page needs finding by hand once. Some CCW pages returned client errors on 2026-11-04." },
+        { "name": "Ofwat customer assistance", "kind": "page", "url": "https://www.ofwat.gov.uk/households/customer-assistance/", "access": "scrape", "covers": "Regulator overview of WaterSure, special assistance and charitable trusts run by water companies.", "notes": "No complete list of company schemes." },
+        { "name": "Ofgem consumer pages", "kind": "page", "url": "https://www.ofgem.gov.uk/consumers/household-gas-and-electricity-guide/extra-help-energy-services/priority-services-register-people-need", "access": "scrape", "covers": "PSR, ECO and energy debt guidance; the regulator view of supplier obligations.", "notes": "Great British Insulation Scheme ended on 31 March 2026 (gov.uk/apply-great-british-insulation-scheme); ECO4 status after March 2026 was not confirmed today." }
+      ]
+    },
+    {
+      "id": "schools",
+      "label": "Schools, colleges and education",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [
+        { "id": "fsm", "name": "Free school meals (England)", "nation": ["eng"], "url": "https://www.gov.uk/apply-free-school-meals", "rule": "Children in England whose parent gets Universal Credit with low household earnings, income-related ESA, asylum support or the guarantee part of Pension Credit; from the 2026 to 2027 school year any Universal Credit qualifies.", "facts": ["child", "benefits", "income", "postcode"], "checked": "2026-11-04" },
+        { "id": "fsmsco", "name": "Free school meals (Scotland)", "nation": ["sco"], "url": "https://www.mygov.scot/school-meals", "rule": "All P1 to P5 pupils in Scotland, and older pupils whose family gets benefits such as Scottish Child Payment or Universal Credit.", "facts": ["child", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "fsmwal", "name": "Free school meals (Wales)", "nation": ["wal"], "url": "https://www.gov.wales/free-school-meals-primary-school-children", "rule": "All primary pupils in Wales, plus secondary pupils whose family gets certain benefits.", "facts": ["child", "benefits", "postcode"], "checked": null },
+        { "id": "fsmni", "name": "Free school meals and uniform grant (Northern Ireland)", "nation": ["ni"], "url": "https://www.nidirect.gov.uk/articles/free-school-meals-and-uniform-allowance", "rule": "Pupils in Northern Ireland whose family gets certain benefits or has a low income.", "facts": ["child", "benefits", "income", "postcode"], "checked": null },
+        { "id": "sct", "name": "Free school transport (England)", "nation": ["eng"], "url": "https://www.gov.uk/free-school-transport", "rule": "Children going to their nearest suitable school more than 2 miles away (under 8) or 3 miles away (8 and over), with no safe walking route, or with SEND or mobility needs.", "facts": ["child", "schoolDistance", "difficulties"], "checked": "2026-11-04" },
+        { "id": "bur", "name": "16 to 19 Bursary Fund", "nation": ["eng"], "url": "https://www.gov.uk/1619-bursary-fund", "rule": "Students in England aged 16 to 19 at a publicly funded school or college or on training, and some older students with an EHC plan.", "facts": ["dob", "inEducation", "benefits", "income"], "checked": "2026-11-04" },
+        { "id": "sesg", "name": "School Essentials Grant", "nation": ["wal"], "url": "https://www.gov.wales/get-help-school-costs", "rule": "Families in Wales getting certain benefits can get up to a set amount per child towards uniform and school kit.", "facts": ["child", "benefits", "postcode"], "checked": "2026-11-04" },
+        { "id": "emaw", "name": "Education Maintenance Allowance (Wales)", "nation": ["wal"], "url": "https://www.gov.wales/education-maintenance-allowance-ema", "rule": "Students in Wales aged 16 to 18 in further education with household income under the set limit.", "facts": ["dob", "inEducation", "income"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "GOV.UK Content API (education pages)", "kind": "api", "url": "https://content-api.publishing.service.gov.uk/", "access": "open", "covers": "England's school meals, transport, bursary and childcare pages.", "notes": "Same API and limits as central." },
+        { "name": "Get Information about Schools", "kind": "dataset", "url": "https://get-information-schools.service.gov.uk/", "access": "open", "covers": "Register of schools in England with their local authority; useful to point to the right council's school transport and uniform pages.", "notes": "Not checked on 2026-11-04; confirm download format and licence before use." },
+        { "name": "Council school pages", "kind": "page", "url": "https://www.gov.uk/find-local-council", "access": "scrape", "covers": "Uniform grants, school clothing grants (Scotland) and local free school meal top-ups set by each council.", "notes": "Reached through the councils connectors." }
+      ]
+    },
+    {
+      "id": "nhs",
+      "label": "NHS and health services",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": ["rx", "eye", "dent", "lis", "hs"],
+      "next": [
+        { "id": "htcs", "name": "Healthcare Travel Costs Scheme", "nation": ["eng"], "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/healthcare-travel-costs-scheme-htcs/", "rule": "People (or their partner) on a qualifying benefit or the NHS Low Income Scheme travelling to a referred specialist or hospital appointment.", "facts": ["benefits", "income", "savings"], "checked": "2026-11-04" },
+        { "id": "ppc", "name": "Prescription prepayment certificate", "nation": ["eng"], "url": "https://www.nhs.uk/nhs-services/prescriptions/save-money-with-a-prescription-prepayment-certificate-ppc/", "rule": "A fixed-price pass covering all NHS prescriptions in England; worth it for anyone paying for more than 3 items in 3 months or 11 in a year.", "facts": ["postcode", "rxItems"], "checked": "2026-11-04" },
+        { "id": "hrtppc", "name": "HRT prescription prepayment certificate", "nation": ["eng"], "url": "https://www.nhs.uk/nhs-services/prescriptions/save-money-with-a-prescription-prepayment-certificate-ppc/", "rule": "Covers all qualifying HRT medicines for 12 months in England; worth it for more than 2 HRT items a year.", "facts": ["postcode", "hrt"], "checked": "2026-11-04" },
+        { "id": "chc", "name": "NHS continuing healthcare", "nation": ["eng"], "url": "https://www.nhs.uk/conditions/social-care-and-support-guide/money-work-and-benefits/nhs-continuing-healthcare/", "rule": "Adults whose care needs are complex, intense or unpredictable enough, judged by a team, get their care fully paid by the NHS.", "facts": ["difficulties", "dob"], "checked": "2026-11-04" },
+        { "id": "mex", "name": "Medical exemption certificate", "nation": ["eng"], "url": "https://www.nhsbsa.nhs.uk/exemption-certificates/medical-exemption-certificates", "rule": "People in England with certain listed medical conditions get free prescriptions.", "facts": ["difficulties", "conditionList"], "checked": null },
+        { "id": "matex", "name": "Maternity exemption certificate", "nation": ["eng"], "url": "https://www.nhsbsa.nhs.uk/exemption-certificates/maternity-exemption-certificates", "rule": "People in England who are pregnant or had a baby in the last 12 months get free prescriptions and dental care.", "facts": ["pregnant", "child"], "checked": null },
+        { "id": "wigs", "name": "Free NHS wigs and fabric supports", "nation": ["eng"], "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/free-nhs-wigs-and-fabric-supports/", "rule": "Free for children, hospital inpatients and people on qualifying benefits or the Low Income Scheme.", "facts": ["dob", "benefits", "income"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "nhs.uk pages", "kind": "page", "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/", "access": "scrape", "covers": "Help with health costs in England: travel, wigs, certificates, continuing healthcare.", "notes": "Some nhs.uk pages returned client errors to automated fetches on 2026-11-04. NHS England runs a website content API for developers (key required); not checked today." },
+        { "name": "NHSBSA help with health costs", "kind": "page", "url": "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs", "access": "scrape", "covers": "Exemption certificates, PPCs and the Low Income Scheme forms.", "notes": "The NHSBSA eligibility checker is a public web tool; no API found." }
+      ]
+    },
+    {
+      "id": "charities",
+      "label": "Charities and benevolent funds",
+      "phase": 1,
+      "scale": "Over 1,700 UK organisations offering grants to individuals (Turn2us Grants Search); 171,539 registered charities in England and Wales at end of June 2026 and 24,982 in Scotland",
+      "scaleSource": "https://www.turn2us.org.uk/get-support/grants-search",
+      "live": [],
+      "next": [
+        { "id": "famf", "name": "Family Fund", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.familyfund.org.uk/eligibility", "rule": "Families on a low income raising a disabled or seriously ill child or young person who needs a high level of support.", "facts": ["child", "childDisabled", "income", "benefits"], "checked": "2026-11-04" },
+        { "id": "buttle", "name": "Buttle UK Chances for Children", "nation": ["eng", "sco", "wal", "ni"], "url": "https://buttleuk.org/grants/grant-criteria/", "rule": "Grants paid directly for children and young people in crisis on a low income; see the grant criteria and eligibility calculator.", "facts": ["child", "income", "dob"], "checked": null },
+        { "id": "rbl", "name": "Royal British Legion financial help", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.britishlegion.org.uk/get-support/financial-and-employment-support/financial-support", "rule": "Serving and ex-serving armed forces members and their families in financial hardship.", "facts": ["veteran", "income"], "checked": null },
+        { "id": "mac", "name": "Macmillan Grants (local trial)", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.macmillan.org.uk/cancer-information-and-support/get-help/financial-help/macmillan-grants", "rule": "The national grant has ended; only people with cancer living in listed council areas can apply to the local trial.", "facts": ["difficulties", "postcode"], "checked": "2026-11-04" },
+        { "id": "ssafa", "name": "SSAFA financial assistance", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.ssafa.org.uk/get-help/financial-help", "rule": "Serving personnel, veterans and their families in need.", "facts": ["veteran", "income"], "checked": null },
+        { "id": "carerstrust", "name": "Carers Trust grants", "nation": ["eng", "sco", "wal"], "url": "https://carers.org/grants-and-discounts/carer-grants", "rule": "Unpaid carers can apply through a local carer centre when funds are open.", "facts": ["careHours", "postcode"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "360Giving GrantNav", "kind": "dataset", "url": "https://grantnav.threesixtygiving.org/", "access": "open", "covers": "1,565,133 published grants from 355 funders, including 255,271 grants to individuals (2026-11-04). Shows which funders actually give money to individuals and where.", "notes": "Data under CC BY 4.0, so credit 360Giving and the funder. Full CSV or JSON download from GrantNav. Records past grants, not current eligibility rules, so it finds funders; their rules still come from their own pages." },
+        { "name": "360Giving API and Datastore", "kind": "api", "url": "https://www.360giving.org/explore/technical/api/", "access": "open", "covers": "Programmatic access to the same grants data, refreshed nightly; the Datastore offers read-only database logins for large one-off pulls.", "notes": "Endpoint details and whether a key is needed were not on the overview page; read the API page before building. Free 1-1 data support available." },
+        { "name": "Charity Commission register API", "kind": "api", "url": "https://api-portal.charitycommission.gov.uk/", "access": "key", "covers": "Charity details for England and Wales: objects, area of operation, contacts, classification (for example 'relief of poverty', 'grants to individuals').", "notes": "Sign up on the developer portal for a subscription key. Portal content under OGL v3.0; cost and rate limits not stated on the front page." },
+        { "name": "Charity Commission full register download", "kind": "dataset", "url": "https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download", "access": "open", "covers": "Daily extract of the whole England and Wales register in JSON and tab-delimited files (13 tables, including classification and area of operation).", "notes": "Licence not stated on the download page; check the site terms. Filter by 'grants to individuals' classification to find benevolent funds." },
+        { "name": "OSCR Scottish Charity Register download", "kind": "dataset", "url": "https://www.oscr.org.uk/about-charities/search-the-register/charity-register-download/", "access": "open", "covers": "Daily download of Scotland's 24,982 charities with names, addresses and purposes.", "notes": "Free, Open Government Licence v2.0 with the stated attribution; must accept terms first; no direct marketing and must not pose as the official register." },
+        { "name": "Charity Commission for Northern Ireland register", "kind": "search", "url": "https://www.charitycommissionni.org.uk/charity-search/", "access": "scrape", "covers": "Northern Ireland charity register.", "notes": "No download or API found on 2026-11-04. Find that Charity includes NI charity data and may be the easier route." },
+        { "name": "Find that Charity", "kind": "api", "url": "https://findthatcharity.uk/about", "access": "open", "covers": "One record per charity across UK regulators; add .json to any charity URL; OpenRefine reconcile endpoint.", "notes": "Community project (David Kane). Licence not stated on the about page; data comes from the regulators." },
+        { "name": "Turn2us Grants Search", "kind": "search", "url": "https://www.turn2us.org.uk/get-support/grants-search", "access": "licence", "covers": "The best curated list of grants for individuals (over 1,700 organisations), with eligibility filters.", "notes": "No API. Terms limit use to personal, non-commercial purposes and forbid building a database from site material or passing it on without written permission (clauses 2.2, 2.3). Ask communications@turn2us.org.uk for a data licence or partnership; until then only link people to it." }
+      ]
+    },
+    {
+      "id": "employ",
+      "label": "Employers and unions",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [
+        { "id": "ssp", "name": "Statutory Sick Pay", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/statutory-sick-pay", "rule": "Employees too ill to work get it from their employer for up to 28 weeks; check the eligibility page for the current rules.", "facts": ["work", "sickOff"], "checked": "2026-11-04" },
+        { "id": "smp", "name": "Statutory Maternity Pay", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/maternity-pay-leave", "rule": "Employees who are pregnant and meet the employer and earnings conditions; otherwise Maternity Allowance applies.", "facts": ["pregnant", "work", "income"], "checked": null },
+        { "id": "spp", "name": "Statutory Paternity Pay", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/paternity-pay-leave", "rule": "Employees taking time off for a partner's birth, adoption or surrogacy who meet the employer and earnings conditions.", "facts": ["child", "pregnant", "work"], "checked": null },
+        { "id": "red", "name": "Statutory redundancy pay", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/redundancy-your-rights/redundancy-pay", "rule": "Employees made redundant after at least two years with their current employer, unless in an excluded group.", "facts": ["work", "redundant", "yearsService"], "checked": "2026-11-04" },
+        { "id": "rps", "name": "Redundancy Payments Service (insolvent employer)", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/your-rights-if-your-employer-is-insolvent", "rule": "Workers whose employer is insolvent can claim redundancy pay, holiday pay, unpaid wages and notice pay from the government.", "facts": ["work", "employerInsolvent"], "checked": "2026-11-04" },
+        { "id": "nmw", "name": "Minimum wage arrears", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/national-minimum-wage", "rule": "Workers paid below the National Minimum or Living Wage are owed the difference; check with the worker calculator and Acas.", "facts": ["work", "dob", "hourlyPay"], "checked": "2026-11-04" }
+      ],
+      "connectors": [
+        { "name": "GOV.UK Content API (employment pages)", "kind": "api", "url": "https://content-api.publishing.service.gov.uk/", "access": "open", "covers": "Statutory pay, redundancy and insolvency rights pages.", "notes": "Same API and limits as central. Northern Ireland has its own statutory pay pages on nidirect." },
+        { "name": "Acas", "kind": "page", "url": "https://www.acas.org.uk/", "access": "scrape", "covers": "Plain-English employment rights guidance and helpline.", "notes": "Not checked on 2026-11-04." }
+      ]
+    },
+    {
+      "id": "banks",
+      "label": "Banks, money and debt help",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [
+        { "id": "bspace", "name": "Breathing Space (Debt Respite Scheme)", "nation": ["eng", "wal"], "url": "https://www.gov.uk/government/publications/debt-respite-scheme-breathing-space-guidance", "rule": "People in England or Wales with problem debt can get legal protection from creditors, started by a debt adviser.", "facts": ["postcode", "debt"], "checked": "2026-11-04" },
+        { "id": "bba", "name": "Fee-free basic bank account", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.fca.org.uk/consumers/basic-bank-accounts", "rule": "People without a bank account, or who cannot get a standard one, can open a fee-free basic account at the largest banks.", "facts": ["hasBank"], "checked": null },
+        { "id": "dro", "name": "Debt Relief Order", "nation": ["eng", "wal"], "url": "https://www.gov.uk/options-for-paying-off-your-debts/debt-relief-orders", "rule": "People in England or Wales with low debts, low disposable income and few assets can have debts written off, applied for through an approved adviser.", "facts": ["debt", "income", "savings", "housing"], "checked": null },
+        { "id": "mortch", "name": "Mortgage Charter", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/government/publications/mortgage-charter", "rule": "Homeowners with signed-up lenders can ask to switch to interest-only or extend their term for a while without a new affordability check.", "facts": ["housing"], "checked": null },
+        { "id": "dal", "name": "Free debt advice", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt/debt-advice-locator", "rule": "Anyone who has missed payments can get free, confidential debt advice, which also checks benefits.", "facts": ["debt"], "checked": "2026-11-04" }
+      ],
+      "connectors": [
+        { "name": "MoneyHelper", "kind": "page", "url": "https://www.moneyhelper.org.uk/", "access": "scrape", "covers": "Government-backed money guidance (Money and Pensions Service): debt advice locator, Pension Wise, a pilot benefits calculator powered by Inbest.", "notes": "No API found on the pages checked. Operator and reuse terms not shown on the pages fetched; read the site terms first." },
+        { "name": "FCA consumer pages and Financial Services Register", "kind": "page", "url": "https://www.fca.org.uk/consumers", "access": "scrape", "covers": "Rules firms must follow (basic bank accounts, Consumer Duty) and which firms are authorised.", "notes": "FCA pages returned client errors on 2026-11-04. The FCA register has a developer API (key required); not checked today." }
+      ]
+    },
+    {
+      "id": "unclaimed",
+      "label": "Unclaimed money and compensation",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [
+        { "id": "ctf", "name": "Lost Child Trust Fund", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/child-trust-funds/find-a-child-trust-fund", "rule": "Anyone 16 or over, or a parent or guardian of a child under 18, can use HMRC's free tool to find where a Child Trust Fund was opened.", "facts": ["dob", "child"], "checked": "2026-11-04" },
+        { "id": "ptrace", "name": "Pension Tracing Service", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/find-pension-contact-details", "rule": "Anyone looking for an old workplace or personal pension can get the provider's contact details, if they know an employer or provider name.", "facts": ["pensionPot", "work"], "checked": "2026-11-04" },
+        { "id": "dorm", "name": "Lost bank and building society accounts (My Lost Account)", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.mylostaccount.org.uk/", "rule": "Anyone can trace lost bank, building society and NS&I accounts for free; money moved to the dormant assets scheme can still be reclaimed.", "facts": ["oldAccounts"], "checked": "2026-11-04" },
+        { "id": "prem", "name": "Unclaimed Premium Bonds prizes", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.nsandi.com/prize-checker", "rule": "Anyone who holds or held Premium Bonds can check for prizes with the holder's number.", "facts": ["oldAccounts"], "checked": "2026-11-04" },
+        { "id": "taxref", "name": "Tax refund from HMRC", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.gov.uk/claim-tax-refund", "rule": "Anyone who paid too much tax on pay, job expenses, redundancy pay, savings interest or foreign income.", "facts": ["work", "jobCosts", "redundant"], "checked": "2026-11-04" },
+        { "id": "bona", "name": "Unclaimed estates (bona vacantia)", "nation": ["eng", "wal"], "url": "https://www.gov.uk/unclaimed-estates-bona-vacantia", "rule": "Relatives entitled to the estate of someone who died with no will or known family can claim it from the Crown.", "facts": ["bereaved"], "checked": "2026-11-04" },
+        { "id": "cics", "name": "Criminal injuries compensation", "nation": ["eng", "sco", "wal"], "url": "https://www.gov.uk/claim-compensation-criminal-injury", "rule": "Victims of violent crime, bereaved relatives and people who paid for a victim's funeral, usually within 2 years and once reported to police.", "facts": ["crimeVictim", "bereaved"], "checked": "2026-11-04" },
+        { "id": "fscs", "name": "Financial Services Compensation Scheme", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.fscs.org.uk/check/", "rule": "Customers of an authorised financial firm that has failed may get compensation up to set limits.", "facts": ["failedFirm"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "Find pension contact details (Pension Tracing Service)", "kind": "search", "url": "https://www.gov.uk/find-pension-contact-details", "access": "open", "covers": "Provider contact details from an employer or provider name; also by phone on 0800 731 0175.", "notes": "Public web service, no API. Does not confirm a pension exists. Beacon should link, not automate." },
+        { "name": "HMRC find a Child Trust Fund", "kind": "search", "url": "https://www.gov.uk/child-trust-funds/find-a-child-trust-fund", "access": "open", "covers": "HMRC tells the person where the fund was opened, usually by letter within 3 weeks.", "notes": "Needs the person's National Insurance number, which Beacon never asks for: link out only. The Share Foundation runs a free alternative." },
+        { "name": "My Lost Account", "kind": "search", "url": "https://www.mylostaccount.org.uk/", "access": "open", "covers": "Free tracing of bank, building society and NS&I accounts.", "notes": "Operator not named on the homepage. Link out only; needs personal details Beacon must not collect." },
+        { "name": "Reclaim Fund", "kind": "page", "url": "https://www.reclaimfund.co.uk/", "access": "open", "covers": "Runs the UK Dormant Assets Scheme (banks since 2011, insurance and pensions since 2023, investments since 2025). Explains that reclaims go through the original firm.", "notes": "Holds no customer records and never contacts people directly; warns of scams using its name. Use for copy and scope, not lookups." },
+        { "name": "Unclaimed estates list", "kind": "dataset", "url": "https://www.gov.uk/government/statistical-data-sets/unclaimed-estates-list", "access": "open", "covers": "The Government Legal Department's list of estates waiting for relatives, updated several times a week in 2026.", "notes": "File format and licence were past the part of the page read on 2026-11-04; check before importing. Holds names of the dead, so match only on what the person types, never store it." },
+        { "name": "NS&I prize checker", "kind": "search", "url": "https://www.nsandi.com/prize-checker", "access": "open", "covers": "Premium Bonds prize check by holder's number.", "notes": "No API. Link out only." }
+      ]
+    },
+    {
+      "id": "legal",
+      "label": "Ombudsmen, courts and legal aid",
+      "phase": 1,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [
+        { "id": "hwf", "name": "Help with Fees (courts and tribunals)", "nation": ["eng", "wal"], "url": "https://www.gov.uk/get-help-with-court-fees", "rule": "People with savings under the limit who get certain benefits or have a low monthly income can pay less or nothing for court fees.", "facts": ["savings", "benefits", "income", "child"], "checked": "2026-11-04" },
+        { "id": "legalaid", "name": "Civil legal aid", "nation": ["eng", "wal"], "url": "https://www.gov.uk/check-legal-aid", "rule": "Depends on the type of legal problem and your income and savings; check online or call Civil Legal Advice.", "facts": ["income", "savings", "legalIssue"], "checked": "2026-11-04" },
+        { "id": "fos", "name": "Financial Ombudsman Service", "nation": ["eng", "sco", "wal", "ni"], "url": "https://www.financial-ombudsman.org.uk/consumers/how-to-complain", "rule": "Anyone with a complaint about a financial business that has not been sorted after 8 weeks or a final response; free, within 6 months of the final response.", "facts": ["complaint"], "checked": "2026-11-04" },
+        { "id": "slab", "name": "Scottish legal aid", "nation": ["sco"], "url": "https://www.slab.org.uk/", "rule": "People in Scotland with a legal problem who pass the means test.", "facts": ["income", "savings", "legalIssue"], "checked": null },
+        { "id": "eom", "name": "Energy Ombudsman", "nation": ["eng", "sco", "wal"], "url": "https://www.energyombudsman.org/", "rule": "Energy customers whose complaint was not sorted by the supplier within 8 weeks or got a deadlock letter.", "facts": ["complaint"], "checked": null },
+        { "id": "lgsco", "name": "Local Government and Social Care Ombudsman", "nation": ["eng"], "url": "https://www.lgo.org.uk/", "rule": "People in England unhappy with how a council or adult social care provider handled their complaint.", "facts": ["complaint"], "checked": null }
+      ],
+      "connectors": [
+        { "name": "GOV.UK Content API (justice pages)", "kind": "api", "url": "https://content-api.publishing.service.gov.uk/", "access": "open", "covers": "Help with Fees, legal aid and criminal injuries pages.", "notes": "Same API and limits as central." },
+        { "name": "Ombudsman websites", "kind": "page", "url": "https://www.financial-ombudsman.org.uk/", "access": "scrape", "covers": "How and when to complain to each ombudsman.", "notes": "The Ombudsman Association keeps a member list that could seed this group; not checked on 2026-11-04." }
+      ]
+    },
+    {
+      "id": "bizsupport",
+      "label": "Business support",
+      "phase": 2,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [],
+      "connectors": []
+    },
+    {
+      "id": "funders",
+      "label": "Grant funders and foundations",
+      "phase": 2,
+      "scale": "355 funders publishing grants data",
+      "scaleSource": "https://grantnav.threesixtygiving.org/",
+      "live": [],
+      "next": [],
+      "connectors": [
+        { "name": "360Giving GrantNav", "kind": "dataset", "url": "https://grantnav.threesixtygiving.org/", "access": "open", "covers": "Grants to organisations, for the phase 2 'groups' and 'firms' people.", "notes": "CC BY 4.0. Same source as charities." }
+      ]
+    },
+    {
+      "id": "overseas",
+      "label": "Overseas and UK help abroad",
+      "phase": 3,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [],
+      "connectors": []
+    },
+    {
+      "id": "network",
+      "label": "Community network",
+      "phase": 4,
+      "scale": null,
+      "scaleSource": null,
+      "live": [],
+      "next": [],
+      "connectors": []
+    }
+  ],
+  "strategy": [
+    { "group": "older, disabled, carers", "provider": "councils", "why": "Council Tax discounts and disregards (single person, disabled band, severe mental impairment) need only one or two new facts and apply in every council in England, Scotland and Wales.", "schemesEstimate": "3 national rules, linked per council (317 in England alone)", "connector": "GOV.UK local-authority API + LGSL local transaction links" },
+    { "group": "families, young", "provider": "schools", "why": "Free school meals in all four nations, school transport and bursaries reuse facts Beacon already asks (child, benefits, income); England's 2026 to 2027 change makes every Universal Credit family qualify.", "schemesEstimate": "8 (see schools.next)", "connector": "GOV.UK Content API, mygov.scot, gov.wales, nidirect" },
+    { "group": "families, carers, older, disabled", "provider": "devolved", "why": "Scotland has the biggest gap: Scottish Child Payment, Best Start, Child Winter Heating, Young Carer Grant and the Scottish Welfare Fund are well defined and reuse existing facts.", "schemesEstimate": "12 (see devolved.next)", "connector": "mygov.scot, gov.wales, nidirect page readers" },
+    { "group": "lowpay, outofwork, carers", "provider": "central", "why": "Marriage Allowance, job expenses relief, Carer's Credit, Help to Save and Budgeting Loans are UK-wide and need small new facts; GOV.UK Content API already powers the reader.", "schemesEstimate": "13 (see central.next)", "connector": "GOV.UK Content API + Search API" },
+    { "group": "everyone (older and events first)", "provider": "unclaimed", "why": "Lost pensions, Child Trust Funds, dormant accounts and tax refunds are pure 'money already yours' and Beacon only needs to link out, so no sensitive data is collected.", "schemesEstimate": "8 (see unclaimed.next)", "connector": "Pension Tracing Service, HMRC CTF tool, My Lost Account, NS&I (link out only)" },
+    { "group": "lowpay, families, disabled", "provider": "utilities", "why": "Water social tariffs and WaterSure exist at every water company; broadband social tariffs are already one live scheme that can be split per provider from Ofcom's table.", "schemesEstimate": "34 broadband tariffs + 20 water companies' schemes", "connector": "Ofcom social tariffs page + CCW water company list" },
+    { "group": "older, disabled, events", "provider": "nhs", "why": "Travel costs, PPCs and exemption certificates sit next to the live health pack and reuse its facts.", "schemesEstimate": "7 (see nhs.next)", "connector": "nhs.uk and NHSBSA page readers" },
+    { "group": "all phase 1 groups", "provider": "councils", "why": "Local crisis schemes, DHP and council grants differ in every council; this is the first step to thousands of schemes (one entry per council per service).", "schemesEstimate": "317 English councils x several local schemes each (Scotland, Wales and NI to add)", "connector": "ONS council list + postcodes.io + council website reader" },
+    { "group": "families, disabled, carers, helpers", "provider": "charities", "why": "Charity grants for individuals are the largest pool of unclaimed help; 360Giving shows which funders actually pay individuals, and the regulators' registers fill in rules and areas.", "schemesEstimate": "Over 1,700 grant-giving organisations (Turn2us); 255,271 grants to individuals recorded in GrantNav", "connector": "360Giving GrantNav + Charity Commission and OSCR downloads (Turn2us only with a licence)" },
+    { "group": "outofwork, lowpay, events", "provider": "employ", "why": "Statutory pay, redundancy and insolvency claims are rights, not discretionary, and catch people at the moment of a life event.", "schemesEstimate": "6 (see employ.next)", "connector": "GOV.UK Content API + Acas" }
+  ]
+}
