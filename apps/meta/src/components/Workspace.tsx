@@ -5,6 +5,7 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
+import { useTranslations } from "use-intl";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { Activity } from "@/components/check/Activity";
 import { SchemeSheet } from "@/components/check/Board";
@@ -15,6 +16,9 @@ import { PlaceSync } from "@/components/check/PlaceSync";
 import { WatchNotice } from "@/components/check/WatchNotice";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
+import { CountryChip } from "@/components/locale/CountryChip";
+import { LanguageMenu } from "@/components/locale/LanguageMenu";
+import { SuggestLanguage } from "@/components/locale/SuggestLanguage";
 import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
@@ -37,6 +41,8 @@ export function Workspace() {
 }
 
 function Shell() {
+  const t = useTranslations("header");
+  const tc = useTranslations("chat");
   const [chat, setChat] = useState<ChatMode>("open");
   const [details, setDetails] = useState(false);
   const [view, setView] = useState<MobileView>("chat");
@@ -78,9 +84,7 @@ function Shell() {
         reset();
         setSubject(shared.subject);
         apply(shared.answers, "link");
-        announce(
-          "This check was shared with you. Change anything in Details, and it stays on this device.",
-        );
+        announce(tc("shared"));
       });
     };
     check();
@@ -106,9 +110,7 @@ function Shell() {
     if (!playing) return;
     if (!next) {
       setPlaying(null);
-      announce(
-        "That's every answer that matters for this example. Try your own whenever you're ready, or ask me anything about these results.",
-      );
+      announce(tc("exampleDone"));
       return;
     }
     const reduce = window.matchMedia(
@@ -134,10 +136,7 @@ function Shell() {
     }
     setSubject({ who: "other", label: name });
     setTimeout(
-      () =>
-        announce(
-          `Here's a made-up example: ${ex.name}. ${ex.line} Watch the results light up as each answer goes in.`,
-        ),
+      () => announce(tc("examplePlay", { name: ex.name, line: ex.line })),
       50,
     );
     setView("canvas");
@@ -151,7 +150,7 @@ function Shell() {
       data-view={view}
     >
       <header className="strip">
-        <Link href="/" className="brand" aria-label="Beacon home">
+        <Link href="/" className="brand" aria-label={t("home")}>
           <Logo />
           <span>Beacon</span>
         </Link>
@@ -160,8 +159,8 @@ function Shell() {
             type="button"
             className="iconbtn wide-only"
             onClick={() => setChat("open")}
-            aria-label="Show chat"
-            title="Show chat"
+            aria-label={t("showChat")}
+            title={t("showChat")}
             data-testid="show-chat"
           >
             <Icon name="panel" />
@@ -172,8 +171,8 @@ function Shell() {
               type="button"
               className="iconbtn"
               onClick={() => setChat("full")}
-              aria-label="Full view"
-              title="Full view"
+              aria-label={t("fullView")}
+              title={t("fullView")}
             >
               <Icon name="expand" />
             </button>
@@ -181,8 +180,8 @@ function Shell() {
               type="button"
               className="iconbtn"
               onClick={() => setChat("hidden")}
-              aria-label="Hide chat"
-              title="Hide chat"
+              aria-label={t("hideChat")}
+              title={t("hideChat")}
               data-testid="hide-chat"
             >
               <Icon name="panel" />
@@ -194,10 +193,10 @@ function Shell() {
             <span className="divider wide-only" aria-hidden="true" />
             <span className="title wide-only">
               {exampleName
-                ? `${exampleName}'s example`
+                ? t("exampleOf", { name: exampleName })
                 : subject.who === "me"
-                  ? "Your check"
-                  : `Check for ${subject.label}`}
+                  ? t("yourCheck")
+                  : t("checkFor", { name: subject.label ?? "" })}
             </span>
           </>
         )}
@@ -208,10 +207,12 @@ function Shell() {
             className="btn ghost small"
             onClick={() => setChat("open")}
           >
-            <Icon name="shrink" size={18} /> Exit full view
+            <Icon name="shrink" size={18} /> {t("exitFull")}
           </button>
         ) : (
           <>
+            <CountryChip />
+            <LanguageMenu />
             <div className="menu-wrap">
               <button
                 type="button"
@@ -223,14 +224,12 @@ function Shell() {
                 data-testid="examples"
               >
                 <Icon name={playing ? "stop" : "play"} size={16} />
-                <span>{playing ? "Stop" : "Example"}</span>
+                <span>{playing ? t("stop") : t("example")}</span>
               </button>
               {menu && (
                 <div className="menu" role="menu">
                   {asked > 0 && !exampleName && (
-                    <p className="menu-note">
-                      An example replaces the answers on this device.
-                    </p>
+                    <p className="menu-note">{t("exampleReplaces")}</p>
                   )}
                   {EXAMPLES.map((ex) => (
                     <button
@@ -256,15 +255,15 @@ function Shell() {
                   data-testid="restart"
                 >
                   <Icon name="restart" size={16} />
-                  <span className="wide-label">Start again</span>
+                  <span className="wide-label">{t("startAgain")}</span>
                 </button>
                 {confirm && (
                   <div
                     className="menu confirm"
                     role="dialog"
-                    aria-label="Start again"
+                    aria-label={t("startAgain")}
                   >
-                    <p>Start again? This clears every answer on this device.</p>
+                    <p>{t("startAgainAsk")}</p>
                     <div className="row">
                       <button
                         type="button"
@@ -276,14 +275,14 @@ function Shell() {
                           reset();
                         }}
                       >
-                        Start again
+                        {t("startAgain")}
                       </button>
                       <button
                         type="button"
                         className="btn ghost small"
                         onClick={() => setConfirm(false)}
                       >
-                        Keep my answers
+                        {t("keepAnswers")}
                       </button>
                     </div>
                   </div>
@@ -297,14 +296,15 @@ function Shell() {
               onClick={() => setDetails((d) => !d)}
               data-testid="details-toggle"
             >
-              <Icon name="person" size={18} /> Details
+              <Icon name="person" size={18} /> {t("details")}
             </button>
           </>
         )}
       </header>
 
-      <aside className="chat" aria-label="Chat with Beacon">
+      <aside className="chat" aria-label={t("chatWith")}>
         <div className="chat-inner">
+          <SuggestLanguage />
           <ChatPanel playing={Boolean(playing)} />
           <WatchNotice />
           <PlaceSync />
@@ -319,7 +319,7 @@ function Shell() {
         </div>
       </main>
 
-      <aside className="details-col" aria-label="Details">
+      <aside className="details-col" aria-label={t("details")}>
         {hydrated ? (
           <DetailsPanel
             onClose={() => {
@@ -331,12 +331,12 @@ function Shell() {
         ) : null}
       </aside>
 
-      <nav className="tabbar" aria-label="Views">
+      <nav className="tabbar" aria-label={t("views")}>
         {(
           [
-            ["chat", "chat", "Chat"],
-            ["canvas", "spark", "Results"],
-            ["details", "person", "Details"],
+            ["chat", "chat", t("chat")],
+            ["canvas", "spark", t("results")],
+            ["details", "person", t("details")],
           ] as const
         ).map(([v, icon, label]) => (
           <button
@@ -360,6 +360,7 @@ function Shell() {
 }
 
 function Canvas({ onExample }: { onExample: () => void }) {
+  const t = useTranslations("header");
   const { states, asked } = useCheck();
   const open = count(states, "open");
   const settled = SCHEMES.length - open;
@@ -374,7 +375,7 @@ function Canvas({ onExample }: { onExample: () => void }) {
             <div
               className="meter"
               role="progressbar"
-              aria-label="Kinds of help checked"
+              aria-label={t("checkedLabel")}
               aria-valuemin={0}
               aria-valuemax={SCHEMES.length}
               aria-valuenow={settled}
@@ -382,7 +383,7 @@ function Canvas({ onExample }: { onExample: () => void }) {
               <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
             </div>
             <span className="meter-label" data-testid="stats">
-              {settled} of {SCHEMES.length} checked
+              {t("checked", { done: settled, total: SCHEMES.length })}
             </span>
           </div>
         )}

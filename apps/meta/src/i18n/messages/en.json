@@ -1,0 +1,297 @@
+{
+  "header": {
+    "home": "Beacon home",
+    "showChat": "Show chat",
+    "fullView": "Full view",
+    "hideChat": "Hide chat",
+    "yourCheck": "Your check",
+    "checkFor": "Check for {name}",
+    "exampleOf": "{name}'s example",
+    "exitFull": "Exit full view",
+    "example": "Example",
+    "stop": "Stop",
+    "exampleReplaces": "An example replaces the answers on this device.",
+    "startAgain": "Start again",
+    "startAgainAsk": "Start again? This clears every answer on this device.",
+    "keepAnswers": "Keep my answers",
+    "details": "Details",
+    "chat": "Chat",
+    "results": "Results",
+    "views": "Views",
+    "chatWith": "Chat with Beacon",
+    "checked": "{done} of {total} checked",
+    "checkedLabel": "Kinds of help checked"
+  },
+  "lang": {
+    "button": "Language: {name}",
+    "menu": "Choose a language",
+    "checked": "Checked by a person",
+    "machine": "Machine translated - help us check",
+    "suggestTitle": "Read Beacon in {name}?",
+    "suggestYes": "Yes, {name}",
+    "keepEnglish": "Keep English",
+    "suggestWhy": "Suggested from your browser's language setting - never from where you are.",
+    "switched": "Beacon is now in {name}. You can change it any time with the globe button at the top.",
+    "back": "Back to English",
+    "official": "Official names and rules stay in English, as the organisation writes them."
+  },
+  "place": {
+    "chip": "Country: {country}",
+    "step": "Your place - step {n} of {total}",
+    "suggest": "Looks like you're in {country} (from your browser language). Is that right?",
+    "never": "We only use your country and your council area - never your address.",
+    "yes": "Yes, that's right",
+    "other": "Choose another country",
+    "which": "Which country are you in?",
+    "search": "Search for your country",
+    "withPack": "Countries with rules Beacon checks",
+    "others": "Other countries",
+    "noneTitle": "Beacon doesn't check {country}'s rules yet",
+    "noneBody": "Beacon only knows the rules for {covered} today. The results would not fit {country}, so we won't guess.",
+    "useUk": "Check UK rules anyway",
+    "back": "Choose again",
+    "close": "Close",
+    "packBadge": "Rules pack",
+    "packLine": "Rules read from the official pages. Beacon can say Likely.",
+    "noneBadge": "Not yet",
+    "noneLine": "No rules for this country yet.",
+    "confirm": "Use {country}",
+    "ukPlace": "Your postcode tells Beacon your nation and council."
+  },
+  "first": {
+    "you": "You, or someone you look after",
+    "givers": "Government, councils, NHS, charities",
+    "mapLabel": "You on one side, everyone who gives help on the other, and Beacon connecting the two.",
+    "headline": "{names}, and {more} more",
+    "lead": "As you answer, what may be yours shows up here with the official rule behind it.",
+    "example": "See an example",
+    "stillPossible": "{live} of {total} still possible"
+  },
+  "chat": {
+    "hello": "Hi, I'm Beacon. I check what help you could be missing, for you or someone you look after.",
+    "howTo": "Tell me what's going on in your own words, or answer the questions below. You can also talk, or add a photo of a letter.",
+    "startFrom": "Or start from what's changed",
+    "placeholder": "Or tell Beacon in your own words",
+    "placeholderAfter": "Tell Beacon about your situation",
+    "add": "Add",
+    "send": "Send",
+    "speak": "Speak",
+    "saved": "Saved. {progress}.",
+    "savedNew": "Saved. {progress}. New: {names}.",
+    "likelySoFar": "{count, plural, one {# looks} other {# look}} likely so far",
+    "checkSoFar": "{count} worth checking so far",
+    "appearAsYouAnswer": "Results appear as you answer",
+    "nothingYet": "Nothing matches yet",
+    "examplePlay": "Here's a made-up example: {name}. {line} Watch the results light up as each answer goes in.",
+    "exampleDone": "That's every answer that matters for this example. Try your own whenever you're ready, or ask me anything about these results.",
+    "shared": "This check was shared with you. Change anything in Details, and it stays on this device.",
+    "message": "Message Beacon",
+    "addLetter": "Add a letter or photo",
+    "addLetterHint": "An agent reads it for you",
+    "takePhoto": "Take a photo",
+    "takePhotoHint": "Best on a phone",
+    "sample": "Try a sample letter",
+    "sampleHint": "A made-up council tax bill",
+    "saidAloud": "Said aloud"
+  },
+  "events": {
+    "job": "Lost a job or hours",
+    "baby": "Expecting or had a baby",
+    "death": "Someone close died",
+    "health": "A health condition",
+    "caring": "Caring for someone",
+    "money": "Money is tight"
+  },
+  "q": {
+    "answerHere": "Answer here",
+    "change": "Change an answer",
+    "unsure": "I'm not sure",
+    "save": "Save and continue",
+    "cancel": "Cancel",
+    "skip": "Skip for now",
+    "postcode": "Postcode",
+    "month": "Month",
+    "year": "Year",
+    "notSure": "Not sure",
+    "noChildren": "No children",
+    "amount": "Amount",
+    "amountAfterTax": "Amount after tax",
+    "howOften": "How often",
+    "per": "{per, select, week {a week} month {a month} year {a year} other {}}",
+    "workSituation": "Work situation",
+    "employed": "Employed",
+    "self": "Self-employed",
+    "none": "Not working",
+    "sick": "Off sick",
+    "hoursWeek": "Hours a week",
+    "onCall": "Count time on call too.",
+    "yes": "Yes",
+    "no": "No",
+    "fewer": "{n} fewer",
+    "more": "{n} more",
+    "errFit": "That answer doesn't fit. Try again.",
+    "errPostcode": "Try the full postcode, like HA9 0WS",
+    "errYear": "Try a year, like 1948",
+    "errFuture": "That's still to come. Try a past month.",
+    "errAmount": "Try an amount in pounds, like 4000",
+    "errHours": "How many hours a week, roughly?",
+    "errHoursRange": "Try a number of hours between 0 and 168",
+    "emptyChecklist": "Tick any that fit, or 'None of these'",
+    "emptyWork": "Pick the one that fits best",
+    "emptyOther": "Add an answer, or choose 'I'm not sure'"
+  },
+  "chips": {
+    "livesIn": "Lives in {nation}",
+    "age": "Age {age}",
+    "spa": "State Pension age {age}",
+    "pensionAge": "Pension age reached",
+    "workingAge": "Working age",
+    "perWeek": "£{amount} a week",
+    "noHelp": "No daily help needed",
+    "dailyHelp": "Daily living help",
+    "careHelp": "Personal care help",
+    "opens": "Opens linked help",
+    "noLinked": "No linked help yet",
+    "lowWork": "Under 16 hours or not working",
+    "fullWork": "16 hours or more",
+    "noChildren": "No children",
+    "youngest": "Youngest is {age}",
+    "care35": "35 hours or more",
+    "careUnder": "Under 35 hours"
+  },
+  "nations": {
+    "eng": "England",
+    "sco": "Scotland",
+    "wal": "Wales",
+    "ni": "Northern Ireland"
+  },
+  "facts": {
+    "postcode": {
+      "q": "What's your postcode?",
+      "qThey": "What's {n}'s postcode?",
+      "why": "Your nation and council decide many schemes.",
+      "label": "Postcode"
+    },
+    "dob": {
+      "q": "When were you born?",
+      "qThey": "When was {n} born?",
+      "why": "Month and year are enough. Age decides a lot, like State Pension age.",
+      "label": "Born"
+    },
+    "benefits": {
+      "q": "Which of these do you already get?",
+      "qThey": "Which of these does {n} already get?",
+      "why": "Some help opens the door to more help.",
+      "label": "Already gets",
+      "opts": {
+        "uc": "Universal Credit",
+        "pc": "Pension Credit",
+        "pip": "PIP or Attendance Allowance",
+        "cb": "Child Benefit"
+      },
+      "none": "None of these"
+    },
+    "income": {
+      "q": "How much money comes into your home?",
+      "qThey": "How much money comes into {n}'s home?",
+      "why": "Include wages, pensions and benefits, after tax.",
+      "label": "Income"
+    },
+    "savings": {
+      "q": "How much do you have in savings?",
+      "qThey": "How much does {n} have in savings?",
+      "why": "Some help has a savings limit, often £16,000.",
+      "label": "Savings"
+    },
+    "difficulties": {
+      "q": "Because of a health condition, what feels hard day to day?",
+      "qThey": "Because of a health condition, what does {n} find hard day to day?",
+      "why": "This opens disability payments and help getting around.",
+      "label": "Day-to-day help",
+      "opts": {
+        "wash": "Washing, dressing or using the toilet",
+        "night": "Being safe on your own, day or night",
+        "cook": "Cooking or managing medicines",
+        "move": "Walking or getting around"
+      },
+      "none": "None of these"
+    },
+    "work": {
+      "q": "What's your work situation?",
+      "qThey": "What's {n}'s work situation?",
+      "why": "Decides help with jobs, sickness, caring and childcare.",
+      "label": "Work"
+    },
+    "ni": {
+      "q": "Have you paid National Insurance in the last 2 to 3 years?",
+      "qThey": "Has {n} paid National Insurance in the last 2 to 3 years?",
+      "why": "New Style JSA and ESA depend on contributions, not income.",
+      "label": "Paid National Insurance"
+    },
+    "child": {
+      "q": "When was your youngest child born?",
+      "qThey": "When was {n}'s youngest child born?",
+      "why": "Month and year are enough. Family help depends on your child's age.",
+      "label": "Youngest child"
+    },
+    "pregnant": {
+      "q": "Is anyone at home expecting a baby?",
+      "qThey": "Is anyone in {n}'s home expecting a baby?",
+      "why": "Opens maternity and early-years help.",
+      "label": "Expecting a baby"
+    },
+    "careHours": {
+      "q": "How many hours a week do you care for someone?",
+      "qThey": "How many hours a week does {n} care for someone?",
+      "why": "Carer payments start at 35 hours a week.",
+      "label": "Caring hours"
+    },
+    "ctax": {
+      "q": "Do you pay council tax?",
+      "qThey": "Does {n} pay council tax?",
+      "why": "Your council can reduce it.",
+      "label": "Pays council tax"
+    },
+    "housing": {
+      "q": "Where do you live?",
+      "qThey": "Where does {n} live?",
+      "why": "Renting can open help with the rent.",
+      "label": "Home",
+      "opts": {
+        "social": "Rent from the council or a housing association",
+        "private": "Rent privately",
+        "own": "Own it",
+        "family": "Live with family or friends"
+      }
+    },
+    "household": {
+      "q": "Who lives with you?",
+      "qThey": "Who lives with {n}?",
+      "why": "Living alone can take money off the council tax bill.",
+      "label": "Lives with",
+      "opts": {
+        "alone": "Nobody",
+        "children": "Only children under 18",
+        "partner": "A partner",
+        "adults": "Other adults"
+      }
+    },
+    "debt": {
+      "q": "Are you behind on any bills or payments?",
+      "qThey": "Is {n} behind on any bills or payments?",
+      "why": "There's free help with debt, and grants that clear energy debts.",
+      "label": "Behind on bills"
+    },
+    "bereaved": {
+      "q": "Has someone close to you died recently?",
+      "qThey": "Has someone close to {n} died recently?",
+      "why": "Opens bereavement and funeral help.",
+      "label": "Bereavement",
+      "opts": {
+        "no": "No",
+        "partner": "My husband, wife or civil partner",
+        "funeral": "Someone else, and I'm paying for the funeral"
+      }
+    }
+  }
+}

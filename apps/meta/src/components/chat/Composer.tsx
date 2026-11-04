@@ -4,6 +4,7 @@
 // Speaking records to WAV in the browser; Muse Voice Transcribe turns it into text.
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { type Recorder, startRecording } from "@/lib/wav";
 
@@ -23,6 +24,7 @@ export function Composer({
   /** While a question card is open, the composer steps back to one line. */
   quiet?: boolean;
 }) {
+  const t = useTranslations("chat");
   const [text, setText] = useState("");
   const [menu, setMenu] = useState(false);
   const [rec, setRec] = useState<Recorder | null>(null);
@@ -130,17 +132,13 @@ export function Composer({
     >
       {micError && <p className="hint mic-error">{micError}</p>}
       <label htmlFor="chat-input" className="sr-only">
-        Message Beacon
+        {t("message")}
       </label>
       <textarea
         id="chat-input"
         ref={ta}
         rows={quiet && !text ? 1 : 2}
-        placeholder={
-          quiet
-            ? "Or tell Beacon in your own words"
-            : "Tell Beacon about your situation"
-        }
+        placeholder={quiet ? t("placeholder") : t("placeholderAfter")}
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {
@@ -172,7 +170,7 @@ export function Composer({
           <button
             type="button"
             className="iconbtn"
-            aria-label="Add"
+            aria-label={t("add")}
             aria-expanded={menu}
             onClick={() => setMenu((m) => !m)}
             data-testid="add"
@@ -188,9 +186,9 @@ export function Composer({
                 data-testid="add-letter"
               >
                 <b>
-                  <Icon name="upload" size={18} /> Add a letter or photo
+                  <Icon name="upload" size={18} /> {t("addLetter")}
                 </b>
-                <span>An agent reads it for you</span>
+                <span>{t("addLetterHint")}</span>
               </button>
               <button
                 type="button"
@@ -198,9 +196,9 @@ export function Composer({
                 onClick={() => camera.current?.click()}
               >
                 <b>
-                  <Icon name="camera" size={18} /> Take a photo
+                  <Icon name="camera" size={18} /> {t("takePhoto")}
                 </b>
-                <span>Best on a phone</span>
+                <span>{t("takePhotoHint")}</span>
               </button>
               <button
                 type="button"
@@ -219,9 +217,9 @@ export function Composer({
                 }}
               >
                 <b>
-                  <Icon name="doc" size={18} /> Try a sample letter
+                  <Icon name="doc" size={18} /> {t("sample")}
                 </b>
-                <span>A made-up council tax bill</span>
+                <span>{t("sampleHint")}</span>
               </button>
             </div>
           )}
@@ -232,7 +230,7 @@ export function Composer({
             type="submit"
             className="send"
             disabled={busy}
-            aria-label="Send"
+            aria-label={t("send")}
             data-testid="send"
           >
             <Icon name="up" size={20} />
@@ -243,7 +241,7 @@ export function Composer({
             className="send mic"
             onClick={() => void start()}
             disabled={busy}
-            aria-label="Speak"
+            aria-label={t("speak")}
             data-testid="mic"
           >
             <Icon name="mic" size={20} />

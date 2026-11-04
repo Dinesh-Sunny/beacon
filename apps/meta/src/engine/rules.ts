@@ -197,36 +197,70 @@ export function derive(A: Answers, today = new Date()): Derived {
 export const nationIn = (A: Answers): Nation | null => derive(A).nation ?? null;
 
 /** Plain-English facts worked out from one answer, shown under the input as you type. */
-export function derivedChips(f: FactId, d: Derived): string[] {
-  const out: string[] = [];
-  if (f === "postcode" && d.nation) out.push(`Lives in ${NATION[d.nation]}`);
+/** What an answer tells Beacon, as message ids with values, so any language can word it. */
+export type Chip = { id: ChipId; v?: Record<string, string | number> };
+export type ChipId = keyof typeof CHIP_EN;
+const CHIP_EN = {
+  livesIn: "Lives in {nation}",
+  age: "Age {age}",
+  spa: "State Pension age {age}",
+  pensionAge: "Pension age reached",
+  workingAge: "Working age",
+  perWeek: "£{amount} a week",
+  noHelp: "No daily help needed",
+  dailyHelp: "Daily living help",
+  careHelp: "Personal care help",
+  opens: "Opens linked help",
+  noLinked: "No linked help yet",
+  lowWork: "Under 16 hours or not working",
+  fullWork: "16 hours or more",
+  noChildren: "No children",
+  youngest: "Youngest is {age}",
+  care35: "35 hours or more",
+  careUnder: "Under 35 hours",
+} as const;
+
+export function chips(f: FactId, d: Derived): Chip[] {
+  const out: Chip[] = [];
+  if (f === "postcode" && d.nation)
+    out.push({ id: "livesIn", v: { nation: d.nation } });
   if (f === "dob" && d.age !== undefined) {
-    out.push(`Age ${d.age}`);
-    out.push(`State Pension age ${d.spaLabel}`);
-    out.push(d.spa ? "Pension age reached" : "Working age");
+    out.push({ id: "age", v: { age: d.age } });
+    out.push({ id: "spa", v: { age: d.spaLabel ?? "" } });
+    out.push({ id: d.spa ? "pensionAge" : "workingAge" });
   }
   if (f === "income" && d.incWeek !== undefined)
-    out.push(`£${d.incWeek} a week`);
+    out.push({ id: "perWeek", v: { amount: d.incWeek } });
   if (f === "difficulties" && d.health)
-    out.push(
-      {
-        none: "No daily help needed",
-        daily: "Daily living help",
-        care: "Personal care help",
-      }[d.health],
-    );
+    out.push({
+      id: ({ none: "noHelp", daily: "dailyHelp", care: "careHelp" } as const)[
+        d.health
+      ],
+    });
   if (f === "benefits" && d.gateway !== undefined)
-    out.push(d.gateway ? "Opens linked help" : "No linked help yet");
+    out.push({ id: d.gateway ? "opens" : "noLinked" });
   if (f === "work" && d.work)
-    out.push(d.lowWork ? "Under 16 hours or not working" : "16 hours or more");
+    out.push({ id: d.lowWork ? "lowWork" : "fullWork" });
   if (f === "child" && d.childAge !== undefined)
     out.push(
-      d.childAge === NO_CHILD ? "No children" : `Youngest is ${d.childAge}`,
+      d.childAge === NO_CHILD
+        ? { id: "noChildren" }
+        : { id: "youngest", v: { age: d.childAge } },
     );
   if (f === "careHours" && d.careHours !== undefined)
-    out.push(d.careHours >= 35 ? "35 hours or more" : "Under 35 hours");
+    out.push({ id: d.careHours >= 35 ? "care35" : "careUnder" });
   return out;
 }
+
+/** The English wording of a chip (the activity log and the agent read English). */
+export const chipEn = (c: Chip): string =>
+  CHIP_EN[c.id].replace(/\{(\w+)\}/g, (_, k: string) => {
+    const v = c.v?.[k];
+    return k === "nation" ? NATION[v as Nation] : String(v ?? "");
+  });
+
+export const derivedChips = (f: FactId, d: Derived): string[] =>
+  chips(f, d).map(chipEn);
 
 // ---------- The packs ----------
 // Load order is layer order: the core benefits first, then each group of help built on them.

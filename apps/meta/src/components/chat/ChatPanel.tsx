@@ -4,6 +4,7 @@
 // it, saves the facts through tools, and the form, board and Details update straight away.
 
 import { useCallback, useEffect, useRef, useState } from "react";
+import { useTranslations } from "use-intl";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon, Logo } from "@/components/Icon";
 import {
@@ -17,7 +18,8 @@ import {
   ORDER,
   showAnswer,
 } from "@/engine/facts";
-import { evaluate, progressLine, SCHEMES } from "@/engine/rules";
+import { evaluate, SCHEMES } from "@/engine/rules";
+import { useFactText } from "@/i18n/useFactText";
 import { useCheck } from "@/lib/check-store";
 import { shrink } from "@/lib/image";
 import { Composer } from "./Composer";
@@ -71,6 +73,9 @@ export const errorText = (code?: string) =>
 const nextId = () => crypto.randomUUID();
 
 export function ChatPanel({ playing = false }: { playing?: boolean }) {
+  const tc = useTranslations("chat");
+  const te = useTranslations("events");
+  const ft = useFactText();
   const {
     answers,
     apply,
@@ -354,11 +359,11 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       const before = evaluate(answersRef.current);
       const after = evaluate(next);
       apply({ [f]: v, ...extra }, "form");
-      const said = showAnswer(next, f);
+      const said = ft.show(next, f);
       push({
         role: "user",
         text: said,
-        qa: { q: ask(f, subjectRef.current), a: said },
+        qa: { q: ft.ask(f, subjectRef.current), a: said },
       });
       const gained = SCHEMES.filter(
         (s) =>
@@ -368,11 +373,16 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         role: "bot",
         text: "",
         notes: [
-          `Saved. ${progressLine(after)}${gained.length ? `. New: ${gained.join(", ")}` : ""}.`,
+          gained.length
+            ? tc("savedNew", {
+                progress: ft.progress(after),
+                names: gained.join(", "),
+              })
+            : tc("saved", { progress: ft.progress(after) }),
         ],
       });
     },
-    [apply, push],
+    [apply, push, ft, tc],
   );
 
   // A first message typed on the home page arrives here once.
@@ -393,14 +403,8 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
       <div className="thread" data-testid="thread">
         <div className="msg bot welcome">
           <Logo size={30} />
-          <p className="bubble plain">
-            Hi, I'm Beacon. I check what help you could be missing, for you or
-            someone you look after.
-          </p>
-          <p className="bubble plain">
-            Tell me what's going on in your own words, or answer the questions
-            below. You can also talk, or add a photo of a letter.
-          </p>
+          <p className="bubble plain">{tc("hello")}</p>
+          <p className="bubble plain">{tc("howTo")}</p>
         </div>
         {msgs.map((m, i) => (
           <Message key={m.id} m={m} last={i === msgs.length - 1} />
@@ -410,7 +414,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         )}
         {!msgs.length && !asked && !playing && (
           <div className="life-events">
-            <span className="hint">Or start from what's changed</span>
+            <span className="hint">{tc("startFrom")}</span>
             <div className="chips">
               {LIFE_EVENTS.map((e) => (
                 <button
@@ -418,10 +422,10 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
                   type="button"
                   onClick={() => {
                     setFocus(e.focus);
-                    push({ role: "user", text: e.label });
+                    push({ role: "user", text: te(e.id as "job") });
                   }}
                 >
-                  {e.label}
+                  {te(e.id as "job")}
                 </button>
               ))}
             </div>
@@ -452,6 +456,8 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
 }
 
 function Message({ m, last }: { m: Msg; last: boolean }) {
+  const ft = useFactText();
+  const tc = useTranslations("chat");
   const [rated, setRated] = useState<"up" | "down" | null>(null);
   const [copied, setCopied] = useState(false);
   const savedKeys = ORDER.filter((k) => m.saved?.[k] !== undefined);
@@ -474,7 +480,7 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
         </div>
         {m.via === "voice" && (
           <span className="who">
-            <Icon name="mic" size={12} /> Said aloud
+            <Icon name="mic" size={12} /> {tc("saidAloud")}
           </span>
         )}
       </div>
@@ -490,7 +496,7 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
         <div className="facts">
           {savedKeys.map((k) => (
             <span key={k} className="fact-chip">
-              {FACTS[k].label}: {showAnswer(m.saved ?? {}, k)}
+              {ft.label(k)}: {ft.show(m.saved ?? {}, k)}
             </span>
           ))}
         </div>

@@ -4,6 +4,7 @@
 // answer appear underneath as you type, so the person sees why the question matters.
 
 import { useEffect, useRef, useState } from "react";
+import { useFormatter, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { AnswersSchema } from "@/engine/answers-schema";
 import {
@@ -19,7 +20,8 @@ import {
   type Work,
   type WorkStatus,
 } from "@/engine/facts";
-import { derive, derivedChips, POSTCODE_RE, SCHEMES } from "@/engine/rules";
+import { chips, derive, POSTCODE_RE, SCHEMES } from "@/engine/rules";
+import { useFactText } from "@/i18n/useFactText";
 import { useCheck } from "@/lib/check-store";
 
 interface Draft {
@@ -34,32 +36,24 @@ interface Draft {
   h?: string;
 }
 
-type Read = { v: Answers[FactId] } | { err: string } | { empty: true };
-type RawRead = { v: unknown } | { err: string } | { empty: true };
+/** Errors are message ids under "q", worded in the reader's language when shown. */
+type ErrId =
+  | "errFit"
+  | "errPostcode"
+  | "errYear"
+  | "errFuture"
+  | "errAmount"
+  | "errHours"
+  | "errHoursRange";
+type Read = { v: Answers[FactId] } | { err: ErrId } | { empty: true };
+type RawRead = { v: unknown } | { err: ErrId } | { empty: true };
 
 /** Reads the inputs, then lets the answers schema have the final say on the value's shape. */
-const MONTHS = [
-  "January",
-  "February",
-  "March",
-  "April",
-  "May",
-  "June",
-  "July",
-  "August",
-  "September",
-  "October",
-  "November",
-  "December",
-];
-
 function readDraft(f: FactId, x: Draft, today = new Date()): Read {
   const r = readRaw(f, x, today);
   if (!("v" in r)) return r;
   const parsed = AnswersSchema.shape[f].safeParse(r.v);
-  return parsed.success
-    ? { v: parsed.data }
-    : { err: "That answer doesn't fit. Try again." };
+  return parsed.success ? { v: parsed.data } : { err: "errFit" };
 }
 
 function readRaw(f: FactId, x: Draft, today: Date): RawRead {
@@ -67,8 +61,7 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
   if (t === "postcode") {
     const v = (x.pc ?? "").trim().toUpperCase().replace(/\s+/g, " ");
     if (!v) return { empty: true };
-    if (!POSTCODE_RE.test(v))
-      return { err: "Try the full postcode, like HA9 0WS" };
+    if (!POSTCODE_RE.test(v)) return { err: "errPostcode" };
     return { v };
   }
   if (t === "date" || t === "childDate") {
@@ -76,18 +69,15 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
     if (!x.m && !x.y) return { empty: true };
     const yy = Number(x.y);
     const mm = Number(x.m || 7);
-    if (!yy || yy < 1900 || yy > today.getFullYear())
-      return { err: "Try a year, like 1948" };
-    if (new Date(yy, mm - 1, 1) > today)
-      return { err: "That's still to come. Try a past month." };
+    if (!yy || yy < 1900 || yy > today.getFullYear()) return { err: "errYear" };
+    if (new Date(yy, mm - 1, 1) > today) return { err: "errFuture" };
     return { v: `${yy}-${String(mm).padStart(2, "0")}-15` };
   }
   if (t === "money" || t === "moneyPeriod") {
     const raw = String(x.amt ?? "").replace(/[£,\s]/g, "");
     if (!raw) return { empty: true };
     const n = Number.parseFloat(raw);
-    if (Number.isNaN(n) || n < 0)
-      return { err: "Try an amount in pounds, like 4000" };
+    if (Number.isNaN(n) || n < 0) return { err: "errAmount" };
     return t === "money" ? { v: n } : { v: { amt: n, per: x.per ?? "week" } };
   }
   if (t === "checklist") {
@@ -98,15 +88,14 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
     if (!x.status) return { empty: true };
     if (x.status === "employed") {
       const h = Number(x.hours);
-      if (!(h > 0)) return { err: "How many hours a week, roughly?" };
+      if (!(h > 0)) return { err: "errHours" };
       return { v: { status: "employed", hours: h } };
     }
     return { v: { status: x.status } };
   }
   if (t === "hours") {
     const n = Number(x.h ?? 0);
-    if (Number.isNaN(n) || n < 0 || n > 168)
-      return { err: "Try a number of hours between 0 and 168" };
+    if (Number.isNaN(n) || n < 0 || n > 168) return { err: "errHoursRange" };
     return { v: n };
   }
   return { empty: true };
@@ -122,6 +111,10 @@ export function QuestionCard({
   inChat?: boolean;
 }) {
   const { answers, apply, states, edit, skip, skipped, subject } = useCheck();
+  const t = useTranslations("q");
+  const tChip = useTranslations("chips");
+  const tn = useTranslations("nations");
+  const ft = useFactText();
   const editing = !inChat;
   const [draft, setDraft] = useState<Draft>({});
   const [err, setErr] = useState("");
@@ -152,7 +145,7 @@ export function QuestionCard({
   // A new postcode is previewed on its own letters, not the nation looked up for the old one.
   const preview =
     "v" in r
-      ? derivedChips(
+      ? chips(
           f,
           derive({
             ...answers,
@@ -167,8 +160,8 @@ export function QuestionCard({
     onAnswer ? onAnswer(f, v, extra) : apply({ [f]: v, ...extra }, "form");
   const submit = (value?: Answers[FactId]) => {
     if (value !== undefined) return save(value);
-    if ("err" in r) return setErr(r.err);
-    if ("empty" in r) return setErr(emptyHint(fact.type));
+    if ("err" in r) return setErr(t(r.err));
+    if ("empty" in r) return setErr(t(emptyHint(fact.type)));
     save(r.v);
   };
   const onKey = (e: React.KeyboardEvent) => {
@@ -190,12 +183,12 @@ export function QuestionCard({
       {editing && (
         <div className="qtop">
           <span className="eyebrow">
-            {answers[f] === undefined ? "Answer here" : "Change an answer"}
+            {answers[f] === undefined ? t("answerHere") : t("change")}
           </span>
         </div>
       )}
-      <h2 id={inChat ? "q-chat" : "q-title"}>{ask(f, subject)}</h2>
-      <p className="why">{theyify(fact.why, subject)}</p>
+      <h2 id={inChat ? "q-chat" : "q-title"}>{ft.ask(f, subject)}</h2>
+      <p className="why">{ft.why(f, subject)}</p>
 
       {/* biome-ignore lint/a11y/noStaticElementInteractions: Enter anywhere in the inputs saves; the inputs themselves are the controls */}
       <div ref={body} onKeyDown={onKey} className="qbody">
@@ -211,7 +204,12 @@ export function QuestionCard({
       {!instant && (
         <div className="derived" aria-live="polite">
           {preview.map((c) => (
-            <span key={c}>{c}</span>
+            <span key={c.id}>
+              {tChip(c.id, {
+                ...c.v,
+                ...(c.v?.nation ? { nation: tn(c.v.nation as "eng") } : {}),
+              })}
+            </span>
           ))}
         </div>
       )}
@@ -222,7 +220,7 @@ export function QuestionCard({
         onClick={() => submit(UNSURE)}
         data-testid="unsure"
       >
-        I'm not sure
+        {t("unsure")}
       </button>
       <div className="qactions">
         {!instant && (
@@ -232,7 +230,7 @@ export function QuestionCard({
             onClick={() => submit()}
             data-testid="continue"
           >
-            Save and continue
+            {t("save")}
           </button>
         )}
         {editing ? (
@@ -241,7 +239,7 @@ export function QuestionCard({
             className="btn ghost"
             onClick={() => edit(null)}
           >
-            Cancel
+            {t("cancel")}
           </button>
         ) : canSkip ? (
           <button
@@ -250,7 +248,7 @@ export function QuestionCard({
             onClick={() => skip(f)}
             data-testid="skip"
           >
-            Skip for now
+            {t("skip")}
           </button>
         ) : null}
       </div>
@@ -284,10 +282,10 @@ function toDraft(f: FactId, v: unknown): Draft {
   return {};
 }
 
-function emptyHint(t: string): string {
-  if (t === "checklist") return "Tick any that fit, or 'None of these'";
-  if (t === "work") return "Pick the one that fits best";
-  return "Add an answer, or choose 'I'm not sure'";
+function emptyHint(t: string) {
+  if (t === "checklist") return "emptyChecklist" as const;
+  if (t === "work") return "emptyWork" as const;
+  return "emptyOther" as const;
 }
 
 function Input({
@@ -304,12 +302,19 @@ function Input({
   submit: (v?: Answers[FactId]) => void;
 }) {
   const { subject } = useCheck();
+  const t = useTranslations("q");
+  const fmt = useFormatter();
+  const ft = useFactText();
   const fact = FACTS[f];
+  // Month names in the reader's language, from the platform.
+  const months = Array.from({ length: 12 }, (_, i) =>
+    fmt.dateTime(new Date(2026, i, 1), { month: "long" }),
+  );
   switch (fact.type) {
     case "postcode":
       return (
         <div className="field">
-          <label htmlFor={`${idp}-pc`}>Postcode</label>
+          <label htmlFor={`${idp}-pc`}>{t("postcode")}</label>
           <input
             id={`${idp}-pc`}
             className="txt"
@@ -332,20 +337,20 @@ function Input({
               onClick={() => submit("none")}
               data-testid="no-children"
             >
-              No children
+              {t("noChildren")}
             </button>
           )}
           <div className="dates">
             <div className="field">
-              <label htmlFor={`${idp}-m`}>Month</label>
+              <label htmlFor={`${idp}-m`}>{t("month")}</label>
               <select
                 id={`${idp}-m`}
                 className="txt"
                 value={draft.m ?? ""}
                 onChange={(e) => set({ m: e.target.value })}
               >
-                <option value="">Not sure</option>
-                {MONTHS.map((name, i) => (
+                <option value="">{t("notSure")}</option>
+                {months.map((name, i) => (
                   <option key={name} value={String(i + 1)}>
                     {name}
                   </option>
@@ -353,7 +358,7 @@ function Input({
               </select>
             </div>
             <div className="field y">
-              <label htmlFor={`${idp}-y`}>Year</label>
+              <label htmlFor={`${idp}-y`}>{t("year")}</label>
               <input
                 id={`${idp}-y`}
                 className="txt"
@@ -373,7 +378,7 @@ function Input({
         <>
           <div className="field">
             <label htmlFor={`${idp}-amt`}>
-              {fact.type === "moneyPeriod" ? "Amount after tax" : "Amount"}
+              {fact.type === "moneyPeriod" ? t("amountAfterTax") : t("amount")}
             </label>
             <div className="money">
               <span>£</span>
@@ -388,7 +393,7 @@ function Input({
           </div>
           {fact.type === "moneyPeriod" && (
             <fieldset className="seg">
-              <legend className="sr-only">How often</legend>
+              <legend className="sr-only">{t("howOften")}</legend>
               {(["week", "month", "year"] as const).map((p) => (
                 <button
                   key={p}
@@ -396,7 +401,7 @@ function Input({
                   aria-pressed={(draft.per ?? "week") === p}
                   onClick={() => set({ per: p })}
                 >
-                  a {p}
+                  {t("per", { per: p })}
                 </button>
               ))}
             </fieldset>
@@ -418,7 +423,7 @@ function Input({
                   set({ sel: s.size ? [...s] : undefined });
                 }}
               />
-              {label}
+              {ft.opt(f, v, label)}
             </label>
           ))}
           <label className="chk none">
@@ -427,7 +432,7 @@ function Input({
               checked={Array.isArray(draft.sel) && draft.sel.length === 0}
               onChange={(e) => set({ sel: e.target.checked ? [] : undefined })}
             />
-            {fact.none}
+            {ft.none(f)}
           </label>
         </div>
       );
@@ -435,13 +440,13 @@ function Input({
       return (
         <>
           <fieldset className="seg">
-            <legend className="sr-only">Work situation</legend>
+            <legend className="sr-only">{t("workSituation")}</legend>
             {(
               [
-                ["employed", "Employed"],
-                ["self", "Self-employed"],
-                ["none", "Not working"],
-                ["sick", "Off sick"],
+                ["employed", t("employed")],
+                ["self", t("self")],
+                ["none", t("none")],
+                ["sick", t("sick")],
               ] as const
             ).map(([v, label]) => (
               <button
@@ -457,7 +462,7 @@ function Input({
           {draft.status === "employed" && (
             <Stepper
               id={`${idp}-hours`}
-              label="Hours a week"
+              label={t("hoursWeek")}
               value={draft.hours ?? ""}
               step={1}
               onChange={(v) => set({ hours: v })}
@@ -470,22 +475,22 @@ function Input({
         <>
           <Stepper
             id={`${idp}-h`}
-            label="Hours a week"
+            label={t("hoursWeek")}
             value={draft.h ?? "0"}
             step={5}
             onChange={(v) => set({ h: v })}
           />
-          <p className="hint">Count time on call too.</p>
+          <p className="hint">{t("onCall")}</p>
         </>
       );
     case "yesno":
       return (
         <div className="yn">
           <button type="button" onClick={() => submit("yes")}>
-            Yes
+            {t("yes")}
           </button>
           <button type="button" onClick={() => submit("no")}>
-            No
+            {t("no")}
           </button>
         </div>
       );
@@ -499,7 +504,7 @@ function Input({
               className="rc"
               onClick={() => submit(v as Answers[FactId])}
             >
-              {optLabel(label, subject)}
+              {ft.en ? optLabel(label, subject) : ft.opt(f, v, label)}
             </button>
           ))}
         </div>
@@ -520,6 +525,7 @@ function Stepper({
   step: number;
   onChange: (v: string) => void;
 }) {
+  const t = useTranslations("q");
   const bump = (by: number) =>
     onChange(String(Math.max(0, Math.min(168, (Number(value) || 0) + by))));
   return (
@@ -529,7 +535,7 @@ function Stepper({
         <button
           type="button"
           onClick={() => bump(-step)}
-          aria-label={`${step} fewer`}
+          aria-label={t("fewer", { n: step })}
         >
           <Icon name="minus" />
         </button>
@@ -543,7 +549,7 @@ function Stepper({
         <button
           type="button"
           onClick={() => bump(step)}
-          aria-label={`${step} more`}
+          aria-label={t("more", { n: step })}
         >
           <Icon name="plus" />
         </button>

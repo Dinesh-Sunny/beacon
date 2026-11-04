@@ -3523,3 +3523,133 @@ details.constellation[open] > summary::after {
     height: 56px;
   }
 }
+
+/* ---------- Country and language ---------- */
+.country-chip b {
+  font-family: var(--f-mono, ui-monospace, monospace);
+  font-size: 0.8rem;
+  letter-spacing: 0.04em;
+  padding: 1px 6px;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+}
+.lang-menu button b {
+  font-size: 1rem;
+}
+.lang-menu button[aria-checked="true"] {
+  background: var(--surface-2);
+}
+.lang-note {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px 12px;
+  margin: 8px 12px;
+  padding: 10px 14px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  box-shadow: var(--shadow);
+  font-size: 0.92rem;
+}
+.lang-note > div,
+.lang-note > p {
+  flex: 1 1 220px;
+  margin: 0;
+}
+.lang-note p {
+  margin: 0;
+}
+.place-picker {
+  width: min(520px, calc(100vw - 32px));
+  max-height: min(680px, calc(100dvh - 32px));
+  border: 1px solid var(--line);
+  border-radius: 20px;
+  padding: 18px;
+  background: var(--surface);
+  color: var(--ink);
+  box-shadow: var(--shadow);
+}
+.place-picker[open] {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.place-picker::backdrop {
+  background: rgb(31 27 22 / 0.35);
+}
+.place-picker h2 {
+  font-size: 1.4rem;
+  margin: 0;
+}
+.place-picker .row {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.pp-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pp-list {
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  min-height: 0;
+  max-height: 46dvh;
+}
+.pp-list .eyebrow {
+  margin: 8px 4px 2px;
+}
+.pp-row {
+  all: unset;
+  box-sizing: border-box;
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 40px minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 10px;
+  border-radius: 12px;
+}
+.pp-row:hover,
+.pp-row:focus-visible,
+.pp-row[aria-current="true"] {
+  background: var(--surface-2);
+}
+.pp-row span {
+  display: flex;
+  flex-direction: column;
+}
+.pp-row small {
+  color: var(--muted);
+  font-size: 0.82rem;
+}
+.pp-code {
+  font:
+    600 0.8rem ui-monospace,
+    monospace;
+  color: var(--muted);
+}
+.badge-pack,
+.badge-none {
+  font-style: normal;
+  font-size: 0.78rem;
+  padding: 2px 8px;
+  border-radius: 999px;
+  border: 1px solid var(--line);
+  color: var(--muted);
+}
+.badge-pack {
+  border-color: var(--good, #2e7d4f);
+  color: var(--good, #2e7d4f);
+}
+.pp-foot {
+  margin: 0;
+}
+/* Right-to-left: mirror the layout, keep icons and numbers readable. */
+[dir="rtl"] .strip .spacer {
+  margin-inline-start: auto;
+}
