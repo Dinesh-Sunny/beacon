@@ -44,7 +44,7 @@ export const uslocal: Connector = {
     // HRSA health center sites (CSV).
     let csv = "";
     for (const url of HRSA) {
-      const res = await fetch(url, { headers: { Accept: "text/csv" } });
+      const res = await fetch(url, { headers: { Accept: "*/*" } });
       log(`hrsa ${res.status} ${url}`);
       if (res.ok) {
         csv = await res.text();
