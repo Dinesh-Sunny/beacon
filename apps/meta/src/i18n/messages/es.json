@@ -464,7 +464,7 @@
     "h1": "Encuentra el apoyo que ya es tuyo.",
     "lead": "Cuéntale a Beacon sobre tu vida, o la de alguien a quien cuidas, con tus propias palabras y en tu idioma. Te muestra la ayuda que probablemente te corresponde y te prepara para pedirla.",
     "inputLabel": "Cuéntale a Beacon tu situación",
-    "inputHint": "Por ejemplo: mi madre tiene 78 años, vive sola en Wembley y le cuestan las escaleras",
+    "inputHint": "Mi madre tiene 78 años y le cuestan las escaleras",
     "alsoSpeak": "También puedes hablar o añadir una carta",
     "go": "Empezar",
     "watch": "o mira la consulta de Margaret",
@@ -479,11 +479,12 @@
     "code": "Código en GitHub",
     "skip": "Saltar al contenido",
     "pillAll": "Gratis · {count} tipos de ayuda · Reino Unido y EE. UU. · {languages} idiomas",
-    "starter1": "Mi madre tiene 78 años y le cuestan las escaleras",
-    "starter2": "Acabo de perder mi trabajo y tengo que pagar el alquiler",
-    "starter3": "Padre soltero en Texas con dos hijos",
-    "startersLabel": "Prueba un ejemplo",
-    "factNoIdShort": "Nunca pide documentos de identidad ni datos bancarios"
+    "factNoIdShort": "Nunca pide documentos de identidad ni datos bancarios",
+    "forLabel": "¿Para quién es la consulta?",
+    "forOther": "Alguien a quien cuido",
+    "forMe": "Para mí",
+    "inputHintMe": "Tengo 67 años, vivo por mi cuenta y mi pensión es pequeña",
+    "tryExample": "Prueba una consulta de ejemplo"
   },
   "status": {
     "open": "Aún abierto",
@@ -1041,6 +1042,50 @@
       "money": "Presupuesto y crédito",
       "buying": "Comprar una casa",
       "reverse": "Hipotecas inversas"
+    }
+  },
+  "hero": {
+    "tabsLabel": "Ver una consulta de ejemplo",
+    "windowTitle": "La consulta de Margaret",
+    "tabs": {
+      "chat": "Chat",
+      "results": "Resultados",
+      "plan": "Plan",
+      "call": "Notas para llamar",
+      "near": "Cerca de ti"
+    },
+    "captions": {
+      "chat": "Cuéntaselo a Beacon con tus palabras. Hace una pregunta corta cada vez, solo lo que podría cambiar un resultado.",
+      "results": "Cada resultado muestra las normas en las que se basa y enlaza a la página oficial.",
+      "plan": "Las solicitudes en el orden correcto, con un aviso cuando una podría reducir otra.",
+      "call": "A quién llamar, el número y qué decir.",
+      "near": "Las páginas de tu ayuntamiento y organizaciones benéficas locales, según tu código postal."
+    },
+    "chat": {
+      "saved": "Guardado: edad, hogar y ayuda diaria"
+    },
+    "results": {
+      "head": "{count, plural, one {# cosa parece probable por ahora} many {# de cosas parecen probables por ahora} other {# cosas parecen probables por ahora}}",
+      "range": "De {min} a {max} a la semana",
+      "topUp": "Un extra semanal para sus ingresos",
+      "council": "Lo fija su ayuntamiento"
+    },
+    "plan": {
+      "now": "Empieza ya"
+    },
+    "call": {
+      "head": "Llamada sobre {name}",
+      "say": "\"Quisiera pedir un formulario de solicitud para mi madre. Tiene 78 años y necesita ayuda casi todas las mañanas.\"",
+      "after": "Después: {next}"
+    },
+    "near": {
+      "head": "De Brent Council y alrededores",
+      "ctr": "Council Tax Reduction",
+      "care": "Evaluación de necesidades de cuidado",
+      "adapt": "Adaptaciones y ayudas para el hogar",
+      "council": "Brent Council",
+      "charity": "Organizaciones benéficas que dan ayudas a personas mayores",
+      "register": "Registro de organizaciones benéficas"
     }
   }
 }

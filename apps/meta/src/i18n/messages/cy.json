@@ -464,7 +464,7 @@
     "h1": "Dewch o hyd i'r cymorth sydd eisoes yn eiddo i chi.",
     "lead": "Dywedwch wrth Beacon am eich bywyd, neu fywyd rhywun rydych chi'n gofalu amdano, yn eich geiriau eich hun ac yn eich iaith eich hun. Mae'n dangos yr help sy'n debygol o fod yn eiddo i chi ac yn eich paratoi i'w hawlio.",
     "inputLabel": "Dywedwch wrth Beacon am eich sefyllfa",
-    "inputHint": "Er enghraifft: mae Mam yn 78, yn byw ar ei phen ei hun yn Wembley ac yn ei chael hi'n anodd gyda grisiau",
+    "inputHint": "Mae Mam yn 78 ac mae grisiau'n anodd iddi",
     "alsoSpeak": "Gallwch hefyd siarad neu ychwanegu llythyr",
     "go": "Dechrau",
     "watch": "neu gwyliwch wiriad Margaret",
@@ -479,11 +479,12 @@
     "code": "Cod ar GitHub",
     "skip": "Neidio i'r cynnwys",
     "pillAll": "Am ddim · {count} math o help · y DU ac UDA · {languages} iaith",
-    "starter1": "Mae Mam yn 78 ac yn ei chael hi'n anodd gyda'r grisiau",
-    "starter2": "Rwyf newydd golli fy swydd ac mae'r rhent yn ddyledus",
-    "starter3": "Tad sengl yn Texas gyda dau o blant",
-    "startersLabel": "Rhowch gynnig ar enghraifft",
-    "factNoIdShort": "Byth yn gofyn am ddogfennau adnabod na manylion banc"
+    "factNoIdShort": "Byth yn gofyn am ddogfennau adnabod na manylion banc",
+    "forLabel": "I bwy mae'r gwiriad?",
+    "forOther": "Rhywun rwy'n gofalu amdano",
+    "forMe": "Fi",
+    "inputHintMe": "Rwy'n 67, yn byw ar fy mhen fy hun ac mae fy mhensiwn yn fach",
+    "tryExample": "Rhowch gynnig ar wiriad enghreifftiol"
   },
   "status": {
     "open": "Yn dal ar agor",
@@ -1041,6 +1042,50 @@
       "money": "Cyllidebu a chredyd",
       "buying": "Prynu cartref",
       "reverse": "Morgeisi gwrthdro"
+    }
+  },
+  "hero": {
+    "tabsLabel": "Gweld gwiriad enghreifftiol",
+    "windowTitle": "Gwiriad Margaret",
+    "tabs": {
+      "chat": "Sgwrs",
+      "results": "Canlyniadau",
+      "plan": "Cynllun",
+      "call": "Nodiadau galwad",
+      "near": "Yn agos atoch chi"
+    },
+    "captions": {
+      "chat": "Dywedwch wrth Beacon yn eich geiriau eich hun. Mae'n gofyn un cwestiwn bach ar y tro, dim ond yr hyn a allai newid canlyniad.",
+      "results": "Mae pob canlyniad yn dangos y rheolau mae'n seiliedig arnyn nhw ac yn cysylltu â'r dudalen swyddogol.",
+      "plan": "Hawliadau yn y drefn gywir, gyda rhybudd pan allai un leihau un arall.",
+      "call": "Pwy i'w ffonio, y rhif, a beth i'w ddweud.",
+      "near": "Tudalennau eich cyngor eich hun ac elusennau lleol, wedi'u canfod o'ch cod post."
+    },
+    "chat": {
+      "saved": "Wedi'i gadw: oed, cartref a help bob dydd"
+    },
+    "results": {
+      "head": "{count, plural, zero {# peth yn edrych yn debygol hyd yma} one {# peth yn edrych yn debygol hyd yma} two {# beth yn edrych yn debygol hyd yma} few {# pheth yn edrych yn debygol hyd yma} many {# pheth yn edrych yn debygol hyd yma} other {# peth yn edrych yn debygol hyd yma}}",
+      "range": "{min} i {max} yr wythnos",
+      "topUp": "Hwb wythnosol i'w hincwm",
+      "council": "Wedi'i bennu gan ei chyngor"
+    },
+    "plan": {
+      "now": "Dechrau nawr"
+    },
+    "call": {
+      "head": "Ffonio am {name}",
+      "say": "\"Hoffwn ofyn am ffurflen gais i fy mam. Mae hi'n 78 ac mae angen help arni y rhan fwyaf o foreau.\"",
+      "after": "Nesaf: {next}"
+    },
+    "near": {
+      "head": "Gan Brent Council a gerllaw",
+      "ctr": "Council Tax Reduction",
+      "care": "Asesiad anghenion gofal",
+      "adapt": "Addasiadau a chymhorthion yn y cartref",
+      "council": "Brent Council",
+      "charity": "Elusennau sy'n rhoi grantiau i bobl hŷn",
+      "register": "Cofrestr elusennau"
     }
   }
 }

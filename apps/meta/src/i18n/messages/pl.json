@@ -464,7 +464,7 @@
     "h1": "Znajdź wsparcie, które już jest Twoje.",
     "lead": "Opowiedz Beacon o swoim życiu albo o życiu osoby, którą się opiekujesz, własnymi słowami i we własnym języku. Beacon pokaże pomoc, która prawdopodobnie Ci przysługuje, i przygotuje Cię do jej uzyskania.",
     "inputLabel": "Opowiedz Beacon o swojej sytuacji",
-    "inputHint": "Na przykład: moja mama ma 78 lat, mieszka sama w Wembley i ma trudności ze schodami",
+    "inputHint": "Moja mama ma 78 lat i ciężko jej chodzić po schodach",
     "alsoSpeak": "Możesz też mówić albo dodać list",
     "go": "Start",
     "watch": "albo zobacz sprawdzenie Margaret",
@@ -479,11 +479,12 @@
     "code": "Kod na GitHubie",
     "skip": "Przejdź do treści",
     "pillAll": "Za darmo · rodzaje pomocy: {count} · Wielka Brytania i USA · języki: {languages}",
-    "starter1": "Moja mama ma 78 lat i trudno jej chodzić po schodach",
-    "starter2": "Właśnie straciłem pracę, a czynsz trzeba zapłacić",
-    "starter3": "Samotny tata w Teksasie z dwójką dzieci",
-    "startersLabel": "Wypróbuj przykład",
-    "factNoIdShort": "Nigdy nie pyta o dokumenty ani dane bankowe"
+    "factNoIdShort": "Nigdy nie pyta o dokumenty ani dane bankowe",
+    "forLabel": "Dla kogo jest sprawdzenie?",
+    "forOther": "Ktoś, kim się opiekuję",
+    "forMe": "Ja",
+    "inputHintMe": "Mam 67 lat, mieszkam samotnie i mam małą emeryturę",
+    "tryExample": "Wypróbuj przykładowe sprawdzenie"
   },
   "status": {
     "open": "Nadal otwarte",
@@ -1041,6 +1042,50 @@
       "money": "Budżet i kredyt",
       "buying": "Kupno domu",
       "reverse": "Odwrócona hipoteka"
+    }
+  },
+  "hero": {
+    "tabsLabel": "Zobacz przykładowe sprawdzenie",
+    "windowTitle": "Sprawdzenie Margaret",
+    "tabs": {
+      "chat": "Czat",
+      "results": "Wyniki",
+      "plan": "Plan",
+      "call": "Notatki do rozmowy",
+      "near": "W pobliżu"
+    },
+    "captions": {
+      "chat": "Opowiedz Beacon własnymi słowami. Zadaje jedno krótkie pytanie naraz, tylko o to, co może zmienić wynik.",
+      "results": "Każdy wynik pokazuje przepisy, na których się opiera, i link do oficjalnej strony.",
+      "plan": "Wnioski w dobrej kolejności, z ostrzeżeniem, gdy jeden może obniżyć inny.",
+      "call": "Do kogo zadzwonić, pod jaki numer i co powiedzieć.",
+      "near": "Strony Twojej rady lokalnej i lokalne organizacje charytatywne, znalezione po kodzie pocztowym."
+    },
+    "chat": {
+      "saved": "Zapisano: wiek, dom i codzienna pomoc"
+    },
+    "results": {
+      "head": "{count, plural, one {Na razie # rzecz wygląda na prawdopodobną} few {Na razie # rzeczy wyglądają na prawdopodobne} many {Na razie # rzeczy wygląda na prawdopodobne} other {Na razie # rzeczy wygląda na prawdopodobne}}",
+      "range": "{min} do {max} tygodniowo",
+      "topUp": "Cotygodniowy dodatek do jej dochodu",
+      "council": "Ustala ją jej rada lokalna"
+    },
+    "plan": {
+      "now": "Zacznij teraz"
+    },
+    "call": {
+      "head": "Rozmowa w sprawie {name}",
+      "say": "\"Dzwonię, żeby poprosić o formularz wniosku dla mojej mamy. Ma 78 lat i prawie każdego ranka potrzebuje pomocy.\"",
+      "after": "Dalej: {next}"
+    },
+    "near": {
+      "head": "Od Brent Council i z okolicy",
+      "ctr": "Council Tax Reduction",
+      "care": "Ocena potrzeb opiekuńczych",
+      "adapt": "Przystosowanie domu i pomoce",
+      "council": "Brent Council",
+      "charity": "Organizacje charytatywne dające granty osobom starszym",
+      "register": "Rejestr organizacji charytatywnych"
     }
   }
 }
