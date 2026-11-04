@@ -3269,3 +3269,29 @@ fieldset.track-row {
   flex-basis: 100%;
   margin: 0;
 }
+
+/* Start from what's changed: life events that reorder the first questions */
+.life-events {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.life-events .chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.life-events button {
+  font: inherit;
+  font-size: 0.88rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 7px 12px;
+  min-height: 36px;
+  cursor: pointer;
+}
+.life-events button:hover {
+  border-color: var(--ink);
+}

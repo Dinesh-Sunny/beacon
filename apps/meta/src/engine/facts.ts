@@ -337,3 +337,38 @@ export function formatAnswer(f: FactId, v: unknown): string {
       return fact.opts?.find((o) => o[0] === v)?.[1] ?? String(v);
   }
 }
+
+/** Life events people start from (Beacon Framework: help changes most at these moments).
+ * Each one only changes which questions come first; the answers still come from the person. */
+export const LIFE_EVENTS: { id: string; label: string; focus: FactId[] }[] = [
+  {
+    id: "job",
+    label: "Lost a job or hours",
+    focus: ["work", "income", "ni", "savings", "benefits"],
+  },
+  {
+    id: "baby",
+    label: "Expecting or had a baby",
+    focus: ["pregnant", "child", "benefits", "work", "income"],
+  },
+  {
+    id: "death",
+    label: "Someone close died",
+    focus: ["bereaved", "dob", "benefits", "income"],
+  },
+  {
+    id: "health",
+    label: "A health condition",
+    focus: ["difficulties", "dob", "work", "income"],
+  },
+  {
+    id: "caring",
+    label: "Caring for someone",
+    focus: ["careHours", "work", "dob", "income"],
+  },
+  {
+    id: "money",
+    label: "Money is tight",
+    focus: ["debt", "income", "benefits", "savings", "housing"],
+  },
+];

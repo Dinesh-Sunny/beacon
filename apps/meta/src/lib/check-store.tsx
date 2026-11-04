@@ -84,6 +84,8 @@ interface Ctx {
   answers: Answers;
   states: States;
   next: ReturnType<typeof plan>;
+  /** Questions to ask first, from the life event someone started with. */
+  setFocus: (f: FactId[]) => void;
   log: LogItem[];
   changed: string[];
   selected: string | null;
@@ -163,14 +165,15 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     setHydrated(true);
   }, []);
 
+  const [focus, setFocus] = useState<FactId[]>([]);
   const states = useMemo(() => evaluate(answers), [answers]);
   const next = useMemo(() => {
     const withoutSkipped: Answers = { ...answers };
     for (const f of skipped)
       if (withoutSkipped[f] === undefined)
         (withoutSkipped as Record<string, unknown>)[f] = "__skip";
-    return plan(withoutSkipped, states) ?? plan(answers, states);
-  }, [answers, states, skipped]);
+    return plan(withoutSkipped, states, focus) ?? plan(answers, states, focus);
+  }, [answers, states, skipped, focus]);
   const current: FactId | null = editing ?? next?.f ?? null;
 
   const note = useCallback((kind: LogKind, who: string, text: string) => {
@@ -326,6 +329,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     setAnswers({});
     setSources({});
     setSkipped([]);
+    setFocus([]);
     edit(null);
     setHist([]);
     setLog([]);
@@ -371,6 +375,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     resets,
     announcement,
     announce,
+    setFocus,
   };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }

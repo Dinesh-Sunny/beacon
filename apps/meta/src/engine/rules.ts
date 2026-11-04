@@ -497,7 +497,16 @@ export function evaluate(A: Answers, today = new Date()): States {
 export function plan(
   A: Answers,
   st: States,
+  focus: FactId[] = [],
 ): { f: FactId; hits: Scheme[] } | null {
+  // A life event the person started from asks its own questions first, while they still matter.
+  for (const f of focus) {
+    if (A[f] !== undefined) continue;
+    const hits = SCHEMES.filter(
+      (s) => st[s.id]?.status === "open" && st[s.id]?.unknown.includes(f),
+    );
+    if (hits.length) return { f, hits };
+  }
   let best: { f: FactId; hits: Scheme[] } | null = null;
   for (const f of ORDER) {
     if (A[f] !== undefined) continue;

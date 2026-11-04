@@ -13,6 +13,7 @@ import {
   FACTS,
   type FactId,
   formatAnswer,
+  LIFE_EVENTS,
   ORDER,
   showAnswer,
 } from "@/engine/facts";
@@ -83,6 +84,8 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     next,
     resets,
     announcement,
+    asked,
+    setFocus,
   } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
@@ -399,6 +402,25 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
             letter.
           </p>
         </div>
+        {!msgs.length && !asked && !playing && (
+          <div className="life-events">
+            <span className="hint">Or start from what's changed</span>
+            <div className="chips">
+              {LIFE_EVENTS.map((e) => (
+                <button
+                  key={e.id}
+                  type="button"
+                  onClick={() => {
+                    setFocus(e.focus);
+                    push({ role: "user", text: e.label });
+                  }}
+                >
+                  {e.label}
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
         {msgs.map((m, i) => (
           <Message key={m.id} m={m} last={i === msgs.length - 1} />
         ))}
