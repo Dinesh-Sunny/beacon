@@ -15,7 +15,7 @@ export const EXAMPLES: Example[] = [
     line: "Lives alone on her State Pension. Needs a hand getting dressed.",
     answers: {
       postcode: "HA9 0WS",
-      dob: "1948-03-12",
+      dob: "1948-03-15",
       housing: "social",
       household: "alone",
       debt: "no",
@@ -38,7 +38,7 @@ export const EXAMPLES: Example[] = [
     line: "New dad working 12 hours a week.",
     answers: {
       postcode: "CF10 1EP",
-      dob: "1994-07-02",
+      dob: "1994-07-15",
       housing: "private",
       household: "partner",
       debt: "no",
@@ -48,7 +48,7 @@ export const EXAMPLES: Example[] = [
       difficulties: [],
       work: { status: "employed", hours: 12 },
       ni: "yes",
-      child: "2026-06-10",
+      child: "2026-06-15",
       pregnant: "no",
       careHours: 0,
       ctax: "yes",
@@ -61,7 +61,7 @@ export const EXAMPLES: Example[] = [
     line: "Cares for her brother 50 hours a week.",
     answers: {
       postcode: "G2 1DY",
-      dob: "1980-02-01",
+      dob: "1980-02-15",
       housing: "social",
       household: "adults",
       debt: "yes",
@@ -84,7 +84,7 @@ export const EXAMPLES: Example[] = [
     line: "Single mum of a 3-year-old, working 15 hours in a cafe.",
     answers: {
       postcode: "DD1 4HN",
-      dob: "2003-05-14",
+      dob: "2003-05-15",
       housing: "private",
       household: "children",
       debt: "no",
@@ -94,7 +94,7 @@ export const EXAMPLES: Example[] = [
       difficulties: [],
       work: { status: "employed", hours: 15 },
       ni: "yes",
-      child: "2023-04-20",
+      child: "2023-04-15",
       pregnant: "no",
       careHours: 0,
       ctax: "yes",

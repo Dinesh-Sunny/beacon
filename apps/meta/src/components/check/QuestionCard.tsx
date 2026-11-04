@@ -24,7 +24,6 @@ import { useCheck } from "@/lib/check-store";
 
 interface Draft {
   pc?: string;
-  d?: string;
   m?: string;
   y?: string;
   amt?: string;
@@ -39,6 +38,21 @@ type Read = { v: Answers[FactId] } | { err: string } | { empty: true };
 type RawRead = { v: unknown } | { err: string } | { empty: true };
 
 /** Reads the inputs, then lets the answers schema have the final say on the value's shape. */
+const MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 function readDraft(f: FactId, x: Draft, today = new Date()): Read {
   const r = readRaw(f, x, today);
   if (!("v" in r)) return r;
@@ -58,25 +72,15 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
     return { v };
   }
   if (t === "date" || t === "childDate") {
-    if (!x.d && !x.m && !x.y) return { empty: true };
-    const dd = Number(x.d);
-    const mm = Number(x.m);
+    // Month and year only: Beacon never keeps a full date of birth.
+    if (!x.m && !x.y) return { empty: true };
     const yy = Number(x.y);
-    const dt = new Date(yy, mm - 1, dd);
-    if (
-      !dd ||
-      !mm ||
-      !yy ||
-      dt.getDate() !== dd ||
-      dt.getMonth() !== mm - 1 ||
-      yy < 1900
-    )
-      return { err: "Try a real date, like 12 3 1948" };
-    if (dt > today)
-      return { err: "That date is still to come. Try a past one." };
-    return {
-      v: `${yy}-${String(mm).padStart(2, "0")}-${String(dd).padStart(2, "0")}`,
-    };
+    const mm = Number(x.m || 7);
+    if (!yy || yy < 1900 || yy > today.getFullYear())
+      return { err: "Try a year, like 1948" };
+    if (new Date(yy, mm - 1, 1) > today)
+      return { err: "That's still to come. Try a past month." };
+    return { v: `${yy}-${String(mm).padStart(2, "0")}-15` };
   }
   if (t === "money" || t === "moneyPeriod") {
     const raw = String(x.amt ?? "").replace(/[£,\s]/g, "");
@@ -260,8 +264,8 @@ function toDraft(f: FactId, v: unknown): Draft {
     typeof v === "string" &&
     v !== "none"
   ) {
-    const [y, m, d] = v.split("-");
-    return { y, m: String(Number(m)), d: String(Number(d)) };
+    const [y, m] = v.split("-");
+    return { y, m: String(Number(m)) };
   }
   if (t === "money") return { amt: String(v) };
   if (t === "moneyPeriod")
@@ -327,38 +331,35 @@ function Input({
               No children
             </button>
           )}
-          <p className="hint">
-            {fact.type === "childDate"
-              ? "Or their date of birth"
-              : "For example, 12 3 1948"}
-          </p>
           <div className="dates">
-            {(
-              [
-                ["d", "Day", 2],
-                ["m", "Month", 2],
-                ["y", "Year", 4],
-              ] as const
-            ).map(([k, label, len]) => (
-              <div key={k} className={`field${k === "y" ? " y" : ""}`}>
-                <label htmlFor={`${idp}-${k}`}>{label}</label>
-                <input
-                  id={`${idp}-${k}`}
-                  className="txt"
-                  inputMode="numeric"
-                  maxLength={len}
-                  value={draft[k] ?? ""}
-                  onChange={(e) => {
-                    const v = e.target.value.replace(/\D/g, "");
-                    set({ [k]: v });
-                    if (v.length === len && k !== "y")
-                      document
-                        .getElementById(`${idp}-${k === "d" ? "m" : "y"}`)
-                        ?.focus();
-                  }}
-                />
-              </div>
-            ))}
+            <div className="field">
+              <label htmlFor={`${idp}-m`}>Month</label>
+              <select
+                id={`${idp}-m`}
+                className="txt"
+                value={draft.m ?? ""}
+                onChange={(e) => set({ m: e.target.value })}
+              >
+                <option value="">Not sure</option>
+                {MONTHS.map((name, i) => (
+                  <option key={name} value={String(i + 1)}>
+                    {name}
+                  </option>
+                ))}
+              </select>
+            </div>
+            <div className="field y">
+              <label htmlFor={`${idp}-y`}>Year</label>
+              <input
+                id={`${idp}-y`}
+                className="txt"
+                inputMode="numeric"
+                maxLength={4}
+                placeholder={fact.type === "childDate" ? "2021" : "1948"}
+                value={draft.y ?? ""}
+                onChange={(e) => set({ y: e.target.value.replace(/\D/g, "") })}
+              />
+            </div>
           </div>
         </>
       );

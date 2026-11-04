@@ -14,6 +14,7 @@ import {
   WorkStatus,
   YesNo,
 } from "./answers-schema.ts";
+import { monthOnly } from "./facts.ts";
 import { POSTCODE_RE } from "./rules.ts";
 
 const opt = <T extends z.ZodType>(t: T, description?: string) => {
@@ -26,7 +27,7 @@ export const FactPatch = z.strictObject({
     z.string().max(10),
     "Full UK postcode, e.g. HA9 0WS. Only if stated.",
   ),
-  date_of_birth: opt(IsoDate, "YYYY-MM-DD, only if the full date is known"),
+  date_of_birth: opt(IsoDate, "YYYY-MM-DD; only the year and month are kept"),
   age_years: opt(
     z.int().min(0).max(120),
     "Age in years when no date of birth is given",
@@ -105,7 +106,7 @@ export function toAnswers(p: FactPatch, today = new Date()): Answers {
     !Number.isNaN(Date.parse(p.date_of_birth)) &&
     new Date(p.date_of_birth) < today
   )
-    a.dob = p.date_of_birth;
+    a.dob = monthOnly(p.date_of_birth);
   else if (p.age_years != null) {
     a.dob = dobFromAge(p.age_years, today);
     a.dobApprox = true;
@@ -122,7 +123,7 @@ export function toAnswers(p: FactPatch, today = new Date()): Answers {
   } else if (p.work_status) a.work = { status: p.work_status };
   if (p.paid_national_insurance) a.ni = p.paid_national_insurance;
   if (p.youngest_child_dob && !Number.isNaN(Date.parse(p.youngest_child_dob)))
-    a.child = p.youngest_child_dob;
+    a.child = monthOnly(p.youngest_child_dob);
   else if (p.no_children) a.child = "none";
   if (p.expecting_baby) a.pregnant = p.expecting_baby;
   if (p.caring_hours != null) a.careHours = p.caring_hours;

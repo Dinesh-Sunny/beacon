@@ -53,10 +53,10 @@ export const FACTS: Record<FactId, Fact> = {
   },
   dob: {
     type: "date",
-    q: "What's your date of birth?",
-    qThey: "What's {n}'s date of birth?",
-    why: "Age and State Pension age split help into working age and pension age.",
-    label: "Date of birth",
+    q: "When were you born?",
+    qThey: "When was {n} born?",
+    why: "Month and year are enough. Age decides a lot, like State Pension age.",
+    label: "Born",
   },
   benefits: {
     type: "checklist",
@@ -118,7 +118,7 @@ export const FACTS: Record<FactId, Fact> = {
     type: "childDate",
     q: "When was your youngest child born?",
     qThey: "When was {n}'s youngest child born?",
-    why: "Family help depends on your child's age.",
+    why: "Month and year are enough. Family help depends on your child's age.",
     label: "Youngest child",
   },
   pregnant: {
@@ -261,10 +261,12 @@ export const REGISTRY: Record<FactType, { comp: string; why: string }> = {
 };
 
 const DATE_FMT: Intl.DateTimeFormatOptions = {
-  day: "numeric",
   month: "long",
   year: "numeric",
 };
+
+/** Beacon keeps month and year only: never a full date of birth. Day 15 stands for "some day that month". */
+export const monthOnly = (iso: string): string => `${iso.slice(0, 7)}-15`;
 
 export const gbp = (n: number): string =>
   `£${Number(n).toLocaleString("en-GB", { maximumFractionDigits: 2 })}`;

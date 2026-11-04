@@ -14,11 +14,13 @@ import {
   useRef,
   useState,
 } from "react";
+import { AnswersSchema } from "@/engine/answers-schema";
 import {
   type Answers,
   FACTS,
   type FactId,
   ME,
+  monthOnly,
   ORDER,
   type Subject,
   showAnswer,
@@ -55,10 +57,18 @@ const SOURCE_WHO: Record<Source, string> = {
 
 const KEY = "beacon:answers:v1";
 
+/** Saved answers, validated, with any full date of birth from older versions cut to month and year. */
 function load(): Answers {
   try {
-    const raw = localStorage.getItem(KEY);
-    return raw ? (JSON.parse(raw) as Answers) : {};
+    const parsed = AnswersSchema.safeParse(
+      JSON.parse(localStorage.getItem(KEY) ?? "{}"),
+    );
+    if (!parsed.success) return {};
+    const a = parsed.data;
+    if (a.dob && a.dob !== UNSURE) a.dob = monthOnly(a.dob);
+    if (a.child && a.child !== UNSURE && a.child !== "none")
+      a.child = monthOnly(a.child);
+    return a;
   } catch {
     return {};
   }
