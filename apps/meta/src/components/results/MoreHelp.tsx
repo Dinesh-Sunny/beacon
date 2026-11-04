@@ -91,7 +91,7 @@ export function MoreHelp() {
           <input
             id="more-q"
             className="txt"
-            placeholder="Search, like heating or school"
+            placeholder="Search, like energy or school"
             value={q}
             onChange={(e) => setQ(e.target.value)}
           />

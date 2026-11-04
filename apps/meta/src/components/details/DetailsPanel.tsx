@@ -17,6 +17,7 @@ import {
 } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
 import { type Source, useCheck } from "@/lib/check-store";
+import { useCouncil } from "@/lib/council";
 
 const GROUPS: { title: string; icon: string; facts: FactId[] }[] = [
   {
@@ -68,6 +69,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
     resets,
   } = useCheck();
   const [picking, setPicking] = useState(false);
+  const council = useCouncil(answers.postcode);
   const [undo, setUndo] = useState<{ f: FactId; v: Answers[FactId] } | null>(
     null,
   );
@@ -188,7 +190,12 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                       </span>
                       {has ? (
                         <>
-                          <b>{showAnswer(answers, f)}</b>
+                          <b>
+                            {showAnswer(answers, f)}
+                            {f === "postcode" && council
+                              ? ` · ${council.name}`
+                              : ""}
+                          </b>
                           <span className="src">
                             {src ? FROM[src.source] : "Saved on this device"}
                           </span>
