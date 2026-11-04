@@ -4,7 +4,12 @@
   "country": "GB",
   "version": "2026.11.04",
   "checked": "2026-11-04",
-  "topics": [["local", "Council and travel"]],
+  "topics": [
+    [
+      "local",
+      "Council and travel"
+    ]
+  ],
   "schemes": [
     {
       "id": "hb",
@@ -17,25 +22,53 @@
       "timing": "Claim soon: it's paid from the week you claim.",
       "rule": [
         {
-          "needs": ["dob"],
-          "test": { "f": "spa", "op": "eq", "v": true },
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "spa",
+            "op": "eq",
+            "v": true
+          },
           "expr": "reached State Pension age",
           "txt": "Reached State Pension age",
           "fail": "Under State Pension age, so rent help comes through Universal Credit"
         },
         {
-          "needs": ["housing"],
-          "test": { "f": "housing", "op": "in", "v": ["social", "private"] },
+          "needs": [
+            "housing"
+          ],
+          "test": {
+            "f": "housing",
+            "op": "in",
+            "v": [
+              "social",
+              "private"
+            ]
+          },
           "expr": "rents their home",
           "txt": "Rents their home",
           "fail": "Doesn't pay rent"
         },
         {
-          "needs": ["savings", "benefits"],
+          "needs": [
+            "savings",
+            "benefits"
+          ],
           "test": {
             "any": [
-              { "f": "sav", "op": "lte", "v": { "line": "savingsCap" } },
-              { "f": "gateway", "op": "eq", "v": true }
+              {
+                "f": "sav",
+                "op": "lte",
+                "v": {
+                  "line": "savingsCap"
+                }
+              },
+              {
+                "f": "gateway",
+                "op": "eq",
+                "v": true
+              }
             ]
           },
           "expr": "savings of £16,000 or less, or gets Pension Credit",
@@ -43,12 +76,23 @@
           "fail": "Savings over £16,000"
         },
         {
-          "needs": ["income"],
-          "test": { "f": "incWeek", "op": "lt", "v": { "line": "ctrIncomeWeek" } },
+          "needs": [
+            "income"
+          ],
+          "test": {
+            "f": "incWeek",
+            "op": "lt",
+            "v": {
+              "line": "ctrIncomeWeek"
+            }
+          },
           "expr": "weekly income under the screening line",
           "txt": "Income low enough to check",
           "fail": "Income likely too high",
-          "near": { "f": "incWeek", "line": "ctrIncomeWeek" }
+          "near": {
+            "f": "incWeek",
+            "line": "ctrIncomeWeek"
+          }
         }
       ]
     },
@@ -63,11 +107,44 @@
       "act": "Apply for a bus pass",
       "rule": [
         {
-          "needs": ["postcode", "dob"],
+          "needs": [
+            "postcode",
+            "dob"
+          ],
           "test": {
             "any": [
-              { "all": [{ "f": "nation", "op": "eq", "v": "eng" }, { "f": "spa", "op": "eq", "v": true }] },
-              { "all": [{ "f": "nation", "op": "in", "v": ["sco", "wal", "ni"] }, { "f": "age", "op": "gte", "v": 60 }] }
+              {
+                "all": [
+                  {
+                    "f": "nation",
+                    "op": "eq",
+                    "v": "eng"
+                  },
+                  {
+                    "f": "spa",
+                    "op": "eq",
+                    "v": true
+                  }
+                ]
+              },
+              {
+                "all": [
+                  {
+                    "f": "nation",
+                    "op": "in",
+                    "v": [
+                      "sco",
+                      "wal",
+                      "ni"
+                    ]
+                  },
+                  {
+                    "f": "age",
+                    "op": "gte",
+                    "v": 60
+                  }
+                ]
+              }
             ]
           },
           "expr": "State Pension age in England, or 60 in Scotland, Wales and Northern Ireland",
@@ -88,18 +165,37 @@
       "worthChecking": "Each council decides who it helps",
       "rule": [
         {
-          "needs": ["postcode"],
-          "test": { "f": "nation", "op": "eq", "v": "eng" },
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
           "expr": "lives in England",
           "txt": "Lives in England",
           "fail": "Scotland and Wales run their own emergency funds"
         },
         {
-          "needs": ["benefits", "income"],
+          "needs": [
+            "benefits",
+            "income"
+          ],
           "test": {
             "any": [
-              { "f": "gateway", "op": "eq", "v": true },
-              { "f": "incWeek", "op": "lt", "v": { "line": "ucIncomeWeek" } }
+              {
+                "f": "gateway",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "incWeek",
+                "op": "lt",
+                "v": {
+                  "line": "ucIncomeWeek"
+                }
+              }
             ]
           },
           "expr": "gets Universal Credit or Pension Credit, or on a low income",
@@ -111,9 +207,18 @@
   ],
   "clashes": [
     {
-      "ids": ["pc", "hb"],
+      "ids": [
+        "pc",
+        "hb"
+      ],
       "tone": "boost",
       "text": "With the Guarantee Credit part of Pension Credit, savings over £16,000 don't stop Housing Benefit."
     }
-  ]
+  ],
+  "challenges": {
+    "Your council": {
+      "text": "Ask the council to review its decision, and you can then appeal to a tribunal. Citizens Advice and Shelter can help for free.",
+      "url": "https://www.gov.uk/appeal-housing-benefit-decision"
+    }
+  }
 }

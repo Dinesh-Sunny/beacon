@@ -15,6 +15,7 @@ import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
+import { ClaimsProvider } from "@/lib/claims";
 import { EXAMPLES, type Example } from "@/lib/examples";
 
 type ChatMode = "open" | "hidden" | "full";
@@ -23,7 +24,9 @@ type MobileView = "chat" | "canvas" | "details";
 export function Workspace() {
   return (
     <CheckProvider>
-      <Shell />
+      <ClaimsProvider>
+        <Shell />
+      </ClaimsProvider>
     </CheckProvider>
   );
 }

@@ -114,6 +114,8 @@ export const PackSchema = z.strictObject({
   notCovered: z.record(z.string(), z.string()).default({}),
   schemes: z.array(SchemeSchema).min(1),
   clashes: z.array(ClashSchema).default([]),
+  /** How to challenge a decision, keyed by who decides (a scheme's "by"), for the Confirm step. */
+  challenges: z.record(z.string(), z.strictObject({ text: z.string(), url: z.url() })).default({}),
 });
 export type Pack = z.infer<typeof PackSchema>;
 
@@ -130,6 +132,7 @@ export interface Registry {
   topics: [Topic, string][];
   schemes: PackedScheme[];
   clashes: Pack["clashes"];
+  challenges: Pack["challenges"];
 }
 
 const refs = (e: Expr): string[] =>
@@ -175,6 +178,7 @@ export const RegistrySchema = z
       topics: packs.flatMap((p) => p.topics),
       schemes: packs.flatMap((p) => p.schemes.map((s) => ({ ...s, pack: p.id, notCovered: p.notCovered }))),
       clashes: packs.flatMap((p) => p.clashes),
+      challenges: Object.assign({}, ...packs.map((p) => p.challenges)),
     }),
   );
 

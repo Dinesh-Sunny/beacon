@@ -6,6 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
+import { ClaimTrack } from "./ClaimTrack";
 import { byId, claimOrder, count, howFor, isAuto, nationOf, SCHEMES, type Status, warnings } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { type Answers, theyify } from "@/engine/facts";
@@ -177,6 +178,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
             )}
           </div>
         )}
+        {status !== "unlock" && !auto && <ClaimTrack id={id} />}
         {open && (
           <div className="prep" aria-live="polite">
             {loading && <p className="hint">Writing your call notes…</p>}

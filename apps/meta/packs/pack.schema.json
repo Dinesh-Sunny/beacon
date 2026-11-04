@@ -321,6 +321,30 @@
         ],
         "additionalProperties": false
       }
+    },
+    "challenges": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "additionalProperties": false
+      }
     }
   },
   "required": [

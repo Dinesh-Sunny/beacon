@@ -2997,3 +2997,51 @@ button {
 .ask-chips button:hover {
   border-color: var(--beam);
 }
+
+/* Claim tracking: one quiet link that grows only when used */
+.track {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin-top: 4px;
+}
+.track .linkbtn {
+  align-self: flex-start;
+  font-size: 0.86rem;
+}
+.track-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 6px;
+}
+.track-row button:not(.linkbtn) {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font: inherit;
+  font-size: 0.84rem;
+  border: 1px solid var(--line);
+  background: var(--surface);
+  color: var(--ink);
+  border-radius: 999px;
+  padding: 4px 11px;
+  cursor: pointer;
+}
+.track-row button[aria-pressed="true"] {
+  background: var(--ink);
+  border-color: var(--ink);
+  color: var(--surface);
+}
+.track.refused .track-row button[aria-pressed="true"] {
+  background: var(--check);
+  border-color: var(--check);
+}
+.track.awarded .track-row button[aria-pressed="true"] {
+  background: var(--good);
+  border-color: var(--good);
+}
+.track a {
+  color: var(--ink);
+  font-weight: 700;
+}

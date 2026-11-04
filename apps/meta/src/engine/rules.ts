@@ -196,6 +196,11 @@ export type Status = "open" | "likely" | "check" | "unlock" | "out" | "have";
 
 /** Answers to "Which of these do you already get?" and the schemes each one means. */
 const ALREADY: Record<string, string[]> = { uc: ["uc"], pc: ["pc"], cb: ["cb"], pip: ["pip", "aa", "adp"] };
+/** The reverse: the "already get" answer an award of this scheme means, so an award opens what it unlocks. */
+export const BENEFIT_OF: Record<string, string> = Object.fromEntries(Object.entries(ALREADY).flatMap(([b, ids]) => ids.map((id) => [id, b])));
+
+/** How to challenge a refusal for this scheme, if the packs say. */
+export const challengeFor = (s: Scheme) => REGISTRY.challenges[s.by] ?? null;
 type Tri = boolean | null;
 export interface SchemeState {
   status: Status;
