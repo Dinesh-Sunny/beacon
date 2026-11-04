@@ -70,7 +70,7 @@ export async function POST(req: Request) {
             text:
               privacy.by === "glimmer"
                 ? "Personal details removed on Muse Glimmer, Meta's open-weights model"
-                : "Personal details removed before anything left this page",
+                : "Personal details removed before your words reached Muse Spark",
           });
         const out = await runAgent(
           messages,
