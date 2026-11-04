@@ -34,6 +34,8 @@ export function HeroSky() {
         className="hs-bank"
         viewBox={`0 0 ${W} ${H}`}
         preserveAspectRatio="xMaxYMax slice"
+        aria-hidden="true"
+        focusable="false"
       >
         <defs>
           <radialGradient id="hs-halo">
