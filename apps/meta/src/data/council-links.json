@@ -11,14 +11,14 @@
     },
     "9": {
       "label": "Special educational needs assessment",
-      "people": ["families", "disabled"]
+      "people": ["families"]
     },
     "12": { "label": "Nursery places", "people": ["families"] },
     "18": { "label": "School holiday activities", "people": ["families"] },
     "19": { "label": "Childcare out of school hours", "people": ["families"] },
     "40": {
       "label": "School transport for special educational needs",
-      "people": ["families", "disabled"]
+      "people": ["families"]
     },
     "59": {
       "label": "Council Tax discounts",
@@ -35,14 +35,14 @@
       "people": ["older", "lowpay"],
       "scheme": "hb"
     },
-    "72": { "label": "Housing Benefit appeals", "people": ["older", "lowpay"] },
+    "72": { "label": "Housing Benefit appeals", "people": [] },
     "107": {
       "label": "Sheltered and supported housing",
       "people": ["older", "disabled"]
     },
     "112": {
       "label": "Help if you're homeless or about to be",
-      "people": ["lowpay", "outofwork", "events", "young"]
+      "people": ["outofwork", "young"]
     },
     "137": {
       "label": "Disabled Facilities Grant",

@@ -14,10 +14,14 @@ export function LocalHelp() {
   const { answers } = useCheck();
   const { local } = usePlace(answers.postcode);
   const [open, setOpen] = useState(false);
+  const [all, setAll] = useState(false);
   const groups = useMemo(() => peopleGroups(answers), [answers]);
-  const list = local.filter(
-    (l) => !l.scheme && l.people.some((p) => groups.includes(p)),
-  );
+  // Closest fit first: services that match more of the person's groups lead.
+  const fit = (people: string[]) =>
+    people.filter((p) => groups.includes(p)).length;
+  const list = local
+    .filter((l) => !l.scheme && fit(l.people) > 0)
+    .sort((a, b) => fit(b.people) - fit(a.people));
   if (!list.length) return null;
   const by = [...new Set(list.map((l) => shortCouncil(l.by)))].join(" and ");
   return (
@@ -37,7 +41,7 @@ export function LocalHelp() {
       {open && (
         <div className="more-body">
           <ul>
-            {list.map((l) => (
+            {(all ? list : list.slice(0, 5)).map((l) => (
               <li key={l.lgsl}>
                 <a href={l.url} target="_blank" rel="noreferrer">
                   {l.label}
@@ -45,6 +49,15 @@ export function LocalHelp() {
               </li>
             ))}
           </ul>
+          {!all && list.length > 5 && (
+            <button
+              type="button"
+              className="linkbtn"
+              onClick={() => setAll(true)}
+            >
+              Show all {list.length}
+            </button>
+          )}
           <p className="hint">
             Each link goes to the council's own page, listed on{" "}
             <a

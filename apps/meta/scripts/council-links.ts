@@ -7,7 +7,8 @@ import { readFile, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
 
 /** LGSL code -> how Beacon names the service, who it's for (Beacon Framework people groups),
- * and the pack scheme it matches, if one already checks it. */
+ * and the pack scheme it matches, if one already checks it. An empty people list keeps the link
+ * for later (an appeal, say) without offering it to anyone up front. */
 const SERVICES: Record<
   number,
   { label: string; people: string[]; scheme?: string }
@@ -23,10 +24,10 @@ const SERVICES: Record<
     scheme: "ctsingle",
   },
   69: { label: "Housing Benefit", people: ["older", "lowpay"], scheme: "hb" },
-  72: { label: "Housing Benefit appeals", people: ["older", "lowpay"] },
+  72: { label: "Housing Benefit appeals", people: [] },
   112: {
     label: "Help if you're homeless or about to be",
-    people: ["lowpay", "outofwork", "events", "young"],
+    people: ["outofwork", "young"],
   },
   107: {
     label: "Sheltered and supported housing",
@@ -78,7 +79,7 @@ const SERVICES: Record<
   3: { label: "Help with school transport", people: ["families"] },
   40: {
     label: "School transport for special educational needs",
-    people: ["families", "disabled"],
+    people: ["families"],
   },
   1135: {
     label: "Travel help for 16 to 19 year olds in education",
@@ -86,7 +87,7 @@ const SERVICES: Record<
   },
   9: {
     label: "Special educational needs assessment",
-    people: ["families", "disabled"],
+    people: ["families"],
   },
   12: { label: "Nursery places", people: ["families"] },
   1741: { label: "Free early years education", people: ["families"] },
