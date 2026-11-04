@@ -740,7 +740,7 @@
     },
     "steps": {
       "tag": "Osiem kroków",
-      "title": "Te same osiem kroków dla każdej osoby",
+      "title": "Osiem kroków, od pierwszego pytania do wypłaty pieniędzy",
       "lead": "Wszystkie osiem działa już dziś, w Twojej przeglądarce."
     },
     "loop": {
@@ -901,11 +901,16 @@
       "ask": "Dziękuję. Mniej więcej ile pieniędzy dostaje co miesiąc?",
       "you2": "Około $1,300 z Social Security.",
       "note": "Medicare Savings Program daje mu też Extra Help na koszty leków, więc złóż ten wniosek najpierw."
+    },
+    "hood": {
+      "tag": "Jak to działa w środku",
+      "title": "Zbudowane na modelach Muse od Meta",
+      "lead": "Modele słuchają, czytają i wyjaśniają. Każdą decyzję podejmuje zwykły kod, tak samo dla każdego, a nic, co powie model, nie trafia do Ciebie bez sprawdzenia przez kod."
     }
   },
   "how": {
     "tag": "Jak to działa",
-    "h1": "Mali agenci, każdy z jednym zadaniem",
+    "h1": "Od kilku słów do planu, który możesz wykonać",
     "lead": "Modele Muse słuchają, czytają i wyjaśniają. Każdą decyzję podejmuje zwykły kod, więc te same odpowiedzi zawsze dają ten sam wynik.",
     "stats": {
       "schemes": "Rodzaje pomocy",
@@ -992,7 +997,7 @@
     },
     "loop": {
       "tag": "Osiem kroków",
-      "title": "Osiem kroków dla każdej osoby",
+      "title": "Osiem kroków, od pierwszego pytania do wypłaty pieniędzy",
       "lead": "Wszystkie osiem działa dziś w Beacon. Późniejsze kroki działają w Twojej przeglądarce, więc Twoje wnioski zostają na Twoim urządzeniu."
     },
     "models": {

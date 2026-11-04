@@ -740,7 +740,7 @@
     },
     "steps": {
       "tag": "Wyth cam",
-      "title": "Yr un wyth cam i bob person",
+      "title": "Wyth cam, o'r cwestiwn cyntaf i'r arian yn cyrraedd",
       "lead": "Mae'r wyth yn gweithio heddiw, yn eich porwr."
     },
     "loop": {
@@ -901,11 +901,16 @@
       "ask": "Diolch. Tua faint o arian sy'n dod i mewn iddo bob mis?",
       "you2": "Tua $1,300 o Social Security.",
       "note": "Mae Medicare Savings Program hefyd yn rhoi Extra Help iddo gyda chostau meddyginiaeth, felly gwnewch gais am hwnnw'n gyntaf."
+    },
+    "hood": {
+      "tag": "Dan y bonet",
+      "title": "Wedi'i adeiladu ar fodelau Muse Meta",
+      "lead": "Mae'r modelau'n gwrando, yn darllen ac yn esbonio. Cod plaen sy'n gwneud pob penderfyniad, yr un ffordd i bawb, a does dim byd y mae model yn ei ddweud yn eich cyrraedd nes bod cod wedi'i wirio."
     }
   },
   "how": {
     "tag": "Sut mae'n gweithio",
-    "h1": "Asiantau bach, un swydd yr un",
+    "h1": "O ychydig eiriau i gynllun y gallwch weithredu arno",
     "lead": "Mae modelau Muse yn gwrando, yn darllen ac yn esbonio. Cod plaen sy'n gwneud pob penderfyniad, felly mae'r un atebion bob amser yn rhoi'r un canlyniad.",
     "stats": {
       "schemes": "Mathau o help",
@@ -992,7 +997,7 @@
     },
     "loop": {
       "tag": "Wyth cam",
-      "title": "Wyth cam i bob person",
+      "title": "Wyth cam, o'r cwestiwn cyntaf i'r arian yn cyrraedd",
       "lead": "Mae'r wyth yn rhedeg yn Beacon heddiw. Mae'r camau diweddarach yn rhedeg yn eich porwr, felly mae eich hawliadau'n aros ar eich dyfais."
     },
     "models": {

@@ -740,7 +740,7 @@
     },
     "steps": {
       "tag": "Eight steps",
-      "title": "The same eight steps for every person",
+      "title": "Eight steps, from the first question to the money arriving",
       "lead": "All eight work today, in your browser."
     },
     "loop": {
@@ -901,11 +901,16 @@
       "ask": "Thanks. Roughly how much does he have coming in each month?",
       "you2": "About $1,300 from Social Security.",
       "note": "A Medicare Savings Program also gets him Extra Help with drug costs, so apply for it first."
+    },
+    "hood": {
+      "tag": "Under the hood",
+      "title": "Built on Meta's Muse models",
+      "lead": "Models listen, read and explain. Plain code makes every decision, the same way for every person, and nothing a model says reaches you until code has checked it."
     }
   },
   "how": {
     "tag": "How it works",
-    "h1": "Small agents, one job each",
+    "h1": "From a few words to a plan you can act on",
     "lead": "The Muse models listen, read and explain. Plain code makes every decision, so the same answers always give the same result.",
     "stats": {
       "schemes": "Kinds of help",
@@ -992,7 +997,7 @@
     },
     "loop": {
       "tag": "Eight steps",
-      "title": "Eight steps for every person",
+      "title": "Eight steps, from the first question to the money arriving",
       "lead": "All eight run in Beacon today. The later steps run in your browser, so your claims stay on your device."
     },
     "models": {

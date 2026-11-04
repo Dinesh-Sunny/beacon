@@ -140,46 +140,6 @@ export default async function How() {
             </Reveal>
           </section>
 
-          <section className="mk-wrap mk-section" aria-labelledby="loop-h">
-            <Reveal>
-              <SectionHead
-                tag={t("how.loop.tag")}
-                id="loop-h"
-                title={t("how.loop.title")}
-              >
-                {t("how.loop.lead")}
-              </SectionHead>
-            </Reveal>
-            <Reveal>
-              <StepsRail />
-            </Reveal>
-          </section>
-
-          <section className="mk-wrap mk-section" aria-labelledby="models-h">
-            <Reveal>
-              <SectionHead
-                tag={t("how.models.tag")}
-                id="models-h"
-                title={t("how.models.title")}
-              >
-                {t("how.models.lead")}
-              </SectionHead>
-            </Reveal>
-            <Reveal>
-              <ul className="mk-models">
-                {MODELS.map(([n, id, job]) => (
-                  <li key={id}>
-                    <div className="mk-model-top">
-                      <b>{n}</b>
-                      <code>{id}</code>
-                    </div>
-                    <span>{t(`how.models.jobs.${job}`)}</span>
-                  </li>
-                ))}
-              </ul>
-            </Reveal>
-          </section>
-
           <section className="mk-wrap mk-section" aria-labelledby="rules-h">
             <div className="mk-rules">
               <Reveal>
@@ -249,6 +209,46 @@ export default async function How() {
                 </div>
               </Reveal>
             ))}
+          </section>
+
+          <section className="mk-wrap mk-section" aria-labelledby="loop-h">
+            <Reveal>
+              <SectionHead
+                tag={t("how.loop.tag")}
+                id="loop-h"
+                title={t("how.loop.title")}
+              >
+                {t("how.loop.lead")}
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <StepsRail />
+            </Reveal>
+          </section>
+
+          <section className="mk-wrap mk-section" aria-labelledby="models-h">
+            <Reveal>
+              <SectionHead
+                tag={t("how.models.tag")}
+                id="models-h"
+                title={t("how.models.title")}
+              >
+                {t("how.models.lead")}
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <ul className="mk-models">
+                {MODELS.map(([n, id, job]) => (
+                  <li key={id}>
+                    <div className="mk-model-top">
+                      <b>{n}</b>
+                      <code>{id}</code>
+                    </div>
+                    <span>{t(`how.models.jobs.${job}`)}</span>
+                  </li>
+                ))}
+              </ul>
+            </Reveal>
           </section>
 
           <FinalCta title={t("how.ctaTitle")} text={t("how.ctaText")} />
