@@ -26,9 +26,13 @@ export async function GET(req: Request) {
   try {
     const place = await placeFor(q.data.postcode);
     return json(
-      fundsFor({ areas: place.areas, nation: place.nation }, q.data.groups),
+      fundsFor(
+        { areas: place.areas ?? [], nation: place.nation },
+        q.data.groups,
+      ),
     );
-  } catch {
+  } catch (e) {
+    console.error("charities", (e as Error).message);
     return json({ error: "lookup" }, 502);
   }
 }
