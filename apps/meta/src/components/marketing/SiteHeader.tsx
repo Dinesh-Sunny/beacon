@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { Logo } from "@/components/Icon";
-import { LanguageMenu } from "@/components/locale/LanguageMenu";
+import { PlaceButton } from "@/components/locale/PlaceDialog";
 import { getT } from "@/i18n/server";
 
 export async function SiteHeader({ current }: { current?: "how" }) {
@@ -16,7 +16,7 @@ export async function SiteHeader({ current }: { current?: "how" }) {
           <span>Beacon</span>
         </Link>
         <nav>
-          <LanguageMenu />
+          <PlaceButton />
           <Link
             href="/how"
             aria-current={current === "how" ? "page" : undefined}

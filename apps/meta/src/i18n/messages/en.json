@@ -36,29 +36,6 @@
     "back": "Back to English",
     "official": "Official names and rules stay in English, as the organisation writes them."
   },
-  "place": {
-    "chip": "Country: {country}",
-    "step": "Your place - step {n} of {total}",
-    "suggest": "Looks like you're in {country} (from your browser language). Is that right?",
-    "never": "We only use your country and your council area - never your address.",
-    "yes": "Yes, that's right",
-    "other": "Choose another country",
-    "which": "Which country are you in?",
-    "search": "Search for your country",
-    "withPack": "Countries with rules Beacon checks",
-    "others": "Other countries",
-    "noneTitle": "Beacon doesn't check {country}'s rules yet",
-    "noneBody": "Beacon only knows the rules for {covered} today. The results would not fit {country}, so we won't guess.",
-    "useUk": "Check UK rules anyway",
-    "back": "Choose again",
-    "close": "Close",
-    "packBadge": "Rules pack",
-    "packLine": "Rules read from the official pages. Beacon can say Likely.",
-    "noneBadge": "Not yet",
-    "noneLine": "No rules for this country yet.",
-    "confirm": "Use {country}",
-    "ukPlace": "Your postcode tells Beacon your nation and council."
-  },
   "first": {
     "you": "You, or someone you look after",
     "givers": "Government, councils, NHS, charities",
@@ -364,9 +341,7 @@
     "localServices": "{count, plural, one {# service} other {# services}} from {council} that may fit",
     "localNote": "Each link goes to the council's own page, listed on",
     "showAll": "Show all {count}",
-    "moreHelp": "More help to look at",
-    "coverage": "Rules pack · {country}",
-    "coverageLine": "Rules read from the official pages. Beacon can say Likely."
+    "moreHelp": "More help to look at"
   },
   "details": {
     "title": "Details",
@@ -577,5 +552,97 @@
     "notFoundBody": "The link may be old. Start a check, or go back to the home page.",
     "home": "Home",
     "loading": "Getting your check ready"
+  },
+  "dialog": {
+    "button": "Place and language: {place}, {language}. Display settings too.",
+    "title": "Place, language and display",
+    "place": "Place",
+    "display": "Display",
+    "close": "Close",
+    "current": "Chosen",
+    "searchPlace": "Search any country, or type your postcode",
+    "searchLanguage": "Search languages",
+    "results": "Choices",
+    "suggested": "Suggested",
+    "allCountries": "All countries",
+    "allLanguages": "All languages",
+    "yourCouncil": "Your council",
+    "noMatch": "Nothing matches. Try another spelling.",
+    "lookingUp": "Looking up your council…",
+    "placeNote": "Your postcode only finds your council and nation. Beacon never asks for your address.",
+    "machine": "machine translated",
+    "gapTitle": "Beacon can't check {country}'s rules yet",
+    "gapBody": "The help Beacon checks today is for people in the UK. If you live in {country}, the results won't fit you, so Beacon won't guess.",
+    "useUk": "I live in the UK",
+    "chooseAgain": "Choose again",
+    "move": "move",
+    "choose": "choose",
+    "closeKey": "close",
+    "nation": {
+      "eng": "England",
+      "sco": "Scotland",
+      "wal": "Wales",
+      "ni": "Northern Ireland"
+    }
+  },
+  "display": {
+    "previewTitle": "This is how your pages will look",
+    "previewBody": "Text, spacing and colour follow your choices.",
+    "previewSimple": "Short words. One idea at a time.",
+    "play": "Play",
+    "stop": "Stop",
+    "back": "Back",
+    "preset": {
+      "read": "Easier to read",
+      "colours": "Clearer colours",
+      "bigger": "Bigger and bolder",
+      "listen": "Listen to it",
+      "calmer": "Calmer",
+      "focus": "Fewer distractions",
+      "simple": "Simple words",
+      "tap": "Easier to tap"
+    },
+    "need": {
+      "read": "Dyslexia",
+      "colours": "Colour blindness",
+      "bigger": "Low vision",
+      "listen": "Sight loss",
+      "calmer": "Anxiety, migraine",
+      "focus": "ADHD, autism",
+      "simple": "Learning disability",
+      "tap": "Tremor, arthritis"
+    },
+    "each": "Choose each setting",
+    "changes": "{count, plural, one {# change} other {# changes}}",
+    "textSize": "Text size",
+    "size": {
+      "0": "Small text",
+      "1": "Standard text",
+      "2": "Large text",
+      "3": "Largest text"
+    },
+    "setting": {
+      "dark": "Dark",
+      "contrast": "High contrast",
+      "soft": "Soft background",
+      "spacing": "Wider spacing",
+      "readAloud": "Read aloud",
+      "captions": "Captions",
+      "simple": "Simple words",
+      "calm": "Calmer",
+      "colours": "Clearer colours",
+      "links": "Underlined links",
+      "tap": "Easier to tap",
+      "focus": "Fewer distractions"
+    },
+    "speed": "Read-aloud speed",
+    "speeds": {
+      "slower": "Slower",
+      "normal": "Normal",
+      "faster": "Faster"
+    },
+    "systemWins": "Your browser and system settings, like zoom and reduced motion, always win.",
+    "standard": "Back to standard",
+    "done": "Done"
   }
 }

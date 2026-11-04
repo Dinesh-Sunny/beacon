@@ -54,3 +54,9 @@ export function countryFromBrowser(langs: readonly string[]): string | null {
 
 export const coverageOf = (code: string): Coverage =>
   COVERED[code]?.coverage ?? "none";
+
+/** A flag from the country code (Unicode regional indicators); the system font draws it. */
+export const flagOf = (code: string): string =>
+  String.fromCodePoint(
+    ...[...code.toUpperCase()].map((c) => 0x1f1a5 + c.charCodeAt(0)),
+  );

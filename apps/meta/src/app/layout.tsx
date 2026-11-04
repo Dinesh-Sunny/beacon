@@ -4,6 +4,7 @@ import "@fontsource-variable/fraunces/index.css";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { CaptionBar } from "@/components/CaptionBar";
 import { OfflineNotice } from "@/components/OfflineNotice";
 import { localeInfo } from "@/i18n/locales";
 import { I18nProvider } from "@/i18n/Provider";
@@ -29,6 +30,9 @@ export const viewport: Viewport = {
   colorScheme: "light",
 };
 
+/** Applies the saved display settings (see lib/display.ts) before the first paint. */
+const DISPLAY_SCRIPT = `try{var d=JSON.parse(localStorage.getItem("beacon:display")||"null");if(d){var r=document.documentElement;r.dataset.size=String(d.size??1);(d.on||[]).forEach(function(s){r.dataset[s]="on"})}}catch(e){}`;
+
 export default async function RootLayout({
   children,
 }: {
@@ -39,7 +43,15 @@ export default async function RootLayout({
     <html
       lang={locale === "en" ? "en-GB" : locale}
       dir={localeInfo(locale).dir}
+      // The display script below sets data attributes before React hydrates.
+      suppressHydrationWarning
     >
+      <head>
+        <script
+          // biome-ignore lint/security/noDangerouslySetInnerHtml: a fixed script, no user data; runs before first paint so display settings never flash
+          dangerouslySetInnerHTML={{ __html: DISPLAY_SCRIPT }}
+        />
+      </head>
       <body>
         <I18nProvider
           locale={locale}
@@ -47,6 +59,7 @@ export default async function RootLayout({
           invites={invites()}
         >
           <OfflineNotice />
+          <CaptionBar />
           {children}
         </I18nProvider>
       </body>

@@ -404,6 +404,24 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
 
+/** The check when one is open on this page (the check workspace), or null elsewhere. */
+export const useMaybeCheck = (): Ctx | null => useContext(CheckCtx);
+
+/** Saves a postcode from outside the check (the site's place dialog) for the check to pick up. */
+export function savePostcodeForLater(postcode: string) {
+  try {
+    const a = JSON.parse(localStorage.getItem(KEY) ?? "{}") as Record<
+      string,
+      unknown
+    >;
+    a.postcode = postcode;
+    delete a.nation;
+    localStorage.setItem(KEY, JSON.stringify(a));
+  } catch {
+    /* storage blocked */
+  }
+}
+
 export function useCheck(): Ctx {
   const c = useContext(CheckCtx);
   if (!c) throw new Error("useCheck needs CheckProvider");

@@ -240,8 +240,16 @@ export async function runAgent(
   onStep?: (step: ToolNote) => void,
   /** The language the person chose for Beacon's words, as its English name. */
   language?: string,
+  /** The person turned on Simple words: write easy read. */
+  simple?: boolean,
 ) {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM }];
+  if (simple)
+    messages.push({
+      role: "system",
+      content:
+        "The person asked for simple words. Write easy read: very short sentences, one idea per line, common everyday words, no idioms. Explain any official name in a few plain words.",
+    });
   if (language && language !== "English")
     messages.push({
       role: "system",

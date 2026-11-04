@@ -36,29 +36,6 @@
     "back": "Wróć do angielskiego (English)",
     "official": "Oficjalne nazwy i zasady zostają po angielsku, tak jak zapisuje je dana instytucja."
   },
-  "place": {
-    "chip": "Kraj: {country}",
-    "step": "Twoje miejsce - krok {n} z {total}",
-    "suggest": "Wygląda na to, że Twój kraj to {country} (na podstawie języka przeglądarki). Czy to się zgadza?",
-    "never": "Używamy tylko Twojego kraju i obszaru Twojej rady lokalnej (council) - nigdy Twojego adresu.",
-    "yes": "Tak, zgadza się",
-    "other": "Wybierz inny kraj",
-    "which": "W jakim kraju jesteś?",
-    "search": "Wyszukaj swój kraj",
-    "withPack": "Kraje, których zasady sprawdza Beacon",
-    "others": "Inne kraje",
-    "noneTitle": "Beacon nie sprawdza jeszcze zasad dla kraju: {country}",
-    "noneBody": "Beacon zna dziś tylko zasady dla: {covered}. Wyniki nie pasowałyby do kraju {country}, więc nie będziemy zgadywać.",
-    "useUk": "Mimo to sprawdź zasady w UK",
-    "back": "Wybierz ponownie",
-    "close": "Zamknij",
-    "packBadge": "Pakiet zasad",
-    "packLine": "Zasady odczytane z oficjalnych stron. Beacon może napisać „Prawdopodobne”.",
-    "noneBadge": "Jeszcze nie",
-    "noneLine": "Na razie brak zasad dla tego kraju.",
-    "confirm": "Wybierz: {country}",
-    "ukPlace": "Twój kod pocztowy pokazuje Beacon Twój kraj w UK i Twoją radę lokalną."
-  },
   "first": {
     "you": "Ty lub ktoś, kim się opiekujesz",
     "givers": "Rząd, rady lokalne, NHS, organizacje charytatywne",
@@ -364,9 +341,7 @@
     "localServices": "{council}: {count, plural, one {# usługa, która może pasować} few {# usługi, które mogą pasować} many {# usług, które mogą pasować} other {# usługi, które mogą pasować}}",
     "localNote": "Każdy link prowadzi do strony samej rady, wymienionej na",
     "showAll": "Pokaż wszystkie ({count})",
-    "moreHelp": "Więcej pomocy do sprawdzenia",
-    "coverage": "Pakiet zasad · {country}",
-    "coverageLine": "Zasady odczytane z oficjalnych stron. Beacon może napisać „Prawdopodobne”."
+    "moreHelp": "Więcej pomocy do sprawdzenia"
   },
   "details": {
     "title": "Szczegóły",

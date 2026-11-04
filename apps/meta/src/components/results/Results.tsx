@@ -24,7 +24,6 @@ import {
   worthLabel,
   worthTotals,
 } from "@/engine/rules";
-import { countryName } from "@/i18n/countries";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { useClaims } from "@/lib/claims";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
@@ -143,9 +142,6 @@ export function Results() {
       <div className="res-head">
         <div className="res-top">
           <span className="eyebrow">{done ? t("yours") : t("soFar")}</span>
-          <span className="badge-pack" title={t("coverageLine")}>
-            {t("coverage", { country: countryName("GB", locale) })}
-          </span>
         </div>
         <h2 id="res-h">{headline(total)}</h2>
         {locale !== "en" && <p className="hint">{tl("official")}</p>}

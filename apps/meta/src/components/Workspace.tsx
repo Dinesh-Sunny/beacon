@@ -16,8 +16,7 @@ import { PlaceSync } from "@/components/check/PlaceSync";
 import { WatchNotice } from "@/components/check/WatchNotice";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
-import { CountryChip } from "@/components/locale/CountryChip";
-import { LanguageMenu } from "@/components/locale/LanguageMenu";
+import { PlaceButton } from "@/components/locale/PlaceDialog";
 import { SuggestLanguage } from "@/components/locale/SuggestLanguage";
 import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
@@ -219,8 +218,7 @@ function Shell() {
           </button>
         ) : (
           <>
-            <CountryChip />
-            <LanguageMenu />
+            <PlaceButton />
             <div className="menu-wrap">
               <button
                 type="button"

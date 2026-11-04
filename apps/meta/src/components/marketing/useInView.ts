@@ -5,10 +5,12 @@
 
 import { type RefObject, useEffect, useState } from "react";
 
+/** The system's reduced motion, or Beacon's own Calmer setting. */
 export function prefersReducedMotion(): boolean {
   return (
     typeof window !== "undefined" &&
-    window.matchMedia("(prefers-reduced-motion: reduce)").matches
+    (window.matchMedia("(prefers-reduced-motion: reduce)").matches ||
+      document.documentElement.dataset.calm === "on")
   );
 }
 

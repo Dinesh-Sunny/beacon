@@ -26,6 +26,8 @@ const Body = z.object({
     })
     .optional(),
   locale: z.string().max(8).optional(),
+  /** The Simple words display setting: easy-read replies. */
+  simple: z.boolean().optional(),
 });
 
 export async function POST(req: Request) {
@@ -33,12 +35,12 @@ export async function POST(req: Request) {
   if (blocked) return json({ error: blocked.message }, blocked.status);
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "bad-request" }, 400);
-  const { messages, answers, subject, locale } = parsed.data;
+  const { messages, answers, subject, locale, simple } = parsed.data;
   const language = isLocale(locale) ? localeInfo(locale).english : undefined;
   if (!req.headers.get("accept")?.includes("application/x-ndjson")) {
     try {
       return json(
-        await runAgent(messages, answers, subject, undefined, language),
+        await runAgent(messages, answers, subject, undefined, language, simple),
       );
     } catch (err) {
       return failure(err);
@@ -57,6 +59,7 @@ export async function POST(req: Request) {
           subject,
           (step) => send({ type: "step", ...step }),
           language,
+          simple,
         );
         send({ type: "done", ...out });
       } catch (err) {

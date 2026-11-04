@@ -36,29 +36,6 @@
     "back": "Yn ôl i'r Saesneg (English)",
     "official": "Mae enwau a rheolau swyddogol yn aros yn Saesneg, fel mae'r sefydliad yn eu hysgrifennu."
   },
-  "place": {
-    "chip": "Gwlad: {country}",
-    "step": "Eich lle - cam {n} o {total}",
-    "suggest": "Mae'n edrych fel mai {country} yw eich gwlad (o iaith eich porwr). Ydy hynny'n iawn?",
-    "never": "Dim ond eich gwlad ac ardal eich cyngor rydyn ni'n eu defnyddio - byth eich cyfeiriad.",
-    "yes": "Ydy, mae hynny'n iawn",
-    "other": "Dewis gwlad arall",
-    "which": "Ym mha wlad ydych chi?",
-    "search": "Chwilio am eich gwlad",
-    "withPack": "Gwledydd lle mae Beacon yn gwirio'r rheolau",
-    "others": "Gwledydd eraill",
-    "noneTitle": "Dyw Beacon ddim yn gwirio rheolau {country} eto",
-    "noneBody": "Dim ond rheolau {covered} mae Beacon yn eu gwybod heddiw. Fyddai'r canlyniadau ddim yn addas ar gyfer {country}, felly wnawn ni ddim dyfalu.",
-    "useUk": "Gwirio rheolau'r DU beth bynnag",
-    "back": "Dewis eto",
-    "close": "Cau",
-    "packBadge": "Pecyn rheolau",
-    "packLine": "Rheolau wedi'u darllen o'r tudalennau swyddogol. Gall Beacon ddweud \"Tebygol\".",
-    "noneBadge": "Dim eto",
-    "noneLine": "Dim rheolau ar gyfer y wlad hon eto.",
-    "confirm": "Defnyddio {country}",
-    "ukPlace": "Mae eich cod post yn dweud wrth Beacon eich cenedl a'ch cyngor."
-  },
   "first": {
     "you": "Chi, neu rywun rydych chi'n gofalu amdano",
     "givers": "Llywodraeth, cynghorau, GIG, elusennau",
@@ -364,9 +341,7 @@
     "localServices": "{count, plural, zero {Dim gwasanaethau} one {# gwasanaeth} two {# wasanaeth} few {# gwasanaeth} many {# gwasanaeth} other {# gwasanaeth}} gan {council} a allai fod yn addas",
     "localNote": "Mae pob dolen yn mynd i dudalen y cyngor ei hun, wedi'i rhestru ar",
     "showAll": "Dangos pob un o'r {count}",
-    "moreHelp": "Mwy o help i edrych arno",
-    "coverage": "Pecyn rheolau · {country}",
-    "coverageLine": "Rheolau wedi'u darllen o'r tudalennau swyddogol. Gall Beacon ddweud \"Tebygol\"."
+    "moreHelp": "Mwy o help i edrych arno"
   },
   "details": {
     "title": "Manylion",

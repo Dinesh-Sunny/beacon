@@ -20,9 +20,12 @@ import {
   showAnswer,
 } from "@/engine/facts";
 import { evaluate, SCHEMES } from "@/engine/rules";
+import { intlTag } from "@/i18n/locales";
 import { useFactText } from "@/i18n/useFactText";
 import { useCheck } from "@/lib/check-store";
+import { isOn, useDisplay } from "@/lib/display";
 import { shrink } from "@/lib/image";
+import { speak } from "@/lib/speech";
 import { Composer } from "./Composer";
 import { LetterCard } from "./LetterCard";
 
@@ -112,6 +115,23 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     end.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [msgs.length, working, next?.f]);
 
+  // Read aloud setting: speak each new reply from Beacon, then the next question, in the
+  // person's language and speed (captions follow when they're on).
+  const { display } = useDisplay();
+  const lastSpoken = useRef<string | null>(null);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: speak when a new message or question arrives
+  useEffect(() => {
+    if (!display.on.includes("readAloud") || working) return;
+    const last = msgs.at(-1);
+    const lines: string[] = [];
+    const key = `${last?.id ?? ""}:${next?.f ?? ""}`;
+    if (key === lastSpoken.current) return;
+    lastSpoken.current = key;
+    if (last?.role === "bot") lines.push(...(last.notes ?? []), last.text);
+    if (next) lines.push(ft.ask(next.f, subjectRef.current));
+    if (lines.length) void speak(lines, intlTag(locale));
+  }, [msgs.length, next?.f, working, display.on]);
+
   // Clear the chat when the check starts again.
   useEffect(() => {
     if (resets) {
@@ -164,6 +184,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
             answers: answersRef.current,
             subject: subjectRef.current,
             locale,
+            simple: isOn("simple"),
           }),
         });
         type Done = {

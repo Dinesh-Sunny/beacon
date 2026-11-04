@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { PlaceFooterLink } from "@/components/locale/PlaceDialog";
 import { getT } from "@/i18n/server";
 
 export async function SiteFooter() {
@@ -7,6 +8,7 @@ export async function SiteFooter() {
     <footer className="site-foot">
       <p>{t("site.footer")}</p>
       <nav>
+        <PlaceFooterLink />
         <Link href="/check">{t("site.start")}</Link>
         <Link href="/how">{t("site.how")}</Link>
         <a

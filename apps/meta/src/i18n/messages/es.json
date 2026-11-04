@@ -36,29 +36,6 @@
     "back": "Volver al inglés (English)",
     "official": "Los nombres y las normas oficiales se quedan en inglés, tal como los escribe cada organismo."
   },
-  "place": {
-    "chip": "País: {country}",
-    "step": "Tu lugar - paso {n} de {total}",
-    "suggest": "Parece que estás en {country} (por el idioma de tu navegador). ¿Es correcto?",
-    "never": "Solo usamos tu país y la zona de tu ayuntamiento (council) - nunca tu dirección.",
-    "yes": "Sí, es correcto",
-    "other": "Elegir otro país",
-    "which": "¿En qué país estás?",
-    "search": "Busca tu país",
-    "withPack": "Países cuyas normas revisa Beacon",
-    "others": "Otros países",
-    "noneTitle": "Beacon todavía no revisa las normas de {country}",
-    "noneBody": "Por ahora Beacon solo conoce las normas de {covered}. Los resultados no servirían para {country}, así que no vamos a adivinar.",
-    "useUk": "Revisar las normas del Reino Unido de todos modos",
-    "back": "Elegir de nuevo",
-    "close": "Cerrar",
-    "packBadge": "Paquete de normas",
-    "packLine": "Normas leídas de las páginas oficiales. Beacon puede decir «Probable».",
-    "noneBadge": "Todavía no",
-    "noneLine": "Aún no hay normas para este país.",
-    "confirm": "Usar {country}",
-    "ukPlace": "Tu código postal le indica a Beacon tu nación y tu ayuntamiento."
-  },
   "first": {
     "you": "Tú, o alguien a quien cuidas",
     "givers": "Gobierno, ayuntamientos, NHS, organizaciones benéficas",
@@ -364,9 +341,7 @@
     "localServices": "{count, plural, one {# servicio} other {# servicios}} de {council} que pueden encajar",
     "localNote": "Cada enlace lleva a la página del propio ayuntamiento, que aparece en",
     "showAll": "Mostrar los {count}",
-    "moreHelp": "Más ayuda para mirar",
-    "coverage": "Paquete de normas · {country}",
-    "coverageLine": "Normas leídas de las páginas oficiales. Beacon puede decir «Probable»."
+    "moreHelp": "Más ayuda para mirar"
   },
   "details": {
     "title": "Detalles",
