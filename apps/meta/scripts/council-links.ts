@@ -28,7 +28,7 @@ const SERVICES: Record<
   72: { label: "Housing Benefit appeals", people: [] },
   112: {
     label: "Help if you're homeless or about to be",
-    people: ["outofwork", "young"],
+    people: [],
   },
   107: {
     label: "Sheltered and supported housing",
@@ -76,7 +76,7 @@ const SERVICES: Record<
     people: ["families", "lowpay"],
     scheme: "fsm",
   },
-  2: { label: "School uniform grants", people: ["families", "lowpay"] },
+  2: { label: "School uniform grants", people: ["families"] },
   3: { label: "Help with school transport", people: ["families"] },
   40: {
     label: "School transport for special educational needs",
