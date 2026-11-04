@@ -484,7 +484,11 @@
     "forOther": "Rhywun rwy'n gofalu amdano",
     "forMe": "Fi",
     "inputHintMe": "Rwy'n 67, yn byw ar fy mhen fy hun ac mae fy mhensiwn yn fach",
-    "tryExample": "Rhowch gynnig ar wiriad enghreifftiol"
+    "tryExample": "Rhowch gynnig ar wiriad enghreifftiol",
+    "pillCountry": "Am ddim · {count} math o help {country} · {languages} iaith",
+    "inputHintUs": "Mae Dad yn 70 ac mae ei gostau Medicare yn dal i godi",
+    "inputHintMeUs": "Rwy'n 66, rwy'n byw ar fy mhen fy hun yn Ohio ac mae arian yn brin",
+    "factNoIdUs": "Dim enw, rhif Social Security na manylion banc"
   },
   "status": {
     "open": "Yn dal ar agor",
@@ -819,7 +823,7 @@
     },
     "cover": {
       "tag": "Beth mae'n ei wirio heddiw",
-      "titleAll": "{schemes} math o help mewn {countries} gwlad",
+      "titleAll": "{schemes} math o help yn y Deyrnas Unedig a'r Unol Daleithiau",
       "leadAll": "O Pension Credit i SNAP, pob un wedi'i wirio yn erbyn ei reolau swyddogol. Hefyd {places, number} o wasanaethau lleol, wedi'u paru â lle rydych chi'n byw."
     },
     "grow": {
@@ -869,17 +873,31 @@
         "name": "Y Deyrnas Unedig",
         "where": "Lloegr, yr Alban a Chymru",
         "councilPages": "tudalennau cyngor",
-        "charities": "elusennau sy'n rhoi grantiau"
+        "charities": "elusennau sy'n rhoi grantiau",
+        "short": "yn y Deyrnas Unedig"
       },
       "us": {
         "name": "Unol Daleithiau America",
         "where": "Pob un o'r 50 talaith a DC",
         "centers": "canolfannau iechyd cymunedol",
         "agencies": "asiantaethau tai",
-        "counselors": "cynghorwyr tai"
+        "counselors": "cynghorwyr tai",
+        "short": "yn yr Unol Daleithiau"
       },
       "kinds": "math o help ar draws {topics} maes bywyd",
       "localLabel": "Gwasanaethau lleol mae Beacon yn eu paru"
+    },
+    "statUs": {
+      "num": "1 o bob 5",
+      "text": "o'r bobl a allai gael yr Earned Income Tax Credit (credyd treth i bobl sy'n gweithio) sydd ddim yn ei hawlio, yn ôl amcangyfrif yr IRS. Mae Beacon yn eich helpu i ddod o hyd i'ch cyfran.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Gwiriad enghreifftiol",
+      "you1": "Mae Dad yn 70, yn byw ar ei ben ei hun yn Ohio ac mae ei gostau Medicare yn dal i godi.",
+      "ask": "Diolch. Tua faint o arian sy'n dod i mewn iddo bob mis?",
+      "you2": "Tua $1,300 o Social Security.",
+      "note": "Mae Medicare Savings Program hefyd yn rhoi Extra Help iddo gyda chostau meddyginiaeth, felly gwnewch gais am hwnnw'n gyntaf."
     }
   },
   "how": {
@@ -1046,7 +1064,7 @@
   },
   "hero": {
     "tabsLabel": "Gweld gwiriad enghreifftiol",
-    "windowTitle": "Gwiriad Margaret",
+    "windowTitle": "Gwiriad i {name}",
     "tabs": {
       "chat": "Sgwrs",
       "results": "Canlyniadau",
@@ -1059,16 +1077,21 @@
       "results": "Mae pob canlyniad yn dangos y rheolau mae'n seiliedig arnyn nhw ac yn cysylltu â'r dudalen swyddogol.",
       "plan": "Hawliadau yn y drefn gywir, gyda rhybudd pan allai un leihau un arall.",
       "call": "Pwy i'w ffonio, y rhif, a beth i'w ddweud.",
-      "near": "Tudalennau eich cyngor eich hun ac elusennau lleol, wedi'u canfod o'ch cod post."
+      "near": "Tudalennau eich cyngor eich hun ac elusennau lleol, wedi'u canfod o'ch cod post.",
+      "nearUs": "Canolfannau iechyd, asiantaethau tai a chynghorwyr tai, wedi'u canfod o'ch cod ZIP."
     },
     "chat": {
-      "saved": "Wedi'i gadw: oed, cartref a help bob dydd"
+      "saved": "Wedi'i gadw: oed, cartref a help bob dydd",
+      "savedUs": "Wedi'i gadw: oed, cartref ac incwm"
     },
     "results": {
       "head": "{count, plural, zero {# peth yn edrych yn debygol hyd yma} one {# peth yn edrych yn debygol hyd yma} two {# beth yn edrych yn debygol hyd yma} few {# pheth yn edrych yn debygol hyd yma} many {# pheth yn edrych yn debygol hyd yma} other {# peth yn edrych yn debygol hyd yma}}",
       "range": "{min} i {max} yr wythnos",
       "topUp": "Hwb wythnosol i'w hincwm",
-      "council": "Wedi'i bennu gan ei chyngor"
+      "council": "Wedi'i bennu gan ei chyngor",
+      "upToMonth": "Hyd at {max} y mis",
+      "drugs": "Costau meddyginiaeth presgripsiwn is",
+      "state": "Wedi'i bennu gan ei dalaith"
     },
     "plan": {
       "now": "Dechrau nawr"
@@ -1076,16 +1099,28 @@
     "call": {
       "head": "Ffonio am {name}",
       "say": "\"Hoffwn ofyn am ffurflen gais i fy mam. Mae hi'n 78 ac mae angen help arni y rhan fwyaf o foreau.\"",
-      "after": "Nesaf: {next}"
+      "after": "Nesaf: {next}",
+      "sayUs": "\"Hoffwn wneud cais am Extra Help i fy nhad. Mae e'n 70 ac mae'n cael Social Security.\""
     },
     "near": {
       "head": "Gan Brent Council a gerllaw",
       "ctr": "Council Tax Reduction",
       "care": "Asesiad anghenion gofal",
       "adapt": "Addasiadau a chymhorthion yn y cartref",
-      "council": "Brent Council",
       "charity": "Elusennau sy'n rhoi grantiau i bobl hŷn",
-      "register": "Cofrestr elusennau"
+      "headUs": "Yn agos ato yn Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Cofrestr elusennau",
+      "clinic": "Canolfan iechyd cymunedol",
+      "clinicFrom": "HRSA",
+      "housing": "Asiantaeth dai leol",
+      "housingFrom": "HUD",
+      "counsellor": "Cynghorydd tai am ddim",
+      "counsellorFrom": "HUD",
+      "found": "Arian heb ei hawlio",
+      "foundFrom": "Swyddfa arian heb ei hawlio Ohio"
     }
   }
 }

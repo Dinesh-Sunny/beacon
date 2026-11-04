@@ -484,7 +484,11 @@
     "forOther": "Ktoś, kim się opiekuję",
     "forMe": "Ja",
     "inputHintMe": "Mam 67 lat, mieszkam samotnie i mam małą emeryturę",
-    "tryExample": "Wypróbuj przykładowe sprawdzenie"
+    "tryExample": "Wypróbuj przykładowe sprawdzenie",
+    "pillCountry": "Bezpłatnie · rodzaje pomocy {country}: {count} · języki: {languages}",
+    "inputHintUs": "Mój tata ma 70 lat i jego koszty Medicare ciągle rosną",
+    "inputHintMeUs": "Mam 66 lat, mieszkam sam w Ohio i brakuje mi pieniędzy",
+    "factNoIdUs": "Bez imienia, numeru Social Security i danych bankowych"
   },
   "status": {
     "open": "Nadal otwarte",
@@ -819,7 +823,7 @@
     },
     "cover": {
       "tag": "Co sprawdza dziś",
-      "titleAll": "Rodzaje pomocy: {schemes}, kraje: {countries}",
+      "titleAll": "Rodzaje pomocy w Wielkiej Brytanii i USA: {schemes}",
       "leadAll": "Od Pension Credit po SNAP, każdy rodzaj pomocy sprawdzony według oficjalnych zasad. Do tego lokalne usługi dopasowane do miejsca, w którym mieszkasz: {places, number}."
     },
     "grow": {
@@ -869,17 +873,31 @@
         "name": "Wielka Brytania",
         "where": "Anglia, Szkocja i Walia",
         "councilPages": "strony rad lokalnych",
-        "charities": "organizacje charytatywne przyznające dotacje"
+        "charities": "organizacje charytatywne przyznające dotacje",
+        "short": "w Wielkiej Brytanii"
       },
       "us": {
         "name": "Stany Zjednoczone",
         "where": "Wszystkie 50 stanów i DC",
         "centers": "środowiskowe centra zdrowia",
         "agencies": "agencje mieszkaniowe",
-        "counselors": "doradcy mieszkaniowi"
+        "counselors": "doradcy mieszkaniowi",
+        "short": "w USA"
       },
       "kinds": "rodzaje pomocy, obszary życia: {topics}",
       "localLabel": "Lokalne usługi, które dopasowuje Beacon"
+    },
+    "statUs": {
+      "num": "1 na 5",
+      "text": "osób, które mogłyby dostać Earned Income Tax Credit (ulgę podatkową dla pracujących), nie ubiega się o nią - szacuje IRS. Beacon pomaga Ci znaleźć Twoją część.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Przykładowe sprawdzenie",
+      "you1": "Mój tata ma 70 lat, mieszka sam w Ohio i jego koszty Medicare ciągle rosną.",
+      "ask": "Dziękuję. Mniej więcej ile pieniędzy dostaje co miesiąc?",
+      "you2": "Około $1,300 z Social Security.",
+      "note": "Medicare Savings Program daje mu też Extra Help na koszty leków, więc złóż ten wniosek najpierw."
     }
   },
   "how": {
@@ -1046,7 +1064,7 @@
   },
   "hero": {
     "tabsLabel": "Zobacz przykładowe sprawdzenie",
-    "windowTitle": "Sprawdzenie Margaret",
+    "windowTitle": "Sprawdzenie: {name}",
     "tabs": {
       "chat": "Czat",
       "results": "Wyniki",
@@ -1059,16 +1077,21 @@
       "results": "Każdy wynik pokazuje przepisy, na których się opiera, i link do oficjalnej strony.",
       "plan": "Wnioski w dobrej kolejności, z ostrzeżeniem, gdy jeden może obniżyć inny.",
       "call": "Do kogo zadzwonić, pod jaki numer i co powiedzieć.",
-      "near": "Strony Twojej rady lokalnej i lokalne organizacje charytatywne, znalezione po kodzie pocztowym."
+      "near": "Strony Twojej rady lokalnej i lokalne organizacje charytatywne, znalezione po kodzie pocztowym.",
+      "nearUs": "Centra zdrowia, agencje mieszkaniowe i doradcy mieszkaniowi, znalezieni po kodzie ZIP."
     },
     "chat": {
-      "saved": "Zapisano: wiek, dom i codzienna pomoc"
+      "saved": "Zapisano: wiek, dom i codzienna pomoc",
+      "savedUs": "Zapisano: wiek, dom i dochód"
     },
     "results": {
       "head": "{count, plural, one {Na razie # rzecz wygląda na prawdopodobną} few {Na razie # rzeczy wyglądają na prawdopodobne} many {Na razie # rzeczy wygląda na prawdopodobne} other {Na razie # rzeczy wygląda na prawdopodobne}}",
       "range": "{min} do {max} tygodniowo",
       "topUp": "Cotygodniowy dodatek do jej dochodu",
-      "council": "Ustala ją jej rada lokalna"
+      "council": "Ustala ją jej rada lokalna",
+      "upToMonth": "Do {max} miesięcznie",
+      "drugs": "Niższe koszty leków na receptę",
+      "state": "Ustala to jego stan"
     },
     "plan": {
       "now": "Zacznij teraz"
@@ -1076,16 +1099,28 @@
     "call": {
       "head": "Rozmowa w sprawie {name}",
       "say": "\"Dzwonię, żeby poprosić o formularz wniosku dla mojej mamy. Ma 78 lat i prawie każdego ranka potrzebuje pomocy.\"",
-      "after": "Dalej: {next}"
+      "after": "Dalej: {next}",
+      "sayUs": "\"Dzwonię, żeby złożyć wniosek o Extra Help dla mojego taty. Ma 70 lat i dostaje Social Security.\""
     },
     "near": {
       "head": "Od Brent Council i z okolicy",
       "ctr": "Council Tax Reduction",
       "care": "Ocena potrzeb opiekuńczych",
       "adapt": "Przystosowanie domu i pomoce",
-      "council": "Brent Council",
       "charity": "Organizacje charytatywne dające granty osobom starszym",
-      "register": "Rejestr organizacji charytatywnych"
+      "headUs": "W jego okolicy w Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Rejestr organizacji charytatywnych",
+      "clinic": "Środowiskowe centrum zdrowia",
+      "clinicFrom": "HRSA",
+      "housing": "Lokalna agencja mieszkaniowa",
+      "housingFrom": "HUD",
+      "counsellor": "Bezpłatny doradca mieszkaniowy",
+      "counsellorFrom": "HUD",
+      "found": "Nieodebrane pieniądze",
+      "foundFrom": "Biuro nieodebranych środków stanu Ohio"
     }
   }
 }

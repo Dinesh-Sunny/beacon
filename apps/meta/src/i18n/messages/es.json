@@ -484,7 +484,11 @@
     "forOther": "Alguien a quien cuido",
     "forMe": "Para mí",
     "inputHintMe": "Tengo 67 años, vivo por mi cuenta y mi pensión es pequeña",
-    "tryExample": "Prueba una consulta de ejemplo"
+    "tryExample": "Prueba una consulta de ejemplo",
+    "pillCountry": "Gratis · {count} tipos de ayuda en {country} · {languages} idiomas",
+    "inputHintUs": "Mi padre tiene 70 años y sus gastos de Medicare no paran de subir",
+    "inputHintMeUs": "Tengo 66 años, vivo solo en Ohio y voy justo de dinero",
+    "factNoIdUs": "Sin nombre, número de Social Security ni datos bancarios"
   },
   "status": {
     "open": "Aún abierto",
@@ -819,7 +823,7 @@
     },
     "cover": {
       "tag": "Lo que revisa hoy",
-      "titleAll": "{schemes} tipos de ayuda en {countries} países",
+      "titleAll": "{schemes} tipos de ayuda en el Reino Unido y Estados Unidos",
       "leadAll": "Desde Pension Credit hasta SNAP, cada una revisada según sus normas oficiales. Además, {places, number} servicios locales, según dónde vives."
     },
     "grow": {
@@ -869,17 +873,31 @@
         "name": "Reino Unido",
         "where": "Inglaterra, Escocia y Gales",
         "councilPages": "páginas de ayuntamientos",
-        "charities": "organizaciones benéficas que dan ayudas"
+        "charities": "organizaciones benéficas que dan ayudas",
+        "short": "el Reino Unido"
       },
       "us": {
         "name": "Estados Unidos",
         "where": "Los 50 estados y DC",
         "centers": "centros de salud comunitarios",
         "agencies": "agencias de vivienda",
-        "counselors": "consejeros de vivienda"
+        "counselors": "consejeros de vivienda",
+        "short": "Estados Unidos"
       },
       "kinds": "tipos de ayuda en {topics} áreas de la vida",
       "localLabel": "Servicios locales que Beacon encuentra para ti"
+    },
+    "statUs": {
+      "num": "1 de cada 5",
+      "text": "personas que podrían recibir el Earned Income Tax Credit (un crédito fiscal para quienes trabajan) no lo piden, según calcula el IRS. Beacon te ayuda a encontrar tu parte.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Consulta de ejemplo",
+      "you1": "Mi padre tiene 70 años, vive solo en Ohio y sus gastos de Medicare no paran de subir.",
+      "ask": "Gracias. ¿Más o menos cuánto dinero le entra cada mes?",
+      "you2": "Unos $1,300 de Social Security.",
+      "note": "Un Medicare Savings Program también le da Extra Help con el gasto en medicamentos, así que pídelo primero."
     }
   },
   "how": {
@@ -1046,7 +1064,7 @@
   },
   "hero": {
     "tabsLabel": "Ver una consulta de ejemplo",
-    "windowTitle": "La consulta de Margaret",
+    "windowTitle": "Consulta para {name}",
     "tabs": {
       "chat": "Chat",
       "results": "Resultados",
@@ -1059,16 +1077,21 @@
       "results": "Cada resultado muestra las normas en las que se basa y enlaza a la página oficial.",
       "plan": "Las solicitudes en el orden correcto, con un aviso cuando una podría reducir otra.",
       "call": "A quién llamar, el número y qué decir.",
-      "near": "Las páginas de tu ayuntamiento y organizaciones benéficas locales, según tu código postal."
+      "near": "Las páginas de tu ayuntamiento y organizaciones benéficas locales, según tu código postal.",
+      "nearUs": "Centros de salud, agencias de vivienda y consejeros de vivienda, según tu código ZIP."
     },
     "chat": {
-      "saved": "Guardado: edad, hogar y ayuda diaria"
+      "saved": "Guardado: edad, hogar y ayuda diaria",
+      "savedUs": "Guardado: edad, hogar e ingresos"
     },
     "results": {
       "head": "{count, plural, one {# cosa parece probable por ahora} many {# de cosas parecen probables por ahora} other {# cosas parecen probables por ahora}}",
       "range": "De {min} a {max} a la semana",
       "topUp": "Un extra semanal para sus ingresos",
-      "council": "Lo fija su ayuntamiento"
+      "council": "Lo fija su ayuntamiento",
+      "upToMonth": "Hasta {max} al mes",
+      "drugs": "Medicamentos con receta más baratos",
+      "state": "Lo fija su estado"
     },
     "plan": {
       "now": "Empieza ya"
@@ -1076,16 +1099,28 @@
     "call": {
       "head": "Llamada sobre {name}",
       "say": "\"Quisiera pedir un formulario de solicitud para mi madre. Tiene 78 años y necesita ayuda casi todas las mañanas.\"",
-      "after": "Después: {next}"
+      "after": "Después: {next}",
+      "sayUs": "\"Quisiera solicitar Extra Help para mi padre. Tiene 70 años y recibe Social Security.\""
     },
     "near": {
       "head": "De Brent Council y alrededores",
       "ctr": "Council Tax Reduction",
       "care": "Evaluación de necesidades de cuidado",
       "adapt": "Adaptaciones y ayudas para el hogar",
-      "council": "Brent Council",
       "charity": "Organizaciones benéficas que dan ayudas a personas mayores",
-      "register": "Registro de organizaciones benéficas"
+      "headUs": "Cerca de él en Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Registro de organizaciones benéficas",
+      "clinic": "Centro de salud comunitario",
+      "clinicFrom": "HRSA",
+      "housing": "Agencia de vivienda local",
+      "housingFrom": "HUD",
+      "counsellor": "Consejero de vivienda gratuito",
+      "counsellorFrom": "HUD",
+      "found": "Dinero sin reclamar",
+      "foundFrom": "Oficina de fondos no reclamados de Ohio"
     }
   }
 }
