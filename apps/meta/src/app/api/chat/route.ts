@@ -67,10 +67,9 @@ export async function POST(req: Request) {
           send({
             type: "step",
             name: "privacy",
-            text:
-              privacy.by === "glimmer"
-                ? "Personal details removed on Muse Glimmer, Meta's open-weights model"
-                : "Personal details removed before your words reached Muse Spark",
+            text: privacy.by
+              ? `Personal details removed on ${privacy.by}, Meta's open-weights model`
+              : "Personal details removed before your words reached Muse Spark",
           });
         const out = await runAgent(
           messages,

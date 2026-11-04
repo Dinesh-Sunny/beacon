@@ -1000,10 +1000,12 @@
       "title": "Meta models in Beacon",
       "lead": "Each model has one job. Code checks everything they hand back before you see it.",
       "jobs": {
-        "spark": "Agent chat with tool calling, letter reading with vision and structured output, call notes",
+        "spark": "Agent chat with tool calling, letter reading with vision and structured output",
         "voice": "Turns a spoken answer into text",
         "sam": "Outlines the letter in a photo so you see what was read",
-        "image": "Paints the results banner from life areas only, never personal details"
+        "image": "Paints the results banner from life areas only, never personal details",
+        "wonder": "Writes the call notes people rely on most: what to say, what to have ready",
+        "open": "Open-weights model on Baseten or Fireworks that removes names, numbers and addresses before your words reach any hosted model"
       }
     },
     "rules": {

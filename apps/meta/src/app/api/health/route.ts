@@ -1,5 +1,6 @@
 import { REGISTRY, SCHEMES } from "@/engine/rules";
 import { json } from "@/server/http";
+import { openWeightsNames } from "@/server/private";
 
 // For uptime checks and the deploy smoke test: what's live, never any person's data.
 export function GET() {
@@ -11,5 +12,6 @@ export function GET() {
       schemes: SCHEMES.length,
     },
     models: Boolean(process.env.MODEL_API_KEY),
+    openWeights: openWeightsNames,
   });
 }
