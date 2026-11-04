@@ -255,10 +255,10 @@ export const listJoin = (xs: string[]): string =>
     ? (xs[0] ?? "")
     : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`;
 
-/** Nations where most schemes apply (a pack's notCovered sends a nation elsewhere), so copy
- * that names the nations stays true as packs grow. */
+/** Nations the core benefits pack covers (its notCovered sends a nation elsewhere). Copy that
+ * names the nations reads from here, so it stays true when a nation is added. */
 export const COVERED_NATIONS = (Object.keys(NATION) as Nation[]).filter(
-  (n) => SCHEMES.filter((s) => !s.notCovered[n]).length > SCHEMES.length / 2,
+  (n) => !SCHEMES.some((s) => s.pack === "uk-core" && s.notCovered[n]),
 );
 export const COVERED_NATIONS_TXT = listJoin(
   COVERED_NATIONS.map((n) => NATION[n]),
