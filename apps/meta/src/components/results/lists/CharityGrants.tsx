@@ -4,6 +4,7 @@
 // give across the country, plus local ones whose grants went to the person's council area.
 
 import data from "@/data/charity-grants.json";
+import { peopleGroups } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 import { shortCouncil, useCouncil } from "@/lib/council";
 
