@@ -197,7 +197,7 @@
   isolation: isolate;
   overflow: clip;
   margin-top: calc(-1 * var(--mk-head, 72px));
-  padding: calc(var(--mk-head, 72px) + clamp(40px, 8vw, 104px)) 0
+  padding: calc(var(--mk-head, 72px) + clamp(28px, 6vh, 88px)) 0
     clamp(56px, 8vw, 112px);
   background: linear-gradient(
     180deg,
@@ -215,11 +215,12 @@
   text-align: center;
 }
 .mk-hero h1 {
-  font-size: clamp(2.8rem, 7.6vw, 6.2rem);
+  /* Sized by height too, so the composer is in view on a laptop screen. */
+  font-size: clamp(2.6rem, min(7vw, 10.5vh), 6rem);
   line-height: 0.98;
   letter-spacing: -0.035em;
-  margin-top: 22px;
-  max-width: 13ch;
+  margin-top: 20px;
+  max-width: 14ch;
   text-wrap: balance;
 }
 .mk-hero .mk-lead {
@@ -445,7 +446,7 @@
 /* Glass cards from a real check, floating at the edges of the sky */
 .hs-card {
   position: absolute;
-  max-width: 260px;
+  max-width: 230px;
   padding: 12px 14px;
   border-radius: 18px;
   font-size: 0.88rem;
@@ -471,7 +472,7 @@
   margin: 0;
 }
 .hs-you {
-  left: max(24px, calc(50% - 640px));
+  left: max(20px, calc(50% - 640px));
   top: 30%;
   background: color-mix(in srgb, var(--ink) 88%, transparent);
   color: var(--bg);
@@ -480,9 +481,9 @@
   animation-delay: 0.3s, 0.3s;
 }
 .hs-results {
-  right: max(24px, calc(50% - 650px));
+  right: max(20px, calc(50% - 650px));
   top: 22%;
-  width: 260px;
+  width: 236px;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -527,8 +528,8 @@
   color: var(--check);
 }
 .hs-note {
-  right: max(40px, calc(50% - 600px));
-  top: 62%;
+  right: max(28px, calc(50% - 600px));
+  top: 64%;
   display: flex;
   gap: 8px;
   animation-delay: 1.6s, 2s;
@@ -539,7 +540,7 @@
   margin-top: 2px;
 }
 .hs-call {
-  left: max(48px, calc(50% - 590px));
+  left: max(28px, calc(50% - 590px));
   top: 60%;
   display: flex;
   align-items: center;
@@ -586,7 +587,13 @@
 }
 
 /* The floating cards need room either side of the words. */
-@media (max-width: 1180px) {
+@media (max-width: 1320px) {
+  .hs-note,
+  .hs-call {
+    display: none;
+  }
+}
+@media (max-width: 1100px), (max-height: 520px) {
   .hs-card {
     display: none;
   }
