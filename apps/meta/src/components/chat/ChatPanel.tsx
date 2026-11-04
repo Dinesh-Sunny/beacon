@@ -4,7 +4,7 @@
 // it, saves the facts through tools, and the form, board and Details update straight away.
 
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useTranslations } from "use-intl";
+import { useLocale, useTranslations } from "use-intl";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon, Logo } from "@/components/Icon";
 import {
@@ -75,6 +75,7 @@ const nextId = () => crypto.randomUUID();
 export function ChatPanel({ playing = false }: { playing?: boolean }) {
   const tc = useTranslations("chat");
   const te = useTranslations("events");
+  const locale = useLocale();
   const ft = useFactText();
   const {
     answers,
@@ -162,6 +163,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
             messages: history,
             answers: answersRef.current,
             subject: subjectRef.current,
+            locale,
           }),
         });
         type Done = {
@@ -228,7 +230,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         setBusy("Muse Spark agent", false);
       }
     },
-    [apply, note, push, setBusy, setSubject, setMsgs],
+    [apply, note, push, setBusy, setSubject, setMsgs, locale],
   );
 
   const onVoice = useCallback(

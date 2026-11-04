@@ -238,8 +238,15 @@ export async function runAgent(
   answers: Answers,
   subject: { who: "me" | "other"; label?: string } = { who: "me" },
   onStep?: (step: ToolNote) => void,
+  /** The language the person chose for Beacon's words, as its English name. */
+  language?: string,
 ) {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM }];
+  if (language && language !== "English")
+    messages.push({
+      role: "system",
+      content: `The person chose to read Beacon in ${language}. Reply in ${language} unless they write in another language. Keep scheme names in English.`,
+    });
   messages.push({
     role: "system",
     content:
