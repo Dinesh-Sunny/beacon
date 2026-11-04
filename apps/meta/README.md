@@ -51,6 +51,10 @@ flowchart LR
 - **Privacy**: answers live in the browser (memory and localStorage). API routes take what they need for one request and keep nothing. Beacon never asks for a name, a National Insurance number or bank details.
 - **Spend guard** (`src/server/guard.ts`): per-IP rate limit, a daily cap and same-origin checks on every model route.
 
+## Built to scale
+
+The check itself runs in the browser, rules live in a versioned data pack, model answers are cached and prompt-cached, and a daily job watches the official pages behind every rule. Full principles: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+
 ## Built during the hackathon
 
 Everything in `apps/meta` was built for this hackathon, during the build window (27 October to 4 November 2026). This repository was created on 30 October 2026. The earlier app in `apps/web` and the packages in `packages/` belong to a separate entry and aren't used by this app.
@@ -62,6 +66,8 @@ Everything in `apps/meta` was built for this hackathon, during the build window 
 - Letter reading with SAM 3.1 and Muse Spark vision, with an outbound scrub, plus a made-up sample letter anyone can try from the + menu
 - Results with claim plan, "Good to know" clash notes, call coach notes and a Muse Image banner
 - A calm canvas: 21 tiles that light up as answers settle each scheme
+- Agent steps streamed to the chat as they happen
+- Rule pack as data (`packs/uk-core.json`), answer cache, prompt cache keys, daily knowledge watch, health endpoint
 - Home page and a "How it works" page
 
 ## Run it
