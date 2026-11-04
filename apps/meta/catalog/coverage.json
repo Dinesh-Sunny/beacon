@@ -1383,8 +1383,9 @@
      "kind": "dataset",
      "url": "https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download",
      "access": "open",
-     "covers": "Daily extract of the whole England and Wales register in JSON and tab-delimited files (13 tables, including classification and area of operation).",
-     "notes": "Licence not stated on the download page; check the site terms. Filter by 'grants to individuals' classification to find benevolent funds."
+     "covers": "Full register extract (charity, classification, area of operation). Read 2026-11-04: 399,015 charities, 54,251 say they make grants to individuals, 34,581 of them registered. Beacon keeps 12,231 that help people here in need, 8,145 of them tied to a council area.",
+     "notes": "Open Government Licence. Kept rows in catalog/harvest/raw/charity-commission-individual-grants.json.gz; rebuild with node scripts/charity-funds.ts. Served by /api/charities for a postcode area.",
+     "checked": "2026-11-04"
     },
     {
      "name": "OSCR Scottish Charity Register download",

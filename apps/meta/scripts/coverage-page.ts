@@ -90,6 +90,72 @@ const reviewed = await read<{
   rows: { provider: string; status: string }[];
 }>("catalog/drafts/review.json", { counts: {}, roadmap: [], rows: [] });
 
+// Live datasets the app reads at run time, counted from the built files themselves.
+const cl = await read<{
+  services: object;
+  councils: Record<string, { links: object }>;
+}>("src/data/council-links.json", { services: {}, councils: {} });
+const cf = await read<{ read: string; funds: { local: string[] }[] }>(
+  "src/data/charity-funds.json",
+  { read: "", funds: [] },
+);
+const cg = await read<{ funders: unknown[] }>("src/data/charity-grants.json", {
+  funders: [],
+});
+const st = await read<{ tariffs: unknown[] }>("src/data/social-tariffs.json", {
+  tariffs: [],
+});
+const mh = await read<unknown[]>("src/data/more-help.json", []);
+const links = Object.values(cl.councils).reduce(
+  (n, c) => n + Object.keys(c.links).length,
+  0,
+);
+const DATASETS = [
+  {
+    name: "Council service pages",
+    rows: links,
+    detail: `${Object.keys(cl.councils).length} councils × ${Object.keys(cl.services).length} services`,
+    source: "GOV.UK Local Links Manager",
+    url: "https://local-links-manager.publishing.service.gov.uk/",
+  },
+  {
+    name: "Grant-giving charities",
+    rows: cf.funds.length,
+    detail: `${cf.funds.filter((f) => f.local.length).length} local to a council area`,
+    source: "Charity Commission register",
+    url: "https://register-of-charities.charitycommission.gov.uk/en/register/full-register-download",
+  },
+  {
+    name: "Official pages kept",
+    rows: Object.keys(sources).length,
+    detail: "text copies, read once and kept",
+    source: "GOV.UK, nhs.uk, mygov.scot and more",
+    url: "https://www.gov.uk/",
+  },
+  {
+    name: "More help to look at",
+    rows: mh.length,
+    detail: "GOV.UK pages sorted as help",
+    source: "GOV.UK Content API",
+    url: "https://content-api.publishing.service.gov.uk/",
+  },
+  {
+    name: "Social tariffs",
+    rows: st.tariffs.length,
+    detail: "broadband and mobile packages",
+    source: "Ofcom",
+    url: "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
+  },
+  {
+    name: "Funders giving to people",
+    rows: cg.funders.length,
+    detail: "from recent grant records",
+    source: "360Giving",
+    url: "https://www.360giving.org/",
+  },
+];
+const dataRows = DATASETS.reduce((n, d) => n + d.rows, 0);
+
 const live = packs.reduce((n, p) => n + p.schemes.length, 0);
 const help = Object.values(triage).filter((t) => t.support);
 const found = (pid: string) => help.filter((t) => t.provider === pid).length;
@@ -182,6 +248,7 @@ a{color:var(--ink)}
     <p class="lede">What Beacon checks today, what it has already found, and where the next thousands of schemes come from. People who need help on the left, everyone who gives help on the right, Beacon in the middle. Generated from the rule packs, the coverage catalogue and the harvest.</p>
     <div class="stats">${[
       stat(live, "kinds of help live in checks"),
+      stat(dataRows.toLocaleString("en-GB"), "rows of live data"),
       stat(packs.length, "rule packs"),
       stat(
         Object.keys(sources).length.toLocaleString("en-GB"),
@@ -192,6 +259,15 @@ a{color:var(--ink)}
       stat(uniqConn.length, "data connectors mapped"),
     ].join("")}</div>
   </header>
+
+  <section aria-labelledby="data-h">
+    <span class="eyebrow">Live data</span>
+    <h2 id="data-h">What the checks draw on today</h2>
+    <div class="tbl"><table>
+      <thead><tr><th>Dataset</th><th>Rows</th><th>What it is</th><th>Source</th></tr></thead>
+      <tbody>${DATASETS.map((d) => `<tr><td>${esc(d.name)}</td><td class="num">${d.rows.toLocaleString("en-GB")}</td><td>${esc(d.detail)}</td><td><a href="${esc(d.url)}">${esc(d.source)}</a></td></tr>`).join("")}</tbody>
+    </table></div>
+  </section>
 
   <section aria-labelledby="map-h">
     <span class="eyebrow">1 · The map</span>
