@@ -101,33 +101,38 @@ async function getJson(url: string): Promise<unknown> {
 
 export async function placeFor(postcode: string): Promise<Place> {
   const pc = postcode.replace(/\s+/g, "").toUpperCase();
-  const { value } = await cached(cache, inflight, keyOf({ pc }), async () => {
-    // Either source can be down; each answer stands on its own.
-    const [gov, pio] = await Promise.allSettled([
-      getJson(
-        `https://www.gov.uk/api/local-authority?postcode=${encodeURIComponent(pc)}`,
-      ),
-      getJson(`https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`),
-    ]);
-    const a =
-      gov.status === "fulfilled"
-        ? GovUk.safeParse(gov.value).data?.local_authority
-        : undefined;
-    const r =
-      pio.status === "fulfilled"
-        ? PostcodesIo.safeParse(pio.value).data?.result
-        : undefined;
-    const country = r?.country;
-    return {
-      council: a
-        ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
-        : null,
-      nation: (country && COUNTRY[country]) || null,
-      local: localLinks([r?.codes?.admin_district, r?.codes?.admin_county]),
-      areas: [r?.admin_district, r?.admin_county, r?.region].filter(
-        (a): a is string => !!a,
-      ),
-    };
-  });
+  const { value } = await cached(
+    cache,
+    inflight,
+    keyOf({ pc, v: 2 }),
+    async () => {
+      // Either source can be down; each answer stands on its own.
+      const [gov, pio] = await Promise.allSettled([
+        getJson(
+          `https://www.gov.uk/api/local-authority?postcode=${encodeURIComponent(pc)}`,
+        ),
+        getJson(`https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`),
+      ]);
+      const a =
+        gov.status === "fulfilled"
+          ? GovUk.safeParse(gov.value).data?.local_authority
+          : undefined;
+      const r =
+        pio.status === "fulfilled"
+          ? PostcodesIo.safeParse(pio.value).data?.result
+          : undefined;
+      const country = r?.country;
+      return {
+        council: a
+          ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
+          : null,
+        nation: (country && COUNTRY[country]) || null,
+        local: localLinks([r?.codes?.admin_district, r?.codes?.admin_county]),
+        areas: [r?.admin_district, r?.admin_county, r?.region].filter(
+          (a): a is string => !!a,
+        ),
+      };
+    },
+  );
   return value;
 }

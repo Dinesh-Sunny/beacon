@@ -49,6 +49,11 @@ const WIDE: Record<string, string> = {
   "Northern Ireland": "ni",
 };
 
+/** Activities that say the charity gives money or help to people in need, not only research or
+ * worship that happens to tick "grants to individuals". */
+const NEED =
+  /\b(grants?|relief|hardship|in need|poverty|financial (assistance|help|support)|welfare|necessitous|distress|bursar)/i;
+
 const funds = [];
 for (const c of raw.charities) {
   const what = [
@@ -78,6 +83,7 @@ for (const c of raw.charities) {
     web: c.web,
     does: (c.activities ?? "").replace(/\s+/g, " ").trim().slice(0, 220),
     income: c.income,
+    need: NEED.test(c.activities ?? ""),
     what,
     who,
     local,

@@ -12,6 +12,8 @@ export interface Fund {
   web: string | null;
   does: string;
   income: number;
+  /** Its own description says it helps people in need with money or grants. */
+  need: boolean;
   what: string;
   who: string;
   local: string[];
@@ -39,7 +41,7 @@ for (const f of FUNDS)
   }
 
 function score(f: Fund, groups: string[]): number {
-  let s = 0;
+  let s = f.need ? 3 : 0;
   for (const g of groups) {
     const fit = FIT[g];
     if (!fit) continue;
@@ -63,7 +65,7 @@ export function fundsFor(
   const rank = (list: Fund[]) =>
     list
       .map((f) => ({ f, s: score(f, groups) }))
-      .filter((x) => x.s > 0)
+      .filter((x) => x.s > (x.f.need ? 3 : 0))
       // Closest fit first, then the larger funds, which tend to give more often.
       .sort((a, b) => b.s - a.s || b.f.income - a.f.income)
       .map((x) => x.f);
@@ -76,7 +78,8 @@ export function fundsFor(
     : [];
   const localList = rank(near.filter((f) => f.local.length)).slice(0, local);
   const seen = new Set(localList);
-  const wideList = rank([...londonWide, ...nationWide])
+  // Nationwide lists are long, so only funds that say they help people in need make the cut.
+  const wideList = rank([...londonWide, ...nationWide].filter((f) => f.need))
     .filter((f) => !seen.has(f))
     .slice(0, wide);
   return {
