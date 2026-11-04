@@ -5,20 +5,22 @@
 // opens on demand.
 
 import { useEffect, useRef, useState } from "react";
+import { useTranslations } from "use-intl";
 import { useCheck } from "@/lib/check-store";
 
 // Plain words for the person; model names stay in the full log.
-const PLAIN: Record<string, string> = {
-  "Muse Spark agent": "Reading what you said",
-  "Muse Voice Transcribe": "Listening back",
-  "SAM 3.1": "Finding the letter",
-  "Letter reader": "Reading your letter",
-  "Call coach": "Writing your call notes",
-  "Muse Image": "Painting your picture",
-};
+const PLAIN = {
+  "Muse Spark agent": "reading",
+  "Muse Voice Transcribe": "listening",
+  "SAM 3.1": "finding",
+  "Letter reader": "letter",
+  "Call coach": "notes",
+  "Muse Image": "painting",
+} as const;
 
 export function Activity() {
   const { log, busy } = useCheck();
+  const t = useTranslations("activity");
   const [recent, setRecent] = useState(false);
   const [open, setOpen] = useState(false);
   const last = log.at(-1);
@@ -52,19 +54,21 @@ export function Activity() {
         />
         <span className="activity-text">
           {working.length ? (
-            <b>{PLAIN[working[0] ?? ""] ?? "Working on it"}…</b>
+            <b>
+              {t(PLAIN[(working[0] ?? "") as keyof typeof PLAIN] ?? "working")}…
+            </b>
           ) : last ? (
             last.kind === "model" || last.kind === "rules" ? (
               last.text
             ) : (
-              "Checked the rules again"
+              t("checked")
             )
           ) : null}
         </span>
-        <span className="activity-more">{open ? "Close" : "Steps"}</span>
+        <span className="activity-more">{open ? t("close") : t("steps")}</span>
       </button>
       {open && (
-        <ol className="activity-log" aria-label="Everything the agents did">
+        <ol className="activity-log" aria-label={t("log")}>
           {log.map((l) => (
             <li key={l.id} className={l.kind}>
               <span className="who">{l.who}</span>

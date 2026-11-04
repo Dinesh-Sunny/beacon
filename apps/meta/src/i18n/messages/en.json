@@ -539,5 +539,18 @@
   },
   "watch": {
     "newRules": "Since your last check, Beacon has learned more rules. New for you: {names}."
+  },
+  "activity": {
+    "reading": "Reading what you said",
+    "listening": "Listening back",
+    "finding": "Finding the letter",
+    "letter": "Reading your letter",
+    "notes": "Writing your call notes",
+    "painting": "Painting your picture",
+    "working": "Working on it",
+    "checked": "Checked the rules again",
+    "close": "Close",
+    "steps": "Steps",
+    "log": "Everything the agents did"
   }
 }
