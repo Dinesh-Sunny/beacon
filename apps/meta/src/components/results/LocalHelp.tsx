@@ -35,7 +35,8 @@ export function LocalHelp() {
       >
         <Icon name="pin" size={16} />{" "}
         <span id="local-h">
-          {list.length} services from {by} that may fit
+          {list.length} {list.length === 1 ? "service" : "services"} from {by}{" "}
+          that may fit
         </span>
       </button>
       {open && (

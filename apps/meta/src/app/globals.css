@@ -3506,7 +3506,7 @@ details.constellation[open] > summary::after {
   container-type: inline-size;
   width: 100%;
 }
-@container (max-width: 520px) {
+@container (max-width: 440px) {
   .fl-map {
     grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
     gap: 8px;
