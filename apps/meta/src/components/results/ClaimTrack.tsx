@@ -6,7 +6,7 @@
 
 import { Icon } from "@/components/Icon";
 import { theyify } from "@/engine/facts";
-import { BENEFIT_OF, byId, challengeFor } from "@/engine/rules";
+import { BENEFIT_OF, byId, challengeFor, keepFor } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 import { type ClaimState, useClaims } from "@/lib/claims";
 
@@ -23,6 +23,7 @@ export function ClaimTrack({ id }: { id: string }) {
   if (!s) return null;
   const claim = claims[id];
   const challenge = challengeFor(s);
+  const keep = keepFor(s);
 
   const mark = (state: ClaimState | null) => {
     setClaim(id, state);
@@ -78,6 +79,14 @@ export function ClaimTrack({ id }: { id: string }) {
           {BENEFIT_OF[id]
             ? "Good news. The help it opens is now checked again above."
             : "Good news. Check the first payment is right when it arrives."}
+        </p>
+      )}
+      {claim.state === "awarded" && keep && (
+        <p className="hint keep">
+          <b>To keep it:</b> {theyify(keep.text, subject)}{" "}
+          <a href={keep.url} target="_blank" rel="noreferrer">
+            More
+          </a>
         </p>
       )}
       {claim.state === "refused" &&

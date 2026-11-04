@@ -371,6 +371,10 @@ export const BENEFIT_OF: Record<string, string> = Object.fromEntries(
 
 /** How to challenge a refusal for this scheme, if the packs say. */
 export const challengeFor = (s: Scheme) => REGISTRY.challenges[s.by] ?? null;
+
+/** What keeping an award needs: the scheme's own note, else the payer's usual duty. */
+export const keepFor = (s: Scheme): { text: string; url: string } | null =>
+  s.keep ? { text: s.keep, url: s.url } : (REGISTRY.keeps[s.by] ?? null);
 type Tri = boolean | null;
 export interface SchemeState {
   status: Status;

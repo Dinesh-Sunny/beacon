@@ -222,6 +222,9 @@
             ],
             "additionalProperties": false
           },
+          "keep": {
+            "type": "string"
+          },
           "list": {
             "type": "string",
             "enum": [
@@ -396,6 +399,30 @@
       }
     },
     "challenges": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "text": {
+            "type": "string"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          }
+        },
+        "required": [
+          "text",
+          "url"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "keeps": {
       "default": {},
       "type": "object",
       "propertyNames": {

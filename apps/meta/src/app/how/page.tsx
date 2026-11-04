@@ -167,8 +167,8 @@ export default function How() {
               id="loop-h"
               title="Eight steps for every person"
             >
-              Seven run in Beacon today. Keeping help safe through life changes
-              is next.
+              All eight run in Beacon today. The later steps run in your
+              browser, so your claims stay on your device.
             </SectionHead>
           </Reveal>
           <Reveal>

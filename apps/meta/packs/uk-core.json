@@ -583,7 +583,8 @@
         "per": "week",
         "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
         "year": "2026/27"
-      }
+      },
+      "keep": "Call the Attendance Allowance helpline straight away if the help you need changes, or you go into hospital or a care home. The rate can go up as well as down."
     },
     {
       "id": "bb",
@@ -1346,6 +1347,16 @@
     "DWP": {
       "text": "Ask DWP to look at the decision again. It's called a mandatory reconsideration, it's free, and you usually need to ask within one month of the decision letter.",
       "url": "https://www.gov.uk/mandatory-reconsideration"
+    }
+  },
+  "keeps": {
+    "DWP": {
+      "text": "Tell DWP straight away if your circumstances change, like income, savings, who lives with you or a stay in hospital. Otherwise you may have to pay money back.",
+      "url": "https://www.gov.uk/benefit-overpayments"
+    },
+    "HMRC": {
+      "text": "Tell the Child Benefit Office about changes, like a child leaving education or training, or getting married.",
+      "url": "https://www.gov.uk/report-changes-child-benefit"
     }
   }
 }

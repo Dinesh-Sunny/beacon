@@ -125,6 +125,8 @@ export const SchemeSchema = z.strictObject({
       year: z.string().regex(/^\d{4}\/\d{2}$/),
     })
     .optional(),
+  /** What to do to keep it once awarded (the Framework's Keep step), when it differs from the provider's usual duty. */
+  keep: z.string().optional(),
   /** A live list to show under the scheme, from a harvested source (see src/components/results/lists). */
   list: z.enum(["socialTariffs"]).optional(),
   /** GOV.UK local service slug (e.g. "apply-council-tax-reduction"): with a council, it links straight to that council's page. */
@@ -175,6 +177,10 @@ export const PackSchema = z.strictObject({
   challenges: z
     .record(z.string(), z.strictObject({ text: z.string(), url: z.url() }))
     .default({}),
+  /** What keeping an award needs, keyed by who pays it, for the Keep step. */
+  keeps: z
+    .record(z.string(), z.strictObject({ text: z.string(), url: z.url() }))
+    .default({}),
 });
 export type Pack = z.infer<typeof PackSchema>;
 
@@ -195,6 +201,7 @@ export interface Registry {
   schemes: PackedScheme[];
   clashes: Pack["clashes"];
   challenges: Pack["challenges"];
+  keeps: Pack["keeps"];
 }
 
 const refs = (e: Expr): string[] =>
@@ -263,6 +270,7 @@ export const RegistrySchema = z
       ),
       clashes: packs.flatMap((p) => p.clashes),
       challenges: Object.assign({}, ...packs.map((p) => p.challenges)),
+      keeps: Object.assign({}, ...packs.map((p) => p.keeps)),
     }),
   );
 

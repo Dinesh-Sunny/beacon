@@ -88,7 +88,7 @@ export default function Home() {
               id="steps-h"
               title="The same eight steps for every person"
             >
-              Seven work today. Keeping help safe through changes is next.
+              All eight work today, in your browser.
             </SectionHead>
           </Reveal>
           <Reveal>
