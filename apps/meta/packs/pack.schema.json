@@ -146,6 +146,9 @@
               }
             ]
           },
+          "worthChecking": {
+            "type": "string"
+          },
           "act": {
             "type": "string"
           },

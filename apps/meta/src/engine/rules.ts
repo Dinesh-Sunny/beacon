@@ -4,6 +4,7 @@
 
 import ukBills from "../../packs/uk-bills.json";
 import ukCore from "../../packs/uk-core.json";
+import ukHealth from "../../packs/uk-health.json";
 import { type Answers, FACTS, type FactId, ORDER, UNSURE } from "./facts.ts";
 import { type Cond, type DerivedValues, type PackedScheme, RegistrySchema, run, type Topic } from "./pack.ts";
 
@@ -154,7 +155,7 @@ export function derivedChips(f: FactId, d: Derived): string[] {
 // ---------- The packs ----------
 // Load order is layer order: the core benefits first, then each group of help built on them.
 // Adding a group is a new JSON file here; the registry check fails the build on any bad reference.
-export const REGISTRY = RegistrySchema.parse([ukCore, ukBills]);
+export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
 export const LINES = REGISTRY.lines;
@@ -244,8 +245,9 @@ export function evaluate(A: Answers, today = new Date()): States {
         reason = "Needs Universal Credit or Pension Credit";
       }
     } else if (!unk.length) {
-      status = near ? "check" : "likely";
+      status = near || s.worthChecking ? "check" : "likely";
       if (near) reason = "Close to the line, worth a proper check";
+      else if (s.worthChecking) reason = s.worthChecking;
     } else if (unk.every((f) => A[f] === UNSURE)) {
       status = "check";
       reason = `Depends on: ${unk.map((f) => FACTS[f].label.toLowerCase()).join(", ")}`;

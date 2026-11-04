@@ -75,6 +75,8 @@ const SchemeSchema = z.strictObject({
   timing: z.string().optional(),
   /** Paid without a claim: true everywhere, or the nations where it is. */
   auto: z.union([z.boolean(), z.array(z.enum(["eng", "sco", "wal", "ni"]))]).optional(),
+  /** Screening can't settle it, so the best result is "Worth checking", with this reason. */
+  worthChecking: z.string().optional(),
   /** Label for the official link when it isn't a claim form, like "Ask your provider". */
   act: z.string().optional(),
   urgent: z.boolean().optional(),
