@@ -55,7 +55,7 @@ Write what they should say and have ready.`,
     ],
     schema: { name: "call_prep", schema: SCHEMA },
     effort: "low",
-    maxTokens: 900,
+    maxTokens: 2000,
   });
   const out = Out.parse(JSON.parse(message.content ?? "{}"));
   const clean = (t: string) => t.replace(NO_DIGITS_LONG, "").replace(/—/g, "-");

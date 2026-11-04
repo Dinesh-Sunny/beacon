@@ -97,7 +97,8 @@ export async function transcribe(wav: Blob): Promise<string> {
     new Blob([JSON.stringify({ mode: "PUSH_TO_TALK", model: META.voice, audioEncoding: "WAV" })], { type: "application/json" }),
   );
   form.append("audio", wav, "speech.wav");
-  const res = await call("/asr/transcribe", { method: "POST", body: form, headers: { Accept: "application/json" } }, 45_000);
+  // No Accept header: the default reply is JSON; other Accept values are refused (406).
+  const res = await call("/asr/transcribe", { method: "POST", body: form }, 45_000);
   const json = (await res.json()) as { transcript?: string };
   return (json.transcript ?? "").trim();
 }

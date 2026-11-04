@@ -21,6 +21,8 @@ models:
 
 **Find the support that's already yours.**
 
+> **Meta Global AI Developer Hackathon:** the entry is the app in [`apps/meta`](apps/meta/README.md), built on Muse Spark, Muse Voice Transcribe, SAM 3.1 and Muse Image. The rest of this page describes the earlier Beam version.
+
 This page is for anyone trying Beacon, judging it, or running it for their own residents or clients (councils, charities, advisers).
 
 Beacon is a private benefits finder for the UK. You answer a few short questions (bands only, never your name or exact amounts), and Beacon reads the official GOV.UK rules for ten kinds of support, from Pension Credit to Healthy Start. For each one it tells you in plain words whether it is **Likely**, **Worth checking** or **Unlikely right now**, shows the exact line from the official page that the answer rests on, and tells you the next step: who to call, what to say, where to apply. It runs on Beam, Reflection AI's open model, so a council or charity can run the whole thing on its own servers and keep residents' answers in-house.

@@ -74,7 +74,7 @@ export async function readLetter(dataUrl: string) {
       ],
       schema: { name: "letter_reading", schema: SCHEMA },
       effort: "low",
-      maxTokens: 1500,
+      maxTokens: 3000,
     }),
   ]);
   if (read.status === "rejected") throw read.reason;
