@@ -1,8 +1,12 @@
 import { Icon } from "@/components/Icon";
+import { LOCALES } from "@/i18n/locales";
 import { getT } from "@/i18n/server";
 
 // Bento of how a check works today. Each card draws a small piece of the real UI in CSS.
 // Scheme and model names are official names, so they stay in English.
+// Each language's own name for itself, as the language picker shows it.
+const LANGS = LOCALES.map((l) => l.name);
+
 export async function HowToday() {
   const t = await getT();
   return (
@@ -79,6 +83,55 @@ export async function HowToday() {
         </div>
         <h3>{t("home.today.orderTitle")}</h3>
         <p>{t("home.today.orderText")}</p>
+      </article>
+
+      <article className="mk-card wide">
+        <div className="mk-card-art mk-art-langs" aria-hidden="true">
+          <div className="mk-langs">
+            {LANGS.map((l) => (
+              <span key={l}>{l}</span>
+            ))}
+          </div>
+          <div className="mk-aa">
+            <span className="s">Aa</span>
+            <span className="m">Aa</span>
+            <span className="l">Aa</span>
+            <Icon name="speaker" size={18} />
+          </div>
+        </div>
+        <h3>{t("home.today.langTitle")}</h3>
+        <p>{t("home.today.langText")}</p>
+      </article>
+
+      <article className="mk-card wide">
+        <div className="mk-card-art mk-art-near" aria-hidden="true">
+          <div className="mk-row on">
+            <span>
+              <Icon name="pin" size={14} /> {t("home.today.nearCouncil")}
+            </span>
+            <em>
+              <Icon name="phone" size={14} />
+            </em>
+          </div>
+          <div className="mk-row on">
+            <span>
+              <Icon name="pin" size={14} /> {t("home.today.nearClinic")}
+            </span>
+            <em>
+              <Icon name="phone" size={14} />
+            </em>
+          </div>
+          <div className="mk-row on">
+            <span>
+              <Icon name="pin" size={14} /> {t("home.today.nearCharity")}
+            </span>
+            <em>
+              <Icon name="phone" size={14} />
+            </em>
+          </div>
+        </div>
+        <h3>{t("home.today.nearTitle")}</h3>
+        <p>{t("home.today.nearText")}</p>
       </article>
 
       <article className="mk-card full split">

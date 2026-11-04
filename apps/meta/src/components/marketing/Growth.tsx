@@ -4,8 +4,8 @@ import { getT } from "@/i18n/server";
 
 const STAGES = [
   { id: "people", now: true },
+  { id: "countries", now: true },
   { id: "orgs", now: false },
-  { id: "countries", now: false },
   { id: "network", now: false },
 ] as const;
 

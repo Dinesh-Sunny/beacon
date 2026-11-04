@@ -461,9 +461,8 @@
   "site": {
     "how": "How it works",
     "start": "Start a check",
-    "pill": "Free · {count} kinds of help · {nations}",
     "h1": "Find the support that's already yours.",
-    "lead": "Tell Beacon about your life, or the life of someone you look after. It shows the help that's likely yours and gets you ready to claim it.",
+    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
     "inputLabel": "Tell Beacon about your situation",
     "inputHint": "For example: my mum is 78, lives alone in Wembley and finds stairs hard",
     "alsoSpeak": "You can also speak or add a letter",
@@ -478,7 +477,8 @@
     "factFree": "Free to use",
     "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
     "code": "Code on GitHub",
-    "skip": "Skip to content"
+    "skip": "Skip to content",
+    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
   },
   "status": {
     "open": "Still open",
@@ -583,7 +583,7 @@
   },
   "meta": {
     "homeTitle": "Beacon - find the support that's already yours",
-    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter. It finds the help that's likely yours, warns you about clashes and gets you ready to claim.",
+    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
     "howTitle": "How it works",
     "howDesc": "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
     "checkTitle": "Your check"
@@ -697,7 +697,7 @@
     "frame": {
       "tag": "The Beacon Framework",
       "title": "Everyone who needs help, meet everyone who gives it",
-      "lead": "People on one side. Government, councils, the NHS, charities, utility companies and employers on the other. Beacon's agents connect the two."
+      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
     },
     "map": {
       "aria": "People who need help on the left, everyone who gives help on the right, and Beacon in the middle connecting them.",
@@ -716,9 +716,9 @@
         "someoneElse": "Checking for someone else"
       },
       "givers": {
-        "government": "UK government",
-        "councils": "Councils",
-        "nhs": "NHS",
+        "government": "UK and US governments",
+        "councils": "Councils and states",
+        "nhs": "NHS and health centers",
         "charities": "Charities",
         "utilities": "Utility companies",
         "employers": "Employers",
@@ -794,7 +794,14 @@
       "orderText": "Beacon puts your claims in the right order and writes notes for each phone call.",
       "codeTitle": "Code decides every result",
       "codeText": "Plain code checks the official rules, so the same answers always give the same result. Meta's models listen, read and explain. Your answers stay in your browser.",
-      "chipsLabel": "Meta models in Beacon"
+      "chipsLabel": "Meta models in Beacon",
+      "langTitle": "Your language, your way",
+      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
+      "nearTitle": "Help near you",
+      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
+      "nearCouncil": "Your council's page",
+      "nearClinic": "Community health center",
+      "nearCharity": "Local grant charity"
     },
     "demo": {
       "tag": "Example check",
@@ -806,8 +813,8 @@
     },
     "cover": {
       "tag": "What it checks today",
-      "title": "{schemes} kinds of help across {topics} areas of life",
-      "lead": "From Pension Credit to Healthy Start, in {nations}. Plus {councilPages, number} council pages and {charities, number} grant-giving charities, matched to your postcode."
+      "titleAll": "{schemes} kinds of help in {countries} countries",
+      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
     },
     "grow": {
       "tag": "Where it's going",
@@ -820,8 +827,8 @@
       "promise": "Beacon will never take a cut of anything you're awarded.",
       "stages": {
         "people": {
-          "title": "UK people and families",
-          "text": "Help for you and the people you look after."
+          "title": "People and families",
+          "text": "Help for you and the people you look after, in the UK and the US."
         },
         "orgs": {
           "title": "Businesses and organisations",
@@ -829,7 +836,7 @@
         },
         "countries": {
           "title": "More countries",
-          "text": "The same eight steps, with each country's own rules."
+          "text": "The UK and the US are live. Each new country brings its own official rules."
         },
         "network": {
           "title": "A worldwide network",
@@ -850,6 +857,23 @@
           "text": "Councils, housing associations and employers can pay for Pro for the people they serve."
         }
       }
+    },
+    "countries": {
+      "uk": {
+        "name": "United Kingdom",
+        "where": "England, Scotland and Wales",
+        "councilPages": "council pages",
+        "charities": "grant-giving charities"
+      },
+      "us": {
+        "name": "United States",
+        "where": "All 50 states and DC",
+        "centers": "community health centers",
+        "agencies": "housing agencies",
+        "counselors": "housing counselors"
+      },
+      "kinds": "kinds of help across {topics} areas of life",
+      "localLabel": "Local services Beacon matches"
     }
   },
   "how": {
@@ -858,11 +882,11 @@
     "lead": "The Muse models listen, read and explain. Plain code makes every decision, so the same answers always give the same result.",
     "stats": {
       "schemes": "Kinds of help",
-      "topics": "Areas of life",
-      "nations": "Nations covered",
       "councilPages": "Council pages",
       "charities": "Grant-giving charities",
-      "models": "Meta models"
+      "countries": "Countries",
+      "languages": "Languages",
+      "usPlaces": "US local services"
     },
     "flow": {
       "tag": "The flow",
@@ -963,7 +987,7 @@
         "r1": "Code decides each result. Models read, ask and explain.",
         "r2": "Nothing a model writes reaches the rules until code has checked it.",
         "r3": "Letters are read in quarantine and become typed data before any agent that can act sees them.",
-        "r4": "Beacon never asks for a name, a National Insurance number or bank details, and doesn't copy them from letters.",
+        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
         "r5": "Answers live in your browser. The server forgets them when the request ends.",
         "r6": "Every scheme links to its official page. The organisation that runs it decides."
       }
@@ -971,7 +995,9 @@
     "cover": {
       "tag": "Coverage",
       "title": "What it checks today",
-      "lead": "{schemes} kinds of help across {topics} areas of life in {nations}, from Pension Credit to Healthy Start. Income lines are screening estimates, so anything close comes back as worth checking."
+      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
+      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
+      "us": "United States: {schemes} kinds of help, {topics} areas of life"
     },
     "ctaTitle": "See what's yours",
     "ctaText": "Type, speak or snap a letter. Beacon does the checking."

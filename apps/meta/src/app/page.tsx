@@ -4,6 +4,7 @@ import "./marketing.css";
 import { HomeStart } from "@/components/home/HomeStart";
 import { BeaconMap } from "@/components/marketing/BeaconMap";
 import { ChatDemo } from "@/components/marketing/ChatDemo";
+import { Countries } from "@/components/marketing/Countries";
 import { SOURCE_URL } from "@/components/marketing/content";
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { Growth, Plans } from "@/components/marketing/Growth";
@@ -16,20 +17,10 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import {
-  COVERED_NATIONS,
-  SCHEMES,
-  schemesOf,
-  TOPICS,
-  topicsOf,
-} from "@/engine/rules";
-import { intlTag } from "@/i18n/locales";
+import { COVERED_NATIONS, SCHEMES } from "@/engine/rules";
+import { intlTag, LOCALES } from "@/i18n/locales";
 import { getLocale, getT } from "@/i18n/server";
 import { SITE_URL } from "@/lib/site";
-
-// The pages describe the UK check; the US check has its own count.
-const UK_SCHEMES = schemesOf("GB").length;
-const UK_TOPICS = topicsOf("GB").length;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getT();
@@ -60,7 +51,8 @@ export default async function Home() {
               applicationCategory: "FinanceApplication",
               operatingSystem: "Any",
               isAccessibleForFree: true,
-              inLanguage: ["en", "cy", "pl", "es", "bn", "ur", "ar"],
+              inLanguage: LOCALES.map((l) => l.code),
+              areaServed: ["GB", "US"],
               description: t("meta.homeDesc"),
               url: SITE_URL,
             }).replace(/</g, "\\u003c"),
@@ -73,7 +65,10 @@ export default async function Home() {
             <div className="mk-hero-copy">
               <p className="mk-pill">
                 <span className="dot" aria-hidden="true" />{" "}
-                {t("site.pill", { count: UK_SCHEMES, nations })}
+                {t("site.pillAll", {
+                  count: SCHEMES.length,
+                  languages: LOCALES.length,
+                })}
               </p>
               <h1 id="hero-h">{t("site.h1")}</h1>
               <p className="mk-lead">{t("site.lead")}</p>
@@ -154,18 +149,25 @@ export default async function Home() {
                 <SectionHead
                   tag={t("home.cover.tag")}
                   id="cover-h"
-                  title={t("home.cover.title", {
-                    schemes: UK_SCHEMES,
-                    topics: UK_TOPICS,
+                  title={t("home.cover.titleAll", {
+                    schemes: SCHEMES.length,
+                    countries: 2,
                   })}
                   center
                 >
-                  {t("home.cover.lead", {
+                  {t("home.cover.leadAll", {
                     nations,
-                    councilPages: COUNTS.councilLinks.links,
-                    charities: COUNTS.charityFunds.funds,
+                    places:
+                      COUNTS.councilLinks.links +
+                      COUNTS.charityFunds.funds +
+                      COUNTS.usLocal.centers +
+                      COUNTS.usLocal.agencies +
+                      COUNTS.usLocal.counselors,
                   })}
                 </SectionHead>
+              </Reveal>
+              <Reveal>
+                <Countries />
               </Reveal>
             </div>
             <SchemeMarquee />

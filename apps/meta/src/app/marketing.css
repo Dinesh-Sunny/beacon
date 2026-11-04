@@ -1640,3 +1640,143 @@
     font-size: 0.92rem;
   }
 }
+
+/* ---------- Languages and display card ---------- */
+.mk-art-langs {
+  gap: 14px;
+}
+.mk-langs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.mk-langs span {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+.mk-aa {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  font-family: var(--f-display);
+  font-weight: 600;
+}
+.mk-aa .s {
+  font-size: 1rem;
+}
+.mk-aa .m {
+  font-size: 1.4rem;
+}
+.mk-aa .l {
+  font-size: 1.9rem;
+}
+.mk-aa .icon {
+  color: var(--beam-ink);
+  align-self: center;
+}
+
+/* ---------- Help near you card ---------- */
+.mk-art-near .mk-row span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.mk-art-near .mk-row em {
+  border: 0;
+  padding: 0;
+  color: var(--beam-ink);
+}
+
+/* ---------- Countries ---------- */
+.mk-countries {
+  list-style: none;
+  margin: 28px 0 8px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+.mk-country {
+  background: var(--surface);
+  border: 1px solid rgba(32, 32, 32, 0.06);
+  border-radius: 24px;
+  box-shadow: var(--shadow);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  text-align: start;
+}
+.mk-country-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.mk-country-top .flag {
+  font-size: 2rem;
+  line-height: 1;
+}
+.mk-country-top div {
+  display: flex;
+  flex-direction: column;
+}
+.mk-country-top b {
+  font-size: 1.2rem;
+}
+.mk-country-top span {
+  color: var(--muted);
+  font-size: 0.95rem;
+}
+.mk-country-big {
+  margin: 0;
+  color: var(--muted);
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.mk-country-big span {
+  font-family: var(--f-display);
+  font-size: clamp(2.6rem, 5vw, 3.4rem);
+  font-weight: 600;
+  line-height: 1;
+  color: var(--ink);
+}
+.mk-country-sample {
+  margin: 0;
+  font-weight: 700;
+}
+.mk-country-local {
+  list-style: none;
+  margin: 0;
+  padding: 12px 0 0;
+  border-top: 1px solid var(--line);
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  color: var(--muted);
+}
+.mk-country-local li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.mk-country-local .icon {
+  color: var(--beam-ink);
+}
+.mk-country-local b {
+  color: var(--ink);
+}
+.mk-cover-country {
+  margin: 32px 0 14px;
+  font-size: 1.2rem;
+}
+@media (max-width: 760px) {
+  .mk-countries {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}

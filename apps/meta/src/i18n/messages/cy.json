@@ -461,9 +461,8 @@
   "site": {
     "how": "Sut mae'n gweithio",
     "start": "Dechrau gwiriad",
-    "pill": "Am ddim · {count} math o help · {nations}",
     "h1": "Dewch o hyd i'r cymorth sydd eisoes yn eiddo i chi.",
-    "lead": "Dywedwch wrth Beacon am eich bywyd, neu fywyd rhywun rydych chi'n gofalu amdano. Mae'n dangos yr help sy'n debygol o fod yn eiddo i chi ac yn eich paratoi i'w hawlio.",
+    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
     "inputLabel": "Dywedwch wrth Beacon am eich sefyllfa",
     "inputHint": "Er enghraifft: mae Mam yn 78, yn byw ar ei phen ei hun yn Wembley ac yn ei chael hi'n anodd gyda grisiau",
     "alsoSpeak": "Gallwch hefyd siarad neu ychwanegu llythyr",
@@ -478,7 +477,8 @@
     "factFree": "Am ddim",
     "footer": "Mae Beacon yn rhoi gwybodaeth gyffredinol, nid cyngor. Y sefydliad sy'n rhedeg pob cynllun sy'n gwneud y penderfyniad, ac mae pob canlyniad yn cysylltu â'i dudalen swyddogol.",
     "code": "Cod ar GitHub",
-    "skip": "Neidio i'r cynnwys"
+    "skip": "Neidio i'r cynnwys",
+    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
   },
   "status": {
     "open": "Yn dal ar agor",
@@ -583,7 +583,7 @@
   },
   "meta": {
     "homeTitle": "Beacon - dewch o hyd i'r cymorth sydd eisoes yn eiddo i chi",
-    "homeDesc": "Dywedwch wrth Beacon am eich bywyd drwy deipio, siarad neu dynnu llun o lythyr. Mae'n dod o hyd i'r cymorth sy'n debygol o fod yn eiddo i chi ac yn eich paratoi i hawlio.",
+    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
     "howTitle": "Sut mae'n gweithio",
     "howDesc": "Sut mae asiantau Beacon yn troi sgwrs, neges lais neu lun o lythyr yn rhestr o gymorth wedi'i gwirio a chynllun i'w hawlio.",
     "checkTitle": "Eich gwiriad"
@@ -697,7 +697,7 @@
     "frame": {
       "tag": "Fframwaith Beacon",
       "title": "Pawb sydd angen help, dewch i gwrdd â phawb sy'n ei roi",
-      "lead": "Pobl ar un ochr. Y llywodraeth, cynghorau, y GIG, elusennau, cwmnïau cyfleustodau a chyflogwyr ar yr ochr arall. Mae asiantau Beacon yn cysylltu'r ddwy ochr."
+      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
     },
     "map": {
       "aria": "Pobl sydd angen help ar y chwith, pawb sy'n rhoi help ar y dde, a Beacon yn y canol yn eu cysylltu.",
@@ -716,9 +716,9 @@
         "someoneElse": "Gwirio ar ran rhywun arall"
       },
       "givers": {
-        "government": "Llywodraeth y DU",
-        "councils": "Cynghorau",
-        "nhs": "GIG",
+        "government": "UK and US governments",
+        "councils": "Councils and states",
+        "nhs": "NHS and health centers",
         "charities": "Elusennau",
         "utilities": "Cwmnïau cyfleustodau",
         "employers": "Cyflogwyr",
@@ -794,7 +794,14 @@
       "orderText": "Mae Beacon yn rhoi eich hawliadau yn y drefn gywir ac yn ysgrifennu nodiadau ar gyfer pob galwad ffôn.",
       "codeTitle": "Cod sy'n penderfynu pob canlyniad",
       "codeText": "Mae cod plaen yn gwirio'r rheolau swyddogol, felly mae'r un atebion bob amser yn rhoi'r un canlyniad. Mae modelau Meta yn gwrando, yn darllen ac yn esbonio. Mae eich atebion yn aros yn eich porwr.",
-      "chipsLabel": "Modelau Meta yn Beacon"
+      "chipsLabel": "Modelau Meta yn Beacon",
+      "langTitle": "Your language, your way",
+      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
+      "nearTitle": "Help near you",
+      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
+      "nearCouncil": "Your council's page",
+      "nearClinic": "Community health center",
+      "nearCharity": "Local grant charity"
     },
     "demo": {
       "tag": "Gwiriad enghreifftiol",
@@ -806,8 +813,8 @@
     },
     "cover": {
       "tag": "Beth mae'n ei wirio heddiw",
-      "title": "{schemes} math o help ar draws {topics} o feysydd bywyd",
-      "lead": "O Pension Credit i Healthy Start, ledled {nations}. Hefyd {councilPages, number} o dudalennau cynghorau a {charities, number} o elusennau sy'n rhoi grantiau, wedi'u paru â'ch cod post."
+      "titleAll": "{schemes} kinds of help in {countries} countries",
+      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
     },
     "grow": {
       "tag": "Lle mae'n mynd",
@@ -820,16 +827,16 @@
       "promise": "Fydd Beacon byth yn cymryd cyfran o unrhyw beth sy'n cael ei ddyfarnu i chi.",
       "stages": {
         "people": {
-          "title": "Pobl a theuluoedd yn y DU",
-          "text": "Help i chi a'r bobl rydych chi'n gofalu amdanyn nhw."
+          "title": "People and families",
+          "text": "Help for you and the people you look after, in the UK and the US."
         },
         "orgs": {
           "title": "Busnesau a sefydliadau",
           "text": "Cymorth y gall busnes neu sefydliad ei hawlio, wedi'i ddarganfod yn yr un ffordd."
         },
         "countries": {
-          "title": "Mwy o wledydd",
-          "text": "Yr un wyth cam, gyda rheolau pob gwlad ei hun."
+          "title": "More countries",
+          "text": "The UK and the US are live. Each new country brings its own official rules."
         },
         "network": {
           "title": "Rhwydwaith byd-eang",
@@ -850,6 +857,23 @@
           "text": "Gall cynghorau, cymdeithasau tai a chyflogwyr dalu am Pro i'r bobl maen nhw'n eu gwasanaethu."
         }
       }
+    },
+    "countries": {
+      "uk": {
+        "name": "United Kingdom",
+        "where": "England, Scotland and Wales",
+        "councilPages": "council pages",
+        "charities": "grant-giving charities"
+      },
+      "us": {
+        "name": "United States",
+        "where": "All 50 states and DC",
+        "centers": "community health centers",
+        "agencies": "housing agencies",
+        "counselors": "housing counselors"
+      },
+      "kinds": "kinds of help across {topics} areas of life",
+      "localLabel": "Local services Beacon matches"
     }
   },
   "how": {
@@ -858,11 +882,11 @@
     "lead": "Mae modelau Muse yn gwrando, yn darllen ac yn esbonio. Cod plaen sy'n gwneud pob penderfyniad, felly mae'r un atebion bob amser yn rhoi'r un canlyniad.",
     "stats": {
       "schemes": "Mathau o help",
-      "topics": "Meysydd bywyd",
-      "nations": "Gwledydd dan sylw",
       "councilPages": "Tudalennau cynghorau",
       "charities": "Elusennau sy'n rhoi grantiau",
-      "models": "Modelau Meta"
+      "countries": "Countries",
+      "languages": "Languages",
+      "usPlaces": "US local services"
     },
     "flow": {
       "tag": "Y llif",
@@ -963,7 +987,7 @@
         "r1": "Cod sy'n penderfynu pob canlyniad. Mae modelau'n darllen, yn gofyn ac yn esbonio.",
         "r2": "Does dim byd mae model yn ei ysgrifennu yn cyrraedd y rheolau nes bod cod wedi'i wirio.",
         "r3": "Mae llythyrau'n cael eu darllen ar wahân ac yn troi'n ddata wedi'i deipio cyn i unrhyw asiant sy'n gallu gweithredu eu gweld.",
-        "r4": "Dydy Beacon byth yn gofyn am enw, rhif National Insurance na manylion banc, a dydy e ddim yn eu copïo o lythyrau.",
+        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
         "r5": "Mae atebion yn byw yn eich porwr. Mae'r gweinydd yn eu hanghofio pan ddaw'r cais i ben.",
         "r6": "Mae pob cynllun yn cysylltu â'i dudalen swyddogol. Y sefydliad sy'n ei redeg sy'n penderfynu."
       }
@@ -971,7 +995,9 @@
     "cover": {
       "tag": "Cwmpas",
       "title": "Beth mae'n ei wirio heddiw",
-      "lead": "{schemes} math o help ar draws {topics} o feysydd bywyd ledled {nations}, o Pension Credit i Healthy Start. Amcangyfrifon sgrinio yw'r terfynau incwm, felly mae unrhyw beth agos yn dod yn ôl fel gwerth ei wirio."
+      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
+      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
+      "us": "United States: {schemes} kinds of help, {topics} areas of life"
     },
     "ctaTitle": "Gweld beth sy'n eiddo i chi",
     "ctaText": "Teipiwch, siaradwch neu tynnwch lun llythyr. Beacon sy'n gwneud y gwirio."

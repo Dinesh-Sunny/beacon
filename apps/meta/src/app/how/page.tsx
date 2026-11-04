@@ -12,18 +12,9 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import {
-  COVERED_NATIONS,
-  SCHEMES,
-  schemesOf,
-  TOPICS,
-  topicsOf,
-} from "@/engine/rules";
-import { intlTag } from "@/i18n/locales";
-
-// The pages describe the UK check; the US check has its own count.
-const UK_SCHEMES = schemesOf("GB").length;
-const UK_TOPICS = topicsOf("GB").length;
+import { COVERED_NATIONS, SCHEMES, schemesOf, topicsOf } from "@/engine/rules";
+import { flagOf } from "@/i18n/countries";
+import { intlTag, LOCALES } from "@/i18n/locales";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getT();
@@ -39,6 +30,21 @@ const MODELS = [
 ] as const;
 
 const RULES = ["r1", "r2", "r3", "r4", "r5", "r6"] as const;
+
+// Live numbers from the packs and data builders.
+const STATS = [
+  ["schemes", SCHEMES.length],
+  ["countries", 2],
+  ["languages", LOCALES.length],
+  ["councilPages", COUNTS.councilLinks.links],
+  ["charities", COUNTS.charityFunds.funds],
+  [
+    "usPlaces",
+    COUNTS.usLocal.centers +
+      COUNTS.usLocal.agencies +
+      COUNTS.usLocal.counselors,
+  ],
+] as const;
 
 export default async function How() {
   const t = await getT();
@@ -74,7 +80,7 @@ export default async function How() {
         { t: t("how.items.validate.title"), d: t("how.items.validate.text") },
         {
           t: t("how.items.engine.title"),
-          d: t("how.items.engine.text", { count: UK_SCHEMES }),
+          d: t("how.items.engine.text", { count: SCHEMES.length }),
         },
         { t: t("how.items.planner.title"), d: t("how.items.planner.text") },
         { t: t("how.items.chains.title"), d: t("how.items.chains.text") },
@@ -101,42 +107,14 @@ export default async function How() {
             <h1 id="how-h">{t("how.h1")}</h1>
             <p className="mk-lead">{t("how.lead")}</p>
             <dl className="mk-stats">
-              <div>
-                <dt>{t("how.stats.schemes")}</dt>
-                <dd>
-                  <Ticker value={UK_SCHEMES} />
-                </dd>
-              </div>
-              <div>
-                <dt>{t("how.stats.topics")}</dt>
-                <dd>
-                  <Ticker value={UK_TOPICS} />
-                </dd>
-              </div>
-              <div>
-                <dt>{t("how.stats.nations")}</dt>
-                <dd>
-                  <Ticker value={COVERED_NATIONS.length} />
-                </dd>
-              </div>
-              <div>
-                <dt>{t("how.stats.councilPages")}</dt>
-                <dd>
-                  <Ticker value={COUNTS.councilLinks.links} />
-                </dd>
-              </div>
-              <div>
-                <dt>{t("how.stats.charities")}</dt>
-                <dd>
-                  <Ticker value={COUNTS.charityFunds.funds} />
-                </dd>
-              </div>
-              <div>
-                <dt>{t("how.stats.models")}</dt>
-                <dd>
-                  <Ticker value={MODELS.length} />
-                </dd>
-              </div>
+              {STATS.map(([label, value]) => (
+                <div key={label}>
+                  <dt>{t(`how.stats.${label}`)}</dt>
+                  <dd>
+                    <Ticker value={value} />
+                  </dd>
+                </div>
+              ))}
             </dl>
           </section>
 
@@ -229,36 +207,41 @@ export default async function How() {
                 id="cover-h"
                 title={t("how.cover.title")}
               >
-                {t("how.cover.lead", {
-                  schemes: UK_SCHEMES,
-                  topics: UK_TOPICS,
-                  nations,
-                })}
+                {t("how.cover.leadAll", { schemes: SCHEMES.length, nations })}
               </SectionHead>
             </Reveal>
-            <Reveal>
-              <div className="mk-topics">
-                {topicsOf("GB").map(([topic, name]) => {
-                  const list = SCHEMES.filter(
-                    (s) => s.topic === topic && s.country === "GB",
-                  );
-                  const key = `topics.${topic}` as "topics.home";
-                  return (
-                    <div key={topic} className="mk-topic">
-                      <div className="mk-topic-top">
-                        <b>{t.has(key) ? t(key) : name}</b>
-                        <span className="mk-count">{list.length}</span>
+            {(["GB", "US"] as const).map((c) => (
+              <Reveal key={c}>
+                <h3 className="mk-cover-country">
+                  <span aria-hidden="true">{flagOf(c)}</span>{" "}
+                  {t(c === "GB" ? "how.cover.uk" : "how.cover.us", {
+                    schemes: schemesOf(c).length,
+                    topics: topicsOf(c).length,
+                  })}
+                </h3>
+                <div className="mk-topics">
+                  {topicsOf(c).map(([topic, name]) => {
+                    const list = SCHEMES.filter(
+                      (s) => s.topic === topic && s.country === c,
+                    );
+                    const key = `topics.${topic}` as "topics.home";
+                    return (
+                      <div key={topic} className="mk-topic">
+                        <div className="mk-topic-top">
+                          <b>{t.has(key) ? t(key) : name}</b>
+                          <span className="mk-count">{list.length}</span>
+                        </div>
+                        <ul>
+                          {list.map((s) => (
+                            <li key={s.id}>{s.name}</li>
+                          ))}
+                        </ul>
                       </div>
-                      <ul>
-                        {list.map((s) => (
-                          <li key={s.id}>{s.name}</li>
-                        ))}
-                      </ul>
-                    </div>
-                  );
-                })}
-              </div>
-            </Reveal>
+                    );
+                  })}
+                </div>
+              </Reveal>
+            ))}
           </section>
 
           <FinalCta title={t("how.ctaTitle")} text={t("how.ctaText")} />
