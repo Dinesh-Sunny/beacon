@@ -113,31 +113,29 @@ export function useDisplay() {
     () => STANDARD,
   );
   const set = useCallback((d: Display) => write(d), []);
-  const toggle = useCallback(
-    (s: Setting) => {
-      const on = display.on.includes(s)
-        ? display.on.filter((x) => x !== s)
-        : [...display.on, s];
-      write({ ...display, on });
-    },
-    [display],
-  );
+  // Changes read the latest saved settings, so quick taps never undo each other.
+  const toggle = useCallback((s: Setting) => {
+    const d = read();
+    const on = d.on.includes(s) ? d.on.filter((x) => x !== s) : [...d.on, s];
+    write({ ...d, on });
+  }, []);
   /** A preset is on when all its settings are, partly on when some are. */
   const presetState = (p: Preset): "on" | "partly" | "off" => {
     const n = PRESETS[p].filter((s) => display.on.includes(s)).length;
     return n === 0 ? "off" : n === PRESETS[p].length ? "on" : "partly";
   };
   const togglePreset = (p: Preset) => {
+    const d = read();
     const settings: readonly Setting[] = PRESETS[p];
-    const turnOn = presetState(p) !== "on";
+    const turnOn = !settings.every((s) => d.on.includes(s));
     const on = turnOn
-      ? [...new Set([...display.on, ...settings])]
-      : display.on.filter((s) => !settings.includes(s));
+      ? [...new Set([...d.on, ...settings])]
+      : d.on.filter((s) => !settings.includes(s));
     const size =
       turnOn && PRESET_SIZE[p] !== undefined
-        ? Math.max(display.size, PRESET_SIZE[p])
-        : display.size;
-    write({ ...display, on, size: size as Display["size"] });
+        ? Math.max(d.size, PRESET_SIZE[p])
+        : d.size;
+    write({ ...d, on, size: size as Display["size"] });
   };
   const changes =
     display.on.length +

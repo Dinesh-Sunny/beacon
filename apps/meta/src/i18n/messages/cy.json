@@ -552,5 +552,97 @@
     "notFoundBody": "Efallai bod y ddolen yn hen. Dechreuwch wiriad, neu ewch yn ôl i'r hafan.",
     "home": "Hafan",
     "loading": "Paratoi eich gwiriad"
+  },
+  "dialog": {
+    "button": "Lle ac iaith: {place}, {language}. Gosodiadau arddangos hefyd.",
+    "title": "Lle, iaith ac arddangos",
+    "place": "Lle",
+    "display": "Arddangos",
+    "close": "Cau",
+    "current": "Wedi'i ddewis",
+    "searchPlace": "Chwiliwch am unrhyw wlad, neu teipiwch eich cod post",
+    "searchLanguage": "Chwilio ieithoedd",
+    "results": "Dewisiadau",
+    "suggested": "Awgrymiadau",
+    "allCountries": "Pob gwlad",
+    "allLanguages": "Pob iaith",
+    "yourCouncil": "Eich cyngor",
+    "noMatch": "Does dim yn cyfateb. Rhowch gynnig ar sillafiad arall.",
+    "lookingUp": "Wrthi'n chwilio am eich cyngor…",
+    "placeNote": "Dim ond eich cyngor a'ch gwlad y mae eich cod post yn eu canfod. Dydy Beacon byth yn gofyn am eich cyfeiriad.",
+    "machine": "cyfieithiad peiriant",
+    "gapTitle": "Dydy Beacon ddim yn gallu gwirio rheolau {country} eto",
+    "gapBody": "Mae'r help y mae Beacon yn ei wirio heddiw ar gyfer pobl yn y DU. Os ydych chi'n byw yn {country}, fydd y canlyniadau ddim yn addas i chi, felly fydd Beacon ddim yn dyfalu.",
+    "useUk": "Rwy'n byw yn y DU",
+    "chooseAgain": "Dewis eto",
+    "move": "symud",
+    "choose": "dewis",
+    "closeKey": "cau",
+    "nation": {
+      "eng": "Lloegr",
+      "sco": "Yr Alban",
+      "wal": "Cymru",
+      "ni": "Gogledd Iwerddon"
+    }
+  },
+  "display": {
+    "previewTitle": "Dyma sut bydd eich tudalennau'n edrych",
+    "previewBody": "Mae'r testun, y bylchau a'r lliw yn dilyn eich dewisiadau.",
+    "previewSimple": "Geiriau byr. Un syniad ar y tro.",
+    "play": "Chwarae",
+    "stop": "Stopio",
+    "back": "Yn ôl",
+    "preset": {
+      "read": "Haws ei ddarllen",
+      "colours": "Lliwiau cliriach",
+      "bigger": "Mwy a thrymach",
+      "listen": "Gwrando arno",
+      "calmer": "Tawelach",
+      "focus": "Llai o bethau i dynnu sylw",
+      "simple": "Geiriau syml",
+      "tap": "Haws ei dapio"
+    },
+    "need": {
+      "read": "Dyslecsia",
+      "colours": "Dallineb lliw",
+      "bigger": "Golwg gwan",
+      "listen": "Colli golwg",
+      "calmer": "Gorbryder, meigryn",
+      "focus": "ADHD, awtistiaeth",
+      "simple": "Anabledd dysgu",
+      "tap": "Cryndod, arthritis"
+    },
+    "each": "Dewiswch bob gosodiad",
+    "changes": "{count, plural, zero {Dim newidiadau} one {# newid} two {# newid} few {# newid} many {# newid} other {# newid}}",
+    "textSize": "Maint testun",
+    "size": {
+      "0": "Testun bach",
+      "1": "Testun safonol",
+      "2": "Testun mawr",
+      "3": "Testun mwyaf"
+    },
+    "setting": {
+      "dark": "Tywyll",
+      "contrast": "Cyferbyniad uchel",
+      "soft": "Cefndir meddal",
+      "spacing": "Bylchau lletach",
+      "readAloud": "Darllen yn uchel",
+      "captions": "Capsiynau",
+      "simple": "Geiriau syml",
+      "calm": "Tawelach",
+      "colours": "Lliwiau cliriach",
+      "links": "Dolenni wedi'u tanlinellu",
+      "tap": "Haws ei dapio",
+      "focus": "Llai o bethau i dynnu sylw"
+    },
+    "speed": "Cyflymder darllen yn uchel",
+    "speeds": {
+      "slower": "Arafach",
+      "normal": "Arferol",
+      "faster": "Cyflymach"
+    },
+    "systemWins": "Gosodiadau eich porwr a'ch system, fel chwyddo a llai o symud, sy'n cael y gair olaf bob tro.",
+    "standard": "Yn ôl i'r safon",
+    "done": "Gorffen"
   }
 }

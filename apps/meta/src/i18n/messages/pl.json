@@ -552,5 +552,97 @@
     "notFoundBody": "Link może być nieaktualny. Zacznij sprawdzanie albo wróć na stronę główną.",
     "home": "Strona główna",
     "loading": "Przygotowuję Twoje sprawdzenie"
+  },
+  "dialog": {
+    "button": "Miejsce i język: {place}, {language}. Także ustawienia wyświetlania.",
+    "title": "Miejsce, język i wyświetlanie",
+    "place": "Miejsce",
+    "display": "Wyświetlanie",
+    "close": "Zamknij",
+    "current": "Wybrane",
+    "searchPlace": "Wyszukaj dowolny kraj lub wpisz swój kod pocztowy",
+    "searchLanguage": "Szukaj języków",
+    "results": "Opcje",
+    "suggested": "Sugerowane",
+    "allCountries": "Wszystkie kraje",
+    "allLanguages": "Wszystkie języki",
+    "yourCouncil": "Twój samorząd lokalny",
+    "noMatch": "Nic nie pasuje. Spróbuj innej pisowni.",
+    "lookingUp": "Szukamy Twojego samorządu…",
+    "placeNote": "Kod pocztowy służy tylko do znalezienia Twojego samorządu i kraju. Beacon nigdy nie pyta o Twój adres.",
+    "machine": "tłumaczenie maszynowe",
+    "gapTitle": "Beacon nie może jeszcze sprawdzić zasad dla kraju {country}",
+    "gapBody": "Pomoc, którą Beacon dziś sprawdza, jest dla osób w Wielkiej Brytanii. Jeśli mieszkasz w kraju {country}, wyniki nie będą do Ciebie pasować, więc Beacon nie będzie zgadywać.",
+    "useUk": "Mieszkam w Wielkiej Brytanii",
+    "chooseAgain": "Wybierz ponownie",
+    "move": "przesuń",
+    "choose": "wybierz",
+    "closeKey": "zamknij",
+    "nation": {
+      "eng": "Anglia",
+      "sco": "Szkocja",
+      "wal": "Walia",
+      "ni": "Irlandia Północna"
+    }
+  },
+  "display": {
+    "previewTitle": "Tak będą wyglądać Twoje strony",
+    "previewBody": "Tekst, odstępy i kolory są zgodne z Twoimi wyborami.",
+    "previewSimple": "Krótkie słowa. Jedna myśl naraz.",
+    "play": "Odtwórz",
+    "stop": "Zatrzymaj",
+    "back": "Wstecz",
+    "preset": {
+      "read": "Łatwiejsze czytanie",
+      "colours": "Wyraźniejsze kolory",
+      "bigger": "Większe i grubsze",
+      "listen": "Posłuchaj",
+      "calmer": "Spokojniej",
+      "focus": "Mniej rozpraszaczy",
+      "simple": "Proste słowa",
+      "tap": "Łatwiejsze dotykanie"
+    },
+    "need": {
+      "read": "Dysleksja",
+      "colours": "Daltonizm",
+      "bigger": "Słabe widzenie",
+      "listen": "Utrata wzroku",
+      "calmer": "Lęk, migrena",
+      "focus": "ADHD, autyzm",
+      "simple": "Niepełnosprawność intelektualna",
+      "tap": "Drżenie, zapalenie stawów"
+    },
+    "each": "Ustaw każdą opcję osobno",
+    "changes": "{count, plural, one {# zmiana} few {# zmiany} many {# zmian} other {# zmiany}}",
+    "textSize": "Rozmiar tekstu",
+    "size": {
+      "0": "Mały tekst",
+      "1": "Standardowy tekst",
+      "2": "Duży tekst",
+      "3": "Największy tekst"
+    },
+    "setting": {
+      "dark": "Ciemny",
+      "contrast": "Wysoki kontrast",
+      "soft": "Łagodne tło",
+      "spacing": "Większe odstępy",
+      "readAloud": "Czytanie na głos",
+      "captions": "Napisy",
+      "simple": "Proste słowa",
+      "calm": "Spokojniej",
+      "colours": "Wyraźniejsze kolory",
+      "links": "Podkreślone linki",
+      "tap": "Łatwiejsze dotykanie",
+      "focus": "Mniej rozpraszaczy"
+    },
+    "speed": "Szybkość czytania na głos",
+    "speeds": {
+      "slower": "Wolniej",
+      "normal": "Normalnie",
+      "faster": "Szybciej"
+    },
+    "systemWins": "Ustawienia przeglądarki i systemu, takie jak powiększenie i ograniczenie ruchu, zawsze mają pierwszeństwo.",
+    "standard": "Przywróć standardowe",
+    "done": "Gotowe"
   }
 }

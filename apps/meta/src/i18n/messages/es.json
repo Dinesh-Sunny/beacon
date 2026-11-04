@@ -552,5 +552,97 @@
     "notFoundBody": "Puede que el enlace sea antiguo. Empieza una comprobación o vuelve al inicio.",
     "home": "Inicio",
     "loading": "Preparando tu comprobación"
+  },
+  "dialog": {
+    "button": "Lugar e idioma: {place}, {language}. También ajustes de pantalla.",
+    "title": "Lugar, idioma y pantalla",
+    "place": "Lugar",
+    "display": "Pantalla",
+    "close": "Cerrar",
+    "current": "Elegido",
+    "searchPlace": "Busca cualquier país o escribe tu código postal",
+    "searchLanguage": "Buscar idiomas",
+    "results": "Opciones",
+    "suggested": "Sugeridos",
+    "allCountries": "Todos los países",
+    "allLanguages": "Todos los idiomas",
+    "yourCouncil": "Tu ayuntamiento",
+    "noMatch": "No hay coincidencias. Prueba a escribirlo de otra forma.",
+    "lookingUp": "Buscando tu ayuntamiento…",
+    "placeNote": "Tu código postal solo sirve para encontrar tu ayuntamiento y tu nación. Beacon nunca te pide tu dirección.",
+    "machine": "traducción automática",
+    "gapTitle": "Beacon aún no puede revisar las normas de {country}",
+    "gapBody": "La ayuda que Beacon revisa hoy es para personas en el Reino Unido. Si vives en {country}, los resultados no encajarán contigo, así que Beacon no va a adivinar.",
+    "useUk": "Vivo en el Reino Unido",
+    "chooseAgain": "Elegir de nuevo",
+    "move": "mover",
+    "choose": "elegir",
+    "closeKey": "cerrar",
+    "nation": {
+      "eng": "Inglaterra",
+      "sco": "Escocia",
+      "wal": "Gales",
+      "ni": "Irlanda del Norte"
+    }
+  },
+  "display": {
+    "previewTitle": "Así se verán tus páginas",
+    "previewBody": "El texto, el espaciado y el color siguen lo que elijas.",
+    "previewSimple": "Palabras cortas. Una idea cada vez.",
+    "play": "Reproducir",
+    "stop": "Detener",
+    "back": "Atrás",
+    "preset": {
+      "read": "Más fácil de leer",
+      "colours": "Colores más claros",
+      "bigger": "Más grande y marcado",
+      "listen": "Escúchalo",
+      "calmer": "Más calma",
+      "focus": "Menos distracciones",
+      "simple": "Palabras sencillas",
+      "tap": "Más fácil de tocar"
+    },
+    "need": {
+      "read": "Dislexia",
+      "colours": "Daltonismo",
+      "bigger": "Baja visión",
+      "listen": "Pérdida de visión",
+      "calmer": "Ansiedad, migraña",
+      "focus": "TDAH, autismo",
+      "simple": "Discapacidad intelectual",
+      "tap": "Temblor, artritis"
+    },
+    "each": "Elige cada ajuste",
+    "changes": "{count, plural, one {# cambio} many {# cambios} other {# cambios}}",
+    "textSize": "Tamaño del texto",
+    "size": {
+      "0": "Texto pequeño",
+      "1": "Texto estándar",
+      "2": "Texto grande",
+      "3": "Texto más grande"
+    },
+    "setting": {
+      "dark": "Oscuro",
+      "contrast": "Alto contraste",
+      "soft": "Fondo suave",
+      "spacing": "Más espaciado",
+      "readAloud": "Leer en voz alta",
+      "captions": "Subtítulos",
+      "simple": "Palabras sencillas",
+      "calm": "Más calma",
+      "colours": "Colores más claros",
+      "links": "Enlaces subrayados",
+      "tap": "Más fácil de tocar",
+      "focus": "Menos distracciones"
+    },
+    "speed": "Velocidad de lectura en voz alta",
+    "speeds": {
+      "slower": "Más lenta",
+      "normal": "Normal",
+      "faster": "Más rápida"
+    },
+    "systemWins": "Los ajustes de tu navegador y de tu sistema, como el zoom y la reducción de movimiento, siempre tienen prioridad.",
+    "standard": "Volver a lo estándar",
+    "done": "Listo"
   }
 }
