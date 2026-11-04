@@ -9,6 +9,8 @@ import { ChatPanel } from "@/components/chat/ChatPanel";
 import { Activity } from "@/components/check/Activity";
 import { SchemeSheet } from "@/components/check/Board";
 import { Constellation } from "@/components/check/Constellation";
+import { FirstLook } from "@/components/check/FirstLook";
+import { Narrowing } from "@/components/check/Narrowing";
 import { PlaceSync } from "@/components/check/PlaceSync";
 import { WatchNotice } from "@/components/check/WatchNotice";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
@@ -310,7 +312,11 @@ function Shell() {
       </aside>
 
       <main className="canvas" id="canvas">
-        <div className="canvas-inner">{hydrated ? <Canvas /> : null}</div>
+        <div className="canvas-inner">
+          {hydrated ? (
+            <Canvas onExample={() => play(EXAMPLES[0] as Example)} />
+          ) : null}
+        </div>
       </main>
 
       <aside className="details-col" aria-label="Details">
@@ -353,7 +359,7 @@ function Shell() {
   );
 }
 
-function Canvas() {
+function Canvas({ onExample }: { onExample: () => void }) {
   const { states, asked } = useCheck();
   const open = count(states, "open");
   const settled = SCHEMES.length - open;
@@ -383,20 +389,10 @@ function Canvas() {
       </div>
       {found ? (
         <Results />
+      ) : asked === 0 ? (
+        <FirstLook onExample={onExample} />
       ) : (
-        <div className="calm" data-testid="calm">
-          <div className="lamp" aria-hidden="true">
-            <i />
-            <i />
-            <i />
-            <span />
-          </div>
-          <p>
-            {asked === 0
-              ? "Your results light up here as you answer."
-              : "Keep going. Results light up here."}
-          </p>
-        </div>
+        <Narrowing />
       )}
       {found > 0 && <Constellation />}
     </>

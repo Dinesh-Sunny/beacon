@@ -3410,3 +3410,96 @@ details.constellation[open] > summary::after {
   color: var(--muted);
   white-space: nowrap;
 }
+
+/* First look: what Beacon is about to check, before the first answer */
+.first-look {
+  max-width: 640px;
+  margin: 24px auto 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 16px;
+  animation: rise 0.4s ease both;
+}
+.first-look .lamp {
+  width: 96px;
+  height: 96px;
+}
+.first-look h2 {
+  font-size: clamp(1.5rem, 2.6vw, 2rem);
+  text-wrap: balance;
+  margin: 0;
+}
+.first-look h2 b {
+  font-variant-numeric: tabular-nums;
+}
+.fl-lead {
+  margin: 0;
+  color: var(--muted);
+  max-width: 52ch;
+}
+.fl-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+.fl-chips {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+}
+.fl-chips li {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+  color: var(--ink);
+}
+.fl-chips li b {
+  font-variant-numeric: tabular-nums;
+  color: var(--muted);
+}
+.fl-chips.quiet li {
+  background: transparent;
+}
+.fl-chips li.done {
+  opacity: 0.45;
+  text-decoration: line-through;
+}
+.fl-promises {
+  list-style: none;
+  margin: 4px 0 0;
+  padding: 14px 0 0;
+  border-top: 1px solid var(--line);
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px 18px;
+  text-align: left;
+  font-size: 0.9rem;
+  color: var(--muted);
+  width: 100%;
+}
+.fl-promises li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.fl-example {
+  min-height: 44px;
+}
+@media (max-width: 560px) {
+  .fl-promises {
+    grid-template-columns: 1fr;
+  }
+}
