@@ -66,10 +66,16 @@ export async function fetchSource(url: string, fetchFn: typeof fetch = fetch): P
     if (!res.ok) throw new Error(`${res.status} ${url}`);
     const j = (await res.json()) as {
       title?: string;
+      description?: string;
       public_updated_at?: string;
-      details?: { body?: string; parts?: { title: string; body: string }[] };
+      details?: Record<string, unknown> & { parts?: { title: string; body: string }[] };
     };
-    const parts = j.details?.parts?.map((p) => `## ${p.title}\n\n${htmlToText(p.body)}`) ?? [htmlToText(j.details?.body ?? "")];
+    // Guides have parts; start pages (format "transaction") spread their text over several
+    // HTML fields, so take every one rather than only "body".
+    const d = j.details ?? {};
+    const parts = d.parts?.length
+      ? d.parts.map((p) => `## ${p.title}\n\n${htmlToText(p.body)}`)
+      : [j.description ?? "", ...Object.values(d).filter((v): v is string => typeof v === "string" && v.includes("<")).map(htmlToText)];
     return { text: parts.join("\n\n"), updated: j.public_updated_at ?? null, title: j.title ?? null };
   }
   const res = await fetchFn(url, { headers: { "User-Agent": UA, Accept: "text/html" } });
