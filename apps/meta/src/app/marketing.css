@@ -2,6 +2,8 @@
 
 .mk-page {
   overflow-x: clip;
+  /* Header height, so the hero's sky can run up behind it (with room to spare). */
+  --mk-head: 96px;
 }
 .mk-wrap {
   max-width: 1160px;
@@ -16,7 +18,6 @@
 .mk-head {
   position: relative;
   z-index: 5;
-  --mk-head: 76px;
 }
 .mk-head nav a[aria-current="page"] {
   text-decoration: underline;
@@ -498,9 +499,10 @@
 }
 .hs-row {
   display: flex;
+  flex-wrap: wrap;
   justify-content: space-between;
   align-items: center;
-  gap: 8px;
+  gap: 4px 8px;
   padding: 7px 10px;
   border-radius: 10px;
   background: var(--surface);
