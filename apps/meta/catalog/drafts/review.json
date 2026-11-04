@@ -1,0 +1,1796 @@
+{
+ "counts": {
+  "ready": 3,
+  "needsFacts": 30,
+  "duplicate": 3,
+  "invalid": 9
+ },
+ "roadmap": [
+  {
+   "fact": "other",
+   "unlocks": 14,
+   "alsoNeeds": 12
+  },
+  {
+   "fact": "inEducation",
+   "unlocks": 1,
+   "alsoNeeds": 6
+  },
+  {
+   "fact": "epc",
+   "unlocks": 1,
+   "alsoNeeds": 2
+  },
+  {
+   "fact": "employer",
+   "unlocks": 0,
+   "alsoNeeds": 3
+  },
+  {
+   "fact": "conditionList",
+   "unlocks": 0,
+   "alsoNeeds": 2
+  },
+  {
+   "fact": "married",
+   "unlocks": 0,
+   "alsoNeeds": 2
+  },
+  {
+   "fact": "childDisabled",
+   "unlocks": 0,
+   "alsoNeeds": 2
+  },
+  {
+   "fact": "sickOff",
+   "unlocks": 0,
+   "alsoNeeds": 1
+  }
+ ],
+ "rows": [
+  {
+   "url": "https://www.gov.uk/armed-forces-pension-calculator",
+   "provider": "central",
+   "name": "Armed forces pension forecast",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [],
+   "status": "ready",
+   "scheme": {
+    "id": "afpension",
+    "name": "Armed forces pension forecast",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You get a forecast of your armed forces pension.",
+    "how": "Use the online calculator if you still serve. If you have left service send form 14 by post to ask for a forecast.",
+    "url": "https://www.gov.uk/armed-forces-pension-calculator",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal",
+        "ni"
+       ]
+      },
+      "expr": "lives in the UK",
+      "txt": "Lives in the UK",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-youth-opportunity-funding",
+   "provider": "councils",
+   "name": "Youth Opportunities Fund",
+   "missingFacts": [
+    "whether you count as a young person for your council",
+    "what activity or project you want money for and how it helps you and your community"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "youthfund",
+    "name": "Youth Opportunities Fund",
+    "topic": "councils",
+    "by": "See the official page",
+    "gives": "You get money to use on activities and projects that help you and your local community.",
+    "how": "Contact your local council about the Youth Opportunities Fund and send them your application.",
+    "url": "https://www.gov.uk/apply-youth-opportunity-funding",
+    "worthChecking": "Your council decides if you get it.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/attendance-allowance",
+   "provider": "central",
+   "name": "Attendance Allowance",
+   "missingFacts": [
+    "whether you have needed help for at least 6 months",
+    "whether you get Disability Living Allowance, Personal Independence Payment, Adult Disability Payment or Armed Forces Independence Payment",
+    "how your care home fees are paid if you live in a care home"
+   ],
+   "wants": [
+    "veteran",
+    "other"
+   ],
+   "issues": [],
+   "status": "duplicate"
+  },
+  {
+   "url": "https://www.gov.uk/becoming-foster-carer",
+   "provider": "councils",
+   "name": "Becoming a foster carer",
+   "missingFacts": [
+    "you are able to care for a child or young person",
+    "you usually have a spare bedroom",
+    "you pass an enhanced DBS check and a health check"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "fostercarer",
+    "name": "Becoming a foster carer",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You get a foster care allowance to cover the cost of caring for a child.",
+    "how": "You apply through your local council, regional hub or an independent fostering agency. You then pass a fostering assessment before a child comes to live with you.",
+    "url": "https://www.gov.uk/becoming-foster-carer",
+    "worthChecking": "most services ask for age 21 and a full assessment decides",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 18
+      },
+      "expr": "you are at least 18 years old",
+      "txt": "you are at least 18 years old",
+      "fail": "you must be at least 18 years old to foster"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/automatic-pension-credits-for-men",
+   "provider": "central",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/becoming-foster-parent",
+   "provider": "councils",
+   "name": "Becoming a foster parent",
+   "missingFacts": [
+    "you have time to care for a child",
+    "you have a spare bedroom",
+    "you can pass health, home and criminal record checks",
+    "you finish training and an assessment with a fostering service"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "foster",
+    "name": "Becoming a foster parent",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You get weekly payments to cover the cost of caring for a foster child.",
+    "how": "You apply through your council or a fostering agency. You have checks, training and an assessment before a child lives with you.",
+    "url": "https://www.gov.uk/becoming-foster-parent",
+    "worthChecking": "A fostering service must assess and approve you.",
+    "rule": [
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 18
+      },
+      "expr": "you are 18 or over",
+      "txt": "You are 18 or over",
+      "fail": "You must be 18 or over to apply to foster"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/1619-bursary-fund",
+   "provider": "schools",
+   "name": "16 to 19 Bursary Fund",
+   "missingFacts": [
+    "studying at a publicly funded school or college in England or on an unpaid training course",
+    "being in or recently leaving local authority care, or getting qualifying benefits such as Income Support, Universal Credit, DLA, PIP or ESA",
+    "if over 19, continuing a course started aged 16 to 18 or having an education, health and care plan"
+   ],
+   "wants": [
+    "inEducation",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "bursary",
+    "name": "16 to 19 Bursary Fund",
+    "topic": "schools",
+    "by": "GOV.UK",
+    "gives": "You could get up to 1200 pounds or a discretionary payment for course costs like books, clothing, transport and lunch.",
+    "how": "Apply to your school, college or training provider. Ask student services or your tutor what you need to do.",
+    "url": "https://www.gov.uk/1619-bursary-fund",
+    "worthChecking": "Your provider decides the amount and checks study place, residency, care history and benefit details.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 16
+      },
+      "expr": "you are aged 16 or over",
+      "txt": "You are aged 16 or over",
+      "fail": "You are under 16"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "lte",
+       "v": 18
+      },
+      "expr": "you are under 19",
+      "txt": "You are under 19",
+      "fail": "You are 19 or over"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/access-to-work",
+   "provider": "central",
+   "name": "Access to Work",
+   "missingFacts": [
+    "you have a physical or mental health condition, disability or illness that means you need support to do your job or to get to and from work",
+    "you are in paid work now or you will start or return to paid work in the next 12 weeks",
+    "your paid work is not voluntary work",
+    "if you are self-employed your yearly turnover is at least 6500 pounds",
+    "you are not a civil servant",
+    "for mental health support you have not had this support through Access to Work before"
+   ],
+   "wants": [
+    "conditionList",
+    "employer",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "accesstowork",
+    "name": "Access to Work",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You get a grant for practical support at work or help with your mental health at work.",
+    "how": "Apply online or by phone on 0800 121 7479. Access to Work will talk to you and may check your workplace before you get a letter with a choice.",
+    "url": "https://www.gov.uk/access-to-work",
+    "worthChecking": "An adviser checks your needs and works out what help and grant you get.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, sco, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 16
+      },
+      "expr": "you are 16 or over",
+      "txt": "You are 16 or over",
+      "fail": "You must be 16 or over"
+     },
+     {
+      "needs": [
+       "work"
+      ],
+      "test": {
+       "f": "work",
+       "op": "in",
+       "v": [
+        "employed",
+        "self"
+       ]
+      },
+      "expr": "you are in paid work",
+      "txt": "You are in paid work",
+      "fail": "You must be in paid work now"
+     },
+     {
+      "needs": [
+       "work"
+      ],
+      "test": {
+       "f": "hours",
+       "op": "gt",
+       "v": 1
+      },
+      "expr": "you work more than 1 hour a week",
+      "txt": "You work more than 1 hour a week",
+      "fail": "You must work more than 1 hour a week"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/additional-state-pension",
+   "provider": "central",
+   "name": "Additional State Pension",
+   "missingFacts": [
+    "whether you are a man born before 6 April 1951 or a woman born before 6 April 1953",
+    "whether you reached State Pension age before 6 April 2016",
+    "your National Insurance record, earnings and contracting-out history",
+    "whether you can inherit part of a late spouse or civil partner's payment"
+   ],
+   "wants": [
+    "married",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "addpension",
+    "name": "Additional State Pension",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You get extra money on top of your basic State Pension.",
+    "how": "You get it automatically when you claim your State Pension. You do not need to make a separate claim.",
+    "url": "https://www.gov.uk/additional-state-pension",
+    "auto": true,
+    "worthChecking": "Only a Pension Service check of your record can work out if you paid in and how much you get",
+    "rule": [
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "spa",
+       "op": "eq",
+       "v": true
+      },
+      "expr": "you have reached state pension age",
+      "txt": "you have reached State Pension age",
+      "fail": "you have not reached State Pension age yet"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/adoption-pay-leave",
+   "provider": "employ",
+   "name": "Statutory Adoption Leave",
+   "missingFacts": [
+    "Whether the adoption is through an approved agency or surrogacy arrangement and not a private adoption, stepchild, family member, special guardianship or kinship care",
+    "Whether you are the partner taking adoption leave if you are adopting as a couple"
+   ],
+   "wants": [
+    "epc",
+    "married"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "adoptionlv",
+    "name": "Statutory Adoption Leave",
+    "topic": "employ",
+    "by": "GOV.UK",
+    "gives": "You get up to 52 weeks off work when you adopt.",
+    "how": "Tell your employer how much leave you want and your start date within 7 days of being matched. Your employer must confirm your dates within 28 days.",
+    "url": "https://www.gov.uk/adoption-pay-leave",
+    "rule": [
+     {
+      "needs": [
+       "work"
+      ],
+      "test": {
+       "f": "work",
+       "op": "eq",
+       "v": "employed"
+      },
+      "expr": "you are an employee",
+      "txt": "You are an employee",
+      "fail": "You must be an employee"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/advanced-learner-loan",
+   "provider": "schools",
+   "name": "Advanced Learner Loan",
+   "missingFacts": [
+    "Your course is a Level 3, 4, 5 or 6 qualification at an approved college or training provider in England"
+   ],
+   "wants": [
+    "inEducation"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "learnerloan",
+    "name": "Advanced Learner Loan",
+    "topic": "schools",
+    "by": "GOV.UK",
+    "gives": "You get a loan towards your course fees, paid direct to your college or training provider.",
+    "how": "Ask your college or training provider for a Learning and funding information letter, then apply online to Student Finance England.",
+    "url": "https://www.gov.uk/advanced-learner-loan",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 19
+      },
+      "expr": "you are 19 or older on the first day of your course",
+      "txt": "You are 19 or older on the first day of your course",
+      "fail": "You must be 19 or older on the first day of your course"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/adult-dependants-grant",
+   "provider": "schools",
+   "name": "Adult Dependants Grant",
+   "missingFacts": [
+    "you are in full-time higher education or you study 120 credits or more on a Lifelong Learning Entitlement year",
+    "an adult depends on you for money",
+    "the adult is not your child, does not earn more than £3,796 a year and does not get student finance",
+    "you do not get a Postgraduate Loan",
+    "if your course starts on or after 1 August 2026, the adult who depends on you lives in the UK"
+   ],
+   "wants": [
+    "inEducation",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "adultdep",
+    "name": "Adult Dependants Grant",
+    "topic": "schools",
+    "by": "Student Finance England",
+    "gives": "You get up to £3,545 a year that you do not pay back, paid on top of your other student finance.",
+    "how": "Fill in the Adult Dependants Grant part on your main student finance application with your household income details. Student Finance England will tell you if you get it and how much.",
+    "url": "https://www.gov.uk/adult-dependants-grant",
+    "worthChecking": "Student Finance England works out the amount from your income and your circumstances after you apply.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "income"
+      ],
+      "test": {
+       "f": "incYear",
+       "op": "lte",
+       "v": 15835.98
+      },
+      "expr": "your household income is no more than £15,835.98",
+      "txt": "Your household income is no more than £15,835.98",
+      "fail": "Your household income is more than £15,835.98"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/agricultural-sick-pay",
+   "provider": "employ",
+   "name": "Agricultural Sick Pay",
+   "missingFacts": [
+    "whether you work in agriculture",
+    "whether you were employed before 1 October 2013",
+    "whether your contract says you have the right to Agricultural Sick Pay",
+    "whether you have worked for the same employer without a break for at least 52 weeks before your first day off sick"
+   ],
+   "wants": [
+    "employer",
+    "sickOff",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "agrisick",
+    "name": "Agricultural Sick Pay",
+    "topic": "employ",
+    "by": "GOV.UK",
+    "gives": "You get at least the Agricultural Minimum Wage when you are off sick.",
+    "how": "Tell your employer about your sickness or injury and they will sort your pay. Give them a fit note if you are sick for longer than 8 days.",
+    "url": "https://www.gov.uk/agricultural-sick-pay",
+    "worthChecking": "it depends on your contract and your work history with your employer",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "work"
+      ],
+      "test": {
+       "f": "work",
+       "op": "in",
+       "v": [
+        "employed",
+        "sick"
+       ]
+      },
+      "expr": "you work for an employer and you are off work sick",
+      "txt": "you work for an employer and you are off work sick",
+      "fail": "this pay is only for people who work for an employer"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/affordable-home-ownership-schemes",
+   "provider": "central",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-boiler-upgrade-scheme",
+   "provider": "central",
+   "name": "Boiler Upgrade Scheme",
+   "missingFacts": [
+    "you are replacing oil, gas, electric or LPG heating",
+    "you are not replacing a low carbon heating system",
+    "the property is not a new build that is still being built",
+    "the property has not had government funding for a heat pump or biomass boiler before",
+    "biomass boilers must be off the gas grid, in a rural area, with low emissions and not in a self build",
+    "the new system meets efficiency rules and size limits"
+   ],
+   "wants": [
+    "epc",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "boilerupg",
+    "name": "Boiler Upgrade Scheme",
+    "topic": "central",
+    "by": "See the official page",
+    "gives": "You get up to 7,500 pounds off a heat pump or 5,000 pounds off a biomass boiler.",
+    "how": "You get quotes from MCS certified installers and agree a price. Your installer applies for you on the Ofgem website and takes the grant off your bill.",
+    "url": "https://www.gov.uk/apply-boiler-upgrade-scheme",
+    "worthChecking": "Your installer must confirm your home and heating system can use the grant.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "housing"
+      ],
+      "test": {
+       "f": "housing",
+       "op": "ne",
+       "v": "social"
+      },
+      "expr": "you do not live in social housing",
+      "txt": "You do not live in social housing",
+      "fail": "Social housing cannot get this grant"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-blue-badge",
+   "provider": "councils",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-council-tax-reduction",
+   "provider": "councils",
+   "name": "Council Tax Reduction",
+   "missingFacts": [
+    "the exact low income and savings rules your council uses"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "duplicate"
+  },
+  {
+   "url": "https://www.gov.uk/apply-direct-payments",
+   "provider": "councils",
+   "name": "Direct payments",
+   "missingFacts": [
+    "you have been assessed by social services as needing care and support services"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "directpay",
+    "name": "Direct payments",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You get money to choose and buy the care services you need.",
+    "how": "Ask your council social services team for a care needs check and say you want direct payments. If you live in Scotland or Wales, contact your council direct.",
+    "url": "https://www.gov.uk/apply-direct-payments",
+    "worthChecking": "Social services must assess that you need care and support.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, sco, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 16
+      },
+      "expr": "you are 16 or over",
+      "txt": "you are 16 or over",
+      "fail": "you are under 16"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-disabled-facilities-grant",
+   "provider": "councils",
+   "name": "Disabled Facilities Grant",
+   "missingFacts": [
+    "whether a disabled person lives in the home or will live there",
+    "what changes the home needs for the disabled person"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "dfg",
+    "name": "Disabled Facilities Grant",
+    "topic": "councils",
+    "by": "your local council",
+    "gives": "You could get money to adapt your home for a disabled person.",
+    "how": "You apply to your local council for the grant. The council arranges the next steps with you.",
+    "url": "https://www.gov.uk/apply-disabled-facilities-grant",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-emergency-driving-test",
+   "provider": "central",
+   "name": "Emergency driving test for critical workers",
+   "missingFacts": [
+    "you work for the NHS in health or social care, or for the emergency services",
+    "you need to drive as part of your job",
+    "you respond to threats to life as part of your job"
+   ],
+   "wants": [
+    "employer",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "emertest",
+    "name": "Emergency driving test for critical workers",
+    "topic": "central",
+    "by": "Driver and Vehicle Standards Agency",
+    "gives": "You get an emergency practical driving test.",
+    "how": "Talk to your employer. They will need to contact the Driver and Vehicle Standards Agency for you.",
+    "url": "https://www.gov.uk/apply-emergency-driving-test",
+    "worthChecking": "Your employer and the Driver and Vehicle Standards Agency decide if your job counts as critical work.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-council-housing",
+   "provider": "councils",
+   "name": "Council housing",
+   "missingFacts": [
+    "which council area you live in, as each council has its own waiting list and priority rules"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "councilhome",
+    "name": "Council housing",
+    "topic": "councils",
+    "by": "your local council",
+    "gives": "You get a council home to rent with low rent.",
+    "how": "Apply on your local council website. You will usually join a waiting list and wait to be offered a home.",
+    "url": "https://www.gov.uk/apply-for-council-housing",
+    "worthChecking": "the council decides who gets a home first and you are not guaranteed a home",
+    "rule": [
+     {
+      "needs": [
+       "housing"
+      ],
+      "test": {
+       "f": "housing",
+       "op": "in",
+       "v": [
+        "family",
+        "own",
+        "private",
+        "social"
+       ]
+      },
+      "expr": "you want to rent a council home",
+      "txt": "You want to rent a council home",
+      "fail": "You said you do not need this"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-council-tax-discount",
+   "provider": "councils",
+   "name": "Council Tax discount",
+   "missingFacts": [
+    "what discount rules your local council uses"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "ctaxdisc",
+    "name": "Council Tax discount",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You pay less Council Tax.",
+    "how": "You contact your local council to ask for a discount. You can check and apply on your council website.",
+    "url": "https://www.gov.uk/apply-for-council-tax-discount",
+    "worthChecking": "Your council sets its own rules so it is worth asking them.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "ctax"
+      ],
+      "test": {
+       "f": "ctax",
+       "op": "eq",
+       "v": true
+      },
+      "expr": "you pay council tax",
+      "txt": "You pay Council Tax",
+      "fail": "You do not pay Council Tax"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-elderly-person-bus-pass",
+   "provider": "councils",
+   "name": "Older person's bus pass",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [],
+   "status": "duplicate"
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-disabled-bus-pass",
+   "provider": "councils",
+   "name": "Disabled person's bus pass",
+   "missingFacts": [
+    "if you meet the disability rules for this pass"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "disabledbus",
+    "name": "Disabled person's bus pass",
+    "topic": "councils",
+    "by": "Your local council",
+    "gives": "You get a free bus pass for bus travel in England.",
+    "how": "Contact your local council to find who gives out passes in your area and ask how to apply.",
+    "url": "https://www.gov.uk/apply-for-disabled-bus-pass",
+    "worthChecking": "Your council must check your disability before you get a pass.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-secondary-school-place",
+   "provider": "schools",
+   "name": "Apply for a secondary school place",
+   "missingFacts": [
+    "whether you have a child who needs to move up to secondary school",
+    "which council area you live in"
+   ],
+   "wants": [
+    "inEducation",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "secschplace",
+    "name": "Apply for a secondary school place",
+    "topic": "schools",
+    "by": "your local council",
+    "gives": "You get a state secondary school place for your child.",
+    "how": "Apply online or by using your council's application form. You apply through your local council even if you want schools in another council area.",
+    "url": "https://www.gov.uk/apply-for-secondary-school-place",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-help-to-build-equity-loan",
+   "provider": "central",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-primary-school-place",
+   "provider": "schools",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-sheltered-housing",
+   "provider": "councils",
+   "name": "Sheltered housing",
+   "missingFacts": [
+    "whether you count as elderly, disabled or vulnerable",
+    "your support needs as assessed by the council"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "sheltered",
+    "name": "Sheltered housing",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You get a home with extra support such as an alarm or warden.",
+    "how": "You apply to your council for sheltered or supported housing.",
+    "url": "https://www.gov.uk/apply-for-sheltered-housing",
+    "worthChecking": "Your council checks your needs before it offers you a place",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-forced-marriage-protection-order",
+   "provider": "legal",
+   "name": "Forced marriage protection order",
+   "missingFacts": [
+    "whether you are being threatened with a forced marriage or you are in a forced marriage"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "fmprotect",
+    "name": "Forced marriage protection order",
+    "topic": "legal",
+    "by": "GOV.UK",
+    "gives": "You get a court order that protects you from being forced into a marriage.",
+    "how": "Fill in form FL401A for yourself or FL430 for someone else and take it to a family court. It is free and you can ask for an emergency order if you need help now.",
+    "url": "https://www.gov.uk/apply-forced-marriage-protection-order",
+    "worthChecking": "A judge decides if you get an order and what it says based on your safety needs",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal",
+        "ni"
+       ]
+      },
+      "expr": "lives in the UK",
+      "txt": "Lives in the UK",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-student-finance-lifelong-learning-entitlement",
+   "provider": "schools",
+   "name": "Lifelong Learning Entitlement funding",
+   "missingFacts": [
+    "your course or module starts on or after 1 January 2027",
+    "your course is at levels 4 to 6, or is a covered level 7 course such as a PGCE",
+    "your provider is registered with the Office for Students",
+    "you normally live in England"
+   ],
+   "wants": [
+    "inEducation",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "llefund",
+    "name": "Lifelong Learning Entitlement funding",
+    "topic": "schools",
+    "by": "See the official page",
+    "gives": "You get a Tuition Fee Loan and help with your living costs.",
+    "how": "Apply online for each course or module through your LLE student finance account. You can apply after your course has started if you are still within the deadline.",
+    "url": "https://www.gov.uk/apply-for-student-finance-lifelong-learning-entitlement",
+    "worthChecking": "You need a full check to confirm your course and personal circumstances.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-for-student-finance",
+   "provider": "schools",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-great-british-insulation-scheme",
+   "provider": "utilities",
+   "name": "Great British Insulation Scheme",
+   "missingFacts": [
+    "what your home is like and what insulation it needs"
+   ],
+   "wants": [
+    "epc"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "gbinsulate",
+    "name": "Great British Insulation Scheme",
+    "topic": "utilities",
+    "by": "UK Government",
+    "gives": "You could get free or cheaper insulation to lower your home energy bills.",
+    "how": "Check with your energy supplier if they are still taking applications. If you can apply, your supplier will arrange a check of your home.",
+    "url": "https://www.gov.uk/apply-great-british-insulation-scheme",
+    "worthChecking": "Your supplier checks your home to decide what you get and if you pay anything.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, sco, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-free-school-meals",
+   "provider": "schools",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "[\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"id\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"name\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"by\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"gives\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"how\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"nations\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"boolean\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"auto\"\n    ],\n    \"message\": \"Invalid input: expected boolean, received undefined\"\n  },\n  {\n    \"expected\": \"string\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"worthChecking\"\n    ],\n    \"message\": \"Invalid input: expected string, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"conditions\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  },\n  {\n    \"expected\": \"array\",\n    \"code\": \"invalid_type\",\n    \"path\": [\n      \"missingFacts\"\n    ],\n    \"message\": \"Invalid input: expected array, received undefined\"\n  }\n]"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-home-upgrade-grant",
+   "provider": "central",
+   "name": "Home Upgrade Grant",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [],
+   "status": "ready",
+   "scheme": {
+    "id": "homeupgrade",
+    "name": "Home Upgrade Grant",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You could have got help to make your home more energy efficient.",
+    "how": "You cannot apply now because this grant is closed. You may be able to apply for the Warm Homes: Local Grant instead.",
+    "url": "https://www.gov.uk/apply-home-upgrade-grant",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "sco",
+        "wal",
+        "ni"
+       ]
+      },
+      "expr": "lives in the UK",
+      "txt": "Lives in the UK",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-home-equipment-for-disabled",
+   "provider": "councils",
+   "name": "Home equipment and changes if you are disabled",
+   "missingFacts": [
+    "whether a council check says you need equipment or home changes",
+    "whether you need help because of old age without a disability"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "homeequip",
+    "name": "Home equipment and changes if you are disabled",
+    "topic": "councils",
+    "by": "your local council",
+    "gives": "You get equipment or help to change your home so you can live there.",
+    "how": "You apply to your local council. The council will check you and decide what help you need.",
+    "url": "https://www.gov.uk/apply-home-equipment-for-disabled",
+    "worthChecking": "a council check decides what you get",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "difficulties"
+      ],
+      "test": {
+       "any": [
+        {
+         "f": "health",
+         "op": "ne",
+         "v": "none"
+        },
+        {
+         "f": "move",
+         "op": "eq",
+         "v": true
+        }
+       ]
+      },
+      "expr": "you are disabled and need to change your home",
+      "txt": "you are disabled and need to change your home",
+      "fail": "You said you have no difficulty with daily tasks or getting around"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-housing-benefit-from-council",
+   "provider": "councils",
+   "name": "Housing Benefit from your council",
+   "missingFacts": [
+    "whether you pay rent and are liable for it",
+    "whether you are in a group that can still claim Housing Benefit instead of Universal Credit"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "housingben",
+    "name": "Housing Benefit from your council",
+    "topic": "councils",
+    "by": "your local council",
+    "gives": "You get money to help you pay your rent.",
+    "how": "You apply through your local council. Most people need to claim Universal Credit instead, so check with the council first.",
+    "url": "https://www.gov.uk/apply-housing-benefit-from-council",
+    "worthChecking": "Only the council can confirm if you can still claim this or must claim Universal Credit instead.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-needs-assessment-social-services",
+   "provider": "councils",
+   "name": "Needs assessment by social services",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [],
+   "status": "ready",
+   "scheme": {
+    "id": "needsassess",
+    "name": "Needs assessment by social services",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You find out what care and support help you can get.",
+    "how": "You ask your local council for a health and social care check. Your local NHS service, Citizens Advice or a charity can help you ask.",
+    "url": "https://www.gov.uk/apply-needs-assessment-social-services",
+    "worthChecking": "Only a council check can say what help you will get.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-marriage-allowance",
+   "provider": "central",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "Unterminated string in JSON at position 586 (line 1 column 587)"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-school-transport-for-child-with-special-educational-needs-sen",
+   "provider": "councils",
+   "name": "School transport for a child with SEND",
+   "missingFacts": [
+    "your child has special educational needs and disabilities or a mobility problem",
+    "your child cannot walk to school because of this"
+   ],
+   "wants": [
+    "childDisabled",
+    "inEducation"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "sentransport",
+    "name": "School transport for a child with SEND",
+    "topic": "councils",
+    "by": "gov.uk",
+    "gives": "You get free school transport for your child.",
+    "how": "You apply to your local council. The council arranges transport that suits your child's needs.",
+    "url": "https://www.gov.uk/apply-school-transport-for-child-with-special-educational-needs-sen",
+    "worthChecking": "Your council decides if your child cannot walk to school because of SEND.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-short-term-care-for-child",
+   "provider": "councils",
+   "name": "Short break from caring for a disabled child",
+   "missingFacts": [
+    "whether your child is sick or disabled",
+    "whether you look after the child"
+   ],
+   "wants": [
+    "childDisabled",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "shortbreak",
+    "name": "Short break from caring for a disabled child",
+    "topic": "councils",
+    "by": "local council",
+    "gives": "You get short-term care for your sick or disabled child so you can take a break from caring.",
+    "how": "Apply through your local council. The council will tell you what clubs and activities are on offer near you.",
+    "url": "https://www.gov.uk/apply-short-term-care-for-child",
+    "worthChecking": "The council looks at your needs and decides what short breaks you can get.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal"
+       ]
+      },
+      "expr": "lives in eng, wal",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-online-for-student-finance",
+   "provider": "schools",
+   "name": "",
+   "missingFacts": [],
+   "wants": [],
+   "issues": [
+    "Unterminated string in JSON at position 712 (line 1 column 713)"
+   ],
+   "status": "invalid"
+  },
+  {
+   "url": "https://www.gov.uk/apply-tax-free-interest-on-savings",
+   "provider": "central",
+   "name": "Tax free savings interest",
+   "missingFacts": [
+    "your other taxable income without savings interest or dividends",
+    "how much savings interest you earn",
+    "your Income Tax band and Personal Allowance use",
+    "whether savings are in an ISA or other tax free account"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "savetax",
+    "name": "Tax free savings interest",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You pay no tax on up to 5,000 pounds of savings interest.",
+    "how": "You do not need to claim. Your bank tells HMRC what you earned and HMRC works out any tax you owe.",
+    "url": "https://www.gov.uk/apply-tax-free-interest-on-savings",
+    "worthChecking": "Tax depends on your full income and savings for the year.",
+    "rule": [
+     {
+      "needs": [
+       "income"
+      ],
+      "test": {
+       "f": "incYear",
+       "op": "lt",
+       "v": 17570
+      },
+      "expr": "your other yearly income is less than 17,570 pounds",
+      "txt": "Your other yearly income is less than 17,570 pounds",
+      "fail": "Your other yearly income is 17,570 pounds or more"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/apply-warm-homes-local-grant",
+   "provider": "councils",
+   "name": "Warm Homes Local Grant",
+   "missingFacts": [
+    "you live in a set postcode area if your income is over 36000 pounds a year",
+    "someone in your household gets a set benefit if your income is over 36000 pounds a year",
+    "your local council still has funding to offer",
+    "if you rent, your landlord agrees to pay their share where needed"
+   ],
+   "wants": [
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "warmhomes",
+    "name": "Warm Homes Local Grant",
+    "topic": "councils",
+    "by": "GOV.UK",
+    "gives": "You get free energy saving home improvements arranged and paid for by your council.",
+    "how": "You apply online and your council will usually contact you within 10 working days to arrange a home survey. You can call 0800 098 7950 if you need help to apply.",
+    "url": "https://www.gov.uk/apply-warm-homes-local-grant",
+    "worthChecking": "You may still get help if your income is higher but you live in a set postcode area or someone in your home gets set benefits.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng"
+       ]
+      },
+      "expr": "lives in eng",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     },
+     {
+      "needs": [
+       "housing"
+      ],
+      "test": {
+       "f": "housing",
+       "op": "in",
+       "v": [
+        "own",
+        "private"
+       ]
+      },
+      "expr": "you own your home or you rent from a private landlord",
+      "txt": "You own your home or you rent from a private landlord",
+      "fail": "Your home must be owned by you or by a private landlord"
+     },
+     {
+      "needs": [
+       "income"
+      ],
+      "test": {
+       "f": "incYear",
+       "op": "lte",
+       "v": 36000
+      },
+      "expr": "your yearly household income after tax is 36000 pounds or less",
+      "txt": "Your yearly household income after tax is 36000 pounds or less",
+      "fail": "Your household income after tax is usually meant to be 36000 pounds a year or less"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/benefits-calculators",
+   "provider": "central",
+   "name": "Benefits calculators",
+   "missingFacts": [
+    "whether you are a prisoner",
+    "whether you are a student",
+    "whether you are a British or Irish citizen",
+    "whether you are on strike",
+    "whether you live in the UK"
+   ],
+   "wants": [
+    "inEducation",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "calculators",
+    "name": "Benefits calculators",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You get an estimate of what benefits you could get and how much.",
+    "how": "Use the entitledto, Turn2us or Policy in Practice calculator online. You will need details of your savings, income, benefits and outgoings.",
+    "url": "https://www.gov.uk/benefits-calculators",
+    "worthChecking": "A calculator gives an estimate only and a full check is needed to confirm",
+    "rule": [
+     {
+      "needs": [
+       "dob"
+      ],
+      "test": {
+       "f": "age",
+       "op": "gte",
+       "v": 18
+      },
+      "expr": "you are 18 or over",
+      "txt": "You are 18 or over",
+      "fail": "You must be 18 or over to use the calculators"
+     }
+    ]
+   }
+  },
+  {
+   "url": "https://www.gov.uk/benefits-end-of-life",
+   "provider": "central",
+   "name": "Help near the end of life under special rules",
+   "missingFacts": [
+    "you have an illness that gets worse over time",
+    "a doctor or other medical professional has said you might have 12 months or less to live",
+    "you meet the normal rules for the benefit you claim"
+   ],
+   "wants": [
+    "conditionList",
+    "other"
+   ],
+   "issues": [],
+   "status": "needsFacts",
+   "scheme": {
+    "id": "endoflife",
+    "name": "Help near the end of life under special rules",
+    "topic": "central",
+    "by": "GOV.UK",
+    "gives": "You can get some benefits more quickly and at a higher rate.",
+    "how": "Apply for the benefit and say you are claiming under special rules for end of life. Ask your doctor or medical professional to complete an SR1 form for you.",
+    "url": "https://www.gov.uk/benefits-end-of-life",
+    "worthChecking": "Only a full claim can confirm which benefit and rate you get.",
+    "rule": [
+     {
+      "needs": [
+       "postcode"
+      ],
+      "test": {
+       "f": "nation",
+       "op": "in",
+       "v": [
+        "eng",
+        "wal",
+        "ni"
+       ]
+      },
+      "expr": "lives in eng, wal, ni",
+      "txt": "Lives where this is offered",
+      "fail": "Not offered where they live"
+     }
+    ]
+   }
+  }
+ ]
+}
