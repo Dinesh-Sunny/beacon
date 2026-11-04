@@ -1,0 +1,385 @@
+"use client";
+
+// The question card: each fact type draws its own input, and the facts code works out from the
+// answer appear underneath as you type, so the person sees why the question matters.
+
+import { useEffect, useRef, useState } from "react";
+import { Icon } from "@/components/Icon";
+import { type Answers, FACTS, type FactId, type Period, UNSURE, type WorkStatus } from "@/engine/facts";
+import { derive, derivedChips, POSTCODE_RE } from "@/engine/rules";
+import { useCheck } from "@/lib/check-store";
+
+interface Draft {
+  pc?: string;
+  d?: string;
+  m?: string;
+  y?: string;
+  amt?: string;
+  per?: Period;
+  sel?: string[];
+  status?: WorkStatus;
+  hours?: string;
+  h?: string;
+}
+
+type Read = { v: Answers[FactId] } | { err: string } | { empty: true };
+
+function readDraft(f: FactId, x: Draft, today = new Date()): Read {
+  const t = FACTS[f].type;
+  if (t === "postcode") {
+    const v = (x.pc ?? "").trim().toUpperCase().replace(/\s+/g, " ");
+    if (!v) return { empty: true };
+    if (!POSTCODE_RE.test(v)) return { err: "Try the full postcode, like HA9 0WS" };
+    return { v };
+  }
+  if (t === "date" || t === "childDate") {
+    if (!x.d && !x.m && !x.y) return { empty: true };
+    const dd = Number(x.d);
+    const mm = Number(x.m);
+    const yy = Number(x.y);
+    const dt = new Date(yy, mm - 1, dd);
+    if (!dd || !mm || !yy || dt.getDate() !== dd || dt.getMonth() !== mm - 1 || yy < 1900)
+      return { err: "Try a real date, like 12 3 1948" };
+    if (dt > today) return { err: "That date is still to come. Try a past one." };
+    return { v: `${yy}-${String(mm).padStart(2, "0")}-${String(dd).padStart(2, "0")}` };
+  }
+  if (t === "money" || t === "moneyPeriod") {
+    const raw = String(x.amt ?? "").replace(/[£,\s]/g, "");
+    if (!raw) return { empty: true };
+    const n = Number.parseFloat(raw);
+    if (Number.isNaN(n) || n < 0) return { err: "Try an amount in pounds, like 4000" };
+    return t === "money" ? { v: n } : { v: { amt: n, per: x.per ?? "week" } };
+  }
+  if (t === "checklist") {
+    if (!x.sel) return { empty: true };
+    return { v: x.sel };
+  }
+  if (t === "work") {
+    if (!x.status) return { empty: true };
+    if (x.status === "employed") {
+      const h = Number(x.hours);
+      if (!(h > 0)) return { err: "How many hours a week, roughly?" };
+      return { v: { status: "employed", hours: h } };
+    }
+    return { v: { status: x.status } };
+  }
+  if (t === "hours") {
+    const n = Number(x.h ?? 0);
+    if (Number.isNaN(n) || n < 0 || n > 168) return { err: "Try a number of hours between 0 and 168" };
+    return { v: n };
+  }
+  return { empty: true };
+}
+
+export function QuestionCard() {
+  const { next, answers, asked, apply, back, states } = useCheck();
+  const [draft, setDraft] = useState<Draft>({});
+  const [err, setErr] = useState("");
+  const firstInput = useRef<HTMLDivElement>(null);
+  const f = next?.f;
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the question changes
+  useEffect(() => {
+    setDraft({});
+    setErr("");
+    const el = firstInput.current?.querySelector<HTMLElement>("input, button");
+    el?.focus({ preventScroll: true });
+  }, [f]);
+
+  if (!next || !f) return null;
+  const fact = FACTS[f];
+  const open = Object.values(states).filter((s) => s.status === "open").length;
+  const set = (patch: Draft) => {
+    setErr("");
+    setDraft((d) => ({ ...d, ...patch }));
+  };
+  const r = readDraft(f, draft);
+  const preview = "v" in r ? derivedChips(f, derive({ ...answers, [f]: r.v })) : [];
+  const submit = (value?: Answers[FactId]) => {
+    if (value !== undefined) return apply({ [f]: value }, "form");
+    if ("err" in r) return setErr(r.err);
+    if ("empty" in r) return setErr(emptyHint(fact.type));
+    apply({ [f]: r.v }, "form");
+  };
+  const onKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      submit();
+    }
+  };
+  const needsContinue = !["yesno", "choice"].includes(fact.type);
+
+  return (
+    <section className="qcard" aria-labelledby="q-title" data-testid="question" data-fact={f}>
+      <div className="qtop">
+        <span className="qstep">QUESTION {asked + 1}</span>
+        <span className="unlocks" data-testid="unlocks">
+          Checks {next.hits.length} {next.hits.length === 1 ? "scheme" : "schemes"}
+        </span>
+      </div>
+      <h2 id="q-title">{fact.q}</h2>
+      <p className="why">{fact.why}</p>
+
+      <div ref={firstInput} onKeyDown={onKey} className="qbody">
+        <Input f={f} draft={draft} set={set} submit={submit} />
+      </div>
+
+      {needsContinue && (
+        <>
+          <div className="derived" aria-live="polite">
+            {preview.length ? (
+              preview.map((c) => <span key={c}>{c}</span>)
+            ) : (
+              <span className="wait">What we work out appears here</span>
+            )}
+          </div>
+          {err && (
+            <p className="err" role="alert">
+              {err}
+            </p>
+          )}
+          <div className="qactions">
+            <button type="button" className="btn" onClick={() => submit()} data-testid="continue">
+              Continue <Icon name="arrow" size={18} />
+            </button>
+          </div>
+        </>
+      )}
+
+      <div className="qfoot">
+        <button type="button" className="linkbtn" onClick={back} disabled={!asked}>
+          Back
+        </button>
+        <span className="picked">
+          {open} still open · {next.hits.slice(0, 3).map((s) => s.name).join(", ")}
+          {next.hits.length > 3 ? ` and ${next.hits.length - 3} more` : ""}
+        </span>
+        <button type="button" className="linkbtn" onClick={() => submit(UNSURE)} data-testid="unsure">
+          I'm not sure
+        </button>
+      </div>
+    </section>
+  );
+}
+
+function emptyHint(t: string): string {
+  if (t === "checklist") return "Tick any that fit, or 'None of these'";
+  if (t === "work") return "Pick the one that fits best";
+  return "Add an answer, or choose 'I'm not sure'";
+}
+
+function Input({
+  f,
+  draft,
+  set,
+  submit,
+}: {
+  f: FactId;
+  draft: Draft;
+  set: (p: Draft) => void;
+  submit: (v?: Answers[FactId]) => void;
+}) {
+  const fact = FACTS[f];
+  switch (fact.type) {
+    case "postcode":
+      return (
+        <div className="field">
+          <label htmlFor="in-pc">Postcode</label>
+          <input
+            id="in-pc"
+            className="txt"
+            style={{ maxWidth: "12ch", textTransform: "uppercase" }}
+            autoComplete="postal-code"
+            spellCheck={false}
+            value={draft.pc ?? ""}
+            onChange={(e) => set({ pc: e.target.value })}
+          />
+        </div>
+      );
+    case "date":
+    case "childDate":
+      return (
+        <>
+          {fact.type === "childDate" && (
+            <button type="button" className="rc" onClick={() => submit("none")} data-testid="no-children">
+              No children
+            </button>
+          )}
+          <p className="hint">{fact.type === "childDate" ? "Or their date of birth" : "For example, 12 3 1948"}</p>
+          <div className="dates">
+            {(
+              [
+                ["d", "Day", 2],
+                ["m", "Month", 2],
+                ["y", "Year", 4],
+              ] as const
+            ).map(([k, label, len]) => (
+              <div key={k} className={`field${k === "y" ? " y" : ""}`}>
+                <label htmlFor={`in-${k}`}>{label}</label>
+                <input
+                  id={`in-${k}`}
+                  className="txt"
+                  inputMode="numeric"
+                  maxLength={len}
+                  value={draft[k] ?? ""}
+                  onChange={(e) => {
+                    const v = e.target.value.replace(/\D/g, "");
+                    set({ [k]: v });
+                    if (v.length === len && k !== "y")
+                      document.getElementById(k === "d" ? "in-m" : "in-y")?.focus();
+                  }}
+                />
+              </div>
+            ))}
+          </div>
+        </>
+      );
+    case "money":
+    case "moneyPeriod":
+      return (
+        <>
+          <div className="field">
+            <label htmlFor="in-amt">{fact.type === "moneyPeriod" ? "Amount after tax" : "Amount"}</label>
+            <div className="money">
+              <span>£</span>
+              <input
+                id="in-amt"
+                className="txt"
+                inputMode="decimal"
+                value={draft.amt ?? ""}
+                onChange={(e) => set({ amt: e.target.value })}
+              />
+            </div>
+          </div>
+          {fact.type === "moneyPeriod" && (
+            <div className="seg" role="group" aria-label="How often">
+              {(["week", "month", "year"] as const).map((p) => (
+                <button
+                  key={p}
+                  type="button"
+                  aria-pressed={(draft.per ?? "week") === p}
+                  onClick={() => set({ per: p })}
+                >
+                  a {p}
+                </button>
+              ))}
+            </div>
+          )}
+        </>
+      );
+    case "checklist":
+      return (
+        <div className="checks">
+          {fact.opts?.map(([v, label]) => (
+            <label key={v} className="chk">
+              <input
+                type="checkbox"
+                checked={Boolean(draft.sel?.includes(v))}
+                onChange={(e) => {
+                  const s = new Set(draft.sel ?? []);
+                  if (e.target.checked) s.add(v);
+                  else s.delete(v);
+                  set({ sel: s.size ? [...s] : undefined });
+                }}
+              />
+              {label}
+            </label>
+          ))}
+          <label className="chk none">
+            <input
+              type="checkbox"
+              checked={Array.isArray(draft.sel) && draft.sel.length === 0}
+              onChange={(e) => set({ sel: e.target.checked ? [] : undefined })}
+            />
+            {fact.none}
+          </label>
+        </div>
+      );
+    case "work":
+      return (
+        <>
+          <div className="seg" role="group" aria-label="Work situation">
+            {(
+              [
+                ["employed", "Employed"],
+                ["self", "Self-employed"],
+                ["none", "Not working"],
+                ["sick", "Off sick"],
+              ] as const
+            ).map(([v, label]) => (
+              <button key={v} type="button" aria-pressed={draft.status === v} onClick={() => set({ status: v })}>
+                {label}
+              </button>
+            ))}
+          </div>
+          {draft.status === "employed" && (
+            <Stepper id="in-hours" label="Hours a week" value={draft.hours ?? ""} step={1} onChange={(v) => set({ hours: v })} />
+          )}
+        </>
+      );
+    case "hours":
+      return (
+        <>
+          <Stepper id="in-h" label="Hours a week" value={draft.h ?? "0"} step={5} onChange={(v) => set({ h: v })} />
+          <p className="hint">Count time on call too.</p>
+        </>
+      );
+    case "yesno":
+      return (
+        <div className="yn">
+          <button type="button" onClick={() => submit("yes")}>
+            Yes
+          </button>
+          <button type="button" onClick={() => submit("no")}>
+            No
+          </button>
+        </div>
+      );
+    case "choice":
+      return (
+        <div className="rcs">
+          {fact.opts?.map(([v, label]) => (
+            <button key={v} type="button" className="rc" onClick={() => submit(v as Answers[FactId])}>
+              {label}
+            </button>
+          ))}
+        </div>
+      );
+  }
+}
+
+function Stepper({
+  id,
+  label,
+  value,
+  step,
+  onChange,
+}: {
+  id: string;
+  label: string;
+  value: string;
+  step: number;
+  onChange: (v: string) => void;
+}) {
+  const bump = (by: number) => onChange(String(Math.max(0, Math.min(168, (Number(value) || 0) + by))));
+  return (
+    <div className="field">
+      <label htmlFor={id}>{label}</label>
+      <div className="stepper">
+        <button type="button" onClick={() => bump(-step)} aria-label={`${step} fewer`}>
+          <Icon name="minus" />
+        </button>
+        <input
+          id={id}
+          className="txt"
+          inputMode="numeric"
+          value={value}
+          onChange={(e) => onChange(e.target.value.replace(/\D/g, ""))}
+        />
+        <button type="button" onClick={() => bump(step)} aria-label={`${step} more`}>
+          <Icon name="plus" />
+        </button>
+      </div>
+    </div>
+  );
+}
