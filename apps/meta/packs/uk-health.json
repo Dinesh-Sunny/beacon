@@ -4,7 +4,12 @@
   "country": "GB",
   "version": "2026.11.04",
   "checked": "2026-11-04",
-  "topics": [["nhs", "NHS costs"]],
+  "topics": [
+    [
+      "nhs",
+      "NHS costs"
+    ]
+  ],
   "schemes": [
     {
       "id": "rx",
@@ -12,19 +17,45 @@
       "topic": "nhs",
       "by": "NHS",
       "gives": "Prescriptions without the charge.",
-      "how": "Prescriptions are free for everyone in Scotland and Wales. In England, tick the box on the back of the prescription. If you're pregnant, ask your midwife for a maternity exemption certificate first.",
+      "how": "In England, tick the box on the back of the prescription that matches the reason. They're free for everyone in Scotland and Wales.",
       "url": "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs/free-nhs-prescriptions",
       "act": "Who gets them free",
-      "auto": ["sco", "wal"],
+      "auto": [
+        "sco",
+        "wal"
+      ],
       "rule": [
         {
-          "needs": ["postcode", "dob", "pregnant"],
+          "needs": [
+            "postcode",
+            "dob",
+            "pregnant"
+          ],
           "test": {
             "any": [
-              { "f": "nation", "op": "in", "v": ["sco", "wal"] },
-              { "f": "age", "op": "gte", "v": 60 },
-              { "f": "age", "op": "lt", "v": 16 },
-              { "f": "pregnant", "op": "eq", "v": true }
+              {
+                "f": "nation",
+                "op": "in",
+                "v": [
+                  "sco",
+                  "wal"
+                ]
+              },
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 60
+              },
+              {
+                "f": "age",
+                "op": "lt",
+                "v": 16
+              },
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              }
             ]
           },
           "expr": "lives in Scotland or Wales, 60 or over, or pregnant",
@@ -44,12 +75,27 @@
       "act": "Who gets one free",
       "rule": [
         {
-          "needs": ["postcode", "dob"],
+          "needs": [
+            "postcode",
+            "dob"
+          ],
           "test": {
             "any": [
-              { "f": "nation", "op": "eq", "v": "sco" },
-              { "f": "age", "op": "gte", "v": 60 },
-              { "f": "age", "op": "lt", "v": 16 }
+              {
+                "f": "nation",
+                "op": "eq",
+                "v": "sco"
+              },
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 60
+              },
+              {
+                "f": "age",
+                "op": "lt",
+                "v": 16
+              }
             ]
           },
           "expr": "lives in Scotland, or is 60 or over",
@@ -69,18 +115,35 @@
       "act": "Who gets it free",
       "rule": [
         {
-          "needs": ["postcode"],
-          "test": { "f": "nation", "op": "eq", "v": "eng" },
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
           "expr": "lives in England",
           "txt": "Lives in England",
           "fail": "Scotland and Wales set their own dental charges: ask your dentist"
         },
         {
-          "needs": ["pregnant", "child"],
+          "needs": [
+            "pregnant",
+            "child"
+          ],
           "test": {
             "any": [
-              { "f": "pregnant", "op": "eq", "v": true },
-              { "f": "childAge", "op": "lt", "v": 1 }
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "childAge",
+                "op": "lt",
+                "v": 1
+              }
             ]
           },
           "expr": "pregnant, or had a baby in the last 12 months",
@@ -102,15 +165,29 @@
       "worthChecking": "Depends on a full look at income and housing costs",
       "rule": [
         {
-          "needs": ["postcode"],
-          "test": { "f": "nation", "op": "eq", "v": "eng" },
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
           "expr": "lives in England",
           "txt": "Lives in England",
           "fail": "Scotland and Wales run their own help with health costs"
         },
         {
-          "needs": ["savings"],
-          "test": { "f": "sav", "op": "lt", "v": { "line": "savingsCap" } },
+          "needs": [
+            "savings"
+          ],
+          "test": {
+            "f": "sav",
+            "op": "lt",
+            "v": {
+              "line": "savingsCap"
+            }
+          },
           "expr": "savings under £16,000",
           "txt": "Savings under £16,000",
           "fail": "Savings over £16,000"
