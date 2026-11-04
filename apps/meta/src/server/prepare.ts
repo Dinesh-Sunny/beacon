@@ -14,7 +14,7 @@ import {
 } from "@/engine/facts";
 import { byId, evaluate, REGISTRY } from "@/engine/rules";
 import { cached, keyOf, Lru } from "./cache";
-import { chat } from "./meta";
+import { chat, META, MetaError } from "./meta";
 
 const SCHEMA = {
   type: "object",
@@ -100,12 +100,12 @@ async function writeNotes(
   const s = byId[schemeId];
   if (!s) return null;
   const st = evaluate(answers)[s.id];
-  const { message } = await chat({
+  const us = s.country === "US";
+  const request: Parameters<typeof chat>[0] = {
     messages: [
       {
         role: "system",
-        content:
-          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links. Never use the words eligible or eligibility.",
+        content: `You help someone in ${us ? "the United States" : "the UK"} get ready to phone about a claim. Write call notes in plain, warm UK English${us ? ", keeping US programme names exactly as they are" : ""}, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links. Never use the words eligible or eligibility.${us ? " A US government programme may want a Social Security number, proof of income and proof of address instead of a National Insurance number." : ""}`,
       },
       {
         role: "user",
@@ -120,7 +120,16 @@ Write the call notes.`,
     effort: "low",
     maxTokens: 2000,
     cacheKey: "beacon-prepare-v1",
-  });
+  };
+  // Call notes are what people read out on the phone, so they come from Muse Wonder, Meta's
+  // stronger reasoning model; Muse Spark answers if Wonder isn't available to this key.
+  const { message } = await chat({ ...request, model: META.wonder }).catch(
+    (e: unknown) => {
+      if (e instanceof MetaError && e.status < 500 && e.status !== 429)
+        return chat(request);
+      throw e;
+    },
+  );
   const out = Out.parse(JSON.parse(message.content ?? "{}"));
   const clean = (t: string) => t.replace(NO_DIGITS_LONG, "").replace(/—/g, "-");
   return {

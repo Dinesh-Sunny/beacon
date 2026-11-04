@@ -4,6 +4,7 @@ import { isLocale, localeInfo } from "@/i18n/locales";
 import { runAgent } from "@/server/agent";
 import { guard } from "@/server/guard";
 import { failure, json } from "@/server/http";
+import { redact } from "@/server/private";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -35,7 +36,16 @@ export async function POST(req: Request) {
   if (blocked) return json({ error: blocked.message }, blocked.status);
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "bad-request" }, 400);
-  const { messages, answers, subject, locale, simple } = parsed.data;
+  const { answers, subject, locale, simple } = parsed.data;
+  // The person's newest words go through the open-weights privacy step before any hosted model.
+  const last = parsed.data.messages.at(-1);
+  const privacy = last?.role === "user" ? await redact(last.content) : null;
+  const messages = privacy
+    ? [
+        ...parsed.data.messages.slice(0, -1),
+        { role: "user" as const, content: privacy.text },
+      ]
+    : parsed.data.messages;
   const language = isLocale(locale) ? localeInfo(locale).english : undefined;
   if (!req.headers.get("accept")?.includes("application/x-ndjson")) {
     try {
@@ -53,6 +63,15 @@ export async function POST(req: Request) {
       const send = (o: unknown) =>
         controller.enqueue(enc.encode(`${JSON.stringify(o)}\n`));
       try {
+        if (privacy)
+          send({
+            type: "step",
+            name: "privacy",
+            text:
+              privacy.by === "glimmer"
+                ? "Personal details removed on Muse Glimmer, Meta's open-weights model"
+                : "Personal details removed before your words reached Muse Spark",
+          });
         const out = await runAgent(
           messages,
           answers,
