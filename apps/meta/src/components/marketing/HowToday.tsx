@@ -5,7 +5,7 @@ export function HowToday() {
   return (
     <div className="mk-bento">
       <article className="mk-card wide">
-        <div className="mk-card-art ways" aria-hidden="true">
+        <div className="mk-card-art mk-art-ways" aria-hidden="true">
           <div className="way">
             <Icon name="chat" size={22} />
             <span>Type</span>
@@ -33,7 +33,7 @@ export function HowToday() {
       </article>
 
       <article className="mk-card wide">
-        <div className="mk-card-art results" aria-hidden="true">
+        <div className="mk-card-art mk-art-results" aria-hidden="true">
           <div className="mk-row likely on">
             <span>Pension Credit</span>
             <em>Likely</em>
@@ -52,7 +52,7 @@ export function HowToday() {
       </article>
 
       <article className="mk-card">
-        <div className="mk-card-art ask" aria-hidden="true">
+        <div className="mk-card-art mk-art-ask" aria-hidden="true">
           <p className="mk-bubble beacon on">Do you live in England, Scotland or Wales?</p>
         </div>
         <h3>One small question at a time</h3>
@@ -60,7 +60,7 @@ export function HowToday() {
       </article>
 
       <article className="mk-card">
-        <div className="mk-card-art warn" aria-hidden="true">
+        <div className="mk-card-art mk-art-warn" aria-hidden="true">
           <Icon name="warn" size={20} />
           <span>Claiming this could lower another payment. Read this first.</span>
         </div>
@@ -69,7 +69,7 @@ export function HowToday() {
       </article>
 
       <article className="mk-card">
-        <div className="mk-card-art call" aria-hidden="true">
+        <div className="mk-card-art mk-art-call" aria-hidden="true">
           <span className="n">1</span>
           <span className="n">2</span>
           <span className="n">3</span>

@@ -1,141 +1,118 @@
 import type { Metadata } from "next";
-import Link from "next/link";
+import "./marketing.css";
 import { HomeStart } from "@/components/home/HomeStart";
-import { Icon, Logo } from "@/components/Icon";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SCHEMES } from "@/engine/rules";
+import { BeaconMap } from "@/components/marketing/BeaconMap";
+import { ChatDemo } from "@/components/marketing/ChatDemo";
+import { SOURCE_URL } from "@/components/marketing/content";
+import { FinalCta } from "@/components/marketing/FinalCta";
+import { Growth, Plans } from "@/components/marketing/Growth";
+import { HowToday } from "@/components/marketing/HowToday";
+import { Reveal } from "@/components/marketing/Reveal";
+import { SchemeMarquee } from "@/components/marketing/SchemeMarquee";
+import { SectionHead } from "@/components/marketing/SectionHead";
+import { SiteHeader } from "@/components/marketing/SiteHeader";
+import { StepsRail } from "@/components/marketing/StepsRail";
+import { Ticker } from "@/components/marketing/Ticker";
+import { SCHEMES, TOPICS } from "@/engine/rules";
 
 export const metadata: Metadata = { title: { absolute: "Beacon - find the support that's already yours" } };
 
-const STEPS = [
-  { icon: "chat", title: "Tell it your way", text: "Type, speak, or snap a letter. Beacon asks only what could still change an answer." },
-  { icon: "shield", title: "Rules decide, not guesses", text: `Plain code checks ${SCHEMES.length} kinds of help against the official rules, live as you answer.` },
-  { icon: "warn", title: "Warnings before you claim", text: "If one claim could lower another, you hear it first, in plain words." },
-  { icon: "phone", title: "Ready to claim", text: "The right order, the number to call, and notes on what to say." },
-];
-
-const MODELS = [
-  { name: "Muse Spark", job: "Talks with you, saves what you say, reads letters and writes your call notes" },
-  { name: "Muse Voice Transcribe", job: "Turns what you say aloud into text" },
-  { name: "SAM 3.1", job: "Finds the letter in your photo" },
-  { name: "Muse Image", job: "Paints a warm picture for your results" },
-];
-
 export default function Home() {
   return (
-    <div className="site">
-      <header className="site-head">
-        <Link href="/" className="brand">
-          <Logo />
-          <span>Beacon</span>
-        </Link>
-        <nav>
-          <Link href="/how">How it works</Link>
-          <Link href="/check" className="btn small">
-            Start a check
-          </Link>
-        </nav>
-      </header>
+    <div className="site mk-page">
+      <SiteHeader />
 
       <main>
-        <section className="hero">
-          <div className="hero-copy">
-            <h1>Find the support that's already yours.</h1>
-            <p className="lead">
-              Tell Beacon about your life, or the life of someone you look after. It shows what help is likely yours and gets you
-              ready to claim.
+        <section className="mk-wrap mk-hero" aria-labelledby="hero-h">
+          <div className="mk-hero-copy">
+            <p className="mk-pill">
+              <span className="dot" aria-hidden="true" /> Free · {SCHEMES.length} kinds of help · England, Scotland and Wales
+            </p>
+            <h1 id="hero-h">Find the support that's already yours.</h1>
+            <p className="mk-lead">
+              Tell Beacon about your life, or the life of someone you look after. It shows the help that's likely yours and gets you
+              ready to claim it.
             </p>
             <HomeStart />
           </div>
-          <div className="hero-art" aria-hidden="true">
-            <div className="glow" />
-            <div className="preview">
-              <div className="pv-row likely">
-                <span>Pension Credit</span>
-                <em>Likely</em>
-              </div>
-              <div className="pv-row likely">
-                <span>Attendance Allowance</span>
-                <em>Likely</em>
-              </div>
-              <div className="pv-row check">
-                <span>Council Tax Reduction</span>
-                <em>Worth checking</em>
-              </div>
-              <div className="pv-row unlock">
-                <span>Free TV licence</span>
-                <em>Unlocks next</em>
-              </div>
-              <div className="pv-row unlock">
-                <span>Cold Weather Payment</span>
-                <em>Unlocks next</em>
-              </div>
-              <div className="pv-note">
-                <Icon name="spark" size={16} /> Attendance Allowance can raise Pension Credit, so claim both.
-              </div>
-            </div>
-          </div>
+          <ChatDemo />
         </section>
 
-        <section className="band">
-          <p className="big-stat">£24.1bn a year</p>
-          <p>
-            That's roughly how much income-related support and social tariffs goes unclaimed in Great Britain, across more than 7 million households.
-            Most people miss out because they don't know, or the rules are hard to read.{" "}
-            <a href="https://policyinpractice.co.uk/publication/missing-out-2025" target="_blank" rel="noreferrer">
-              Policy in Practice, Missing Out 2025
-            </a>
-          </p>
-        </section>
-
-        <section className="steps" aria-labelledby="steps-h">
-          <h2 id="steps-h">How a check works</h2>
-          <ol>
-            {STEPS.map((s, i) => (
-              <li key={s.title}>
-                <span className="step-icon">
-                  <Icon name={s.icon} size={22} />
-                </span>
-                <span className="eyebrow">Step {i + 1}</span>
-                <h3>{s.title}</h3>
-                <p>{s.text}</p>
-              </li>
-            ))}
-          </ol>
-        </section>
-
-        <section className="models" aria-labelledby="models-h">
-          <div>
-            <h2 id="models-h">Built on Meta's Muse models</h2>
-            <p className="lead">Each model has one job. Code checks everything they hand back before you see it.</p>
-          </div>
-          <ul>
-            {MODELS.map((m) => (
-              <li key={m.name}>
-                <b>{m.name}</b>
-                <span>{m.job}</span>
-              </li>
-            ))}
-          </ul>
-        </section>
-
-        <section className="trust" aria-labelledby="trust-h">
-          <h2 id="trust-h">Private by design</h2>
-          <div className="trust-grid">
-            <p>
-              <Icon name="lock" /> Your answers stay in this browser. Nothing is saved on a server.
+        <section className="mk-wrap mk-stat" aria-label="Support waiting to be claimed">
+          <Reveal className="mk-stat-in">
+            <p className="mk-stat-num">
+              <Ticker value={24.1} decimals={1} prefix="£" suffix="bn" />
+              <span>a year</span>
             </p>
-            <p>
-              <Icon name="shield" /> Beacon never asks for a name, a National Insurance number or bank details.
+            <p className="mk-stat-text">
+              That's how much income-related support and social tariffs goes unclaimed in Great Britain each year. Beacon helps you
+              find your share.{" "}
+              <a href={SOURCE_URL} target="_blank" rel="noreferrer">
+                Policy in Practice, Missing Out 2025
+              </a>
             </p>
-            <p>
-              <Icon name="doc" /> Beacon doesn't copy names, National Insurance or account numbers from letters, and keeps nothing after reading.
-            </p>
-          </div>
-          <Link href="/check" className="btn">
-            Start a check <Icon name="arrow" size={18} />
-          </Link>
+          </Reveal>
         </section>
+
+        <section className="mk-wrap mk-section" aria-labelledby="frame-h">
+          <Reveal>
+            <SectionHead tag="The Beacon Framework" id="frame-h" title="Everyone who needs help, meet everyone who gives it" center>
+              People on one side. Government, councils, the NHS, charities, utility companies and employers on the other. Beacon's
+              agents connect the two.
+            </SectionHead>
+          </Reveal>
+          <Reveal>
+            <BeaconMap />
+          </Reveal>
+        </section>
+
+        <section className="mk-wrap mk-section" aria-labelledby="steps-h">
+          <Reveal>
+            <SectionHead tag="Eight steps" id="steps-h" title="The same eight steps for every person">
+              The first four work today. The other four are where Beacon is going.
+            </SectionHead>
+          </Reveal>
+          <Reveal>
+            <StepsRail />
+          </Reveal>
+        </section>
+
+        <section className="mk-wrap mk-section" aria-labelledby="today-h">
+          <Reveal>
+            <SectionHead tag="How it works today" id="today-h" title="It starts with a chat">
+              Tell Beacon what's going on, in your own words. It asks one small question at a time and shows results as you answer.
+            </SectionHead>
+          </Reveal>
+          <Reveal>
+            <HowToday />
+          </Reveal>
+        </section>
+
+        <section className="mk-section mk-cover" aria-labelledby="cover-h">
+          <div className="mk-wrap">
+            <Reveal>
+              <SectionHead tag="What it checks today" id="cover-h" title={`${SCHEMES.length} kinds of help across ${TOPICS.length} areas of life`} center>
+                From Pension Credit to Healthy Start, in England, Scotland and Wales.
+              </SectionHead>
+            </Reveal>
+          </div>
+          <SchemeMarquee />
+        </section>
+
+        <section className="mk-wrap mk-section" aria-labelledby="grow-h">
+          <Reveal>
+            <SectionHead tag="Where it's going" id="grow-h" title="From one family to a worldwide network" />
+          </Reveal>
+          <Reveal>
+            <Growth />
+          </Reveal>
+          <Reveal>
+            <Plans />
+          </Reveal>
+        </section>
+
+        <FinalCta title="Check for yourself, or for someone you love" text="Start with a few words about the person. Beacon asks the rest, one small question at a time." />
       </main>
       <SiteFooter />
     </div>

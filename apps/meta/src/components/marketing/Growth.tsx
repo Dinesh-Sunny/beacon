@@ -2,8 +2,8 @@
 
 const STAGES = [
   { t: "UK people and families", d: "Help for you and the people you look after.", now: true },
-  { t: "Businesses and organisations", d: "The same eight steps for the support a business or group can claim." },
-  { t: "More countries", d: "Each country's own rules, checked the same careful way." },
+  { t: "Businesses and organisations", d: "Support that a business or organisation can claim, found the same way." },
+  { t: "More countries", d: "The same eight steps, with each country's own rules." },
   { t: "A worldwide network", d: "Providers refer people to each other through Beacon." },
 ];
 

@@ -44,12 +44,14 @@ export function ChatDemo() {
         </div>
         <div className="mk-demo-body">
           <p className={`mk-bubble you${on(AT.you1)}`}>My mum is 78, lives alone in Wembley and finds stairs hard.</p>
-          <p className={`mk-bubble typing${beat >= AT.typing1 && beat < AT.ask ? " on" : ""}`}>
-            <i />
-            <i />
-            <i />
-          </p>
-          <p className={`mk-bubble beacon${on(AT.ask)}`}>Thanks. Does she get help with washing, dressing or at night?</p>
+          <div className="mk-slot">
+            <p className={`mk-bubble beacon mk-typing${beat >= AT.typing1 && beat < AT.ask ? " on" : ""}`}>
+              <i />
+              <i />
+              <i />
+            </p>
+            <p className={`mk-bubble beacon${on(AT.ask)}`}>Thanks. Does she need help with washing, dressing or at night?</p>
+          </div>
           <p className={`mk-bubble you${on(AT.you2)}`}>Yes, most mornings.</p>
           <div className="mk-demo-results">
             {ROWS.map((r, i) => (
