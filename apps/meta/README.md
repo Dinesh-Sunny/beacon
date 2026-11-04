@@ -1,5 +1,7 @@
 # Beacon on Meta's Muse models
 
+The developer guide to `apps/meta`. For the overview, screenshots and what each Meta model does, start with the [main README](../../README.md).
+
 **Find the support that's already yours.**
 
 This page is for judges of the Meta Global AI Developer Hackathon (Startup track, "Build for Your World") and for anyone who wants to run Beacon.
@@ -17,7 +19,7 @@ Each model has one job. Plain code makes every decision, so the same answers alw
 | Muse Spark 1.3 | `muse-spark-1.3` | The agent in the chat. It never edits the check directly: it calls tools (`set_who`, `save_details`, `check_results`, `explain_scheme`, `plan_claims`) and code validates every argument before the rules run. |
 | Muse Spark 1.3, vision + structured output | `muse-spark-1.3` | The letter reader. It reads a photo of a council or DWP letter into a fixed JSON schema and can't take any action. Code checks the schema and strips anything shaped like a National Insurance number, account number or email. |
 | Muse Wonder | `muse-wonder-1.0` | The call coach: what to say, what to have ready and what they may ask, for one scheme, from that scheme's rules and the answers those rules read. Falls back to Muse Spark if Wonder is unavailable. |
-| Muse Spark Open (open weights) on Baseten, Muse Glimmer on Fireworks | `meta-models/muse-spark-open-1026`, `accounts/fireworks/models/muse-glimmer-30b` | The privacy step: every message is rewritten without names, numbers, addresses or emails before it reaches the hosted API. Hosts are tried in order, and the same rules run again as code on the output, so nothing personal leaves even if every host is down. |
+| Muse Spark Open (open weights) on Baseten | `meta-models/muse-spark-open-1026` | The privacy step: every message is rewritten without names, numbers, addresses or emails before it reaches the hosted API. Any OpenAI-compatible host (vLLM on Modal, a Muse Glimmer deployment on Fireworks) plugs in through settings, hosts are tried in order, and the same rules run again as code on the output, so nothing personal leaves even if every host is down. |
 | Muse Voice Transcribe | `muse-voice-transcribe-1.0` | Speech to text. The browser records 16 kHz mono WAV directly, so nothing is converted on a server. |
 | SAM 3.1 | `sam-3.1` | Finds the letter in the photo and outlines it, so the person sees exactly what was read. |
 | Muse Image | `muse-image-1.0` | Paints a warm banner for the results. The prompt carries life areas only, never answers. |
@@ -86,7 +88,7 @@ cp apps/meta/.env.example apps/meta/.env.local   # add MODEL_API_KEY from https:
 pnpm --filter meta dev                            # http://localhost:3100
 ```
 
-Without a key, the questions, rules and results still work; the chat, voice, letter, call notes and banner say so calmly.
+`BASETEN_API_KEY` turns on the open-weights privacy step. Without a key, the questions, rules and results still work; the chat, voice, letter, call notes and banner say so calmly.
 
 ## Limits
 

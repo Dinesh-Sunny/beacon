@@ -1005,7 +1005,7 @@
         "sam": "Obrysowuje list na zdjęciu, żeby było widać, co zostało przeczytane",
         "image": "Maluje baner wyników tylko na podstawie obszarów życia, nigdy danych osobowych",
         "wonder": "Pisze notatki do rozmowy: co powiedzieć, co mieć pod ręką",
-        "open": "Model o otwartych wagach na Baseten lub Fireworks, który usuwa imiona, numery i adresy, zanim Twoje słowa trafią do modelu w chmurze"
+        "open": "Model o otwartych wagach na Baseten, który usuwa imiona, numery i adresy, zanim Twoje słowa trafią do modelu w chmurze"
       }
     },
     "rules": {

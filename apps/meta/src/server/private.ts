@@ -2,7 +2,8 @@ import "server-only";
 
 // The privacy step before anything reaches a hosted model. Each new message from the person is
 // first passed through one of Meta's open-weights models: our own host if OPEN_WEIGHTS_* is set
-// (vLLM on Modal, say), then Muse Spark Open on Baseten, then Muse Glimmer on Fireworks. It removes names,
+// (vLLM on Modal, say), then Muse Spark Open on Baseten, then a Muse Glimmer deployment on
+// Fireworks if one is set. It removes names,
 // street addresses, ID and account numbers, phone numbers and emails, and keeps what a check
 // needs (ages, postcode or ZIP code, amounts, relationships). Without that host configured, the
 // same rules run as plain code, so nothing personal leaves in either case.
@@ -76,18 +77,25 @@ async function ask(h: Host, text: string): Promise<string> {
         { role: "user", content: text },
       ],
       temperature: 0,
-      max_tokens: 1200,
+      // A rewrite needs no deliberation; a reasoning model can otherwise spend the whole
+      // budget thinking and return no text.
+      reasoning_effort: "low",
+      max_tokens: 4000,
     }),
-    signal: AbortSignal.timeout(8000),
+    signal: AbortSignal.timeout(15000),
     cache: "no-store",
   });
   if (!res.ok)
     throw new Error(`${res.status} ${(await res.text()).slice(0, 200)}`);
   const json = (await res.json()) as {
-    choices?: { message?: { content?: string } }[];
+    choices?: { message?: { content?: string }; finish_reason?: string }[];
   };
-  const out = json.choices?.[0]?.message?.content?.trim();
-  if (!out) throw new Error("empty");
+  const choice = json.choices?.[0];
+  // Drop any visible thinking block; only the rewritten message is used.
+  const out = choice?.message?.content
+    ?.replace(/<think>[\s\S]*?<\/think>/g, "")
+    .trim();
+  if (!out) throw new Error(`empty (${choice?.finish_reason ?? "no choice"})`);
   return out;
 }
 

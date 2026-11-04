@@ -1005,7 +1005,7 @@
         "sam": "Outlines the letter in a photo so you see what was read",
         "image": "Paints the results banner from life areas only, never personal details",
         "wonder": "Writes the call notes people rely on most: what to say, what to have ready",
-        "open": "Open-weights model on Baseten or Fireworks that removes names, numbers and addresses before your words reach any hosted model"
+        "open": "Open-weights model on Baseten that removes names, numbers and addresses before your words reach any hosted model"
       }
     },
     "rules": {
