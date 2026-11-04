@@ -45,6 +45,7 @@ const FROM: Record<Source, string> = {
   voice: "From what you said",
   letter: "Read from a letter",
   example: "From the example",
+  link: "From a shared link",
 };
 
 const PEOPLE = [

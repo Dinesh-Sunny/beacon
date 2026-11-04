@@ -28,6 +28,7 @@ import { ClaimTrack } from "./ClaimTrack";
 import { SchemeList } from "./lists";
 import { MoreHelp } from "./MoreHelp";
 import { ReadAloud } from "./ReadAloud";
+import { ShareCheck } from "./ShareCheck";
 
 interface Prep {
   opening: string;
@@ -149,13 +150,16 @@ export function Results() {
           The organisation that runs each one makes the final decision.
         </p>
         {done && (
-          <button
-            type="button"
-            className="btn ghost small"
-            onClick={() => window.print()}
-          >
-            <Icon name="download" size={16} /> Save or print
-          </button>
+          <div className="res-actions">
+            <ShareCheck />
+            <button
+              type="button"
+              className="btn ghost small"
+              onClick={() => window.print()}
+            >
+              <Icon name="download" size={16} /> Save or print
+            </button>
+          </div>
         )}
       </div>
 

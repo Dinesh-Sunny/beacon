@@ -18,6 +18,7 @@ import { count, SCHEMES } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
 import { ClaimsProvider } from "@/lib/claims";
 import { EXAMPLES, type Example } from "@/lib/examples";
+import { readShared } from "@/lib/share";
 
 type ChatMode = "open" | "hidden" | "full";
 type MobileView = "chat" | "canvas" | "details";
@@ -65,7 +66,19 @@ function Shell() {
       if (ex) {
         history.replaceState(null, "", "/check");
         play(ex);
+        return;
       }
+      // A shared check: answers ride in the fragment, never reach a server, and are validated first.
+      void readShared(window.location.hash).then((shared) => {
+        if (!shared) return;
+        history.replaceState(null, "", "/check");
+        reset();
+        setSubject(shared.subject);
+        apply(shared.answers, "link");
+        announce(
+          "This check was shared with you. Change anything in Details, and it stays on this device.",
+        );
+      });
     };
     check();
     window.addEventListener("hashchange", check);

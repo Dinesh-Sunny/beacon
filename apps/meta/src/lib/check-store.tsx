@@ -35,7 +35,7 @@ import {
   type Status,
 } from "@/engine/rules";
 
-export type Source = "form" | "chat" | "voice" | "letter" | "example";
+export type Source = "form" | "chat" | "voice" | "letter" | "example" | "link";
 export type LogKind = "you" | "derive" | "rules" | "planner" | "model";
 export interface LogItem {
   id: number;
@@ -50,6 +50,7 @@ const SOURCE_WHO: Record<Source, string> = {
   voice: "You, by voice",
   letter: "Letter reader",
   example: "Example",
+  link: "Shared link",
 };
 
 const KEY = "beacon:answers:v1";
