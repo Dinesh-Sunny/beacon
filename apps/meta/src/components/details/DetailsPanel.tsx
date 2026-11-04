@@ -1,57 +1,48 @@
 "use client";
 
-// Details: what Beacon knows, and the progressive form that fills it in. "Fill in" asks one
-// question at a time; "See details" lists every saved answer with where it came from, so the
-// person can change or forget any of it.
+// Details: everything Beacon knows, and every question it can ask, in one list grouped by topic.
+// Each row is either answered (value, where it came from, change or forget) or still open
+// (the question, and Answer). Answering here opens the same question card as the chat.
 
 import { useState } from "react";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon } from "@/components/Icon";
 import { type Answers, ask, FACTS, type FactId, ORDER, showAnswer } from "@/engine/facts";
-import { byId, count, SCHEMES } from "@/engine/rules";
+import { count, SCHEMES } from "@/engine/rules";
 import { type Source, useCheck } from "@/lib/check-store";
 
 const GROUPS: { title: string; icon: string; facts: FactId[] }[] = [
-  { title: "Where you live", icon: "pin", facts: ["postcode", "ctax"] },
-  { title: "About you", icon: "person", facts: ["dob", "difficulties"] },
+  { title: "Where they live", icon: "pin", facts: ["postcode", "ctax"] },
+  { title: "About them", icon: "person", facts: ["dob", "difficulties"] },
   { title: "Money", icon: "spark", facts: ["income", "savings", "benefits"] },
   { title: "Work", icon: "doc", facts: ["work", "ni"] },
   { title: "Family and caring", icon: "shield", facts: ["child", "pregnant", "careHours", "bereaved"] },
 ];
 
 const FROM: Record<Source, string> = {
-  form: "You filled this in",
+  form: "You answered",
   chat: "From the chat",
   voice: "From what you said",
-  letter: "Read from your letter",
+  letter: "Read from a letter",
   example: "From the example",
 };
 
+const PEOPLE = ["Mum", "Dad", "My partner", "My son", "My daughter", "A friend"];
+
 export function DetailsPanel({ onClose }: { onClose: () => void }) {
-  const [tab, setTab] = useState<"fill" | "see">("fill");
-  const { answers, states, current, edit, subject, editing } = useCheck();
+  const { answers, states, edit, subject, editing, sources, forget, apply } = useCheck();
   const [picking, setPicking] = useState(false);
+  const [undo, setUndo] = useState<{ f: FactId; v: Answers[FactId] } | null>(null);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
-  const open = count(states, "open");
-  const change = (f: FactId) => {
-    edit(f);
-    setTab("fill");
-  };
+  const settled = SCHEMES.length - count(states, "open");
+  const groupTitle = (t: string) => (subject.who === "me" ? t.replace("they live", "you live").replace("them", "you") : t);
+
   return (
     <div className="details" data-testid="details">
       <div className="details-head">
         <h2>Details</h2>
         <button type="button" className="iconbtn" onClick={onClose} aria-label="Close details">
           <Icon name="close" />
-        </button>
-      </div>
-      <p className="hint">What Beacon knows so far. It stays on this device.</p>
-      <div className="tabs" role="tablist" aria-label="Details">
-        <button type="button" role="tab" aria-selected={tab === "see"} onClick={() => setTab("see")} data-testid="tab-see">
-          See details
-        </button>
-        <button type="button" role="tab" aria-selected={tab === "fill"} onClick={() => setTab("fill")} data-testid="tab-fill">
-          All questions
         </button>
       </div>
       <div className="details-body">
@@ -68,29 +59,89 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
             </div>
             {picking && <WhoPicker onDone={() => setPicking(false)} />}
             <div className="bar" aria-hidden="true">
-              <i style={{ width: `${((SCHEMES.length - open) / SCHEMES.length) * 100}%` }} />
+              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
             </div>
             <span className="hint">
-              {saved} {saved === 1 ? "detail" : "details"} saved.{" "}
-              {open ? `${open} schemes still need an answer.` : "Every scheme is checked."}
+              {settled} of {SCHEMES.length} checked · {saved} {saved === 1 ? "detail" : "details"} saved on this device
             </span>
           </div>
         </div>
-        {tab === "fill" ? (
-          <>
-            {editing ? <QuestionCard key={editing} f={editing} /> : current ? null : <AllSet />}
-            <AllQuestions onPick={change} />
-            <Locked />
-          </>
-        ) : (
-          <SeeDetails onChange={change} />
+
+        {editing && <QuestionCard key={editing} f={editing} />}
+
+        {undo && (
+          <div className="toast" role="status">
+            Forgotten.
+            <button
+              type="button"
+              className="linkbtn"
+              onClick={() => {
+                apply({ [undo.f]: undo.v }, "form");
+                setUndo(null);
+              }}
+            >
+              Undo
+            </button>
+          </div>
         )}
+
+        {GROUPS.map((g) => {
+          const facts = g.facts.filter((f) => f !== editing);
+          if (!facts.length) return null;
+          const done = facts.filter((f) => answers[f] !== undefined).length;
+          return (
+            <section key={g.title} className="group">
+              <div className="group-head">
+                <Icon name={g.icon} size={16} />
+                <b>{groupTitle(g.title)}</b>
+                <span className="hint">
+                  {done} of {facts.length}
+                </span>
+              </div>
+              {facts.map((f) => {
+                const has = answers[f] !== undefined;
+                const opens = SCHEMES.filter((s) => states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f)).length;
+                const src = sources[f];
+                return (
+                  <div key={f} className={`detail-row${has ? "" : " todo"}`} data-testid={`detail-${f}`}>
+                    <div>
+                      <span className="hint">{has ? FACTS[f].label : ask(f, subject)}</span>
+                      {has ? (
+                        <>
+                          <b>{showAnswer(answers, f)}</b>
+                          <span className="src">{src ? FROM[src.source] : "Saved on this device"}</span>
+                        </>
+                      ) : opens ? (
+                        <span className="opens">Checks {opens} {opens === 1 ? "scheme" : "schemes"}</span>
+                      ) : null}
+                    </div>
+                    <button type="button" className="linkbtn" onClick={() => edit(f)} aria-label={`${has ? "Change" : "Answer"} ${FACTS[f].label}`}>
+                      {has ? "Change" : "Answer"}
+                    </button>
+                    {has && (
+                      <button
+                        type="button"
+                        className="iconbtn sm row-forget"
+                        onClick={() => {
+                          setUndo({ f, v: answers[f] });
+                          forget(f);
+                        }}
+                        aria-label={`Forget ${FACTS[f].label}`}
+                        data-testid={`forget-${f}`}
+                      >
+                        <Icon name="close" size={16} />
+                      </button>
+                    )}
+                  </div>
+                );
+              })}
+            </section>
+          );
+        })}
       </div>
     </div>
   );
 }
-
-const PEOPLE = ["Mum", "Dad", "My partner", "My son", "My daughter", "A friend"];
 
 function WhoPicker({ onDone }: { onDone: () => void }) {
   const { subject, setSubject } = useCheck();
@@ -130,136 +181,3 @@ function WhoPicker({ onDone }: { onDone: () => void }) {
     </div>
   );
 }
-
-function AllSet() {
-  const { states } = useCheck();
-  return (
-    <div className="allset" data-testid="allset">
-      <Icon name="check" size={22} />
-      <div>
-        <b>All set</b>
-        <p className="hint">
-          Nothing else could change a result. {count(states, "likely")} likely, {count(states, "check")} worth checking.
-        </p>
-      </div>
-    </div>
-  );
-}
-
-function AllQuestions({ onPick }: { onPick: (f: FactId) => void }) {
-  const { answers, editing, states, subject } = useCheck();
-  return (
-    <div className="answered">
-      <span className="hint">Answer in the chat, or pick any question here.</span>
-      {ORDER.filter((f) => f !== editing).map((f) => {
-        const done = answers[f] !== undefined;
-        const opens = SCHEMES.filter((s) => states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f)).length;
-        return (
-          <div key={f} className={`ans${done ? "" : " todo"}`}>
-            <Icon name={done ? "check" : "dots"} size={16} />
-            <div>
-              <span className="hint">{done ? FACTS[f].label : ask(f, subject)}</span>
-              {done ? <b>{showAnswer(answers, f)}</b> : opens ? <span className="opens">Checks {opens} {opens === 1 ? "scheme" : "schemes"}</span> : null}
-            </div>
-            <button type="button" className="linkbtn" onClick={() => onPick(f)} aria-label={`${done ? "Change" : "Answer"} ${FACTS[f].label}`}>
-              {done ? "Change" : "Answer"}
-            </button>
-          </div>
-        );
-      })}
-    </div>
-  );
-}
-
-function Locked() {
-  const { states } = useCheck();
-  const list = SCHEMES.filter((s) => states[s.id]?.status === "unlock");
-  if (!list.length) return null;
-  return (
-    <div className="locked">
-      {list.map((s) => (
-        <div key={s.id} className="lock-row">
-          <Icon name="lock" size={16} />
-          <div>
-            <b>{s.name}</b>
-            <span className="hint">{states[s.id]?.reason}</span>
-          </div>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function SeeDetails({ onChange }: { onChange: (f: FactId) => void }) {
-  const { answers, sources, forget, apply } = useCheck();
-  const [undo, setUndo] = useState<{ f: FactId; v: Answers[FactId] } | null>(null);
-  const any = ORDER.some((f) => answers[f] !== undefined);
-  if (!any && !undo)
-    return <p className="hint empty-note">Nothing saved yet. Answer a question, chat, speak or add a letter, and it shows up here.</p>;
-  return (
-    <div className="groups">
-      {undo && (
-        <div className="toast" role="status">
-          Forgotten.
-          <button
-            type="button"
-            className="linkbtn"
-            onClick={() => {
-              apply({ [undo.f]: undo.v }, "form");
-              setUndo(null);
-            }}
-          >
-            Undo
-          </button>
-        </div>
-      )}
-      {GROUPS.map((g) => {
-        const facts = g.facts.filter((f) => answers[f] !== undefined);
-        if (!facts.length) return null;
-        return (
-          <section key={g.title} className="group">
-            <div className="group-head">
-              <Icon name={g.icon} size={16} />
-              <b>{g.title}</b>
-              <span className="hint">
-                {facts.length} {facts.length === 1 ? "detail" : "details"}
-              </span>
-            </div>
-            {facts.map((f) => {
-              const src = sources[f];
-              return (
-                <div key={f} className="detail-row" data-testid={`detail-${f}`}>
-                  <div>
-                    <span className="hint">{FACTS[f].label}</span>
-                    <b>{showAnswer(answers, f)}</b>
-                    <span className="src">
-                      <Icon name={src?.source === "letter" ? "doc" : src?.source === "voice" ? "mic" : "chat"} size={13} />
-                      {src ? FROM[src.source] : "Saved on this device"}
-                    </span>
-                  </div>
-                  <button type="button" className="iconbtn" onClick={() => onChange(f)} aria-label={`Change ${FACTS[f].label}`}>
-                    <Icon name="pencil" size={18} />
-                  </button>
-                  <button
-                    type="button"
-                    className="iconbtn"
-                    onClick={() => {
-                      setUndo({ f, v: answers[f] });
-                      forget(f);
-                    }}
-                    aria-label={`Forget ${FACTS[f].label}`}
-                    data-testid={`forget-${f}`}
-                  >
-                    <Icon name="close" size={18} />
-                  </button>
-                </div>
-              );
-            })}
-          </section>
-        );
-      })}
-    </div>
-  );
-}
-
-export const schemeLabel = (id: string) => byId[id]?.name ?? id;

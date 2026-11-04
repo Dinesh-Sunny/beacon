@@ -5,8 +5,17 @@
 // opens on demand.
 
 import { useEffect, useRef, useState } from "react";
-import { Icon } from "@/components/Icon";
 import { useCheck } from "@/lib/check-store";
+
+// Plain words for the person; model names stay in the full log.
+const PLAIN: Record<string, string> = {
+  "Muse Spark agent": "Reading what you said",
+  "Muse Voice Transcribe": "Listening back",
+  "SAM 3.1": "Finding the letter",
+  "Letter reader": "Reading your letter",
+  "Call coach": "Writing your call notes",
+  "Muse Image": "Painting your picture",
+};
 
 export function Activity() {
   const { log, busy } = useCheck();
@@ -35,16 +44,12 @@ export function Activity() {
         <span className={`pulse${working.length ? " busy" : ""}`} aria-hidden="true" />
         <span className="activity-text">
           {working.length ? (
-            <>
-              <b>{working.join(", ")}</b> working
-            </>
+            <b>{PLAIN[working[0] ?? ""] ?? "Working on it"}…</b>
           ) : last ? (
-            <>
-              <b>{last.who}</b> {last.text}
-            </>
+            <>{last.kind === "model" || last.kind === "rules" ? last.text : "Checked the rules again"}</>
           ) : null}
         </span>
-        <Icon name={open ? "close" : "dots"} size={16} />
+        <span className="activity-more">{open ? "Close" : "Steps"}</span>
       </button>
       {open && (
         <ol className="activity-log" aria-label="Everything the agents did">

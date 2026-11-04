@@ -46,18 +46,16 @@ export function HomeStart() {
           }}
         />
         <div className="row">
-          <span className="hint">Type, speak or add a letter on the next page</span>
+          <span className="hint">You can also speak or add a letter</span>
           <span className="spacer" />
           <button type="submit" className="send" aria-label="Start">
             <Icon name="arrow" size={20} />
           </button>
         </div>
       </form>
-      <div className="chips">
-        <Link href="/check">Answer a few questions</Link>
-        <Link href="/check#example=margaret">Watch Margaret's check</Link>
-        <Link href="/how">How Beacon works</Link>
-      </div>
+      <Link href="/check#example=margaret" className="quiet-link">
+        or watch Margaret's check <Icon name="arrow" size={16} />
+      </Link>
     </div>
   );
 }

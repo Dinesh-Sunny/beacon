@@ -80,17 +80,20 @@ export function QuestionCard({
   onAnswer?: (f: FactId, v: Answers[FactId]) => void;
   inChat?: boolean;
 }) {
-  const { answers, asked, apply, states, edit, skip, skipped, subject } = useCheck();
+  const { answers, apply, states, edit, skip, skipped, subject } = useCheck();
   const editing = !inChat;
   const [draft, setDraft] = useState<Draft>({});
   const [err, setErr] = useState("");
   const body = useRef<HTMLDivElement>(null);
 
+  const first = useRef(true);
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the question changes
   useEffect(() => {
     setDraft({});
     setErr("");
-    body.current?.querySelector<HTMLElement>("input, button")?.focus({ preventScroll: true });
+    // Move focus to the new question after an answer, not on first load.
+    if (first.current) first.current = false;
+    else body.current?.querySelector<HTMLElement>("input, button")?.focus({ preventScroll: true });
   }, [f]);
 
   const fact = FACTS[f];
@@ -122,7 +125,7 @@ export function QuestionCard({
   return (
     <section className={`qcard${inChat ? " in-chat" : ""}`} aria-labelledby={inChat ? "q-chat" : "q-title"} data-testid={inChat ? "chat-question" : "question"} data-fact={f}>
       <div className="qtop">
-        <span className="qstep">{editing ? (answers[f] === undefined ? "Answer here" : "Change an answer") : `Question ${asked + 1}`}</span>
+        {editing ? <span className="eyebrow">{answers[f] === undefined ? "Answer here" : "Change an answer"}</span> : <span />}
         <span className="unlocks" data-testid="unlocks">
           <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
         </span>

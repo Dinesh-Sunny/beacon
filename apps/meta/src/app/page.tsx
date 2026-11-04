@@ -66,6 +66,10 @@ export default function Home() {
                 <span>Free TV licence</span>
                 <em>Unlocks next</em>
               </div>
+              <div className="pv-row unlock">
+                <span>Cold Weather Payment</span>
+                <em>Unlocks next</em>
+              </div>
               <div className="pv-note">
                 <Icon name="spark" size={16} /> Attendance Allowance can raise Pension Credit, so claim both.
               </div>
@@ -74,9 +78,9 @@ export default function Home() {
         </section>
 
         <section className="band">
-          <p className="big-stat">About £24.1bn a year</p>
+          <p className="big-stat">£24.1bn a year</p>
           <p>
-            of income-related benefits and social tariffs goes unclaimed in Great Britain, across more than 7 million households.
+            That's roughly how much income-related support and social tariffs goes unclaimed in Great Britain, across more than 7 million households.
             Most people miss out because they don't know, or the rules are hard to read.{" "}
             <a href="https://policyinpractice.co.uk/publication/missing-out-2025" target="_blank" rel="noreferrer">
               Policy in Practice, Missing Out 2025

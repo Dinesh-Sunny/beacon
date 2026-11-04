@@ -7,7 +7,8 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { Activity } from "@/components/check/Activity";
-import { Board, SchemeSheet } from "@/components/check/Board";
+import { SchemeSheet } from "@/components/check/Board";
+import { Constellation } from "@/components/check/Constellation";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
 import { Results } from "@/components/results/Results";
@@ -31,9 +32,12 @@ function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
   const [details, setDetails] = useState(false);
   const [view, setView] = useState<MobileView>("chat");
-  const { reset, hydrated, next, apply, asked, editing, subject, announce } = useCheck();
+  const { reset, hydrated, next, apply, asked, editing, subject, announce, states } = useCheck();
+  const found = count(states, "likely") + count(states, "check");
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
+  const [confirm, setConfirm] = useState(false);
+  const [exampleName, setExampleName] = useState<string | null>(null);
 
 
   // Deep link: /check#example=margaret plays that example.
@@ -76,6 +80,7 @@ function Shell() {
     setMenu(false);
     reset();
     setPlaying(ex);
+    setExampleName(ex.name.split(",")[0] ?? ex.name);
     setTimeout(() => announce(`Here's a made-up example: ${ex.name}. ${ex.line} Watch the results light up as each answer goes in.`), 50);
     setView("canvas");
   };
@@ -104,7 +109,9 @@ function Shell() {
         {chat !== "full" && (
           <>
             <span className="divider wide-only" aria-hidden="true" />
-            <span className="title wide-only">{subject.who === "me" ? "Your check" : `Check for ${subject.label}`}</span>
+            <span className="title wide-only">
+              {exampleName ? `${exampleName}'s example` : subject.who === "me" ? "Your check" : `Check for ${subject.label}`}
+            </span>
           </>
         )}
         <span className="spacer" />
@@ -117,10 +124,11 @@ function Shell() {
             <div className="menu-wrap">
               <button type="button" className="btn ghost small" aria-expanded={menu} onClick={() => setMenu((m) => !m)} data-testid="examples">
                 <Icon name={playing ? "stop" : "play"} size={16} />
-                <span className="wide-label">{playing ? "Playing" : "Try an example"}</span>
+                <span>{playing ? "Playing" : "Example"}</span>
               </button>
               {menu && (
                 <div className="menu" role="menu">
+                  {asked > 0 && !exampleName && <p className="menu-note">An example replaces the answers on this device.</p>}
                   {EXAMPLES.map((ex) => (
                     <button key={ex.id} type="button" role="menuitem" onClick={() => play(ex)}>
                       <b>{ex.name}</b>
@@ -131,18 +139,30 @@ function Shell() {
               )}
             </div>
             {asked > 0 && (
-              <button
-                type="button"
-                className="iconbtn"
-                onClick={() => {
-                  setPlaying(null);
-                  reset();
-                }}
-                aria-label="Start again"
-                title="Start again"
-              >
-                <Icon name="restart" />
-              </button>
+              <div className="menu-wrap">
+                <button type="button" className="btn ghost small" onClick={() => setConfirm((c) => !c)} aria-expanded={confirm} data-testid="restart">
+                  <Icon name="restart" size={16} />
+                  <span className="wide-label">Start again</span>
+                </button>
+                {confirm && (
+                  <div className="menu confirm" role="dialog" aria-label="Start again">
+                    <p>Start again? This clears every answer on this device.</p>
+                    <div className="row">
+                      <button type="button" className="btn small" onClick={() => {
+                        setConfirm(false);
+                        setPlaying(null);
+                        setExampleName(null);
+                        reset();
+                      }}>
+                        Start again
+                      </button>
+                      <button type="button" className="btn ghost small" onClick={() => setConfirm(false)}>
+                        Keep my answers
+                      </button>
+                    </div>
+                  </div>
+                )}
+              </div>
             )}
             <button
               type="button"
@@ -189,6 +209,7 @@ function Shell() {
           <button key={v} type="button" aria-current={view === v ? "page" : undefined} onClick={() => setView(v)} data-testid={`view-${v}`}>
             <Icon name={icon} />
             {label}
+            {v === "canvas" && found > 0 && <span className="badge">{found}</span>}
           </button>
         ))}
       </nav>
@@ -199,14 +220,27 @@ function Shell() {
 
 function Canvas() {
   const { states, asked } = useCheck();
-  const [all, setAll] = useState(false);
   const open = count(states, "open");
   const settled = SCHEMES.length - open;
   const found = count(states, "likely") + count(states, "check") + count(states, "unlock");
   return (
     <>
-      <Activity />
-      {!found ? (
+      <div className="canvas-top">
+        <Activity />
+        {asked > 0 && (
+          <div className="progress">
+            <div className="meter" role="progressbar" aria-label="Kinds of help checked" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
+              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
+            </div>
+            <span className="meter-label" data-testid="stats">
+              {settled} of {SCHEMES.length} checked
+            </span>
+          </div>
+        )}
+      </div>
+      {found ? (
+        <Results />
+      ) : (
         <div className="calm" data-testid="calm">
           <div className="lamp" aria-hidden="true">
             <i />
@@ -214,25 +248,10 @@ function Canvas() {
             <i />
             <span />
           </div>
-          <p>{asked === 0 ? "Your results light up here as you answer." : `${settled} of ${SCHEMES.length} checked. Keep going, results light up here.`}</p>
+          <p>{asked === 0 ? "Your results light up here as you answer." : "Keep going. Results light up here."}</p>
         </div>
-      ) : (
-        <>
-          <div className="progress">
-            <div className="meter" role="progressbar" aria-label="Schemes checked" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
-              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
-            </div>
-            <span className="hint" data-testid="stats">
-              {settled} of {SCHEMES.length} checked
-            </span>
-          </div>
-          <Results />
-        </>
       )}
-      <button type="button" className="linkbtn see-all" onClick={() => setAll((a) => !a)} aria-expanded={all} data-testid="see-all">
-        {all ? "Hide the full list" : `See all ${SCHEMES.length} kinds of help Beacon checks`}
-      </button>
-      {all && <Board />}
+      <Constellation />
     </>
   );
 }

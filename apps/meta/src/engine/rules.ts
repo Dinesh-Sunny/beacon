@@ -225,6 +225,8 @@ export interface Scheme {
   phone?: string;
   url: string;
   timing?: string;
+  /** Paid without a claim once the conditions are met. */
+  auto?: boolean;
   rule: Cond[];
   opens?: string[];
 }
@@ -233,8 +235,8 @@ export const SCHEMES: Scheme[] = [
   { id: "pc", name: "Pension Credit", topic: "low", by: "DWP", gives: "A weekly top-up to your income. It opens the door to more help.", how: "Claim by phone or online.", phone: "0800 99 1234", url: "https://www.gov.uk/pension-credit/how-to-claim", timing: "Can be backdated up to 3 months, so claim soon.", rule: [atSpa, incomeUnder(LINES.pcIncomeWeek.value)], opens: ["ctr", "cwp", "tv", "fep"] },
   { id: "uc", name: "Universal Credit", topic: "low", by: "DWP", gives: "A monthly payment for living costs, with extra for rent, children and caring.", how: "Claim online, then book an interview.", url: "https://www.gov.uk/universal-credit/how-to-claim", timing: "Payment starts from the day you claim.", rule: [workingAge, sav16, incomeUnder(LINES.ucIncomeWeek.value)], opens: ["ctr", "cwp", "ssmg", "hs", "fep"] },
   { id: "ctr", name: "Council Tax Reduction", topic: "low", by: "Your council", gives: "Money off your council tax bill.", how: "Apply to your local council.", url: "https://www.gov.uk/apply-council-tax-reduction", rule: [c(["ctax"], (d) => Boolean(d.ctax), "pays council tax", "Pays council tax", "Doesn't pay council tax"), incomeUnder(LINES.ctrIncomeWeek.value), sav16] },
-  { id: "cwp", name: "Cold Weather Payment", topic: "low", by: "DWP", gives: "£25 for each very cold week between November and March.", how: "Paid automatically once you get a qualifying benefit.", url: "https://www.gov.uk/cold-weather-payment", rule: [notSco("Scotland has the Winter Heating Payment instead"), gate()] },
-  { id: "wfp", name: "Winter Fuel Payment", topic: "low", by: "DWP", gives: "A yearly payment towards heating bills.", how: "Usually paid automatically.", url: "https://www.gov.uk/winter-fuel-payment", rule: [notSco("Scotland has the Pension Age Winter Heating Payment"), atSpa] },
+  { id: "cwp", name: "Cold Weather Payment", topic: "low", by: "DWP", gives: "£25 for each very cold week between November and March.", how: "Paid automatically once you get a qualifying benefit.", auto: true, url: "https://www.gov.uk/cold-weather-payment", rule: [notSco("Scotland has the Winter Heating Payment instead"), gate()] },
+  { id: "wfp", name: "Winter Fuel Payment", topic: "low", by: "DWP", gives: "A yearly payment towards heating bills.", how: "Usually paid automatically. If it didn't arrive last winter, check with the Winter Fuel Payment Centre.", auto: true, url: "https://www.gov.uk/winter-fuel-payment", rule: [notSco("Scotland has the Pension Age Winter Heating Payment"), atSpa] },
   { id: "tv", name: "Free TV licence", topic: "low", by: "TV Licensing", gives: "A free TV licence.", how: "Apply to TV Licensing once you get Pension Credit.", url: "https://www.gov.uk/free-discount-tv-licence", rule: [c(["dob"], (d) => (d.age ?? 0) >= 75, "aged 75 or over", "Aged 75 or over", "Under 75"), gate()] },
   { id: "pip", name: "Personal Independence Payment", topic: "dis", by: "DWP", gives: "Help with the extra costs of a condition, not based on income.", how: "Start your claim by phone.", phone: "0800 917 2222", url: "https://www.gov.uk/pip/how-to-claim", rule: [notSco("Scotland has Adult Disability Payment instead"), underSpa, hasCondition] },
   { id: "adp", name: "Adult Disability Payment", topic: "dis", by: "Social Security Scotland", gives: "Help with the extra costs of a condition, not based on income.", how: "Apply online or by phone.", phone: "0800 182 2222", url: "https://www.mygov.scot/adult-disability-payment", rule: [onlySco, underSpa, hasCondition] },
@@ -370,7 +372,7 @@ export interface Warning {
   ids: string[];
 }
 
-const CLASHES: { ids: string[]; tone: Warning["tone"]; text: string }[] = [
+const CLASHES: { ids: string[]; tone: Warning["tone"]; text: string; when?: (d: Derived) => boolean }[] = [
   { ids: ["ca", "uc"], tone: "warn", text: "Carer's Allowance counts as income for Universal Credit, so Universal Credit goes down by the same amount. You can still get the carer element." },
   { ids: ["ca"], tone: "warn", text: "If you get Carer's Allowance, the person you care for may lose a severe disability addition in their own means-tested benefits. Check with them first." },
   { ids: ["aa", "pc"], tone: "boost", text: "Attendance Allowance can raise Pension Credit, so claim both." },
@@ -378,12 +380,13 @@ const CLASHES: { ids: string[]; tone: Warning["tone"]; text: string }[] = [
   { ids: ["jsa", "uc"], tone: "warn", text: "New Style JSA counts as income for Universal Credit." },
   { ids: ["esa", "uc"], tone: "warn", text: "New Style ESA counts as income for Universal Credit." },
   { ids: ["ma", "uc"], tone: "warn", text: "Maternity Allowance counts as income for Universal Credit." },
-  { ids: ["wfp"], tone: "warn", text: "If your income is over £35,000 a year, the Winter Fuel Payment is taken back through tax." },
+  { ids: ["wfp"], tone: "warn", text: "Income over £35,000 a year means the Winter Fuel Payment is taken back through tax.", when: (d) => (d.incWeek ?? 0) * 52 > 30_000 },
 ];
 
-export function warnings(st: States): Warning[] {
+export function warnings(st: States, A: Answers = {}): Warning[] {
   const on = (id: string) => ["likely", "check", "unlock"].includes(st[id]?.status ?? "");
-  return CLASHES.filter((w) => w.ids.every(on)).map((w) => ({ tone: w.tone, text: w.text, ids: w.ids }));
+  const d = derive(A);
+  return CLASHES.filter((w) => w.ids.every(on) && (!w.when || w.when(d))).map((w) => ({ tone: w.tone, text: w.text, ids: w.ids }));
 }
 
 /** Compact summary used by the agent tools and the plan writer. Holds no personal values. */
@@ -398,6 +401,6 @@ export function summarise(A: Answers, st: States) {
     ruledOut: pick("out").length,
     nextQuestion: plan(A, st)?.f ?? null,
     claimOrder: claimOrder(st).map((p) => `${byId[p.id]?.name} (${p.when})`),
-    warnings: warnings(st).map((w) => w.text),
+    warnings: warnings(st, A).map((w) => w.text),
   };
 }

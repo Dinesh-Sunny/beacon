@@ -27,7 +27,7 @@ export function Results() {
   const check = count(states, "check");
   const unlock = count(states, "unlock");
   const order = claimOrder(states);
-  const warns = warnings(states);
+  const warns = warnings(states, answers);
   const out = SCHEMES.filter((s) => states[s.id]?.status === "out");
   if (!likely && !check && !unlock) {
     return done ? (
@@ -47,21 +47,19 @@ export function Results() {
           {total} {total === 1 ? "thing looks" : "things look"} like {whose}
         </h2>
         <p className="why">
-          {likely} likely, {check} worth checking{unlock ? `, and ${unlock} more once your first claim is awarded` : ""}. The
-          organisation that runs each one makes the final decision.
+          {[likely ? `${likely} likely` : "", check ? `${check} worth checking` : "", unlock ? `${unlock} more once a first claim is awarded` : ""]
+            .filter(Boolean)
+            .join(", ")}
+          .
         </p>
-        <div className="res-actions" hidden={!done}>
-          <button type="button" className="btn ghost small" onClick={() => window.print()}>
-            <Icon name="download" size={16} /> Save or print
-          </button>
-        </div>
       </div>
 
       {warns.length > 0 && (
-        <div className="warns">
+        <div className="good-to-know">
+          <span className="eyebrow">Good to know</span>
           {warns.map((w) => (
-            <p key={w.text} className={`warn ${w.tone}`}>
-              <Icon name={w.tone === "boost" ? "spark" : "warn"} size={18} />
+            <p key={w.text} className={`gtk ${w.tone}`}>
+              <Icon name={w.tone === "boost" ? "spark" : "warn"} size={16} />
               <span>{w.text}</span>
             </p>
           ))}
@@ -73,6 +71,15 @@ export function Results() {
           <PlanStep key={p.id} id={p.id} n={i + 1} when={p.when} status={p.status} answers={answers} />
         ))}
       </ol>
+
+      <div className="res-foot">
+        <p className="hint">The organisation that runs each one makes the final decision.</p>
+        {done && (
+          <button type="button" className="btn ghost small" onClick={() => window.print()}>
+            <Icon name="download" size={16} /> Save or print
+          </button>
+        )}
+      </div>
 
       {out.length > 0 && (
         <details className="ruled-out">
@@ -129,17 +136,22 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
   return (
     <li className={`step ${status}`} data-testid={`plan-${id}`}>
       <span className="num" aria-hidden="true">
-        {status === "unlock" ? <Icon name="lock" size={16} /> : n}
+        {status === "unlock" ? <Icon name="lock" size={14} /> : n}
       </span>
       <div className="step-body">
         <div className="step-top">
-          <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
-          <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>
+          {s.auto && status !== "unlock" ? (
+            <span className="when">Usually automatic</span>
+          ) : (
+            <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
+          )}
+          {status !== "likely" && <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>}
         </div>
         <h3>{s.name}</h3>
         <p>{s.gives}</p>
         {status === "check" && states[id]?.reason && <p className="hint">{states[id]?.reason}</p>}
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
+        {s.auto && status !== "unlock" && <p className="hint">{s.how}</p>}
         {s.timing && status !== "unlock" && (
           <p className="timing">
             <Icon name="clock" size={16} /> {s.timing}
@@ -153,11 +165,13 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
               </a>
             )}
             <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
-              {s.phone ? "Online" : "Start your claim"} <Icon name="link" size={16} />
+              {s.auto ? "Official page" : "Claim online"} <Icon name="link" size={16} />
             </a>
-            <button type="button" className="btn ghost small" onClick={() => (open ? setOpen(false) : void load())} aria-expanded={open} data-testid={`prep-${id}`}>
-              <Icon name="spark" size={16} /> {open ? "Hide what to say" : "What to say"}
-            </button>
+            {!s.auto && (
+              <button type="button" className="btn ghost small" onClick={() => (open ? setOpen(false) : void load())} aria-expanded={open} data-testid={`prep-${id}`}>
+                <Icon name="spark" size={16} /> {open ? "Hide what to say" : "What to say"}
+              </button>
+            )}
           </div>
         )}
         {open && (

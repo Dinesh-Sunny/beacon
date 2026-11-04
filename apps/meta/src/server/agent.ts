@@ -156,7 +156,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
         const s = byId[p.id];
         return { scheme: s?.name, when: p.when, how: s?.how, phone: s?.phone ?? null, page: s?.url, timing: s?.timing ?? null };
       }),
-      warnings: warnings(st).map((w) => w.text),
+      warnings: warnings(st, now).map((w) => w.text),
     });
   }
   return JSON.stringify({ error: "Unknown tool" });

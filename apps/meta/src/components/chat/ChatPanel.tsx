@@ -257,8 +257,8 @@ export function ChatPanel() {
             of a letter.
           </p>
         </div>
-        {msgs.map((m) => (
-          <Message key={m.id} m={m} />
+        {msgs.map((m, i) => (
+          <Message key={m.id} m={m} last={i === msgs.length - 1} />
         ))}
         {!working && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
         {working && (
@@ -278,7 +278,7 @@ export function ChatPanel() {
   );
 }
 
-function Message({ m }: { m: Msg }) {
+function Message({ m, last }: { m: Msg; last: boolean }) {
   const [rated, setRated] = useState<"up" | "down" | null>(null);
   const [copied, setCopied] = useState(false);
   const savedKeys = ORDER.filter((k) => m.saved?.[k] !== undefined);
@@ -322,7 +322,7 @@ function Message({ m }: { m: Msg }) {
       {m.letter && <LetterCard l={m.letter} />}
       {m.text && <p className="bubble plain">{m.text}</p>}
       {!m.error && m.text && (
-        <div className="msg-actions">
+        <div className={`msg-actions${last ? " show" : ""}`}>
           <button type="button" className="iconbtn sm" aria-label="Helpful" aria-pressed={rated === "up"} onClick={() => setRated("up")}>
             <Icon name="thumbup" size={16} />
           </button>
