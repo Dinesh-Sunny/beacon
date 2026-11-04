@@ -103,7 +103,7 @@
       "topic": "local",
       "by": "Your council",
       "gives": "Free off-peak travel on local buses.",
-      "how": "Apply to your council in England and Wales, or through Transport Scotland or nidirect.",
+      "how": "Apply to your council.",
       "url": "https://www.gov.uk/apply-for-elderly-person-bus-pass",
       "act": "Apply for a bus pass",
       "rule": [
@@ -153,7 +153,15 @@
           "fail": "Not old enough yet. A disabled person's pass has no age limit."
         }
       ],
-      "council": "apply-for-elderly-person-bus-pass"
+      "council": "apply-for-elderly-person-bus-pass",
+      "local": {
+        "sco": {
+          "how": "Apply for a National Entitlement Card through your council or Transport Scotland."
+        },
+        "ni": {
+          "how": "Apply for a SmartPass through nidirect."
+        }
+      }
     },
     {
       "id": "crf",

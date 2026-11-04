@@ -17,7 +17,7 @@
       "topic": "nhs",
       "by": "NHS",
       "gives": "Prescriptions without the charge.",
-      "how": "In England, tick the box on the back of the prescription that matches the reason. They're free for everyone in Scotland and Wales.",
+      "how": "Tick the box on the back of the prescription that matches the reason.",
       "url": "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs/free-nhs-prescriptions",
       "act": "Who gets them free",
       "auto": [
@@ -62,7 +62,15 @@
           "txt": "Lives in Scotland or Wales, is 60 or over, or is pregnant",
           "fail": "None of the usual reasons apply. A prepayment certificate caps the cost."
         }
-      ]
+      ],
+      "local": {
+        "sco": {
+          "how": "Prescriptions are free for everyone in Scotland."
+        },
+        "wal": {
+          "how": "Prescriptions are free for everyone in Wales."
+        }
+      }
     },
     {
       "id": "eye",
@@ -70,7 +78,7 @@
       "topic": "nhs",
       "by": "Your optician",
       "gives": "A sight test without the charge.",
-      "how": "Tell the optician when you book. Eye tests are free for everyone in Scotland.",
+      "how": "Tell the optician when you book.",
       "url": "https://www.nhs.uk/nhs-services/opticians/free-nhs-eye-tests-and-optical-vouchers/",
       "act": "Who gets one free",
       "rule": [
@@ -102,7 +110,12 @@
           "txt": "Lives in Scotland, or is 60 or over",
           "fail": "Not by age. Some health conditions and benefits also make it free."
         }
-      ]
+      ],
+      "local": {
+        "sco": {
+          "how": "Eye tests are free for everyone in Scotland. Just book."
+        }
+      }
     },
     {
       "id": "dent",

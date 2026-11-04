@@ -38,6 +38,7 @@ export function MoreHelp() {
   const [rows, setRows] = useState<Row[] | null>(null);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
+  const [all, setAll] = useState(false);
   const groups = useMemo(() => peopleGroups(answers), [answers]);
   const nation: Nation | null = nationIn(answers);
 
@@ -84,33 +85,47 @@ export function MoreHelp() {
             Found on GOV.UK for people in a similar situation. Beacon can't
             check these for you yet, so each links to its official page.
           </p>
-          <label htmlFor="more-q" className="sr-only">
-            Search more help
-          </label>
-          <input
-            id="more-q"
-            className="txt"
-            placeholder="Search, like energy or school"
-            value={q}
-            onChange={(e) => setQ(e.target.value)}
-          />
+          {all && (
+            <>
+              <label htmlFor="more-q" className="sr-only">
+                Search more help
+              </label>
+              <input
+                id="more-q"
+                className="txt"
+                placeholder="Search, like energy or school"
+                value={q}
+                onChange={(e) => setQ(e.target.value)}
+              />
+            </>
+          )}
           <ul>
-            {matches.slice(0, 40).map((r) => (
+            {matches.slice(0, all ? 60 : 5).map((r) => (
               <li key={r.url}>
                 <a href={r.url} target="_blank" rel="noreferrer">
                   {r.name}
                 </a>
                 {r.kind && (
-                  <span className="chip">{KIND[r.kind] ?? r.kind}</span>
+                  <span className="kind">{KIND[r.kind] ?? r.kind}</span>
                 )}
               </li>
             ))}
           </ul>
-          <p className="hint">
-            {matches.length
-              ? `${Math.min(matches.length, 40)} of ${matches.length} shown`
-              : "Nothing matches that search."}
-          </p>
+          {!all && matches.length > 5 ? (
+            <button
+              type="button"
+              className="linkbtn"
+              onClick={() => setAll(true)}
+            >
+              Show all {matches.length}
+            </button>
+          ) : (
+            <p className="hint">
+              {matches.length
+                ? `${Math.min(matches.length, 60)} of ${matches.length} shown`
+                : "Nothing matches that search."}
+            </p>
+          )}
         </div>
       )}
     </section>

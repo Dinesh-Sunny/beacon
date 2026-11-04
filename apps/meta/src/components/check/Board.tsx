@@ -68,7 +68,10 @@ export function SchemeSheet() {
                   {m === true ? "✓" : m === false ? "×" : "?"}
                 </span>
                 <span>
-                  {r.txt}
+                  {/* A condition near a money line says the number; the rest read as written. */}
+                  {r.near
+                    ? r.expr.charAt(0).toUpperCase() + r.expr.slice(1)
+                    : r.txt}
                   <span className="sr-only">
                     {m === true
                       ? " (met)"
@@ -76,7 +79,6 @@ export function SchemeSheet() {
                         ? " (not met)"
                         : " (not known yet)"}
                   </span>
-                  <code>{r.expr}</code>
                 </span>
               </li>
             );

@@ -753,7 +753,13 @@
           "txt": "Earnings likely under the limit",
           "fail": "Earnings likely over the limit"
         }
-      ]
+      ],
+      "worth": {
+        "max": 86.45,
+        "per": "week",
+        "source": "https://www.mygov.scot/carer-support-payment",
+        "year": "2026/27"
+      }
     },
     {
       "id": "cb",

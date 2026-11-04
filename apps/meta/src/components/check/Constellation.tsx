@@ -39,14 +39,24 @@ export function Constellation() {
     .sort((a, b) => a.best - b.best);
 
   return (
-    <section
-      className="constellation"
-      aria-labelledby="const-h"
-      data-testid="board"
-    >
-      <h3 id="const-h" className="eyebrow">
-        Everything Beacon checks · {SCHEMES.length}
-      </h3>
+    <details className="constellation" data-testid="board">
+      <summary className="eyebrow">
+        See all {SCHEMES.length} kinds of help Beacon checked
+      </summary>
+      <p className="legend hint" aria-hidden="true">
+        <span>
+          <i className="likely" /> Likely
+        </span>
+        <span>
+          <i className="check" /> Worth checking
+        </span>
+        <span>
+          <i className="unlock" /> Opens after a first award
+        </span>
+        <span>
+          <i className="have" /> Already getting
+        </span>
+      </p>
       <div className="areas">
         {areas.map((a) => {
           const counts = SHOWN.map(
@@ -73,29 +83,32 @@ export function Constellation() {
                 </span>
               </summary>
               <div className="tiles">
-                {a.list.map((s) => {
-                  const st = status(s);
-                  return (
-                    <button
-                      key={s.id}
-                      type="button"
-                      className={`tile ${st}${changed.includes(s.id) ? " flash" : ""}`}
-                      onClick={() => select(s.id)}
-                      data-testid={`scheme-${s.id}`}
-                      data-status={st}
-                      title={`${s.name}: ${STATUS_TXT[st]}`}
-                    >
-                      <i aria-hidden="true" />
-                      {s.name}
-                      <span className="sr-only">: {STATUS_TXT[st]}</span>
-                    </button>
-                  );
-                })}
+                {/* What doesn't apply is listed with reasons under the results, so rows keep only what's live. */}
+                {a.list
+                  .filter((s) => status(s) !== "out")
+                  .map((s) => {
+                    const st = status(s);
+                    return (
+                      <button
+                        key={s.id}
+                        type="button"
+                        className={`tile ${st}${changed.includes(s.id) ? " flash" : ""}`}
+                        onClick={() => select(s.id)}
+                        data-testid={`scheme-${s.id}`}
+                        data-status={st}
+                        title={`${s.name}: ${STATUS_TXT[st]}`}
+                      >
+                        <i aria-hidden="true" />
+                        {s.name}
+                        <span className="sr-only">: {STATUS_TXT[st]}</span>
+                      </button>
+                    );
+                  })}
               </div>
             </details>
           );
         })}
       </div>
-    </section>
+    </details>
   );
 }

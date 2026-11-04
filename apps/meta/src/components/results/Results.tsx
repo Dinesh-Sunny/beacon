@@ -23,6 +23,7 @@ import {
   worthTotals,
 } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { useClaims } from "@/lib/claims";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
 import { SchemeList } from "./lists";
@@ -65,6 +66,50 @@ export function Results() {
   }
   const total = likely + check;
   const worth = worthTotals(states, answers);
+  // Two or three things to do first, then the rest as compact rows, so the plan has a clear start.
+  const autoHere = (id: string) => {
+    const s = byId[id];
+    return s ? isAuto(s, nationIn(answers)) : false;
+  };
+  const firstIds = new Set(
+    (order.some((p) => p.when === "Start now")
+      ? order.filter((p) => p.when === "Start now")
+      : order.filter((p) => p.status === "likely" && !autoHere(p.id))
+    )
+      .slice(0, 3)
+      .map((p) => p.id),
+  );
+  const rest = order.filter((p) => !firstIds.has(p.id));
+  const groups = [
+    {
+      title: "Do these first",
+      fold: false,
+      steps: order.filter((p) => firstIds.has(p.id)),
+    },
+    {
+      title: "Then",
+      fold: true,
+      steps: rest.filter((p) => p.status === "likely" && !autoHere(p.id)),
+    },
+    {
+      title: "Worth checking",
+      fold: true,
+      steps: rest.filter((p) => p.status === "check" && !autoHere(p.id)),
+    },
+    {
+      title: "Comes by itself",
+      fold: true,
+      steps: rest.filter((p) => p.status !== "unlock" && autoHere(p.id)),
+    },
+    {
+      title: "After the first award",
+      fold: true,
+      steps: rest.filter((p) => p.status === "unlock"),
+    },
+  ].filter((g) => g.steps.length);
+  const numbering = new Map(
+    groups.flatMap((g) => g.steps).map((p, i) => [p.id, i]),
+  );
   return (
     <section className="results" data-testid="results" aria-labelledby="res-h">
       <Banner done={done} likely={likely} />
@@ -75,20 +120,22 @@ export function Results() {
         <h2 id="res-h">
           {total} {total === 1 ? "thing looks" : "things look"} like {whose}
         </h2>
-        <p className="why">
-          {[
-            likely ? `${likely} likely` : "",
-            check ? `${check} worth checking` : "",
-            unlock ? `${unlock} more once a first claim is awarded` : "",
-          ]
-            .filter(Boolean)
-            .join(", ")}
-          .
-        </p>
+        {(check > 0 || unlock > 0) && (
+          <p className="why">
+            {[
+              `${likely} likely`,
+              check ? `${check} worth checking` : "",
+              unlock ? `${unlock} more once a first claim is awarded` : "",
+            ]
+              .filter(Boolean)
+              .join(", ")}
+            .
+          </p>
+        )}
         {worth.yearly + worth.once > 0 && (
           <p className="worth" data-testid="worth">
             <b>
-              Up to{" "}
+              Worth up to{" "}
               {[
                 worth.yearly
                   ? `£${worth.yearly.toLocaleString("en-GB")} a year`
@@ -101,8 +148,11 @@ export function Results() {
                 .join(" and ")}
             </b>{" "}
             <span className="hint">
-              at the published rates, from {worth.count} of these. Each
-              organisation decides the amount.
+              from the {worth.count} Beacon can price
+              {likely > worth.count
+                ? `, plus ${likely - worth.count} more where the amount depends on ${subject.who === "me" ? "you" : "them"}`
+                : ""}
+              . Each organisation decides the final amount.
             </span>
           </p>
         )}
@@ -130,18 +180,24 @@ export function Results() {
 
       {warns.length > 0 && <GoodToKnow warns={warns} />}
 
-      <ol className="plan" aria-label="Your claim plan">
-        {order.map((p, i) => (
-          <PlanStep
-            key={p.id}
-            id={p.id}
-            n={i + 1}
-            when={p.when}
-            status={p.status}
-            answers={answers}
-          />
-        ))}
-      </ol>
+      {groups.map((g) => (
+        <section key={g.title} className="plan-group" aria-label={g.title}>
+          <h3 className="eyebrow plan-title">{g.title}</h3>
+          <ol className="plan">
+            {g.steps.map((p) => (
+              <PlanStep
+                key={p.id}
+                id={p.id}
+                n={(numbering.get(p.id) ?? 0) + 1}
+                when={p.when}
+                status={p.status}
+                answers={answers}
+                fold={g.fold}
+              />
+            ))}
+          </ol>
+        </section>
+      ))}
       <MoreHelp />
 
       <div className="res-foot">
@@ -258,20 +314,25 @@ function PlanStep({
   when,
   status,
   answers,
+  fold = false,
 }: {
   id: string;
   n: number;
   when: string;
   status: Status;
   answers: Answers;
+  /** Later steps start as one compact row and open on tap. */
+  fold?: boolean;
 }) {
   const s = byId[id];
   const { states, note, setBusy, subject } = useCheck();
   const council = useCouncil(answers.postcode);
+  const { fresh } = useClaims();
   const [prep, setPrep] = useState<Prep | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
   const [open, setOpen] = useState(false);
+  const [shown, setShown] = useState(!fold);
   if (!s) return null;
   const load = async () => {
     setOpen(true);
@@ -314,17 +375,15 @@ function PlanStep({
         {status === "unlock" ? <Icon name="lock" size={14} /> : n}
       </span>
       <div className="step-body">
-        <div className="step-top">
-          {auto && status !== "unlock" ? (
-            <span className="when">Usually automatic</span>
-          ) : (
+        {when === "Start now" && (
+          <div className="step-top">
             <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
-          )}
-          {status !== "likely" && (
-            <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>
-          )}
-        </div>
-        <h3>{s.name}</h3>
+          </div>
+        )}
+        <h3>
+          {s.name}
+          {fresh.includes(id) && <span className="chip new">New</span>}
+        </h3>
         <p>{theyify(s.gives, subject)}</p>
         {worthLabel(s, answers) && status !== "unlock" && (
           <p className="amount">
@@ -334,101 +393,123 @@ function PlanStep({
             </a>
           </p>
         )}
-        {status === "check" && states[id]?.reason && (
-          <p className="hint">{states[id]?.reason}</p>
+        {!shown && (
+          <button
+            type="button"
+            className="linkbtn step-open"
+            onClick={() => setShown(true)}
+            aria-expanded={false}
+          >
+            {status === "unlock"
+              ? "Why it waits"
+              : auto
+                ? "How it arrives"
+                : "How to claim"}
+          </button>
         )}
-        {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
-        {(auto || s.act) && status !== "unlock" && (
-          <p className="hint">
-            {theyify(howFor(s, nationIn(answers)), subject)}
-          </p>
-        )}
-        {timing && status !== "unlock" && (
-          <p className="timing">
-            <Icon name="clock" size={16} /> {theyify(timing, subject)}
-          </p>
-        )}
-        {status !== "unlock" && (
-          <div className="step-actions">
-            {s.phone && (
-              <a
-                className="btn small"
-                href={`tel:${s.phone.replace(/\s/g, "")}`}
-              >
-                <Icon name="phone" size={16} /> {s.phone}
-              </a>
+        {shown && (
+          <>
+            {status === "check" && states[id]?.reason && (
+              <p className="hint">{states[id]?.reason}</p>
             )}
-            <a
-              className="btn ghost small"
-              href={localUrl ?? s.url}
-              target="_blank"
-              rel="noreferrer"
-            >
-              {localUrl && council
-                ? `Apply to ${shortCouncil(council.name)}`
-                : auto
-                  ? "Official page"
-                  : s.act
-                    ? theyify(s.act, subject)
-                    : "Claim online"}{" "}
-              <Icon name="link" size={16} />
-            </a>
-            {!auto && (
-              <button
-                type="button"
-                className="btn ghost small"
-                onClick={() => (open ? setOpen(false) : void load())}
-                aria-expanded={open}
-                data-testid={`prep-${id}`}
-              >
-                <Icon name="spark" size={16} />{" "}
-                {open ? "Hide what to say" : "What to say"}
-              </button>
+            {status === "unlock" && (
+              <p className="hint">{states[id]?.reason}</p>
             )}
-          </div>
-        )}
-        {s.list && status !== "unlock" && <SchemeList s={s} nation={nation} />}
-        {status !== "unlock" && !auto && <ClaimTrack id={id} />}
-        {open && (
-          <div className="prep" aria-live="polite">
-            {loading && <p className="hint">Writing your call notes…</p>}
-            {err && <p className="hint">{err}</p>}
-            {prep && (
-              <>
-                <p className="opening">"{prep.opening}"</p>
-                {prep.mention.length > 0 && (
+            {(auto || s.act) && status !== "unlock" && (
+              <p className="hint">
+                {theyify(howFor(s, nationIn(answers)), subject)}
+              </p>
+            )}
+            {timing && status !== "unlock" && (
+              <p className="timing">
+                <Icon name="clock" size={16} /> {theyify(timing, subject)}
+              </p>
+            )}
+            {status !== "unlock" && (
+              <div className="step-actions">
+                {s.phone && (
+                  <a
+                    className="btn small"
+                    href={`tel:${s.phone.replace(/\s/g, "")}`}
+                  >
+                    <Icon name="phone" size={16} /> {s.phone}
+                  </a>
+                )}
+                <a
+                  className="btn ghost small"
+                  href={localUrl ?? s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  {localUrl && council
+                    ? `Apply to ${shortCouncil(council.name)}`
+                    : auto
+                      ? "Official page"
+                      : s.act
+                        ? theyify(s.act, subject)
+                        : "Claim online"}{" "}
+                  <Icon name="link" size={16} />
+                </a>
+                {!auto && (
+                  <button
+                    type="button"
+                    className="btn ghost small"
+                    onClick={() => (open ? setOpen(false) : void load())}
+                    aria-expanded={open}
+                    data-testid={`prep-${id}`}
+                  >
+                    <Icon name="spark" size={16} />{" "}
+                    {open ? "Hide what to say" : "What to say"}
+                  </button>
+                )}
+              </div>
+            )}
+            {s.list && status !== "unlock" && (
+              <SchemeList s={s} nation={nation} />
+            )}
+            {status !== "unlock" && !auto && <ClaimTrack id={id} />}
+            {open && (
+              <div className="prep" aria-live="polite">
+                {loading && <p className="hint">Writing your call notes…</p>}
+                {err && <p className="hint">{err}</p>}
+                {prep && (
                   <>
-                    <span className="eyebrow">Worth saying</span>
-                    <ul>
-                      {prep.mention.map((m) => (
-                        <li key={m}>{m}</li>
-                      ))}
-                    </ul>
+                    <p className="opening">"{prep.opening}"</p>
+                    {prep.mention.length > 0 && (
+                      <>
+                        <span className="eyebrow">Worth saying</span>
+                        <ul>
+                          {prep.mention.map((m) => (
+                            <li key={m}>{m}</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {prep.have_ready.length > 0 && (
+                      <>
+                        <span className="eyebrow">Have these to hand</span>
+                        <ul>
+                          {prep.have_ready.map((m) => (
+                            <li key={m}>{m}</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
+                    {prep.they_may_ask.length > 0 && (
+                      <>
+                        <span className="eyebrow">They may ask</span>
+                        <ul>
+                          {prep.they_may_ask.map((m) => (
+                            <li key={m}>{m}</li>
+                          ))}
+                        </ul>
+                      </>
+                    )}
                   </>
                 )}
-                {prep.have_ready.length > 0 && (
-                  <>
-                    <span className="eyebrow">Have these to hand</span>
-                    <ul>
-                      {prep.have_ready.map((m) => (
-                        <li key={m}>{m}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-                {prep.they_may_ask.length > 0 && (
-                  <>
-                    <span className="eyebrow">They may ask</span>
-                    <ul>
-                      {prep.they_may_ask.map((m) => (
-                        <li key={m}>{m}</li>
-                      ))}
-                    </ul>
-                  </>
-                )}
-              </>
+              </div>
             )}
-          </div>
+          </>
         )}
       </div>
     </li>

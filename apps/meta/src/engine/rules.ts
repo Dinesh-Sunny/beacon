@@ -331,7 +331,7 @@ export function worthLabel(s: Scheme, A: Answers = {}): string | null {
   const w = worthFor(s, A);
   if (!w) return null;
   if (w.topUp)
-    return `About ${gbp(w.max)}${PER_TXT[w.per]}, from what you told Beacon`;
+    return `About ${gbp(w.max)}${PER_TXT[w.per]}, from the answers given`;
   return `${w.min ? `${gbp(w.min)} to ` : "Up to "}${gbp(w.max)}${PER_TXT[w.per]}`;
 }
 
@@ -595,13 +595,10 @@ export function progressLine(st: States): string {
   const likely = count(st, "likely");
   const check = count(st, "check");
   const open = count(st, "open");
-  const parts = [
-    likely && `${likely} look likely`,
-    check && `${check} worth checking`,
-  ].filter(Boolean);
-  if (parts.length)
-    return `${parts.join(", ")}${open ? `, ${open} still to check` : ""}`;
-  return open ? `${open} kinds of help still in play` : "Nothing matches yet";
+  if (likely)
+    return `${likely} ${likely === 1 ? "looks" : "look"} likely so far`;
+  if (check) return `${check} worth checking so far`;
+  return open ? "Results appear as you answer" : "Nothing matches yet";
 }
 
 /** Compact summary used by the agent tools and the plan writer. Holds no personal values. */

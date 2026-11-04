@@ -14,11 +14,14 @@ export function Composer({
   onVoice,
   onPhoto,
   busy,
+  quiet = false,
 }: {
   onSend: (text: string) => void;
   onVoice: (wav: Blob) => void;
   onPhoto: (file: File) => void;
   busy: boolean;
+  /** While a question card is open, the composer steps back to one line. */
+  quiet?: boolean;
 }) {
   const [text, setText] = useState("");
   const [menu, setMenu] = useState(false);
@@ -132,8 +135,12 @@ export function Composer({
       <textarea
         id="chat-input"
         ref={ta}
-        rows={2}
-        placeholder="Tell Beacon about your situation"
+        rows={quiet && !text ? 1 : 2}
+        placeholder={
+          quiet
+            ? "Or tell Beacon in your own words"
+            : "Tell Beacon about your situation"
+        }
         value={text}
         onChange={(e) => setText(e.target.value)}
         onKeyDown={(e) => {

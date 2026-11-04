@@ -175,21 +175,13 @@ export function QuestionCard({
       data-testid={inChat ? "chat-question" : "question"}
       data-fact={f}
     >
-      <div className="qtop">
-        {editing ? (
+      {editing && (
+        <div className="qtop">
           <span className="eyebrow">
             {answers[f] === undefined ? "Answer here" : "Change an answer"}
           </span>
-        ) : (
-          <span />
-        )}
-        {hits.length > 0 && (
-          <span className="unlocks" data-testid="unlocks">
-            <Icon name="search" size={14} /> Checks {hits.length}{" "}
-            {hits.length === 1 ? "scheme" : "schemes"}
-          </span>
-        )}
-      </div>
+        </div>
+      )}
       <h2 id={inChat ? "q-chat" : "q-title"}>{ask(f, subject)}</h2>
       <p className="why">{theyify(fact.why, subject)}</p>
 

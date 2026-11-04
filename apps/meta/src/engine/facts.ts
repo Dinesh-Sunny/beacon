@@ -162,7 +162,7 @@ export const FACTS: Record<FactId, Fact> = {
     why: "Living alone can take money off the council tax bill.",
     label: "Lives with",
     opts: [
-      ["alone", "Nobody, I live alone"],
+      ["alone", "Nobody"],
       ["children", "Only children under 18"],
       ["partner", "A partner"],
       ["adults", "Other adults"],
@@ -332,7 +332,7 @@ export function formatAnswer(f: FactId, v: unknown): string {
         : WORK_TXT[w.status];
     }
     case "hours":
-      return `${v} hours a week`;
+      return Number(v) === 0 ? "None" : `${v} hours a week`;
     case "yesno":
       return v === "yes" ? "Yes" : "No";
     case "choice":

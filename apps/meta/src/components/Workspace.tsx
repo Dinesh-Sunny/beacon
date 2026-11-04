@@ -363,7 +363,7 @@ function Canvas() {
     <>
       <div className="canvas-top">
         <Activity />
-        {asked > 0 && (
+        {asked > 0 && settled < SCHEMES.length && (
           <div className="progress">
             <div
               className="meter"
@@ -398,7 +398,7 @@ function Canvas() {
           </p>
         </div>
       )}
-      <Constellation />
+      {found > 0 && <Constellation />}
     </>
   );
 }

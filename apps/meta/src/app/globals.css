@@ -3295,3 +3295,118 @@ fieldset.track-row {
 .life-events button:hover {
   border-color: var(--ink);
 }
+
+/* All kinds of help: folded under the results, with a one-line key to the dots */
+details.constellation > summary {
+  cursor: pointer;
+  list-style: none;
+  padding: 10px 0;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+details.constellation > summary::-webkit-details-marker {
+  display: none;
+}
+details.constellation > summary::after {
+  content: " +";
+}
+details.constellation[open] > summary::after {
+  content: " −";
+}
+.constellation .legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  margin: 0 0 6px;
+}
+.constellation .legend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+.constellation .legend i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+}
+.constellation .legend i.likely {
+  background: var(--good);
+}
+.constellation .legend i.check {
+  background: var(--check);
+}
+.constellation .legend i.unlock {
+  border: 1.5px dashed var(--chain);
+  background: transparent;
+}
+.constellation .legend i.have {
+  background: var(--ink);
+  opacity: 0.55;
+}
+.constellation .tile {
+  opacity: 1;
+  color: var(--ink);
+}
+
+/* Tap targets: every control people use with a thumb is at least 44px tall */
+.track-start,
+.track-row button,
+[data-testid="read-aloud"],
+[data-testid="more-help"],
+[data-testid="unsure"],
+.row-forget,
+.good-to-know .linkbtn {
+  min-height: 44px;
+}
+.track-row button:not(.linkbtn) {
+  padding: 8px 14px;
+}
+.track .done {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--good);
+  font-weight: 700;
+  min-height: 44px;
+}
+.track-start {
+  align-self: flex-start;
+}
+
+.chip.new {
+  margin-left: 8px;
+  vertical-align: middle;
+  background: var(--good);
+  color: var(--surface);
+  border-color: var(--good);
+  font-family: var(--f-body, inherit);
+}
+.plan-group {
+  display: flex;
+  flex-direction: column;
+}
+.plan-title {
+  padding: 18px 24px 0;
+  margin: 0;
+}
+.plan-group .plan {
+  padding-top: 10px;
+  padding-bottom: 6px;
+}
+.step-open {
+  align-self: flex-start;
+  min-height: 44px;
+}
+@media (max-width: 560px) {
+  .plan-title {
+    padding: 14px 14px 0;
+  }
+}
+
+.more-help .kind {
+  font-size: 0.82rem;
+  color: var(--muted);
+  white-space: nowrap;
+}

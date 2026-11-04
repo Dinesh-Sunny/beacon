@@ -25,11 +25,15 @@ const KEY = "beacon:claims:v1";
 const Ctx = createContext<{
   claims: Claims;
   setClaim: (id: string, state: ClaimState | null) => void;
+  /** Help an award just opened, marked New for this visit. */
+  fresh: string[];
+  setFresh: (ids: string[]) => void;
 } | null>(null);
 
 export function ClaimsProvider({ children }: { children: ReactNode }) {
   const { resets } = useCheck();
   const [claims, setClaims] = useState<Claims>({});
+  const [fresh, setFresh] = useState<string[]>([]);
   useEffect(() => {
     try {
       setClaims(JSON.parse(localStorage.getItem(KEY) ?? "{}") as Claims);
@@ -39,7 +43,10 @@ export function ClaimsProvider({ children }: { children: ReactNode }) {
   }, []);
   // Clear on start again.
   useEffect(() => {
-    if (resets) setClaims({});
+    if (resets) {
+      setClaims({});
+      setFresh([]);
+    }
   }, [resets]);
   useEffect(() => {
     try {
@@ -54,7 +61,11 @@ export function ClaimsProvider({ children }: { children: ReactNode }) {
       return state ? { ...rest, [id]: { state, at: Date.now() } } : rest;
     });
   }, []);
-  return <Ctx.Provider value={{ claims, setClaim }}>{children}</Ctx.Provider>;
+  return (
+    <Ctx.Provider value={{ claims, setClaim, fresh, setFresh }}>
+      {children}
+    </Ctx.Provider>
+  );
 }
 
 export function useClaims() {

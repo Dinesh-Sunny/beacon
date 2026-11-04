@@ -445,6 +445,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         onVoice={(w) => void onVoice(w)}
         onPhoto={(f) => void onPhoto(f)}
         busy={Boolean(working) || playing}
+        quiet={Boolean(next) && !working}
       />
     </>
   );
