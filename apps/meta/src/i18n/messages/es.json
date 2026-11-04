@@ -740,7 +740,7 @@
     },
     "steps": {
       "tag": "Ocho pasos",
-      "title": "Los mismos ocho pasos para cada persona",
+      "title": "Ocho pasos, de la primera pregunta a la llegada del dinero",
       "lead": "Los ocho funcionan hoy, en tu navegador."
     },
     "loop": {
@@ -901,11 +901,16 @@
       "ask": "Gracias. ¿Más o menos cuánto dinero le entra cada mes?",
       "you2": "Unos $1,300 de Social Security.",
       "note": "Un Medicare Savings Program también le da Extra Help con el gasto en medicamentos, así que pídelo primero."
+    },
+    "hood": {
+      "tag": "Por dentro",
+      "title": "Hecho con los modelos Muse de Meta",
+      "lead": "Los modelos escuchan, leen y explican. El código decide todo, igual para cada persona, y nada de lo que dice un modelo te llega sin que el código lo haya comprobado."
     }
   },
   "how": {
     "tag": "Cómo funciona",
-    "h1": "Agentes pequeños, una tarea cada uno",
+    "h1": "De unas pocas palabras a un plan que puedes seguir",
     "lead": "Los modelos Muse escuchan, leen y explican. Un código sencillo toma cada decisión, así que las mismas respuestas siempre dan el mismo resultado.",
     "stats": {
       "schemes": "Tipos de ayuda",
@@ -992,7 +997,7 @@
     },
     "loop": {
       "tag": "Ocho pasos",
-      "title": "Ocho pasos para cada persona",
+      "title": "Ocho pasos, de la primera pregunta a la llegada del dinero",
       "lead": "Los ocho funcionan hoy en Beacon. Los últimos pasos funcionan en tu navegador, así que tus solicitudes se quedan en tu dispositivo."
     },
     "models": {

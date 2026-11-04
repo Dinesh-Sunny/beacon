@@ -53,19 +53,27 @@ export async function HowToday() {
         <h3>{t("home.today.langTitle")}</h3>
         <p>{t("home.today.langText")}</p>
       </article>
-
-      <article className="mk-card full split">
-        <div>
-          <h3>{t("home.today.codeTitle")}</h3>
-          <p>{t("home.today.codeText")}</p>
-        </div>
-        <ul className="mk-chips" aria-label={t("home.today.chipsLabel")}>
-          <li>Muse Spark</li>
-          <li>Muse Voice Transcribe</li>
-          <li>SAM 3.1</li>
-          <li>Muse Image</li>
-        </ul>
-      </article>
     </div>
+  );
+}
+
+/** The model chips for the "Under the hood" card at the foot of the home page. */
+export async function CodeCard() {
+  const t = await getT();
+  return (
+    <article className="mk-card full split">
+      <div>
+        <h3>{t("home.today.codeTitle")}</h3>
+        <p>{t("home.today.codeText")}</p>
+      </div>
+      <ul className="mk-chips" aria-label={t("home.today.chipsLabel")}>
+        <li>Muse Spark</li>
+        <li>Muse Wonder</li>
+        <li>Muse Voice Transcribe</li>
+        <li>SAM 3.1</li>
+        <li>Muse Image</li>
+        <li>Muse Spark Open</li>
+      </ul>
+    </article>
   );
 }

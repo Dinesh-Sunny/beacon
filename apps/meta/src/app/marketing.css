@@ -2326,3 +2326,14 @@ html[data-dark="on"] .hb-rot i {
     font-size: 0.8rem;
   }
 }
+
+/* The foot of the home page: how it's built, after the story and the call to action. */
+.mk-hood {
+  border-top: 1px solid var(--line);
+}
+.mk-hood-sub {
+  font-family: var(--f-display);
+  font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+  font-weight: 600;
+  margin: 48px 0 20px;
+}

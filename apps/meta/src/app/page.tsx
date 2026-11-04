@@ -10,7 +10,7 @@ import { FinalCta } from "@/components/marketing/FinalCta";
 import { Growth, Plans } from "@/components/marketing/Growth";
 import { HeroBeams } from "@/components/marketing/HeroBeams";
 import { HeroWindow } from "@/components/marketing/HeroWindow";
-import { HowToday } from "@/components/marketing/HowToday";
+import { CodeCard, HowToday } from "@/components/marketing/HowToday";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SchemeMarquee } from "@/components/marketing/SchemeMarquee";
 import { SectionHead } from "@/components/marketing/SectionHead";
@@ -125,37 +125,6 @@ export default async function Home() {
             </Reveal>
           </section>
 
-          <section className="mk-wrap mk-section" aria-labelledby="frame-h">
-            <Reveal>
-              <SectionHead
-                tag={t("home.frame.tag")}
-                id="frame-h"
-                title={t("home.frame.title")}
-                center
-              >
-                {t("home.frame.lead")}
-              </SectionHead>
-            </Reveal>
-            <Reveal>
-              <BeaconMap />
-            </Reveal>
-          </section>
-
-          <section className="mk-wrap mk-section" aria-labelledby="steps-h">
-            <Reveal>
-              <SectionHead
-                tag={t("home.steps.tag")}
-                id="steps-h"
-                title={t("home.steps.title")}
-              >
-                {t("home.steps.lead")}
-              </SectionHead>
-            </Reveal>
-            <Reveal>
-              <StepsRail />
-            </Reveal>
-          </section>
-
           <section className="mk-wrap mk-section" aria-labelledby="today-h">
             <Reveal>
               <SectionHead
@@ -201,6 +170,22 @@ export default async function Home() {
             <SchemeMarquee />
           </section>
 
+          <section className="mk-wrap mk-section" aria-labelledby="frame-h">
+            <Reveal>
+              <SectionHead
+                tag={t("home.frame.tag")}
+                id="frame-h"
+                title={t("home.frame.title")}
+                center
+              >
+                {t("home.frame.lead")}
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <BeaconMap />
+            </Reveal>
+          </section>
+
           <section className="mk-wrap mk-section" aria-labelledby="grow-h">
             <Reveal>
               <SectionHead
@@ -218,6 +203,30 @@ export default async function Home() {
           </section>
 
           <FinalCta />
+
+          <section
+            className="mk-wrap mk-section mk-hood"
+            aria-labelledby="hood-h"
+          >
+            <Reveal>
+              <SectionHead
+                tag={t("home.hood.tag")}
+                id="hood-h"
+                title={t("home.hood.title")}
+              >
+                {t("home.hood.lead")}
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <CodeCard />
+            </Reveal>
+            <Reveal>
+              <h3 className="mk-hood-sub" id="steps-h">
+                {t("home.steps.title")}
+              </h3>
+              <StepsRail />
+            </Reveal>
+          </section>
         </main>
         <SiteFooter />
       </div>
