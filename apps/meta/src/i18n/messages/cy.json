@@ -558,5 +558,24 @@
     "close": "Cau",
     "steps": "Camau",
     "log": "Popeth wnaeth yr asiantau"
+  },
+  "offline": {
+    "note": "Rydych chi all-lein. Mae eich atebion yn ddiogel ar y ddyfais hon, a bydd Beacon yn parhau pan fyddwch chi'n ôl."
+  },
+  "meta": {
+    "homeTitle": "Beacon - dewch o hyd i'r cymorth sydd eisoes yn eiddo i chi",
+    "homeDesc": "Dywedwch wrth Beacon am eich bywyd drwy deipio, siarad neu dynnu llun o lythyr. Mae'n dod o hyd i'r cymorth sy'n debygol o fod yn eiddo i chi ac yn eich paratoi i hawlio.",
+    "howTitle": "Sut mae'n gweithio",
+    "howDesc": "Sut mae asiantau Beacon yn troi sgwrs, neges lais neu lun o lythyr yn rhestr o gymorth wedi'i gwirio a chynllun i'w hawlio.",
+    "checkTitle": "Eich gwiriad"
+  },
+  "errors": {
+    "title": "Aeth rhywbeth o'i le ar y dudalen hon",
+    "body": "Mae eich atebion yn dal wedi'u cadw ar y ddyfais hon. Rhowch gynnig arall arni, ac os yw'n dal i ddigwydd, dechreuwch wiriad newydd.",
+    "retry": "Rhoi cynnig arall arni",
+    "notFoundTitle": "Nid yw'r dudalen hon yma",
+    "notFoundBody": "Efallai bod y ddolen yn hen. Dechreuwch wiriad, neu ewch yn ôl i'r hafan.",
+    "home": "Hafan",
+    "loading": "Paratoi eich gwiriad"
   }
 }

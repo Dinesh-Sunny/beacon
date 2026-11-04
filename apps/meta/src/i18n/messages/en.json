@@ -558,5 +558,24 @@
     "close": "Close",
     "steps": "Steps",
     "log": "Everything the agents did"
+  },
+  "offline": {
+    "note": "You're offline. Your answers are safe on this device, and Beacon carries on when you're back."
+  },
+  "meta": {
+    "homeTitle": "Beacon - find the support that's already yours",
+    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter. It finds the help that's likely yours, warns you about clashes and gets you ready to claim.",
+    "howTitle": "How it works",
+    "howDesc": "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
+    "checkTitle": "Your check"
+  },
+  "errors": {
+    "title": "Something went wrong on this page",
+    "body": "Your answers are still saved on this device. Try again, and if it keeps happening, start a fresh check.",
+    "retry": "Try again",
+    "notFoundTitle": "This page isn't here",
+    "notFoundBody": "The link may be old. Start a check, or go back to the home page.",
+    "home": "Home",
+    "loading": "Getting your check ready"
   }
 }

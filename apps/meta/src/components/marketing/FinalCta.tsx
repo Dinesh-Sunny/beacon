@@ -16,7 +16,11 @@ export async function FinalCta({
         <div className="mk-cta-glow" aria-hidden="true" />
         <h2 id="cta-h">{title ?? t("site.ctaTitle")}</h2>
         <p className="mk-lead">{text ?? t("site.ctaText")}</p>
-        <Link href="/check" className="btn mk-cta-btn">
+        <Link
+          href="/check"
+          className="btn mk-cta-btn"
+          transitionTypes={["nav-forward"]}
+        >
           {t("site.start")} <Icon name="arrow" size={18} />
         </Link>
         <ul className="mk-cta-facts">

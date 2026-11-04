@@ -20,7 +20,7 @@ export function HomeStart() {
     } catch {
       /* storage blocked: the check still opens */
     }
-    router.push("/check");
+    router.push("/check", { transitionTypes: ["nav-forward"] });
   };
   return (
     <div className="home-start">
@@ -55,7 +55,11 @@ export function HomeStart() {
           </button>
         </div>
       </form>
-      <Link href="/check#example=margaret" className="quiet-link">
+      <Link
+        href="/check#example=margaret"
+        className="quiet-link"
+        transitionTypes={["nav-forward"]}
+      >
         {tr("watch")} <Icon name="arrow" size={16} />
       </Link>
     </div>

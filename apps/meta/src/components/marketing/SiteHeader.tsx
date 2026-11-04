@@ -11,7 +11,7 @@ export async function SiteHeader({ current }: { current?: "how" }) {
         {t("site.skip")}
       </a>
       <header className="site-head mk-head">
-        <Link href="/" className="brand">
+        <Link href="/" className="brand" transitionTypes={["nav-back"]}>
           <Logo />
           <span>Beacon</span>
         </Link>
@@ -23,7 +23,11 @@ export async function SiteHeader({ current }: { current?: "how" }) {
           >
             {t("site.how")}
           </Link>
-          <Link href="/check" className="btn small">
+          <Link
+            href="/check"
+            className="btn small"
+            transitionTypes={["nav-forward"]}
+          >
             {t("site.start")}
           </Link>
         </nav>

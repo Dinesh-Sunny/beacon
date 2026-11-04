@@ -558,5 +558,24 @@
     "close": "Zamknij",
     "steps": "Kroki",
     "log": "Wszystko, co zrobili agenci"
+  },
+  "offline": {
+    "note": "Jesteś offline. Twoje odpowiedzi są bezpieczne na tym urządzeniu, a Beacon będzie działać dalej, gdy wrócisz."
+  },
+  "meta": {
+    "homeTitle": "Beacon - znajdź wsparcie, które już Ci przysługuje",
+    "homeDesc": "Opowiedz Beacon o swoim życiu: napisz, powiedz albo zrób zdjęcie listu. Beacon znajdzie pomoc, która prawdopodobnie Ci przysługuje, i przygotuje Cię do złożenia wniosku.",
+    "howTitle": "Jak to działa",
+    "howDesc": "Jak agenci Beacon zamieniają rozmowę, nagranie głosowe albo zdjęcie listu w sprawdzoną listę wsparcia i plan złożenia wniosków.",
+    "checkTitle": "Twoje sprawdzenie"
+  },
+  "errors": {
+    "title": "Coś poszło nie tak na tej stronie",
+    "body": "Twoje odpowiedzi są nadal zapisane na tym urządzeniu. Spróbuj ponownie, a jeśli to się powtarza, zacznij od nowa.",
+    "retry": "Spróbuj ponownie",
+    "notFoundTitle": "Tej strony tu nie ma",
+    "notFoundBody": "Link może być nieaktualny. Zacznij sprawdzanie albo wróć na stronę główną.",
+    "home": "Strona główna",
+    "loading": "Przygotowuję Twoje sprawdzenie"
   }
 }

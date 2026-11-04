@@ -153,7 +153,12 @@ function Shell() {
         {t("skip")}
       </a>
       <header className="strip">
-        <Link href="/" className="brand" aria-label={t("home")}>
+        <Link
+          href="/"
+          className="brand"
+          aria-label={t("home")}
+          transitionTypes={["nav-back"]}
+        >
           <Logo />
           <span>Beacon</span>
         </Link>

@@ -558,5 +558,24 @@
     "close": "Cerrar",
     "steps": "Pasos",
     "log": "Todo lo que hicieron los agentes"
+  },
+  "offline": {
+    "note": "Estás sin conexión. Tus respuestas están a salvo en este dispositivo y Beacon seguirá cuando vuelvas."
+  },
+  "meta": {
+    "homeTitle": "Beacon - encuentra la ayuda que ya es tuya",
+    "homeDesc": "Cuéntale a Beacon sobre tu vida escribiendo, hablando o con una foto de una carta. Encuentra la ayuda que probablemente es tuya y te prepara para pedirla.",
+    "howTitle": "Cómo funciona",
+    "howDesc": "Cómo los agentes de Beacon convierten una conversación, una nota de voz o la foto de una carta en una lista de ayudas comprobada y un plan para pedirlas.",
+    "checkTitle": "Tu comprobación"
+  },
+  "errors": {
+    "title": "Algo ha fallado en esta página",
+    "body": "Tus respuestas siguen guardadas en este dispositivo. Inténtalo de nuevo y, si sigue pasando, empieza una comprobación nueva.",
+    "retry": "Intentar de nuevo",
+    "notFoundTitle": "Esta página no está aquí",
+    "notFoundBody": "Puede que el enlace sea antiguo. Empieza una comprobación o vuelve al inicio.",
+    "home": "Inicio",
+    "loading": "Preparando tu comprobación"
   }
 }

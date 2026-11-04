@@ -4,11 +4,15 @@ import "@fontsource-variable/fraunces/index.css";
 import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
+import { OfflineNotice } from "@/components/OfflineNotice";
 import { localeInfo } from "@/i18n/locales";
 import { I18nProvider } from "@/i18n/Provider";
 import { getLocale, invites, messagesFor } from "@/i18n/server";
+import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(SITE_URL),
+  applicationName: "Beacon",
   title: {
     default: "Beacon - find the support that's already yours",
     template: "%s · Beacon",
@@ -42,6 +46,7 @@ export default async function RootLayout({
           messages={messagesFor(locale)}
           invites={invites()}
         >
+          <OfflineNotice />
           {children}
         </I18nProvider>
       </body>

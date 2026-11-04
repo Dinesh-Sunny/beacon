@@ -1,4 +1,6 @@
 import type { Metadata } from "next";
+import { PageTransition } from "@/components/PageTransition";
+import { getT } from "@/i18n/server";
 import "../marketing.css";
 import { Icon } from "@/components/Icon";
 import { FinalCta } from "@/components/marketing/FinalCta";
@@ -17,11 +19,10 @@ import {
   TOPICS,
 } from "@/engine/rules";
 
-export const metadata: Metadata = {
-  title: "How it works",
-  description:
-    "How Beacon's agents turn a chat, a voice note or a photo of a letter into a checked list of support and a plan to claim it.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const t = await getT();
+  return { title: t("meta.howTitle"), description: t("meta.howDesc") };
+}
 
 const FLOW = [
   {
@@ -112,180 +113,184 @@ const MODELS = [
 
 export default function How() {
   return (
-    <div className="site mk-page">
-      <SiteHeader current="how" />
-      <main id="main">
-        <section className="mk-wrap mk-howhero" aria-labelledby="how-h">
-          <span className="mk-tag">How it works</span>
-          <h1 id="how-h">Small agents, one job each</h1>
-          <p className="mk-lead">
-            The Muse models listen, read and explain. Plain code makes every
-            decision, so the same answers always give the same result.
-          </p>
-          <dl className="mk-stats">
-            <div>
-              <dt>Kinds of help</dt>
-              <dd>
-                <Ticker value={SCHEMES.length} />
-              </dd>
-            </div>
-            <div>
-              <dt>Areas of life</dt>
-              <dd>
-                <Ticker value={TOPICS.length} />
-              </dd>
-            </div>
-            <div>
-              <dt>Nations covered</dt>
-              <dd>
-                <Ticker value={COVERED_NATIONS.length} />
-              </dd>
-            </div>
-            <div>
-              <dt>Council pages</dt>
-              <dd>
-                <Ticker value={COUNTS.councilLinks.links} />
-              </dd>
-            </div>
-            <div>
-              <dt>Grant-giving charities</dt>
-              <dd>
-                <Ticker value={COUNTS.charityFunds.funds} />
-              </dd>
-            </div>
-            <div>
-              <dt>Meta models</dt>
-              <dd>
-                <Ticker value={MODELS.length} />
-              </dd>
-            </div>
-          </dl>
-        </section>
+    <PageTransition>
+      <div className="site mk-page">
+        <SiteHeader current="how" />
+        <main id="main">
+          <section className="mk-wrap mk-howhero" aria-labelledby="how-h">
+            <span className="mk-tag">How it works</span>
+            <h1 id="how-h">Small agents, one job each</h1>
+            <p className="mk-lead">
+              The Muse models listen, read and explain. Plain code makes every
+              decision, so the same answers always give the same result.
+            </p>
+            <dl className="mk-stats">
+              <div>
+                <dt>Kinds of help</dt>
+                <dd>
+                  <Ticker value={SCHEMES.length} />
+                </dd>
+              </div>
+              <div>
+                <dt>Areas of life</dt>
+                <dd>
+                  <Ticker value={TOPICS.length} />
+                </dd>
+              </div>
+              <div>
+                <dt>Nations covered</dt>
+                <dd>
+                  <Ticker value={COVERED_NATIONS.length} />
+                </dd>
+              </div>
+              <div>
+                <dt>Council pages</dt>
+                <dd>
+                  <Ticker value={COUNTS.councilLinks.links} />
+                </dd>
+              </div>
+              <div>
+                <dt>Grant-giving charities</dt>
+                <dd>
+                  <Ticker value={COUNTS.charityFunds.funds} />
+                </dd>
+              </div>
+              <div>
+                <dt>Meta models</dt>
+                <dd>
+                  <Ticker value={MODELS.length} />
+                </dd>
+              </div>
+            </dl>
+          </section>
 
-        <section className="mk-wrap mk-section" aria-labelledby="flow-h">
-          <Reveal>
-            <SectionHead
-              tag="The flow"
-              id="flow-h"
-              title="From a chat to a plan"
-            >
-              What you say goes in on the left. A checked plan comes out on the
-              right.
-            </SectionHead>
-          </Reveal>
-          <Reveal>
-            <Pipeline lanes={FLOW} />
-          </Reveal>
-        </section>
-
-        <section className="mk-wrap mk-section" aria-labelledby="loop-h">
-          <Reveal>
-            <SectionHead
-              tag="Eight steps"
-              id="loop-h"
-              title="Eight steps for every person"
-            >
-              All eight run in Beacon today. The later steps run in your
-              browser, so your claims stay on your device.
-            </SectionHead>
-          </Reveal>
-          <Reveal>
-            <StepsRail />
-          </Reveal>
-        </section>
-
-        <section className="mk-wrap mk-section" aria-labelledby="models-h">
-          <Reveal>
-            <SectionHead
-              tag="Models"
-              id="models-h"
-              title="Meta models in Beacon"
-            >
-              Each model has one job. Code checks everything they hand back
-              before you see it.
-            </SectionHead>
-          </Reveal>
-          <Reveal>
-            <ul className="mk-models">
-              {MODELS.map(([n, id, job]) => (
-                <li key={id}>
-                  <div className="mk-model-top">
-                    <b>{n}</b>
-                    <code>{id}</code>
-                  </div>
-                  <span>{job}</span>
-                </li>
-              ))}
-            </ul>
-          </Reveal>
-        </section>
-
-        <section className="mk-wrap mk-section" aria-labelledby="rules-h">
-          <div className="mk-rules">
+          <section className="mk-wrap mk-section" aria-labelledby="flow-h">
             <Reveal>
               <SectionHead
-                tag="Promises"
-                id="rules-h"
-                title="Rules Beacon keeps"
+                tag="The flow"
+                id="flow-h"
+                title="From a chat to a plan"
               >
-                Written into the code, so they hold for every check.
+                What you say goes in on the left. A checked plan comes out on
+                the right.
               </SectionHead>
             </Reveal>
             <Reveal>
-              <ol className="mk-ledger">
-                {RULES.map((r, i) => (
-                  <li key={r}>
-                    <span className="n">{String(i + 1).padStart(2, "0")}</span>
-                    <span>{r}</span>
-                    <Icon name="check" size={18} />
+              <Pipeline lanes={FLOW} />
+            </Reveal>
+          </section>
+
+          <section className="mk-wrap mk-section" aria-labelledby="loop-h">
+            <Reveal>
+              <SectionHead
+                tag="Eight steps"
+                id="loop-h"
+                title="Eight steps for every person"
+              >
+                All eight run in Beacon today. The later steps run in your
+                browser, so your claims stay on your device.
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <StepsRail />
+            </Reveal>
+          </section>
+
+          <section className="mk-wrap mk-section" aria-labelledby="models-h">
+            <Reveal>
+              <SectionHead
+                tag="Models"
+                id="models-h"
+                title="Meta models in Beacon"
+              >
+                Each model has one job. Code checks everything they hand back
+                before you see it.
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <ul className="mk-models">
+                {MODELS.map(([n, id, job]) => (
+                  <li key={id}>
+                    <div className="mk-model-top">
+                      <b>{n}</b>
+                      <code>{id}</code>
+                    </div>
+                    <span>{job}</span>
                   </li>
                 ))}
-              </ol>
+              </ul>
             </Reveal>
-          </div>
-        </section>
+          </section>
 
-        <section className="mk-wrap mk-section" aria-labelledby="cover-h">
-          <Reveal>
-            <SectionHead
-              tag="Coverage"
-              id="cover-h"
-              title="What it checks today"
-            >
-              {SCHEMES.length} kinds of help across {TOPICS.length} areas of
-              life in {COVERED_NATIONS_TXT}, from Pension Credit to Healthy
-              Start. Income lines are screening estimates, so anything close
-              comes back as worth checking.
-            </SectionHead>
-          </Reveal>
-          <Reveal>
-            <div className="mk-topics">
-              {TOPICS.map(([t, name]) => {
-                const list = SCHEMES.filter((s) => s.topic === t);
-                return (
-                  <div key={t} className="mk-topic">
-                    <div className="mk-topic-top">
-                      <b>{name}</b>
-                      <span className="mk-count">{list.length}</span>
-                    </div>
-                    <ul>
-                      {list.map((s) => (
-                        <li key={s.id}>{s.name}</li>
-                      ))}
-                    </ul>
-                  </div>
-                );
-              })}
+          <section className="mk-wrap mk-section" aria-labelledby="rules-h">
+            <div className="mk-rules">
+              <Reveal>
+                <SectionHead
+                  tag="Promises"
+                  id="rules-h"
+                  title="Rules Beacon keeps"
+                >
+                  Written into the code, so they hold for every check.
+                </SectionHead>
+              </Reveal>
+              <Reveal>
+                <ol className="mk-ledger">
+                  {RULES.map((r, i) => (
+                    <li key={r}>
+                      <span className="n">
+                        {String(i + 1).padStart(2, "0")}
+                      </span>
+                      <span>{r}</span>
+                      <Icon name="check" size={18} />
+                    </li>
+                  ))}
+                </ol>
+              </Reveal>
             </div>
-          </Reveal>
-        </section>
+          </section>
 
-        <FinalCta
-          title="See what's yours"
-          text="Type, speak or snap a letter. Beacon does the checking."
-        />
-      </main>
-      <SiteFooter />
-    </div>
+          <section className="mk-wrap mk-section" aria-labelledby="cover-h">
+            <Reveal>
+              <SectionHead
+                tag="Coverage"
+                id="cover-h"
+                title="What it checks today"
+              >
+                {SCHEMES.length} kinds of help across {TOPICS.length} areas of
+                life in {COVERED_NATIONS_TXT}, from Pension Credit to Healthy
+                Start. Income lines are screening estimates, so anything close
+                comes back as worth checking.
+              </SectionHead>
+            </Reveal>
+            <Reveal>
+              <div className="mk-topics">
+                {TOPICS.map(([t, name]) => {
+                  const list = SCHEMES.filter((s) => s.topic === t);
+                  return (
+                    <div key={t} className="mk-topic">
+                      <div className="mk-topic-top">
+                        <b>{name}</b>
+                        <span className="mk-count">{list.length}</span>
+                      </div>
+                      <ul>
+                        {list.map((s) => (
+                          <li key={s.id}>{s.name}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  );
+                })}
+              </div>
+            </Reveal>
+          </section>
+
+          <FinalCta
+            title="See what's yours"
+            text="Type, speak or snap a letter. Beacon does the checking."
+          />
+        </main>
+        <SiteFooter />
+      </div>
+    </PageTransition>
   );
 }
