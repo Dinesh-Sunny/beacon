@@ -156,6 +156,9 @@ function runTool(
         issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")),
       });
     const patch = toAnswers(parsed.data);
+    // A ZIP code means a US check and a postcode a UK one, whatever was picked before.
+    if (patch.zip) patch.country = "US";
+    else if (patch.postcode) patch.country = "GB";
     const keys = Object.keys(patch).filter(isFactId);
     Object.assign(saved, patch);
     const after = { ...answers, ...saved };
