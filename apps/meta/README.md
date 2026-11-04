@@ -59,8 +59,9 @@ Everything in `apps/meta` was built for this hackathon, during the build window 
 - The chat-first workspace: Beacon's questions inside the chat, a calm canvas where results light up, and a Details panel that lists every question and shows where each saved detail came from
 - The Muse Spark agent with five tools, including switching the whole check to "Check for Mum"
 - Voice input with Muse Voice Transcribe, recorded straight to WAV in the browser
-- Letter reading with SAM 3.1 and Muse Spark vision, with an outbound scrub
-- Results with claim plan, call coach notes and a Muse Image banner
+- Letter reading with SAM 3.1 and Muse Spark vision, with an outbound scrub, plus a made-up sample letter anyone can try from the + menu
+- Results with claim plan, "Good to know" clash notes, call coach notes and a Muse Image banner
+- A calm canvas: 21 tiles that light up as answers settle each scheme
 - Home page and a "How it works" page
 
 ## Run it

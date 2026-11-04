@@ -261,6 +261,7 @@ export function ChatPanel() {
           <Message key={m.id} m={m} last={i === msgs.length - 1} />
         ))}
         {!working && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
+        {!working && !next && <AskChips onAsk={(q) => void send(q)} />}
         {working && (
           <div className="working" role="status">
             <Logo size={16} /> {working}
@@ -342,6 +343,28 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
           {rated && <span className="hint">Thanks, that helps.</span>}
         </div>
       )}
+    </div>
+  );
+}
+
+function AskChips({ onAsk }: { onAsk: (q: string) => void }) {
+  const { states, subject } = useCheck();
+  const top = SCHEMES.find((s) => states[s.id]?.status === "likely");
+  if (!top) return null;
+  const who = subject.who === "me" ? "I" : `my ${subject.label?.toLowerCase().replace(/^my /, "")}`;
+  const asks = [
+    "What should we claim first?",
+    `Explain ${top.name} in plain words`,
+    `Could claiming one thing lower another for ${who === "I" ? "me" : who}?`,
+  ];
+  return (
+    <div className="ask-chips" aria-label="Ask Beacon">
+      <span className="hint">Ask me about the results</span>
+      {asks.map((q) => (
+        <button key={q} type="button" onClick={() => onAsk(q)}>
+          {q}
+        </button>
+      ))}
     </div>
   );
 }
