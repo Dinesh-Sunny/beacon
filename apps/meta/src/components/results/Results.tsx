@@ -27,6 +27,7 @@ import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { useClaims } from "@/lib/claims";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
+import { LocalHelp } from "./LocalHelp";
 import { SchemeList } from "./lists";
 import { MoreHelp } from "./MoreHelp";
 import { ReadAloud } from "./ReadAloud";
@@ -210,6 +211,7 @@ export function Results() {
           </ol>
         </section>
       ))}
+      <LocalHelp />
       <MoreHelp />
 
       <div className="res-foot">

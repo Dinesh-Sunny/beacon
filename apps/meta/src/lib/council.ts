@@ -11,13 +11,22 @@ export interface Council {
 }
 
 export type PlaceNation = "eng" | "sco" | "wal" | "ni";
+export interface LocalLink {
+  lgsl: string;
+  label: string;
+  people: string[];
+  scheme?: string;
+  url: string;
+  by: string;
+}
 export interface Place {
   council: Council | null;
   nation: PlaceNation | null;
+  local: LocalLink[];
 }
 
 const known = new Map<string, Promise<Place>>();
-const NONE: Place = { council: null, nation: null };
+const NONE: Place = { council: null, nation: null, local: [] };
 
 function lookup(postcode: string): Promise<Place> {
   const key = postcode.replace(/\s+/g, "").toUpperCase();

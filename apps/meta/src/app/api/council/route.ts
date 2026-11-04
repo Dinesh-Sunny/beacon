@@ -18,6 +18,9 @@ export async function GET(req: Request) {
   try {
     return json(await placeFor(q.data.postcode));
   } catch {
-    return json({ council: null, nation: null, error: "lookup" }, 502);
+    return json(
+      { council: null, nation: null, local: [], error: "lookup" },
+      502,
+    );
   }
 }

@@ -38,7 +38,7 @@ The `facts` on `next` items use today's fact ids where they fit. These ids are p
 | [GOV.UK Content API](https://content-api.publishing.service.gov.uk/) | api | open | JSON for any GOV.UK page. No key, 10 requests a second, OGL v3.0 |
 | [GOV.UK Search API](https://www.gov.uk/api/search.json) | search | open | Lists GOV.UK pages by type, browse page and organisation |
 | [GOV.UK local-authority API](https://www.gov.uk/api/local-authority?postcode=HA90WS) | api | open | Postcode to council name, website and tier (undocumented, cache it) |
-| GOV.UK local transactions (LGSL links) | api | open | Per-council links for services like Council Tax Reduction (to confirm) |
+| [GOV.UK Local Links Manager export](https://local-links-manager.publishing.service.gov.uk/data/links_to_services_provided_by_local_authorities.csv) | dataset | open | Every council's page per service: 7,165 kept links, 33 services, 380 councils |
 | [postcodes.io](https://postcodes.io/) | api | open | Postcode to council code, ward, nation, deprivation index |
 | [ONS Open Geography Portal](https://geoportal.statistics.gov.uk/) | dataset | open | Official list of every council name and code |
 | mygov.scot, gov.wales, nidirect | page | scrape | Devolved schemes; no content API found |
