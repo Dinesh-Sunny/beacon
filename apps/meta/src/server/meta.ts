@@ -157,17 +157,20 @@ export async function segment(imageDataUrl: string, prompt: string): Promise<Box
   );
   const text = await res.text();
   let out = "";
+  const types = new Set<string>();
   for (const line of text.split("\n")) {
     if (!line.startsWith("data:")) continue;
     try {
-      const ev = JSON.parse(line.slice(5).trim()) as { type?: string; delta?: string };
+      const ev = JSON.parse(line.slice(5).trim()) as { type?: string; delta?: string; text?: string };
+      if (ev.type) types.add(ev.type);
       if (ev.type === "response.output_text.delta" && ev.delta) out += ev.delta;
+      if (ev.type === "response.output_text.done" && !out && ev.text) out = ev.text;
     } catch {
       /* keep-alive or [DONE] */
     }
   }
   if (process.env.NODE_ENV !== "production" && !out) console.warn("[sam] empty output", text.slice(0, 400));
-  lastSamRaw = text.slice(0, 600);
+  lastSamRaw = `${prompt}: types=${[...types].join(",")} out=${out.slice(0, 300)} tail=${text.slice(-300)}`;
   return parseBoxes(out);
 }
 
