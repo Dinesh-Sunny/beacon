@@ -10,16 +10,18 @@ export const alt = "Beacon - find the support that's already yours";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-const font = (w: number) =>
+// Copied into assets/ and listed in outputFileTracingIncludes so the server bundle carries them.
+const font = (w: 400 | 700) =>
   readFile(
     join(
       process.cwd(),
-      `node_modules/@fontsource/atkinson-hyperlegible/files/atkinson-hyperlegible-latin-${w}-normal.woff`,
+      "assets/fonts",
+      `atkinson-hyperlegible-latin-${w}-normal.woff`,
     ),
-  );
-const [regular, bold] = await Promise.all([font(400), font(700)]);
+  ).catch(() => null);
 
-export default function Image() {
+export default async function Image() {
+  const [regular, bold] = await Promise.all([font(400), font(700)]);
   return new ImageResponse(
     <div
       style={{
@@ -64,10 +66,14 @@ export default function Image() {
     </div>,
     {
       ...size,
-      fonts: [
-        { name: "Atkinson", data: regular, weight: 400, style: "normal" },
-        { name: "Atkinson", data: bold, weight: 700, style: "normal" },
-      ],
+      // Without the files the image still draws, in the default font.
+      fonts:
+        regular && bold
+          ? [
+              { name: "Atkinson", data: regular, weight: 400, style: "normal" },
+              { name: "Atkinson", data: bold, weight: 700, style: "normal" },
+            ]
+          : undefined,
     },
   );
 }
