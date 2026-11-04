@@ -8,7 +8,7 @@ import { Countries } from "@/components/marketing/Countries";
 import { SOURCE_URL } from "@/components/marketing/content";
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { Growth, Plans } from "@/components/marketing/Growth";
-import { HeroSky } from "@/components/marketing/HeroSky";
+import { HeroWindow } from "@/components/marketing/HeroWindow";
 import { HowToday } from "@/components/marketing/HowToday";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SchemeMarquee } from "@/components/marketing/SchemeMarquee";
@@ -63,29 +63,40 @@ export default async function Home() {
 
         <main id="main">
           <section className="mk-hero" aria-labelledby="hero-h">
-            <HeroSky />
-            <div className="mk-wrap mk-hero-copy">
-              <p className="mk-pill">
-                <span className="dot" aria-hidden="true" />{" "}
-                {t("site.pillAll", {
-                  count: SCHEMES.length,
-                  languages: LOCALES.length,
-                })}
-              </p>
-              <h1 id="hero-h">{t("site.h1")}</h1>
-              <p className="mk-lead">{t("site.lead")}</p>
-              <HomeStart />
-              <ul className="mk-trust">
-                <li>
-                  <Icon name="lock" size={16} /> {t("site.factBrowser")}
-                </li>
-                <li>
-                  <Icon name="shield" size={16} /> {t("site.factNoIdShort")}
-                </li>
-                <li>
-                  <Icon name="spark" size={16} /> {t("site.factFree")}
-                </li>
-              </ul>
+            <div className="hx-panel">
+              {/* A slow, light fluid gradient: beacon amber, peach and morning sky. */}
+              <div className="hx-fluid" aria-hidden="true">
+                <i className="b1" />
+                <i className="b2" />
+                <i className="b3" />
+                <i className="b4" />
+              </div>
+              <div className="mk-wrap mk-hero-copy">
+                <p className="mk-pill">
+                  <span className="dot" aria-hidden="true" />{" "}
+                  {t("site.pillAll", {
+                    count: SCHEMES.length,
+                    languages: LOCALES.length,
+                  })}
+                </p>
+                <h1 id="hero-h">{t("site.h1")}</h1>
+                <p className="mk-lead">{t("site.lead")}</p>
+                <HomeStart />
+                <ul className="mk-trust">
+                  <li>
+                    <Icon name="lock" size={16} /> {t("site.factBrowser")}
+                  </li>
+                  <li>
+                    <Icon name="shield" size={16} /> {t("site.factNoIdShort")}
+                  </li>
+                  <li>
+                    <Icon name="spark" size={16} /> {t("site.factFree")}
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="mk-wrap hx-window">
+              <HeroWindow />
             </div>
           </section>
 

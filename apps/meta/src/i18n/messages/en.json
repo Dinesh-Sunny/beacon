@@ -464,7 +464,7 @@
     "h1": "Find the support that's already yours.",
     "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
     "inputLabel": "Tell Beacon about your situation",
-    "inputHint": "For example: my mum is 78, lives alone in Wembley and finds stairs hard",
+    "inputHint": "My mum is 78 and finds stairs hard",
     "alsoSpeak": "You can also speak or add a letter",
     "go": "Start",
     "watch": "or watch Margaret's check",
@@ -479,11 +479,12 @@
     "code": "Code on GitHub",
     "skip": "Skip to content",
     "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages",
-    "starter1": "My mum is 78 and finds stairs hard",
-    "starter2": "I just lost my job and rent is due",
-    "starter3": "Single dad in Texas with two kids",
-    "startersLabel": "Try an example",
-    "factNoIdShort": "Never asks for ID or bank details"
+    "factNoIdShort": "Never asks for ID or bank details",
+    "forLabel": "Who is the check for?",
+    "forOther": "Someone I look after",
+    "forMe": "Me",
+    "inputHintMe": "I'm 67, live alone and my pension is small",
+    "tryExample": "Try an example check"
   },
   "status": {
     "open": "Still open",
@@ -1041,6 +1042,50 @@
       "money": "Budgeting and credit",
       "buying": "Buying a home",
       "reverse": "Reverse mortgages"
+    }
+  },
+  "hero": {
+    "tabsLabel": "See an example check",
+    "windowTitle": "Margaret's check",
+    "tabs": {
+      "chat": "Chat",
+      "results": "Results",
+      "plan": "Plan",
+      "call": "Call notes",
+      "near": "Near you"
+    },
+    "captions": {
+      "chat": "Tell Beacon in your own words. It asks one small question at a time, only what could change a result.",
+      "results": "Each result shows the rules it rests on and links to the official page.",
+      "plan": "Claims in the right order, with a warning when one could lower another.",
+      "call": "Who to call, the number, and what to say.",
+      "near": "Your council's own pages and local charities, found from your postcode."
+    },
+    "chat": {
+      "saved": "Saved: age, home and daily help"
+    },
+    "results": {
+      "head": "{count, plural, one {# thing looks likely so far} other {# things look likely so far}}",
+      "range": "{min} to {max} a week",
+      "topUp": "A weekly top-up to her income",
+      "council": "Set by her council"
+    },
+    "plan": {
+      "now": "Start now"
+    },
+    "call": {
+      "head": "Calling about {name}",
+      "say": "\"I'd like to ask for a claim form for my mum. She's 78 and needs help most mornings.\"",
+      "after": "Next: {next}"
+    },
+    "near": {
+      "head": "From Brent Council and nearby",
+      "ctr": "Council Tax Reduction",
+      "care": "Care needs assessment",
+      "adapt": "Home adaptations and aids",
+      "council": "Brent Council",
+      "charity": "Grant-giving charities for older people",
+      "register": "Charity register"
     }
   }
 }

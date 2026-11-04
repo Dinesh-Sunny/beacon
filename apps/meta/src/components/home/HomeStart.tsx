@@ -13,7 +13,8 @@ export function HomeStart() {
   const tr = useTranslations("site");
   const [text, setText] = useState("");
   const box = useRef<HTMLTextAreaElement>(null);
-  const starters = [tr("starter1"), tr("starter2"), tr("starter3")];
+  // Who the check is for only changes the example; the agent reads who from the words.
+  const [forWhom, setForWhom] = useState<"me" | "other">("other");
   const router = useRouter();
   const go = () => {
     const t = text.trim();
@@ -26,6 +27,24 @@ export function HomeStart() {
   };
   return (
     <div className="home-start">
+      <fieldset className="hs-for">
+        <legend className="sr-only">{tr("forLabel")}</legend>
+        {(["other", "me"] as const).map((w) => (
+          <label key={w} className={forWhom === w ? "on" : undefined}>
+            <input
+              type="radio"
+              name="for"
+              value={w}
+              checked={forWhom === w}
+              onChange={() => {
+                setForWhom(w);
+                box.current?.focus();
+              }}
+            />
+            {w === "me" ? tr("forMe") : tr("forOther")}
+          </label>
+        ))}
+      </fieldset>
       <form
         className="composer hero-input"
         onSubmit={(e) => {
@@ -40,7 +59,7 @@ export function HomeStart() {
           ref={box}
           id="home-input"
           rows={2}
-          placeholder={tr("inputHint")}
+          placeholder={forWhom === "me" ? tr("inputHintMe") : tr("inputHint")}
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
@@ -58,28 +77,12 @@ export function HomeStart() {
           </button>
         </div>
       </form>
-      {/* Starters fill the box rather than sending, so the person can make it theirs first. */}
-      <ul className="hero-starters" aria-label={tr("startersLabel")}>
-        {starters.map((s) => (
-          <li key={s}>
-            <button
-              type="button"
-              onClick={() => {
-                setText(s);
-                box.current?.focus();
-              }}
-            >
-              {s}
-            </button>
-          </li>
-        ))}
-      </ul>
       <Link
         href="/check#example=margaret"
         className="quiet-link"
         transitionTypes={["nav-forward"]}
       >
-        {tr("watch")} <Icon name="arrow" size={16} />
+        <Icon name="play" size={16} /> {tr("tryExample")}
       </Link>
     </div>
   );
