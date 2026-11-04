@@ -2248,3 +2248,175 @@ button {
 .qcard.in-chat .why {
   font-size: 0.95rem;
 }
+
+/* ---------- How it works ---------- */
+.how {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+  padding-top: 40px;
+  padding-bottom: 80px;
+}
+.how h1 {
+  font-size: clamp(2.4rem, 5.5vw, 4rem);
+}
+.how h2 {
+  font-size: clamp(1.6rem, 3vw, 2.2rem);
+  margin-bottom: 18px;
+}
+.how .lead {
+  margin: 0 0 18px;
+}
+.flow {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 28px;
+}
+.flow-col {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 16px;
+  border-radius: 20px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+}
+.flow-col.c1 {
+  background: var(--chain-soft);
+}
+.flow-col.c2 {
+  background: var(--good-soft);
+}
+.flow-col.c3 {
+  background: var(--beam-soft);
+}
+.flow-item {
+  display: flex;
+  flex-direction: column;
+  background: var(--surface);
+  border-radius: 12px;
+  padding: 10px 12px;
+}
+.flow-item span {
+  font-size: 0.88rem;
+  color: var(--muted);
+}
+.flow-arrow {
+  position: absolute;
+  right: -24px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--muted);
+}
+.loop {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+.loop li {
+  border: 1.5px dashed var(--line);
+  border-radius: 16px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  color: var(--muted);
+}
+.loop li b {
+  color: var(--ink);
+  font-size: 1.1rem;
+}
+.loop li.live {
+  border-style: solid;
+  border-color: var(--beam);
+  background: var(--surface);
+}
+.tbl {
+  overflow-x: auto;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+.tbl table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 560px;
+}
+.tbl th,
+.tbl td {
+  text-align: left;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+.tbl th {
+  font-size: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--muted);
+}
+.tbl tr:last-child td {
+  border-bottom: 0;
+}
+.tbl td:first-child {
+  font-weight: 700;
+  white-space: nowrap;
+}
+.tbl code {
+  font-family: var(--f-mono);
+  font-size: 0.85rem;
+}
+.rules-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+}
+.rules-list li {
+  display: flex;
+  gap: 10px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+}
+.rules-list .icon {
+  color: var(--good);
+}
+.cover {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 12px;
+}
+.cover div {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.cover span {
+  font-size: 0.9rem;
+  color: var(--muted);
+}
+@media (max-width: 900px) {
+  .flow,
+  .loop,
+  .rules-list {
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .flow-arrow {
+    right: 50%;
+    top: auto;
+    bottom: -26px;
+    transform: translateX(50%) rotate(90deg);
+  }
+}
