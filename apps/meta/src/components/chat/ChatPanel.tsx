@@ -362,7 +362,9 @@ function AskChips({ onAsk }: { onAsk: (q: string) => void }) {
   const { states, subject } = useCheck();
   const top = SCHEMES.find((s) => states[s.id]?.status === "likely");
   if (!top) return null;
-  const who = subject.who === "me" ? "I" : `my ${subject.label?.toLowerCase().replace(/^my /, "")}`;
+  const label = subject.label ?? "";
+  const relation = /^(my |mum|dad|mom|nan|gran|grandma|grandad|a friend|partner|son|daughter|brother|sister|aunt|uncle)/i.test(label);
+  const who = subject.who === "me" ? "I" : relation ? `my ${label.toLowerCase().replace(/^(my|a) /, "")}` : label;
   const asks = [
     "What should we claim first?",
     `Explain ${top.name} in plain words`,
