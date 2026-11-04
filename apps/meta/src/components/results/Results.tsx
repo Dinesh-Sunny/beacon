@@ -97,7 +97,7 @@ const STATUS_TXT: Partial<Record<Status, string>> = { likely: "Likely", check: "
 
 function PlanStep({ id, n, when, status, answers }: { id: string; n: number; when: string; status: Status; answers: unknown }) {
   const s = byId[id];
-  const { states, note, setBusy } = useCheck();
+  const { states, note, setBusy, subject } = useCheck();
   const [prep, setPrep] = useState<Prep | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
@@ -113,7 +113,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
       const res = await fetch("/api/prepare", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ scheme: id, answers }),
+        body: JSON.stringify({ scheme: id, answers, subject }),
       });
       const data = (await res.json()) as Prep & { error?: string };
       if (!res.ok || data.error) throw new Error(data.error ?? "model");

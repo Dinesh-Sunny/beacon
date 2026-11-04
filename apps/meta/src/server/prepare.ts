@@ -13,10 +13,10 @@ const SCHEMA = {
   type: "object",
   additionalProperties: false,
   properties: {
-    opening: { type: "string", description: "One or two sentences to say when the call is answered" },
-    mention: { type: "array", items: { type: "string" }, description: "Up to 4 facts worth saying, in plain words" },
-    have_ready: { type: "array", items: { type: "string" }, description: "Up to 5 things to have to hand" },
-    they_may_ask: { type: "array", items: { type: "string" }, description: "Up to 3 questions they may ask" },
+    opening: { type: "string", description: "What to say first, one or two natural sentences, naming the scheme and who it's for" },
+    mention: { type: "array", items: { type: "string" }, description: "Up to 4 facts from their answers that matter for the conditions, in plain words" },
+    have_ready: { type: "array", items: { type: "string" }, description: "Up to 5 practical things to have to hand for this kind of claim" },
+    they_may_ask: { type: "array", items: { type: "string" }, description: "Up to 3 questions the call handler will likely ask, with no answers" },
   },
   required: ["opening", "mention", "have_ready", "they_may_ask"],
 };
@@ -30,7 +30,7 @@ const Out = z.object({
 
 const NO_DIGITS_LONG = /\b\d{5,}\b/g;
 
-export async function prepareCall(schemeId: string, answers: Answers) {
+export async function prepareCall(schemeId: string, answers: Answers, subject: { who: "me" | "other"; label?: string } = { who: "me" }) {
   const s = byId[schemeId];
   if (!s) return null;
   const st = evaluate(answers)[s.id];
@@ -43,14 +43,15 @@ export async function prepareCall(schemeId: string, answers: Answers) {
       {
         role: "system",
         content:
-          "You help someone in the UK get ready to claim support. Write in plain, warm UK English, short lines, a normal hyphen never a long dash. Use only the facts given. Don't promise an outcome: the organisation decides. No phone numbers, no web links, no amounts unless they are in the facts.",
+          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists practical things for this kind of claim, like a National Insurance number, bank details for payment, or recent letters about income. Don't promise an outcome: the organisation decides. No phone numbers or web links.",
       },
       {
         role: "user",
         content: `Scheme: ${s.name}, run by ${s.by}. What it gives: ${s.gives}. How to claim: ${s.how}. ${s.timing ?? ""}
 Conditions: ${s.rule.map((r, i) => `${r.txt} (${st?.marks[i] === true ? "met" : st?.marks[i] === false ? "not met" : "not known"})`).join("; ")}.
+Who it's for: ${subject.who === "me" ? "the caller themselves (write 'I', 'my')" : `the caller's ${(subject.label ?? "relative").replace(/[^\p{L} '-]/gu, "")}, so the caller is phoning on their behalf (write 'my ${(subject.label ?? "relative").toLowerCase().replace(/^my /, "")}', 'she' or 'he' only if clear, otherwise 'they')`}.
 Their answers: ${facts.join("; ") || "none yet"}.
-Write what they should say and have ready.`,
+Write the call notes.`,
       },
     ],
     schema: { name: "call_prep", schema: SCHEMA },
