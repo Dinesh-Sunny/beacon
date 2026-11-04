@@ -462,7 +462,7 @@
     "how": "কীভাবে কাজ করে",
     "start": "যাচাই শুরু করুন",
     "h1": "যে সহায়তা আগে থেকেই আপনার, তা খুঁজে নিন।",
-    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
+    "lead": "নিজের কথায়, নিজের ভাষায় Beacon-কে আপনার জীবনের কথা বলুন, অথবা যাঁর দেখাশোনা করেন তাঁর জীবনের কথা। যে সাহায্য সম্ভবত আপনার প্রাপ্য, Beacon তা দেখায় আর দাবি করার জন্য আপনাকে তৈরি করে দেয়।",
     "inputLabel": "আপনার অবস্থার কথা Beacon-কে বলুন",
     "inputHint": "যেমন: আমার মায়ের বয়স 78, তিনি Wembley-তে একা থাকেন আর সিঁড়ি ভাঙতে কষ্ট হয়",
     "alsoSpeak": "আপনি মুখে বলতে বা চিঠি যোগ করতেও পারেন",
@@ -478,7 +478,7 @@
     "footer": "Beacon সাধারণ তথ্য দেয়, পরামর্শ নয়। প্রতিটি স্কিম যে সংস্থা চালায়, সিদ্ধান্ত তারাই নেয়, আর প্রতিটি ফলাফলে তার সরকারি পাতার লিংক থাকে।",
     "code": "GitHub-এ কোড",
     "skip": "মূল অংশে চলে যান",
-    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
+    "pillAll": "বিনামূল্যে · {count} ধরনের সাহায্য · যুক্তরাজ্য ও যুক্তরাষ্ট্র · {languages}টি ভাষা"
   },
   "status": {
     "open": "এখনো খোলা",
@@ -583,7 +583,7 @@
   },
   "meta": {
     "homeTitle": "Beacon - যে সহায়তা আগে থেকেই আপনার, তা খুঁজে নিন",
-    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
+    "homeDesc": "লিখে, বলে বা একটি চিঠির ছবি তুলে, সাতটি ভাষায় Beacon-কে আপনার জীবনের কথা বলুন। যুক্তরাজ্য বা যুক্তরাষ্ট্রে যে সাহায্য সম্ভবত আপনার প্রাপ্য, তা খুঁজে দেয়, সংঘাতের ব্যাপারে সতর্ক করে আর দাবি করার জন্য আপনাকে তৈরি করে।",
     "howTitle": "এটি কীভাবে কাজ করে",
     "howDesc": "Beacon-এর এজেন্টরা কীভাবে একটি কথোপকথন, ভয়েস নোট বা চিঠির ছবিকে যাচাই করা সহায়তার তালিকা ও দাবির পরিকল্পনায় পরিণত করে।",
     "checkTitle": "আপনার যাচাই"
@@ -697,7 +697,7 @@
     "frame": {
       "tag": "Beacon ফ্রেমওয়ার্ক",
       "title": "যাঁদের সাহায্য দরকার, তাঁদের সঙ্গে দেখা হোক যাঁরা সাহায্য দেন তাঁদের",
-      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
+      "lead": "এক দিকে মানুষ। অন্য দিকে সরকার, কাউন্সিল, যুক্তরাষ্ট্রের রাজ্য, NHS, হেলথ সেন্টার, দাতব্য সংস্থা আর ইউটিলিটি কোম্পানি। Beacon-এর এজেন্টরা দুই দিককে যুক্ত করে।"
     },
     "map": {
       "aria": "বাঁ দিকে যাঁদের সাহায্য দরকার, ডান দিকে যাঁরা সাহায্য দেন, আর মাঝখানে Beacon তাঁদের যুক্ত করছে।",
@@ -716,9 +716,9 @@
         "someoneElse": "অন্য কারও জন্য যাচাই"
       },
       "givers": {
-        "government": "UK and US governments",
-        "councils": "Councils and states",
-        "nhs": "NHS and health centers",
+        "government": "যুক্তরাজ্য ও যুক্তরাষ্ট্রের সরকার",
+        "councils": "কাউন্সিল ও রাজ্য",
+        "nhs": "NHS ও হেলথ সেন্টার",
         "charities": "দাতব্য সংস্থা",
         "utilities": "ইউটিলিটি কোম্পানি",
         "employers": "নিয়োগকর্তা",
@@ -795,13 +795,13 @@
       "codeTitle": "প্রতিটি ফলাফল ঠিক করে কোড",
       "codeText": "সাধারণ কোড অফিসিয়াল নিয়ম যাচাই করে, তাই একই উত্তরে সবসময় একই ফলাফল আসে। Meta-র মডেলগুলো শোনে, পড়ে আর বুঝিয়ে বলে। আপনার উত্তরগুলো আপনার ব্রাউজারেই থাকে।",
       "chipsLabel": "Beacon-এ Meta-র মডেল",
-      "langTitle": "Your language, your way",
-      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
-      "nearTitle": "Help near you",
-      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
-      "nearCouncil": "Your council's page",
-      "nearClinic": "Community health center",
-      "nearCharity": "Local grant charity"
+      "langTitle": "আপনার ভাষা, আপনার মতো করে",
+      "langText": "সাতটি ভাষায় Beacon ব্যবহার করুন। লেখা বড় করুন, জোরে পড়ে শোনানো চালু করুন, বা আরও শান্ত রং বেছে নিন। সেটিংস আপনার ডিভাইসেই থাকে।",
+      "nearTitle": "আপনার কাছের সাহায্য",
+      "nearText": "আপনার পোস্টকোড বা ZIP কোড দিয়ে ঠিক কাউন্সিল পেজ, দাতব্য সংস্থা, হেলথ সেন্টার আর হাউজিং সাহায্য খুঁজে পাওয়া যায়, সবচেয়ে কাছেরটি আগে।",
+      "nearCouncil": "আপনার কাউন্সিলের পেজ",
+      "nearClinic": "কমিউনিটি হেলথ সেন্টার",
+      "nearCharity": "স্থানীয় অনুদান দেওয়া দাতব্য সংস্থা"
     },
     "demo": {
       "tag": "উদাহরণ যাচাই",
@@ -813,8 +813,8 @@
     },
     "cover": {
       "tag": "আজ যা যাচাই করে",
-      "titleAll": "{schemes} kinds of help in {countries} countries",
-      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
+      "titleAll": "{countries}টি দেশে {schemes} ধরনের সাহায্য",
+      "leadAll": "Pension Credit থেকে SNAP, প্রতিটি তার সরকারি নিয়মের সঙ্গে মিলিয়ে দেখা। সঙ্গে আছে {places, number}টি স্থানীয় সেবা, আপনি যেখানে থাকেন সেই অনুযায়ী।"
     },
     "grow": {
       "tag": "কোথায় যাচ্ছে",
@@ -827,16 +827,16 @@
       "promise": "আপনি যা পাবেন তার কোনো অংশ Beacon কখনো নেবে না।",
       "stages": {
         "people": {
-          "title": "People and families",
-          "text": "Help for you and the people you look after, in the UK and the US."
+          "title": "মানুষ ও পরিবার",
+          "text": "যুক্তরাজ্য ও যুক্তরাষ্ট্রে আপনার জন্য আর যাঁদের দেখাশোনা করেন তাঁদের জন্য সাহায্য।"
         },
         "orgs": {
           "title": "ব্যবসা ও প্রতিষ্ঠান",
           "text": "কোনো ব্যবসা বা প্রতিষ্ঠান যে সহায়তা দাবি করতে পারে, একইভাবে খুঁজে পাওয়া।"
         },
         "countries": {
-          "title": "More countries",
-          "text": "The UK and the US are live. Each new country brings its own official rules."
+          "title": "আরও দেশ",
+          "text": "যুক্তরাজ্য ও যুক্তরাষ্ট্রে এখন চালু। প্রতিটি নতুন দেশ নিজের সরকারি নিয়ম নিয়ে আসে।"
         },
         "network": {
           "title": "বিশ্বজোড়া নেটওয়ার্ক",
@@ -860,20 +860,20 @@
     },
     "countries": {
       "uk": {
-        "name": "United Kingdom",
-        "where": "England, Scotland and Wales",
-        "councilPages": "council pages",
-        "charities": "grant-giving charities"
+        "name": "যুক্তরাজ্য",
+        "where": "ইংল্যান্ড, স্কটল্যান্ড ও ওয়েলস",
+        "councilPages": "কাউন্সিল পেজ",
+        "charities": "অনুদান দেয় এমন দাতব্য সংস্থা"
       },
       "us": {
-        "name": "United States",
-        "where": "All 50 states and DC",
-        "centers": "community health centers",
-        "agencies": "housing agencies",
-        "counselors": "housing counselors"
+        "name": "মার্কিন যুক্তরাষ্ট্র",
+        "where": "সব 50টি রাজ্য ও DC",
+        "centers": "কমিউনিটি হেলথ সেন্টার",
+        "agencies": "হাউজিং এজেন্সি",
+        "counselors": "হাউজিং কাউন্সেলর"
       },
-      "kinds": "kinds of help across {topics} areas of life",
-      "localLabel": "Local services Beacon matches"
+      "kinds": "ধরনের সাহায্য, জীবনের {topics}টি ক্ষেত্রে",
+      "localLabel": "Beacon যেসব স্থানীয় সেবা মিলিয়ে দেয়"
     }
   },
   "how": {
@@ -884,9 +884,9 @@
       "schemes": "সাহায্যের ধরন",
       "councilPages": "কাউন্সিলের পেজ",
       "charities": "অনুদান দেওয়া দাতব্য সংস্থা",
-      "countries": "Countries",
-      "languages": "Languages",
-      "usPlaces": "US local services"
+      "countries": "দেশ",
+      "languages": "ভাষা",
+      "usPlaces": "যুক্তরাষ্ট্রের স্থানীয় সেবা"
     },
     "flow": {
       "tag": "প্রবাহ",
@@ -987,7 +987,7 @@
         "r1": "প্রতিটি ফলাফল ঠিক করে কোড। মডেলগুলো পড়ে, প্রশ্ন করে আর বুঝিয়ে বলে।",
         "r2": "মডেল যা লেখে, কোড যাচাই না করা পর্যন্ত তার কিছুই নিয়মে পৌঁছায় না।",
         "r3": "চিঠিগুলো আলাদা করে পড়া হয়, আর কাজ করতে পারে এমন কোনো এজেন্ট দেখার আগেই নির্দিষ্ট কাঠামোর ডেটায় পরিণত হয়।",
-        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
+        "r4": "Beacon কখনো নাম, National Insurance (জাতীয় বীমা) বা Social Security নম্বর, অথবা ব্যাংকের তথ্য চায় না, আর চিঠি থেকেও এগুলো কপি করে না।",
         "r5": "উত্তরগুলো আপনার ব্রাউজারে থাকে। অনুরোধ শেষ হলেই সার্ভার সেগুলো ভুলে যায়।",
         "r6": "প্রতিটি স্কিম তার অফিসিয়াল পেজের লিংক দেয়। যে সংস্থা স্কিমটি চালায়, সিদ্ধান্ত তাদের।"
       }
@@ -995,9 +995,9 @@
     "cover": {
       "tag": "পরিধি",
       "title": "আজ যা যাচাই করে",
-      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
-      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
-      "us": "United States: {schemes} kinds of help, {topics} areas of life"
+      "leadAll": "দুটি দেশে {schemes} ধরনের সাহায্য। যুক্তরাজ্যে Beacon {nations} কভার করে। আয়ের সীমাগুলো প্রাথমিক আনুমানিক হিসাব, তাই কাছাকাছি কিছু হলে তা দেখে নেওয়ার মতো হিসেবে ফিরে আসে।",
+      "uk": "যুক্তরাজ্য: {schemes} ধরনের সাহায্য, জীবনের {topics}টি ক্ষেত্র",
+      "us": "মার্কিন যুক্তরাষ্ট্র: {schemes} ধরনের সাহায্য, জীবনের {topics}টি ক্ষেত্র"
     },
     "ctaTitle": "দেখুন কী আপনার",
     "ctaText": "লিখুন, বলুন বা চিঠির ছবি তুলুন। যাচাইয়ের কাজটা Beacon করে।"

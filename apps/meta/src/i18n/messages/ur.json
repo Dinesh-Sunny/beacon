@@ -462,7 +462,7 @@
     "how": "یہ کیسے کام کرتا ہے",
     "start": "جانچ شروع کریں",
     "h1": "وہ مدد تلاش کریں جو پہلے سے آپ کی ہے۔",
-    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
+    "lead": "اپنی زندگی کے بارے میں، یا جس کی آپ دیکھ بھال کرتے ہیں اس کی زندگی کے بارے میں، اپنے الفاظ اور اپنی زبان میں Beacon کو بتائیں۔ یہ وہ مدد دکھاتا ہے جو غالباً آپ کا حق ہے اور اسے حاصل کرنے کے لیے آپ کو تیار کرتا ہے۔",
     "inputLabel": "Beacon کو اپنی صورتحال کے بارے میں بتائیں",
     "inputHint": "مثال کے طور پر: میری امی 78 سال کی ہیں، Wembley میں اکیلی رہتی ہیں اور انہیں سیڑھیاں چڑھنا مشکل لگتا ہے",
     "alsoSpeak": "آپ بول بھی سکتے ہیں یا خط شامل کر سکتے ہیں",
@@ -478,7 +478,7 @@
     "footer": "Beacon عام معلومات دیتا ہے، مشورہ نہیں۔ ہر اسکیم چلانے والا ادارہ فیصلہ کرتا ہے، اور ہر نتیجہ اس کے سرکاری صفحے سے منسلک ہوتا ہے۔",
     "code": "GitHub پر کوڈ",
     "skip": "مواد پر جائیں",
-    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
+    "pillAll": "مفت · مدد کی {count} اقسام · برطانیہ اور امریکہ · {languages} زبانیں"
   },
   "status": {
     "open": "ابھی کھلا ہے",
@@ -583,7 +583,7 @@
   },
   "meta": {
     "homeTitle": "Beacon - وہ مدد تلاش کریں جو پہلے سے آپ کی ہے",
-    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
+    "homeDesc": "لکھ کر، بول کر یا خط کی تصویر لے کر، سات زبانوں میں Beacon کو اپنی زندگی کے بارے میں بتائیں۔ یہ برطانیہ یا امریکہ میں وہ مدد ڈھونڈتا ہے جو غالباً آپ کا حق ہے، ٹکراؤ کے بارے میں خبردار کرتا ہے اور دعویٰ کرنے کے لیے آپ کو تیار کرتا ہے۔",
     "howTitle": "یہ کیسے کام کرتا ہے",
     "howDesc": "Beacon کے ایجنٹ بات چیت، صوتی پیغام یا خط کی تصویر کو مدد کی جانچی ہوئی فہرست اور دعویٰ کرنے کے منصوبے میں کیسے بدلتے ہیں۔",
     "checkTitle": "آپ کی جانچ"
@@ -697,7 +697,7 @@
     "frame": {
       "tag": "Beacon فریم ورک",
       "title": "جنہیں مدد چاہیے، ان سب سے ملیں جو مدد دیتے ہیں",
-      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
+      "lead": "ایک طرف لوگ۔ دوسری طرف حکومتیں، کونسلیں، امریکی ریاستیں، NHS، ہیلتھ سینٹرز، خیراتی ادارے اور یوٹیلیٹی کمپنیاں۔ Beacon کے ایجنٹ دونوں کو جوڑتے ہیں۔"
     },
     "map": {
       "aria": "بائیں طرف وہ لوگ جنہیں مدد چاہیے، دائیں طرف وہ سب جو مدد دیتے ہیں، اور درمیان میں Beacon جو انہیں جوڑتا ہے۔",
@@ -716,9 +716,9 @@
         "someoneElse": "کسی اور کے لیے جانچ"
       },
       "givers": {
-        "government": "UK and US governments",
-        "councils": "Councils and states",
-        "nhs": "NHS and health centers",
+        "government": "برطانیہ اور امریکہ کی حکومتیں",
+        "councils": "کونسلیں اور ریاستیں",
+        "nhs": "NHS اور ہیلتھ سینٹرز",
         "charities": "فلاحی ادارے",
         "utilities": "یوٹیلیٹی کمپنیاں",
         "employers": "آجر",
@@ -795,13 +795,13 @@
       "codeTitle": "ہر نتیجہ کوڈ طے کرتا ہے",
       "codeText": "سادہ کوڈ سرکاری قواعد جانچتا ہے، اس لیے ایک جیسے جوابات ہمیشہ ایک جیسا نتیجہ دیتے ہیں۔ Meta کے ماڈل سنتے، پڑھتے اور سمجھاتے ہیں۔ آپ کے جوابات آپ کے براؤزر میں ہی رہتے ہیں۔",
       "chipsLabel": "Beacon میں Meta کے ماڈل",
-      "langTitle": "Your language, your way",
-      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
-      "nearTitle": "Help near you",
-      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
-      "nearCouncil": "Your council's page",
-      "nearClinic": "Community health center",
-      "nearCharity": "Local grant charity"
+      "langTitle": "آپ کی زبان، آپ کا انداز",
+      "langText": "Beacon کو سات زبانوں میں استعمال کریں۔ متن بڑا کریں، بلند آواز میں پڑھنا آن کریں، یا زیادہ پُرسکون رنگ چنیں۔ سیٹنگز آپ کے آلے پر ہی رہتی ہیں۔",
+      "nearTitle": "آپ کے قریب مدد",
+      "nearText": "آپ کا پوسٹ کوڈ یا ZIP کوڈ صحیح کونسل صفحات، خیراتی ادارے، ہیلتھ سینٹرز اور رہائش میں مدد ڈھونڈتا ہے، سب سے قریب والے پہلے۔",
+      "nearCouncil": "آپ کی کونسل کا صفحہ",
+      "nearClinic": "کمیونٹی ہیلتھ سینٹر",
+      "nearCharity": "مقامی گرانٹ دینے والا خیراتی ادارہ"
     },
     "demo": {
       "tag": "مثالی جانچ",
@@ -813,8 +813,8 @@
     },
     "cover": {
       "tag": "آج یہ کیا جانچتا ہے",
-      "titleAll": "{schemes} kinds of help in {countries} countries",
-      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
+      "titleAll": "{countries} ممالک میں مدد کی {schemes} اقسام",
+      "leadAll": "Pension Credit سے SNAP تک، ہر ایک کو اس کے سرکاری قواعد سے جانچا گیا ہے۔ ساتھ میں {places, number} مقامی خدمات، جو آپ کی رہائش کی جگہ کے مطابق ملائی گئی ہیں۔"
     },
     "grow": {
       "tag": "یہ کہاں جا رہا ہے",
@@ -827,16 +827,16 @@
       "promise": "Beacon آپ کو ملنے والی کسی بھی چیز میں سے کبھی حصہ نہیں لے گا۔",
       "stages": {
         "people": {
-          "title": "People and families",
-          "text": "Help for you and the people you look after, in the UK and the US."
+          "title": "لوگ اور خاندان",
+          "text": "آپ کے لیے اور ان لوگوں کے لیے مدد جن کی آپ دیکھ بھال کرتے ہیں، برطانیہ اور امریکہ میں۔"
         },
         "orgs": {
           "title": "کاروبار اور ادارے",
           "text": "وہ مدد جس کا دعویٰ کوئی کاروبار یا ادارہ کر سکتا ہے، اسی طرح تلاش کی گئی۔"
         },
         "countries": {
-          "title": "More countries",
-          "text": "The UK and the US are live. Each new country brings its own official rules."
+          "title": "مزید ممالک",
+          "text": "برطانیہ اور امریکہ میں یہ چل رہا ہے۔ ہر نیا ملک اپنے سرکاری قواعد ساتھ لاتا ہے۔"
         },
         "network": {
           "title": "ایک عالمی نیٹ ورک",
@@ -860,20 +860,20 @@
     },
     "countries": {
       "uk": {
-        "name": "United Kingdom",
-        "where": "England, Scotland and Wales",
-        "councilPages": "council pages",
-        "charities": "grant-giving charities"
+        "name": "برطانیہ",
+        "where": "انگلینڈ، اسکاٹ لینڈ اور ویلز",
+        "councilPages": "کونسل صفحات",
+        "charities": "گرانٹ دینے والے خیراتی ادارے"
       },
       "us": {
-        "name": "United States",
-        "where": "All 50 states and DC",
-        "centers": "community health centers",
-        "agencies": "housing agencies",
-        "counselors": "housing counselors"
+        "name": "امریکہ",
+        "where": "تمام 50 ریاستیں اور DC",
+        "centers": "کمیونٹی ہیلتھ سینٹرز",
+        "agencies": "ہاؤسنگ ایجنسیاں",
+        "counselors": "ہاؤسنگ کونسلرز"
       },
-      "kinds": "kinds of help across {topics} areas of life",
-      "localLabel": "Local services Beacon matches"
+      "kinds": "مدد کی اقسام، زندگی کے {topics} شعبوں میں",
+      "localLabel": "مقامی خدمات جو Beacon ملاتا ہے"
     }
   },
   "how": {
@@ -884,9 +884,9 @@
       "schemes": "مدد کی اقسام",
       "councilPages": "کونسل کے صفحات",
       "charities": "گرانٹ دینے والے فلاحی ادارے",
-      "countries": "Countries",
-      "languages": "Languages",
-      "usPlaces": "US local services"
+      "countries": "ممالک",
+      "languages": "زبانیں",
+      "usPlaces": "امریکہ کی مقامی خدمات"
     },
     "flow": {
       "tag": "بہاؤ",
@@ -987,7 +987,7 @@
         "r1": "ہر نتیجہ کوڈ طے کرتا ہے۔ ماڈل پڑھتے، پوچھتے اور سمجھاتے ہیں۔",
         "r2": "ماڈل جو کچھ لکھتا ہے، وہ کوڈ کی جانچ کے بغیر قواعد تک نہیں پہنچتا۔",
         "r3": "خطوط الگ تھلگ پڑھے جاتے ہیں اور عمل کر سکنے والے کسی بھی ایجنٹ کے دیکھنے سے پہلے منظم ڈیٹا میں بدل جاتے ہیں۔",
-        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
+        "r4": "Beacon کبھی نام، National Insurance یا Social Security نمبر، یا بینک کی تفصیلات نہیں مانگتا، اور خطوں سے انہیں کاپی بھی نہیں کرتا۔",
         "r5": "جوابات آپ کے براؤزر میں رہتے ہیں۔ درخواست ختم ہوتے ہی سرور انہیں بھول جاتا ہے۔",
         "r6": "ہر اسکیم اپنے سرکاری صفحے کا لنک دیتی ہے۔ فیصلہ وہ ادارہ کرتا ہے جو اسے چلاتا ہے۔"
       }
@@ -995,9 +995,9 @@
     "cover": {
       "tag": "دائرہ کار",
       "title": "آج یہ کیا جانچتا ہے",
-      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
-      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
-      "us": "United States: {schemes} kinds of help, {topics} areas of life"
+      "leadAll": "دو ممالک میں مدد کی {schemes} اقسام۔ برطانیہ میں Beacon {nations} کا احاطہ کرتا ہے۔ آمدنی کی حدیں ابتدائی اندازے ہیں، اس لیے جو کچھ قریب ہو وہ جانچنے کے لائق کے طور پر سامنے آتا ہے۔",
+      "uk": "برطانیہ: مدد کی {schemes} اقسام، زندگی کے {topics} شعبے",
+      "us": "امریکہ: مدد کی {schemes} اقسام، زندگی کے {topics} شعبے"
     },
     "ctaTitle": "دیکھیں کیا آپ کا ہے",
     "ctaText": "لکھیں، بولیں یا خط کی تصویر لیں۔ جانچ کا کام Beacon کرتا ہے۔"

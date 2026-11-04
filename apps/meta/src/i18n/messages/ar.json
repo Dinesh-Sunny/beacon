@@ -462,7 +462,7 @@
     "how": "كيف يعمل",
     "start": "ابدأ فحصًا",
     "h1": "اعثر على الدعم الذي هو لك أصلًا.",
-    "lead": "Tell Beacon about your life, or the life of someone you look after, in your own words and your own language. It shows the help that's likely yours and gets you ready to claim it.",
+    "lead": "أخبر Beacon عن حياتك، أو حياة شخص ترعاه، بكلماتك ولغتك. يعرض لك المساعدة التي يُرجَّح أنها من حقك، ويجهّزك للمطالبة بها.",
     "inputLabel": "أخبر Beacon عن وضعك",
     "inputHint": "مثلًا: أمي عمرها 78 سنة، تعيش وحدها في Wembley وتجد صعوبة في صعود الدرج",
     "alsoSpeak": "يمكنك أيضًا التحدث أو إضافة رسالة",
@@ -478,7 +478,7 @@
     "footer": "يقدّم Beacon معلومات عامة، لا نصيحة. الجهة التي تدير كل برنامج هي التي تتخذ القرار، وكل نتيجة مرتبطة بصفحتها الرسمية.",
     "code": "الكود على GitHub",
     "skip": "انتقل إلى المحتوى",
-    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
+    "pillAll": "مجاني · {count} من أنواع المساعدة · المملكة المتحدة والولايات المتحدة · {languages} لغات"
   },
   "status": {
     "open": "ما زال مفتوحًا",
@@ -583,7 +583,7 @@
   },
   "meta": {
     "homeTitle": "Beacon - اعثر على الدعم الذي هو لك بالفعل",
-    "homeDesc": "Tell Beacon about your life by typing, speaking or snapping a letter, in seven languages. It finds the help that's likely yours in the UK or the US, warns you about clashes and gets you ready to claim.",
+    "homeDesc": "أخبر Beacon عن حياتك بالكتابة أو الكلام أو بتصوير رسالة، بسبع لغات. يجد المساعدة التي يُرجَّح أنها من حقك في المملكة المتحدة أو الولايات المتحدة، وينبّهك إلى التعارضات، ويجهّزك للمطالبة بها.",
     "howTitle": "كيف يعمل",
     "howDesc": "كيف يحوّل وكلاء Beacon محادثة أو رسالة صوتية أو صورة رسالة إلى قائمة دعم تم التحقق منها وخطة للتقديم.",
     "checkTitle": "فحصك"
@@ -697,7 +697,7 @@
     "frame": {
       "tag": "إطار Beacon",
       "title": "كل من يحتاج إلى المساعدة، يلتقي بكل من يقدّمها",
-      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
+      "lead": "الناس في جهة. وفي الجهة الأخرى الحكومات والمجالس المحلية والولايات الأمريكية وNHS والمراكز الصحية والجمعيات الخيرية وشركات المرافق. وكلاء Beacon يصلون بين الجهتين."
     },
     "map": {
       "aria": "على اليسار الناس الذين يحتاجون إلى المساعدة، وعلى اليمين كل من يقدّمها، وفي الوسط Beacon يصل بينهم.",
@@ -716,9 +716,9 @@
         "someoneElse": "الفحص نيابةً عن شخص آخر"
       },
       "givers": {
-        "government": "UK and US governments",
-        "councils": "Councils and states",
-        "nhs": "NHS and health centers",
+        "government": "حكومتا المملكة المتحدة والولايات المتحدة",
+        "councils": "المجالس المحلية والولايات",
+        "nhs": "NHS والمراكز الصحية",
         "charities": "الجمعيات الخيرية",
         "utilities": "شركات المرافق",
         "employers": "أصحاب العمل",
@@ -795,13 +795,13 @@
       "codeTitle": "الكود يقرّر كل نتيجة",
       "codeText": "كود بسيط يفحص القواعد الرسمية، لذا تعطي الإجابات نفسها دائمًا النتيجة نفسها. نماذج Meta تستمع وتقرأ وتشرح. إجاباتك تبقى في متصفحك.",
       "chipsLabel": "نماذج Meta في Beacon",
-      "langTitle": "Your language, your way",
-      "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
-      "nearTitle": "Help near you",
-      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
-      "nearCouncil": "Your council's page",
-      "nearClinic": "Community health center",
-      "nearCharity": "Local grant charity"
+      "langTitle": "لغتك، وعلى طريقتك",
+      "langText": "استخدم Beacon بسبع لغات. كبّر النص، أو شغّل القراءة بصوت عالٍ، أو اختر ألوانًا أكثر هدوءًا. تبقى الإعدادات على جهازك.",
+      "nearTitle": "مساعدة بالقرب منك",
+      "nearText": "يجد رمزك البريدي أو رمز ZIP صفحات المجلس المحلي والجمعيات الخيرية والمراكز الصحية ومساعدة السكن المناسبة لك، الأقرب أولًا.",
+      "nearCouncil": "صفحة مجلسك المحلي",
+      "nearClinic": "مركز صحي مجتمعي",
+      "nearCharity": "جمعية خيرية محلية تقدّم منحًا"
     },
     "demo": {
       "tag": "فحص تجريبي",
@@ -813,8 +813,8 @@
     },
     "cover": {
       "tag": "ما يفحصه اليوم",
-      "titleAll": "{schemes} kinds of help in {countries} countries",
-      "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
+      "titleAll": "{schemes} من أنواع المساعدة في {countries} من الدول",
+      "leadAll": "من Pension Credit إلى SNAP، كلٌّ منها مُراجَع وفق قواعده الرسمية. وأيضًا {places, number} من الخدمات المحلية، بحسب مكان سكنك."
     },
     "grow": {
       "tag": "إلى أين يتجه",
@@ -827,16 +827,16 @@
       "promise": "لن يأخذ Beacon أبدًا نصيبًا من أي شيء يُمنح لك.",
       "stages": {
         "people": {
-          "title": "People and families",
-          "text": "Help for you and the people you look after, in the UK and the US."
+          "title": "الأفراد والعائلات",
+          "text": "مساعدة لك وللأشخاص الذين ترعاهم، في المملكة المتحدة والولايات المتحدة."
         },
         "orgs": {
           "title": "الشركات والمنظمات",
           "text": "دعم يمكن لشركة أو منظمة أن تطالب به، يُعثر عليه بالطريقة نفسها."
         },
         "countries": {
-          "title": "More countries",
-          "text": "The UK and the US are live. Each new country brings its own official rules."
+          "title": "دول أكثر",
+          "text": "المملكة المتحدة والولايات المتحدة متاحتان الآن. كل دولة جديدة تأتي بقواعدها الرسمية الخاصة."
         },
         "network": {
           "title": "شبكة عالمية",
@@ -860,20 +860,20 @@
     },
     "countries": {
       "uk": {
-        "name": "United Kingdom",
-        "where": "England, Scotland and Wales",
-        "councilPages": "council pages",
-        "charities": "grant-giving charities"
+        "name": "المملكة المتحدة",
+        "where": "إنجلترا واسكتلندا وويلز",
+        "councilPages": "صفحات المجالس المحلية",
+        "charities": "جمعيات خيرية تقدّم منحًا"
       },
       "us": {
-        "name": "United States",
-        "where": "All 50 states and DC",
-        "centers": "community health centers",
-        "agencies": "housing agencies",
-        "counselors": "housing counselors"
+        "name": "الولايات المتحدة",
+        "where": "جميع الولايات الـ50 وDC",
+        "centers": "مراكز صحية مجتمعية",
+        "agencies": "وكالات الإسكان",
+        "counselors": "مستشارو الإسكان"
       },
-      "kinds": "kinds of help across {topics} areas of life",
-      "localLabel": "Local services Beacon matches"
+      "kinds": "من أنواع المساعدة في {topics} من مجالات الحياة",
+      "localLabel": "خدمات محلية يطابقها Beacon"
     }
   },
   "how": {
@@ -884,9 +884,9 @@
       "schemes": "أنواع المساعدة",
       "councilPages": "صفحات المجالس المحلية",
       "charities": "الجمعيات الخيرية المانحة",
-      "countries": "Countries",
-      "languages": "Languages",
-      "usPlaces": "US local services"
+      "countries": "الدول",
+      "languages": "اللغات",
+      "usPlaces": "الخدمات المحلية في الولايات المتحدة"
     },
     "flow": {
       "tag": "المسار",
@@ -987,7 +987,7 @@
         "r1": "الكود يقرّر كل نتيجة. النماذج تقرأ وتسأل وتشرح.",
         "r2": "لا يصل أي شيء يكتبه نموذج إلى القواعد قبل أن يفحصه الكود.",
         "r3": "تُقرأ الرسائل في عزلة وتتحوّل إلى بيانات منظَّمة قبل أن يراها أي وكيل يستطيع التصرّف.",
-        "r4": "Beacon never asks for a name, a National Insurance or Social Security number, or bank details, and doesn't copy them from letters.",
+        "r4": "لا يطلب Beacon أبدًا اسمًا، ولا رقم National Insurance أو Social Security (الضمان الاجتماعي)، ولا بيانات بنكية، ولا ينسخها من الرسائل.",
         "r5": "تبقى الإجابات في متصفحك. ينساها الخادم عند انتهاء الطلب.",
         "r6": "كل برنامج مرتبط بصفحته الرسمية. والجهة التي تديره هي التي تقرّر."
       }
@@ -995,9 +995,9 @@
     "cover": {
       "tag": "النطاق",
       "title": "ما يفحصه اليوم",
-      "leadAll": "{schemes} kinds of help in two countries. In the UK, Beacon covers {nations}. Income lines are screening estimates, so anything close comes back as worth checking.",
-      "uk": "United Kingdom: {schemes} kinds of help, {topics} areas of life",
-      "us": "United States: {schemes} kinds of help, {topics} areas of life"
+      "leadAll": "{schemes} من أنواع المساعدة في دولتين. في المملكة المتحدة، يغطي Beacon {nations}. حدود الدخل تقديرات أولية، لذا فأي حالة قريبة تظهر على أنها تستحق التحقق.",
+      "uk": "المملكة المتحدة: {schemes} من أنواع المساعدة، {topics} من مجالات الحياة",
+      "us": "الولايات المتحدة: {schemes} من أنواع المساعدة، {topics} من مجالات الحياة"
     },
     "ctaTitle": "اعرف ما هو لك",
     "ctaText": "اكتب أو تحدّث أو صوّر رسالة. Beacon يتولّى الفحص."
