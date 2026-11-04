@@ -17,9 +17,9 @@ import {
 import { useLocale, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { POSTCODE_RE } from "@/engine/rules";
-import { COVERED, countryCodes, countryName, flagOf } from "@/i18n/countries";
+import { COVERED, flagOf } from "@/i18n/countries";
 import { fromBrowser, intlTag, LOCALES, type Locale } from "@/i18n/locales";
-import { useSetLocale } from "@/i18n/Provider";
+import { useCountries, useSetLocale } from "@/i18n/Provider";
 import { savePostcodeForLater, useMaybeCheck } from "@/lib/check-store";
 import { shortCouncil, usePlace } from "@/lib/council";
 import { suggestedCountry, useCountry } from "@/lib/country";
@@ -28,17 +28,22 @@ import { DisplayTab } from "./DisplayTab";
 export type Tab = "place" | "language" | "display";
 
 /** The one header button: flag, place and language. */
+/** A country's name from the server-made list. */
+function useNameOf() {
+  const list = useCountries();
+  return (c: string) => list.find((x) => x.c === c)?.name ?? c;
+}
+
 export function PlaceButton({ compact = false }: { compact?: boolean }) {
   const t = useTranslations("dialog");
+  const nameOf = useNameOf();
   const locale = useLocale();
   const { country } = useCountry();
   const check = useMaybeCheck();
   const council = usePlace(check?.answers.postcode).council;
   const [open, setOpen] = useState<Tab | null>(null);
   const code = country ?? "GB";
-  const place = council
-    ? shortCouncil(council.name)
-    : countryName(code, locale);
+  const place = council ? shortCouncil(council.name) : nameOf(code);
   const lang = LOCALES.find((l) => l.code === locale)?.name ?? "English";
   return (
     <>
@@ -66,6 +71,7 @@ export function PlaceButton({ compact = false }: { compact?: boolean }) {
 
 /** The footer link that opens the same dialog. */
 export function PlaceFooterLink() {
+  const nameOf = useNameOf();
   const locale = useLocale();
   const { country } = useCountry();
   const [open, setOpen] = useState(false);
@@ -74,8 +80,7 @@ export function PlaceFooterLink() {
   return (
     <>
       <button type="button" className="linkbtn" onClick={() => setOpen(true)}>
-        <span aria-hidden="true">{flagOf(code)}</span>{" "}
-        {countryName(code, locale)} - {lang}
+        <span aria-hidden="true">{flagOf(code)}</span> {nameOf(code)} - {lang}
       </button>
       {open && <PlaceDialog tab="place" onClose={() => setOpen(false)} />}
     </>
@@ -99,6 +104,8 @@ export function PlaceDialog({
 }) {
   const t = useTranslations("dialog");
   const locale = useLocale();
+  const nameOf = useNameOf();
+  const list = useCountries();
   const setLocale = useSetLocale();
   const { country, setCountry } = useCountry();
   const check = useMaybeCheck();
@@ -126,17 +133,7 @@ export function PlaceDialog({
   }, [tab, q]);
 
   const words = q.trim().toLowerCase();
-  const countries = useMemo(
-    () =>
-      countryCodes()
-        .map((c) => ({
-          c,
-          name: countryName(c, locale),
-          en: countryName(c, "en"),
-        }))
-        .sort((a, b) => a.name.localeCompare(b.name, intlTag(locale))),
-    [locale],
-  );
+  const countries = list;
 
   const chooseCountry = (c: string) => {
     setCountry(c);
@@ -245,7 +242,7 @@ export function PlaceDialog({
       ?.scrollIntoView({ block: "nearest" });
   }, [active, listId]);
 
-  const placeLabel = mine ? shortCouncil(mine.name) : countryName(code, locale);
+  const placeLabel = mine ? shortCouncil(mine.name) : nameOf(code);
   const tabs: [Tab, ReactNode][] = [
     [
       "place",
@@ -341,8 +338,8 @@ export function PlaceDialog({
         <DisplayTab onDone={close} />
       ) : gap ? (
         <div className="pd-gap">
-          <h2>{t("gapTitle", { country: countryName(gap, locale) })}</h2>
-          <p>{t("gapBody", { country: countryName(gap, locale) })}</p>
+          <h2>{t("gapTitle", { country: nameOf(gap) })}</h2>
+          <p>{t("gapBody", { country: nameOf(gap) })}</p>
           <div className="row">
             <button
               type="button"

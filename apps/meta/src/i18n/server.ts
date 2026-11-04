@@ -3,6 +3,7 @@ import "server-only";
 // The reader's language for server-rendered pages: the cookie the language menu sets, else English.
 import { cookies } from "next/headers";
 import { createTranslator } from "use-intl/core";
+import { countryCodes, countryName } from "./countries";
 import {
   DEFAULT_LOCALE,
   isLocale,
@@ -11,7 +12,7 @@ import {
   type Locale,
 } from "./locales";
 import { MESSAGES } from "./messages";
-import type { Invites } from "./Provider";
+import type { Country, Invites } from "./Provider";
 
 export async function getLocale(): Promise<Locale> {
   const v = (await cookies()).get(LOCALE_COOKIE)?.value;
@@ -43,3 +44,11 @@ export async function getT() {
   const locale = await getLocale();
   return createTranslator({ locale, messages: MESSAGES[locale] });
 }
+
+/** Every country named in the reader's language, sorted for them. */
+export const countriesFor = (locale: Locale): Country[] =>
+  countryCodes()
+    .map((c) => ({ c, name: countryName(c, locale), en: countryName(c, "en") }))
+    .sort((a, b) =>
+      a.name.localeCompare(b.name, locale === "en" ? "en-GB" : locale),
+    );

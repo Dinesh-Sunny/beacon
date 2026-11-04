@@ -28,15 +28,23 @@ export type Invites = Record<
 const InvitesCtx = createContext<Invites | null>(null);
 export const useInvites = () => useContext(InvitesCtx);
 
+/** Every country, named on the server with Node's full Intl data: browsers ship trimmed data
+ * (Chrome has no Welsh country names), so naming on the server keeps both sides identical. */
+export type Country = { c: string; name: string; en: string };
+const CountriesCtx = createContext<Country[]>([]);
+export const useCountries = () => useContext(CountriesCtx);
+
 export function I18nProvider({
   locale,
   messages,
   invites,
+  countries,
   children,
 }: {
   locale: Locale;
   messages: Messages;
   invites: Invites;
+  countries: Country[];
   children: ReactNode;
 }) {
   const setLocale = useCallback((l: Locale) => {
@@ -57,15 +65,17 @@ export function I18nProvider({
   return (
     <SetLocale.Provider value={setLocale}>
       <InvitesCtx.Provider value={invites}>
-        <IntlProvider
-          locale={locale}
-          messages={messages}
-          timeZone="Europe/London"
-          // Missing words fall back to English in the merged messages; never crash the page.
-          onError={() => {}}
-        >
-          {children}
-        </IntlProvider>
+        <CountriesCtx.Provider value={countries}>
+          <IntlProvider
+            locale={locale}
+            messages={messages}
+            timeZone="Europe/London"
+            // Missing words fall back to English in the merged messages; never crash the page.
+            onError={() => {}}
+          >
+            {children}
+          </IntlProvider>
+        </CountriesCtx.Provider>
       </InvitesCtx.Provider>
     </SetLocale.Provider>
   );

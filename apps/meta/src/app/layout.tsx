@@ -8,7 +8,7 @@ import { CaptionBar } from "@/components/CaptionBar";
 import { OfflineNotice } from "@/components/OfflineNotice";
 import { localeInfo } from "@/i18n/locales";
 import { I18nProvider } from "@/i18n/Provider";
-import { getLocale, invites, messagesFor } from "@/i18n/server";
+import { countriesFor, getLocale, invites, messagesFor } from "@/i18n/server";
 import { SITE_URL } from "@/lib/site";
 
 export const metadata: Metadata = {
@@ -57,6 +57,7 @@ export default async function RootLayout({
           locale={locale}
           messages={messagesFor(locale)}
           invites={invites()}
+          countries={countriesFor(locale)}
         >
           <OfflineNotice />
           <CaptionBar />
