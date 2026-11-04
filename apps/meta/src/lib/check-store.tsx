@@ -5,7 +5,7 @@
 // exactly what each agent did and why.
 
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { type Answers, FACTS, type FactId, formatAnswer, UNSURE } from "@/engine/facts";
+import { type Answers, FACTS, type FactId, formatAnswer, ME, type Subject, UNSURE } from "@/engine/facts";
 import {
   byId,
   derive,
@@ -82,6 +82,8 @@ interface Ctx {
   skipped: FactId[];
   skip: (f: FactId) => void;
   current: FactId | null;
+  subject: Subject;
+  setSubject: (s: Subject) => void;
   setBusy: (agent: string, on: boolean) => void;
 }
 
@@ -96,6 +98,15 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   const [hydrated, setHydrated] = useState(false);
   const [sources, setSources] = useState<Partial<Record<FactId, { source: Source; at: number }>>>({});
   const [editing, edit] = useState<FactId | null>(null);
+  const [subject, setSubjectState] = useState<Subject>(ME);
+  const setSubject = useCallback((sub: Subject) => {
+    setSubjectState(sub);
+    try {
+      localStorage.setItem("beacon:subject", JSON.stringify(sub));
+    } catch {
+      /* memory only */
+    }
+  }, []);
   const [skipped, setSkipped] = useState<FactId[]>([]);
   const [busy, setBusyMap] = useState<Record<string, boolean>>({});
   const setBusy = useCallback((agent: string, on: boolean) => setBusyMap((b) => ({ ...b, [agent]: on })), []);
@@ -104,6 +115,12 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const a = load();
     setAnswers(a);
+    try {
+      const sub = localStorage.getItem("beacon:subject");
+      if (sub) setSubjectState(JSON.parse(sub) as Subject);
+    } catch {
+      /* default: me */
+    }
     setHydrated(true);
   }, []);
 
@@ -228,7 +245,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const asked = Object.keys(answers).length;
-  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current };
+  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current, subject, setSubject };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
 

@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { type Answers, FACTS, type FactId, type Period, UNSURE, type WorkStatus } from "@/engine/facts";
+import { type Answers, ask, FACTS, type FactId, optLabel, type Period, UNSURE, type WorkStatus } from "@/engine/facts";
 import { derive, derivedChips, POSTCODE_RE, SCHEMES } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
@@ -72,7 +72,7 @@ function readDraft(f: FactId, x: Draft, today = new Date()): Read {
 }
 
 export function QuestionCard() {
-  const { current, answers, asked, apply, states, editing, edit, skip, skipped } = useCheck();
+  const { current, answers, asked, apply, states, editing, edit, skip, skipped, subject } = useCheck();
   const [draft, setDraft] = useState<Draft>({});
   const [err, setErr] = useState("");
   const body = useRef<HTMLDivElement>(null);
@@ -119,7 +119,7 @@ export function QuestionCard() {
           <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
         </span>
       </div>
-      <h2 id="q-title">{fact.q}</h2>
+      <h2 id="q-title">{ask(f, subject)}</h2>
       <p className="why">{fact.why}</p>
 
       <div ref={body} onKeyDown={onKey} className="qbody">
@@ -174,6 +174,7 @@ function Input({
   set: (p: Draft) => void;
   submit: (v?: Answers[FactId]) => void;
 }) {
+  const { subject } = useCheck();
   const fact = FACTS[f];
   switch (fact.type) {
     case "postcode":
@@ -335,7 +336,7 @@ function Input({
         <div className="rcs">
           {fact.opts?.map(([v, label]) => (
             <button key={v} type="button" className="rc" onClick={() => submit(v as Answers[FactId])}>
-              {label}
+              {optLabel(label, subject)}
             </button>
           ))}
         </div>

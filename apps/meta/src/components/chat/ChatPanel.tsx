@@ -58,7 +58,9 @@ const nextId = () => {
 };
 
 export function ChatPanel() {
-  const { answers, apply, note, setBusy } = useCheck();
+  const { answers, apply, note, setBusy, subject, setSubject } = useCheck();
+  const subjectRef = useRef(subject);
+  subjectRef.current = subject;
   const [msgs, setMsgs] = useState<Msg[]>([]);
   const [working, setWorking] = useState<string | null>(null);
   const end = useRef<HTMLDivElement>(null);
@@ -91,10 +93,17 @@ export function ChatPanel() {
         const res = await fetch("/api/chat", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ messages: history, answers: answersRef.current }),
+          body: JSON.stringify({ messages: history, answers: answersRef.current, subject: subjectRef.current }),
         });
-        const data = (await res.json()) as { reply?: string; saved?: Answers; notes?: { name: string; text: string }[]; error?: string };
+        const data = (await res.json()) as {
+          reply?: string;
+          saved?: Answers;
+          notes?: { name: string; text: string }[];
+          subject?: { who: "me" | "other"; label?: string } | null;
+          error?: string;
+        };
         if (!res.ok || data.error) throw new Error(data.error ?? "model");
+        if (data.subject) setSubject(data.subject);
         const saved = data.saved ?? {};
         if (Object.keys(saved).length) apply(saved, "chat");
         for (const n of data.notes ?? []) note("model", "Muse Spark agent", n.text);
@@ -112,7 +121,7 @@ export function ChatPanel() {
         setBusy("Muse Spark agent", false);
       }
     },
-    [apply, note, push, setBusy],
+    [apply, note, push, setBusy, setSubject],
   );
 
   const onVoice = useCallback(

@@ -28,6 +28,19 @@ const TOOLS = [
   {
     type: "function",
     function: {
+      name: "set_who",
+      description: "Record who the check is for, as soon as it is clear. Use a short relationship word like Mum, Dad, My partner, or 'me' if it is for themselves.",
+      parameters: {
+        type: "object",
+        properties: { who: { type: "string", description: "'me', or a relationship word of up to 20 letters" } },
+        required: ["who"],
+        additionalProperties: false,
+      },
+    },
+  },
+  {
+    type: "function",
+    function: {
       name: "save_details",
       description: "Save facts the person has just told you. Only include fields they actually stated.",
       parameters: FACT_PATCH_JSON,
@@ -69,7 +82,9 @@ export interface ToolNote {
   text: string;
 }
 
-function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers, notes: ToolNote[]): string {
+type Who = { who: "me" | "other"; label?: string };
+
+function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers, notes: ToolNote[], who: { value: Who | null }): string {
   let args: Record<string, unknown> = {};
   try {
     args = rawArgs ? (JSON.parse(rawArgs) as Record<string, unknown>) : {};
@@ -77,6 +92,14 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
     return JSON.stringify({ error: "Arguments were not valid JSON" });
   }
   const now = { ...answers, ...saved };
+  if (name === "set_who") {
+    const raw = String(args.who ?? "").replace(/[^\p{L} '-]/gu, "").trim().slice(0, 20);
+    if (!raw) return JSON.stringify({ error: "Empty" });
+    const label = raw.charAt(0).toUpperCase() + raw.slice(1);
+    who.value = /^(me|myself|i)$/i.test(raw) ? { who: "me" } : { who: "other", label };
+    notes.push({ name, text: who.value.who === "me" ? "Checking for you" : `Checking for ${label}` });
+    return JSON.stringify({ ok: true });
+  }
   if (name === "save_details") {
     const parsed = FactPatch.safeParse(args);
     if (!parsed.success) return JSON.stringify({ error: "Some fields were not valid", issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")) });
@@ -138,8 +161,19 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
   return JSON.stringify({ error: "Unknown tool" });
 }
 
-export async function runAgent(history: { role: "user" | "assistant"; content: string }[], answers: Answers) {
+export async function runAgent(
+  history: { role: "user" | "assistant"; content: string }[],
+  answers: Answers,
+  subject: { who: "me" | "other"; label?: string } = { who: "me" },
+) {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM }];
+  messages.push({
+    role: "system",
+    content:
+      subject.who === "other"
+        ? `The person is checking for someone they help: "${(subject.label ?? "them").replace(/[^\w '-]/g, "")}". Talk about that person in the third person and save facts about them, not about the helper. If the chat makes clear it's for someone else, call them that.`
+        : "The person may be checking for themselves or for someone they help. If they say it's for someone else, talk about that person in the third person.",
+  });
   const known = Object.keys(answers).length;
   messages.push({
     role: "system",
@@ -153,18 +187,19 @@ export async function runAgent(history: { role: "user" | "assistant"; content: s
 
   const saved: Answers = {};
   const notes: ToolNote[] = [];
+  const who: { value: Who | null } = { value: null };
   const usage: Usage = { prompt_tokens: 0, completion_tokens: 0 };
   for (let round = 0; round < 5; round++) {
     const { message, usage: u } = await chat({ messages, tools: TOOLS, effort: "low", maxTokens: 1200 });
     usage.prompt_tokens += u?.prompt_tokens ?? 0;
     usage.completion_tokens += u?.completion_tokens ?? 0;
     if (!message.tool_calls?.length) {
-      return { reply: (message.content ?? "").trim(), saved, notes, usage };
+      return { reply: (message.content ?? "").trim(), saved, notes, usage, subject: who.value };
     }
     messages.push({ role: "assistant", content: message.content ?? null, tool_calls: message.tool_calls });
     for (const call of message.tool_calls) {
-      messages.push({ role: "tool", tool_call_id: call.id, content: runTool(call.function.name, call.function.arguments, answers, saved, notes) });
+      messages.push({ role: "tool", tool_call_id: call.id, content: runTool(call.function.name, call.function.arguments, answers, saved, notes, who) });
     }
   }
-  return { reply: "I've saved what you told me. Have a look at the questions on the right whenever you're ready.", saved, notes, usage };
+  return { reply: "I've saved what you told me. Have a look at the questions on the right whenever you're ready.", saved, notes, usage, subject: who.value };
 }

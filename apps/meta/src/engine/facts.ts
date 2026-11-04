@@ -49,6 +49,8 @@ export type FactType =
 export interface Fact {
   type: FactType;
   q: string;
+  /** The same question about someone else; {n} is who it's for, for example "Mum". */
+  qThey: string;
   why: string;
   label: string;
   opts?: [string, string][];
@@ -58,19 +60,22 @@ export interface Fact {
 export const FACTS: Record<FactId, Fact> = {
   postcode: {
     type: "postcode",
-    q: "What's the postcode?",
+    q: "What's your postcode?",
+    qThey: "What's {n}'s postcode?",
     why: "Your nation and council decide many schemes.",
     label: "Postcode",
   },
   dob: {
     type: "date",
-    q: "What's the date of birth?",
+    q: "What's your date of birth?",
+    qThey: "What's {n}'s date of birth?",
     why: "Age and State Pension age split help into working age and pension age.",
     label: "Date of birth",
   },
   benefits: {
     type: "checklist",
     q: "Which of these do you already get?",
+    qThey: "Which of these does {n} already get?",
     why: "Some help opens the door to more help.",
     label: "Already gets",
     opts: [
@@ -83,19 +88,22 @@ export const FACTS: Record<FactId, Fact> = {
   },
   income: {
     type: "moneyPeriod",
-    q: "How much money comes into the home?",
+    q: "How much money comes into your home?",
+    qThey: "How much money comes into {n}'s home?",
     why: "Include wages, pensions and benefits, after tax.",
     label: "Income",
   },
   savings: {
     type: "money",
-    q: "How much is in savings?",
+    q: "How much do you have in savings?",
+    qThey: "How much does {n} have in savings?",
     why: "Some help has a savings limit, often £16,000.",
     label: "Savings",
   },
   difficulties: {
     type: "checklist",
     q: "Because of a health condition, what feels hard day to day?",
+    qThey: "Because of a health condition, what does {n} find hard day to day?",
     why: "This opens disability payments and help getting around.",
     label: "Day-to-day help",
     opts: [
@@ -108,43 +116,50 @@ export const FACTS: Record<FactId, Fact> = {
   },
   work: {
     type: "work",
-    q: "What's the work situation?",
+    q: "What's your work situation?",
+    qThey: "What's {n}'s work situation?",
     why: "Decides help with jobs, sickness, caring and childcare.",
     label: "Work",
   },
   ni: {
     type: "yesno",
-    q: "Paid National Insurance in the last 2 to 3 years?",
+    q: "Have you paid National Insurance in the last 2 to 3 years?",
+    qThey: "Has {n} paid National Insurance in the last 2 to 3 years?",
     why: "New Style JSA and ESA depend on contributions, not income.",
     label: "Paid National Insurance",
   },
   child: {
     type: "childDate",
-    q: "When was the youngest child born?",
+    q: "When was your youngest child born?",
+    qThey: "When was {n}'s youngest child born?",
     why: "Family help depends on your child's age.",
     label: "Youngest child",
   },
   pregnant: {
     type: "yesno",
     q: "Is anyone at home expecting a baby?",
+    qThey: "Is anyone in {n}'s home expecting a baby?",
     why: "Opens maternity and early-years help.",
     label: "Expecting a baby",
   },
   careHours: {
     type: "hours",
     q: "How many hours a week do you care for someone?",
+    qThey: "How many hours a week does {n} care for someone?",
     why: "Carer payments start at 35 hours a week.",
     label: "Caring hours",
   },
   ctax: {
     type: "yesno",
     q: "Do you pay council tax?",
+    qThey: "Does {n} pay council tax?",
     why: "Your council can reduce it.",
     label: "Pays council tax",
   },
   bereaved: {
     type: "choice",
     q: "Has someone close to you died recently?",
+    qThey: "Has someone close to {n} died recently?",
     why: "Opens bereavement and funeral help.",
     label: "Bereavement",
     opts: [
@@ -156,6 +171,25 @@ export const FACTS: Record<FactId, Fact> = {
 };
 
 export const ORDER = Object.keys(FACTS) as FactId[];
+
+/** Who the check is for. A relationship word only (Mum, Dad), never a name we need to keep. */
+export interface Subject {
+  who: "me" | "other";
+  label?: string;
+}
+export const ME: Subject = { who: "me" };
+
+export function ask(f: FactId, sub: Subject): string {
+  const fact = FACTS[f];
+  if (sub.who === "me") return fact.q;
+  return fact.qThey.replaceAll("{n}", sub.label?.trim() || "the person");
+}
+
+/** Option wording that changes with who the check is for. */
+export function optLabel(label: string, sub: Subject): string {
+  if (sub.who === "me") return label;
+  return label.replace(/^My /, "Their ").replace(/I'm paying/, "they're paying");
+}
 
 export const REGISTRY: Record<FactType, { comp: string; why: string }> = {
   postcode: { comp: "Postcode", why: "one field gives nation and council" },

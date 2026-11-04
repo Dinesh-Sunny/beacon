@@ -29,7 +29,8 @@ const FROM: Record<Source, string> = {
 
 export function DetailsPanel({ onClose }: { onClose: () => void }) {
   const [tab, setTab] = useState<"fill" | "see">("fill");
-  const { answers, states, current, edit } = useCheck();
+  const { answers, states, current, edit, subject } = useCheck();
+  const [picking, setPicking] = useState(false);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
   const open = count(states, "open");
   const change = (f: FactId) => {
@@ -56,10 +57,16 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
       <div className="details-body">
         <div className="who-card">
           <span className="avatar" aria-hidden="true">
-            <Icon name="person" size={18} />
+            {subject.who === "me" ? <Icon name="person" size={18} /> : (subject.label ?? "?").slice(0, 1).toUpperCase()}
           </span>
           <div>
-            <b>Your check</b>
+            <div className="who-line">
+              <b data-testid="who">{subject.who === "me" ? "Checking for you" : `Checking for ${subject.label}`}</b>
+              <button type="button" className="linkbtn" onClick={() => setPicking((p) => !p)} aria-expanded={picking}>
+                Change
+              </button>
+            </div>
+            {picking && <WhoPicker onDone={() => setPicking(false)} />}
             <div className="bar" aria-hidden="true">
               <i style={{ width: `${((SCHEMES.length - open) / SCHEMES.length) * 100}%` }} />
             </div>
@@ -79,6 +86,47 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
           <SeeDetails onChange={change} />
         )}
       </div>
+    </div>
+  );
+}
+
+const PEOPLE = ["Mum", "Dad", "My partner", "My son", "My daughter", "A friend"];
+
+function WhoPicker({ onDone }: { onDone: () => void }) {
+  const { subject, setSubject } = useCheck();
+  const [other, setOther] = useState("");
+  const pick = (label?: string) => {
+    setSubject(label ? { who: "other", label } : { who: "me" });
+    onDone();
+  };
+  return (
+    <div className="who-picker" data-testid="who-picker">
+      <span className="hint">Who is this check for?</span>
+      <div className="who-chips">
+        <button type="button" aria-pressed={subject.who === "me"} onClick={() => pick()}>
+          Me
+        </button>
+        {PEOPLE.map((p) => (
+          <button key={p} type="button" aria-pressed={subject.label === p} onClick={() => pick(p)}>
+            {p}
+          </button>
+        ))}
+      </div>
+      <form
+        className="who-other"
+        onSubmit={(e) => {
+          e.preventDefault();
+          if (other.trim()) pick(other.trim().slice(0, 20));
+        }}
+      >
+        <label htmlFor="who-other" className="sr-only">
+          Someone else
+        </label>
+        <input id="who-other" className="txt" placeholder="Someone else, like Nan" value={other} maxLength={20} onChange={(e) => setOther(e.target.value)} />
+        <button type="submit" className="btn small" disabled={!other.trim()}>
+          Use
+        </button>
+      </form>
     </div>
   );
 }

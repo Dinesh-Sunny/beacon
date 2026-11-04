@@ -20,7 +20,8 @@ interface Prep {
 }
 
 export function Results() {
-  const { states, next, answers } = useCheck();
+  const { states, next, answers, subject } = useCheck();
+  const whose = subject.who === "me" ? "yours" : `${subject.label}'s`;
   const done = !next;
   const likely = count(states, "likely");
   const check = count(states, "check");
@@ -43,7 +44,7 @@ export function Results() {
       <div className="res-head">
         <span className="eyebrow">{done ? "Your results" : "Found so far"}</span>
         <h2 id="res-h">
-          {total} {total === 1 ? "thing looks" : "things look"} like yours
+          {total} {total === 1 ? "thing looks" : "things look"} like {whose}
         </h2>
         <p className="why">
           {likely} likely, {check} worth checking{unlock ? `, and ${unlock} more once your first claim is awarded` : ""}. The

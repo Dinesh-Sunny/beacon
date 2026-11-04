@@ -31,7 +31,7 @@ function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
   const [details, setDetails] = useState(true);
   const [view, setView] = useState<MobileView>("details");
-  const { reset, hydrated, next, apply, asked, editing } = useCheck();
+  const { reset, hydrated, next, apply, asked, editing, subject } = useCheck();
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
 
@@ -85,6 +85,12 @@ function Shell() {
             </button>
           </span>
         ) : null}
+        {chat !== "full" && (
+          <>
+            <span className="divider wide-only" aria-hidden="true" />
+            <span className="title wide-only">{subject.who === "me" ? "Your check" : `Check for ${subject.label}`}</span>
+          </>
+        )}
         <span className="spacer" />
         {chat === "full" ? (
           <button type="button" className="btn ghost small" onClick={() => setChat("open")}>

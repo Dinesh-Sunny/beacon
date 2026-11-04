@@ -1824,3 +1824,54 @@ button {
     border: 0;
   }
 }
+.who-line {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.who-picker {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 8px 0 10px;
+  animation: rise 0.25s ease both;
+}
+.who-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.who-chips button {
+  border: 1.5px solid var(--line);
+  background: var(--surface);
+  border-radius: 999px;
+  padding: 6px 12px;
+  font-size: 0.9rem;
+}
+.who-chips button[aria-pressed="true"] {
+  background: var(--ink);
+  color: var(--bg);
+  border-color: var(--ink);
+}
+.who-other {
+  display: flex;
+  gap: 6px;
+}
+.who-other .txt {
+  min-height: 40px;
+  font-size: 0.95rem;
+  padding: 6px 10px;
+  border-width: 1.5px;
+}
+.strip .divider {
+  width: 1px;
+  height: 24px;
+  background: var(--line);
+  margin: 0 8px;
+}
+.strip .title {
+  font-weight: 700;
+  font-size: 1rem;
+  white-space: nowrap;
+}

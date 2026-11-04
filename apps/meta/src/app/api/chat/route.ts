@@ -13,6 +13,7 @@ const Body = z.object({
     .min(1)
     .max(16),
   answers: AnswersSchema,
+  subject: z.object({ who: z.enum(["me", "other"]), label: z.string().max(20).optional() }).optional(),
 });
 
 export async function POST(req: Request) {
@@ -21,7 +22,7 @@ export async function POST(req: Request) {
   const parsed = Body.safeParse(await req.json().catch(() => null));
   if (!parsed.success) return json({ error: "bad-request" }, 400);
   try {
-    const out = await runAgent(parsed.data.messages, parsed.data.answers);
+    const out = await runAgent(parsed.data.messages, parsed.data.answers, parsed.data.subject);
     return json(out);
   } catch (err) {
     return failure(err);
