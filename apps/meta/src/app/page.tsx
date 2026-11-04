@@ -70,18 +70,6 @@ export default async function Home() {
             <div className="hx-panel">
               <HeroBeams />
               <div className="mk-wrap mk-hero-copy">
-                <p className="mk-pill">
-                  <span className="dot" aria-hidden="true" />{" "}
-                  {t("site.pillCountry", {
-                    count: schemesOf(country).length,
-                    country: t(
-                      us
-                        ? "home.countries.us.short"
-                        : "home.countries.uk.short",
-                    ),
-                    languages: LOCALES.length,
-                  })}
-                </p>
                 <h1 id="hero-h">{t("site.h1")}</h1>
                 <p className="mk-lead">{t("site.lead")}</p>
                 <HomeStart country={country} />

@@ -13,7 +13,7 @@ import {
   useEffect,
 } from "react";
 import { IntlProvider } from "use-intl";
-import { syncCountryCookie } from "@/lib/country";
+import { DefaultCountry, syncCountryCookie } from "@/lib/country";
 import { setLocaleAction } from "./actions";
 import { type Locale, localeInfo } from "./locales";
 import type { Messages } from "./messages";
@@ -41,12 +41,15 @@ export function I18nProvider({
   messages,
   invites,
   countries,
+  country,
   children,
 }: {
   locale: Locale;
   messages: Messages;
   invites: Invites;
   countries: Country[];
+  /** The country to use until the person chooses one. */
+  country: string;
   children: ReactNode;
 }) {
   const setLocale = useCallback((l: Locale) => {
@@ -70,20 +73,22 @@ export function I18nProvider({
     document.documentElement.dir = localeInfo(locale).dir;
   }, [locale]);
   return (
-    <SetLocale.Provider value={setLocale}>
-      <InvitesCtx.Provider value={invites}>
-        <CountriesCtx.Provider value={countries}>
-          <IntlProvider
-            locale={locale}
-            messages={messages}
-            timeZone="Europe/London"
-            // Missing words fall back to English in the merged messages; never crash the page.
-            onError={() => {}}
-          >
-            {children}
-          </IntlProvider>
-        </CountriesCtx.Provider>
-      </InvitesCtx.Provider>
-    </SetLocale.Provider>
+    <DefaultCountry.Provider value={country}>
+      <SetLocale.Provider value={setLocale}>
+        <InvitesCtx.Provider value={invites}>
+          <CountriesCtx.Provider value={countries}>
+            <IntlProvider
+              locale={locale}
+              messages={messages}
+              timeZone="Europe/London"
+              // Missing words fall back to English in the merged messages; never crash the page.
+              onError={() => {}}
+            >
+              {children}
+            </IntlProvider>
+          </CountriesCtx.Provider>
+        </InvitesCtx.Provider>
+      </SetLocale.Provider>
+    </DefaultCountry.Provider>
   );
 }

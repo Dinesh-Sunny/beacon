@@ -1,7 +1,7 @@
 import "server-only";
 
 // The reader's language for server-rendered pages: the cookie the language menu sets, else English.
-import { cookies } from "next/headers";
+import { cookies, headers } from "next/headers";
 import { createTranslator } from "use-intl/core";
 import { countryCodes, countryName } from "./countries";
 import {
@@ -53,8 +53,27 @@ export const countriesFor = (locale: Locale): Country[] =>
       a.name.localeCompare(b.name, locale === "en" ? "en-GB" : locale),
     );
 
-/** The country whose rules the person chose (cookie), for pages that show its numbers. */
+/** The country the browser's languages name, like en-US -> US. Only tags that say a region
+ * count ("en" alone says nothing about where someone lives). Never from location. */
+async function browserCountry(): Promise<string | null> {
+  const header = (await headers()).get("accept-language") ?? "";
+  for (const part of header.split(",")) {
+    const tag = part.split(";")[0]?.trim();
+    if (!tag || tag === "*") continue;
+    try {
+      const region = new Intl.Locale(tag).region;
+      if (region) return region;
+    } catch {
+      /* skip a bad tag */
+    }
+  }
+  return null;
+}
+
+/** The country whose rules Beacon uses: the person's own choice (cookie) first, then what
+ * their browser says, then the UK. Only countries Beacon checks are returned. */
 export async function getCountry(): Promise<"GB" | "US"> {
-  const v = (await cookies()).get("beacon-country")?.value;
-  return v === "US" ? "US" : "GB";
+  const chosen = (await cookies()).get("beacon-country")?.value;
+  if (chosen === "US" || chosen === "GB") return chosen;
+  return (await browserCountry()) === "US" ? "US" : "GB";
 }

@@ -1,9 +1,15 @@
 "use client";
 
-// The country whose rules Beacon uses, kept on this device only. Suggested from the browser's
-// language tags (en-GB -> GB), never from location.
+// The country whose rules Beacon uses, kept on this device only. Until the person chooses, it
+// follows their browser's languages (en-US -> US), worked out on the server so the first page is
+// already right; never from location.
 
-import { useCallback, useSyncExternalStore } from "react";
+import {
+  createContext,
+  useCallback,
+  useContext,
+  useSyncExternalStore,
+} from "react";
 import { countryFromBrowser } from "@/i18n/countries";
 
 const KEY = "beacon:country";
@@ -22,8 +28,12 @@ const read = (): string | null => {
   }
 };
 
+/** The server's best guess for this visitor, used until they choose. */
+export const DefaultCountry = createContext<string>("GB");
+
 export function useCountry() {
-  const country = useSyncExternalStore(
+  const fallback = useContext(DefaultCountry);
+  const saved = useSyncExternalStore(
     (cb) => {
       listeners.add(cb);
       return () => listeners.delete(cb);
@@ -40,7 +50,7 @@ export function useCountry() {
     writeCookie(code);
     for (const l of listeners) l();
   }, []);
-  return { country, setCountry };
+  return { country: saved ?? fallback, setCountry };
 }
 
 export const suggestedCountry = (): string | null =>

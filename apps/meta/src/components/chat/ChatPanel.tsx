@@ -429,7 +429,6 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     <>
       <div className="thread" data-testid="thread">
         <div className="msg bot welcome">
-          <Logo size={30} />
           <p className="bubble plain">{tc("hello")}</p>
           <p className="bubble plain">{tc("howTo")}</p>
         </div>
