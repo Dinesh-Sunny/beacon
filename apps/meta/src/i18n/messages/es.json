@@ -39,6 +39,7 @@
   "first": {
     "you": "Tú, o alguien a quien cuidas",
     "givers": "Gobierno, ayuntamientos, NHS, organizaciones benéficas",
+    "giversUs": "Gobierno, estados, clínicas, organizaciones benéficas",
     "mapLabel": "Tú a un lado, todos los que dan ayuda al otro, y Beacon uniendo a los dos.",
     "headline": "{names} y {more} más",
     "lead": "A medida que respondes, aquí aparece lo que puede ser tuyo, con la norma oficial que lo respalda.",

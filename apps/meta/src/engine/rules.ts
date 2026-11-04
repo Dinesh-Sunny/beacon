@@ -639,6 +639,11 @@ export const inPlay = (st: States): Scheme[] => SCHEMES.filter((s) => st[s.id]);
 /** Schemes of one country. */
 export const schemesOf = (country: string): Scheme[] =>
   SCHEMES.filter((s) => s.country === country);
+/** The life areas one country's schemes cover. */
+export const topicsOf = (country: string) =>
+  TOPICS.filter(([t]) =>
+    SCHEMES.some((s) => s.country === country && s.topic === t),
+  );
 
 // ---------- Claim order and warnings ----------
 export interface PlanStep {

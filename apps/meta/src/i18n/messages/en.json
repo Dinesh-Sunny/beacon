@@ -39,6 +39,7 @@
   "first": {
     "you": "You, or someone you look after",
     "givers": "Government, councils, NHS, charities",
+    "giversUs": "Government, states, clinics, charities",
     "mapLabel": "You on one side, everyone who gives help on the other, and Beacon connecting the two.",
     "headline": "{names}, and {more} more",
     "lead": "As you answer, what may be yours shows up here with the official rule behind it.",

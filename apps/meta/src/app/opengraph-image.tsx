@@ -4,7 +4,7 @@ import { readFile } from "node:fs/promises";
 import { join } from "node:path";
 import { ImageResponse } from "next/og";
 import COUNTS from "@/data/data-counts.json";
-import { SCHEMES } from "@/engine/rules";
+import { schemesOf } from "@/engine/rules";
 
 export const alt = "Beacon - find the support that's already yours";
 export const size = { width: 1200, height: 630 };
@@ -58,7 +58,7 @@ export default function Image() {
         Find the support that's already yours.
       </div>
       <div style={{ display: "flex", gap: 36, fontSize: 30, color: "#6B6257" }}>
-        <span>{SCHEMES.length} kinds of help</span>
+        <span>{schemesOf("GB").length} kinds of help</span>
         <span>{n(COUNTS.councilLinks.links)} council pages</span>
         <span>{n(COUNTS.charityFunds.funds)} charities</span>
       </div>

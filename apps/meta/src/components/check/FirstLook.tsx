@@ -35,7 +35,9 @@ export function FirstLook({ onExample }: { onExample: () => void }) {
           <span />
         </div>
         <i className="fl-beam out" />
-        <span className="fl-end">{t("givers")}</span>
+        <span className="fl-end">
+          {t(country === "US" ? "giversUs" : "givers")}
+        </span>
       </div>
       <h2 id="fl-h">
         {t("headline", {

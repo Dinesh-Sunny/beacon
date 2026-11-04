@@ -39,6 +39,7 @@
   "first": {
     "you": "Chi, neu rywun rydych chi'n gofalu amdano",
     "givers": "Llywodraeth, cynghorau, GIG, elusennau",
+    "giversUs": "Llywodraeth, taleithiau, clinigau, elusennau",
     "mapLabel": "Chi ar un ochr, pawb sy'n rhoi help ar yr ochr arall, a Beacon yn cysylltu'r ddau.",
     "headline": "{names}, a {more} arall",
     "lead": "Wrth i chi ateb, bydd yr help a allai fod yn eiddo i chi yn ymddangos yma, gyda'r rheol swyddogol y tu ôl iddo.",

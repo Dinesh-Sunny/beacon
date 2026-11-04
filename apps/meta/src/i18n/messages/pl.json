@@ -39,6 +39,7 @@
   "first": {
     "you": "Ty lub ktoś, kim się opiekujesz",
     "givers": "Rząd, rady lokalne, NHS, organizacje charytatywne",
+    "giversUs": "Rząd, stany, przychodnie, organizacje charytatywne",
     "mapLabel": "Ty po jednej stronie, wszyscy, którzy dają pomoc, po drugiej, a pośrodku Beacon, który was łączy.",
     "headline": "{names} i jeszcze {more}",
     "lead": "W miarę jak odpowiadasz, tutaj pojawia się to, co może Ci przysługiwać, razem z oficjalną zasadą, na której się opiera.",

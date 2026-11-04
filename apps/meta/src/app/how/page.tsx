@@ -12,8 +12,18 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import { COVERED_NATIONS, SCHEMES, TOPICS } from "@/engine/rules";
+import {
+  COVERED_NATIONS,
+  SCHEMES,
+  schemesOf,
+  TOPICS,
+  topicsOf,
+} from "@/engine/rules";
 import { intlTag } from "@/i18n/locales";
+
+// The pages describe the UK check; the US check has its own count.
+const UK_SCHEMES = schemesOf("GB").length;
+const UK_TOPICS = topicsOf("GB").length;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getT();
@@ -64,7 +74,7 @@ export default async function How() {
         { t: t("how.items.validate.title"), d: t("how.items.validate.text") },
         {
           t: t("how.items.engine.title"),
-          d: t("how.items.engine.text", { count: SCHEMES.length }),
+          d: t("how.items.engine.text", { count: UK_SCHEMES }),
         },
         { t: t("how.items.planner.title"), d: t("how.items.planner.text") },
         { t: t("how.items.chains.title"), d: t("how.items.chains.text") },
@@ -94,13 +104,13 @@ export default async function How() {
               <div>
                 <dt>{t("how.stats.schemes")}</dt>
                 <dd>
-                  <Ticker value={SCHEMES.length} />
+                  <Ticker value={UK_SCHEMES} />
                 </dd>
               </div>
               <div>
                 <dt>{t("how.stats.topics")}</dt>
                 <dd>
-                  <Ticker value={TOPICS.length} />
+                  <Ticker value={UK_TOPICS} />
                 </dd>
               </div>
               <div>
@@ -220,16 +230,18 @@ export default async function How() {
                 title={t("how.cover.title")}
               >
                 {t("how.cover.lead", {
-                  schemes: SCHEMES.length,
-                  topics: TOPICS.length,
+                  schemes: UK_SCHEMES,
+                  topics: UK_TOPICS,
                   nations,
                 })}
               </SectionHead>
             </Reveal>
             <Reveal>
               <div className="mk-topics">
-                {TOPICS.map(([topic, name]) => {
-                  const list = SCHEMES.filter((s) => s.topic === topic);
+                {topicsOf("GB").map(([topic, name]) => {
+                  const list = SCHEMES.filter(
+                    (s) => s.topic === topic && s.country === "GB",
+                  );
                   const key = `topics.${topic}` as "topics.home";
                   return (
                     <div key={topic} className="mk-topic">

@@ -16,10 +16,20 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import { COVERED_NATIONS, SCHEMES, TOPICS } from "@/engine/rules";
+import {
+  COVERED_NATIONS,
+  SCHEMES,
+  schemesOf,
+  TOPICS,
+  topicsOf,
+} from "@/engine/rules";
 import { intlTag } from "@/i18n/locales";
 import { getLocale, getT } from "@/i18n/server";
 import { SITE_URL } from "@/lib/site";
+
+// The pages describe the UK check; the US check has its own count.
+const UK_SCHEMES = schemesOf("GB").length;
+const UK_TOPICS = topicsOf("GB").length;
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getT();
@@ -63,7 +73,7 @@ export default async function Home() {
             <div className="mk-hero-copy">
               <p className="mk-pill">
                 <span className="dot" aria-hidden="true" />{" "}
-                {t("site.pill", { count: SCHEMES.length, nations })}
+                {t("site.pill", { count: UK_SCHEMES, nations })}
               </p>
               <h1 id="hero-h">{t("site.h1")}</h1>
               <p className="mk-lead">{t("site.lead")}</p>
@@ -145,8 +155,8 @@ export default async function Home() {
                   tag={t("home.cover.tag")}
                   id="cover-h"
                   title={t("home.cover.title", {
-                    schemes: SCHEMES.length,
-                    topics: TOPICS.length,
+                    schemes: UK_SCHEMES,
+                    topics: UK_TOPICS,
                   })}
                   center
                 >
