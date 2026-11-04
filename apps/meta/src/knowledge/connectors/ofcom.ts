@@ -19,6 +19,7 @@ export const ofcom: Connector = {
     const html = await res.text();
     const table = html.match(/<table[\s\S]*?<\/table>/i)?.[0];
     if (!table) throw new Error("no table on the Ofcom page");
+    log(`tables: ${(html.match(/<table/gi) ?? []).length}, first: ${table.slice(0, 600).replace(/\s+/g, " ")}`);
     const rows = [...table.matchAll(/<tr[\s\S]*?<\/tr>/gi)].map((m) => cells(m[0])).filter((c) => c.length >= 4);
     const [head, ...body] = rows;
     log(`columns: ${head?.join(" | ")}`);
