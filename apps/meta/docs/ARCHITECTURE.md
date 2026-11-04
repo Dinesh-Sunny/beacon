@@ -12,7 +12,8 @@ Both sides grow independently. New people arrive through new channels (chat, voi
 
 1. **Code decides, models explain.** Every result comes from a deterministic rules engine. Models read messy input (speech, letters, free text), call tools, and write explanations. Same answers, same result, no model drift in decisions.
 2. **The check runs in the browser.** The rules engine and the question planner are plain TypeScript that runs client-side. A full check costs the server nothing. Servers are only touched when someone asks a model for help. This is the main reason Beacon can serve millions cheaply.
-3. **Rules are data, not code.** Schemes, screening lines and clash notes live in versioned rule packs (`packs/uk-core.json`), validated by a zod schema on load, with every line citing its source. Adding a council, a charity fund or a country is a new pack, not a code change. Packs are small and cacheable at the edge.
+3. **Rules are data, not code.** Schemes, screening lines, clash notes and challenge routes live in versioned rule packs (`packs/*.json`, one per group of help: core benefits, bills, NHS costs, councils, families, Scotland, work and care, household and debt, unclaimed money). `RegistrySchema` in `src/engine/pack.ts` validates each pack, then checks every id, line, topic and reference across all of them before merging. Adding a group is a new JSON file, not a code change (`node scripts/check-packs.ts` validates it).
+3a. **One source for every answer.** `src/engine/answers-schema.ts` defines what each answer can be. The Answers type, request validation, the fact ids packs may use and the model's tool schema (generated with `z.toJSONSchema`) all derive from it, so a new question is one edit plus its wording.
 4. **Tokens are the scarce resource, so climb a cost ladder and stop early:**
    - precomputed copy (questions, reasons, warnings) costs nothing
    - the rules engine in the browser costs nothing
@@ -36,12 +37,14 @@ Both sides grow independently. New people arrive through new channels (chat, voi
 | Call notes (`/api/prepare`) | Serverless, cached per scheme + relevant answers | Unique situations, not users |
 | Results banner (`/api/card`) | Serverless, cached per mix of life areas | 127 combinations at most |
 | Knowledge watch | GitHub Actions, daily | Number of official pages |
+| Harvest, triage, drafts | GitHub Actions weekly, or a dev route on a machine with web access | Number of source pages, each fetched and sent to a model once |
+| Claim tracking and Watch | Browser (localStorage) | Free |
 | Health (`/api/health`) | Serverless | Uptime checks |
 
 ## Growing from here
 
 - **Shared cache.** The in-process cache keeps the same keys when it moves to a shared store (Redis or a runtime cache), so hits work across every instance.
 - **More packs.** Council packs layer on the core pack in a fixed order (core, country, nation, council). Each pack carries a version and a checked date, and old versions stay so past answers can be explained.
-- **Rule extraction.** The watch already flags changed pages. Next, a model drafts the rule diff for the changed page as a pull request, and golden test households must pass before it merges.
-- **Durable journeys.** Confirm, Receive, Keep and Watch need long-running workflows (weeks, not seconds). They run as durable background jobs with the person's consent, triggered by events, never by a page view.
+- **Knowledge pipeline (live).** Connectors harvest aggregator sources (GOV.UK Content and Search APIs first: 1,279 pages in two minutes) through one polite fetcher. Each page's text is stored once in `catalog/sources/` with a hash index, so engine or UI changes never re-download. Muse Spark triages pages into help or not and tags them to the Framework's groups, then drafts rules in the engine's own language. `src/knowledge/review.ts` checks drafts with the live schema and quality gates (no model, no network) and ranks which new question would unlock the most drafts. Drafts reach a pack only after review. `catalog/coverage.json` maps every Framework group to what's live, next and where its data comes from; `scripts/coverage-page.ts` renders it.
+- **Durable journeys.** Confirm, Receive and Watch run in the browser today: claim progress (applied, awarded, refused) with challenge routes from the packs, awards fed back so unlocked help is checked again, and a note of what's new when the packs grow. With consent, the same steps move to durable background jobs (reminders, deadlines, Keep) triggered by events, never by a page view.
 - **Cells.** At very large scale, copies of the stack run per country for data residency, and a failure in one stays in one.

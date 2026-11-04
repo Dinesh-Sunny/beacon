@@ -53,21 +53,23 @@ flowchart LR
 
 ## Built to scale
 
-The check itself runs in the browser, rules live in a versioned data pack, model answers are cached and prompt-cached, and a daily job watches the official pages behind every rule. Full principles: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).
+The check itself runs in the browser, rules live in versioned data packs (one per group of help), model answers are cached and prompt-cached, a daily job watches the official pages behind every rule, and a background pipeline harvests, triages and drafts new schemes with Muse Spark. Full principles: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md). What Beacon covers and connects to: [catalog/README.md](catalog/README.md). 
 
 ## Built during the hackathon
 
 Everything in `apps/meta` was built for this hackathon, during the build window (27 October to 4 November 2026). This repository was created on 30 October 2026. The earlier app in `apps/web` and the packages in `packages/` belong to a separate entry and aren't used by this app.
 
-- Rules engine with 21 GOV.UK and Social Security Scotland schemes, the question planner, claim chains, clash warnings and claim order
+- Rules engine with 50 schemes in 9 rule packs (DWP, councils, NHS, energy and broadband, families, Scotland, work and care, household and debt, unclaimed money), the question planner, claim chains, clash warnings and claim order
 - The chat-first workspace: Beacon's questions inside the chat, a calm canvas where results light up, and a Details panel that lists every question and shows where each saved detail came from
 - The Muse Spark agent with five tools, including switching the whole check to "Check for Mum"
 - Voice input with Muse Voice Transcribe, recorded straight to WAV in the browser
 - Letter reading with SAM 3.1 and Muse Spark vision, with an outbound scrub, plus a made-up sample letter anyone can try from the + menu
 - Results with claim plan, "Good to know" clash notes, call coach notes and a Muse Image banner
-- A calm canvas: 21 tiles that light up as answers settle each scheme
+- A calm canvas: one row of dots per area of life that lights up as answers settle each scheme, so it stays calm with hundreds
+- Claim tracking (applied, awarded, refused) with challenge routes, awards that reopen the help they unlock, and a "new for you" note when the rules grow
+- A knowledge pipeline: GOV.UK harvest (1,279 pages stored once), Muse Spark triage (300 pages of help tagged to the Beacon Framework) and Muse Spark drafts checked by the live schema
 - Agent steps streamed to the chat as they happen
-- Rule pack as data (`packs/uk-core.json`), answer cache, prompt cache keys, daily knowledge watch, health endpoint
+- Rule packs as data (`packs/*.json`, checked with `node scripts/check-packs.ts`), one answers schema, answer cache, prompt cache keys, daily knowledge watch, weekly harvest, health endpoint
 - Home page and a "How it works" page
 
 ## Run it
