@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/PageTransition";
-import { getLocale, getT } from "@/i18n/server";
+import { getCountry, getLocale, getT } from "@/i18n/server";
 import "../marketing.css";
 import { Icon } from "@/components/Icon";
 import { FinalCta } from "@/components/marketing/FinalCta";
@@ -49,6 +49,11 @@ const STATS = [
 export default async function How() {
   const t = await getT();
   const locale = await getLocale();
+  // The person's own country leads the coverage list.
+  const order =
+    (await getCountry()) === "US"
+      ? (["US", "GB"] as const)
+      : (["GB", "US"] as const);
   const nations = new Intl.ListFormat(intlTag(locale), {
     type: "conjunction",
   }).format(COVERED_NATIONS.map((n) => t(`nations.${n}`)));
@@ -210,7 +215,7 @@ export default async function How() {
                 {t("how.cover.leadAll", { schemes: SCHEMES.length, nations })}
               </SectionHead>
             </Reveal>
-            {(["GB", "US"] as const).map((c) => (
+            {order.map((c) => (
               <Reveal key={c}>
                 <h3 className="mk-cover-country">
                   <span aria-hidden="true">{flagOf(c)}</span>{" "}

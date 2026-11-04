@@ -9,7 +9,7 @@ import { useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 
-export function HomeStart() {
+export function HomeStart({ country = "GB" }: { country?: "GB" | "US" }) {
   const tr = useTranslations("site");
   const [text, setText] = useState("");
   const box = useRef<HTMLTextAreaElement>(null);
@@ -59,7 +59,9 @@ export function HomeStart() {
           ref={box}
           id="home-input"
           rows={2}
-          placeholder={forWhom === "me" ? tr("inputHintMe") : tr("inputHint")}
+          placeholder={tr(
+            `${forWhom === "me" ? "inputHintMe" : "inputHint"}${country === "US" ? "Us" : ""}` as "inputHint",
+          )}
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {

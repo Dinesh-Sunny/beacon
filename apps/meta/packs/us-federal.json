@@ -193,7 +193,7 @@
     "healthCenterPct": {
       "value": 200,
       "source": "https://bphc.hrsa.gov/about-health-center-program/what-health-center",
-      "note": "about 90% of health center patients have incomes under 200% of poverty"
+      "note": "about 90% of health centre patients have incomes under 200% of poverty"
     },
     "vaPensionIncome": {
       "value": 17441,
@@ -206,14 +206,36 @@
       "note": "1 Dec 2025 to 30 Nov 2026"
     }
   },
-  "gateways": ["snap", "medicaid", "ssi"],
+  "gateways": [
+    "snap",
+    "medicaid",
+    "ssi"
+  ],
   "topics": [
-    ["food", "Food"],
-    ["health", "Health care"],
-    ["tax", "Tax credits and filing"],
-    ["vets", "Veterans"],
-    ["rent", "Housing"],
-    ["learn", "College"]
+    [
+      "food",
+      "Food"
+    ],
+    [
+      "health",
+      "Health care"
+    ],
+    [
+      "tax",
+      "Tax credits and filing"
+    ],
+    [
+      "vets",
+      "Veterans"
+    ],
+    [
+      "rent",
+      "Housing"
+    ],
+    [
+      "learn",
+      "College"
+    ]
   ],
   "schemes": [
     {
@@ -227,7 +249,10 @@
       "urgent": true,
       "rule": [
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -244,7 +269,12 @@
           }
         }
       ],
-      "opens": ["wic", "nslp", "lifeline", "liheap"]
+      "opens": [
+        "wic",
+        "nslp",
+        "lifeline",
+        "liheap"
+      ]
     },
     {
       "id": "medicaid",
@@ -364,7 +394,11 @@
           "fail": "Your state covers few adults on income alone, but children, pregnancy and disability can still qualify"
         }
       ],
-      "opens": ["wic", "lifeline", "extrahelp"]
+      "opens": [
+        "wic",
+        "lifeline",
+        "extrahelp"
+      ]
     },
     {
       "id": "ssi",
@@ -378,7 +412,10 @@
       "urgent": true,
       "rule": [
         {
-          "needs": ["dob", "difficulties"],
+          "needs": [
+            "dob",
+            "difficulties"
+          ],
           "test": {
             "any": [
               {
@@ -398,7 +435,10 @@
           "fail": "Under 65 with no health condition"
         },
         {
-          "needs": ["income", "household"],
+          "needs": [
+            "income",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -435,7 +475,10 @@
           }
         },
         {
-          "needs": ["savings", "household"],
+          "needs": [
+            "savings",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -472,7 +515,14 @@
           }
         }
       ],
-      "opens": ["medicaid", "snap", "extrahelp", "lifeline", "liheap", "wap"],
+      "opens": [
+        "medicaid",
+        "snap",
+        "extrahelp",
+        "lifeline",
+        "liheap",
+        "wap"
+      ],
       "worth": {
         "max": 994,
         "per": "month",
@@ -490,7 +540,10 @@
       "url": "https://www.fna.usda.gov/wic/wic-eligibility-requirements",
       "rule": [
         {
-          "needs": ["pregnant", "child"],
+          "needs": [
+            "pregnant",
+            "child"
+          ],
           "test": {
             "any": [
               {
@@ -510,7 +563,11 @@
           "fail": "No pregnancy or child under 5"
         },
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -553,7 +610,9 @@
       "act": "Ask the school",
       "rule": [
         {
-          "needs": ["child"],
+          "needs": [
+            "child"
+          ],
           "test": {
             "f": "childAge",
             "op": "lt",
@@ -564,7 +623,11 @@
           "fail": "No children at home"
         },
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -595,14 +658,16 @@
       "id": "headstart",
       "name": "Head Start",
       "topic": "fam",
-      "by": "Your local Head Start program",
+      "by": "Your local Head Start programme",
       "gives": "Free early learning for children from birth to age 5.",
-      "how": "Contact a Head Start program near you. Children in families who get TANF or SSI, or who are homeless or in foster care, can join whatever the income.",
+      "how": "Contact a Head Start programme near you. Children in families who get TANF or SSI, or who are homeless or in foster care, can join whatever the income.",
       "url": "https://headstart.gov/ersea/article/poverty-guidelines-determining-eligibility-participation-head-start-programs",
-      "act": "Find a program",
+      "act": "Find a programme",
       "rule": [
         {
-          "needs": ["child"],
+          "needs": [
+            "child"
+          ],
           "test": {
             "f": "childAge",
             "op": "lt",
@@ -613,7 +678,11 @@
           "fail": "No child under 5"
         },
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -652,7 +721,9 @@
       "worthChecking": "Each state sets its own income limit, so your state decides",
       "rule": [
         {
-          "needs": ["child"],
+          "needs": [
+            "child"
+          ],
           "test": {
             "f": "childAge",
             "op": "lt",
@@ -663,7 +734,10 @@
           "fail": "No child under 19"
         },
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -686,11 +760,15 @@
       "how": "Apply at HealthCare.gov or your state's Marketplace, using your best estimate of this year's income.",
       "phone": "1-800-318-2596",
       "url": "https://www.healthcare.gov/lower-costs/",
-      "timing": "Enroll by December 15 for cover from January 1.",
+      "timing": "Enrol by December 15 for cover from January 1.",
       "worthChecking": "Depends on plan prices where you live and whether a job offers you health cover",
       "rule": [
         {
-          "needs": ["income", "people", "zip"],
+          "needs": [
+            "income",
+            "people",
+            "zip"
+          ],
           "test": {
             "all": [
               {
@@ -745,7 +823,9 @@
           }
         },
         {
-          "needs": ["dob"],
+          "needs": [
+            "dob"
+          ],
           "test": {
             "f": "age",
             "op": "lt",
@@ -756,7 +836,9 @@
           "fail": "Aged 65 or over: Medicare is the usual cover"
         },
         {
-          "needs": ["benefitsUs"],
+          "needs": [
+            "benefitsUs"
+          ],
           "test": {
             "f": "medicaid",
             "op": "eq",
@@ -778,7 +860,9 @@
       "url": "https://www.medicare.gov/basics/costs/help/medicare-savings-programs",
       "rule": [
         {
-          "needs": ["dob"],
+          "needs": [
+            "dob"
+          ],
           "test": {
             "f": "age",
             "op": "gte",
@@ -789,7 +873,10 @@
           "fail": "Under 65, when Medicare usually starts"
         },
         {
-          "needs": ["income", "household"],
+          "needs": [
+            "income",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -826,7 +913,10 @@
           }
         },
         {
-          "needs": ["savings", "household"],
+          "needs": [
+            "savings",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -863,7 +953,9 @@
           }
         }
       ],
-      "opens": ["extrahelp"],
+      "opens": [
+        "extrahelp"
+      ],
       "worth": {
         "max": 202.9,
         "per": "month",
@@ -882,7 +974,9 @@
       "url": "https://www.ssa.gov/medicare/part-d-extra-help",
       "rule": [
         {
-          "needs": ["dob"],
+          "needs": [
+            "dob"
+          ],
           "test": {
             "f": "age",
             "op": "gte",
@@ -893,7 +987,10 @@
           "fail": "Under 65, when Medicare usually starts"
         },
         {
-          "needs": ["income", "household"],
+          "needs": [
+            "income",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -930,7 +1027,10 @@
           }
         },
         {
-          "needs": ["savings", "household"],
+          "needs": [
+            "savings",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -972,14 +1072,17 @@
       "id": "healthcenter",
       "name": "Community health centers",
       "topic": "health",
-      "by": "Your local health center",
+      "by": "Your local health centre",
       "gives": "Medical, dental and mental health care with fees based on your income. They see everyone, even if you can't pay.",
-      "how": "Find a health center near you and call to book. Tell them your income and household size so they can lower your fee.",
+      "how": "Find a health centre near you and call to book. Tell them your income and household size so they can lower your fee.",
       "url": "https://bphc.hrsa.gov/about-health-center-program/what-health-center",
-      "act": "Find a health center",
+      "act": "Find a health centre",
       "rule": [
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -1007,7 +1110,11 @@
       "url": "https://www.lifelinesupport.org/do-i-qualify/",
       "rule": [
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -1061,7 +1168,11 @@
       "worthChecking": "Your state sets its own limit and funding can run out, so apply early",
       "rule": [
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -1098,13 +1209,17 @@
       "name": "Weatherization Assistance Program",
       "topic": "home",
       "by": "Your state weatherization provider",
-      "gives": "Home improvements that lower your energy costs, paid for by the program.",
+      "gives": "Home improvements that lower your energy costs, paid for by the programme.",
       "how": "Contact your state weatherization office to find your local provider and apply.",
       "url": "https://www.energy.gov/scep/wap/how-apply-weatherization-assistance",
       "worthChecking": "Your local provider checks your home, and there can be a wait",
       "rule": [
         {
-          "needs": ["income", "people", "benefitsUs"],
+          "needs": [
+            "income",
+            "people",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -1142,7 +1257,10 @@
       "worthChecking": "Each state sets its own rules and income limit, often well under the poverty line",
       "rule": [
         {
-          "needs": ["pregnant", "child"],
+          "needs": [
+            "pregnant",
+            "child"
+          ],
           "test": {
             "any": [
               {
@@ -1162,7 +1280,10 @@
           "fail": "No children at home"
         },
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -1192,18 +1313,26 @@
       "worthChecking": "Limits depend on your area's median income, and waiting lists can be long or closed",
       "rule": [
         {
-          "needs": ["housing"],
+          "needs": [
+            "housing"
+          ],
           "test": {
             "f": "housing",
             "op": "in",
-            "v": ["private", "family"]
+            "v": [
+              "private",
+              "family"
+            ]
           },
           "expr": "rents privately or lives with family or friends",
           "txt": "Rents or lives with others",
           "fail": "Already in public housing or owns the home"
         },
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -1233,18 +1362,26 @@
       "worthChecking": "Limits depend on your area's median income, and waiting lists can be long or closed",
       "rule": [
         {
-          "needs": ["housing"],
+          "needs": [
+            "housing"
+          ],
           "test": {
             "f": "housing",
             "op": "in",
-            "v": ["private", "family"]
+            "v": [
+              "private",
+              "family"
+            ]
           },
           "expr": "rents privately or lives with family or friends",
           "txt": "Rents or lives with others",
           "fail": "Already in public housing or owns the home"
         },
         {
-          "needs": ["income", "people"],
+          "needs": [
+            "income",
+            "people"
+          ],
           "test": {
             "f": "fplPct",
             "op": "lte",
@@ -1272,18 +1409,28 @@
       "url": "https://www.irs.gov/credits-deductions/individuals/earned-income-tax-credit/who-qualifies-for-the-earned-income-tax-credit-eitc",
       "rule": [
         {
-          "needs": ["work"],
+          "needs": [
+            "work"
+          ],
           "test": {
             "f": "work",
             "op": "in",
-            "v": ["employed", "self"]
+            "v": [
+              "employed",
+              "self"
+            ]
           },
           "expr": "works or is self-employed",
           "txt": "Has earned income",
           "fail": "No earned income from work"
         },
         {
-          "needs": ["income", "child", "household", "dob"],
+          "needs": [
+            "income",
+            "child",
+            "household",
+            "dob"
+          ],
           "test": {
             "any": [
               {
@@ -1394,7 +1541,9 @@
       "url": "https://www.irs.gov/credits-deductions/individuals/child-tax-credit",
       "rule": [
         {
-          "needs": ["child"],
+          "needs": [
+            "child"
+          ],
           "test": {
             "f": "childAge",
             "op": "lt",
@@ -1405,7 +1554,10 @@
           "fail": "No child under 17"
         },
         {
-          "needs": ["income", "household"],
+          "needs": [
+            "income",
+            "household"
+          ],
           "test": {
             "any": [
               {
@@ -1457,7 +1609,9 @@
       "timing": "IRS Free File opens again in January 2027.",
       "rule": [
         {
-          "needs": ["income"],
+          "needs": [
+            "income"
+          ],
           "test": {
             "f": "incYear",
             "op": "lte",
@@ -1483,18 +1637,25 @@
       "worthChecking": "Depends on your work record and Social Security's medical decision",
       "rule": [
         {
-          "needs": ["work"],
+          "needs": [
+            "work"
+          ],
           "test": {
             "f": "work",
             "op": "in",
-            "v": ["sick", "none"]
+            "v": [
+              "sick",
+              "none"
+            ]
           },
           "expr": "not working, or off sick",
           "txt": "Not working or off sick",
           "fail": "Working"
         },
         {
-          "needs": ["difficulties"],
+          "needs": [
+            "difficulties"
+          ],
           "test": {
             "f": "health",
             "op": "ne",
@@ -1519,7 +1680,9 @@
       "urgent": true,
       "rule": [
         {
-          "needs": ["bereaved"],
+          "needs": [
+            "bereaved"
+          ],
           "test": {
             "f": "bereaved",
             "op": "eq",
@@ -1543,7 +1706,9 @@
       "urgent": true,
       "rule": [
         {
-          "needs": ["work"],
+          "needs": [
+            "work"
+          ],
           "test": {
             "f": "work",
             "op": "eq",
@@ -1566,7 +1731,9 @@
       "worthChecking": "Only if you're going to college, or plan to",
       "rule": [
         {
-          "needs": ["dob"],
+          "needs": [
+            "dob"
+          ],
           "test": {
             "f": "age",
             "op": "gte",
@@ -1597,7 +1764,9 @@
       "worthChecking": "VA checks your service length and discharge",
       "rule": [
         {
-          "needs": ["veteran"],
+          "needs": [
+            "veteran"
+          ],
           "test": {
             "f": "veteran",
             "op": "eq",
@@ -1620,7 +1789,9 @@
       "worthChecking": "Needs wartime service, and VA counts your whole net worth",
       "rule": [
         {
-          "needs": ["veteran"],
+          "needs": [
+            "veteran"
+          ],
           "test": {
             "f": "veteran",
             "op": "eq",
@@ -1631,7 +1802,11 @@
           "fail": "Hasn't served in the military"
         },
         {
-          "needs": ["dob", "difficulties", "benefitsUs"],
+          "needs": [
+            "dob",
+            "difficulties",
+            "benefitsUs"
+          ],
           "test": {
             "any": [
               {
@@ -1656,7 +1831,9 @@
           "fail": "Under 65 with no disability"
         },
         {
-          "needs": ["income"],
+          "needs": [
+            "income"
+          ],
           "test": {
             "f": "incYear",
             "op": "lt",
@@ -1673,7 +1850,9 @@
           }
         },
         {
-          "needs": ["savings"],
+          "needs": [
+            "savings"
+          ],
           "test": {
             "f": "sav",
             "op": "lte",
@@ -1704,7 +1883,9 @@
       "worthChecking": "VA decides whether your condition is linked to your service",
       "rule": [
         {
-          "needs": ["veteran"],
+          "needs": [
+            "veteran"
+          ],
           "test": {
             "f": "veteran",
             "op": "eq",
@@ -1715,7 +1896,9 @@
           "fail": "Hasn't served in the military"
         },
         {
-          "needs": ["difficulties"],
+          "needs": [
+            "difficulties"
+          ],
           "test": {
             "f": "health",
             "op": "ne",
@@ -1738,7 +1921,9 @@
       "act": "Search for free",
       "rule": [
         {
-          "needs": ["zip"],
+          "needs": [
+            "zip"
+          ],
           "test": {
             "f": "country",
             "op": "eq",
@@ -1753,27 +1938,42 @@
   ],
   "clashes": [
     {
-      "ids": ["medicaid", "ptc"],
+      "ids": [
+        "medicaid",
+        "ptc"
+      ],
       "tone": "warn",
       "text": "If Medicaid covers you, you can't also get Marketplace savings, so apply for Medicaid first."
     },
     {
-      "ids": ["msp", "extrahelp"],
+      "ids": [
+        "msp",
+        "extrahelp"
+      ],
       "tone": "boost",
       "text": "A Medicare Savings Program that pays your Part B premium gives you Extra Help without a separate application."
     },
     {
-      "ids": ["eitc", "ctc"],
+      "ids": [
+        "eitc",
+        "ctc"
+      ],
       "tone": "boost",
       "text": "Both are claimed on the same tax return, and free filing help can claim them for you."
     },
     {
-      "ids": ["snap", "nslp"],
+      "ids": [
+        "snap",
+        "nslp"
+      ],
       "tone": "boost",
       "text": "With SNAP, your children usually get free school meals without filling in a form."
     },
     {
-      "ids": ["snap", "wic"],
+      "ids": [
+        "snap",
+        "wic"
+      ],
       "tone": "boost",
       "text": "SNAP and WIC can be used together, and SNAP means you skip WIC's income check."
     }

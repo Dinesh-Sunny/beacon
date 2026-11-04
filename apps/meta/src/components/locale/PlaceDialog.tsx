@@ -5,6 +5,7 @@
 // Suggested first then everything A to Z, arrows and Enter to choose, Esc to close. It works the
 // same for 4 countries or 250. Country and language names come from the platform's Intl data.
 
+import { useRouter } from "next/navigation";
 import {
   type KeyboardEvent,
   type ReactNode,
@@ -114,6 +115,7 @@ export function PlaceDialog({
   const list = useCountries();
   const setLocale = useSetLocale();
   const { country, setCountry } = useCountry();
+  const router = useRouter();
   const check = useMaybeCheck();
   const ref = useRef<HTMLDialogElement>(null);
   const [tab, setTab] = useState<Tab>(first);
@@ -145,6 +147,8 @@ export function PlaceDialog({
 
   const chooseCountry = (c: string) => {
     setCountry(c);
+    // Pages that show country numbers render on the server, so ask for a fresh render.
+    router.refresh();
     // Say a gap only when it affects them: outside the countries Beacon checks.
     if (!COVERED[c]) setGap(c);
     else close();
@@ -153,10 +157,12 @@ export function PlaceDialog({
     if (check) check.apply({ postcode: pc }, "form");
     else savePostcodeForLater(pc);
     setCountry("GB");
+    router.refresh();
     close();
   };
   const saveZip = (zip: string) => {
     setCountry("US");
+    router.refresh();
     if (check) check.apply({ zip }, "form");
     close();
   };

@@ -13,3 +13,7 @@ export const LOOP = [
 
 export const SOURCE_URL =
   "https://policyinpractice.co.uk/publication/missing-out-2025";
+
+/** The US figure: the IRS's own estimate of people who could get the EITC but don't claim it. */
+export const SOURCE_URL_US =
+  "https://www.taxpayeradvocate.irs.gov/news/nta-blog/eitc-awareness-day-is-january-23/2026/01";

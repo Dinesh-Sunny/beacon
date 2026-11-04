@@ -290,13 +290,13 @@
     "zip": {
       "q": "What's your ZIP code?",
       "qThey": "What's {n}'s ZIP code?",
-      "why": "Your state decides many programs, and their amounts.",
+      "why": "Your state decides many programmes, and their amounts.",
       "label": "ZIP code"
     },
     "people": {
       "q": "How many people live in your home, including you?",
       "qThey": "How many people live in {n}'s home, including them?",
-      "why": "Most programs compare income with the poverty guideline for your household's size.",
+      "why": "Most programmes compare income with the poverty guideline for your household's size.",
       "label": "Household size"
     },
     "benefitsUs": {
@@ -484,7 +484,11 @@
     "forOther": "Someone I look after",
     "forMe": "Me",
     "inputHintMe": "I'm 67, live alone and my pension is small",
-    "tryExample": "Try an example check"
+    "tryExample": "Try an example check",
+    "pillCountry": "Free · {count} kinds of help in {country} · {languages} languages",
+    "inputHintUs": "My dad is 70 and his Medicare costs keep going up",
+    "inputHintMeUs": "I'm 66, I live alone in Ohio and money is tight",
+    "factNoIdUs": "No name, Social Security number or bank details"
   },
   "status": {
     "open": "Still open",
@@ -703,7 +707,7 @@
     "frame": {
       "tag": "The Beacon Framework",
       "title": "Everyone who needs help, meet everyone who gives it",
-      "lead": "People on one side. Governments, councils, US states, the NHS, health centers, charities and utilities on the other. Beacon's agents connect the two."
+      "lead": "People on one side. Governments, councils, US states, the NHS, health centres, charities and utilities on the other. Beacon's agents connect the two."
     },
     "map": {
       "aria": "People who need help on the left, everyone who gives help on the right, and Beacon in the middle connecting them.",
@@ -724,7 +728,7 @@
       "givers": {
         "government": "UK and US governments",
         "councils": "Councils and states",
-        "nhs": "NHS and health centers",
+        "nhs": "NHS and health centres",
         "charities": "Charities",
         "utilities": "Utility companies",
         "employers": "Employers",
@@ -804,9 +808,9 @@
       "langTitle": "Your language, your way",
       "langText": "Use Beacon in seven languages. Make text bigger, turn on read aloud, or pick calmer colours. Settings stay on your device.",
       "nearTitle": "Help near you",
-      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centers and housing help, nearest first.",
+      "nearText": "Your postcode or ZIP code finds the right council pages, charities, health centres and housing help, nearest first.",
       "nearCouncil": "Your council's page",
-      "nearClinic": "Community health center",
+      "nearClinic": "Community health centre",
       "nearCharity": "Local grant charity"
     },
     "demo": {
@@ -819,7 +823,7 @@
     },
     "cover": {
       "tag": "What it checks today",
-      "titleAll": "{schemes} kinds of help in {countries} countries",
+      "titleAll": "{schemes} kinds of help in the UK and the US",
       "leadAll": "From Pension Credit to SNAP, each checked against its official rules. Plus {places, number} local services, matched to where you live."
     },
     "grow": {
@@ -869,17 +873,31 @@
         "name": "United Kingdom",
         "where": "England, Scotland and Wales",
         "councilPages": "council pages",
-        "charities": "grant-giving charities"
+        "charities": "grant-giving charities",
+        "short": "the UK"
       },
       "us": {
         "name": "United States",
         "where": "All 50 states and DC",
-        "centers": "community health centers",
+        "centers": "community health centres",
         "agencies": "housing agencies",
-        "counselors": "housing counselors"
+        "counselors": "housing counsellors",
+        "short": "the US"
       },
       "kinds": "kinds of help across {topics} areas of life",
       "localLabel": "Local services Beacon matches"
+    },
+    "statUs": {
+      "num": "1 in 5",
+      "text": "people who could get the Earned Income Tax Credit don't claim it, the IRS estimates. Beacon helps you find your share.",
+      "source": "Taxpayer Advocate Service, 2026"
+    },
+    "demoUs": {
+      "tag": "Example check",
+      "you1": "My dad is 70, lives alone in Ohio and his Medicare costs keep going up.",
+      "ask": "Thanks. Roughly how much does he have coming in each month?",
+      "you2": "About $1,300 from Social Security.",
+      "note": "A Medicare Savings Program also gets him Extra Help with drug costs, so apply for it first."
     }
   },
   "how": {
@@ -1011,10 +1029,10 @@
   "usLocal": {
     "away": "{miles} miles away",
     "health": {
-      "title": "{count, plural, one {# community health center} other {# community health centers}} in your state, nearest first",
+      "title": "{count, plural, one {# community health centre} other {# community health centres}} in your state, nearest first",
       "what": "Doctors, dentists and mental health care. They charge by what you can pay, and you can go with or without insurance.",
       "note": "From the official HRSA list.",
-      "more": "Find a health center"
+      "more": "Find a health centre"
     },
     "housing": {
       "title": "Housing agencies near you",
@@ -1023,10 +1041,10 @@
       "more": "All housing agencies"
     },
     "counselors": {
-      "title": "{count, plural, one {# free housing counselor} other {# free housing counselors}} in your state, nearest first",
-      "what": "HUD-approved counselors help for free or at low cost if you're behind on rent or your mortgage, facing eviction, or want to budget.",
+      "title": "{count, plural, one {# free housing counsellor} other {# free housing counsellors}} in your state, nearest first",
+      "what": "HUD-approved counsellors help for free or at low cost if you're behind on rent or your mortgage, facing eviction, or want to budget.",
       "note": "From HUD's list of approved agencies.",
-      "more": "Find a housing counselor"
+      "more": "Find a housing counsellor"
     },
     "note": {
       "mobile": "Mobile clinic",
@@ -1046,7 +1064,7 @@
   },
   "hero": {
     "tabsLabel": "See an example check",
-    "windowTitle": "Margaret's check",
+    "windowTitle": "{name}'s check",
     "tabs": {
       "chat": "Chat",
       "results": "Results",
@@ -1059,16 +1077,21 @@
       "results": "Each result shows the rules it rests on and links to the official page.",
       "plan": "Claims in the right order, with a warning when one could lower another.",
       "call": "Who to call, the number, and what to say.",
-      "near": "Your council's own pages and local charities, found from your postcode."
+      "near": "Your council's own pages and local charities, found from your postcode.",
+      "nearUs": "Health centres, housing agencies and housing counsellors, found from your ZIP code."
     },
     "chat": {
-      "saved": "Saved: age, home and daily help"
+      "saved": "Saved: age, home and daily help",
+      "savedUs": "Saved: age, home and income"
     },
     "results": {
       "head": "{count, plural, one {# thing looks likely so far} other {# things look likely so far}}",
       "range": "{min} to {max} a week",
       "topUp": "A weekly top-up to her income",
-      "council": "Set by her council"
+      "council": "Set by her council",
+      "upToMonth": "Up to {max} a month",
+      "drugs": "Lower prescription drug costs",
+      "state": "Set by his state"
     },
     "plan": {
       "now": "Start now"
@@ -1076,16 +1099,28 @@
     "call": {
       "head": "Calling about {name}",
       "say": "\"I'd like to ask for a claim form for my mum. She's 78 and needs help most mornings.\"",
-      "after": "Next: {next}"
+      "after": "Next: {next}",
+      "sayUs": "\"I'd like to apply for Extra Help for my dad. He's 70 and gets Social Security.\""
     },
     "near": {
       "head": "From Brent Council and nearby",
       "ctr": "Council Tax Reduction",
       "care": "Care needs assessment",
       "adapt": "Home adaptations and aids",
-      "council": "Brent Council",
       "charity": "Grant-giving charities for older people",
-      "register": "Charity register"
+      "headUs": "Near him in Ohio",
+      "ctrFrom": "Brent Council",
+      "careFrom": "Brent Council",
+      "adaptFrom": "Brent Council",
+      "charityFrom": "Charity register",
+      "clinic": "Community health centre",
+      "clinicFrom": "HRSA",
+      "housing": "Local housing agency",
+      "housingFrom": "HUD",
+      "counsellor": "Free housing counsellor",
+      "counsellorFrom": "HUD",
+      "found": "Unclaimed money",
+      "foundFrom": "Ohio's unclaimed funds office"
     }
   }
 }

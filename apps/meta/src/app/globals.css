@@ -95,10 +95,9 @@ button {
   display: block;
 }
 .eyebrow {
-  font-family: var(--f-mono);
-  font-size: 0.74rem;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
+  font-family: var(--f-body);
+  font-size: 0.92rem;
+  font-weight: 700;
   color: var(--muted);
 }
 .sr-only {
@@ -299,8 +298,8 @@ button {
   border-top-right-radius: 6px;
 }
 .msg .who {
-  font-family: var(--f-mono);
-  font-size: 0.7rem;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   color: var(--muted);
   display: flex;
   gap: 6px;
@@ -727,10 +726,9 @@ button {
   align-items: center;
 }
 .qstep {
-  font-family: var(--f-mono);
-  font-size: 0.78rem;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   color: var(--beam-ink);
-  letter-spacing: 0.06em;
 }
 .unlocks {
   display: inline-flex;
@@ -1048,10 +1046,8 @@ button {
   color: var(--muted);
 }
 .chip {
-  font-family: var(--f-mono);
-  font-size: 0.66rem;
-  letter-spacing: 0.05em;
-  text-transform: uppercase;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   padding: 2px 8px;
   border-radius: 999px;
   white-space: nowrap;
@@ -1160,8 +1156,8 @@ button {
   color: var(--chain);
 }
 .log .who {
-  font-family: var(--f-mono);
-  font-size: 0.7rem;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   color: var(--muted);
   display: block;
 }
@@ -2045,10 +2041,8 @@ button {
 }
 .pv-row em {
   font-style: normal;
-  font-family: var(--f-mono);
-  font-size: 0.68rem;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   border-radius: 999px;
   padding: 2px 8px;
   border: 1px solid;
@@ -2363,8 +2357,6 @@ button {
 }
 .tbl th {
   font-size: 0.8rem;
-  text-transform: uppercase;
-  letter-spacing: 0.06em;
   color: var(--muted);
 }
 .tbl tr:last-child td {
@@ -2549,8 +2541,8 @@ button {
 }
 .activity-log .who {
   display: block;
-  font-family: var(--f-mono);
-  font-size: 0.7rem;
+  font-family: var(--f-body);
+  font-size: 0.82rem;
   color: var(--muted);
 }
 .progress {
@@ -2564,9 +2556,7 @@ button {
 .prep .eyebrow {
   font-family: var(--f-body);
   font-weight: 700;
-  font-size: 0.72rem;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
+  font-size: 0.82rem;
   color: #6b6359;
 }
 /* Phones: Details tab shows the panel */
@@ -4135,15 +4125,7 @@ html[data-calm="on"] ::view-transition-group(*) {
   animation: none;
 }
 html[data-focus="on"]
-  :is(
-    .activity,
-    .constellation,
-    .banner,
-    .hx-fluid,
-    .mk-marquee,
-    .fl-map,
-    .life-events
-  ) {
+  :is(.activity, .constellation, .banner, .mk-marquee, .fl-map, .life-events) {
   display: none;
 }
 .pd-back {

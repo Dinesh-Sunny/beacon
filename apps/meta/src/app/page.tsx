@@ -5,9 +5,10 @@ import { HomeStart } from "@/components/home/HomeStart";
 import { Icon } from "@/components/Icon";
 import { BeaconMap } from "@/components/marketing/BeaconMap";
 import { Countries } from "@/components/marketing/Countries";
-import { SOURCE_URL } from "@/components/marketing/content";
+import { SOURCE_URL, SOURCE_URL_US } from "@/components/marketing/content";
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { Growth, Plans } from "@/components/marketing/Growth";
+import { HeroBeams } from "@/components/marketing/HeroBeams";
 import { HeroWindow } from "@/components/marketing/HeroWindow";
 import { HowToday } from "@/components/marketing/HowToday";
 import { Reveal } from "@/components/marketing/Reveal";
@@ -18,9 +19,9 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import { COVERED_NATIONS, SCHEMES } from "@/engine/rules";
+import { COVERED_NATIONS, SCHEMES, schemesOf } from "@/engine/rules";
 import { intlTag, LOCALES } from "@/i18n/locales";
-import { getLocale, getT } from "@/i18n/server";
+import { getCountry, getLocale, getT } from "@/i18n/server";
 import { SITE_URL } from "@/lib/site";
 
 export async function generateMetadata(): Promise<Metadata> {
@@ -35,6 +36,9 @@ export async function generateMetadata(): Promise<Metadata> {
 export default async function Home() {
   const t = await getT();
   const locale = await getLocale();
+  // The numbers, example and stat follow the country the person chose in the place picker.
+  const country = await getCountry();
+  const us = country === "US";
   const nations = new Intl.ListFormat(intlTag(locale), {
     type: "conjunction",
   }).format(COVERED_NATIONS.map((n) => t(`nations.${n}`)));
@@ -64,24 +68,21 @@ export default async function Home() {
         <main id="main">
           <section className="mk-hero" aria-labelledby="hero-h">
             <div className="hx-panel">
-              {/* A slow, light fluid gradient: beacon amber, peach and morning sky. */}
-              <div className="hx-fluid" aria-hidden="true">
-                <i className="b1" />
-                <i className="b2" />
-                <i className="b3" />
-                <i className="b4" />
-              </div>
+              <HeroBeams />
               <div className="mk-wrap mk-hero-copy">
                 <p className="mk-pill">
                   <span className="dot" aria-hidden="true" />{" "}
-                  {t("site.pillAll", {
-                    count: SCHEMES.length,
+                  {t("site.pillCountry", {
+                    count: schemesOf(country).length,
+                    country: t(
+                      us ? "home.countries.us.name" : "home.countries.uk.name",
+                    ),
                     languages: LOCALES.length,
                   })}
                 </p>
                 <h1 id="hero-h">{t("site.h1")}</h1>
                 <p className="mk-lead">{t("site.lead")}</p>
-                <HomeStart />
+                <HomeStart country={country} />
                 <ul className="mk-trust">
                   <li>
                     <Icon name="lock" size={16} /> {t("site.factBrowser")}
@@ -96,27 +97,41 @@ export default async function Home() {
               </div>
             </div>
             <div className="mk-wrap hx-window">
-              <HeroWindow />
+              <HeroWindow country={country} />
             </div>
           </section>
 
           <section className="mk-wrap mk-stat" aria-label={t("home.statLabel")}>
             <Reveal className="mk-stat-in">
-              <p className="mk-stat-num">
-                <Ticker
-                  value={24.1}
-                  decimals={1}
-                  prefix="£"
-                  suffix={t("home.statUnit")}
-                />
-                <span>{t("site.perYear")}</span>
-              </p>
-              <p className="mk-stat-text">
-                {t("site.statText")}{" "}
-                <a href={SOURCE_URL} target="_blank" rel="noreferrer">
-                  Policy in Practice, Missing Out 2025
-                </a>
-              </p>
+              {us ? (
+                <>
+                  <p className="mk-stat-num">{t("home.statUs.num")}</p>
+                  <p className="mk-stat-text">
+                    {t("home.statUs.text")}{" "}
+                    <a href={SOURCE_URL_US} target="_blank" rel="noreferrer">
+                      {t("home.statUs.source")}
+                    </a>
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="mk-stat-num">
+                    <Ticker
+                      value={24.1}
+                      decimals={1}
+                      prefix="£"
+                      suffix={t("home.statUnit")}
+                    />
+                    <span>{t("site.perYear")}</span>
+                  </p>
+                  <p className="mk-stat-text">
+                    {t("site.statText")}{" "}
+                    <a href={SOURCE_URL} target="_blank" rel="noreferrer">
+                      Policy in Practice, Missing Out 2025
+                    </a>
+                  </p>
+                </>
+              )}
             </Reveal>
           </section>
 
@@ -190,7 +205,7 @@ export default async function Home() {
                 </SectionHead>
               </Reveal>
               <Reveal>
-                <Countries />
+                <Countries first={country} />
               </Reveal>
             </div>
             <SchemeMarquee />

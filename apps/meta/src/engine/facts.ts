@@ -193,14 +193,14 @@ export const FACTS: Record<FactId, Fact> = {
     type: "zip",
     q: "What's your ZIP code?",
     qThey: "What's {n}'s ZIP code?",
-    why: "Your state decides many programs, and their amounts.",
+    why: "Your state decides many programmes, and their amounts.",
     label: "ZIP code",
   },
   people: {
     type: "count",
     q: "How many people live in your home, including you?",
     qThey: "How many people live in {n}'s home, including them?",
-    why: "Most programs compare income with the poverty guideline for your household's size.",
+    why: "Most programmes compare income with the poverty guideline for your household's size.",
     label: "People at home",
   },
   benefitsUs: {

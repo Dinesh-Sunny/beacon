@@ -37,55 +37,6 @@ export async function HowToday() {
       </article>
 
       <article className="mk-card wide">
-        <div className="mk-card-art mk-art-results" aria-hidden="true">
-          <div className="mk-row likely on">
-            <span>Pension Credit</span>
-            <em>{t("status.likely")}</em>
-          </div>
-          <div className="mk-row check on">
-            <span>Council Tax Reduction</span>
-            <em>{t("status.check")}</em>
-          </div>
-          <div className="mk-row unlock on">
-            <span>Cold Weather Payment</span>
-            <em>{t("status.unlock")}</em>
-          </div>
-        </div>
-        <h3>{t("home.today.resultsTitle")}</h3>
-        <p>{t("home.today.resultsText")}</p>
-      </article>
-
-      <article className="mk-card">
-        <div className="mk-card-art mk-art-ask" aria-hidden="true">
-          <p className="mk-bubble beacon on">{t("home.today.askBubble")}</p>
-        </div>
-        <h3>{t("home.today.askTitle")}</h3>
-        <p>{t("home.today.askText")}</p>
-      </article>
-
-      <article className="mk-card">
-        <div className="mk-card-art mk-art-warn" aria-hidden="true">
-          <Icon name="warn" size={20} />
-          <span>{t("home.today.warnArt")}</span>
-        </div>
-        <h3>{t("home.today.warnTitle")}</h3>
-        <p>{t("home.today.warnText")}</p>
-      </article>
-
-      <article className="mk-card">
-        <div className="mk-card-art mk-art-call" aria-hidden="true">
-          <span className="n">1</span>
-          <span className="n">2</span>
-          <span className="n">3</span>
-          <span className="phone">
-            <Icon name="phone" size={18} /> {t("home.today.callArt")}
-          </span>
-        </div>
-        <h3>{t("home.today.orderTitle")}</h3>
-        <p>{t("home.today.orderText")}</p>
-      </article>
-
-      <article className="mk-card wide">
         <div className="mk-card-art mk-art-langs" aria-hidden="true">
           <div className="mk-langs">
             {LANGS.map((l) => (
@@ -101,37 +52,6 @@ export async function HowToday() {
         </div>
         <h3>{t("home.today.langTitle")}</h3>
         <p>{t("home.today.langText")}</p>
-      </article>
-
-      <article className="mk-card wide">
-        <div className="mk-card-art mk-art-near" aria-hidden="true">
-          <div className="mk-row on">
-            <span>
-              <Icon name="pin" size={14} /> {t("home.today.nearCouncil")}
-            </span>
-            <em>
-              <Icon name="phone" size={14} />
-            </em>
-          </div>
-          <div className="mk-row on">
-            <span>
-              <Icon name="pin" size={14} /> {t("home.today.nearClinic")}
-            </span>
-            <em>
-              <Icon name="phone" size={14} />
-            </em>
-          </div>
-          <div className="mk-row on">
-            <span>
-              <Icon name="pin" size={14} /> {t("home.today.nearCharity")}
-            </span>
-            <em>
-              <Icon name="phone" size={14} />
-            </em>
-          </div>
-        </div>
-        <h3>{t("home.today.nearTitle")}</h3>
-        <p>{t("home.today.nearText")}</p>
       </article>
 
       <article className="mk-card full split">

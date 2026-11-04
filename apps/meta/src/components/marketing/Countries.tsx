@@ -7,7 +7,7 @@ import { getLocale, getT } from "@/i18n/server";
 
 // One card per country Beacon checks: its schemes, life areas and the local data behind it.
 // Every number comes from the packs and the data builders, so it never goes stale.
-export async function Countries() {
+export async function Countries({ first = "GB" }: { first?: "GB" | "US" }) {
   const t = await getT();
   const locale = await getLocale();
   const n = (x: number) => new Intl.NumberFormat(intlTag(locale)).format(x);
@@ -38,9 +38,11 @@ export async function Countries() {
       sample: ["SNAP", "Medicaid", "Earned Income Tax Credit"],
     },
   ] as const;
+  // The person's own country leads.
+  const ordered = first === "US" ? [cards[1], cards[0]] : cards;
   return (
     <ul className="mk-countries">
-      {cards.map((c) => (
+      {ordered.map((c) => (
         <li key={c.code} className="mk-country">
           <div className="mk-country-top">
             <span className="flag" aria-hidden="true">

@@ -52,3 +52,9 @@ export const countriesFor = (locale: Locale): Country[] =>
     .sort((a, b) =>
       a.name.localeCompare(b.name, locale === "en" ? "en-GB" : locale),
     );
+
+/** The country whose rules the person chose (cookie), for pages that show its numbers. */
+export async function getCountry(): Promise<"GB" | "US"> {
+  const v = (await cookies()).get("beacon-country")?.value;
+  return v === "US" ? "US" : "GB";
+}

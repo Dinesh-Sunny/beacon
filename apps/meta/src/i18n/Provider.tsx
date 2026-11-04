@@ -3,6 +3,7 @@
 // Gives every client component the reader's words (use-intl) and a way to change language.
 // The choice lives in a cookie so the next server render already speaks it.
 
+import { useRouter } from "next/navigation";
 import {
   createContext,
   type ReactNode,
@@ -12,6 +13,7 @@ import {
   useEffect,
 } from "react";
 import { IntlProvider } from "use-intl";
+import { syncCountryCookie } from "@/lib/country";
 import { setLocaleAction } from "./actions";
 import { type Locale, localeInfo } from "./locales";
 import type { Messages } from "./messages";
@@ -54,9 +56,14 @@ export function I18nProvider({
     } catch {
       /* fine */
     }
-    // The only cookie Beacon sets: the language, for a year. No tracking.
+    // Beacon sets two preference cookies, language and country, for a year. No tracking.
     startTransition(() => setLocaleAction(l));
   }, []);
+  // A country chosen before the cookie existed: copy it across and re-render once.
+  const router = useRouter();
+  useEffect(() => {
+    if (syncCountryCookie()) router.refresh();
+  }, [router]);
   // Keeps the page's language and direction in step after a client-side switch.
   useEffect(() => {
     document.documentElement.lang = locale === "en" ? "en-GB" : locale;
