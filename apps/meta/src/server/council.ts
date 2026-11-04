@@ -105,9 +105,6 @@ export function localLinks(
   return out;
 }
 
-const cache = new Lru<Place>(5000, 24 * 60 * 60 * 1000);
-const inflight = new Map<string, Promise<Place>>();
-
 async function getJson(url: string): Promise<unknown> {
   const res = await fetch(url, {
     headers: { Accept: "application/json", "User-Agent": UA },
@@ -118,12 +115,23 @@ async function getJson(url: string): Promise<unknown> {
   return res.json();
 }
 
+/** What the lookups say about a postcode. Only this is cached; anything built from Beacon's own
+ * data (council pages) is worked out per request, so a data rebuild shows at once. */
+type Lookup = {
+  council: Council | null;
+  nation: Nation | null;
+  areas: { code?: string; name?: string | null }[];
+  region: string | null;
+};
+const lookups = new Lru<Lookup>(5000, 24 * 60 * 60 * 1000);
+const lookupsInflight = new Map<string, Promise<Lookup>>();
+
 export async function placeFor(postcode: string): Promise<Place> {
   const pc = postcode.replace(/\s+/g, "").toUpperCase();
-  const { value } = await cached(
-    cache,
-    inflight,
-    keyOf({ pc, v: 3 }),
+  const { value: l } = await cached(
+    lookups,
+    lookupsInflight,
+    keyOf({ pc }),
     async () => {
       // Either source can be down; each answer stands on its own.
       const [gov, pio] = await Promise.allSettled([
@@ -146,15 +154,20 @@ export async function placeFor(postcode: string): Promise<Place> {
           ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
           : null,
         nation: (country && COUNTRY[country]) || null,
-        local: localLinks([
+        areas: [
           { code: r?.codes?.admin_district, name: r?.admin_district },
           { code: r?.codes?.admin_county, name: r?.admin_county },
-        ]),
-        areas: [r?.admin_district, r?.admin_county, r?.region].filter(
-          (a): a is string => !!a,
-        ),
+        ],
+        region: r?.region ?? null,
       };
     },
   );
-  return value;
+  return {
+    council: l.council,
+    nation: l.nation,
+    local: localLinks(l.areas),
+    areas: [...l.areas.map((x) => x.name), l.region].filter(
+      (x): x is string => !!x,
+    ),
+  };
 }
