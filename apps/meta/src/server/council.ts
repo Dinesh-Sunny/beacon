@@ -71,11 +71,30 @@ const COUNCILS = LINKS.councils as Record<
   { name: string; links: Record<string, string> }
 >;
 
-/** Every listed service from the district and, in two-tier areas, the county above it. */
-export function localLinks(codes: (string | undefined)[]): LocalLink[] {
+/** "Glasgow City Council", "Glasgow City" and "City of Glasgow" all key as "glasgow". */
+const nameKey = (n: string) =>
+  n
+    .toLowerCase()
+    .replace(/&/g, "and")
+    .replace(
+      /\b(council|city|of|the|london|royal|borough|metropolitan|county|district|comhairle)\b/g,
+      "",
+    )
+    .replace(/[^a-z]+/g, "");
+const BY_NAME = new Map(
+  Object.values(COUNCILS).map((c) => [nameKey(c.name), c] as const),
+);
+
+/** Every listed service from the district and, in two-tier areas, the county above it. Matched
+ * by GSS code, then by name, since some councils were recoded after boundary changes. */
+export function localLinks(
+  areas: { code?: string; name?: string | null }[],
+): LocalLink[] {
   const out: LocalLink[] = [];
-  for (const gss of codes) {
-    const c = gss ? COUNCILS[gss] : undefined;
+  for (const a of areas) {
+    const c =
+      (a.code ? COUNCILS[a.code] : undefined) ??
+      (a.name ? BY_NAME.get(nameKey(a.name)) : undefined);
     if (!c) continue;
     for (const [lgsl, url] of Object.entries(c.links)) {
       const s = SERVICES[lgsl];
@@ -104,7 +123,7 @@ export async function placeFor(postcode: string): Promise<Place> {
   const { value } = await cached(
     cache,
     inflight,
-    keyOf({ pc, v: 2 }),
+    keyOf({ pc, v: 3 }),
     async () => {
       // Either source can be down; each answer stands on its own.
       const [gov, pio] = await Promise.allSettled([
@@ -127,7 +146,10 @@ export async function placeFor(postcode: string): Promise<Place> {
           ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
           : null,
         nation: (country && COUNTRY[country]) || null,
-        local: localLinks([r?.codes?.admin_district, r?.codes?.admin_county]),
+        local: localLinks([
+          { code: r?.codes?.admin_district, name: r?.admin_district },
+          { code: r?.codes?.admin_county, name: r?.admin_county },
+        ]),
         areas: [r?.admin_district, r?.admin_county, r?.region].filter(
           (a): a is string => !!a,
         ),
