@@ -13,7 +13,11 @@ export default defineConfig({
   use: {
     baseURL: process.env.E2E_BASE_URL ?? `http://localhost:${PORT}`,
     trace: "retain-on-failure",
-    launchOptions: { executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined },
+    launchOptions: {
+      executablePath: process.env.PLAYWRIGHT_CHROMIUM_PATH || undefined,
+      args: ["--use-fake-device-for-media-stream", "--use-fake-ui-for-media-stream"],
+    },
+    permissions: ["microphone"],
   },
   projects: [
     { name: "desktop", use: { ...devices["Desktop Chrome"], viewport: { width: 1280, height: 860 } } },

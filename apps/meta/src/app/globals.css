@@ -1516,3 +1516,79 @@ button {
   text-align: left;
   padding: 10px 14px;
 }
+
+/* ---------- Voice and letters ---------- */
+.send.mic {
+  background: var(--ink);
+}
+.composer.recording {
+  border-color: var(--bad);
+}
+.mic-error {
+  padding: 4px 8px 0;
+}
+.menu.up {
+  top: auto;
+  bottom: calc(100% + 6px);
+  left: 0;
+  right: auto;
+}
+.menu button b {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.letter-card {
+  border: 1.5px solid var(--beam);
+  border-radius: 16px;
+  overflow: hidden;
+  background: var(--surface);
+  width: 100%;
+}
+.letter-photo {
+  position: relative;
+  background: var(--surface-2);
+  max-height: 220px;
+  overflow: hidden;
+}
+.letter-photo img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.letter-box {
+  position: absolute;
+  border: 3px solid var(--beam);
+  border-radius: 6px;
+  box-shadow: 0 0 0 9999px rgba(32, 32, 32, 0.35);
+  animation: fade 0.6s ease both;
+}
+.letter-box em {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  background: var(--beam);
+  color: #202020;
+  font-style: normal;
+  font-size: 0.75rem;
+  font-weight: 700;
+  padding: 2px 8px;
+  border-radius: 0 0 8px 0;
+}
+.letter-body {
+  padding: 12px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.letter-action,
+.letter-deadline {
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+  font-size: 0.95rem;
+}
+.letter-deadline {
+  color: var(--check);
+  font-weight: 700;
+}

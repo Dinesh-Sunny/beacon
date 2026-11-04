@@ -18,3 +18,8 @@ export async function answerDate(page: Page, d: string, m: string, y: string) {
   await page.getByRole("textbox", { name: "Year", exact: true }).fill(y);
   await page.getByTestId("continue").click();
 }
+
+/** The board lives on the canvas; on phones that is the Results tab. Reads status without switching. */
+export function scheme(page: Page, id: string) {
+  return page.locator(`[data-testid="scheme-${id}"]`);
+}

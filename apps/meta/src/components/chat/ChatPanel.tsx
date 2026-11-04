@@ -8,7 +8,9 @@ import { Icon, Logo } from "@/components/Icon";
 import type { Answers } from "@/engine/facts";
 import { FACTS, type FactId, formatAnswer } from "@/engine/facts";
 import { useCheck } from "@/lib/check-store";
+import { shrink } from "@/lib/image";
 import { Composer } from "./Composer";
+import { LetterCard } from "./LetterCard";
 
 export interface Msg {
   id: number;
@@ -19,6 +21,20 @@ export interface Msg {
   image?: string;
   agent?: string;
   error?: boolean;
+  via?: "voice";
+  letter?: LetterView;
+}
+
+export interface LetterView {
+  image: string;
+  w: number;
+  h: number;
+  box: { x1: number; y1: number; x2: number; y2: number; w: number; h: number } | null;
+  from: string | null;
+  kind: string | null;
+  summary: string | null;
+  action: string | null;
+  deadlines: { what: string; date: string | null }[];
 }
 
 const STARTERS = [
@@ -57,10 +73,10 @@ export function ChatPanel() {
   const push = useCallback((m: Omit<Msg, "id">) => setMsgs((list) => [...list, { ...m, id: nextId() }]), []);
 
   const send = useCallback(
-    async (text: string) => {
+    async (text: string, via?: "voice") => {
       const clean = text.trim();
       if (!clean) return;
-      const mine: Msg = { id: nextId(), role: "user", text: clean };
+      const mine: Msg = { id: nextId(), role: "user", text: clean, via };
       let history: { role: "user" | "assistant"; content: string }[] = [];
       setMsgs((list) => {
         history = [...list, mine]
@@ -94,6 +110,88 @@ export function ChatPanel() {
       } finally {
         setWorking(null);
         setBusy("Muse Spark agent", false);
+      }
+    },
+    [apply, note, push, setBusy],
+  );
+
+  const onVoice = useCallback(
+    async (wav: Blob) => {
+      setWorking("Listening back");
+      setBusy("Muse Voice Transcribe", true);
+      try {
+        const form = new FormData();
+        form.append("audio", wav, "speech.wav");
+        const res = await fetch("/api/voice", { method: "POST", body: form });
+        const data = (await res.json()) as { transcript?: string; error?: string };
+        if (!res.ok || data.error) throw new Error(data.error ?? "model");
+        const words = data.transcript?.split(/\s+/).filter(Boolean).length ?? 0;
+        note("model", "Muse Voice Transcribe", words ? `Heard ${words} words` : "Heard nothing clear");
+        setBusy("Muse Voice Transcribe", false);
+        if (!words) {
+          setWorking(null);
+          push({ role: "bot", text: "I didn't quite catch that. Try again a little closer to the microphone, or type it.", error: true });
+          return;
+        }
+        await send(data.transcript ?? "", "voice");
+      } catch (e) {
+        setWorking(null);
+        setBusy("Muse Voice Transcribe", false);
+        push({ role: "bot", text: errorText((e as Error).message), error: true });
+      }
+    },
+    [note, push, send, setBusy],
+  );
+
+  const onPhoto = useCallback(
+    async (file: File) => {
+      let img: Awaited<ReturnType<typeof shrink>>;
+      try {
+        img = await shrink(file);
+      } catch {
+        push({ role: "bot", text: "That file didn't open as a photo. Try a JPEG or PNG picture of the letter.", error: true });
+        return;
+      }
+      push({ role: "user", text: "Here's a letter", image: img.dataUrl });
+      setWorking("Finding the letter in your photo");
+      setBusy("SAM 3.1", true);
+      setBusy("Letter reader", true);
+      try {
+        const res = await fetch("/api/letter", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ image: img.dataUrl }),
+        });
+        const data = (await res.json()) as {
+          readable?: boolean;
+          box?: LetterView["box"];
+          saved?: Answers;
+          reading?: Omit<LetterView, "image" | "w" | "h" | "box">;
+          error?: string;
+        };
+        if (!res.ok || data.error) throw new Error(data.error ?? "model");
+        if (data.box) note("model", "SAM 3.1", "Found the letter in the photo");
+        if (!data.readable || !data.reading) {
+          push({ role: "bot", text: "I couldn't read that one. A flat, well-lit photo of the whole page works best.", error: true });
+          return;
+        }
+        note("model", "Letter reader", `Read ${data.reading.kind ?? "a letter"}${data.reading.from ? ` from ${data.reading.from}` : ""}`);
+        const saved = data.saved ?? {};
+        if (Object.keys(saved).length) apply(saved, "letter");
+        push({
+          role: "bot",
+          text: Object.keys(saved).length
+            ? "I've added what it shows to your check. Change anything that looks different in Details."
+            : "Nothing in it changes your check, but here's what it says.",
+          saved,
+          letter: { image: img.dataUrl, w: img.width, h: img.height, box: data.box ?? null, ...data.reading },
+        });
+      } catch (e) {
+        push({ role: "bot", text: errorText((e as Error).message), error: true });
+      } finally {
+        setWorking(null);
+        setBusy("SAM 3.1", false);
+        setBusy("Letter reader", false);
       }
     },
     [apply, note, push, setBusy],
@@ -147,7 +245,7 @@ export function ChatPanel() {
           ))}
         </div>
       )}
-      <Composer onSend={send} busy={Boolean(working)} push={push} setWorking={setWorking} />
+      <Composer onSend={(t) => void send(t)} onVoice={(w) => void onVoice(w)} onPhoto={(f) => void onPhoto(f)} busy={Boolean(working)} />
     </>
   );
 }
@@ -161,6 +259,11 @@ function Message({ m }: { m: Msg }) {
       <div className="msg me">
         {m.image && <img className="thumb" src={m.image} alt="Your letter" />}
         <div className="bubble">{m.text}</div>
+        {m.via === "voice" && (
+          <span className="who">
+            <Icon name="mic" size={12} /> Said aloud
+          </span>
+        )}
       </div>
     );
   return (
@@ -179,6 +282,7 @@ function Message({ m }: { m: Msg }) {
           ))}
         </div>
       )}
+      {m.letter && <LetterCard l={m.letter} />}
       <p className="bubble plain">{m.text}</p>
       {!m.error && (
         <div className="msg-actions">
