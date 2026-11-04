@@ -8,6 +8,8 @@ const nextConfig: NextConfig = {
     // Detects lost connections, retries navigations and Server Actions, and powers useOffline.
     useOffline: true,
   },
+  // The share image reads its fonts from disk at request time.
+  outputFileTracingIncludes: { "/*": ["./assets/fonts/*.woff"] },
   poweredByHeader: false,
   devIndicators: false,
   headers: async () => [
