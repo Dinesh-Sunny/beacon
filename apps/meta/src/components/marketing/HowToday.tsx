@@ -27,9 +27,8 @@ export function HowToday() {
         </div>
         <h3>Type, speak or snap a letter</h3>
         <p>
-          Write in your own words. Or talk, and Muse Voice Transcribe writes it
-          down. Or take a photo of a letter: SAM 3.1 finds the page and Muse
-          Spark reads it.
+          Write in your own words, talk, or take a photo of a letter. Beacon
+          reads it for you and picks out what matters.
         </p>
       </article>
 

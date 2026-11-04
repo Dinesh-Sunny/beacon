@@ -1619,3 +1619,16 @@
     display: none;
   }
 }
+
+/* When every step is live, the single legend spans the whole rail */
+.mk-rail-groups span:only-child {
+  grid-column: 1 / -1;
+}
+
+/* Phones keep the How it works link in the marketing header, as plain text */
+@media (max-width: 900px) {
+  .mk-head nav a:not(.btn) {
+    display: inline-flex;
+    font-size: 0.92rem;
+  }
+}
