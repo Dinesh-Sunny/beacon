@@ -1,22 +1,25 @@
 import { Icon } from "@/components/Icon";
+import { getT } from "@/i18n/server";
 
 // Bento of how a check works today. Each card draws a small piece of the real UI in CSS.
-export function HowToday() {
+// Scheme and model names are official names, so they stay in English.
+export async function HowToday() {
+  const t = await getT();
   return (
     <div className="mk-bento">
       <article className="mk-card wide">
         <div className="mk-card-art mk-art-ways" aria-hidden="true">
           <div className="way">
             <Icon name="chat" size={22} />
-            <span>Type</span>
+            <span>{t("home.today.type")}</span>
           </div>
           <div className="way">
             <Icon name="mic" size={22} />
-            <span>Speak</span>
+            <span>{t("home.today.speak")}</span>
           </div>
           <div className="way letter">
             <Icon name="camera" size={22} />
-            <span>Snap a letter</span>
+            <span>{t("home.today.snap")}</span>
             <div className="paper">
               <i />
               <i />
@@ -25,57 +28,44 @@ export function HowToday() {
             </div>
           </div>
         </div>
-        <h3>Type, speak or snap a letter</h3>
-        <p>
-          Write in your own words, talk, or take a photo of a letter. Beacon
-          reads it for you and picks out what matters.
-        </p>
+        <h3>{t("home.today.waysTitle")}</h3>
+        <p>{t("home.today.waysText")}</p>
       </article>
 
       <article className="mk-card wide">
         <div className="mk-card-art mk-art-results" aria-hidden="true">
           <div className="mk-row likely on">
             <span>Pension Credit</span>
-            <em>Likely</em>
+            <em>{t("status.likely")}</em>
           </div>
           <div className="mk-row check on">
             <span>Council Tax Reduction</span>
-            <em>Worth checking</em>
+            <em>{t("status.check")}</em>
           </div>
           <div className="mk-row unlock on">
             <span>Cold Weather Payment</span>
-            <em>Unlocks next</em>
+            <em>{t("status.unlock")}</em>
           </div>
         </div>
-        <h3>Results light up as you answer</h3>
-        <p>
-          Likely, worth checking, or unlocks next. Each one shows the conditions
-          behind it and links to the official page.
-        </p>
+        <h3>{t("home.today.resultsTitle")}</h3>
+        <p>{t("home.today.resultsText")}</p>
       </article>
 
       <article className="mk-card">
         <div className="mk-card-art mk-art-ask" aria-hidden="true">
-          <p className="mk-bubble beacon on">
-            Do you live in England, Scotland or Wales?
-          </p>
+          <p className="mk-bubble beacon on">{t("home.today.askBubble")}</p>
         </div>
-        <h3>One small question at a time</h3>
-        <p>Beacon only asks what could still change a result.</p>
+        <h3>{t("home.today.askTitle")}</h3>
+        <p>{t("home.today.askText")}</p>
       </article>
 
       <article className="mk-card">
         <div className="mk-card-art mk-art-warn" aria-hidden="true">
           <Icon name="warn" size={20} />
-          <span>
-            Claiming this could lower another payment. Read this first.
-          </span>
+          <span>{t("home.today.warnArt")}</span>
         </div>
-        <h3>A warning before you claim</h3>
-        <p>
-          If one claim could lower another, you hear about it first, in plain
-          words.
-        </p>
+        <h3>{t("home.today.warnTitle")}</h3>
+        <p>{t("home.today.warnText")}</p>
       </article>
 
       <article className="mk-card">
@@ -84,26 +74,19 @@ export function HowToday() {
           <span className="n">2</span>
           <span className="n">3</span>
           <span className="phone">
-            <Icon name="phone" size={18} /> What to say
+            <Icon name="phone" size={18} /> {t("home.today.callArt")}
           </span>
         </div>
-        <h3>Claims in order, with what to say</h3>
-        <p>
-          Beacon puts your claims in the right order and writes notes for each
-          phone call.
-        </p>
+        <h3>{t("home.today.orderTitle")}</h3>
+        <p>{t("home.today.orderText")}</p>
       </article>
 
       <article className="mk-card full split">
         <div>
-          <h3>Code decides every result</h3>
-          <p>
-            Plain code checks the official rules, so the same answers always
-            give the same result. Meta's models listen, read and explain. Your
-            answers stay in your browser.
-          </p>
+          <h3>{t("home.today.codeTitle")}</h3>
+          <p>{t("home.today.codeText")}</p>
         </div>
-        <ul className="mk-chips" aria-label="Meta models in Beacon">
+        <ul className="mk-chips" aria-label={t("home.today.chipsLabel")}>
           <li>Muse Spark</li>
           <li>Muse Voice Transcribe</li>
           <li>SAM 3.1</li>

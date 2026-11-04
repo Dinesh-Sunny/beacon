@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { PageTransition } from "@/components/PageTransition";
-import { getT } from "@/i18n/server";
+import { getLocale, getT } from "@/i18n/server";
 import "../marketing.css";
 import { Icon } from "@/components/Icon";
 import { FinalCta } from "@/components/marketing/FinalCta";
@@ -12,151 +12,117 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import {
-  COVERED_NATIONS,
-  COVERED_NATIONS_TXT,
-  SCHEMES,
-  TOPICS,
-} from "@/engine/rules";
+import { COVERED_NATIONS, SCHEMES, TOPICS } from "@/engine/rules";
+import { intlTag } from "@/i18n/locales";
 
 export async function generateMetadata(): Promise<Metadata> {
   const t = await getT();
   return { title: t("meta.howTitle"), description: t("meta.howDesc") };
 }
 
-const FLOW = [
-  {
-    lane: "You",
-    icon: "person",
-    items: [
-      { t: "Type", d: "Plain words in the chat" },
-      { t: "Speak", d: "Recorded in your browser" },
-      { t: "Snap a letter", d: "Shrunk and stripped of photo data first" },
-      { t: "Answer a question", d: "The right input for each fact" },
-    ],
-  },
-  {
-    lane: "Meta models read",
-    icon: "doc",
-    items: [
-      { t: "Muse Voice Transcribe", d: "Speech to text" },
-      { t: "SAM 3.1", d: "Finds the letter in the photo" },
-      {
-        t: "Muse Spark, letter reader",
-        d: "Fills a fixed form and can't take actions",
-      },
-      { t: "Muse Spark, agent", d: "Saves facts only through tools" },
-    ],
-  },
-  {
-    lane: "Code decides",
-    icon: "shield",
-    items: [
-      { t: "Validate", d: "Every field checked before use" },
-      {
-        t: "Rules engine",
-        d: `${SCHEMES.length} schemes, each condition true, false or unknown`,
-      },
-      { t: "Question planner", d: "Asks what settles the most schemes" },
-      {
-        t: "Chains and clashes",
-        d: "What opens up what, and what lowers what",
-      },
-    ],
-  },
-  {
-    lane: "You get",
-    icon: "spark",
-    items: [
-      {
-        t: "Likely, worth checking, unlocks next",
-        d: "With every condition shown",
-      },
-      { t: "A claim plan", d: "Gateway claims first" },
-      { t: "What to say", d: "Call notes from Muse Spark" },
-      { t: "A picture of your results", d: "Painted by Muse Image" },
-    ],
-  },
-];
-
-const RULES = [
-  "Code decides each result. Models read, ask and explain.",
-  "Nothing a model writes reaches the rules until code has checked it.",
-  "Letters are read in quarantine and become typed data before any agent that can act sees them.",
-  "Beacon never asks for a name, a National Insurance number or bank details, and doesn't copy them from letters.",
-  "Answers live in your browser. The server forgets them when the request ends.",
-  "Every scheme links to its official page. The organisation that runs it decides.",
-];
-
+// Model names and ids are official names, so they stay in English; each job lives in messages.
 const MODELS = [
-  [
-    "Muse Spark 1.3",
-    "muse-spark-1.3",
-    "Agent chat with tool calling, letter reading with vision and structured output, call notes",
-  ],
-  [
-    "Muse Voice Transcribe",
-    "muse-voice-transcribe-1.0",
-    "Turns a spoken answer into text",
-  ],
-  [
-    "SAM 3.1",
-    "sam-3.1",
-    "Outlines the letter in a photo so you see what was read",
-  ],
-  [
-    "Muse Image",
-    "muse-image-1.0",
-    "Paints the results banner from life areas only, never personal details",
-  ],
-];
+  ["Muse Spark 1.3", "muse-spark-1.3", "spark"],
+  ["Muse Voice Transcribe", "muse-voice-transcribe-1.0", "voice"],
+  ["SAM 3.1", "sam-3.1", "sam"],
+  ["Muse Image", "muse-image-1.0", "image"],
+] as const;
 
-export default function How() {
+const RULES = ["r1", "r2", "r3", "r4", "r5", "r6"] as const;
+
+export default async function How() {
+  const t = await getT();
+  const locale = await getLocale();
+  const nations = new Intl.ListFormat(intlTag(locale), {
+    type: "conjunction",
+  }).format(COVERED_NATIONS.map((n) => t(`nations.${n}`)));
+  const flow = [
+    {
+      lane: t("how.lanes.you"),
+      icon: "person",
+      items: [
+        { t: t("how.items.type.title"), d: t("how.items.type.text") },
+        { t: t("how.items.speak.title"), d: t("how.items.speak.text") },
+        { t: t("how.items.snap.title"), d: t("how.items.snap.text") },
+        { t: t("how.items.answer.title"), d: t("how.items.answer.text") },
+      ],
+    },
+    {
+      lane: t("how.lanes.read"),
+      icon: "doc",
+      items: [
+        { t: "Muse Voice Transcribe", d: t("how.items.transcribe.text") },
+        { t: "SAM 3.1", d: t("how.items.sam.text") },
+        { t: t("how.items.reader.title"), d: t("how.items.reader.text") },
+        { t: t("how.items.agent.title"), d: t("how.items.agent.text") },
+      ],
+    },
+    {
+      lane: t("how.lanes.code"),
+      icon: "shield",
+      items: [
+        { t: t("how.items.validate.title"), d: t("how.items.validate.text") },
+        {
+          t: t("how.items.engine.title"),
+          d: t("how.items.engine.text", { count: SCHEMES.length }),
+        },
+        { t: t("how.items.planner.title"), d: t("how.items.planner.text") },
+        { t: t("how.items.chains.title"), d: t("how.items.chains.text") },
+      ],
+    },
+    {
+      lane: t("how.lanes.get"),
+      icon: "spark",
+      items: [
+        { t: t("how.items.results.title"), d: t("how.items.results.text") },
+        { t: t("how.items.plan.title"), d: t("how.items.plan.text") },
+        { t: t("how.items.say.title"), d: t("how.items.say.text") },
+        { t: t("how.items.picture.title"), d: t("how.items.picture.text") },
+      ],
+    },
+  ];
   return (
     <PageTransition>
       <div className="site mk-page">
         <SiteHeader current="how" />
         <main id="main">
           <section className="mk-wrap mk-howhero" aria-labelledby="how-h">
-            <span className="mk-tag">How it works</span>
-            <h1 id="how-h">Small agents, one job each</h1>
-            <p className="mk-lead">
-              The Muse models listen, read and explain. Plain code makes every
-              decision, so the same answers always give the same result.
-            </p>
+            <span className="mk-tag">{t("how.tag")}</span>
+            <h1 id="how-h">{t("how.h1")}</h1>
+            <p className="mk-lead">{t("how.lead")}</p>
             <dl className="mk-stats">
               <div>
-                <dt>Kinds of help</dt>
+                <dt>{t("how.stats.schemes")}</dt>
                 <dd>
                   <Ticker value={SCHEMES.length} />
                 </dd>
               </div>
               <div>
-                <dt>Areas of life</dt>
+                <dt>{t("how.stats.topics")}</dt>
                 <dd>
                   <Ticker value={TOPICS.length} />
                 </dd>
               </div>
               <div>
-                <dt>Nations covered</dt>
+                <dt>{t("how.stats.nations")}</dt>
                 <dd>
                   <Ticker value={COVERED_NATIONS.length} />
                 </dd>
               </div>
               <div>
-                <dt>Council pages</dt>
+                <dt>{t("how.stats.councilPages")}</dt>
                 <dd>
                   <Ticker value={COUNTS.councilLinks.links} />
                 </dd>
               </div>
               <div>
-                <dt>Grant-giving charities</dt>
+                <dt>{t("how.stats.charities")}</dt>
                 <dd>
                   <Ticker value={COUNTS.charityFunds.funds} />
                 </dd>
               </div>
               <div>
-                <dt>Meta models</dt>
+                <dt>{t("how.stats.models")}</dt>
                 <dd>
                   <Ticker value={MODELS.length} />
                 </dd>
@@ -167,28 +133,26 @@ export default function How() {
           <section className="mk-wrap mk-section" aria-labelledby="flow-h">
             <Reveal>
               <SectionHead
-                tag="The flow"
+                tag={t("how.flow.tag")}
                 id="flow-h"
-                title="From a chat to a plan"
+                title={t("how.flow.title")}
               >
-                What you say goes in on the left. A checked plan comes out on
-                the right.
+                {t("how.flow.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
-              <Pipeline lanes={FLOW} />
+              <Pipeline lanes={flow} />
             </Reveal>
           </section>
 
           <section className="mk-wrap mk-section" aria-labelledby="loop-h">
             <Reveal>
               <SectionHead
-                tag="Eight steps"
+                tag={t("how.loop.tag")}
                 id="loop-h"
-                title="Eight steps for every person"
+                title={t("how.loop.title")}
               >
-                All eight run in Beacon today. The later steps run in your
-                browser, so your claims stay on your device.
+                {t("how.loop.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
@@ -199,12 +163,11 @@ export default function How() {
           <section className="mk-wrap mk-section" aria-labelledby="models-h">
             <Reveal>
               <SectionHead
-                tag="Models"
+                tag={t("how.models.tag")}
                 id="models-h"
-                title="Meta models in Beacon"
+                title={t("how.models.title")}
               >
-                Each model has one job. Code checks everything they hand back
-                before you see it.
+                {t("how.models.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
@@ -215,7 +178,7 @@ export default function How() {
                       <b>{n}</b>
                       <code>{id}</code>
                     </div>
-                    <span>{job}</span>
+                    <span>{t(`how.models.jobs.${job}`)}</span>
                   </li>
                 ))}
               </ul>
@@ -226,11 +189,11 @@ export default function How() {
             <div className="mk-rules">
               <Reveal>
                 <SectionHead
-                  tag="Promises"
+                  tag={t("how.rules.tag")}
                   id="rules-h"
-                  title="Rules Beacon keeps"
+                  title={t("how.rules.title")}
                 >
-                  Written into the code, so they hold for every check.
+                  {t("how.rules.lead")}
                 </SectionHead>
               </Reveal>
               <Reveal>
@@ -240,7 +203,7 @@ export default function How() {
                       <span className="n">
                         {String(i + 1).padStart(2, "0")}
                       </span>
-                      <span>{r}</span>
+                      <span>{t(`how.rules.list.${r}`)}</span>
                       <Icon name="check" size={18} />
                     </li>
                   ))}
@@ -252,24 +215,26 @@ export default function How() {
           <section className="mk-wrap mk-section" aria-labelledby="cover-h">
             <Reveal>
               <SectionHead
-                tag="Coverage"
+                tag={t("how.cover.tag")}
                 id="cover-h"
-                title="What it checks today"
+                title={t("how.cover.title")}
               >
-                {SCHEMES.length} kinds of help across {TOPICS.length} areas of
-                life in {COVERED_NATIONS_TXT}, from Pension Credit to Healthy
-                Start. Income lines are screening estimates, so anything close
-                comes back as worth checking.
+                {t("how.cover.lead", {
+                  schemes: SCHEMES.length,
+                  topics: TOPICS.length,
+                  nations,
+                })}
               </SectionHead>
             </Reveal>
             <Reveal>
               <div className="mk-topics">
-                {TOPICS.map(([t, name]) => {
-                  const list = SCHEMES.filter((s) => s.topic === t);
+                {TOPICS.map(([topic, name]) => {
+                  const list = SCHEMES.filter((s) => s.topic === topic);
+                  const key = `topics.${topic}` as "topics.home";
                   return (
-                    <div key={t} className="mk-topic">
+                    <div key={topic} className="mk-topic">
                       <div className="mk-topic-top">
-                        <b>{name}</b>
+                        <b>{t.has(key) ? t(key) : name}</b>
                         <span className="mk-count">{list.length}</span>
                       </div>
                       <ul>
@@ -284,10 +249,7 @@ export default function How() {
             </Reveal>
           </section>
 
-          <FinalCta
-            title="See what's yours"
-            text="Type, speak or snap a letter. Beacon does the checking."
-          />
+          <FinalCta title={t("how.ctaTitle")} text={t("how.ctaText")} />
         </main>
         <SiteFooter />
       </div>

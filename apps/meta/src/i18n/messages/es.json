@@ -127,7 +127,11 @@
     "errHoursRange": "Prueba con un número de horas entre 0 y 168",
     "emptyChecklist": "Marca las que encajen, o «Ninguna de estas»",
     "emptyWork": "Elige la que mejor encaje",
-    "emptyOther": "Añade una respuesta, o elige «No lo tengo claro»"
+    "emptyOther": "Añade una respuesta, o elige «No lo tengo claro»",
+    "zip": "Código ZIP",
+    "people": "Personas en tu hogar",
+    "errZip": "Escribe un código ZIP de 5 dígitos, como 10001.",
+    "errCount": "Escribe un número del 1 al 20."
   },
   "chips": {
     "livesIn": "Vive en {nation}",
@@ -281,6 +285,39 @@
         "partner": "Mi marido, mi mujer o mi pareja civil (civil partner)",
         "funeral": "Otra persona, y yo pago el funeral"
       }
+    },
+    "zip": {
+      "q": "¿Cuál es tu código ZIP?",
+      "qThey": "¿Cuál es el código ZIP de {n}?",
+      "why": "Tu estado decide muchos programas y sus importes.",
+      "label": "Código ZIP"
+    },
+    "people": {
+      "q": "¿Cuántas personas viven en tu casa, contándote a ti?",
+      "qThey": "¿Cuántas personas viven en la casa de {n}, incluida esa persona?",
+      "why": "La mayoría de los programas comparan los ingresos con la guía de pobreza según el tamaño de tu hogar.",
+      "label": "Tamaño del hogar"
+    },
+    "benefitsUs": {
+      "q": "¿Cuáles de estas recibes ya?",
+      "qThey": "¿Cuáles de estas recibe ya {n}?",
+      "why": "Recibir una suele hacer más fácil conseguir otras.",
+      "label": "Ayudas que recibes",
+      "opts": {
+        "snap": "SNAP (cupones de alimentos)",
+        "medicaid": "Medicaid",
+        "ssi": "SSI",
+        "tanf": "TANF (ayuda en efectivo)",
+        "wic": "WIC",
+        "ssdi": "Discapacidad del Seguro Social (SSDI)"
+      },
+      "none": "Ninguna de estas"
+    },
+    "veteran": {
+      "q": "¿Has servido en el ejército de EE. UU.?",
+      "qThey": "¿{n} ha servido en el ejército de EE. UU.?",
+      "why": "Los veteranos pueden recibir atención médica de la VA, pensiones y más.",
+      "label": "Sirvió en el ejército de EE. UU."
     }
   },
   "results": {
@@ -560,7 +597,7 @@
     "display": "Pantalla",
     "close": "Cerrar",
     "current": "Elegido",
-    "searchPlace": "Busca cualquier país o escribe tu código postal",
+    "searchPlace": "Busca cualquier país o escribe tu código postal o ZIP",
     "searchLanguage": "Buscar idiomas",
     "results": "Opciones",
     "suggested": "Sugeridos",
@@ -572,8 +609,9 @@
     "placeNote": "Tu código postal solo sirve para encontrar tu ayuntamiento y tu nación. Beacon nunca te pide tu dirección.",
     "machine": "traducción automática",
     "gapTitle": "Beacon aún no puede revisar las normas de {country}",
-    "gapBody": "La ayuda que Beacon revisa hoy es para personas en el Reino Unido. Si vives en {country}, los resultados no encajarán contigo, así que Beacon no va a adivinar.",
+    "gapBody": "La ayuda que Beacon revisa hoy es para personas en el Reino Unido y en Estados Unidos. Si vives en {country}, los resultados no encajarán contigo, así que Beacon no va a adivinar.",
     "useUk": "Vivo en el Reino Unido",
+    "useUs": "Vivo en Estados Unidos",
     "chooseAgain": "Elegir de nuevo",
     "move": "mover",
     "choose": "elegir",
@@ -644,5 +682,326 @@
     "systemWins": "Los ajustes de tu navegador y de tu sistema, como el zoom y la reducción de movimiento, siempre tienen prioridad.",
     "standard": "Volver a lo estándar",
     "done": "Listo"
+  },
+  "home": {
+    "statLabel": "Ayudas que esperan a ser reclamadas",
+    "statUnit": " mil millones",
+    "frame": {
+      "tag": "El marco de Beacon",
+      "title": "Quien necesita ayuda, frente a frente con quien la da",
+      "lead": "Las personas, a un lado. Al otro, el gobierno, los ayuntamientos, el NHS, las organizaciones benéficas, las compañías de suministros y los empleadores. Los agentes de Beacon conectan a ambos."
+    },
+    "map": {
+      "aria": "A la izquierda, las personas que necesitan ayuda; a la derecha, todos los que la dan; y en medio, Beacon conectándolos.",
+      "peopleHead": "Personas que necesitan ayuda",
+      "giversHead": "Todos los que dan ayuda",
+      "sub": "agentes que conectan a ambos",
+      "people": {
+        "older": "Personas mayores",
+        "disabled": "Personas con discapacidad",
+        "carers": "Cuidadores",
+        "families": "Familias",
+        "young": "Jóvenes",
+        "outOfWork": "Sin trabajo",
+        "lowWage": "Con un salario bajo",
+        "bereavement": "Duelo y cambios en la vida",
+        "someoneElse": "Consultando por otra persona"
+      },
+      "givers": {
+        "government": "Gobierno del Reino Unido",
+        "councils": "Ayuntamientos",
+        "nhs": "NHS",
+        "charities": "Organizaciones benéficas",
+        "utilities": "Compañías de suministros",
+        "employers": "Empleadores",
+        "unclaimed": "Dinero sin reclamar y compensaciones"
+      }
+    },
+    "steps": {
+      "tag": "Ocho pasos",
+      "title": "Los mismos ocho pasos para cada persona",
+      "lead": "Los ocho funcionan hoy, en tu navegador."
+    },
+    "loop": {
+      "understand": {
+        "title": "Entender",
+        "text": "Conocer a la persona, una pequeña pregunta cada vez"
+      },
+      "match": {
+        "title": "Encontrar",
+        "text": "Revisar cada ayuda y ver qué abre una solicitud"
+      },
+      "warn": {
+        "title": "Avisar",
+        "text": "Señalar cualquier solicitud que pueda reducir otra"
+      },
+      "act": {
+        "title": "Actuar",
+        "text": "Ordenar las solicitudes y preparar cada llamada"
+      },
+      "confirm": {
+        "title": "Confirmar",
+        "text": "Anotar lo concedido y ayudar a recurrir una decisión equivocada"
+      },
+      "receive": {
+        "title": "Recibir",
+        "text": "Iniciar las solicitudes que abre una concesión y revisar el primer pago"
+      },
+      "keep": {
+        "title": "Mantener",
+        "text": "Comunicar los cambios a tiempo para no tener que devolver nada"
+      },
+      "watch": {
+        "title": "Vigilar",
+        "text": "Revisar de nuevo cuando cambian las normas y contar qué hay de nuevo"
+      }
+    },
+    "rail": {
+      "live": "Disponible hoy",
+      "coming": "Hacia dónde va",
+      "liveSr": "Disponible hoy.",
+      "comingSr": "Próximamente."
+    },
+    "todayHead": {
+      "tag": "Cómo funciona hoy",
+      "title": "Empieza con una conversación",
+      "lead": "Cuéntale a Beacon qué está pasando, con tus propias palabras. Hace una pequeña pregunta cada vez y muestra resultados mientras respondes."
+    },
+    "today": {
+      "type": "Escribe",
+      "speak": "Habla",
+      "snap": "Foto de una carta",
+      "waysTitle": "Escribe, habla o haz una foto de una carta",
+      "waysText": "Escribe con tus palabras, habla o haz una foto de una carta. Beacon la lee por ti y saca lo importante.",
+      "resultsTitle": "Los resultados se iluminan mientras respondes",
+      "resultsText": "Probable, vale la pena revisar o se abre después. Cada uno muestra las condiciones que hay detrás y enlaza a la página oficial.",
+      "askBubble": "¿Vives en Inglaterra, Escocia o Gales?",
+      "askTitle": "Una pequeña pregunta cada vez",
+      "askText": "Beacon solo pregunta lo que todavía puede cambiar un resultado.",
+      "warnArt": "Pedir esto podría reducir otro pago. Lee esto primero.",
+      "warnTitle": "Un aviso antes de pedir",
+      "warnText": "Si una solicitud puede reducir otra, te enteras primero, con palabras claras.",
+      "callArt": "Qué decir",
+      "orderTitle": "Solicitudes en orden, con qué decir",
+      "orderText": "Beacon pone tus solicitudes en el orden correcto y escribe notas para cada llamada.",
+      "codeTitle": "El código decide cada resultado",
+      "codeText": "Un código sencillo revisa las normas oficiales, así que las mismas respuestas siempre dan el mismo resultado. Los modelos de Meta escuchan, leen y explican. Tus respuestas se quedan en tu navegador.",
+      "chipsLabel": "Modelos de Meta en Beacon"
+    },
+    "demo": {
+      "tag": "Consulta de ejemplo",
+      "you1": "Mi madre tiene 78 años, vive sola en Wembley y le cuestan las escaleras.",
+      "ask": "Gracias. ¿Necesita ayuda para lavarse, vestirse o por la noche?",
+      "you2": "Sí, casi todas las mañanas.",
+      "note": "Attendance Allowance puede aumentar su Pension Credit, así que pídela primero.",
+      "call": "Ya tienes listo qué decir por teléfono"
+    },
+    "cover": {
+      "tag": "Lo que revisa hoy",
+      "title": "{schemes} tipos de ayuda en {topics} áreas de la vida",
+      "lead": "De Pension Credit a Healthy Start, en {nations}. Además, {councilPages, number} páginas de ayuntamientos y {charities, number} organizaciones benéficas que dan subvenciones, según tu código postal."
+    },
+    "grow": {
+      "tag": "Hacia dónde va",
+      "title": "De una familia a una red mundial"
+    },
+    "growth": {
+      "now": "Ahora",
+      "today": "Hoy",
+      "planned": "Previsto",
+      "promise": "Beacon nunca se quedará con una parte de nada de lo que te concedan.",
+      "stages": {
+        "people": {
+          "title": "Personas y familias del Reino Unido",
+          "text": "Ayuda para ti y para las personas que cuidas."
+        },
+        "orgs": {
+          "title": "Empresas y organizaciones",
+          "text": "Ayudas que una empresa u organización puede pedir, encontradas de la misma forma."
+        },
+        "countries": {
+          "title": "Más países",
+          "text": "Los mismos ocho pasos, con las normas de cada país."
+        },
+        "network": {
+          "title": "Una red mundial",
+          "text": "Quienes dan ayuda se envían personas entre sí a través de Beacon."
+        }
+      },
+      "plans": {
+        "free": {
+          "title": "Consulta gratuita",
+          "text": "Mira lo que probablemente es tuyo, con avisos, el orden para pedir y qué decir por teléfono."
+        },
+        "pro": {
+          "title": "Pro",
+          "text": "Sigue vigilando después de pedir: la decisión, el primer pago, los cambios que comunicar y las normas nuevas."
+        },
+        "funded": {
+          "title": "Pro financiado",
+          "text": "Ayuntamientos, asociaciones de vivienda y empleadores pueden pagar Pro para las personas a las que atienden."
+        }
+      }
+    }
+  },
+  "how": {
+    "tag": "Cómo funciona",
+    "h1": "Agentes pequeños, una tarea cada uno",
+    "lead": "Los modelos Muse escuchan, leen y explican. Un código sencillo toma cada decisión, así que las mismas respuestas siempre dan el mismo resultado.",
+    "stats": {
+      "schemes": "Tipos de ayuda",
+      "topics": "Áreas de la vida",
+      "nations": "Naciones incluidas",
+      "councilPages": "Páginas de ayuntamientos",
+      "charities": "Organizaciones que dan subvenciones",
+      "models": "Modelos de Meta"
+    },
+    "flow": {
+      "tag": "El flujo",
+      "title": "De una conversación a un plan",
+      "lead": "Lo que dices entra por la izquierda. Un plan comprobado sale por la derecha."
+    },
+    "lanes": {
+      "you": "Tú",
+      "read": "Los modelos de Meta leen",
+      "code": "El código decide",
+      "get": "Recibes"
+    },
+    "items": {
+      "type": {
+        "title": "Escribe",
+        "text": "Palabras sencillas en el chat"
+      },
+      "speak": {
+        "title": "Habla",
+        "text": "Se graba en tu navegador"
+      },
+      "snap": {
+        "title": "Foto de una carta",
+        "text": "Primero se reduce y se le quitan los datos de la foto"
+      },
+      "answer": {
+        "title": "Responde una pregunta",
+        "text": "El campo adecuado para cada dato"
+      },
+      "transcribe": {
+        "text": "De voz a texto"
+      },
+      "sam": {
+        "text": "Encuentra la carta en la foto"
+      },
+      "reader": {
+        "title": "Muse Spark, lector de cartas",
+        "text": "Rellena un formulario fijo y no puede hacer nada más"
+      },
+      "agent": {
+        "title": "Muse Spark, agente",
+        "text": "Guarda datos solo a través de herramientas"
+      },
+      "validate": {
+        "title": "Validar",
+        "text": "Cada campo se revisa antes de usarlo"
+      },
+      "engine": {
+        "title": "Motor de normas",
+        "text": "{count, plural, one {# ayuda} many {# ayudas} other {# ayudas}}, cada condición verdadera, falsa o desconocida"
+      },
+      "planner": {
+        "title": "Planificador de preguntas",
+        "text": "Pregunta lo que resuelve más ayudas"
+      },
+      "chains": {
+        "title": "Cadenas y choques",
+        "text": "Qué abre qué, y qué reduce qué"
+      },
+      "results": {
+        "title": "Probable, vale la pena revisar, se abre después",
+        "text": "Con cada condición a la vista"
+      },
+      "plan": {
+        "title": "Un plan para pedir",
+        "text": "Primero las ayudas que abren puertas"
+      },
+      "say": {
+        "title": "Qué decir",
+        "text": "Notas para llamar, de Muse Spark"
+      },
+      "picture": {
+        "title": "Una imagen de tus resultados",
+        "text": "Pintada por Muse Image"
+      }
+    },
+    "loop": {
+      "tag": "Ocho pasos",
+      "title": "Ocho pasos para cada persona",
+      "lead": "Los ocho funcionan hoy en Beacon. Los últimos pasos funcionan en tu navegador, así que tus solicitudes se quedan en tu dispositivo."
+    },
+    "models": {
+      "tag": "Modelos",
+      "title": "Modelos de Meta en Beacon",
+      "lead": "Cada modelo tiene una tarea. El código revisa todo lo que devuelven antes de que lo veas.",
+      "jobs": {
+        "spark": "Chat del agente con llamadas a herramientas, lectura de cartas con visión y salida estructurada, notas para llamar",
+        "voice": "Convierte una respuesta hablada en texto",
+        "sam": "Marca el contorno de la carta en una foto para que veas qué se leyó",
+        "image": "Pinta el banner de resultados solo a partir de áreas de la vida, nunca de datos personales"
+      }
+    },
+    "rules": {
+      "tag": "Promesas",
+      "title": "Normas que Beacon cumple",
+      "lead": "Escritas en el código, así que se cumplen en cada consulta.",
+      "list": {
+        "r1": "El código decide cada resultado. Los modelos leen, preguntan y explican.",
+        "r2": "Nada de lo que escribe un modelo llega a las normas hasta que el código lo ha revisado.",
+        "r3": "Las cartas se leen en aislamiento y se convierten en datos estructurados antes de que las vea cualquier agente que pueda actuar.",
+        "r4": "Beacon nunca pide un nombre, un número de National Insurance ni datos bancarios, y no los copia de las cartas.",
+        "r5": "Las respuestas viven en tu navegador. El servidor las olvida cuando termina la petición.",
+        "r6": "Cada ayuda enlaza a su página oficial. Decide la organización que la gestiona."
+      }
+    },
+    "cover": {
+      "tag": "Cobertura",
+      "title": "Lo que revisa hoy",
+      "lead": "{schemes} tipos de ayuda en {topics} áreas de la vida en {nations}, de Pension Credit a Healthy Start. Los límites de ingresos son estimaciones orientativas, así que todo lo que se acerque aparece como vale la pena revisar."
+    },
+    "ctaTitle": "Mira lo que es tuyo",
+    "ctaText": "Escribe, habla o haz una foto de una carta. Beacon se encarga de revisar."
+  },
+  "usLocal": {
+    "away": "a {miles} millas",
+    "health": {
+      "title": "{count, plural, one {# centro de salud comunitario} many {# de centros de salud comunitarios} other {# centros de salud comunitarios}} en tu estado, del más cercano al más lejano",
+      "what": "Médicos, dentistas y salud mental. Cobran según lo que puedas pagar, y puedes ir con o sin seguro.",
+      "note": "De la lista oficial de HRSA.",
+      "more": "Busca un centro de salud"
+    },
+    "housing": {
+      "title": "Agencias de vivienda cerca de ti",
+      "what": "Las agencias de vivienda gestionan la vivienda pública y los vales de la Sección 8. Pregúntales cómo solicitarla y cuánto dura la lista de espera.",
+      "note": "De la lista de HUD de {count, plural, one {# agencia} many {# de agencias} other {# agencias}} en tu estado.",
+      "more": "Todas las agencias de vivienda"
+    },
+    "counselors": {
+      "title": "{count, plural, one {# consejero de vivienda gratuito} many {# de consejeros de vivienda gratuitos} other {# consejeros de vivienda gratuitos}} en tu estado, del más cercano al más lejano",
+      "what": "Los consejeros aprobados por HUD ayudan gratis o a bajo costo si vas atrasado con el alquiler o la hipoteca, te enfrentas a un desalojo o quieres hacer un presupuesto.",
+      "note": "De la lista de agencias aprobadas por HUD.",
+      "more": "Busca un consejero de vivienda"
+    },
+    "note": {
+      "mobile": "Clínica móvil",
+      "seasonal": "De temporada",
+      "public": "Vivienda pública",
+      "vouchers": "Vales de la Sección 8",
+      "both": "Vivienda pública y Sección 8"
+    },
+    "helps": {
+      "rent": "Alquiler",
+      "homeless": "Sin hogar",
+      "mortgage": "Atrasos en la hipoteca",
+      "money": "Presupuesto y crédito",
+      "buying": "Comprar una casa",
+      "reverse": "Hipotecas inversas"
+    }
   }
 }

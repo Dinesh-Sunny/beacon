@@ -9,7 +9,7 @@ import { useTranslations } from "use-intl";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon } from "@/components/Icon";
 import { type Answers, type FactId, ORDER } from "@/engine/facts";
-import { count, SCHEMES } from "@/engine/rules";
+import { count, inPlay, SCHEMES } from "@/engine/rules";
 import { useFactText } from "@/i18n/useFactText";
 import { type Source, useCheck } from "@/lib/check-store";
 import { useCouncil } from "@/lib/council";
@@ -76,7 +76,8 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
     setPicking(false);
   }, [resets]);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
-  const settled = SCHEMES.length - count(states, "open");
+  const total = inPlay(states).length;
+  const settled = total - count(states, "open");
   const groupTitle = (k: readonly [string, string]) =>
     t((subject.who === "me" ? k[0] : k[1]) as "money");
 
@@ -120,12 +121,12 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
             </div>
             {picking && <WhoPicker onDone={() => setPicking(false)} />}
             <div className="bar" aria-hidden="true">
-              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
+              <i style={{ width: `${(settled / total) * 100}%` }} />
             </div>
             <span className="hint">
               {t("progress", {
                 done: settled,
-                total: SCHEMES.length,
+                total,
                 count: saved,
               })}
             </span>

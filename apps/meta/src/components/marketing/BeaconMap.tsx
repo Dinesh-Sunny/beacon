@@ -2,26 +2,29 @@
 // right, the Beacon lamp in the middle. Beams light one connection at a time (pure CSS, no JS).
 // Below 760px a stacked version replaces the wide SVG so labels stay readable.
 
+import { getT } from "@/i18n/server";
+
+// Ids only: each label lives in messages under home.map.people.<id> and home.map.givers.<id>.
 const PEOPLE = [
-  "Older people",
-  "Disabled people",
-  "Carers",
-  "Families",
-  "Young people",
-  "Out of work",
-  "On a low wage",
-  "Bereavement and life events",
-  "Checking for someone else",
-];
+  "older",
+  "disabled",
+  "carers",
+  "families",
+  "young",
+  "outOfWork",
+  "lowWage",
+  "bereavement",
+  "someoneElse",
+] as const;
 const GIVERS = [
-  "UK government",
-  "Councils",
-  "NHS",
-  "Charities",
-  "Utility companies",
-  "Employers",
-  "Unclaimed money and redress",
-];
+  "government",
+  "councils",
+  "nhs",
+  "charities",
+  "utilities",
+  "employers",
+  "unclaimed",
+] as const;
 // Which provider each person's beam lights (illustrative pairs).
 const PAIR = [0, 1, 3, 2, 5, 0, 4, 6, 1];
 
@@ -35,7 +38,10 @@ const gy = (j: number) => 76 + j * 72;
 const SLOT = 1.6; // seconds per beam
 const delay = (i: number) => ({ animationDelay: `${i * SLOT}s` });
 
-export function BeaconMap() {
+export async function BeaconMap() {
+  const t = await getT();
+  const person = (id: (typeof PEOPLE)[number]) => t(`home.map.people.${id}`);
+  const giver = (id: (typeof GIVERS)[number]) => t(`home.map.givers.${id}`);
   return (
     <figure
       className="mk-map"
@@ -45,7 +51,7 @@ export function BeaconMap() {
         className="mk-map-wide"
         viewBox={`0 0 ${W} 600`}
         role="img"
-        aria-label="People who need help on the left, everyone who gives help on the right, and Beacon in the middle connecting them."
+        aria-label={t("home.map.aria")}
       >
         <defs>
           <radialGradient id="mk-lamp-glow">
@@ -54,10 +60,10 @@ export function BeaconMap() {
           </radialGradient>
         </defs>
         <text x={10} y={14} className="mk-map-head">
-          People who need help
+          {t("home.map.peopleHead")}
         </text>
         <text x={W - 10} y={14} textAnchor="end" className="mk-map-head">
-          Everyone who gives help
+          {t("home.map.giversHead")}
         </text>
         <g className="mk-map-lines">
           {PEOPLE.map((name, i) => (
@@ -103,7 +109,7 @@ export function BeaconMap() {
               style={delay(i)}
             />
             <text x={30} y={py(i) + PH / 2 + 6}>
-              {p}
+              {person(p)}
             </text>
           </g>
         ))}
@@ -131,7 +137,7 @@ export function BeaconMap() {
               ) : null,
             )}
             <text x={W - 30} y={gy(j) + PH / 2 + 6} textAnchor="end">
-              {g}
+              {giver(g)}
             </text>
           </g>
         ))}
@@ -157,17 +163,17 @@ export function BeaconMap() {
             Beacon
           </text>
           <text x={CX} y={CY + 106} textAnchor="middle" className="mk-map-sub">
-            agents connect the two
+            {t("home.map.sub")}
           </text>
         </g>
       </svg>
 
       <div className="mk-map-stack" aria-hidden="true">
-        <span className="mk-map-label">People who need help</span>
+        <span className="mk-map-label">{t("home.map.peopleHead")}</span>
         <ul>
           {PEOPLE.map((p, i) => (
             <li key={p} style={delay(i)}>
-              {p}
+              {person(p)}
             </li>
           ))}
         </ul>
@@ -201,13 +207,13 @@ export function BeaconMap() {
             />
           </svg>
           <b>Beacon</b>
-          <span>agents connect the two</span>
+          <span>{t("home.map.sub")}</span>
         </div>
-        <span className="mk-map-label">Everyone who gives help</span>
+        <span className="mk-map-label">{t("home.map.giversHead")}</span>
         <ul className="givers">
           {GIVERS.map((g, j) => (
             <li key={g} style={delay(PAIR.indexOf(j))}>
-              {g}
+              {giver(g)}
             </li>
           ))}
         </ul>

@@ -16,6 +16,15 @@ export const Difficulty = z.enum(["wash", "night", "cook", "move"]);
 export const Bereaved = z.enum(["no", "partner", "funeral"]);
 export const Housing = z.enum(["social", "private", "own", "family"]);
 export const Household = z.enum(["alone", "children", "partner", "adults"]);
+/** US help someone already gets: each opens the door to more. */
+export const BenefitUs = z.enum([
+  "snap",
+  "medicaid",
+  "ssi",
+  "tanf",
+  "wic",
+  "ssdi",
+]);
 
 export const Money = z.object({ amt: z.number().min(0), per: Period });
 export const Work = z.object({
@@ -41,16 +50,26 @@ export const AnswersSchema = z
     household: orUnsure(Household),
     debt: orUnsure(YesNo),
     bereaved: orUnsure(Bereaved),
+    /** United States: ZIP code (state and county come from it), household size, help already
+     * received and military service. */
+    zip: orUnsure(z.string().regex(/^\d{5}$/)),
+    people: orUnsure(z.number().int().min(1).max(20)),
+    benefitsUs: orUnsure(z.array(BenefitUs).max(BenefitUs.options.length)),
+    veteran: orUnsure(YesNo),
     /** True when the date of birth was worked out from an age, so it reads back as an age. */
     dobApprox: z.boolean(),
     /** The nation from a postcode lookup, for postcodes near a border; never asked. */
     nation: z.enum(["eng", "sco", "wal", "ni"]),
+    /** The country whose rules apply, from the place dialog; never asked as a question. */
+    country: z.enum(["GB", "US"]),
+    /** The US state from a ZIP lookup (two letters); never asked. */
+    state: z.string().regex(/^[A-Z]{2}$/),
   })
   .partial();
 
 export type Answers = z.infer<typeof AnswersSchema>;
 /** Keys that describe answers rather than being questions. */
-const META_KEYS = ["dobApprox", "nation"] as const;
+const META_KEYS = ["dobApprox", "nation", "country", "state"] as const;
 export type FactId = Exclude<keyof Answers, (typeof META_KEYS)[number]>;
 export const isFactId = (k: string): k is FactId =>
   !(META_KEYS as readonly string[]).includes(k) && k in AnswersSchema.shape;

@@ -44,7 +44,9 @@ type ErrId =
   | "errFuture"
   | "errAmount"
   | "errHours"
-  | "errHoursRange";
+  | "errHoursRange"
+  | "errZip"
+  | "errCount";
 type Read = { v: Answers[FactId] } | { err: ErrId } | { empty: true };
 type RawRead = { v: unknown } | { err: ErrId } | { empty: true };
 
@@ -74,7 +76,7 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
     return { v: `${yy}-${String(mm).padStart(2, "0")}-15` };
   }
   if (t === "money" || t === "moneyPeriod") {
-    const raw = String(x.amt ?? "").replace(/[£,\s]/g, "");
+    const raw = String(x.amt ?? "").replace(/[£$,\s]/g, "");
     if (!raw) return { empty: true };
     const n = Number.parseFloat(raw);
     if (Number.isNaN(n) || n < 0) return { err: "errAmount" };
@@ -96,6 +98,16 @@ function readRaw(f: FactId, x: Draft, today: Date): RawRead {
   if (t === "hours") {
     const n = Number(x.h ?? 0);
     if (Number.isNaN(n) || n < 0 || n > 168) return { err: "errHoursRange" };
+    return { v: n };
+  }
+  if (t === "zip") {
+    const v = (x.pc ?? "").trim();
+    if (!v) return { empty: true };
+    return /^\d{5}$/.test(v) ? { v } : { err: "errZip" };
+  }
+  if (t === "count") {
+    const n = Number(x.h ?? 0);
+    if (!Number.isInteger(n) || n < 1 || n > 20) return { err: "errCount" };
     return { v: n };
   }
   return { empty: true };
@@ -260,7 +272,8 @@ export function QuestionCard({
 function toDraft(f: FactId, v: unknown): Draft {
   if (v === undefined || v === UNSURE) return {};
   const t = FACTS[f].type;
-  if (t === "postcode") return { pc: String(v) };
+  if (t === "postcode" || t === "zip") return { pc: String(v) };
+  if (t === "count") return { h: String(v) };
   if (
     (t === "date" || t === "childDate") &&
     typeof v === "string" &&
@@ -301,7 +314,7 @@ function Input({
   set: (p: Draft) => void;
   submit: (v?: Answers[FactId]) => void;
 }) {
-  const { subject } = useCheck();
+  const { subject, answers } = useCheck();
   const t = useTranslations("q");
   const fmt = useFormatter();
   const ft = useFactText();
@@ -381,7 +394,7 @@ function Input({
               {fact.type === "moneyPeriod" ? t("amountAfterTax") : t("amount")}
             </label>
             <div className="money">
-              <span>£</span>
+              <span>{answers.country === "US" ? "$" : "£"}</span>
               <input
                 id={`${idp}-amt`}
                 className="txt"
@@ -482,6 +495,32 @@ function Input({
           />
           <p className="hint">{t("onCall")}</p>
         </>
+      );
+    case "zip":
+      return (
+        <div className="field">
+          <label htmlFor={`${idp}-zip`}>{t("zip")}</label>
+          <input
+            id={`${idp}-zip`}
+            className="txt"
+            style={{ maxWidth: "9ch" }}
+            inputMode="numeric"
+            autoComplete="postal-code"
+            maxLength={5}
+            value={draft.pc ?? ""}
+            onChange={(e) => set({ pc: e.target.value.replace(/\D/g, "") })}
+          />
+        </div>
+      );
+    case "count":
+      return (
+        <Stepper
+          id={`${idp}-n`}
+          label={t("people")}
+          value={draft.h ?? "1"}
+          step={1}
+          onChange={(v) => set({ h: v })}
+        />
       );
     case "yesno":
       return (

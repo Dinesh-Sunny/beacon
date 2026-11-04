@@ -7,6 +7,7 @@ export type Coverage = "pack" | "none";
 export const COVERED: Record<string, { nations: string; coverage: Coverage }> =
   {
     GB: { nations: "England, Scotland, Wales", coverage: "pack" },
+    US: { nations: "All 50 states and DC", coverage: "pack" },
   };
 
 // Region codes that name groups, territories filed under another country, or test placeholders.

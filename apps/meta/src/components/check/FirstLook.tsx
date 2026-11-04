@@ -4,13 +4,20 @@
 // and points at what's different: each result comes with the official rule behind it.
 
 import { useTranslations } from "use-intl";
-import { byId, SCHEMES } from "@/engine/rules";
+import { byId, GATEWAYS, schemesOf } from "@/engine/rules";
+import { useCheck } from "@/lib/check-store";
 
-const NAMED = ["pc", "ctr"];
+/** Help people already know by name, per country: the US names its gateway programs. */
+const NAMED: Record<string, string[]> = { GB: ["pc", "ctr"] };
 
 export function FirstLook({ onExample }: { onExample: () => void }) {
   const t = useTranslations("first");
-  const names = NAMED.map((id) => byId[id]?.name).filter(Boolean);
+  const country = useCheck().answers.country ?? "GB";
+  const all = schemesOf(country);
+  const named =
+    NAMED[country] ??
+    GATEWAYS.filter((g) => byId[g]?.country === country).slice(0, 2);
+  const names = named.map((id) => byId[id]?.name).filter(Boolean);
   return (
     <section
       className="first-look"
@@ -33,7 +40,7 @@ export function FirstLook({ onExample }: { onExample: () => void }) {
       <h2 id="fl-h">
         {t("headline", {
           names: names.join(", "),
-          more: SCHEMES.length - names.length,
+          more: all.length - names.length,
         })}
       </h2>
       <p className="fl-lead">

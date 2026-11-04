@@ -5,6 +5,7 @@ import { z } from "zod";
 import {
   type Answers,
   Benefit,
+  BenefitUs,
   Bereaved,
   Difficulty,
   Household,
@@ -42,10 +43,13 @@ export const FactPatch = z.strictObject({
   ),
   income_amount: opt(
     z.number().min(0).max(10_000_000),
-    "Household income after tax, in pounds",
+    "Household income after tax, in pounds (dollars in the US)",
   ),
   income_period: opt(Period),
-  savings: opt(z.number().min(0).max(100_000_000), "Savings in pounds"),
+  savings: opt(
+    z.number().min(0).max(100_000_000),
+    "Savings in pounds (dollars in the US)",
+  ),
   difficulties: opt(
     z.array(Difficulty),
     "wash = washing, dressing or toilet; night = being safe alone; cook = cooking or medicines; move = walking or getting around",
@@ -78,6 +82,17 @@ export const FactPatch = z.strictObject({
     Bereaved,
     "partner = husband, wife or civil partner died; funeral = paying for someone else's funeral",
   ),
+  // United States only.
+  zip_code: opt(z.string().max(10), "US ZIP code, 5 digits. Only if stated."),
+  household_size: opt(
+    z.int().min(1).max(20),
+    "US: people living in the home, including them",
+  ),
+  already_gets_us: opt(
+    z.array(BenefitUs),
+    "US programs they already get: snap = SNAP or food stamps, medicaid, ssi, tanf = cash assistance, wic, ssdi = Social Security Disability",
+  ),
+  veteran: opt(YesNo, "US: served in the US military"),
 });
 export type FactPatch = z.infer<typeof FactPatch>;
 
@@ -132,5 +147,10 @@ export function toAnswers(p: FactPatch, today = new Date()): Answers {
   if (p.lives_with) a.household = p.lives_with;
   if (p.behind_on_bills) a.debt = p.behind_on_bills;
   if (p.bereaved) a.bereaved = p.bereaved;
+  const zip = p.zip_code?.trim().slice(0, 5);
+  if (zip && /^\d{5}$/.test(zip)) a.zip = zip;
+  if (p.household_size != null) a.people = p.household_size;
+  if (p.already_gets_us?.length) a.benefitsUs = [...new Set(p.already_gets_us)];
+  if (p.veteran) a.veteran = p.veteran;
   return a;
 }

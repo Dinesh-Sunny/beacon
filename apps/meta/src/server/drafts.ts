@@ -50,6 +50,16 @@ const DERIVED_DOC: Record<(typeof DERIVED_KEYS)[number], string> = {
     "true if no other adults live there; children under 18 don't count (from household)",
   couple: "true if lives with a partner (from household)",
   debt: "true if behind on bills or payments (from debt)",
+  country: '"GB" | "US": whose rules apply (from the place dialog)',
+  state: "US state, two letters (from zip)",
+  people: "number of people in the household (from people)",
+  fplPct:
+    "household income as a percent of the US federal poverty guideline for its size (from income and people)",
+  usGateway: "true if gets SNAP, Medicaid, SSI or TANF (from benefitsUs)",
+  snap: "true if gets SNAP (from benefitsUs)",
+  medicaid: "true if gets Medicaid (from benefitsUs)",
+  ssi: "true if gets SSI (from benefitsUs)",
+  veteran: "true if served in the US armed forces (from veteran)",
 };
 
 const SYSTEM = `You turn one official UK page into a draft rule for Beacon, a screening tool. UK English, plain words, "you" voice, never the word "eligible", regular hyphens only.

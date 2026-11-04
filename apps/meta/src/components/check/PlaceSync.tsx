@@ -7,10 +7,23 @@ import { useEffect } from "react";
 import { NATION, nationOf } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 import { usePlace } from "@/lib/council";
+import { useCountry } from "@/lib/country";
+import { useUsPlace } from "@/lib/usplace";
 
 export function PlaceSync() {
   const { answers, refine, announce } = useCheck();
   const { nation } = usePlace(answers.postcode);
+  const { country } = useCountry();
+  const us = useUsPlace(answers.zip);
+  // The place dialog's country decides whose rules the check uses.
+  useEffect(() => {
+    const c = country === "US" ? "US" : "GB";
+    if ((answers.country ?? "GB") !== c) refine({ country: c });
+  }, [country, answers.country, refine]);
+  // A ZIP code's state, for the state programs.
+  useEffect(() => {
+    if (us.state && answers.state !== us.state) refine({ state: us.state });
+  }, [us.state, answers.state, refine]);
   useEffect(() => {
     if (
       !nation ||

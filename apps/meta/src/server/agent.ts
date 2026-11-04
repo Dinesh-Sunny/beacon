@@ -244,6 +244,13 @@ export async function runAgent(
   simple?: boolean,
 ) {
   const messages: ChatMessage[] = [{ role: "system", content: SYSTEM }];
+  // The same helper for someone in the United States: US programs, ZIP code, 911 and 988.
+  if (answers.country === "US")
+    messages.push({
+      role: "system",
+      content:
+        "This person lives in the United States, so Beacon checks US federal and state programs for them (SNAP, Medicaid, SSI and more), not UK ones. Use US English and dollars. A ZIP code is enough: never ask for a Social Security number, bank details or a full address. In a crisis, point them to 911 in an emergency or the 988 Suicide and Crisis Lifeline (call or text 988), free, any time.",
+    });
   if (simple)
     messages.push({
       role: "system",

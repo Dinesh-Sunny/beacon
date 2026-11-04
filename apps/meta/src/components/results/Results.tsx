@@ -7,7 +7,7 @@
 import { useEffect, useState } from "react";
 import { useFormatter, useLocale, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
-import { type Answers, theyify } from "@/engine/facts";
+import { type Answers, currencyOf, theyify } from "@/engine/facts";
 import {
   byId,
   claimOrder,
@@ -33,6 +33,7 @@ import { SchemeList } from "./lists";
 import { MoreHelp } from "./MoreHelp";
 import { ReadAloud } from "./ReadAloud";
 import { ShareCheck } from "./ShareCheck";
+import { UsLocalHelp } from "./UsLocalHelp";
 
 interface Prep {
   opening: string;
@@ -52,7 +53,7 @@ export function Results() {
   const gbp = (n: number) =>
     fmt.number(n, {
       style: "currency",
-      currency: "GBP",
+      currency: currencyOf(answers.country),
       currencyDisplay: "narrowSymbol",
       maximumFractionDigits: 0,
     });
@@ -221,6 +222,7 @@ export function Results() {
         </section>
       ))}
       <LocalHelp />
+      <UsLocalHelp />
       <MoreHelp />
 
       <div className="res-foot">

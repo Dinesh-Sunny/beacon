@@ -1,23 +1,25 @@
+import { getT } from "@/i18n/server";
 import { LOOP } from "./content";
 
 // The eight steps every person goes through. Solid amber = live today, dashed = where it's going.
 // The legend only shows the "where it's going" half while some step is still to come.
-export function StepsRail() {
+export async function StepsRail() {
+  const t = await getT();
   const coming = LOOP.some((s) => !s.live);
   return (
     <div className="mk-rail">
       <div className="mk-rail-groups" aria-hidden="true">
-        <span className="live">Live today</span>
-        {coming && <span>Where it's going</span>}
+        <span className="live">{t("home.rail.live")}</span>
+        {coming && <span>{t("home.rail.coming")}</span>}
       </div>
       <ol>
         {LOOP.map((s, i) => (
-          <li key={s.t} className={s.live ? "live" : ""}>
+          <li key={s.id} className={s.live ? "live" : ""}>
             <span className="mk-rail-dot">{i + 1}</span>
-            <b>{s.t}</b>
-            <span className="mk-rail-d">{s.d}</span>
+            <b>{t(`home.loop.${s.id}.title`)}</b>
+            <span className="mk-rail-d">{t(`home.loop.${s.id}.text`)}</span>
             <span className="sr-only">
-              {s.live ? "Live today." : "Coming next."}
+              {s.live ? t("home.rail.liveSr") : t("home.rail.comingSr")}
             </span>
           </li>
         ))}

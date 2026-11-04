@@ -4155,3 +4155,13 @@ html[data-focus="on"]
     bottom: 24px;
   }
 }
+
+/* US help near a ZIP code: one card-like row per place. */
+.more-help ul.us-local li {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+}
+.more-help ul.us-local li .hint {
+  font-size: 0.85em;
+}

@@ -20,7 +20,7 @@ import { PlaceButton } from "@/components/locale/PlaceDialog";
 import { SuggestLanguage } from "@/components/locale/SuggestLanguage";
 import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
-import { count, SCHEMES } from "@/engine/rules";
+import { count, inPlay } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
 import { ClaimsProvider } from "@/lib/claims";
 import { EXAMPLES, type Example } from "@/lib/examples";
@@ -369,27 +369,28 @@ function Canvas({ onExample }: { onExample: () => void }) {
   const t = useTranslations("header");
   const { states, asked } = useCheck();
   const open = count(states, "open");
-  const settled = SCHEMES.length - open;
+  const total = inPlay(states).length;
+  const settled = total - open;
   const found =
     count(states, "likely") + count(states, "check") + count(states, "unlock");
   return (
     <>
       <div className="canvas-top">
         <Activity />
-        {asked > 0 && settled < SCHEMES.length && (
+        {asked > 0 && settled < total && (
           <div className="progress">
             <div
               className="meter"
               role="progressbar"
               aria-label={t("checkedLabel")}
               aria-valuemin={0}
-              aria-valuemax={SCHEMES.length}
+              aria-valuemax={total}
               aria-valuenow={settled}
             >
-              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
+              <i style={{ width: `${(settled / total) * 100}%` }} />
             </div>
             <span className="meter-label" data-testid="stats">
-              {t("checked", { done: settled, total: SCHEMES.length })}
+              {t("checked", { done: settled, total })}
             </span>
           </div>
         )}

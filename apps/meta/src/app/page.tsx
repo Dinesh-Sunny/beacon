@@ -72,13 +72,15 @@ export default async function Home() {
             <ChatDemo />
           </section>
 
-          <section
-            className="mk-wrap mk-stat"
-            aria-label="Support waiting to be claimed"
-          >
+          <section className="mk-wrap mk-stat" aria-label={t("home.statLabel")}>
             <Reveal className="mk-stat-in">
               <p className="mk-stat-num">
-                <Ticker value={24.1} decimals={1} prefix="£" suffix="bn" />
+                <Ticker
+                  value={24.1}
+                  decimals={1}
+                  prefix="£"
+                  suffix={t("home.statUnit")}
+                />
                 <span>{t("site.perYear")}</span>
               </p>
               <p className="mk-stat-text">
@@ -93,14 +95,12 @@ export default async function Home() {
           <section className="mk-wrap mk-section" aria-labelledby="frame-h">
             <Reveal>
               <SectionHead
-                tag="The Beacon Framework"
+                tag={t("home.frame.tag")}
                 id="frame-h"
-                title="Everyone who needs help, meet everyone who gives it"
+                title={t("home.frame.title")}
                 center
               >
-                People on one side. Government, councils, the NHS, charities,
-                utility companies and employers on the other. Beacon's agents
-                connect the two.
+                {t("home.frame.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
@@ -111,11 +111,11 @@ export default async function Home() {
           <section className="mk-wrap mk-section" aria-labelledby="steps-h">
             <Reveal>
               <SectionHead
-                tag="Eight steps"
+                tag={t("home.steps.tag")}
                 id="steps-h"
-                title="The same eight steps for every person"
+                title={t("home.steps.title")}
               >
-                All eight work today, in your browser.
+                {t("home.steps.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
@@ -126,12 +126,11 @@ export default async function Home() {
           <section className="mk-wrap mk-section" aria-labelledby="today-h">
             <Reveal>
               <SectionHead
-                tag="How it works today"
+                tag={t("home.todayHead.tag")}
                 id="today-h"
-                title="It starts with a chat"
+                title={t("home.todayHead.title")}
               >
-                Tell Beacon what's going on, in your own words. It asks one
-                small question at a time and shows results as you answer.
+                {t("home.todayHead.lead")}
               </SectionHead>
             </Reveal>
             <Reveal>
@@ -143,15 +142,19 @@ export default async function Home() {
             <div className="mk-wrap">
               <Reveal>
                 <SectionHead
-                  tag="What it checks today"
+                  tag={t("home.cover.tag")}
                   id="cover-h"
-                  title={`${SCHEMES.length} kinds of help across ${TOPICS.length} areas of life`}
+                  title={t("home.cover.title", {
+                    schemes: SCHEMES.length,
+                    topics: TOPICS.length,
+                  })}
                   center
                 >
-                  From Pension Credit to Healthy Start, in {nations}. Plus{" "}
-                  {COUNTS.councilLinks.links.toLocaleString("en-GB")} council
-                  pages and {COUNTS.charityFunds.funds.toLocaleString("en-GB")}{" "}
-                  grant-giving charities, matched to your postcode.
+                  {t("home.cover.lead", {
+                    nations,
+                    councilPages: COUNTS.councilLinks.links,
+                    charities: COUNTS.charityFunds.funds,
+                  })}
                 </SectionHead>
               </Reveal>
             </div>
@@ -161,9 +164,9 @@ export default async function Home() {
           <section className="mk-wrap mk-section" aria-labelledby="grow-h">
             <Reveal>
               <SectionHead
-                tag="Where it's going"
+                tag={t("home.grow.tag")}
                 id="grow-h"
-                title="From one family to a worldwide network"
+                title={t("home.grow.title")}
               />
             </Reveal>
             <Reveal>

@@ -35,6 +35,15 @@ export const DERIVED_KEYS = [
   "livesAlone",
   "couple",
   "debt",
+  "country",
+  "state",
+  "people",
+  "fplPct",
+  "usGateway",
+  "snap",
+  "medicaid",
+  "ssi",
+  "veteran",
 ] as const;
 export type DerivedKey = (typeof DERIVED_KEYS)[number];
 
@@ -103,7 +112,8 @@ export const SchemeSchema = z.strictObject({
     .optional(),
   phone: z
     .string()
-    .regex(/^0\d{3} \d{2,3} \d{4}$/)
+    // UK numbers like 0800 731 0469; US numbers like 1-800-772-1213.
+    .regex(/^(0\d{3} \d{2,3} \d{4}|1-\d{3}-\d{3}-\d{4})$/)
     .optional(),
   url: z.url(),
   timing: z.string().optional(),
@@ -186,6 +196,8 @@ export type Pack = z.infer<typeof PackSchema>;
 
 export type PackedScheme = Scheme & {
   pack: string;
+  /** The country whose rules these are (from the pack). */
+  country: string;
   notCovered: Record<string, string>;
 };
 
@@ -266,7 +278,12 @@ export const RegistrySchema = z
       gateways: packs.flatMap((p) => p.gateways),
       topics: packs.flatMap((p) => p.topics),
       schemes: packs.flatMap((p) =>
-        p.schemes.map((s) => ({ ...s, pack: p.id, notCovered: p.notCovered })),
+        p.schemes.map((s) => ({
+          ...s,
+          pack: p.id,
+          country: p.country,
+          notCovered: p.notCovered,
+        })),
       ),
       clashes: packs.flatMap((p) => p.clashes),
       challenges: Object.assign({}, ...packs.map((p) => p.challenges)),

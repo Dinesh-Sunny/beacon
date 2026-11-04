@@ -12,7 +12,14 @@ import ukHousehold from "../../packs/uk-household.json";
 import ukScotland from "../../packs/uk-scotland.json";
 import ukUnclaimed from "../../packs/uk-unclaimed.json";
 import ukWorkCare from "../../packs/uk-work-care.json";
-import { type Answers, FACTS, type FactId, ORDER, UNSURE } from "./facts.ts";
+import {
+  type Answers,
+  FACTS,
+  type FactId,
+  moneyText,
+  ORDER,
+  UNSURE,
+} from "./facts.ts";
 import {
   type Cond,
   type DerivedValues,
@@ -128,6 +135,17 @@ export interface Derived {
   livesAlone?: boolean;
   couple?: boolean;
   debt?: boolean;
+  /** Whose rules apply: "GB" unless the place dialog chose another country. */
+  country?: string;
+  /** United States: state, household size, income as a share of the poverty guideline. */
+  state?: string;
+  people?: number;
+  fplPct?: number;
+  usGateway?: boolean;
+  snap?: boolean;
+  medicaid?: boolean;
+  ssi?: boolean;
+  veteran?: boolean;
 }
 
 const dateNum = (iso: string) => Number(iso.slice(0, 10).replaceAll("-", ""));
@@ -190,6 +208,26 @@ export function derive(A: Answers, today = new Date()): Derived {
     d.couple = A.household === "partner";
   }
   if (isSet(A.debt)) d.debt = A.debt === "yes";
+  d.country = A.country ?? "GB";
+  if (A.state) d.state = A.state;
+  if (isSet(A.people)) d.people = A.people;
+  if (isSet(A.benefitsUs)) {
+    d.snap = A.benefitsUs.includes("snap");
+    d.medicaid = A.benefitsUs.includes("medicaid");
+    d.ssi = A.benefitsUs.includes("ssi");
+    d.usGateway =
+      d.snap || d.medicaid || d.ssi || A.benefitsUs.includes("tanf");
+  }
+  if (isSet(A.veteran)) d.veteran = A.veteran === "yes";
+  // Income as a share of the federal poverty guideline for the household's size (the lines
+  // come from the US pack; Alaska and Hawaii have their own).
+  if (d.incYear !== undefined && d.people !== undefined) {
+    const sfx = d.state === "AK" ? "AK" : d.state === "HI" ? "HI" : "";
+    const base = LINES[`fplBase${sfx}`]?.value;
+    const add = LINES[`fplAdd${sfx}`]?.value;
+    if (base && add)
+      d.fplPct = Math.round((d.incYear / (base + add * (d.people - 1))) * 100);
+  }
   return d;
 }
 
@@ -381,9 +419,10 @@ export function worthFor(
 export function worthLabel(s: Scheme, A: Answers = {}): string | null {
   const w = worthFor(s, A);
   if (!w) return null;
+  const m = (n: number) => moneyText(n, s.country);
   if (w.topUp)
-    return `About ${gbp(w.max)}${PER_TXT[w.per]}, from the answers given`;
-  return `${w.min ? `${gbp(w.min)} to ` : "Up to "}${gbp(w.max)}${PER_TXT[w.per]}`;
+    return `About ${m(w.max)}${PER_TXT[w.per]}, from the answers given`;
+  return `${w.min ? `${m(w.min)} to ` : "Up to "}${m(w.max)}${PER_TXT[w.per]}`;
 }
 
 /** The most the likely regular payments add up to in a year, and one-off sums on top. */
@@ -469,9 +508,12 @@ function isNear(cond: Cond, d: Derived): boolean {
 export function evaluate(A: Answers, today = new Date()): States {
   const d = derive(A, today);
   const st: States = {};
+  // Only the rules of the person's country are checked; the rest stay out of the results.
+  const here = (i: string) =>
+    (byId[i] as Scheme | undefined)?.country === (d.country ?? "GB");
   const ids = [
-    ...GATEWAYS,
-    ...SCHEMES.map((s) => s.id).filter((i) => !GATEWAYS.includes(i)),
+    ...GATEWAYS.filter(here),
+    ...SCHEMES.map((s) => s.id).filter((i) => !GATEWAYS.includes(i) && here(i)),
   ];
   const have = new Set(
     known(A, "benefits")
@@ -576,6 +618,12 @@ export function plan(
 
 export const count = (st: States, k: Status): number =>
   SCHEMES.filter((s) => st[s.id]?.status === k).length;
+
+/** The schemes checked for these states (the person's country), in registry order. */
+export const inPlay = (st: States): Scheme[] => SCHEMES.filter((s) => st[s.id]);
+/** Schemes of one country. */
+export const schemesOf = (country: string): Scheme[] =>
+  SCHEMES.filter((s) => s.country === country);
 
 // ---------- Claim order and warnings ----------
 export interface PlanStep {

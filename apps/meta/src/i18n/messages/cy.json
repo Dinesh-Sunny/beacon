@@ -127,7 +127,11 @@
     "errHoursRange": "Rhowch nifer o oriau rhwng 0 a 168",
     "emptyChecklist": "Ticiwch unrhyw rai sy'n addas, neu 'Dim un o'r rhain'",
     "emptyWork": "Dewiswch yr un sy'n addas orau",
-    "emptyOther": "Ychwanegwch ateb, neu dewiswch 'Dydw i ddim yn siŵr'"
+    "emptyOther": "Ychwanegwch ateb, neu dewiswch 'Dydw i ddim yn siŵr'",
+    "zip": "Cod ZIP",
+    "people": "Pobl yn eich aelwyd",
+    "errZip": "Rhowch god ZIP 5 digid, fel 10001.",
+    "errCount": "Rhowch rif o 1 i 20."
   },
   "chips": {
     "livesIn": "Gwlad: {nation}",
@@ -281,6 +285,39 @@
         "partner": "Fy ngŵr, fy ngwraig neu fy mhartner sifil",
         "funeral": "Rhywun arall, ac rydw i'n talu am yr angladd"
       }
+    },
+    "zip": {
+      "q": "Beth yw eich cod ZIP?",
+      "qThey": "Beth yw cod ZIP {n}?",
+      "why": "Eich talaith sy'n penderfynu llawer o raglenni, a'u symiau.",
+      "label": "Cod ZIP"
+    },
+    "people": {
+      "q": "Faint o bobl sy'n byw yn eich cartref, gan eich cynnwys chi?",
+      "qThey": "Faint o bobl sy'n byw yng nghartref {n}, gan eu cynnwys nhw?",
+      "why": "Mae'r rhan fwyaf o raglenni'n cymharu incwm â'r canllaw tlodi ar gyfer maint eich aelwyd.",
+      "label": "Maint yr aelwyd"
+    },
+    "benefitsUs": {
+      "q": "Pa rai o'r rhain ydych chi'n eu cael yn barod?",
+      "qThey": "Pa rai o'r rhain mae {n} yn eu cael yn barod?",
+      "why": "Mae cael un yn aml yn ei gwneud hi'n haws cael eraill.",
+      "label": "Budd-daliadau rydych chi'n eu cael",
+      "opts": {
+        "snap": "SNAP (stampiau bwyd)",
+        "medicaid": "Medicaid",
+        "ssi": "SSI",
+        "tanf": "TANF (cymorth arian parod)",
+        "wic": "WIC",
+        "ssdi": "Social Security Disability (SSDI)"
+      },
+      "none": "Dim un o'r rhain"
+    },
+    "veteran": {
+      "q": "Ydych chi wedi gwasanaethu yn lluoedd arfog yr UD?",
+      "qThey": "Ydy {n} wedi gwasanaethu yn lluoedd arfog yr UD?",
+      "why": "Gall cyn-filwyr gael gofal iechyd VA, pensiynau a mwy.",
+      "label": "Wedi gwasanaethu yn lluoedd arfog yr UD"
     }
   },
   "results": {
@@ -560,7 +597,7 @@
     "display": "Arddangos",
     "close": "Cau",
     "current": "Wedi'i ddewis",
-    "searchPlace": "Chwiliwch am unrhyw wlad, neu teipiwch eich cod post",
+    "searchPlace": "Chwiliwch am unrhyw wlad, neu teipiwch eich cod post neu'ch cod ZIP",
     "searchLanguage": "Chwilio ieithoedd",
     "results": "Dewisiadau",
     "suggested": "Awgrymiadau",
@@ -572,8 +609,9 @@
     "placeNote": "Dim ond eich cyngor a'ch gwlad y mae eich cod post yn eu canfod. Dydy Beacon byth yn gofyn am eich cyfeiriad.",
     "machine": "cyfieithiad peiriant",
     "gapTitle": "Dydy Beacon ddim yn gallu gwirio rheolau {country} eto",
-    "gapBody": "Mae'r help y mae Beacon yn ei wirio heddiw ar gyfer pobl yn y DU. Os ydych chi'n byw yn {country}, fydd y canlyniadau ddim yn addas i chi, felly fydd Beacon ddim yn dyfalu.",
+    "gapBody": "Mae'r help y mae Beacon yn ei wirio heddiw ar gyfer pobl yn y DU a'r Unol Daleithiau. Os ydych chi'n byw yn {country}, fydd y canlyniadau ddim yn addas i chi, felly fydd Beacon ddim yn dyfalu.",
     "useUk": "Rwy'n byw yn y DU",
+    "useUs": "Rwy'n byw yn yr Unol Daleithiau",
     "chooseAgain": "Dewis eto",
     "move": "symud",
     "choose": "dewis",
@@ -644,5 +682,326 @@
     "systemWins": "Gosodiadau eich porwr a'ch system, fel chwyddo a llai o symud, sy'n cael y gair olaf bob tro.",
     "standard": "Yn ôl i'r safon",
     "done": "Gorffen"
+  },
+  "home": {
+    "statLabel": "Cymorth sy'n aros i gael ei hawlio",
+    "statUnit": "bn",
+    "frame": {
+      "tag": "Fframwaith Beacon",
+      "title": "Pawb sydd angen help, dewch i gwrdd â phawb sy'n ei roi",
+      "lead": "Pobl ar un ochr. Y llywodraeth, cynghorau, y GIG, elusennau, cwmnïau cyfleustodau a chyflogwyr ar yr ochr arall. Mae asiantau Beacon yn cysylltu'r ddwy ochr."
+    },
+    "map": {
+      "aria": "Pobl sydd angen help ar y chwith, pawb sy'n rhoi help ar y dde, a Beacon yn y canol yn eu cysylltu.",
+      "peopleHead": "Pobl sydd angen help",
+      "giversHead": "Pawb sy'n rhoi help",
+      "sub": "asiantau'n cysylltu'r ddwy ochr",
+      "people": {
+        "older": "Pobl hŷn",
+        "disabled": "Pobl anabl",
+        "carers": "Gofalwyr",
+        "families": "Teuluoedd",
+        "young": "Pobl ifanc",
+        "outOfWork": "Heb waith",
+        "lowWage": "Ar gyflog isel",
+        "bereavement": "Profedigaeth a digwyddiadau bywyd",
+        "someoneElse": "Gwirio ar ran rhywun arall"
+      },
+      "givers": {
+        "government": "Llywodraeth y DU",
+        "councils": "Cynghorau",
+        "nhs": "GIG",
+        "charities": "Elusennau",
+        "utilities": "Cwmnïau cyfleustodau",
+        "employers": "Cyflogwyr",
+        "unclaimed": "Arian heb ei hawlio ac iawndal"
+      }
+    },
+    "steps": {
+      "tag": "Wyth cam",
+      "title": "Yr un wyth cam i bob person",
+      "lead": "Mae'r wyth yn gweithio heddiw, yn eich porwr."
+    },
+    "loop": {
+      "understand": {
+        "title": "Deall",
+        "text": "Dod i adnabod y person, un cwestiwn bach ar y tro"
+      },
+      "match": {
+        "title": "Paru",
+        "text": "Gwirio pob cynllun a gweld beth mae un hawliad yn ei agor"
+      },
+      "warn": {
+        "title": "Rhybuddio",
+        "text": "Tynnu sylw at unrhyw hawliad a allai leihau un arall"
+      },
+      "act": {
+        "title": "Gweithredu",
+        "text": "Rhoi hawliadau mewn trefn a pharatoi pob galwad"
+      },
+      "confirm": {
+        "title": "Cadarnhau",
+        "text": "Cofnodi beth gafodd ei ddyfarnu a helpu i herio penderfyniad anghywir"
+      },
+      "receive": {
+        "title": "Derbyn",
+        "text": "Dechrau'r hawliadau mae dyfarniad yn eu hagor, a gwirio'r taliad cyntaf"
+      },
+      "keep": {
+        "title": "Cadw",
+        "text": "Rhoi gwybod am newidiadau mewn pryd fel nad oes rhaid talu dim yn ôl"
+      },
+      "watch": {
+        "title": "Gwylio",
+        "text": "Gwirio eto pan fydd y rheolau'n newid, a dweud beth sy'n newydd"
+      }
+    },
+    "rail": {
+      "live": "Yn fyw heddiw",
+      "coming": "Lle mae'n mynd",
+      "liveSr": "Yn fyw heddiw.",
+      "comingSr": "Yn dod nesaf."
+    },
+    "todayHead": {
+      "tag": "Sut mae'n gweithio heddiw",
+      "title": "Mae'n dechrau gyda sgwrs",
+      "lead": "Dywedwch wrth Beacon beth sy'n digwydd, yn eich geiriau eich hun. Mae'n gofyn un cwestiwn bach ar y tro ac yn dangos canlyniadau wrth i chi ateb."
+    },
+    "today": {
+      "type": "Teipio",
+      "speak": "Siarad",
+      "snap": "Tynnu llun llythyr",
+      "waysTitle": "Teipiwch, siaradwch neu tynnwch lun llythyr",
+      "waysText": "Ysgrifennwch yn eich geiriau eich hun, siaradwch, neu tynnwch lun o lythyr. Mae Beacon yn ei ddarllen i chi ac yn dewis beth sy'n bwysig.",
+      "resultsTitle": "Mae canlyniadau'n goleuo wrth i chi ateb",
+      "resultsText": "Tebygol, gwerth ei wirio, neu'n agor nesaf. Mae pob un yn dangos yr amodau y tu ôl iddo ac yn cysylltu â'r dudalen swyddogol.",
+      "askBubble": "Ydych chi'n byw yng Nghymru, Lloegr neu'r Alban?",
+      "askTitle": "Un cwestiwn bach ar y tro",
+      "askText": "Dim ond yr hyn a allai newid canlyniad o hyd mae Beacon yn ei ofyn.",
+      "warnArt": "Gallai hawlio hwn leihau taliad arall. Darllenwch hwn yn gyntaf.",
+      "warnTitle": "Rhybudd cyn i chi hawlio",
+      "warnText": "Os gallai un hawliad leihau un arall, byddwch chi'n clywed am hynny'n gyntaf, mewn geiriau clir.",
+      "callArt": "Beth i'w ddweud",
+      "orderTitle": "Hawliadau mewn trefn, gyda beth i'w ddweud",
+      "orderText": "Mae Beacon yn rhoi eich hawliadau yn y drefn gywir ac yn ysgrifennu nodiadau ar gyfer pob galwad ffôn.",
+      "codeTitle": "Cod sy'n penderfynu pob canlyniad",
+      "codeText": "Mae cod plaen yn gwirio'r rheolau swyddogol, felly mae'r un atebion bob amser yn rhoi'r un canlyniad. Mae modelau Meta yn gwrando, yn darllen ac yn esbonio. Mae eich atebion yn aros yn eich porwr.",
+      "chipsLabel": "Modelau Meta yn Beacon"
+    },
+    "demo": {
+      "tag": "Gwiriad enghreifftiol",
+      "you1": "Mae Mam yn 78, yn byw ar ei phen ei hun yn Wembley ac mae grisiau'n anodd iddi.",
+      "ask": "Diolch. Oes angen help arni i ymolchi, gwisgo neu yn y nos?",
+      "you2": "Oes, y rhan fwyaf o foreau.",
+      "note": "Gall Attendance Allowance gynyddu ei Pension Credit, felly hawliwch hwnnw'n gyntaf.",
+      "call": "Mae beth i'w ddweud ar y ffôn yn barod"
+    },
+    "cover": {
+      "tag": "Beth mae'n ei wirio heddiw",
+      "title": "{schemes} math o help ar draws {topics} o feysydd bywyd",
+      "lead": "O Pension Credit i Healthy Start, ledled {nations}. Hefyd {councilPages, number} o dudalennau cynghorau a {charities, number} o elusennau sy'n rhoi grantiau, wedi'u paru â'ch cod post."
+    },
+    "grow": {
+      "tag": "Lle mae'n mynd",
+      "title": "O un teulu i rwydwaith byd-eang"
+    },
+    "growth": {
+      "now": "Nawr",
+      "today": "Heddiw",
+      "planned": "Ar y gweill",
+      "promise": "Fydd Beacon byth yn cymryd cyfran o unrhyw beth sy'n cael ei ddyfarnu i chi.",
+      "stages": {
+        "people": {
+          "title": "Pobl a theuluoedd yn y DU",
+          "text": "Help i chi a'r bobl rydych chi'n gofalu amdanyn nhw."
+        },
+        "orgs": {
+          "title": "Busnesau a sefydliadau",
+          "text": "Cymorth y gall busnes neu sefydliad ei hawlio, wedi'i ddarganfod yn yr un ffordd."
+        },
+        "countries": {
+          "title": "Mwy o wledydd",
+          "text": "Yr un wyth cam, gyda rheolau pob gwlad ei hun."
+        },
+        "network": {
+          "title": "Rhwydwaith byd-eang",
+          "text": "Darparwyr yn cyfeirio pobl at ei gilydd drwy Beacon."
+        }
+      },
+      "plans": {
+        "free": {
+          "title": "Gwiriad am ddim",
+          "text": "Gweld beth sy'n debygol o fod yn eiddo i chi, gyda rhybuddion, y drefn i hawlio a beth i'w ddweud ar y ffôn."
+        },
+        "pro": {
+          "title": "Pro",
+          "text": "Yn dal i wylio ar ôl i chi hawlio: y penderfyniad, y taliad cyntaf, newidiadau i roi gwybod amdanyn nhw a rheolau newydd."
+        },
+        "funded": {
+          "title": "Pro wedi'i ariannu",
+          "text": "Gall cynghorau, cymdeithasau tai a chyflogwyr dalu am Pro i'r bobl maen nhw'n eu gwasanaethu."
+        }
+      }
+    }
+  },
+  "how": {
+    "tag": "Sut mae'n gweithio",
+    "h1": "Asiantau bach, un swydd yr un",
+    "lead": "Mae modelau Muse yn gwrando, yn darllen ac yn esbonio. Cod plaen sy'n gwneud pob penderfyniad, felly mae'r un atebion bob amser yn rhoi'r un canlyniad.",
+    "stats": {
+      "schemes": "Mathau o help",
+      "topics": "Meysydd bywyd",
+      "nations": "Gwledydd dan sylw",
+      "councilPages": "Tudalennau cynghorau",
+      "charities": "Elusennau sy'n rhoi grantiau",
+      "models": "Modelau Meta"
+    },
+    "flow": {
+      "tag": "Y llif",
+      "title": "O sgwrs i gynllun",
+      "lead": "Mae'r hyn rydych chi'n ei ddweud yn mynd i mewn ar y chwith. Mae cynllun wedi'i wirio yn dod allan ar y dde."
+    },
+    "lanes": {
+      "you": "Chi",
+      "read": "Modelau Meta yn darllen",
+      "code": "Cod yn penderfynu",
+      "get": "Rydych chi'n cael"
+    },
+    "items": {
+      "type": {
+        "title": "Teipio",
+        "text": "Geiriau plaen yn y sgwrs"
+      },
+      "speak": {
+        "title": "Siarad",
+        "text": "Wedi'i recordio yn eich porwr"
+      },
+      "snap": {
+        "title": "Tynnu llun llythyr",
+        "text": "Wedi'i grebachu a'i glirio o ddata'r llun yn gyntaf"
+      },
+      "answer": {
+        "title": "Ateb cwestiwn",
+        "text": "Y blwch ateb cywir ar gyfer pob ffaith"
+      },
+      "transcribe": {
+        "text": "Lleferydd i destun"
+      },
+      "sam": {
+        "text": "Yn dod o hyd i'r llythyr yn y llun"
+      },
+      "reader": {
+        "title": "Muse Spark, darllenydd llythyrau",
+        "text": "Yn llenwi ffurflen benodol ac yn methu gweithredu"
+      },
+      "agent": {
+        "title": "Muse Spark, asiant",
+        "text": "Yn cadw ffeithiau drwy offer yn unig"
+      },
+      "validate": {
+        "title": "Dilysu",
+        "text": "Pob maes yn cael ei wirio cyn ei ddefnyddio"
+      },
+      "engine": {
+        "title": "Peiriant rheolau",
+        "text": "{count, plural, zero {Dim cynlluniau} one {# cynllun} two {# gynllun} few {# chynllun} many {# chynllun} other {# cynllun}}, pob amod yn wir, yn anwir neu'n anhysbys"
+      },
+      "planner": {
+        "title": "Cynllunydd cwestiynau",
+        "text": "Yn gofyn beth sy'n setlo'r nifer fwyaf o gynlluniau"
+      },
+      "chains": {
+        "title": "Cadwyni a gwrthdaro",
+        "text": "Beth sy'n agor beth, a beth sy'n lleihau beth"
+      },
+      "results": {
+        "title": "Tebygol, gwerth ei wirio, yn agor nesaf",
+        "text": "Gyda phob amod yn cael ei ddangos"
+      },
+      "plan": {
+        "title": "Cynllun hawlio",
+        "text": "Hawliadau porth yn gyntaf"
+      },
+      "say": {
+        "title": "Beth i'w ddweud",
+        "text": "Nodiadau galwad gan Muse Spark"
+      },
+      "picture": {
+        "title": "Llun o'ch canlyniadau",
+        "text": "Wedi'i baentio gan Muse Image"
+      }
+    },
+    "loop": {
+      "tag": "Wyth cam",
+      "title": "Wyth cam i bob person",
+      "lead": "Mae'r wyth yn rhedeg yn Beacon heddiw. Mae'r camau diweddarach yn rhedeg yn eich porwr, felly mae eich hawliadau'n aros ar eich dyfais."
+    },
+    "models": {
+      "tag": "Modelau",
+      "title": "Modelau Meta yn Beacon",
+      "lead": "Mae gan bob model un swydd. Mae cod yn gwirio popeth maen nhw'n ei roi'n ôl cyn i chi ei weld.",
+      "jobs": {
+        "spark": "Sgwrs asiant gyda galw offer, darllen llythyrau gyda golwg ac allbwn strwythuredig, nodiadau galwad",
+        "voice": "Yn troi ateb llafar yn destun",
+        "sam": "Yn amlinellu'r llythyr mewn llun fel eich bod yn gweld beth gafodd ei ddarllen",
+        "image": "Yn paentio baner y canlyniadau o feysydd bywyd yn unig, byth o fanylion personol"
+      }
+    },
+    "rules": {
+      "tag": "Addewidion",
+      "title": "Rheolau mae Beacon yn eu cadw",
+      "lead": "Wedi'u hysgrifennu i'r cod, felly maen nhw'n dal ar gyfer pob gwiriad.",
+      "list": {
+        "r1": "Cod sy'n penderfynu pob canlyniad. Mae modelau'n darllen, yn gofyn ac yn esbonio.",
+        "r2": "Does dim byd mae model yn ei ysgrifennu yn cyrraedd y rheolau nes bod cod wedi'i wirio.",
+        "r3": "Mae llythyrau'n cael eu darllen ar wahân ac yn troi'n ddata wedi'i deipio cyn i unrhyw asiant sy'n gallu gweithredu eu gweld.",
+        "r4": "Dydy Beacon byth yn gofyn am enw, rhif National Insurance na manylion banc, a dydy e ddim yn eu copïo o lythyrau.",
+        "r5": "Mae atebion yn byw yn eich porwr. Mae'r gweinydd yn eu hanghofio pan ddaw'r cais i ben.",
+        "r6": "Mae pob cynllun yn cysylltu â'i dudalen swyddogol. Y sefydliad sy'n ei redeg sy'n penderfynu."
+      }
+    },
+    "cover": {
+      "tag": "Cwmpas",
+      "title": "Beth mae'n ei wirio heddiw",
+      "lead": "{schemes} math o help ar draws {topics} o feysydd bywyd ledled {nations}, o Pension Credit i Healthy Start. Amcangyfrifon sgrinio yw'r terfynau incwm, felly mae unrhyw beth agos yn dod yn ôl fel gwerth ei wirio."
+    },
+    "ctaTitle": "Gweld beth sy'n eiddo i chi",
+    "ctaText": "Teipiwch, siaradwch neu tynnwch lun llythyr. Beacon sy'n gwneud y gwirio."
+  },
+  "usLocal": {
+    "away": "{miles} milltir i ffwrdd",
+    "health": {
+      "title": "{count, plural, zero {# canolfan iechyd cymunedol} one {# canolfan iechyd cymunedol} two {# ganolfan iechyd cymunedol} few {# canolfan iechyd cymunedol} many {# chanolfan iechyd cymunedol} other {# canolfan iechyd cymunedol}} yn eich talaith, y agosaf yn gyntaf",
+      "what": "Meddygon, deintyddion a gofal iechyd meddwl. Maen nhw'n codi tâl yn ôl yr hyn y gallwch ei dalu, a gallwch fynd gydag yswiriant neu hebddo.",
+      "note": "O restr swyddogol HRSA.",
+      "more": "Dod o hyd i ganolfan iechyd"
+    },
+    "housing": {
+      "title": "Asiantaethau tai yn agos atoch chi",
+      "what": "Mae asiantaethau tai yn rhedeg tai cyhoeddus a thalebau Section 8. Gofynnwch iddyn nhw sut i wneud cais a pha mor hir yw'r rhestr aros.",
+      "note": "O restr HUD o {count, plural, zero {# asiantaeth} one {# asiantaeth} two {# asiantaeth} few {# asiantaeth} many {# asiantaeth} other {# asiantaeth}} yn eich talaith.",
+      "more": "Pob asiantaeth dai"
+    },
+    "counselors": {
+      "title": "{count, plural, zero {# cynghorydd tai am ddim} one {# cynghorydd tai am ddim} two {# gynghorydd tai am ddim} few {# chynghorydd tai am ddim} many {# chynghorydd tai am ddim} other {# cynghorydd tai am ddim}} yn eich talaith, y agosaf yn gyntaf",
+      "what": "Mae cynghorwyr a gymeradwywyd gan HUD yn helpu am ddim neu am gost isel os ydych chi ar ei hôl hi gyda rhent neu forgais, yn wynebu cael eich troi allan, neu eisiau cyllidebu.",
+      "note": "O restr HUD o asiantaethau cymeradwy.",
+      "more": "Dod o hyd i gynghorydd tai"
+    },
+    "note": {
+      "mobile": "Clinig symudol",
+      "seasonal": "Tymhorol",
+      "public": "Tai cyhoeddus",
+      "vouchers": "Talebau Section 8",
+      "both": "Tai cyhoeddus a Section 8"
+    },
+    "helps": {
+      "rent": "Rhentu",
+      "homeless": "Digartrefedd",
+      "mortgage": "Ar ei hôl hi gyda morgais",
+      "money": "Cyllidebu a chredyd",
+      "buying": "Prynu cartref",
+      "reverse": "Morgeisi gwrthdro"
+    }
   }
 }

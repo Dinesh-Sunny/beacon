@@ -96,7 +96,7 @@ interface Ctx {
   next: ReturnType<typeof plan>;
   /** Questions to ask first, from the life event someone started with. */
   setFocus: (f: FactId[]) => void;
-  refine: (patch: Pick<Answers, "nation">) => void;
+  refine: (patch: Pick<Answers, "nation" | "country" | "state">) => void;
   log: LogItem[];
   changed: string[];
   selected: string | null;
@@ -316,12 +316,15 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, [hist]);
 
   /** Sets what a lookup worked out (like the nation for a border postcode), without a log entry. */
-  const refine = useCallback((patch: Pick<Answers, "nation">) => {
-    const copy = { ...ansRef.current, ...patch };
-    ansRef.current = copy;
-    setAnswers(copy);
-    save(copy);
-  }, []);
+  const refine = useCallback(
+    (patch: Pick<Answers, "nation" | "country" | "state">) => {
+      const copy = { ...ansRef.current, ...patch };
+      ansRef.current = copy;
+      setAnswers(copy);
+      save(copy);
+    },
+    [],
+  );
 
   const forget = useCallback(
     (f: FactId) => {

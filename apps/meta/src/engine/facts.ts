@@ -30,7 +30,9 @@ export type FactType =
   | "hours"
   | "yesno"
   | "choice"
-  | "childDate";
+  | "childDate"
+  | "zip"
+  | "count";
 
 export interface Fact {
   type: FactType;
@@ -187,6 +189,43 @@ export const FACTS: Record<FactId, Fact> = {
       ["funeral", "Someone else, and I'm paying for the funeral"],
     ],
   },
+  zip: {
+    type: "zip",
+    q: "What's your ZIP code?",
+    qThey: "What's {n}'s ZIP code?",
+    why: "Your state decides many programs, and their amounts.",
+    label: "ZIP code",
+  },
+  people: {
+    type: "count",
+    q: "How many people live in your home, including you?",
+    qThey: "How many people live in {n}'s home, including them?",
+    why: "Most programs compare income with the poverty guideline for your household's size.",
+    label: "People at home",
+  },
+  benefitsUs: {
+    type: "checklist",
+    q: "Which of these do you already get?",
+    qThey: "Which of these does {n} already get?",
+    why: "Getting one often means you qualify more easily for others.",
+    label: "Already gets",
+    opts: [
+      ["snap", "SNAP (food stamps)"],
+      ["medicaid", "Medicaid"],
+      ["ssi", "SSI"],
+      ["tanf", "TANF (cash assistance)"],
+      ["wic", "WIC"],
+      ["ssdi", "Social Security Disability (SSDI)"],
+    ],
+    none: "None of these",
+  },
+  veteran: {
+    type: "yesno",
+    q: "Have you served in the US military?",
+    qThey: "Has {n} served in the US military?",
+    why: "Veterans can get VA health care, pensions and more.",
+    label: "Served in the military",
+  },
 };
 
 export const ORDER = Object.keys(FACTS) as FactId[];
@@ -258,6 +297,8 @@ export const REGISTRY: Record<FactType, { comp: string; why: string }> = {
   yesno: { comp: "Yes / No", why: "a single true or false" },
   choice: { comp: "Choice", why: "exactly one of a few options" },
   childDate: { comp: "Date or none", why: "a date, or nothing to ask" },
+  zip: { comp: "ZIP code", why: "five digits give state and county" },
+  count: { comp: "Count", why: "a whole number, like people at home" },
 };
 
 const DATE_FMT: Intl.DateTimeFormatOptions = {
@@ -270,6 +311,14 @@ export const monthOnly = (iso: string): string => `${iso.slice(0, 7)}-15`;
 
 export const gbp = (n: number): string =>
   `£${Number(n).toLocaleString("en-GB", { maximumFractionDigits: 2 })}`;
+/** The currency for a country whose rules Beacon checks: dollars for the US, else pounds. */
+export const currencyOf = (country?: string): "USD" | "GBP" =>
+  country === "US" ? "USD" : "GBP";
+/** An amount in the country's currency, for plain-English text. */
+export const moneyText = (n: number, country?: string): string =>
+  country === "US"
+    ? `$${Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+    : gbp(n);
 
 const WORK_TXT: Record<WorkStatus, string> = {
   employed: "Employed",
@@ -296,11 +345,11 @@ export function showAnswer(a: Answers, f: FactId): string {
       age--;
     return `About ${age}`;
   }
-  return formatAnswer(f, a[f]);
+  return formatAnswer(f, a[f], a.country);
 }
 
 /** How an answer reads back to the person. */
-export function formatAnswer(f: FactId, v: unknown): string {
+export function formatAnswer(f: FactId, v: unknown, country?: string): string {
   if (v === UNSURE) return "Not sure";
   const fact = FACTS[f];
   switch (fact.type) {
@@ -313,10 +362,10 @@ export function formatAnswer(f: FactId, v: unknown): string {
         ? "No children"
         : new Date(String(v)).toLocaleDateString("en-GB", DATE_FMT);
     case "money":
-      return gbp(Number(v));
+      return moneyText(Number(v), country);
     case "moneyPeriod": {
       const m = v as Money;
-      return `${gbp(m.amt)} a ${m.per}`;
+      return `${moneyText(m.amt, country)} a ${m.per}`;
     }
     case "checklist": {
       const list = v as string[];
@@ -333,6 +382,10 @@ export function formatAnswer(f: FactId, v: unknown): string {
     }
     case "hours":
       return Number(v) === 0 ? "None" : `${v} hours a week`;
+    case "zip":
+      return String(v);
+    case "count":
+      return String(v);
     case "yesno":
       return v === "yes" ? "Yes" : "No";
     case "choice":

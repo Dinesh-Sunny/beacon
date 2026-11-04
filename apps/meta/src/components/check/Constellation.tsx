@@ -5,13 +5,7 @@
 // area to see its tiles; tap a tile to see each condition and how it stands.
 
 import { useTranslations } from "use-intl";
-import {
-  RANK,
-  SCHEMES,
-  type Scheme,
-  type Status,
-  TOPICS,
-} from "@/engine/rules";
+import { inPlay, RANK, type Scheme, type Status, TOPICS } from "@/engine/rules";
 import { useStatusText } from "@/i18n/useStatusText";
 import { useCheck } from "@/lib/check-store";
 
@@ -30,9 +24,9 @@ export function Constellation() {
   const statusText = useStatusText();
   const status = (s: Scheme): Status => states[s.id]?.status ?? "open";
   const areas = TOPICS.map(([t, name]) => {
-    const list = SCHEMES.filter((s) => s.topic === t).sort(
-      (a, b) => RANK[status(a)] - RANK[status(b)],
-    );
+    const list = inPlay(states)
+      .filter((s) => s.topic === t)
+      .sort((a, b) => RANK[status(a)] - RANK[status(b)]);
     return {
       t,
       name,
@@ -46,7 +40,7 @@ export function Constellation() {
   return (
     <details className="constellation" data-testid="board">
       <summary className="eyebrow">
-        {t("seeAll", { count: SCHEMES.length })}
+        {t("seeAll", { count: inPlay(states).length })}
       </summary>
       <p className="legend hint" aria-hidden="true">
         <span>

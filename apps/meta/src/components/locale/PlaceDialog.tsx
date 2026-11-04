@@ -23,6 +23,7 @@ import { useCountries, useSetLocale } from "@/i18n/Provider";
 import { savePostcodeForLater, useMaybeCheck } from "@/lib/check-store";
 import { shortCouncil, usePlace } from "@/lib/council";
 import { suggestedCountry, useCountry } from "@/lib/country";
+import { useUsPlace } from "@/lib/usplace";
 import { DisplayTab } from "./DisplayTab";
 
 export type Tab = "place" | "language" | "display";
@@ -41,9 +42,15 @@ export function PlaceButton({ compact = false }: { compact?: boolean }) {
   const { country } = useCountry();
   const check = useMaybeCheck();
   const council = usePlace(check?.answers.postcode).council;
+  const us = useUsPlace(check?.answers.zip);
   const [open, setOpen] = useState<Tab | null>(null);
   const code = country ?? "GB";
-  const place = council ? shortCouncil(council.name) : nameOf(code);
+  const place =
+    code === "US" && us.city
+      ? `${us.city}, ${us.state}`
+      : council
+        ? shortCouncil(council.name)
+        : nameOf(code);
   const lang = LOCALES.find((l) => l.code === locale)?.name ?? "English";
   return (
     <>
@@ -119,6 +126,8 @@ export function PlaceDialog({
   const pcGuess = q.trim().toUpperCase();
   const isPostcode = tab === "place" && POSTCODE_RE.test(pcGuess);
   const found = usePlace(isPostcode ? pcGuess : undefined);
+  const isZip = tab === "place" && /^\d{5}$/.test(pcGuess);
+  const foundZip = useUsPlace(isZip ? pcGuess : undefined);
   const mine = usePlace(check?.answers.postcode).council;
 
   useEffect(() => {
@@ -147,6 +156,11 @@ export function PlaceDialog({
     setCountry("GB");
     close();
   };
+  const saveZip = (zip: string) => {
+    setCountry("US");
+    if (check) check.apply({ zip }, "form");
+    close();
+  };
   const close = () => {
     ref.current?.close();
     onClose();
@@ -166,6 +180,17 @@ export function PlaceDialog({
         ),
         pick: () => savePostcode(pcGuess),
       });
+    if (isZip && foundZip.state)
+      suggested.push({
+        id: "zip",
+        label: (
+          <>
+            {foundZip.city}, {foundZip.state}
+            {foundZip.county && <small> {foundZip.county.name}</small>}
+          </>
+        ),
+        pick: () => saveZip(pcGuess),
+      });
     const sug = new Set([code, suggestedCountry() ?? "GB"]);
     for (const x of countries) {
       if (
@@ -174,7 +199,7 @@ export function PlaceDialog({
         !`${x.name} ${x.en} ${x.c}`.toLowerCase().includes(words)
       )
         continue;
-      if (isPostcode) continue;
+      if (isPostcode || isZip) continue;
       const row: Row = {
         id: x.c,
         label: (
@@ -347,6 +372,13 @@ export function PlaceDialog({
               onClick={() => chooseCountry("GB")}
             >
               {t("useUk")}
+            </button>
+            <button
+              type="button"
+              className="btn ghost"
+              onClick={() => chooseCountry("US")}
+            >
+              {t("useUs")}
             </button>
             <button
               type="button"

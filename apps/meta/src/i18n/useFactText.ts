@@ -8,6 +8,7 @@ import { useFormatter, useLocale, useTranslations } from "use-intl";
 import {
   type Answers,
   ask as askEn,
+  currencyOf,
   FACTS,
   type FactId,
   type Money,
@@ -18,12 +19,14 @@ import {
   type Work,
 } from "@/engine/facts";
 import { count, type States } from "@/engine/rules";
+import { useMaybeCheck } from "@/lib/check-store";
 
 export function useFactText() {
   const locale = useLocale();
   const t = useTranslations();
   const fmt = useFormatter();
   const en = locale === "en";
+  const country = useMaybeCheck()?.answers.country;
 
   const ask = (f: FactId, sub: Subject) =>
     en
@@ -46,7 +49,7 @@ export function useFactText() {
   const money = (n: number) =>
     fmt.number(n, {
       style: "currency",
-      currency: "GBP",
+      currency: currencyOf(country),
       currencyDisplay: "narrowSymbol",
       maximumFractionDigits: 2,
       minimumFractionDigits: 0,
@@ -68,6 +71,9 @@ export function useFactText() {
     switch (fact.type) {
       case "postcode":
         return String(v).toUpperCase();
+      case "zip":
+      case "count":
+        return String(v);
       case "date":
         return month(String(v));
       case "childDate":
