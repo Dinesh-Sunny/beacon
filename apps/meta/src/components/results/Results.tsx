@@ -165,7 +165,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
               </a>
             )}
             <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
-              {auto ? "Official page" : (s.act ?? "Claim online")} <Icon name="link" size={16} />
+              {auto ? "Official page" : s.act ? theyify(s.act, subject) : "Claim online"} <Icon name="link" size={16} />
             </a>
             {!auto && (
               <button type="button" className="btn ghost small" onClick={() => (open ? setOpen(false) : void load())} aria-expanded={open} data-testid={`prep-${id}`}>
