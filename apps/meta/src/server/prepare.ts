@@ -118,19 +118,31 @@ Write the call notes.`,
     ],
     schema: { name: "call_prep", schema: SCHEMA },
     effort: "low",
-    maxTokens: 2000,
+    // The budget counts reasoning too, so give Wonder room to think and still answer.
+    maxTokens: 6000,
     cacheKey: "beacon-prepare-v1",
   };
   // Call notes are what people read out on the phone, so they come from Muse Wonder, Meta's
   // stronger reasoning model; Muse Spark answers if Wonder isn't available to this key.
-  const { message } = await chat({ ...request, model: META.wonder }).catch(
-    (e: unknown) => {
+  const read = (content: string | null) => {
+    try {
+      return Out.parse(JSON.parse(content ?? "{}"));
+    } catch {
+      return null;
+    }
+  };
+  let out = await chat({ ...request, model: META.wonder })
+    .then((r) => read(r.message.content))
+    .catch((e: unknown) => {
       if (e instanceof MetaError && e.status < 500 && e.status !== 429)
-        return chat(request);
+        return null;
       throw e;
-    },
-  );
-  const out = Out.parse(JSON.parse(message.content ?? "{}"));
+    });
+  // Wonder unavailable to this key, or its notes didn't fit the form: Muse Spark writes them.
+  if (!out) {
+    const { message } = await chat(request);
+    out = Out.parse(JSON.parse(message.content ?? "{}"));
+  }
   const clean = (t: string) => t.replace(NO_DIGITS_LONG, "").replace(/—/g, "-");
   return {
     opening: clean(out.opening),
