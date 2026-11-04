@@ -1,15 +1,18 @@
 import "server-only";
 
 // Drafting: Muse Spark reads the stored text of a page that triage marked as help, and writes
-// a draft scheme in Beacon's rule language. Code validates every draft against the same zod
-// schema the live packs use; a draft that fails, or needs facts Beacon doesn't ask yet, is kept
-// with the reason. Drafts live in catalog/drafts and never reach a person until reviewed into a pack.
+// a draft scheme in Beacon's rule language. Every draft is kept by URL, and one that needs facts
+// Beacon doesn't ask yet records them
+// with the reason. This step only needs the model; turning drafts into pack schemes and checking
+// them is pure code (src/knowledge/review.ts), so it runs anywhere and can be re-run for free.
 
 import { readFile, writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
 import { z } from "zod";
 import { FACT_IDS } from "@/engine/answers-schema";
-import { DERIVED_KEYS, SchemeSchema } from "@/engine/pack";
+import { DERIVED_KEYS } from "@/engine/pack";
+import { Draft } from "@/knowledge/draft-schema";
+import { FACT_HINTS } from "@/knowledge/review";
 import { mapLimit } from "@/knowledge/fetcher";
 import type { SourceIndex } from "@/knowledge/sources";
 import { chat } from "./meta";
@@ -38,27 +41,11 @@ const DERIVED_DOC: Record<(typeof DERIVED_KEYS)[number], string> = {
   housing: '"social" | "private" | "own" | "family" (from housing)',
 };
 
-const Cmp = z.strictObject({ f: z.enum(DERIVED_KEYS), op: z.enum(["eq", "ne", "lt", "lte", "gt", "gte", "in"]), v: z.union([z.string(), z.number(), z.boolean(), z.array(z.string())]) });
-const Draft = z.strictObject({
-  id: z.string().regex(/^[a-z]{2,12}$/),
-  name: z.string(),
-  by: z.string(),
-  gives: z.string(),
-  how: z.string(),
-  nations: z.array(z.enum(["eng", "sco", "wal", "ni"])),
-  auto: z.boolean(),
-  worthChecking: z.string().nullable(),
-  conditions: z.array(
-    z.strictObject({ needs: z.array(z.enum(FACT_IDS)).min(1), anyOf: z.array(Cmp).min(1), txt: z.string(), fail: z.string() }),
-  ),
-  missingFacts: z.array(z.string()),
-});
-
 const SYSTEM = `You turn one official UK page into a draft rule for Beacon, a screening tool. UK English, plain words, "you" voice, never the word "eligible", regular hyphens only.
 Write ONLY conditions the page states. Each condition is an "anyOf" list of comparisons over these values:
 ${Object.entries(DERIVED_DOC).map(([k, d]) => `- ${k}: ${d}`).join("\n")}
 "needs" lists the answer ids the comparisons depend on: ${FACT_IDS.join(", ")}.
-Use "nations" for where it applies; don't also write a nation condition. If a rule depends on something none of these values cover (for example a water meter, a specific medical condition, immigration status, a job), put it in "missingFacts" in plain words instead of guessing. If only a full assessment can decide, set worthChecking to a short reason. "gives" is one short sentence of what the person gets, "how" one or two sentences on claiming. auto is true only if the page says it is paid without a claim.`;
+Use "nations" for where it applies; don't also write a nation condition. If a rule depends on something none of these values cover, put it in "missingFacts" instead of guessing: use one of these proposed ids when it fits (${Object.keys(FACT_HINTS).join(", ")}), otherwise a few plain words. Leave out conditions every claim has: residence, immigration status, notice, proof, evidence and how to apply. If only a full assessment can decide, set worthChecking to a short reason. "gives" is one short sentence of what the person gets, "how" one or two sentences on claiming. auto is true only if the page says it is paid without a claim.`;
 
 const SCHEMA = z.toJSONSchema(Draft);
 
@@ -66,38 +53,12 @@ export interface DraftRow {
   url: string;
   provider: string | null;
   draft?: z.infer<typeof Draft>;
-  /** The draft converted to the live pack shape, if it validated. */
-  scheme?: unknown;
   problems: string[];
-}
-
-function toScheme(d: z.infer<typeof Draft>, url: string, topic: string) {
-  const rule = [
-    ...(d.nations.length && d.nations.length < 4
-      ? [{ needs: ["postcode"], test: { f: "nation", op: "in", v: d.nations }, expr: `lives in ${d.nations.join(", ")}`, txt: "Lives where this applies", fail: "Not offered where they live" }]
-      : []),
-    ...d.conditions.map((c) => {
-      const parts = c.anyOf.map((x) => (x.op === "in" ? { f: x.f, op: "in", v: Array.isArray(x.v) ? x.v.map(String) : [String(x.v)] } : x));
-      return { needs: c.needs, test: parts.length === 1 ? parts[0] : { any: parts }, expr: c.txt.toLowerCase(), txt: c.txt, fail: c.fail };
-    }),
-  ];
-  return {
-    id: d.id,
-    name: d.name,
-    topic,
-    by: d.by,
-    gives: d.gives,
-    how: d.how,
-    url,
-    ...(d.auto ? { auto: true } : {}),
-    ...(d.worthChecking ? { worthChecking: d.worthChecking } : {}),
-    rule,
-  };
 }
 
 export const draftProgress = { running: false, total: 0, done: 0, valid: 0, needsFacts: 0, failed: 0 };
 
-export async function draftAll(root: string, { parallel = 4, limit = 2000 } = {}) {
+export async function draftAll(root: string, { parallel = 6, limit = 2000 } = {}) {
   const triage: Record<string, TriageRow> = JSON.parse(await readFile(path.join(root, "catalog/harvest/triage.json"), "utf8"));
   const index: SourceIndex = JSON.parse(await readFile(path.join(root, "catalog/sources/index.json"), "utf8"));
   const dir = path.join(root, "catalog/drafts");
@@ -123,15 +84,11 @@ export async function draftAll(root: string, { parallel = 4, limit = 2000 } = {}
         schema: { name: "draft_scheme", schema: SCHEMA },
         effort: "low",
         maxTokens: 3000,
-        cacheKey: "beacon-draft-v1",
+        cacheKey: "beacon-draft-v2",
       });
       row.draft = Draft.parse(JSON.parse(message.content ?? "{}"));
-      const scheme = toScheme(row.draft, t.url, t.provider ?? "other");
-      const check = SchemeSchema.safeParse(scheme);
-      if (check.success) row.scheme = check.data;
-      else row.problems.push(...check.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`));
       if (row.draft.missingFacts.length) draftProgress.needsFacts++;
-      if (row.scheme) draftProgress.valid++;
+      else draftProgress.valid++;
     } catch (e) {
       row.problems.push((e as Error).message);
       draftProgress.failed++;
