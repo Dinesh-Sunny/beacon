@@ -140,7 +140,8 @@
     "spa": "State Pension age {age}",
     "pensionAge": "Pension age reached",
     "workingAge": "Working age",
-    "perWeek": "£{amount} a week",
+    "perWeek": "{amount} a week",
+    "medicareAge": "Medicare age reached",
     "noHelp": "No daily help needed",
     "dailyHelp": "Daily living help",
     "careHelp": "Personal care help",
@@ -170,7 +171,8 @@
       "q": "When were you born?",
       "qThey": "When was {n} born?",
       "why": "Month and year are enough. Age decides a lot, like State Pension age.",
-      "label": "Born"
+      "label": "Born",
+      "whyUs": "Month and year are enough. Age decides a lot, like Medicare at 65."
     },
     "benefits": {
       "q": "Which of these do you already get?",
@@ -195,7 +197,8 @@
       "q": "How much do you have in savings?",
       "qThey": "How much does {n} have in savings?",
       "why": "Some help has a savings limit, often £16,000.",
-      "label": "Savings"
+      "label": "Savings",
+      "whyUs": "Some programmes have a savings limit, like Medicare Savings Programs."
     },
     "difficulties": {
       "q": "Because of a health condition, what feels hard day to day?",

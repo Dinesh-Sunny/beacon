@@ -140,7 +140,8 @@
     "spa": "Oed State Pension: {age}",
     "pensionAge": "Wedi cyrraedd oed pensiwn",
     "workingAge": "Oed gweithio",
-    "perWeek": "£{amount} yr wythnos",
+    "perWeek": "{amount} yr wythnos",
+    "medicareAge": "Wedi cyrraedd oed Medicare",
     "noHelp": "Dim angen help bob dydd",
     "dailyHelp": "Help gyda bywyd bob dydd",
     "careHelp": "Help gyda gofal personol",
@@ -170,7 +171,8 @@
       "q": "Pryd cawsoch chi eich geni?",
       "qThey": "Beth yw mis a blwyddyn geni {n}?",
       "why": "Mae mis a blwyddyn yn ddigon. Mae oed yn penderfynu llawer, fel oed State Pension.",
-      "label": "Ganwyd"
+      "label": "Ganwyd",
+      "whyUs": "Mae mis a blwyddyn yn ddigon. Mae oed yn penderfynu llawer, fel Medicare yn 65."
     },
     "benefits": {
       "q": "Pa rai o'r rhain ydych chi'n eu cael yn barod?",
@@ -195,7 +197,8 @@
       "q": "Faint sydd gennych chi mewn cynilion?",
       "qThey": "Faint sydd gan {n} mewn cynilion?",
       "why": "Mae terfyn cynilion ar rywfaint o help, yn aml £16,000.",
-      "label": "Cynilion"
+      "label": "Cynilion",
+      "whyUs": "Mae gan rai rhaglenni derfyn cynilion, fel Medicare Savings Programs."
     },
     "difficulties": {
       "q": "Oherwydd cyflwr iechyd, beth sy'n teimlo'n anodd o ddydd i ddydd?",

@@ -34,8 +34,12 @@ export function useFactText() {
       : sub.who === "me"
         ? t(`facts.${f}.q`)
         : t(`facts.${f}.qThey`, { n: sub.label?.trim() || "?" });
-  const why = (f: FactId, sub: Subject) =>
-    en ? theyify(FACTS[f].why, sub) : t(`facts.${f}.why`);
+  const why = (f: FactId, sub: Subject) => {
+    const us = country === "US" && FACTS[f].whyUs;
+    if (en) return theyify(us || FACTS[f].why, sub);
+    const key = `facts.${f}.${us ? "whyUs" : "why"}` as Parameters<typeof t>[0];
+    return t.has(key) ? t(key) : t(`facts.${f}.why`);
+  };
   const label = (f: FactId) => (en ? FACTS[f].label : t(`facts.${f}.label`));
   const opt = (f: FactId, k: string, fallback: string) => {
     if (en) return fallback;

@@ -23,7 +23,8 @@ import { UNSURE } from "@/engine/facts";
 import { count, inPlay } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
 import { ClaimsProvider } from "@/lib/claims";
-import { EXAMPLES, type Example } from "@/lib/examples";
+import { useCountry } from "@/lib/country";
+import { EXAMPLES, type Example, examplesFor } from "@/lib/examples";
 import { readShared } from "@/lib/share";
 
 type ChatMode = "open" | "hidden" | "full";
@@ -60,6 +61,8 @@ function Shell() {
   } = useCheck();
   const found = count(states, "likely") + count(states, "check");
   const [playing, setPlaying] = useState<Example | null>(null);
+  const { country, setCountry } = useCountry();
+  const examples = examplesFor(country);
   const [menu, setMenu] = useState(false);
   const [confirm, setConfirm] = useState(false);
   const [exampleName, setExampleName] = useState<string | null>(null);
@@ -125,6 +128,8 @@ function Shell() {
   const play = (ex: Example) => {
     setMenu(false);
     reset();
+    // An example runs on its own country's rules (a shared link can open either).
+    if (ex.country !== (country === "US" ? "US" : "GB")) setCountry(ex.country);
     setPlaying(ex);
     const name = ex.name.split(",")[0] ?? ex.name;
     setExampleName(name);
@@ -237,7 +242,7 @@ function Shell() {
                   {asked > 0 && !exampleName && (
                     <p className="menu-note">{t("exampleReplaces")}</p>
                   )}
-                  {EXAMPLES.map((ex) => (
+                  {examples.map((ex) => (
                     <button
                       key={ex.id}
                       type="button"
@@ -320,7 +325,7 @@ function Shell() {
       <main className="canvas" id="canvas">
         <div className="canvas-inner">
           {hydrated ? (
-            <Canvas onExample={() => play(EXAMPLES[0] as Example)} />
+            <Canvas onExample={() => play(examples[0] as Example)} />
           ) : null}
         </div>
       </main>

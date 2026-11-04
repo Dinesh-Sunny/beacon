@@ -556,7 +556,8 @@ function PlanStep({
 
 /** Muse Image banner, painted once per set of results and kept for this browser session. */
 function Banner({ done, likely }: { done: boolean; likely: number }) {
-  const { states, note, setBusy } = useCheck();
+  const { states, note, setBusy, answers } = useCheck();
+  const country = answers.country === "US" ? "US" : "GB";
   const [img, setImg] = useState<string | null>(null);
   const topics = [
     ...new Set(
@@ -565,7 +566,7 @@ function Banner({ done, likely }: { done: boolean; likely: number }) {
       ).map((s) => s.topic),
     ),
   ];
-  const key = `beacon:banner:${topics.sort().join(",")}`;
+  const key = `beacon:banner:${country}:${topics.sort().join(",")}`;
   // biome-ignore lint/correctness/useExhaustiveDependencies: paint once per topic set
   useEffect(() => {
     if (!done || !likely || !topics.length) return;
@@ -583,7 +584,7 @@ function Banner({ done, likely }: { done: boolean; likely: number }) {
     fetch("/api/card", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ topics }),
+      body: JSON.stringify({ topics, country }),
     })
       .then((r) => r.json() as Promise<{ image?: string }>)
       .then((d) => {

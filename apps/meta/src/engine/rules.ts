@@ -245,7 +245,8 @@ const CHIP_EN = {
   spa: "State Pension age {age}",
   pensionAge: "Pension age reached",
   workingAge: "Working age",
-  perWeek: "£{amount} a week",
+  perWeek: "{amount} a week",
+  medicareAge: "Medicare age reached",
   noHelp: "No daily help needed",
   dailyHelp: "Daily living help",
   careHelp: "Personal care help",
@@ -263,13 +264,22 @@ export function chips(f: FactId, d: Derived): Chip[] {
   const out: Chip[] = [];
   if (f === "postcode" && d.nation)
     out.push({ id: "livesIn", v: { nation: d.nation } });
+  const us = d.country === "US";
   if (f === "dob" && d.age !== undefined) {
     out.push({ id: "age", v: { age: d.age } });
-    out.push({ id: "spa", v: { age: d.spaLabel ?? "" } });
-    out.push({ id: d.spa ? "pensionAge" : "workingAge" });
+    // State Pension age is a UK line; in the US the line that matters most is Medicare at 65.
+    if (us) {
+      if (d.age >= 65) out.push({ id: "medicareAge" });
+    } else {
+      out.push({ id: "spa", v: { age: d.spaLabel ?? "" } });
+      out.push({ id: d.spa ? "pensionAge" : "workingAge" });
+    }
   }
   if (f === "income" && d.incWeek !== undefined)
-    out.push({ id: "perWeek", v: { amount: d.incWeek } });
+    out.push({
+      id: "perWeek",
+      v: { amount: moneyText(Math.round(d.incWeek * 100) / 100, d.country) },
+    });
   if (f === "difficulties" && d.health)
     out.push({
       id: ({ none: "noHelp", daily: "dailyHelp", care: "careHelp" } as const)[
@@ -278,7 +288,8 @@ export function chips(f: FactId, d: Derived): Chip[] {
     });
   if (f === "benefits" && d.gateway !== undefined)
     out.push({ id: d.gateway ? "opens" : "noLinked" });
-  if (f === "work" && d.work)
+  // The 16-hour line is a UK rule.
+  if (f === "work" && d.work && !us)
     out.push({ id: d.lowWork ? "lowWork" : "fullWork" });
   if (f === "child" && d.childAge !== undefined)
     out.push(

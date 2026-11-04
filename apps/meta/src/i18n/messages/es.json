@@ -140,7 +140,8 @@
     "spa": "Edad de State Pension: {age}",
     "pensionAge": "Ya tiene edad de pensión",
     "workingAge": "En edad de trabajar",
-    "perWeek": "£{amount} a la semana",
+    "perWeek": "{amount} a la semana",
+    "medicareAge": "Ya tiene la edad de Medicare",
     "noHelp": "Sin necesidad de ayuda diaria",
     "dailyHelp": "Ayuda en la vida diaria",
     "careHelp": "Ayuda con el cuidado personal",
@@ -170,7 +171,8 @@
       "q": "¿Cuándo naciste?",
       "qThey": "¿Cuándo nació {n}?",
       "why": "Basta con el mes y el año. La edad decide mucho, como la edad de State Pension.",
-      "label": "Nacimiento"
+      "label": "Nacimiento",
+      "whyUs": "Basta con el mes y el año. La edad decide mucho, como Medicare a los 65."
     },
     "benefits": {
       "q": "¿Cuáles de estas recibes ya?",
@@ -195,7 +197,8 @@
       "q": "¿Cuánto tienes ahorrado?",
       "qThey": "¿Cuánto tiene ahorrado {n}?",
       "why": "Algunas ayudas tienen un límite de ahorros, a menudo £16,000.",
-      "label": "Ahorros"
+      "label": "Ahorros",
+      "whyUs": "Algunos programas tienen un límite de ahorros, como los Medicare Savings Programs."
     },
     "difficulties": {
       "q": "Por un problema de salud, ¿qué te resulta difícil en el día a día?",
