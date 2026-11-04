@@ -113,6 +113,8 @@ export const SchemeSchema = z.strictObject({
     .optional(),
   /** Screening can't settle it, so the best result is "Worth checking", with this reason. */
   worthChecking: z.string().optional(),
+  /** GOV.UK local service slug (e.g. "apply-council-tax-reduction"): with a council, it links straight to that council's page. */
+  council: z.string().regex(/^[a-z0-9-]+$/).optional(),
   /** Label for the official link when it isn't a claim form, like "Ask your provider". */
   act: z.string().optional(),
   urgent: z.boolean().optional(),

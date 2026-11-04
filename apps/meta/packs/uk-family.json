@@ -65,7 +65,8 @@
           "txt": "Gets Universal Credit or Pension Credit",
           "fail": "Needs Universal Credit or Pension Credit"
         }
-      ]
+      ],
+      "council": "apply-free-school-meals"
     },
     {
       "id": "ifsm",

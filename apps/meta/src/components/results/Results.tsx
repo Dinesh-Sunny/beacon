@@ -20,6 +20,7 @@ import {
   warnings,
 } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
 
 interface Prep {
@@ -164,6 +165,7 @@ function PlanStep({
 }) {
   const s = byId[id];
   const { states, note, setBusy, subject } = useCheck();
+  const council = useCouncil(answers.postcode);
   const [prep, setPrep] = useState<Prep | null>(null);
   const [loading, setLoading] = useState(false);
   const [err, setErr] = useState("");
@@ -200,6 +202,11 @@ function PlanStep({
     typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
   const auto = isAuto(s, nation);
   const timing = timingFor(s, nation);
+  // Council services go straight to this person's council page when the postcode is known.
+  const localUrl =
+    s.council && council && nation !== "ni"
+      ? councilServiceUrl(s.council, council.slug)
+      : null;
   return (
     <li className={`step ${status}`} data-testid={`plan-${id}`}>
       <span className="num" aria-hidden="true">
@@ -252,15 +259,17 @@ function PlanStep({
             )}
             <a
               className="btn ghost small"
-              href={s.url}
+              href={localUrl ?? s.url}
               target="_blank"
               rel="noreferrer"
             >
-              {auto
-                ? "Official page"
-                : s.act
-                  ? theyify(s.act, subject)
-                  : "Claim online"}{" "}
+              {localUrl && council
+                ? `Apply to ${shortCouncil(council.name)}`
+                : auto
+                  ? "Official page"
+                  : s.act
+                    ? theyify(s.act, subject)
+                    : "Claim online"}{" "}
               <Icon name="link" size={16} />
             </a>
             {!auto && (

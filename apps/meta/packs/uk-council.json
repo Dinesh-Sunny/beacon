@@ -94,7 +94,8 @@
             "line": "ctrIncomeWeek"
           }
         }
-      ]
+      ],
+      "council": "apply-housing-benefit-from-council"
     },
     {
       "id": "bus",
@@ -151,7 +152,8 @@
           "txt": "Old enough for a bus pass where they live",
           "fail": "Not old enough yet. A disabled person's pass has no age limit."
         }
-      ]
+      ],
+      "council": "apply-for-elderly-person-bus-pass"
     },
     {
       "id": "crf",

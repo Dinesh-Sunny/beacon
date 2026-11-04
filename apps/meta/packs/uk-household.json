@@ -64,7 +64,8 @@
           "txt": "No other adults at home",
           "fail": "Other adults live there"
         }
-      ]
+      ],
+      "council": "apply-for-council-tax-discount"
     },
     {
       "id": "lpa",

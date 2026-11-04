@@ -264,7 +264,8 @@
             "line": "savingsCap"
           }
         }
-      ]
+      ],
+      "council": "apply-council-tax-reduction"
     },
     {
       "id": "cwp",

@@ -173,6 +173,10 @@
           "worthChecking": {
             "type": "string"
           },
+          "council": {
+            "type": "string",
+            "pattern": "^[a-z0-9-]+$"
+          },
           "act": {
             "type": "string"
           },
