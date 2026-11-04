@@ -375,6 +375,7 @@ function Banner({ done, likely }: { done: boolean; likely: number }) {
   if (!done || !likely || !img) return null;
   return (
     <div className="banner" aria-hidden="true" data-testid="banner">
+      {/* biome-ignore lint/performance/noImgElement: a generated data URL, shown once; next/image can't optimise it */}
       <img src={img} alt="" />
     </div>
   );

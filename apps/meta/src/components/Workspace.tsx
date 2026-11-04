@@ -103,7 +103,7 @@ function Shell() {
       reduce ? 0 : 800,
     );
     return () => clearTimeout(t);
-  }, [playing, next, apply]);
+  }, [playing, next, apply, announce]);
 
   const play = (ex: Example) => {
     setMenu(false);

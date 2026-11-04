@@ -27,7 +27,7 @@ export function Activity() {
     .map(([name]) => name);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: show for a moment after each new step
+  // Show for a moment after each new step.
   useEffect(() => {
     if (!log.length) return;
     setRecent(true);
@@ -54,11 +54,11 @@ export function Activity() {
           {working.length ? (
             <b>{PLAIN[working[0] ?? ""] ?? "Working on it"}…</b>
           ) : last ? (
-            <>
-              {last.kind === "model" || last.kind === "rules"
-                ? last.text
-                : "Checked the rules again"}
-            </>
+            last.kind === "model" || last.kind === "rules" ? (
+              last.text
+            ) : (
+              "Checked the rules again"
+            )
           ) : null}
         </span>
         <span className="activity-more">{open ? "Close" : "Steps"}</span>

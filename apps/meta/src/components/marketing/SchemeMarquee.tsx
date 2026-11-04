@@ -14,14 +14,14 @@ export function SchemeMarquee() {
       </ul>
       {rows.map((row, r) => (
         <div
-          key={r}
+          key={r ? "rev" : "fwd"}
           className={`mk-marquee-row${r ? " rev" : ""}`}
           aria-hidden="true"
         >
           <div className="mk-marquee-track">
             {[...row, ...row].map((n, i) => (
               <span
-                key={`${n}-${i}`}
+                key={i >= row.length ? `${n}-copy` : n}
                 className={i >= row.length ? "dup" : undefined}
               >
                 {n}

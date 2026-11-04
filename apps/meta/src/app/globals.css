@@ -3110,3 +3110,12 @@ button {
     font-size: 0.86rem;
   }
 }
+
+/* Option groups are fieldsets for screen readers; keep them looking like the segmented rows */
+fieldset.seg,
+fieldset.track-row {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}

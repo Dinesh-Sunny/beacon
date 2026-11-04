@@ -30,6 +30,7 @@ export function Composer({
   const file = useRef<HTMLInputElement>(null);
   const camera = useRef<HTMLInputElement>(null);
 
+  // biome-ignore lint/correctness/useExhaustiveDependencies: stop belongs to this one recording
   useEffect(() => {
     if (!rec) return;
     const started = Date.now();
@@ -40,7 +41,6 @@ export function Composer({
       if (s >= MAX_SECONDS) void stop();
     }, 100);
     return () => clearInterval(t);
-    // biome-ignore lint/correctness/useExhaustiveDependencies: stop is stable for one recording
   }, [rec]);
 
   const submit = () => {
@@ -92,8 +92,8 @@ export function Composer({
           </span>
           <span className="bars" aria-hidden="true">
             {levels.map((l, i) => (
-              // biome-ignore lint/suspicious/noArrayIndexKey: fixed-length meter
               <i
+                // biome-ignore lint/suspicious/noArrayIndexKey: a fixed-length level meter, bars only shift
                 key={i}
                 style={{ height: `${Math.max(8, Math.min(100, l * 260))}%` }}
               />

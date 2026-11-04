@@ -60,22 +60,22 @@ export function BeaconMap() {
           Everyone who gives help
         </text>
         <g className="mk-map-lines">
-          {PEOPLE.map((_, i) => (
+          {PEOPLE.map((name, i) => (
             <path
-              key={`l${i}`}
+              key={`l-${name}`}
               d={`M${10 + PW},${py(i) + PH / 2} C${400},${py(i) + PH / 2} ${420},${CY} ${CX - 52},${CY}`}
             />
           ))}
-          {GIVERS.map((_, j) => (
+          {GIVERS.map((name, j) => (
             <path
-              key={`r${j}`}
+              key={`r-${name}`}
               d={`M${CX + 52},${CY} C${660},${CY} ${680},${gy(j) + PH / 2} ${W - 10 - PW},${gy(j) + PH / 2}`}
             />
           ))}
         </g>
         <g className="mk-map-beams">
-          {PEOPLE.map((_, i) => (
-            <g key={`b${i}`}>
+          {PEOPLE.map((name, i) => (
+            <g key={`b-${name}`}>
               <path
                 pathLength={1}
                 style={delay(i)}
@@ -119,7 +119,7 @@ export function BeaconMap() {
             {PAIR.map((pj, i) =>
               pj === j ? (
                 <rect
-                  key={i}
+                  key={PEOPLE[i]}
                   x={W - 10 - PW}
                   y={gy(j)}
                   width={PW}
@@ -172,7 +172,12 @@ export function BeaconMap() {
           ))}
         </ul>
         <div className="mk-map-mid">
-          <svg viewBox="0 0 120 120" width="120" height="120">
+          <svg
+            viewBox="0 0 120 120"
+            width="120"
+            height="120"
+            aria-hidden="true"
+          >
             <circle
               cx="60"
               cy="60"

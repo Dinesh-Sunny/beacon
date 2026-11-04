@@ -238,7 +238,7 @@ a{color:var(--ink)}
         (p) => `<div class="row">
         <div><h3>${esc(p.label)}</h3><div class="meter" aria-hidden="true">${bar(p.live.length, maxP, "live")}${bar(found(p.id), maxP, "found")}${bar(p.next.length, maxP, "next")}</div>
           <div class="counts"><span>${p.live.length} live</span><span>${found(p.id)} found</span><span>${ready(p.id)} ready</span><span>${p.next.length} next</span>${p.scale ? `<span>~${esc(p.scale)} in the UK</span>` : ""}</div></div>
-        <div class="chips">${p.next.map((n) => `<a href="${esc(n.url)}" target="_blank" rel="noreferrer" class="${n.checked ? "ok" : ""}" title="${n.checked ? `Checked ${esc(n.checked)}` : "Not checked yet"}">${esc(n.name)}</a>`).join("") || "<span>Phase " + p.phase + "</span>"}</div>
+        <div class="chips">${p.next.map((n) => `<a href="${esc(n.url)}" target="_blank" rel="noreferrer" class="${n.checked ? "ok" : ""}" title="${n.checked ? `Checked ${esc(n.checked)}` : "Not checked yet"}">${esc(n.name)}</a>`).join("") || `<span>Phase ${p.phase}</span>`}</div>
         <div class="conn">${p.connectors.map((c) => `<span><b>${esc(c.name)}</b> · <span class="acc ${esc(c.access)}">${esc(c.access)}</span></span>`).join("") || "<span>No source mapped yet</span>"}</div>
       </div>`,
       )

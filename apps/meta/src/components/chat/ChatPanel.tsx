@@ -104,27 +104,28 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     end.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [msgs.length, working, next?.f]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: clear the chat when the check starts again
+  // Clear the chat when the check starts again.
   useEffect(() => {
     if (resets) {
       epoch.current += 1;
       setMsgs([]);
     }
-  }, [resets]);
+  }, [resets, setMsgs]);
 
-  // biome-ignore lint/correctness/useExhaustiveDependencies: show each announcement once
+  // Show each announcement once, keyed by its id.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: depends on the id only, not the object
   useEffect(() => {
     if (announcement)
       setMsgs((list) => [
         ...list,
         { id: nextId(), role: "bot", text: announcement.text },
       ]);
-  }, [announcement?.id]);
+  }, [announcement?.id, setMsgs]);
 
   const push = useCallback(
     (m: Omit<Msg, "id">) =>
       setMsgs((list) => [...list, { ...m, id: nextId() }]),
-    [],
+    [setMsgs],
   );
 
   const send = useCallback(
@@ -220,7 +221,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         setBusy("Muse Spark agent", false);
       }
     },
-    [apply, note, push, setBusy, setSubject],
+    [apply, note, push, setBusy, setSubject, setMsgs],
   );
 
   const onVoice = useCallback(
@@ -434,7 +435,10 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
   if (m.role === "user")
     return (
       <div className="msg me">
-        {m.image && <img className="thumb" src={m.image} alt="Your letter" />}
+        {m.image && (
+          // biome-ignore lint/performance/noImgElement: a data URL of the person's own photo; next/image can't optimise it
+          <img className="thumb" src={m.image} alt="Your letter" />
+        )}
         <div className="bubble">
           {m.qa ? (
             <>
@@ -520,7 +524,7 @@ function AskChips({ onAsk }: { onAsk: (q: string) => void }) {
     `Could claiming one thing lower another for ${who === "I" ? "me" : who}?`,
   ];
   return (
-    <div className="ask-chips" aria-label="Ask Beacon">
+    <div className="ask-chips">
       <span className="hint">Ask me about the results</span>
       {asks.map((q) => (
         <button key={q} type="button" onClick={() => onAsk(q)}>

@@ -13,6 +13,7 @@ export function LetterCard({ l }: { l: LetterView }) {
   return (
     <div className="letter-card" data-testid="letter-card">
       <div className="letter-photo">
+        {/* biome-ignore lint/performance/noImgElement: a data URL of the person's own photo; next/image can't optimise it */}
         <img src={l.image} alt="" />
         {b && (
           <span

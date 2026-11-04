@@ -189,6 +189,7 @@ export function QuestionCard({
       <h2 id={inChat ? "q-chat" : "q-title"}>{ask(f, subject)}</h2>
       <p className="why">{theyify(fact.why, subject)}</p>
 
+      {/* biome-ignore lint/a11y/noStaticElementInteractions: Enter anywhere in the inputs saves; the inputs themselves are the controls */}
       <div ref={body} onKeyDown={onKey} className="qbody">
         <Input
           f={f}
@@ -381,7 +382,8 @@ function Input({
             </div>
           </div>
           {fact.type === "moneyPeriod" && (
-            <div className="seg" role="group" aria-label="How often">
+            <fieldset className="seg">
+              <legend className="sr-only">How often</legend>
               {(["week", "month", "year"] as const).map((p) => (
                 <button
                   key={p}
@@ -392,7 +394,7 @@ function Input({
                   a {p}
                 </button>
               ))}
-            </div>
+            </fieldset>
           )}
         </>
       );
@@ -427,7 +429,8 @@ function Input({
     case "work":
       return (
         <>
-          <div className="seg" role="group" aria-label="Work situation">
+          <fieldset className="seg">
+            <legend className="sr-only">Work situation</legend>
             {(
               [
                 ["employed", "Employed"],
@@ -445,7 +448,7 @@ function Input({
                 {label}
               </button>
             ))}
-          </div>
+          </fieldset>
           {draft.status === "employed" && (
             <Stepper
               id={`${idp}-hours`}

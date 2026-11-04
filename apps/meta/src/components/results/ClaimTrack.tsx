@@ -51,11 +51,8 @@ export function ClaimTrack({ id }: { id: string }) {
 
   return (
     <div className={`track on ${claim.state}`} data-testid={`track-${id}`}>
-      <div
-        className="track-row"
-        role="group"
-        aria-label={`Progress with ${s.name}`}
-      >
+      <fieldset className="track-row">
+        <legend className="sr-only">Progress with {s.name}</legend>
         {(["applied", "awarded", "refused"] as const).map((k) => (
           <button
             key={k}
@@ -69,7 +66,7 @@ export function ClaimTrack({ id }: { id: string }) {
         <button type="button" className="linkbtn" onClick={() => mark(null)}>
           Undo
         </button>
-      </div>
+      </fieldset>
       {claim.state === "applied" && (
         <p className="hint">
           Keep the letters they send. If a decision hasn't come in a few weeks,

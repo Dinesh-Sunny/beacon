@@ -37,7 +37,7 @@ export function ClaimsProvider({ children }: { children: ReactNode }) {
       /* memory only */
     }
   }, []);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: clear on start again
+  // Clear on start again.
   useEffect(() => {
     if (resets) setClaims({});
   }, [resets]);
