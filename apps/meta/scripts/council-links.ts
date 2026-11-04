@@ -5,6 +5,7 @@
 // Usage: node scripts/council-links.ts
 import { readFile, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
+import { parseCsv } from "./csv.ts";
 import { setCount } from "./data-counts.ts";
 
 /** LGSL code -> how Beacon names the service, who it's for (Beacon Framework people groups),
@@ -101,36 +102,6 @@ const SERVICES: Record<
 const csv = gunzipSync(
   await readFile("catalog/harvest/raw/local-links.csv.gz"),
 ).toString("utf8");
-
-// RFC 4180 rows: quoted fields may hold commas, quotes and line breaks.
-function parseCsv(text: string): string[][] {
-  const out: string[][] = [];
-  let row: string[] = [];
-  let field = "";
-  let quoted = false;
-  for (let i = 0; i < text.length; i++) {
-    const c = text[i];
-    if (quoted) {
-      if (c === '"' && text[i + 1] === '"') {
-        field += '"';
-        i++;
-      } else if (c === '"') quoted = false;
-      else field += c;
-    } else if (c === '"') quoted = true;
-    else if (c === ",") {
-      row.push(field);
-      field = "";
-    } else if (c === "\n" || c === "\r") {
-      if (c === "\r" && text[i + 1] === "\n") i++;
-      row.push(field);
-      out.push(row);
-      row = [];
-      field = "";
-    } else field += c;
-  }
-  if (field || row.length) out.push([...row, field]);
-  return out;
-}
 
 const [head, ...body] = parseCsv(csv);
 const col = (name: string) => head?.indexOf(name) ?? -1;
