@@ -26,6 +26,17 @@ const PATHS: Record<string, string> = {
   copy: "M8 8h11v12H8zM5 16V4h11",
   arrow: "M5 12h14M13 6l6 6-6 6",
   shield: "M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z",
+  search: "M11 18a7 7 0 1 0 0-14 7 7 0 0 0 0 14zM20 20l-4-4",
+  pencil: "M4 20l4-1 11-11-3-3L5 16zM14 6l3 3",
+  dots: "M5 12h.01M12 12h.01M19 12h.01",
+  person: "M12 12a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM5 20a7 7 0 0 1 14 0",
+  chat: "M5 5h14v10H9l-4 4z",
+  lock: "M6 11h12v9H6zM9 11V8a3 3 0 0 1 6 0v3",
+  upload: "M12 16V4M7 9l5-5 5 5M5 20h14",
+  pin: "M12 21s-6-6-6-11a6 6 0 0 1 12 0c0 5-6 11-6 11zM12 12a2 2 0 1 0 0-4 2 2 0 0 0 0 4z",
+  thumbup: "M7 11v9H4v-9zM7 11l4-7a2 2 0 0 1 3 2l-1 4h6a2 2 0 0 1 2 2l-2 7a2 2 0 0 1-2 1H7",
+  thumbdown: "M7 13V4H4v9zM7 13l4 7a2 2 0 0 0 3-2l-1-4h6a2 2 0 0 0 2-2l-2-7a2 2 0 0 0-2-1H7",
+  sun: "M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19",
   clock: "M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18zM12 7v5l3 2",
 };
 
@@ -50,17 +61,13 @@ export function Icon({ name, size = 20, label }: { name: keyof typeof PATHS | st
   );
 }
 
-export function Logo({ size = 28 }: { size?: number }) {
+export function Logo({ size = 26 }: { size?: number }) {
   return (
-    <svg width={size} height={size} viewBox="0 0 64 64" aria-hidden="true" className="logo-mark">
-      <rect width="64" height="64" rx="16" fill="var(--ink)" />
-      <circle cx="32" cy="32" r="11" fill="#FFF4D6" stroke="#F3B43C" strokeWidth="4" />
-      <path
-        d="M32 9v7M32 48v7M9 32h7M48 32h7M16 16l5 5M43 43l5 5M48 16l-5 5M21 43l-5 5"
-        stroke="#F3B43C"
-        strokeWidth="3.5"
-        strokeLinecap="round"
-      />
+    <svg width={size} height={size} viewBox="0 0 32 32" aria-hidden="true" className="logo-mark">
+      <circle cx="16" cy="16" r="6.5" fill="#F5A524" />
+      <g stroke="#F5A524" strokeWidth="2.6" strokeLinecap="round">
+        <path d="M16 3v3.5M16 25.5V29M3 16h3.5M25.5 16H29M6.8 6.8l2.5 2.5M22.7 22.7l2.5 2.5M25.2 6.8l-2.5 2.5M9.3 22.7l-2.5 2.5" />
+      </g>
     </svg>
   );
 }

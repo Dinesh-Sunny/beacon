@@ -3,7 +3,7 @@
 // What the agents did: a live feed so the person sees work happening as they answer.
 // Code agents run on every answer; Muse agents show only when they're called.
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { type LogKind, useCheck } from "@/lib/check-store";
 
@@ -17,16 +17,25 @@ const DOT: Record<LogKind, string> = {
 
 export function AgentPanel() {
   const { log, busy } = useCheck();
+  const [all, setAll] = useState(false);
+  const shown = all ? log : log.slice(-4);
   const end = useRef<HTMLLIElement>(null);
-  // biome-ignore lint/correctness/useExhaustiveDependencies: scroll on new entries
+  // biome-ignore lint/correctness/useExhaustiveDependencies: keep the newest entry in view when expanded
   useEffect(() => {
-    end.current?.scrollIntoView({ block: "nearest" });
-  }, [log.length]);
+    if (all) end.current?.scrollIntoView({ block: "nearest" });
+  }, [log.length, all]);
   const roster = ["Question planner", "Fact deriver", "Rules engine", "Chain finder", ...Object.keys(busy)];
   const seen = new Set(log.map((l) => l.who));
   return (
     <aside className="panel" aria-labelledby="agents-h" data-testid="agents">
-      <h3 id="agents-h">What the agents did</h3>
+      <div className="panel-head">
+        <h3 id="agents-h">Agents at work</h3>
+        {log.length > 4 && (
+          <button type="button" className="linkbtn" onClick={() => setAll((a) => !a)} aria-expanded={all}>
+            {all ? "Show less" : `See all ${log.length} steps`}
+          </button>
+        )}
+      </div>
       <div className="agents">
         {[...new Set(roster)].map((a) => (
           <span key={a} className={`agent${busy[a] ? " busy" : seen.has(a) ? " done" : ""}`}>
@@ -47,7 +56,7 @@ export function AgentPanel() {
             </span>
           </li>
         ) : (
-          log.map((l) => (
+          shown.map((l) => (
             <li key={l.id} className={l.kind}>
               <span className="dot">
                 <Icon name={DOT[l.kind]} size={13} />

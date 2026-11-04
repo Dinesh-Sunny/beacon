@@ -1,22 +1,23 @@
 "use client";
 
-// The check workspace in the Lovart layout: a slim strip on top, the chat panel on the left
-// (open, hidden or full view) and the canvas on the right.
+// The check workspace (Lovart layout, Beacon v4): chat on the left, the agent canvas in the
+// middle, Details on the right. On phones the three become tabs at the bottom.
 
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { ChatPanel } from "@/components/chat/ChatPanel";
 import { AgentPanel } from "@/components/check/AgentPanel";
 import { Board, SchemeSheet } from "@/components/check/Board";
-import { QuestionCard } from "@/components/check/QuestionCard";
-import { Results } from "@/components/results/Results";
+import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
+import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
 import { EXAMPLES, type Example } from "@/lib/examples";
 
 type ChatMode = "open" | "hidden" | "full";
+type MobileView = "chat" | "canvas" | "details";
 
 export function Workspace() {
   return (
@@ -28,13 +29,21 @@ export function Workspace() {
 
 function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
-  const { reset, hydrated, next, apply, asked } = useCheck();
+  const [details, setDetails] = useState(true);
+  const [view, setView] = useState<MobileView>("details");
+  const { reset, hydrated, next, apply, asked, editing } = useCheck();
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
 
   useEffect(() => {
-    if (window.matchMedia("(max-width: 900px)").matches) setChat("hidden");
+    if (window.matchMedia("(max-width: 1200px)").matches) setChat("hidden");
   }, []);
+  useEffect(() => {
+    if (editing) {
+      setDetails(true);
+      setView("details");
+    }
+  }, [editing]);
 
   // Example player: answers whatever the planner asks next, one step at a time.
   useEffect(() => {
@@ -44,7 +53,7 @@ function Shell() {
       return;
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const t = setTimeout(() => apply({ [next.f]: playing.answers[next.f] ?? UNSURE }, "example"), reduce ? 0 : 850);
+    const t = setTimeout(() => apply({ [next.f]: playing.answers[next.f] ?? UNSURE }, "example"), reduce ? 0 : 800);
     return () => clearTimeout(t);
   }, [playing, next, apply]);
 
@@ -52,31 +61,30 @@ function Shell() {
     setMenu(false);
     reset();
     setPlaying(ex);
+    setView("canvas");
   };
 
   return (
-    <div className="ws" data-chat={chat}>
+    <div className="ws" data-chat={chat} data-details={details ? "open" : "closed"} data-view={view}>
       <header className="strip">
         <Link href="/" className="brand" aria-label="Beacon home">
           <Logo />
           <span>Beacon</span>
         </Link>
         {chat === "hidden" ? (
-          <button type="button" className="iconbtn" onClick={() => setChat("open")} aria-label="Show chat" title="Show chat" data-testid="show-chat">
+          <button type="button" className="iconbtn wide-only" onClick={() => setChat("open")} aria-label="Show chat" title="Show chat" data-testid="show-chat">
             <Icon name="panel" />
           </button>
         ) : chat === "open" ? (
-          <>
-            <button type="button" className="iconbtn toggle-open" onClick={() => setChat("full")} aria-label="Full view" title="Full view">
+          <span className="chat-tools wide-only">
+            <button type="button" className="iconbtn" onClick={() => setChat("full")} aria-label="Full view" title="Full view">
               <Icon name="expand" />
             </button>
             <button type="button" className="iconbtn" onClick={() => setChat("hidden")} aria-label="Hide chat" title="Hide chat" data-testid="hide-chat">
               <Icon name="panel" />
             </button>
-          </>
+          </span>
         ) : null}
-        {chat !== "full" && <span className="divider" aria-hidden="true" />}
-        {chat !== "full" && <span className="title">Your check</span>}
         <span className="spacer" />
         {chat === "full" ? (
           <button type="button" className="btn ghost small" onClick={() => setChat("open")}>
@@ -84,15 +92,10 @@ function Shell() {
           </button>
         ) : (
           <>
-            <div style={{ position: "relative" }}>
-              <button
-                type="button"
-                className="btn ghost small"
-                aria-expanded={menu}
-                onClick={() => setMenu((m) => !m)}
-                data-testid="examples"
-              >
-                <Icon name={playing ? "stop" : "play"} size={16} /> {playing ? "Playing" : "Example"}
+            <div className="menu-wrap">
+              <button type="button" className="btn ghost small" aria-expanded={menu} onClick={() => setMenu((m) => !m)} data-testid="examples">
+                <Icon name={playing ? "stop" : "play"} size={16} />
+                <span className="wide-label">{playing ? "Playing" : "Try an example"}</span>
               </button>
               {menu && (
                 <div className="menu" role="menu">
@@ -119,17 +122,54 @@ function Shell() {
                 <Icon name="restart" />
               </button>
             )}
+            <button
+              type="button"
+              className="btn ghost small wide-only"
+              aria-pressed={details}
+              onClick={() => setDetails((d) => !d)}
+              data-testid="details-toggle"
+            >
+              <Icon name="person" size={18} /> Details
+            </button>
           </>
         )}
       </header>
+
       <aside className="chat" aria-label="Chat with Beacon">
         <div className="chat-inner">
-          <ChatPanel onClose={() => setChat("hidden")} />
+          <ChatPanel />
         </div>
       </aside>
+
       <main className="canvas" id="canvas">
         <div className="canvas-inner">{hydrated ? <Canvas /> : null}</div>
       </main>
+
+      <aside className="details-col" aria-label="Details">
+        {hydrated ? (
+          <DetailsPanel
+            onClose={() => {
+              setDetails(false);
+              setView("canvas");
+            }}
+          />
+        ) : null}
+      </aside>
+
+      <nav className="tabbar" aria-label="Views">
+        {(
+          [
+            ["chat", "chat", "Chat"],
+            ["canvas", "spark", "Results"],
+            ["details", "person", "Details"],
+          ] as const
+        ).map(([v, icon, label]) => (
+          <button key={v} type="button" aria-current={view === v ? "page" : undefined} onClick={() => setView(v)} data-testid={`view-${v}`}>
+            <Icon name={icon} />
+            {label}
+          </button>
+        ))}
+      </nav>
       <SchemeSheet />
     </div>
   );
@@ -139,32 +179,27 @@ function Canvas() {
   const { next, states } = useCheck();
   const open = count(states, "open");
   const settled = SCHEMES.length - open;
-  const scroller = useRef<HTMLDivElement>(null);
   return (
-    <div className="stage" ref={scroller}>
-      <div className="stage-main">
-        <div className="progress">
-          <div className="meter" role="progressbar" aria-label="Schemes settled" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
-            <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
-          </div>
-          <div className="stats" data-testid="stats">
-            <span className="stat likely">
-              <b>{count(states, "likely")}</b> likely
-            </span>
-            <span className="stat">
-              <b>{count(states, "check")}</b> worth checking
-            </span>
-            <span className="stat">
-              <b>{open}</b> still open
-            </span>
-          </div>
+    <>
+      <div className="progress">
+        <div className="meter" role="progressbar" aria-label="Schemes checked" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
+          <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
         </div>
-        {next ? <QuestionCard /> : <Results />}
-        <Board />
+        <div className="stats" data-testid="stats">
+          <span className="stat likely">
+            <b>{count(states, "likely")}</b> likely
+          </span>
+          <span className="stat">
+            <b>{count(states, "check")}</b> worth checking
+          </span>
+          <span className="stat">
+            <b>{open}</b> still open
+          </span>
+        </div>
       </div>
-      <div className="side">
-        <AgentPanel />
-      </div>
-    </div>
+      <AgentPanel />
+      {next ? null : <Results />}
+      <Board />
+    </>
   );
 }

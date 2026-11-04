@@ -6,7 +6,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { type Answers, FACTS, type FactId, type Period, UNSURE, type WorkStatus } from "@/engine/facts";
-import { derive, derivedChips, POSTCODE_RE } from "@/engine/rules";
+import { derive, derivedChips, POSTCODE_RE, SCHEMES } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
 interface Draft {
@@ -72,23 +72,24 @@ function readDraft(f: FactId, x: Draft, today = new Date()): Read {
 }
 
 export function QuestionCard() {
-  const { next, answers, asked, apply, back, states } = useCheck();
+  const { current, answers, asked, apply, states, editing, edit, skip, skipped } = useCheck();
   const [draft, setDraft] = useState<Draft>({});
   const [err, setErr] = useState("");
-  const firstInput = useRef<HTMLDivElement>(null);
-  const f = next?.f;
+  const body = useRef<HTMLDivElement>(null);
+  const f = current;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the question changes
   useEffect(() => {
     setDraft({});
     setErr("");
-    const el = firstInput.current?.querySelector<HTMLElement>("input, button");
-    el?.focus({ preventScroll: true });
+    body.current?.querySelector<HTMLElement>("input, button")?.focus({ preventScroll: true });
   }, [f]);
 
-  if (!next || !f) return null;
+  if (!f) return null;
   const fact = FACTS[f];
-  const open = Object.values(states).filter((s) => s.status === "open").length;
+  const hits = SCHEMES.filter((s) =>
+    editing ? s.rule.some((r) => r.needs.includes(f)) : states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f),
+  );
   const set = (patch: Draft) => {
     setErr("");
     setDraft((d) => ({ ...d, ...patch }));
@@ -102,61 +103,55 @@ export function QuestionCard() {
     apply({ [f]: r.v }, "form");
   };
   const onKey = (e: React.KeyboardEvent) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && (e.target as HTMLElement).tagName === "INPUT") {
       e.preventDefault();
       submit();
     }
   };
-  const needsContinue = !["yesno", "choice"].includes(fact.type);
+  const instant = ["yesno", "choice"].includes(fact.type);
+  const canSkip = !editing && !skipped.includes(f);
 
   return (
     <section className="qcard" aria-labelledby="q-title" data-testid="question" data-fact={f}>
       <div className="qtop">
-        <span className="qstep">QUESTION {asked + 1}</span>
+        <span className="qstep">{editing ? "Change an answer" : `Question ${asked + 1}`}</span>
         <span className="unlocks" data-testid="unlocks">
-          Checks {next.hits.length} {next.hits.length === 1 ? "scheme" : "schemes"}
+          <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
         </span>
       </div>
       <h2 id="q-title">{fact.q}</h2>
       <p className="why">{fact.why}</p>
 
-      <div ref={firstInput} onKeyDown={onKey} className="qbody">
+      <div ref={body} onKeyDown={onKey} className="qbody">
         <Input f={f} draft={draft} set={set} submit={submit} />
       </div>
 
-      {needsContinue && (
-        <>
-          <div className="derived" aria-live="polite">
-            {preview.length ? (
-              preview.map((c) => <span key={c}>{c}</span>)
-            ) : (
-              <span className="wait">What we work out appears here</span>
-            )}
-          </div>
-          {err && (
-            <p className="err" role="alert">
-              {err}
-            </p>
-          )}
-          <div className="qactions">
-            <button type="button" className="btn" onClick={() => submit()} data-testid="continue">
-              Continue <Icon name="arrow" size={18} />
-            </button>
-          </div>
-        </>
+      {!instant && (
+        <div className="derived" aria-live="polite">
+          {preview.map((c) => (
+            <span key={c}>{c}</span>
+          ))}
+        </div>
       )}
-
-      <div className="qfoot">
-        <button type="button" className="linkbtn" onClick={back} disabled={!asked}>
-          Back
-        </button>
-        <span className="picked">
-          {open} still open · {next.hits.slice(0, 3).map((s) => s.name).join(", ")}
-          {next.hits.length > 3 ? ` and ${next.hits.length - 3} more` : ""}
-        </span>
-        <button type="button" className="linkbtn" onClick={() => submit(UNSURE)} data-testid="unsure">
-          I'm not sure
-        </button>
+      {err && <p className="err">{err}</p>}
+      <button type="button" className="linkbtn unsure" onClick={() => submit(UNSURE)} data-testid="unsure">
+        I'm not sure
+      </button>
+      <div className="qactions">
+        {!instant && (
+          <button type="button" className="btn" onClick={() => submit()} data-testid="continue">
+            Save and continue
+          </button>
+        )}
+        {editing ? (
+          <button type="button" className="btn ghost" onClick={() => edit(null)}>
+            Cancel
+          </button>
+        ) : canSkip ? (
+          <button type="button" className="btn ghost" onClick={() => skip(f)} data-testid="skip">
+            Skip for now
+          </button>
+        ) : null}
       </div>
     </section>
   );

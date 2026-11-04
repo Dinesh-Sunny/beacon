@@ -75,6 +75,13 @@ interface Ctx {
   reset: () => void;
   note: (kind: LogKind, who: string, text: string) => void;
   busy: Record<string, boolean>;
+  sources: Partial<Record<FactId, { source: Source; at: number }>>;
+  editing: FactId | null;
+  edit: (f: FactId | null) => void;
+  forget: (f: FactId) => void;
+  skipped: FactId[];
+  skip: (f: FactId) => void;
+  current: FactId | null;
   setBusy: (agent: string, on: boolean) => void;
 }
 
@@ -87,6 +94,9 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   const [changed, setChanged] = useState<string[]>([]);
   const [selected, select] = useState<string | null>(null);
   const [hydrated, setHydrated] = useState(false);
+  const [sources, setSources] = useState<Partial<Record<FactId, { source: Source; at: number }>>>({});
+  const [editing, edit] = useState<FactId | null>(null);
+  const [skipped, setSkipped] = useState<FactId[]>([]);
   const [busy, setBusyMap] = useState<Record<string, boolean>>({});
   const setBusy = useCallback((agent: string, on: boolean) => setBusyMap((b) => ({ ...b, [agent]: on })), []);
   const seq = useRef(0);
@@ -98,7 +108,12 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const states = useMemo(() => evaluate(answers), [answers]);
-  const next = useMemo(() => plan(answers, states), [answers, states]);
+  const next = useMemo(() => {
+    const withoutSkipped: Answers = { ...answers };
+    for (const f of skipped) if (withoutSkipped[f] === undefined) (withoutSkipped as Record<string, unknown>)[f] = "__skip";
+    return plan(withoutSkipped, states) ?? plan(answers, states);
+  }, [answers, states, skipped]);
+  const current: FactId | null = editing ?? next?.f ?? null;
 
   const note = useCallback((kind: LogKind, who: string, text: string) => {
     seq.current += 1;
@@ -153,6 +168,13 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     ansRef.current = after;
     logRef.current = [...logRef.current, ...stamped];
     setAnswers(after);
+    setSources((src) => {
+      const copy = { ...src };
+      for (const k of keys) copy[k] = { source, at: Date.now() };
+      return copy;
+    });
+    edit(null);
+    setSkipped((sk) => sk.filter((k) => !keys.includes(k)));
     setChanged(moved.map((s) => s.id));
     setHist((h) => [...h, { keys, prevLog }]);
     setLog(logRef.current);
@@ -173,10 +195,31 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     save(copy);
   }, [hist]);
 
+  const forget = useCallback(
+    (f: FactId) => {
+      const copy = { ...ansRef.current };
+      delete copy[f];
+      ansRef.current = copy;
+      setAnswers(copy);
+      setSources((src) => {
+        const c = { ...src };
+        delete c[f];
+        return c;
+      });
+      note("you", "You", `Forgot ${FACTS[f].label.toLowerCase()}`);
+      save(copy);
+    },
+    [note],
+  );
+  const skip = useCallback((f: FactId) => setSkipped((sk) => (sk.includes(f) ? sk : [...sk, f])), []);
+
   const reset = useCallback(() => {
     ansRef.current = {};
     logRef.current = [];
     setAnswers({});
+    setSources({});
+    setSkipped([]);
+    edit(null);
     setHist([]);
     setLog([]);
     setChanged([]);
@@ -185,7 +228,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const asked = Object.keys(answers).length;
-  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy };
+  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
 
