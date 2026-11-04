@@ -5,6 +5,7 @@ import "./globals.css";
 import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import { CaptionBar } from "@/components/CaptionBar";
+import { Insights } from "@/components/Insights";
 import { OfflineNotice } from "@/components/OfflineNotice";
 import { localeInfo } from "@/i18n/locales";
 import { I18nProvider } from "@/i18n/Provider";
@@ -70,6 +71,7 @@ export default async function RootLayout({
           <CaptionBar />
           {children}
         </I18nProvider>
+        <Insights />
       </body>
     </html>
   );
