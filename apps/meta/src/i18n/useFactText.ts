@@ -47,6 +47,7 @@ export function useFactText() {
     fmt.number(n, {
       style: "currency",
       currency: "GBP",
+      currencyDisplay: "narrowSymbol",
       maximumFractionDigits: 2,
       minimumFractionDigits: 0,
     });

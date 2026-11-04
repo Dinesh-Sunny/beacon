@@ -54,6 +54,7 @@ export function Results() {
     fmt.number(n, {
       style: "currency",
       currency: "GBP",
+      currencyDisplay: "narrowSymbol",
       maximumFractionDigits: 0,
     });
   const me = subject.who === "me";

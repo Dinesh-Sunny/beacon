@@ -3660,3 +3660,6 @@ details.constellation[open] > summary::after {
   gap: 8px;
   flex-wrap: wrap;
 }
+.strip .btn {
+  white-space: nowrap;
+}
