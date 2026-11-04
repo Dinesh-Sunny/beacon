@@ -1,0 +1,1288 @@
+{
+ "$schema": "./pack.schema.json",
+ "id": "uk-core",
+ "country": "GB",
+ "version": "2026.11.04",
+ "checked": "2026-11-04",
+ "near": 0.1,
+ "lines": {
+  "ucIncomeWeek": {
+   "value": 500,
+   "source": "https://www.gov.uk/universal-credit/eligibility",
+   "note": "screening estimate, single adult"
+  },
+  "pcIncomeWeek": {
+   "value": 238,
+   "source": "https://www.gov.uk/pension-credit/what-youll-get",
+   "note": "single person guarantee level"
+  },
+  "ctrIncomeWeek": {
+   "value": 350,
+   "source": "https://www.gov.uk/apply-council-tax-reduction",
+   "note": "screening estimate, varies by council"
+  },
+  "savingsCap": {
+   "value": 16000,
+   "source": "https://www.gov.uk/universal-credit/eligibility"
+  },
+  "careHours": {
+   "value": 35,
+   "source": "https://www.gov.uk/carers-allowance/eligibility"
+  },
+  "wfpClawbackYear": {
+   "value": 35000,
+   "source": "https://www.gov.uk/winter-fuel-payment"
+  }
+ },
+ "gateways": [
+  "pc",
+  "uc"
+ ],
+ "topics": [
+  [
+   "low",
+   "Money and bills"
+  ],
+  [
+   "dis",
+   "Health and disability"
+  ],
+  [
+   "care",
+   "Caring for someone"
+  ],
+  [
+   "fam",
+   "Families"
+  ],
+  [
+   "work",
+   "Looking for work"
+  ],
+  [
+   "sick",
+   "Unable to work"
+  ],
+  [
+   "death",
+   "When someone dies"
+  ]
+ ],
+ "notCovered": {
+  "ni": "Northern Ireland runs its own version: see nidirect.gov.uk"
+ },
+ "schemes": [
+  {
+   "id": "pc",
+   "name": "Pension Credit",
+   "topic": "low",
+   "by": "DWP",
+   "gives": "A weekly top-up to your income. It opens the door to more help.",
+   "how": "Claim by phone or online.",
+   "phone": "0800 99 1234",
+   "url": "https://www.gov.uk/pension-credit/how-to-claim",
+   "timing": "Can be backdated up to 3 months, so claim soon.",
+   "urgent": true,
+   "rule": [
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "f": "spa",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "reached State Pension age",
+     "txt": "Reached State Pension age",
+     "fail": "Under State Pension age"
+    },
+    {
+     "needs": [
+      "income"
+     ],
+     "test": {
+      "f": "incWeek",
+      "op": "lt",
+      "v": {
+       "line": "pcIncomeWeek"
+      }
+     },
+     "expr": "weekly income under £238",
+     "txt": "Income under the screening line",
+     "fail": "Income likely above the line",
+     "near": {
+      "f": "incWeek",
+      "line": "pcIncomeWeek"
+     }
+    }
+   ],
+   "opens": [
+    "ctr",
+    "cwp",
+    "tv",
+    "fep"
+   ]
+  },
+  {
+   "id": "uc",
+   "name": "Universal Credit",
+   "topic": "low",
+   "by": "DWP",
+   "gives": "A monthly payment for living costs, with extra for rent, children and caring.",
+   "how": "Claim online, then book an interview.",
+   "url": "https://www.gov.uk/universal-credit/how-to-claim",
+   "timing": "Payment starts from the day you claim.",
+   "urgent": true,
+   "rule": [
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 18
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "18 or over, under State Pension age",
+     "txt": "Aged 18 to State Pension age",
+     "fail": "Not between 18 and State Pension age"
+    },
+    {
+     "needs": [
+      "savings"
+     ],
+     "test": {
+      "f": "sav",
+      "op": "lte",
+      "v": {
+       "line": "savingsCap"
+      }
+     },
+     "expr": "savings £16,000 or less",
+     "txt": "Savings £16,000 or less",
+     "fail": "Savings over £16,000",
+     "near": {
+      "f": "sav",
+      "line": "savingsCap"
+     }
+    },
+    {
+     "needs": [
+      "income"
+     ],
+     "test": {
+      "f": "incWeek",
+      "op": "lt",
+      "v": {
+       "line": "ucIncomeWeek"
+      }
+     },
+     "expr": "weekly income under £500",
+     "txt": "Income under the screening line",
+     "fail": "Income likely above the line",
+     "near": {
+      "f": "incWeek",
+      "line": "ucIncomeWeek"
+     }
+    }
+   ],
+   "opens": [
+    "ctr",
+    "cwp",
+    "ssmg",
+    "hs",
+    "fep"
+   ]
+  },
+  {
+   "id": "ctr",
+   "name": "Council Tax Reduction",
+   "topic": "low",
+   "by": "Your council",
+   "gives": "Money off your council tax bill.",
+   "how": "Apply to your local council.",
+   "url": "https://www.gov.uk/apply-council-tax-reduction",
+   "rule": [
+    {
+     "needs": [
+      "ctax"
+     ],
+     "test": {
+      "f": "ctax",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "pays council tax",
+     "txt": "Pays council tax",
+     "fail": "Doesn't pay council tax"
+    },
+    {
+     "needs": [
+      "income"
+     ],
+     "test": {
+      "f": "incWeek",
+      "op": "lt",
+      "v": {
+       "line": "ctrIncomeWeek"
+      }
+     },
+     "expr": "weekly income under £350",
+     "txt": "Income under the screening line",
+     "fail": "Income likely above the line",
+     "near": {
+      "f": "incWeek",
+      "line": "ctrIncomeWeek"
+     }
+    },
+    {
+     "needs": [
+      "savings"
+     ],
+     "test": {
+      "f": "sav",
+      "op": "lte",
+      "v": {
+       "line": "savingsCap"
+      }
+     },
+     "expr": "savings £16,000 or less",
+     "txt": "Savings £16,000 or less",
+     "fail": "Savings over £16,000",
+     "near": {
+      "f": "sav",
+      "line": "savingsCap"
+     }
+    }
+   ]
+  },
+  {
+   "id": "cwp",
+   "name": "Cold Weather Payment",
+   "topic": "low",
+   "by": "DWP",
+   "gives": "£25 for each very cold week between November and March.",
+   "how": "Paid automatically once you get a qualifying benefit.",
+   "auto": true,
+   "url": "https://www.gov.uk/cold-weather-payment",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has the Winter Heating Payment instead"
+    },
+    {
+     "gate": true,
+     "needs": [
+      "benefits"
+     ],
+     "expr": "gets Universal Credit or Pension Credit",
+     "txt": "Gets Universal Credit or Pension Credit",
+     "fail": "Needs Universal Credit or Pension Credit",
+     "test": {
+      "f": "gateway",
+      "op": "eq",
+      "v": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "wfp",
+   "name": "Winter Fuel Payment",
+   "topic": "low",
+   "by": "DWP",
+   "gives": "A yearly payment towards heating bills.",
+   "how": "Usually paid automatically. If it didn't arrive last winter, check with the Winter Fuel Payment Centre.",
+   "auto": true,
+   "url": "https://www.gov.uk/winter-fuel-payment",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has the Pension Age Winter Heating Payment"
+    },
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "f": "spa",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "reached State Pension age",
+     "txt": "Reached State Pension age",
+     "fail": "Under State Pension age"
+    }
+   ]
+  },
+  {
+   "id": "tv",
+   "name": "Free TV licence",
+   "topic": "low",
+   "by": "TV Licensing",
+   "gives": "A free TV licence.",
+   "how": "Apply to TV Licensing once you get Pension Credit.",
+   "url": "https://www.gov.uk/free-discount-tv-licence",
+   "rule": [
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "f": "age",
+      "op": "gte",
+      "v": 75
+     },
+     "expr": "aged 75 or over",
+     "txt": "Aged 75 or over",
+     "fail": "Under 75"
+    },
+    {
+     "gate": true,
+     "needs": [
+      "benefits"
+     ],
+     "expr": "gets Universal Credit or Pension Credit",
+     "txt": "Gets Universal Credit or Pension Credit",
+     "fail": "Needs Universal Credit or Pension Credit",
+     "test": {
+      "f": "gateway",
+      "op": "eq",
+      "v": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "pip",
+   "name": "Personal Independence Payment",
+   "topic": "dis",
+   "by": "DWP",
+   "gives": "Help with the extra costs of a condition, not based on income.",
+   "how": "Start your claim by phone.",
+   "phone": "0800 917 2222",
+   "url": "https://www.gov.uk/pip/how-to-claim",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has Adult Disability Payment instead"
+    },
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 16
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "16 or over, under State Pension age",
+     "txt": "Aged 16 to State Pension age",
+     "fail": "Over State Pension age"
+    },
+    {
+     "needs": [
+      "difficulties"
+     ],
+     "test": {
+      "f": "health",
+      "op": "ne",
+      "v": "none"
+     },
+     "expr": "a condition affects daily life",
+     "txt": "A condition affects daily life",
+     "fail": "No condition affecting daily life"
+    }
+   ]
+  },
+  {
+   "id": "adp",
+   "name": "Adult Disability Payment",
+   "topic": "dis",
+   "by": "Social Security Scotland",
+   "gives": "Help with the extra costs of a condition, not based on income.",
+   "how": "Apply online or by phone.",
+   "phone": "0800 182 2222",
+   "url": "https://www.mygov.scot/adult-disability-payment",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "eq",
+      "v": "sco"
+     },
+     "expr": "nation is Scotland",
+     "txt": "Lives in Scotland",
+     "fail": "Only in Scotland"
+    },
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 16
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "16 or over, under State Pension age",
+     "txt": "Aged 16 to State Pension age",
+     "fail": "Over State Pension age"
+    },
+    {
+     "needs": [
+      "difficulties"
+     ],
+     "test": {
+      "f": "health",
+      "op": "ne",
+      "v": "none"
+     },
+     "expr": "a condition affects daily life",
+     "txt": "A condition affects daily life",
+     "fail": "No condition affecting daily life"
+    }
+   ]
+  },
+  {
+   "id": "aa",
+   "name": "Attendance Allowance",
+   "topic": "dis",
+   "by": "DWP",
+   "gives": "A weekly payment if you need help with personal care, not based on income.",
+   "how": "Ask for the claim form by phone, or print it.",
+   "phone": "0800 731 0122",
+   "url": "https://www.gov.uk/attendance-allowance/how-to-claim",
+   "timing": "The claim can start from the day of the call if the form goes back within 6 weeks, so phone today.",
+   "urgent": true,
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has Pension Age Disability Payment instead"
+    },
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "f": "spa",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "reached State Pension age",
+     "txt": "Reached State Pension age",
+     "fail": "Under State Pension age"
+    },
+    {
+     "needs": [
+      "difficulties"
+     ],
+     "test": {
+      "f": "health",
+      "op": "eq",
+      "v": "care"
+     },
+     "expr": "needs personal care or supervision",
+     "txt": "Needs help with personal care or supervision",
+     "fail": "Doesn't need personal care or supervision"
+    }
+   ]
+  },
+  {
+   "id": "bb",
+   "name": "Blue Badge",
+   "topic": "dis",
+   "by": "Your council",
+   "gives": "Park closer to where you need to go.",
+   "how": "Apply online to your council.",
+   "url": "https://www.gov.uk/apply-blue-badge",
+   "rule": [
+    {
+     "needs": [
+      "difficulties"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "move",
+        "op": "eq",
+        "v": true
+       },
+       {
+        "f": "health",
+        "op": "eq",
+        "v": "care"
+       }
+      ]
+     },
+     "expr": "difficulty walking or needs care",
+     "txt": "Difficulty getting around",
+     "fail": "No difficulty getting around"
+    }
+   ]
+  },
+  {
+   "id": "ca",
+   "name": "Carer's Allowance",
+   "topic": "care",
+   "by": "DWP",
+   "gives": "A weekly payment for caring 35 hours or more.",
+   "how": "Claim online.",
+   "url": "https://www.gov.uk/carers-allowance/how-to-claim",
+   "timing": "Can be backdated up to 3 months.",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has Carer Support Payment instead"
+    },
+    {
+     "needs": [
+      "careHours"
+     ],
+     "test": {
+      "f": "careHours",
+      "op": "gte",
+      "v": {
+       "line": "careHours"
+      }
+     },
+     "expr": "caring 35 hours a week or more",
+     "txt": "Cares 35 hours a week or more",
+     "fail": "Cares under 35 hours a week"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "work",
+        "op": "in",
+        "v": [
+         "none",
+         "sick"
+        ]
+       },
+       {
+        "f": "hours",
+        "op": "lt",
+        "v": 16
+       }
+      ]
+     },
+     "expr": "not working or under 16 hours",
+     "txt": "Earnings likely under the limit",
+     "fail": "Earnings likely over the limit"
+    }
+   ]
+  },
+  {
+   "id": "csp",
+   "name": "Carer Support Payment",
+   "topic": "care",
+   "by": "Social Security Scotland",
+   "gives": "A weekly payment for caring 35 hours or more.",
+   "how": "Apply online or by phone.",
+   "phone": "0800 182 2222",
+   "url": "https://www.mygov.scot/carer-support-payment",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "eq",
+      "v": "sco"
+     },
+     "expr": "nation is Scotland",
+     "txt": "Lives in Scotland",
+     "fail": "Only in Scotland"
+    },
+    {
+     "needs": [
+      "careHours"
+     ],
+     "test": {
+      "f": "careHours",
+      "op": "gte",
+      "v": {
+       "line": "careHours"
+      }
+     },
+     "expr": "caring 35 hours a week or more",
+     "txt": "Cares 35 hours a week or more",
+     "fail": "Cares under 35 hours a week"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "work",
+        "op": "in",
+        "v": [
+         "none",
+         "sick"
+        ]
+       },
+       {
+        "f": "hours",
+        "op": "lt",
+        "v": 16
+       }
+      ]
+     },
+     "expr": "not working or under 16 hours",
+     "txt": "Earnings likely under the limit",
+     "fail": "Earnings likely over the limit"
+    }
+   ]
+  },
+  {
+   "id": "cb",
+   "name": "Child Benefit",
+   "topic": "fam",
+   "by": "HMRC",
+   "gives": "A regular payment for each child, and National Insurance credits.",
+   "how": "Claim online or by post.",
+   "url": "https://www.gov.uk/child-benefit/how-to-claim",
+   "timing": "Can be backdated up to 3 months.",
+   "rule": [
+    {
+     "needs": [
+      "child"
+     ],
+     "test": {
+      "f": "childAge",
+      "op": "lt",
+      "v": 20
+     },
+     "expr": "youngest child under 16, or under 20 in education",
+     "txt": "Has a child of the right age",
+     "fail": "No child of the right age"
+    }
+   ]
+  },
+  {
+   "id": "tfc",
+   "name": "Tax-Free Childcare",
+   "topic": "fam",
+   "by": "HMRC",
+   "gives": "Up to £2 back for every £8 you spend on childcare.",
+   "how": "Apply online.",
+   "url": "https://www.gov.uk/tax-free-childcare",
+   "rule": [
+    {
+     "needs": [
+      "child"
+     ],
+     "test": {
+      "f": "childAge",
+      "op": "lt",
+      "v": 12
+     },
+     "expr": "youngest child under 12",
+     "txt": "Has a child under 12",
+     "fail": "No child under 12"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "work",
+        "op": "eq",
+        "v": "self"
+       },
+       {
+        "all": [
+         {
+          "f": "work",
+          "op": "eq",
+          "v": "employed"
+         },
+         {
+          "f": "hours",
+          "op": "gte",
+          "v": 16
+         }
+        ]
+       }
+      ]
+     },
+     "expr": "working",
+     "txt": "Working",
+     "fail": "Needs to be working"
+    }
+   ]
+  },
+  {
+   "id": "ma",
+   "name": "Maternity Allowance",
+   "topic": "fam",
+   "by": "DWP",
+   "gives": "Weekly pay around the birth if you can't get Statutory Maternity Pay.",
+   "how": "Claim with form MA1.",
+   "url": "https://www.gov.uk/maternity-allowance/how-to-claim",
+   "rule": [
+    {
+     "needs": [
+      "pregnant"
+     ],
+     "test": {
+      "f": "pregnant",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "expecting a baby",
+     "txt": "Expecting a baby",
+     "fail": "No one is expecting"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "f": "work",
+      "op": "in",
+      "v": [
+       "employed",
+       "self"
+      ]
+     },
+     "expr": "employed or self-employed",
+     "txt": "Working recently",
+     "fail": "Needs recent work"
+    }
+   ]
+  },
+  {
+   "id": "ssmg",
+   "name": "Sure Start Maternity Grant",
+   "topic": "fam",
+   "by": "DWP",
+   "gives": "A one-off £500 for your first baby.",
+   "how": "Claim with form SF100.",
+   "url": "https://www.gov.uk/sure-start-maternity-grant/how-to-claim",
+   "timing": "Claim from 11 weeks before the due date until the baby is 6 months.",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has the Best Start Grant instead"
+    },
+    {
+     "needs": [
+      "child",
+      "pregnant"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "pregnant",
+        "op": "eq",
+        "v": true
+       },
+       {
+        "f": "childAge",
+        "op": "lt",
+        "v": 1
+       }
+      ]
+     },
+     "expr": "expecting OR youngest under 1",
+     "txt": "Baby due or under 1",
+     "fail": "No baby due or under 1"
+    },
+    {
+     "gate": true,
+     "needs": [
+      "benefits"
+     ],
+     "expr": "gets Universal Credit or Pension Credit",
+     "txt": "Gets Universal Credit or Pension Credit",
+     "fail": "Needs Universal Credit or Pension Credit",
+     "test": {
+      "f": "gateway",
+      "op": "eq",
+      "v": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "hs",
+   "name": "Healthy Start",
+   "topic": "fam",
+   "by": "NHS",
+   "gives": "A card for milk, fruit, vegetables and vitamins. On Universal Credit, take-home pay needs to be £408 a month or less.",
+   "how": "Apply online.",
+   "url": "https://www.healthystart.nhs.uk/how-to-apply/",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has Best Start Foods instead"
+    },
+    {
+     "needs": [
+      "child",
+      "pregnant"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "pregnant",
+        "op": "eq",
+        "v": true
+       },
+       {
+        "f": "childAge",
+        "op": "lt",
+        "v": 4
+       }
+      ]
+     },
+     "expr": "expecting OR youngest under 4",
+     "txt": "Expecting or child under 4",
+     "fail": "No pregnancy or child under 4"
+    },
+    {
+     "gate": true,
+     "needs": [
+      "benefits"
+     ],
+     "expr": "gets Universal Credit or Pension Credit",
+     "txt": "Gets Universal Credit or Pension Credit",
+     "fail": "Needs Universal Credit or Pension Credit",
+     "test": {
+      "f": "gateway",
+      "op": "eq",
+      "v": true
+     }
+    }
+   ]
+  },
+  {
+   "id": "jsa",
+   "name": "New Style Jobseeker's Allowance",
+   "topic": "work",
+   "by": "DWP",
+   "gives": "A fortnightly payment while you look for work, based on your contributions.",
+   "how": "Claim online.",
+   "url": "https://www.gov.uk/jobseekers-allowance/how-to-claim",
+   "rule": [
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 18
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "18 or over, under State Pension age",
+     "txt": "Aged 18 to State Pension age",
+     "fail": "Not between 18 and State Pension age"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "any": [
+       {
+        "f": "work",
+        "op": "eq",
+        "v": "none"
+       },
+       {
+        "all": [
+         {
+          "f": "work",
+          "op": "eq",
+          "v": "employed"
+         },
+         {
+          "f": "hours",
+          "op": "lt",
+          "v": 16
+         }
+        ]
+       }
+      ]
+     },
+     "expr": "not working or under 16 hours",
+     "txt": "Not working or under 16 hours",
+     "fail": "Working 16 hours or more"
+    },
+    {
+     "needs": [
+      "ni"
+     ],
+     "test": {
+      "f": "ni",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "paid National Insurance in the last 2 to 3 years",
+     "txt": "Paid National Insurance",
+     "fail": "Not enough National Insurance paid"
+    }
+   ]
+  },
+  {
+   "id": "esa",
+   "name": "New Style ESA",
+   "topic": "sick",
+   "by": "DWP",
+   "gives": "A payment if a condition stops you working, based on your contributions.",
+   "how": "Claim online.",
+   "url": "https://www.gov.uk/employment-support-allowance/how-to-claim",
+   "rule": [
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 16
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "16 or over, under State Pension age",
+     "txt": "Aged 16 to State Pension age",
+     "fail": "Over State Pension age"
+    },
+    {
+     "needs": [
+      "difficulties"
+     ],
+     "test": {
+      "f": "health",
+      "op": "ne",
+      "v": "none"
+     },
+     "expr": "a condition affects daily life",
+     "txt": "A condition affects daily life",
+     "fail": "No condition affecting daily life"
+    },
+    {
+     "needs": [
+      "work"
+     ],
+     "test": {
+      "f": "lowWork",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "not working, off sick or under 16 hours",
+     "txt": "Not working, off sick or under 16 hours",
+     "fail": "Working 16 hours or more"
+    },
+    {
+     "needs": [
+      "ni"
+     ],
+     "test": {
+      "f": "ni",
+      "op": "eq",
+      "v": true
+     },
+     "expr": "paid National Insurance in the last 2 to 3 years",
+     "txt": "Paid National Insurance",
+     "fail": "Not enough National Insurance paid"
+    }
+   ]
+  },
+  {
+   "id": "bsp",
+   "name": "Bereavement Support Payment",
+   "topic": "death",
+   "by": "DWP",
+   "gives": "A first payment and monthly payments for 18 months.",
+   "how": "Claim online, by phone or by post.",
+   "phone": "0800 151 2012",
+   "url": "https://www.gov.uk/bereavement-support-payment/how-to-claim",
+   "timing": "Claim within 3 months of the death to get the full amount.",
+   "rule": [
+    {
+     "needs": [
+      "bereaved"
+     ],
+     "test": {
+      "f": "bereaved",
+      "op": "eq",
+      "v": "partner"
+     },
+     "expr": "partner has died",
+     "txt": "Partner has died",
+     "fail": "Partner hasn't died"
+    },
+    {
+     "needs": [
+      "dob"
+     ],
+     "test": {
+      "all": [
+       {
+        "f": "age",
+        "op": "gte",
+        "v": 16
+       },
+       {
+        "f": "spa",
+        "op": "eq",
+        "v": false
+       }
+      ]
+     },
+     "expr": "16 or over, under State Pension age",
+     "txt": "Aged 16 to State Pension age",
+     "fail": "Over State Pension age"
+    }
+   ]
+  },
+  {
+   "id": "fep",
+   "name": "Funeral Expenses Payment",
+   "topic": "death",
+   "by": "DWP",
+   "gives": "Help towards funeral costs, for people on certain benefits.",
+   "how": "Claim by phone or post. You can claim before the funeral with the invoice.",
+   "phone": "0800 151 2012",
+   "url": "https://www.gov.uk/funeral-payments/how-to-claim",
+   "timing": "Claim within 6 months of the funeral.",
+   "rule": [
+    {
+     "needs": [
+      "postcode"
+     ],
+     "test": {
+      "f": "nation",
+      "op": "ne",
+      "v": "sco"
+     },
+     "expr": "nation is not Scotland",
+     "txt": "Lives outside Scotland",
+     "fail": "Scotland has Funeral Support Payment instead"
+    },
+    {
+     "needs": [
+      "bereaved"
+     ],
+     "test": {
+      "f": "bereaved",
+      "op": "in",
+      "v": [
+       "partner",
+       "funeral"
+      ]
+     },
+     "expr": "paying for a funeral",
+     "txt": "Paying for a funeral",
+     "fail": "Not paying for a funeral"
+    },
+    {
+     "gate": true,
+     "needs": [
+      "benefits"
+     ],
+     "expr": "gets Universal Credit or Pension Credit",
+     "txt": "Gets Universal Credit or Pension Credit",
+     "fail": "Needs Universal Credit or Pension Credit",
+     "test": {
+      "f": "gateway",
+      "op": "eq",
+      "v": true
+     }
+    }
+   ]
+  }
+ ],
+ "clashes": [
+  {
+   "ids": [
+    "ca",
+    "uc"
+   ],
+   "tone": "warn",
+   "text": "Carer's Allowance counts as income for Universal Credit, so Universal Credit goes down by the same amount. You can still get the carer element."
+  },
+  {
+   "ids": [
+    "ca"
+   ],
+   "tone": "warn",
+   "text": "If you get Carer's Allowance, the person you care for may lose a severe disability addition in their own means-tested benefits. Check with them first."
+  },
+  {
+   "ids": [
+    "aa",
+    "pc"
+   ],
+   "tone": "boost",
+   "text": "Attendance Allowance can raise Pension Credit, so claim both."
+  },
+  {
+   "ids": [
+    "pc",
+    "ctr"
+   ],
+   "tone": "boost",
+   "text": "Pension Credit usually means a bigger Council Tax Reduction."
+  },
+  {
+   "ids": [
+    "jsa",
+    "uc"
+   ],
+   "tone": "warn",
+   "text": "New Style JSA counts as income for Universal Credit."
+  },
+  {
+   "ids": [
+    "esa",
+    "uc"
+   ],
+   "tone": "warn",
+   "text": "New Style ESA counts as income for Universal Credit."
+  },
+  {
+   "ids": [
+    "ma",
+    "uc"
+   ],
+   "tone": "warn",
+   "text": "Maternity Allowance counts as income for Universal Credit."
+  },
+  {
+   "ids": [
+    "wfp"
+   ],
+   "tone": "warn",
+   "text": "Income over £35,000 a year means the Winter Fuel Payment is taken back through tax.",
+   "when": {
+    "f": "incYear",
+    "op": "gt",
+    "v": {
+     "line": "wfpClawbackYear"
+    }
+   }
+  }
+ ]
+}
