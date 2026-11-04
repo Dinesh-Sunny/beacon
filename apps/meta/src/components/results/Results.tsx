@@ -24,6 +24,7 @@ import {
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
+import { SchemeList } from "./lists";
 import { MoreHelp } from "./MoreHelp";
 import { ReadAloud } from "./ReadAloud";
 
@@ -355,6 +356,7 @@ function PlanStep({
             )}
           </div>
         )}
+        {s.list && status !== "unlock" && <SchemeList s={s} nation={nation} />}
         {status !== "unlock" && !auto && <ClaimTrack id={id} />}
         {open && (
           <div className="prep" aria-live="polite">

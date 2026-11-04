@@ -5,9 +5,15 @@
 import { htmlToText } from "../sources.ts";
 import type { Connector } from "./types.ts";
 
-const URL_ = "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs";
+const URL_ =
+  "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs";
 
-const cells = (row: string) => [...row.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) => htmlToText(m[1] ?? "").replace(/\s+/g, " ").trim());
+const cells = (row: string) =>
+  [...row.matchAll(/<t[dh][^>]*>([\s\S]*?)<\/t[dh]>/gi)].map((m) =>
+    htmlToText(m[1] ?? "")
+      .replace(/\s+/g, " ")
+      .trim(),
+  );
 
 export const ofcom: Connector = {
   id: "ofcom",
@@ -18,10 +24,17 @@ export const ofcom: Connector = {
     if (!res.ok) throw new Error(`${res.status} ${URL_}`);
     const html = await res.text();
     // The page has a placeholder table too; the list is the table with the most rows.
-    const tables = [...html.matchAll(/<table[\s\S]*?<\/table>/gi)].map((m) => m[0]);
-    const table = tables.sort((a, b) => (b.match(/<tr/gi)?.length ?? 0) - (a.match(/<tr/gi)?.length ?? 0))[0];
+    const tables = [...html.matchAll(/<table[\s\S]*?<\/table>/gi)].map(
+      (m) => m[0],
+    );
+    const table = tables.sort(
+      (a, b) =>
+        (b.match(/<tr/gi)?.length ?? 0) - (a.match(/<tr/gi)?.length ?? 0),
+    )[0];
     if (!table) throw new Error("no table on the Ofcom page");
-    const rows = [...table.matchAll(/<tr[\s\S]*?<\/tr>/gi)].map((m) => cells(m[0])).filter((c) => c.length >= 4);
+    const rows = [...table.matchAll(/<tr[\s\S]*?<\/tr>/gi)]
+      .map((m) => cells(m[0]))
+      .filter((c) => c.length >= 4);
     const [head, ...body] = rows;
     log(`columns: ${head?.join(" | ")}`);
     const tariffs = body
@@ -33,7 +46,11 @@ export const ofcom: Connector = {
         where: where.replace(/\*+/g, "").trim(),
       }))
       .filter((t) => t.package && Number.isFinite(t.monthly));
-    await save("ofcom-social-tariffs.json", { source: URL_, read: new Date().toISOString().slice(0, 10), tariffs });
+    await save("ofcom-social-tariffs.json", {
+      source: URL_,
+      read: new Date().toISOString().slice(0, 10),
+      tariffs,
+    });
     log(`${tariffs.length} tariffs`);
     return { items: tariffs.length };
   },

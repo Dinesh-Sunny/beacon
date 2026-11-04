@@ -1,0 +1,265 @@
+{
+ "source": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
+ "read": "2026-11-04",
+ "tariffs": [
+  {
+   "package": "4th Utility Social Tariff",
+   "monthly": 13.99,
+   "price": "£13.99 a month",
+   "speed": "30 Mbit/s",
+   "where": "England"
+  },
+  {
+   "package": "BT Home Essentials No Income",
+   "monthly": 16.5,
+   "price": "£16.50 a month",
+   "speed": "36 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "BT Home Essentials Unlimited 36 Mbp/s",
+   "monthly": 22,
+   "price": "£22 a month",
+   "speed": "36 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "BT Home Essentials Unlimited 67 Mbp/s",
+   "monthly": 25,
+   "price": "£25 a month",
+   "speed": "67 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "Community Fibre Essential",
+   "monthly": 12.5,
+   "price": "£12.50 a month",
+   "speed": "35 Mbit/s",
+   "where": "England (London)"
+  },
+  {
+   "package": "Connect Fibre Essentials",
+   "monthly": 20,
+   "price": "£20 per month",
+   "speed": "150 Mbit/s",
+   "where": "England (Cambridgeshire, Essex, Nottinghamshire, Yorkshire and Derbyshire)"
+  },
+  {
+   "package": "Country Connect Social Tariff",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "50 Mbit/s",
+   "where": "Wales (Newport)"
+  },
+  {
+   "package": "County Broadband Essential Broadband Tariff",
+   "monthly": 15,
+   "price": "£15 per month",
+   "speed": "15 Mbit/s",
+   "where": "England (East of England)"
+  },
+  {
+   "package": "EE Basics",
+   "monthly": 12,
+   "price": "£12 a month",
+   "speed": "Up to 25 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "FibreNest Social Tarrif",
+   "monthly": 14.5,
+   "price": "£14.50 a month",
+   "speed": "36 Mbit/s",
+   "where": "England, Wales and Scotland"
+  },
+  {
+   "package": "Fibrus Full Fibre Essential",
+   "monthly": 14.99,
+   "price": "£14.99 a month",
+   "speed": "50 Mbit/s",
+   "where": "Northern Ireland and Cumbria"
+  },
+  {
+   "package": "G.Network Essential Fibre Broadband",
+   "monthly": 15,
+   "price": "£15 a month",
+   "speed": "50 Mbit/s",
+   "where": "England (London)"
+  },
+  {
+   "package": "Gigabit IQ Connect",
+   "monthly": 22.99,
+   "price": "£ 22.99 a month",
+   "speed": "100 Mbit/s",
+   "where": "England"
+  },
+  {
+   "package": "Hey!Broadband Everyday Fibre",
+   "monthly": 19,
+   "price": "£19 per month",
+   "speed": "100 Mbit/s",
+   "where": "England (South East England)"
+  },
+  {
+   "package": "Highland Broadband Social Tariff",
+   "monthly": 23.99,
+   "price": "£23.99 a month",
+   "speed": "100 Mbit/s",
+   "where": "Scotland"
+  },
+  {
+   "package": "Hyperoptic Fair Fibre Fast",
+   "monthly": 12,
+   "price": "£12 a month",
+   "speed": "50 Mbit/s",
+   "where": "England, Scotland, Wales"
+  },
+  {
+   "package": "Hyperoptic Fair Fibre Superfast",
+   "monthly": 13,
+   "price": "£13 a month",
+   "speed": "150 Mbit/s",
+   "where": "England, Scotland, Wales"
+  },
+  {
+   "package": "Hyperoptic Fair Fibre Ultrafast",
+   "monthly": 17,
+   "price": "£17 a month",
+   "speed": "500 Mbit/s",
+   "where": "England, Scotland, Wales"
+  },
+  {
+   "package": "Hyperoptic Fair Fibre Hyperfast",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "1Gb/s",
+   "where": "England, Scotland, Wales"
+  },
+  {
+   "package": "KCOM Full Fibre Flex",
+   "monthly": 14.99,
+   "price": "£14.99 a month",
+   "speed": "30 Mbit/s",
+   "where": "England (Hull)"
+  },
+  {
+   "package": "KCOM Full Fibre Flex +",
+   "monthly": 19.99,
+   "price": "£19.99 a month",
+   "speed": "50 Mbit/s",
+   "where": "England (Hull)"
+  },
+  {
+   "package": "Lightning Fibre Social Tariff",
+   "monthly": 15,
+   "price": "£15 a month",
+   "speed": "50 Mbit/s",
+   "where": "England (East Sussex and Kent)"
+  },
+  {
+   "package": "NOW Broadband Basics",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "36 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "O2 Essential Plan",
+   "monthly": 10,
+   "price": "£10 a month",
+   "speed": "5G where available",
+   "where": "UK"
+  },
+  {
+   "package": "Quickline Social Tariff",
+   "monthly": 16.5,
+   "price": "£16.50 a month",
+   "speed": "100 Mbit/s",
+   "where": "England (Yorkshire and Lincolnshire)"
+  },
+  {
+   "package": "Sky Full Fibre 75",
+   "monthly": 24,
+   "price": "£24 a month",
+   "speed": "75 Mbps",
+   "where": "UK"
+  },
+  {
+   "package": "Sky Superfast 35",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "35 Mbps",
+   "where": "UK"
+  },
+  {
+   "package": "SMARTY Social Tariff",
+   "monthly": 12,
+   "price": "£12 a month",
+   "speed": "5G where available",
+   "where": "UK"
+  },
+  {
+   "package": "toob essentials",
+   "monthly": 15,
+   "price": "£15 a month",
+   "speed": "50 Mbit/s",
+   "where": "Hampshire, Southampton, and Surrey"
+  },
+  {
+   "package": "Truespeed Basic",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "30 Mbit/s",
+   "where": "England (South West)"
+  },
+  {
+   "package": "Virgin Media Essential Broadband",
+   "monthly": 12.5,
+   "price": "£12.50 a month",
+   "speed": "15 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "Virgin Media Essential Broadband Plus",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "54 Mbit/s",
+   "where": "UK"
+  },
+  {
+   "package": "Vodafone Fibre 2 Essentials",
+   "monthly": 20,
+   "price": "£20 per month",
+   "speed": "80 Mbps",
+   "where": "UK"
+  },
+  {
+   "package": "VOXI For Now",
+   "monthly": 10,
+   "price": "£10 a month",
+   "speed": "5G where available",
+   "where": "UK"
+  },
+  {
+   "package": "Wildanet Helping Hand Social Tariff",
+   "monthly": 20,
+   "price": "£20 a month",
+   "speed": "50 Mbps",
+   "where": "England (Cornwall and Devon)"
+  },
+  {
+   "package": "WightFibre Essential Broadband",
+   "monthly": 19.95,
+   "price": "£19.95 a month",
+   "speed": "100 Mbit/s",
+   "where": "England (Isle of Wight)"
+  },
+  {
+   "package": "YouFibre Social Tariff",
+   "monthly": 16.99,
+   "price": "£16.99 a month",
+   "speed": "50 Mbit/s",
+   "where": "UK (various locations)"
+  }
+ ]
+}

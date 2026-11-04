@@ -3197,3 +3197,44 @@ fieldset.track-row {
     padding: 0 14px 14px;
   }
 }
+
+/* A short live list under a scheme, like Ofcom's social tariffs */
+.mini-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  background: var(--surface-2);
+  border-radius: var(--r-md, 12px);
+  padding: 10px 14px;
+}
+.mini-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.mini-list li {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto auto;
+  gap: 10px;
+  align-items: baseline;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--line);
+}
+.mini-list li b {
+  font-variant-numeric: tabular-nums;
+}
+.mini-list p {
+  margin: 0;
+}
+.mini-list a {
+  color: var(--ink);
+}
+@media (max-width: 560px) {
+  .mini-list li {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .mini-list li .hint {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}

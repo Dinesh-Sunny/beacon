@@ -76,7 +76,7 @@
       "name": "Broadband social tariff",
       "topic": "home",
       "by": "Your broadband provider",
-      "gives": "The same home broadband for about £12 to £25 a month.",
+      "gives": "The same home broadband or a mobile plan for about £10 to £25 a month.",
       "how": "Ask your provider for its social tariff, or switch to one that has one. Ask about exit fees first. The person getting the benefit needs to be the main name on the contract.",
       "url": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
       "rule": [
@@ -95,7 +95,8 @@
           "fail": "Needs Universal Credit or Pension Credit"
         }
       ],
-      "act": "Compare social tariffs"
+      "act": "Compare social tariffs",
+      "list": "socialTariffs"
     },
     {
       "id": "psr",
