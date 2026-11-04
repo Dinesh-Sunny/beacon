@@ -3,22 +3,10 @@
 // When a page changes, the lock file changes and the workflow opens a pull request for review,
 // so live checks keep running on the last good pack while the rules are updated.
 //
-// Usage: node scripts/watch-sources.mjs [--pack packs/uk-core.json]
+// Usage: node scripts/watch-sources.mjs [--pack packs/uk-core.json]   (default: every pack in packs/)
 
 import { createHash } from "node:crypto";
-import { readFile, writeFile } from "node:fs/promises";
-
-const packPath = process.argv.includes("--pack") ? process.argv[process.argv.indexOf("--pack") + 1] : "packs/uk-core.json";
-const lockPath = packPath.replace(/\.json$/, ".sources.json");
-const pack = JSON.parse(await readFile(packPath, "utf8"));
-
-const urls = [...new Set([...pack.schemes.map((s) => s.url), ...Object.values(pack.lines).map((l) => l.source)])].sort();
-let lock = {};
-try {
-  lock = JSON.parse(await readFile(lockPath, "utf8"));
-} catch {
-  // first run
-}
+import { readdir, readFile, writeFile } from "node:fs/promises";
 
 // GOV.UK pages come from the Content API as structured JSON; other sites as page text.
 async function fetchText(url) {
@@ -46,31 +34,51 @@ const clean = (html) =>
     .replace(/\s+/g, " ")
     .trim();
 
-const today = new Date().toISOString().slice(0, 10);
-const changed = [];
-const failed = [];
-const next = {};
-for (const url of urls) {
+async function watch(packPath) {
+  const lockPath = packPath.replace(/\.json$/, ".sources.json");
+  const pack = JSON.parse(await readFile(packPath, "utf8"));
+
+  const urls = [...new Set([...pack.schemes.map((s) => s.url), ...Object.values(pack.lines).map((l) => l.source)])].sort();
+  let lock = {};
   try {
-    const { text, updated } = await fetchText(url);
-    const hash = createHash("sha256").update(clean(text)).digest("hex").slice(0, 16);
-    const before = lock[url];
-    if (before && before.hash !== hash) changed.push(url);
-    // Unchanged pages keep their old entry, so the lock (and a pull request) only moves on real change.
-    next[url] = before && before.hash === hash ? before : { hash, updated, checked: today };
-  } catch (e) {
-    failed.push(`${url}: ${e.message}`);
-    if (lock[url]) next[url] = lock[url];
+    lock = JSON.parse(await readFile(lockPath, "utf8"));
+  } catch {
+    // first run
   }
+
+  const today = new Date().toISOString().slice(0, 10);
+  const changed = [];
+  const failed = [];
+  const next = {};
+  for (const url of urls) {
+    try {
+      const { text, updated } = await fetchText(url);
+      const hash = createHash("sha256").update(clean(text)).digest("hex").slice(0, 16);
+      const before = lock[url];
+      if (before && before.hash !== hash) changed.push(url);
+      // Unchanged pages keep their old entry, so the lock (and a pull request) only moves on real change.
+      next[url] = before && before.hash === hash ? before : { hash, updated, checked: today };
+    } catch (e) {
+      failed.push(`${url}: ${e.message}`);
+      if (lock[url]) next[url] = lock[url];
+    }
+  }
+
+  await writeFile(lockPath, `${JSON.stringify(next, null, 1)}\n`);
+  const summary = [
+    `## Knowledge watch, ${today}`,
+    `${urls.length} official pages checked for pack ${pack.id} ${pack.version}.`,
+    changed.length ? `### Changed (${changed.length}) - re-check the rules that cite these\n${changed.map((u) => `- ${u}`).join("\n")}` : "No content changes.",
+    failed.length ? `### Couldn't fetch (${failed.length})\n${failed.map((f) => `- ${f}`).join("\n")}` : "",
+  ].join("\n\n");
+  console.log(summary);
+  if (process.env.GITHUB_STEP_SUMMARY) await writeFile(process.env.GITHUB_STEP_SUMMARY, summary, { flag: "a" });
+  return changed.length;
 }
 
-await writeFile(lockPath, `${JSON.stringify(next, null, 1)}\n`);
-const summary = [
-  `## Knowledge watch, ${today}`,
-  `${urls.length} official pages checked for pack ${pack.id} ${pack.version}.`,
-  changed.length ? `### Changed (${changed.length}) - re-check the rules that cite these\n${changed.map((u) => `- ${u}`).join("\n")}` : "No content changes.",
-  failed.length ? `### Couldn't fetch (${failed.length})\n${failed.map((f) => `- ${f}`).join("\n")}` : "",
-].join("\n\n");
-console.log(summary);
-if (process.env.GITHUB_STEP_SUMMARY) await writeFile(process.env.GITHUB_STEP_SUMMARY, summary, { flag: "a" });
-if (process.env.GITHUB_OUTPUT) await writeFile(process.env.GITHUB_OUTPUT, `changed=${changed.length}\n`, { flag: "a" });
+const packPaths = process.argv.includes("--pack")
+  ? [process.argv[process.argv.indexOf("--pack") + 1]]
+  : (await readdir("packs")).filter((f) => /^[a-z-]+\.json$/.test(f)).map((f) => `packs/${f}`);
+let changed = 0;
+for (const packPath of packPaths) changed += await watch(packPath);
+if (process.env.GITHUB_OUTPUT) await writeFile(process.env.GITHUB_OUTPUT, `changed=${changed}\n`, { flag: "a" });

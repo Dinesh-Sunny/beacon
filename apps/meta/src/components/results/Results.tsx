@@ -6,9 +6,9 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { byId, claimOrder, count, SCHEMES, type Status, warnings } from "@/engine/rules";
+import { byId, claimOrder, count, isAuto, nationOf, SCHEMES, type Status, warnings } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
-import { theyify } from "@/engine/facts";
+import { type Answers, theyify } from "@/engine/facts";
 
 interface Prep {
   opening: string;
@@ -101,7 +101,7 @@ export function Results() {
 
 const WHEN_TONE: Record<string, string> = { "Start now": "now", "This week": "week", "After the first award": "later" };
 
-function PlanStep({ id, n, when, status, answers }: { id: string; n: number; when: string; status: Status; answers: unknown }) {
+function PlanStep({ id, n, when, status, answers }: { id: string; n: number; when: string; status: Status; answers: Answers }) {
   const s = byId[id];
   const { states, note, setBusy, subject } = useCheck();
   const [prep, setPrep] = useState<Prep | null>(null);
@@ -132,6 +132,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
       setBusy("Call coach", false);
     }
   };
+  const auto = isAuto(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null);
   return (
     <li className={`step ${status}`} data-testid={`plan-${id}`}>
       <span className="num" aria-hidden="true">
@@ -139,7 +140,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
       </span>
       <div className="step-body">
         <div className="step-top">
-          {s.auto && status !== "unlock" ? (
+          {auto && status !== "unlock" ? (
             <span className="when">Usually automatic</span>
           ) : (
             <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
@@ -150,7 +151,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
         <p>{theyify(s.gives, subject)}</p>
         {status === "check" && states[id]?.reason && <p className="hint">{states[id]?.reason}</p>}
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
-        {s.auto && status !== "unlock" && <p className="hint">{theyify(s.how, subject)}</p>}
+        {(auto || s.act) && status !== "unlock" && <p className="hint">{theyify(s.how, subject)}</p>}
         {s.timing && status !== "unlock" && (
           <p className="timing">
             <Icon name="clock" size={16} /> {theyify(s.timing, subject)}
@@ -164,9 +165,9 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
               </a>
             )}
             <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
-              {s.auto ? "Official page" : "Claim online"} <Icon name="link" size={16} />
+              {auto ? "Official page" : (s.act ?? "Claim online")} <Icon name="link" size={16} />
             </a>
-            {!s.auto && (
+            {!auto && (
               <button type="button" className="btn ghost small" onClick={() => (open ? setOpen(false) : void load())} aria-expanded={open} data-testid={`prep-${id}`}>
                 <Icon name="spark" size={16} /> {open ? "Hide what to say" : "What to say"}
               </button>

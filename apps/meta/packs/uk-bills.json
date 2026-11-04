@@ -1,0 +1,163 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "uk-bills",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "topics": [
+    [
+      "home",
+      "Energy and broadband"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "whd",
+      "name": "Warm Home Discount",
+      "topic": "home",
+      "by": "Your electricity supplier",
+      "gives": "£150 off your electricity bill this winter.",
+      "how": "In England and Wales it's usually automatic and a letter arrives between late October and early January. Your name or your partner's needs to be on the electricity bill. In Scotland, ask your supplier.",
+      "url": "https://www.gov.uk/the-warm-home-discount-scheme",
+      "timing": "No letter by early January? Contact the scheme.",
+      "auto": [
+        "eng",
+        "wal"
+      ],
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England, Scotland or Wales",
+          "txt": "Lives in England, Scotland or Wales",
+          "fail": "Northern Ireland has the Affordable Warmth scheme instead"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ],
+      "act": "Ask your supplier"
+    },
+    {
+      "id": "bsoc",
+      "name": "Broadband social tariff",
+      "topic": "home",
+      "by": "Your broadband provider",
+      "gives": "The same home broadband for about £12 to £25 a month.",
+      "how": "Ask your provider for its social tariff, or switch to one that has one. Ask about exit fees first. The person getting the benefit needs to be the main name on the contract.",
+      "url": "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs",
+      "rule": [
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ],
+      "act": "Compare social tariffs"
+    },
+    {
+      "id": "psr",
+      "name": "Priority Services Register",
+      "topic": "home",
+      "by": "Your energy supplier",
+      "gives": "Free extra support with gas and electricity, like a warning before a planned power cut.",
+      "how": "Ask your energy supplier to add you, online or by phone. If gas and electricity come from different suppliers, ask each one, and ask again if you switch.",
+      "url": "https://www.ofgem.gov.uk/consumers/household-gas-and-electricity-guide/extra-help-energy-services/priority-services-register-people-need",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England, Scotland or Wales",
+          "txt": "Lives in England, Scotland or Wales",
+          "fail": "Northern Ireland runs its own register: ask your electricity supplier"
+        },
+        {
+          "needs": [
+            "dob",
+            "child",
+            "pregnant",
+            "difficulties"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "spa",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "childAge",
+                "op": "lt",
+                "v": 5
+              },
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "health",
+                "op": "ne",
+                "v": "none"
+              }
+            ]
+          },
+          "expr": "pension age, a child under 5, pregnant, or a health need",
+          "txt": "Pension age, a young child, pregnancy or a health need",
+          "fail": "None of the usual reasons apply yet. Ask if things change."
+        }
+      ],
+      "act": "How to join"
+    }
+  ],
+  "clashes": [
+    {
+      "ids": [
+        "whd",
+        "cwp"
+      ],
+      "tone": "boost",
+      "text": "The Warm Home Discount doesn't lower a Cold Weather Payment or Winter Fuel Payment. You can get them all."
+    }
+  ]
+}

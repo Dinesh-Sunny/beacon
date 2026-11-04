@@ -6,7 +6,7 @@ import "server-only";
 
 import { z } from "zod";
 import { type Answers, FACTS, type FactId, formatAnswer } from "@/engine/facts";
-import { byId, evaluate, PACK } from "@/engine/rules";
+import { byId, evaluate, REGISTRY } from "@/engine/rules";
 import { cached, keyOf, Lru } from "./cache";
 import { chat } from "./meta";
 
@@ -42,7 +42,7 @@ export async function prepareCall(schemeId: string, answers: Answers, subject: {
     .filter((f) => answers[f] !== undefined)
     .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
   // Same scheme, same rule pack, same relevant answers and same "who": same notes.
-  const key = keyOf({ s: s.id, v: PACK.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
+  const key = keyOf({ s: s.id, v: REGISTRY.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
   const { value, hit } = await cached(notes, inflight, key, () => writeNotes(schemeId, answers, subject, facts));
   return value ? { ...value, cached: hit } : null;
 }

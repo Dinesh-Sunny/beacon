@@ -2,9 +2,10 @@
 // question planner, the claim order and clash warnings. Plain code decides; models only explain.
 // It runs in the browser, so a check costs the server nothing until someone asks a model for help.
 
-import packJson from "../../packs/uk-core.json";
+import ukBills from "../../packs/uk-bills.json";
+import ukCore from "../../packs/uk-core.json";
 import { type Answers, FACTS, type FactId, ORDER, UNSURE } from "./facts.ts";
-import { type Cond, type DerivedValues, type Pack, PackSchema, run, type Scheme, type Topic } from "./pack.ts";
+import { type Cond, type DerivedValues, type PackedScheme, RegistrySchema, run, type Topic } from "./pack.ts";
 
 // ---------- Derived facts ----------
 const SCOTLAND = ["AB", "DD", "DG", "EH", "FK", "G", "HS", "IV", "KA", "KW", "KY", "ML", "PA", "PH", "TD", "ZE"];
@@ -150,14 +151,21 @@ export function derivedChips(f: FactId, d: Derived): string[] {
   return out;
 }
 
-// ---------- The pack ----------
-export const PACK: Pack = PackSchema.parse(packJson);
-export type { Cond, Scheme, Topic };
-export const LINES = PACK.lines;
-export const TOPICS = PACK.topics as [Topic, string][];
-export const SCHEMES: Scheme[] = PACK.schemes;
+// ---------- The packs ----------
+// Load order is layer order: the core benefits first, then each group of help built on them.
+// Adding a group is a new JSON file here; the registry check fails the build on any bad reference.
+export const REGISTRY = RegistrySchema.parse([ukCore, ukBills]);
+export type Scheme = PackedScheme;
+export type { Cond, Topic };
+export const LINES = REGISTRY.lines;
+export const TOPICS = REGISTRY.topics;
+export const SCHEMES: Scheme[] = REGISTRY.schemes;
 export const byId: Record<string, Scheme> = Object.fromEntries(SCHEMES.map((s) => [s.id, s]));
-export const GATEWAYS = PACK.gateways;
+export const GATEWAYS = REGISTRY.gateways;
+
+/** Whether a scheme arrives without a claim where this person lives. */
+export const isAuto = (s: Scheme, nation?: Nation | null): boolean =>
+  Array.isArray(s.auto) ? Boolean(nation && s.auto.includes(nation)) : Boolean(s.auto);
 
 // ---------- Evaluation ----------
 export const RANK: Record<"likely" | "check" | "unlock" | "open" | "out", number> = { likely: 0, check: 1, unlock: 2, open: 3, out: 4 };
@@ -190,16 +198,16 @@ function isNear(cond: Cond, d: Derived): boolean {
   if (!cond.near) return false;
   const v = d[cond.near.f as keyof Derived];
   const line = LINES[cond.near.line]?.value;
-  return typeof v === "number" && typeof line === "number" && Math.abs(v - line) <= line * PACK.near;
+  return typeof v === "number" && typeof line === "number" && Math.abs(v - line) <= line * REGISTRY.near;
 }
 
 export function evaluate(A: Answers, today = new Date()): States {
   const d = derive(A, today);
   const st: States = {};
   const ids = [...GATEWAYS, ...SCHEMES.map((s) => s.id).filter((i) => !GATEWAYS.includes(i))];
-  const notCovered = d.nation ? PACK.notCovered[d.nation] : undefined;
   for (const id of ids) {
     const s = byId[id] as Scheme;
+    const notCovered = d.nation ? s.notCovered[d.nation] : undefined;
     if (notCovered) {
       st[id] = { status: "out", reason: notCovered, marks: s.rule.map(() => null), unknown: [] };
       continue;
@@ -290,7 +298,7 @@ export interface Warning {
 export function warnings(st: States, A: Answers = {}): Warning[] {
   const on = (id: string) => ["likely", "check", "unlock"].includes(st[id]?.status ?? "");
   const d = values(derive(A));
-  return PACK.clashes
+  return REGISTRY.clashes
     .filter((w) => w.ids.every(on) && (!w.when || run(w.when, d, LINES)))
     .map((w) => ({ tone: w.tone, text: w.text, ids: w.ids }));
 }

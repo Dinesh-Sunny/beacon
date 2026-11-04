@@ -1,5 +1,7 @@
 // Rule packs: schemes, screening lines and clash notes as data, validated with zod on load.
 // A pack changes by a reviewed data edit (or the knowledge job's pull request), never a code change.
+// Packs are layered: each new group of help (bills, health costs, councils ...) is its own file,
+// and `composePacks` merges them into one registry, checking every reference across all of them.
 // The tiny expression language below is all the engine needs: compare a derived fact to a value
 // or to a named screening line, and combine with any / all.
 
@@ -58,65 +60,114 @@ const CondSchema = z.strictObject({
 });
 export type Cond = z.infer<typeof CondSchema>;
 
-const TOPIC_IDS = ["low", "work", "sick", "fam", "dis", "care", "death"] as const;
-export type Topic = (typeof TOPIC_IDS)[number];
+const Id = z.string().regex(/^[a-z]+$/);
+export type Topic = string;
 
 const SchemeSchema = z.strictObject({
-  id: z.string().regex(/^[a-z]+$/),
+  id: Id,
   name: z.string(),
-  topic: z.enum(TOPIC_IDS),
+  topic: Id,
   by: z.string(),
   gives: z.string(),
   how: z.string(),
   phone: z.string().regex(/^0\d{3} \d{2,3} \d{4}$/).optional(),
   url: z.url(),
   timing: z.string().optional(),
-  auto: z.boolean().optional(),
+  /** Paid without a claim: true everywhere, or the nations where it is. */
+  auto: z.union([z.boolean(), z.array(z.enum(["eng", "sco", "wal", "ni"]))]).optional(),
+  /** Label for the official link when it isn't a claim form, like "Ask your provider". */
+  act: z.string().optional(),
   urgent: z.boolean().optional(),
   rule: z.array(CondSchema).min(1),
   opens: z.array(z.string()).optional(),
 });
 export type Scheme = z.infer<typeof SchemeSchema>;
 
-export const PackSchema = z
-  .strictObject({
-    $schema: z.string().optional(),
-    id: z.string(),
-    country: z.string().length(2),
-    version: z.string().regex(/^\d{4}\.\d{2}\.\d{2}$/),
-    checked: z.iso.date(),
-    near: z.number().min(0).max(0.5),
-    lines: z.record(z.string(), z.strictObject({ value: z.number(), source: z.url(), note: z.string().optional() })),
-    gateways: z.array(z.string()),
-    topics: z.array(z.tuple([z.enum(TOPIC_IDS), z.string()])),
-    notCovered: z.record(z.string(), z.string()),
-    schemes: z.array(SchemeSchema).min(1),
-    clashes: z.array(
-      z.strictObject({
-        ids: z.array(z.string()).min(1),
-        tone: z.enum(["warn", "boost"]),
-        text: z.string(),
-        when: ExprSchema.optional(),
-      }),
-    ),
-  })
-  .superRefine((p, ctx) => {
-    // Every reference inside the pack must point at something that exists.
-    const ids = new Set(p.schemes.map((s) => s.id));
-    const lines = new Set(Object.keys(p.lines));
-    const refs = (e: Expr): string[] =>
-      "any" in e ? e.any.flatMap(refs) : "all" in e ? e.all.flatMap(refs) : typeof e.v === "object" && !Array.isArray(e.v) ? [e.v.line] : [];
-    for (const s of p.schemes) {
-      for (const o of s.opens ?? []) if (!ids.has(o)) ctx.addIssue({ code: "custom", message: `${s.id} opens unknown ${o}` });
-      for (const c of s.rule) {
-        for (const l of [...refs(c.test), ...(c.near ? [c.near.line] : [])])
-          if (!lines.has(l)) ctx.addIssue({ code: "custom", message: `${s.id} uses unknown line ${l}` });
-      }
-    }
-    for (const g of p.gateways) if (!ids.has(g)) ctx.addIssue({ code: "custom", message: `unknown gateway ${g}` });
-    for (const c of p.clashes) for (const id of c.ids) if (!ids.has(id)) ctx.addIssue({ code: "custom", message: `clash names unknown ${id}` });
-  });
+const ClashSchema = z.strictObject({
+  ids: z.array(z.string()).min(1),
+  tone: z.enum(["warn", "boost"]),
+  text: z.string(),
+  when: ExprSchema.optional(),
+});
+
+/** One pack file. References may point into other packs, so they are checked by `composePacks`. */
+export const PackSchema = z.strictObject({
+  $schema: z.string().optional(),
+  id: z.string().regex(/^[a-z]+(-[a-z]+)*$/),
+  country: z.string().length(2),
+  version: z.string().regex(/^\d{4}\.\d{2}\.\d{2}$/),
+  checked: z.iso.date(),
+  near: z.number().min(0).max(0.5).optional(),
+  lines: z.record(z.string(), z.strictObject({ value: z.number(), source: z.url(), note: z.string().optional() })).default({}),
+  gateways: z.array(z.string()).default([]),
+  topics: z.array(z.tuple([Id, z.string()])),
+  /** Nations this pack does not cover, with where to go instead. Applies to this pack's schemes only. */
+  notCovered: z.record(z.string(), z.string()).default({}),
+  schemes: z.array(SchemeSchema).min(1),
+  clashes: z.array(ClashSchema).default([]),
+});
 export type Pack = z.infer<typeof PackSchema>;
+
+export type PackedScheme = Scheme & { pack: string; notCovered: Record<string, string> };
+
+/** Every pack merged into one registry: one namespace for scheme ids, lines and topics. */
+export interface Registry {
+  /** Stable cache key for everything derived from the rules, e.g. "uk-core@2026.11.04+uk-bills@2026.11.04". */
+  version: string;
+  packs: { id: string; version: string; checked: string; schemes: number }[];
+  near: number;
+  lines: Pack["lines"];
+  gateways: string[];
+  topics: [Topic, string][];
+  schemes: PackedScheme[];
+  clashes: Pack["clashes"];
+}
+
+const refs = (e: Expr): string[] =>
+  "any" in e ? e.any.flatMap(refs) : "all" in e ? e.all.flatMap(refs) : typeof e.v === "object" && !Array.isArray(e.v) ? [e.v.line] : [];
+
+function dupes(xs: string[]): string[] {
+  const seen = new Set<string>();
+  return [...new Set(xs.filter((x) => seen.has(x) || !seen.add(x)))];
+}
+
+/** Validates each pack, then every id, line, topic and cross-pack reference, then merges them in order. */
+export const RegistrySchema = z
+  .array(PackSchema)
+  .min(1)
+  .superRefine((packs, ctx) => {
+    const fail = (message: string) => ctx.addIssue({ code: "custom", message });
+    const schemes = packs.flatMap((p) => p.schemes);
+    const ids = new Set(schemes.map((s) => s.id));
+    const lines = new Set(packs.flatMap((p) => Object.keys(p.lines)));
+    const topics = new Set(packs.flatMap((p) => p.topics.map(([t]) => t)));
+    for (const d of dupes(packs.map((p) => p.id))) fail(`pack ${d} loaded twice`);
+    for (const d of dupes(schemes.map((s) => s.id))) fail(`scheme id ${d} is used twice`);
+    for (const d of dupes(packs.flatMap((p) => Object.keys(p.lines)))) fail(`line ${d} is defined twice`);
+    for (const d of dupes(packs.flatMap((p) => p.topics.map(([t]) => t)))) fail(`topic ${d} is defined twice`);
+    for (const s of schemes) {
+      if (!topics.has(s.topic)) fail(`${s.id} uses unknown topic ${s.topic}`);
+      for (const o of s.opens ?? []) if (!ids.has(o)) fail(`${s.id} opens unknown ${o}`);
+      for (const c of s.rule)
+        for (const l of [...refs(c.test), ...(c.near ? [c.near.line] : [])]) if (!lines.has(l)) fail(`${s.id} uses unknown line ${l}`);
+    }
+    for (const p of packs) {
+      for (const g of p.gateways) if (!ids.has(g)) fail(`${p.id}: unknown gateway ${g}`);
+      for (const c of p.clashes) for (const id of c.ids) if (!ids.has(id)) fail(`${p.id}: clash names unknown ${id}`);
+    }
+  })
+  .transform(
+    (packs): Registry => ({
+      version: packs.map((p) => `${p.id}@${p.version}`).join("+"),
+      packs: packs.map((p) => ({ id: p.id, version: p.version, checked: p.checked, schemes: p.schemes.length })),
+      near: packs[0]?.near ?? 0.1,
+      lines: Object.assign({}, ...packs.map((p) => p.lines)),
+      gateways: packs.flatMap((p) => p.gateways),
+      topics: packs.flatMap((p) => p.topics),
+      schemes: packs.flatMap((p) => p.schemes.map((s) => ({ ...s, pack: p.id, notCovered: p.notCovered }))),
+      clashes: packs.flatMap((p) => p.clashes),
+    }),
+  );
 
 export type DerivedValues = Partial<Record<DerivedKey, string | number | boolean | null>>;
 

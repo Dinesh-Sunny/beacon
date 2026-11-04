@@ -7,7 +7,9 @@
     "dev": "next dev -p 3100",
     "build": "next build",
     "start": "next start -p ${PORT:-3100}",
-    "typecheck": "next typegen && tsc --noEmit"
+    "typecheck": "next typegen && tsc --noEmit",
+    "packs:schema": "node scripts/pack-schema.ts",
+    "packs:watch": "node scripts/watch-sources.mjs"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "5.3.0",

@@ -23,7 +23,7 @@ jobs:
         with:
           node-version: 22
       - id: watch
-        run: node scripts/watch-sources.mjs --pack packs/uk-core.json
+        run: node scripts/watch-sources.mjs
       - uses: peter-evans/create-pull-request@v7
         with:
           branch: knowledge/uk-core
@@ -31,6 +31,6 @@ jobs:
           title: "Knowledge watch: official pages changed for uk-core"
           body: |
             The daily knowledge watch found ${{ steps.watch.outputs.changed }} changed official page(s).
-            Re-check the rules that cite them in `apps/meta/packs/uk-core.json` before merging.
+            Re-check the rules that cite them in `apps/meta/packs/*.json` before merging.
             See the run summary for the list.
           add-paths: apps/meta/packs/*.sources.json

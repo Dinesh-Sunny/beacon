@@ -1,0 +1,462 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "$schema": {
+      "type": "string"
+    },
+    "id": {
+      "type": "string",
+      "pattern": "^[a-z]+(-[a-z]+)*$"
+    },
+    "country": {
+      "type": "string",
+      "minLength": 2,
+      "maxLength": 2
+    },
+    "version": {
+      "type": "string",
+      "pattern": "^\\d{4}\\.\\d{2}\\.\\d{2}$"
+    },
+    "checked": {
+      "type": "string",
+      "format": "date",
+      "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))$"
+    },
+    "near": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 0.5
+    },
+    "lines": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          },
+          "source": {
+            "type": "string",
+            "format": "uri"
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value",
+          "source"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "gateways": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "topics": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "items": false,
+        "minItems": 2,
+        "maxItems": 2
+      }
+    },
+    "notCovered": {
+      "default": {},
+      "type": "object",
+      "propertyNames": {
+        "type": "string"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "schemes": {
+      "minItems": 1,
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          "name": {
+            "type": "string"
+          },
+          "topic": {
+            "type": "string",
+            "pattern": "^[a-z]+$"
+          },
+          "by": {
+            "type": "string"
+          },
+          "gives": {
+            "type": "string"
+          },
+          "how": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string",
+            "pattern": "^0\\d{3} \\d{2,3} \\d{4}$"
+          },
+          "url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "timing": {
+            "type": "string"
+          },
+          "auto": {
+            "anyOf": [
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string",
+                  "enum": [
+                    "eng",
+                    "sco",
+                    "wal",
+                    "ni"
+                  ]
+                }
+              }
+            ]
+          },
+          "act": {
+            "type": "string"
+          },
+          "urgent": {
+            "type": "boolean"
+          },
+          "rule": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "needs": {
+                  "minItems": 1,
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "enum": [
+                      "postcode",
+                      "dob",
+                      "benefits",
+                      "income",
+                      "savings",
+                      "difficulties",
+                      "work",
+                      "ni",
+                      "child",
+                      "pregnant",
+                      "careHours",
+                      "ctax",
+                      "bereaved"
+                    ]
+                  }
+                },
+                "test": {
+                  "$ref": "#/$defs/__schema0"
+                },
+                "expr": {
+                  "type": "string"
+                },
+                "txt": {
+                  "type": "string"
+                },
+                "fail": {
+                  "type": "string"
+                },
+                "near": {
+                  "type": "object",
+                  "properties": {
+                    "f": {
+                      "type": "string",
+                      "enum": [
+                        "nation",
+                        "age",
+                        "spa",
+                        "gateway",
+                        "incWeek",
+                        "incYear",
+                        "sav",
+                        "health",
+                        "move",
+                        "work",
+                        "hours",
+                        "lowWork",
+                        "ni",
+                        "childAge",
+                        "pregnant",
+                        "careHours",
+                        "ctax",
+                        "bereaved"
+                      ]
+                    },
+                    "line": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "f",
+                    "line"
+                  ],
+                  "additionalProperties": false
+                },
+                "gate": {
+                  "type": "boolean",
+                  "const": true
+                }
+              },
+              "required": [
+                "needs",
+                "test",
+                "expr",
+                "txt",
+                "fail"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "opens": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "topic",
+          "by",
+          "gives",
+          "how",
+          "url",
+          "rule"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "clashes": {
+      "default": [],
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "ids": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "tone": {
+            "type": "string",
+            "enum": [
+              "warn",
+              "boost"
+            ]
+          },
+          "text": {
+            "type": "string"
+          },
+          "when": {
+            "$ref": "#/$defs/__schema0"
+          }
+        },
+        "required": [
+          "ids",
+          "tone",
+          "text"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "id",
+    "country",
+    "version",
+    "checked",
+    "topics",
+    "schemes"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "__schema0": {
+      "anyOf": [
+        {
+          "type": "object",
+          "properties": {
+            "f": {
+              "type": "string",
+              "enum": [
+                "nation",
+                "age",
+                "spa",
+                "gateway",
+                "incWeek",
+                "incYear",
+                "sav",
+                "health",
+                "move",
+                "work",
+                "hours",
+                "lowWork",
+                "ni",
+                "childAge",
+                "pregnant",
+                "careHours",
+                "ctax",
+                "bereaved"
+              ]
+            },
+            "op": {
+              "type": "string",
+              "enum": [
+                "eq",
+                "ne",
+                "lt",
+                "lte",
+                "gt",
+                "gte"
+              ]
+            },
+            "v": {
+              "anyOf": [
+                {
+                  "type": [
+                    "string",
+                    "number",
+                    "boolean"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "line": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "line"
+                  ],
+                  "additionalProperties": false
+                }
+              ]
+            }
+          },
+          "required": [
+            "f",
+            "op",
+            "v"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "f": {
+              "type": "string",
+              "enum": [
+                "nation",
+                "age",
+                "spa",
+                "gateway",
+                "incWeek",
+                "incYear",
+                "sav",
+                "health",
+                "move",
+                "work",
+                "hours",
+                "lowWork",
+                "ni",
+                "childAge",
+                "pregnant",
+                "careHours",
+                "ctax",
+                "bereaved"
+              ]
+            },
+            "op": {
+              "type": "string",
+              "const": "in"
+            },
+            "v": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          },
+          "required": [
+            "f",
+            "op",
+            "v"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "any": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema0"
+              }
+            }
+          },
+          "required": [
+            "any"
+          ],
+          "additionalProperties": false
+        },
+        {
+          "type": "object",
+          "properties": {
+            "all": {
+              "minItems": 1,
+              "type": "array",
+              "items": {
+                "$ref": "#/$defs/__schema0"
+              }
+            }
+          },
+          "required": [
+            "all"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    }
+  }
+}
