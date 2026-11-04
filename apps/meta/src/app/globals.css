@@ -3238,3 +3238,23 @@ fieldset.track-row {
     order: 3;
   }
 }
+
+/* Already getting, folded: what keeping each award needs */
+.keeping summary {
+  cursor: pointer;
+  list-style: none;
+}
+.keeping summary::-webkit-details-marker {
+  display: none;
+}
+.keeping ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 0.92rem;
+}
+.keeping a {
+  color: var(--ink);
+}

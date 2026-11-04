@@ -13,6 +13,7 @@ import {
   count,
   howFor,
   isAuto,
+  keepFor,
   nationOf,
   SCHEMES,
   type Status,
@@ -49,9 +50,8 @@ export function Results() {
   const order = claimOrder(states, nation);
   const warns = warnings(states, answers);
   const out = SCHEMES.filter((s) => states[s.id]?.status === "out");
-  const have = SCHEMES.filter((s) => states[s.id]?.status === "have").map(
-    (s) => s.name,
-  );
+  const haveSchemes = SCHEMES.filter((s) => states[s.id]?.status === "have");
+  const have = haveSchemes.map((s) => s.name);
   if (!likely && !check && !unlock) {
     return done ? (
       <section className="results empty" data-testid="results">
@@ -88,10 +88,17 @@ export function Results() {
         {worth.yearly + worth.once > 0 && (
           <p className="worth" data-testid="worth">
             <b>
-              Up to £{worth.yearly.toLocaleString("en-GB")} a year
-              {worth.once
-                ? ` and £${worth.once.toLocaleString("en-GB")} in one-off payments`
-                : ""}
+              Up to{" "}
+              {[
+                worth.yearly
+                  ? `£${worth.yearly.toLocaleString("en-GB")} a year`
+                  : "",
+                worth.once
+                  ? `£${worth.once.toLocaleString("en-GB")} in one-off payments`
+                  : "",
+              ]
+                .filter(Boolean)
+                .join(" and ")}
             </b>{" "}
             <span className="hint">
               at the published rates, from {worth.count} of these. Each
@@ -99,9 +106,7 @@ export function Results() {
             </span>
           </p>
         )}
-        {have.length > 0 && (
-          <p className="hint">Already getting: {have.join(", ")}.</p>
-        )}
+        {have.length > 0 && <Keeping schemes={haveSchemes} />}
         <ReadAloud
           lines={[
             `${total} ${total === 1 ? "thing looks" : "things look"} like ${whose}.`,
@@ -171,6 +176,38 @@ export function Results() {
         </details>
       )}
     </section>
+  );
+}
+
+/** What they already get, folded: open it to see what keeping each one needs (the Keep step). */
+function Keeping({ schemes }: { schemes: typeof SCHEMES }) {
+  const { subject } = useCheck();
+  const withKeep = schemes
+    .map((s) => ({ s, keep: keepFor(s) }))
+    .filter((x) => x.keep);
+  if (!withKeep.length)
+    return (
+      <p className="hint">
+        Already getting: {schemes.map((s) => s.name).join(", ")}.
+      </p>
+    );
+  return (
+    <details className="keeping">
+      <summary className="hint">
+        Already getting: {schemes.map((s) => s.name).join(", ")}.{" "}
+        <span className="linkbtn">How to keep it</span>
+      </summary>
+      <ul>
+        {withKeep.map(({ s, keep }) => (
+          <li key={s.id}>
+            <b>{s.name}</b> {theyify(keep?.text ?? "", subject)}{" "}
+            <a href={keep?.url} target="_blank" rel="noreferrer">
+              More
+            </a>
+          </li>
+        ))}
+      </ul>
+    </details>
   );
 }
 
