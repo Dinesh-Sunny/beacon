@@ -6,7 +6,7 @@
 
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { byId, claimOrder, count, isAuto, nationOf, SCHEMES, type Status, warnings } from "@/engine/rules";
+import { byId, claimOrder, count, howFor, isAuto, nationOf, SCHEMES, type Status, warnings } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { type Answers, theyify } from "@/engine/facts";
 
@@ -26,9 +26,11 @@ export function Results() {
   const likely = count(states, "likely");
   const check = count(states, "check");
   const unlock = count(states, "unlock");
-  const order = claimOrder(states);
+  const nation = typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const order = claimOrder(states, nation);
   const warns = warnings(states, answers);
   const out = SCHEMES.filter((s) => states[s.id]?.status === "out");
+  const have = SCHEMES.filter((s) => states[s.id]?.status === "have").map((s) => s.name);
   if (!likely && !check && !unlock) {
     return done ? (
       <section className="results empty" data-testid="results">
@@ -52,6 +54,7 @@ export function Results() {
             .join(", ")}
           .
         </p>
+        {have.length > 0 && <p className="hint">Already getting: {have.join(", ")}.</p>}
       </div>
 
       {warns.length > 0 && (
@@ -151,7 +154,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
         <p>{theyify(s.gives, subject)}</p>
         {status === "check" && states[id]?.reason && <p className="hint">{states[id]?.reason}</p>}
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
-        {(auto || s.act) && status !== "unlock" && <p className="hint">{theyify(s.how, subject)}</p>}
+        {(auto || s.act) && status !== "unlock" && <p className="hint">{theyify(howFor(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null), subject)}</p>}
         {s.timing && status !== "unlock" && (
           <p className="timing">
             <Icon name="clock" size={16} /> {theyify(s.timing, subject)}

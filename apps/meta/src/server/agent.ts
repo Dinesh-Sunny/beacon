@@ -7,7 +7,7 @@ import "server-only";
 import type { Answers } from "@/engine/facts";
 import { FACTS } from "@/engine/facts";
 import { FACT_PATCH_JSON, FactPatch, toAnswers } from "@/engine/patch";
-import { byId, claimOrder, evaluate, plan, progressLine, SCHEMES, summarise, warnings } from "@/engine/rules";
+import { byId, claimOrder, derive, evaluate, plan, progressLine, SCHEMES, summarise, warnings } from "@/engine/rules";
 import { type ChatMessage, chat, type Usage } from "./meta";
 
 const SYSTEM = `You are Beacon, a calm and kind helper in the UK. You help people find the money and support they are already entitled to, often for an older parent or someone they care for.
@@ -149,7 +149,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
     });
   }
   if (name === "plan_claims") {
-    const order = claimOrder(st);
+    const order = claimOrder(st, derive(now).nation);
     notes.push({ name, text: `Put ${order.length} claims in order and checked for clashes` });
     return JSON.stringify({
       order: order.map((p) => {

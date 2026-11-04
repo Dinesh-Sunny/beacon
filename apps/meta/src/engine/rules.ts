@@ -5,7 +5,11 @@
 import ukBills from "../../packs/uk-bills.json";
 import ukCore from "../../packs/uk-core.json";
 import ukCouncil from "../../packs/uk-council.json";
+import ukFamily from "../../packs/uk-family.json";
 import ukHealth from "../../packs/uk-health.json";
+import ukScotland from "../../packs/uk-scotland.json";
+import ukUnclaimed from "../../packs/uk-unclaimed.json";
+import ukWorkCare from "../../packs/uk-work-care.json";
 import { type Answers, FACTS, type FactId, ORDER, UNSURE } from "./facts.ts";
 import { type Cond, type DerivedValues, type PackedScheme, RegistrySchema, run, type Topic } from "./pack.ts";
 
@@ -89,7 +93,14 @@ export interface Derived {
   ctax?: boolean;
   bereaved?: string;
   housing?: string;
+  uc?: boolean;
+  pc?: boolean;
+  /** Dates as YYYYMMDD numbers, so rules can test birth date windows like the Child Trust Fund's. */
+  bornOn?: number;
+  childBornOn?: number;
 }
+
+const dateNum = (iso: string) => Number(iso.slice(0, 10).replaceAll("-", ""));
 
 const isSet = <T>(v: T | undefined | typeof UNSURE): v is T =>
   v !== undefined && v !== UNSURE;
@@ -103,9 +114,13 @@ export function derive(A: Answers, today = new Date()): Derived {
     const s = spaDate(b);
     d.spa = today >= s.date;
     d.spaLabel = s.label;
+    if (!A.dobApprox) d.bornOn = dateNum(A.dob);
   }
-  if (isSet(A.benefits))
-    d.gateway = A.benefits.includes("uc") || A.benefits.includes("pc");
+  if (isSet(A.benefits)) {
+    d.uc = A.benefits.includes("uc");
+    d.pc = A.benefits.includes("pc");
+    d.gateway = d.uc || d.pc;
+  }
   if (isSet(A.income)) {
     d.incWeek = Math.round(A.income.amt * PER[A.income.per]);
     d.incYear = d.incWeek * 52;
@@ -125,6 +140,7 @@ export function derive(A: Answers, today = new Date()): Derived {
   if (isSet(A.ni)) d.ni = A.ni === "yes";
   if (isSet(A.child))
     d.childAge = A.child === "none" ? NO_CHILD : ageOn(new Date(A.child), today);
+  if (isSet(A.child) && A.child !== "none") d.childBornOn = dateNum(A.child);
   if (isSet(A.pregnant)) d.pregnant = A.pregnant === "yes";
   if (isSet(A.careHours)) d.careHours = A.careHours;
   if (isSet(A.ctax)) d.ctax = A.ctax === "yes";
@@ -158,7 +174,7 @@ export function derivedChips(f: FactId, d: Derived): string[] {
 // ---------- The packs ----------
 // Load order is layer order: the core benefits first, then each group of help built on them.
 // Adding a group is a new JSON file here; the registry check fails the build on any bad reference.
-export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth, ukCouncil]);
+export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth, ukCouncil, ukFamily, ukScotland, ukWorkCare, ukUnclaimed]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
 export const LINES = REGISTRY.lines;
@@ -171,9 +187,15 @@ export const GATEWAYS = REGISTRY.gateways;
 export const isAuto = (s: Scheme, nation?: Nation | null): boolean =>
   Array.isArray(s.auto) ? Boolean(nation && s.auto.includes(nation)) : Boolean(s.auto);
 
+/** How to claim, in the version for the nation they live in. */
+export const howFor = (s: Scheme, nation?: Nation | null): string => (nation && s.howIn?.[nation]) || s.how;
+
 // ---------- Evaluation ----------
-export const RANK: Record<"likely" | "check" | "unlock" | "open" | "out", number> = { likely: 0, check: 1, unlock: 2, open: 3, out: 4 };
-export type Status = "open" | "likely" | "check" | "unlock" | "out";
+export const RANK: Record<"have" | "likely" | "check" | "unlock" | "open" | "out", number> = { likely: 0, check: 1, unlock: 2, have: 3, open: 4, out: 5 };
+export type Status = "open" | "likely" | "check" | "unlock" | "out" | "have";
+
+/** Answers to "Which of these do you already get?" and the schemes each one means. */
+const ALREADY: Record<string, string[]> = { uc: ["uc"], pc: ["pc"], cb: ["cb"], pip: ["pip", "aa", "adp"] };
 type Tri = boolean | null;
 export interface SchemeState {
   status: Status;
@@ -209,8 +231,13 @@ export function evaluate(A: Answers, today = new Date()): States {
   const d = derive(A, today);
   const st: States = {};
   const ids = [...GATEWAYS, ...SCHEMES.map((s) => s.id).filter((i) => !GATEWAYS.includes(i))];
+  const have = new Set(known(A, "benefits") ? (A.benefits as string[]).flatMap((b) => ALREADY[b] ?? []) : []);
   for (const id of ids) {
     const s = byId[id] as Scheme;
+    if (have.has(id)) {
+      st[id] = { status: "have", reason: "Already getting this", marks: s.rule.map(() => null), unknown: [] };
+      continue;
+    }
     const notCovered = d.nation ? s.notCovered[d.nation] : undefined;
     if (notCovered) {
       st[id] = { status: "out", reason: notCovered, marks: s.rule.map(() => null), unknown: [] };
@@ -286,16 +313,19 @@ export interface PlanStep {
 }
 
 /** Gateways first so the help they unlock follows, then the rest, then what unlocks later. */
-export function claimOrder(st: States): PlanStep[] {
+export function claimOrder(st: States, nation?: Nation | null): PlanStep[] {
   const yes = (id: string) => st[id]?.status === "likely" || st[id]?.status === "check";
-  const steps: PlanStep[] = [];
-  for (const g of GATEWAYS) if (yes(g)) steps.push({ id: g, when: "Start now", status: st[g]?.status ?? "likely" });
-  for (const s of SCHEMES)
-    if (!GATEWAYS.includes(s.id) && yes(s.id))
-      steps.push({ id: s.id, when: s.urgent ? "Start now" : "This week", status: st[s.id]?.status ?? "likely" });
-  for (const s of SCHEMES)
-    if (st[s.id]?.status === "unlock") steps.push({ id: s.id, when: "After the first award", status: "unlock" });
-  return steps;
+  const steps: (PlanStep & { rank: number })[] = [];
+  for (const g of GATEWAYS) if (yes(g)) steps.push({ id: g, when: "Start now", status: st[g]?.status ?? "likely", rank: 0 });
+  for (const s of SCHEMES) {
+    if (GATEWAYS.includes(s.id) || !yes(s.id)) continue;
+    const status = st[s.id]?.status ?? "likely";
+    // Start now, then this week (likely before worth checking), then what arrives by itself.
+    const rank = isAuto(s, nation) ? 4 : s.urgent ? 1 : status === "likely" ? 2 : 3;
+    steps.push({ id: s.id, when: rank === 1 ? "Start now" : "This week", status, rank });
+  }
+  for (const s of SCHEMES) if (st[s.id]?.status === "unlock") steps.push({ id: s.id, when: "After the first award", status: "unlock", rank: 5 });
+  return steps.sort((a, b) => a.rank - b.rank).map(({ rank: _r, ...p }) => p);
 }
 
 export interface Warning {
@@ -305,7 +335,7 @@ export interface Warning {
 }
 
 export function warnings(st: States, A: Answers = {}): Warning[] {
-  const on = (id: string) => ["likely", "check", "unlock"].includes(st[id]?.status ?? "");
+  const on = (id: string) => ["likely", "check", "unlock", "have"].includes(st[id]?.status ?? "");
   const d = values(derive(A));
   return REGISTRY.clashes
     .filter((w) => w.ids.every(on) && (!w.when || run(w.when, d, LINES)))
@@ -333,7 +363,7 @@ export function summarise(A: Answers, st: States) {
     stillOpen: pick("open").map((s) => s.name),
     ruledOut: pick("out").length,
     nextQuestion: plan(A, st)?.f ?? null,
-    claimOrder: claimOrder(st).map((p) => `${byId[p.id]?.name} (${p.when})`),
+    claimOrder: claimOrder(st, derive(A).nation).map((p) => `${byId[p.id]?.name} (${p.when})`),
     warnings: warnings(st, A).map((w) => w.text),
   };
 }

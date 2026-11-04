@@ -7,8 +7,8 @@
 import { RANK, type Scheme, SCHEMES, type Status, TOPICS } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 
-const SHOWN: Status[] = ["likely", "check", "unlock"];
-const COUNT_TXT: Partial<Record<Status, string>> = { likely: "likely", check: "worth checking", unlock: "unlock later" };
+const SHOWN: Status[] = ["likely", "check", "unlock", "have"];
+const COUNT_TXT: Partial<Record<Status, string>> = { likely: "likely", check: "worth checking", unlock: "unlock later", have: "already getting" };
 
 export function Constellation() {
   const { states, changed, select } = useCheck();

@@ -1,0 +1,280 @@
+{
+  "$schema": "./pack.schema.json",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "id": "uk-family",
+  "topics": [],
+  "schemes": [
+    {
+      "id": "fsm",
+      "name": "Free school meals",
+      "topic": "fam",
+      "by": "Your council",
+      "gives": "A free lunch every school day, and a place on holiday activity and food clubs.",
+      "how": "Apply through your council's website. From this school year any family getting Universal Credit qualifies, whatever the income.",
+      "url": "https://www.gov.uk/apply-free-school-meals",
+      "act": "Apply through your council",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland, Wales and Northern Ireland run their own free school meals"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "childAge",
+                "op": "gte",
+                "v": 4
+              },
+              {
+                "f": "childAge",
+                "op": "lte",
+                "v": 15
+              }
+            ]
+          },
+          "expr": "a child of school age",
+          "txt": "A child of school age",
+          "fail": "No child of school age"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
+    },
+    {
+      "id": "ifsm",
+      "name": "Infant free school meals",
+      "topic": "fam",
+      "by": "Your child's school",
+      "gives": "A free lunch for every child in reception, year 1 and year 2 at a state school.",
+      "how": "Every infant gets it. Still tell the council if you get Universal Credit, as the school then gets extra funding.",
+      "url": "https://www.gov.uk/apply-free-school-meals",
+      "auto": true,
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland, Wales and Northern Ireland run their own free school meals"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "childAge",
+                "op": "gte",
+                "v": 4
+              },
+              {
+                "f": "childAge",
+                "op": "lte",
+                "v": 6
+              }
+            ]
+          },
+          "expr": "a child in reception to year 2",
+          "txt": "A child in reception to year 2",
+          "fail": "No child in reception to year 2"
+        }
+      ]
+    },
+    {
+      "id": "fch",
+      "name": "Free childcare for working parents",
+      "topic": "fam",
+      "by": "Department for Education",
+      "gives": "Up to 30 hours of free childcare a week, 38 weeks a year, for a child aged 9 months to 4.",
+      "how": "Apply online through a childcare account, from when your child is 23 weeks old. You and any partner both need to be working and earning over a minimum.",
+      "url": "https://www.gov.uk/free-childcare-if-working",
+      "worthChecking": "You and any partner both need to earn over a minimum",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland, Wales and Northern Ireland have their own childcare schemes"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lte",
+            "v": 3
+          },
+          "expr": "a child under 4",
+          "txt": "A child under 4",
+          "fail": "No child under 4"
+        },
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "in",
+            "v": [
+              "employed",
+              "self"
+            ]
+          },
+          "expr": "in work",
+          "txt": "In work",
+          "fail": "Not working at the moment"
+        }
+      ]
+    },
+    {
+      "id": "wfsm",
+      "name": "Free primary school meals (Wales)",
+      "topic": "fam",
+      "by": "Your council",
+      "gives": "A free lunch for every child at primary school in Wales.",
+      "how": "Every primary pupil gets it. Still check the School Essentials Grant if you get benefits.",
+      "url": "https://www.gov.wales/get-help-school-costs",
+      "auto": true,
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "wal"
+          },
+          "expr": "lives in Wales",
+          "txt": "Lives in Wales",
+          "fail": "Only in Wales"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "childAge",
+                "op": "gte",
+                "v": 4
+              },
+              {
+                "f": "childAge",
+                "op": "lte",
+                "v": 10
+              }
+            ]
+          },
+          "expr": "a child at primary school",
+          "txt": "A child at primary school",
+          "fail": "No child at primary school"
+        }
+      ]
+    },
+    {
+      "id": "sesg",
+      "name": "School Essentials Grant",
+      "topic": "fam",
+      "by": "Your council",
+      "gives": "Up to £200 for each child towards uniform, kit and school activities.",
+      "how": "Check and apply through your council. Families getting certain benefits can claim each school year.",
+      "url": "https://www.gov.wales/get-help-school-costs",
+      "act": "Check and apply",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "wal"
+          },
+          "expr": "lives in Wales",
+          "txt": "Lives in Wales",
+          "fail": "Only in Wales"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "childAge",
+                "op": "gte",
+                "v": 4
+              },
+              {
+                "f": "childAge",
+                "op": "lte",
+                "v": 15
+              }
+            ]
+          },
+          "expr": "a child of school age",
+          "txt": "A child of school age",
+          "fail": "No child of school age"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
+    }
+  ]
+}

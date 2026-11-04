@@ -1,0 +1,191 @@
+{
+  "$schema": "./pack.schema.json",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "id": "uk-work-care",
+  "topics": [],
+  "schemes": [
+    {
+      "id": "carc",
+      "name": "Carer's Credit",
+      "topic": "care",
+      "by": "DWP",
+      "gives": "National Insurance credits that protect your State Pension while you care.",
+      "how": "Apply by post or phone to the Carer's Allowance Unit. If you get Carer's Allowance you get the credits already.",
+      "phone": "0800 731 0297",
+      "url": "https://www.gov.uk/carers-credit",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England or Scotland or Wales",
+          "txt": "Lives in England or Scotland or Wales",
+          "fail": "Northern Ireland runs its own version"
+        },
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "all": [
+              {
+                "f": "age",
+                "op": "gte",
+                "v": 16
+              },
+              {
+                "f": "spa",
+                "op": "eq",
+                "v": false
+              }
+            ]
+          },
+          "expr": "16 or over and under State Pension age",
+          "txt": "16 or over and under State Pension age",
+          "fail": "Outside the age range"
+        },
+        {
+          "needs": [
+            "careHours"
+          ],
+          "test": {
+            "f": "careHours",
+            "op": "gte",
+            "v": 20
+          },
+          "expr": "caring 20 hours a week or more",
+          "txt": "Caring 20 hours a week or more",
+          "fail": "Caring under 20 hours a week"
+        }
+      ]
+    },
+    {
+      "id": "hts",
+      "name": "Help to Save",
+      "topic": "work",
+      "by": "HMRC",
+      "gives": "A 50p bonus for every £1 saved, up to £1,200 over 4 years.",
+      "how": "Open an account online with HMRC. You can save between £1 and £50 a month.",
+      "url": "https://www.gov.uk/get-help-savings-low-income",
+      "act": "Open an account",
+      "rule": [
+        {
+          "needs": [
+            "benefits"
+          ],
+          "test": {
+            "f": "uc",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit",
+          "txt": "Gets Universal Credit",
+          "fail": "Needs Universal Credit"
+        },
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "in",
+            "v": [
+              "employed",
+              "self"
+            ]
+          },
+          "expr": "has some take-home pay",
+          "txt": "Has some take-home pay",
+          "fail": "No take-home pay last month"
+        }
+      ]
+    },
+    {
+      "id": "atw",
+      "name": "Access to Work",
+      "topic": "dis",
+      "by": "DWP",
+      "gives": "A grant for support at work, like equipment, a support worker or taxis to work. It doesn't affect other benefits.",
+      "how": "Check and apply online. It also helps with mental health support at work and communication support at interviews.",
+      "url": "https://www.gov.uk/access-to-work",
+      "worthChecking": "Depends on the support your job needs",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England or Scotland or Wales",
+          "txt": "Lives in England or Scotland or Wales",
+          "fail": "Northern Ireland runs its own version"
+        },
+        {
+          "needs": [
+            "difficulties"
+          ],
+          "test": {
+            "f": "health",
+            "op": "ne",
+            "v": "none"
+          },
+          "expr": "a health condition or disability",
+          "txt": "A health condition or disability",
+          "fail": "No health condition or disability given"
+        },
+        {
+          "needs": [
+            "work"
+          ],
+          "test": {
+            "f": "work",
+            "op": "in",
+            "v": [
+              "employed",
+              "self"
+            ]
+          },
+          "expr": "in work",
+          "txt": "In work or about to start",
+          "fail": "Not in work"
+        }
+      ]
+    }
+  ],
+  "clashes": [
+    {
+      "ids": [
+        "ca",
+        "carc"
+      ],
+      "tone": "boost",
+      "text": "Carer's Allowance already gives National Insurance credits, so Carer's Credit matters only if Carer's Allowance doesn't come through."
+    },
+    {
+      "ids": [
+        "csp",
+        "carc"
+      ],
+      "tone": "boost",
+      "text": "Carer Support Payment already gives National Insurance credits, so Carer's Credit matters only if it doesn't come through."
+    }
+  ]
+}

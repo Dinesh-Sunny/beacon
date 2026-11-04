@@ -27,4 +27,10 @@ export const EXAMPLES: Example[] = [
     line: "Cares for her brother 50 hours a week.",
     answers: { postcode: "G2 1DY", dob: "1980-02-01", housing: "social", benefits: ["uc"], income: { amt: 150, per: "week" }, savings: 800, difficulties: [], work: { status: "none" }, ni: "no", child: "none", pregnant: "no", careHours: 50, ctax: "yes", bereaved: "no" },
   },
+  {
+    id: "kirsty",
+    name: "Kirsty, 23, Dundee",
+    line: "Single mum of a 3-year-old, working 15 hours in a cafe.",
+    answers: { postcode: "DD1 4HN", dob: "2003-05-14", housing: "private", benefits: ["uc", "cb"], income: { amt: 1100, per: "month" }, savings: 300, difficulties: [], work: { status: "employed", hours: 15 }, ni: "yes", child: "2023-04-20", pregnant: "no", careHours: 0, ctax: "yes", bereaved: "no" },
+  },
 ];

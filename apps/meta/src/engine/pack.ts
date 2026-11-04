@@ -28,6 +28,10 @@ export const DERIVED_KEYS = [
   "ctax",
   "bereaved",
   "housing",
+  "uc",
+  "pc",
+  "bornOn",
+  "childBornOn",
 ] as const;
 export type DerivedKey = (typeof DERIVED_KEYS)[number];
 
@@ -71,6 +75,8 @@ export const SchemeSchema = z.strictObject({
   by: z.string(),
   gives: z.string(),
   how: z.string(),
+  /** How to claim where it differs by nation, e.g. { "sco": "Ask your supplier." }. */
+  howIn: z.partialRecord(z.enum(["eng", "sco", "wal", "ni"]), z.string()).optional(),
   phone: z.string().regex(/^0\d{3} \d{2,3} \d{4}$/).optional(),
   url: z.url(),
   timing: z.string().optional(),

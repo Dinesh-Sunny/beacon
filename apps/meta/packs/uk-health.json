@@ -193,6 +193,47 @@
           "fail": "Savings over £16,000"
         }
       ]
+    },
+    {
+      "id": "htcs",
+      "name": "Healthcare Travel Costs Scheme",
+      "topic": "nhs",
+      "by": "NHS",
+      "gives": "A refund of travel costs to hospital or specialist appointments you were referred to.",
+      "how": "Claim at the hospital, usually on the day, with proof of your benefit. Only for referred appointments, not GP visits.",
+      "phone": "0300 330 1343",
+      "url": "https://www.nhs.uk/nhs-services/help-with-health-costs/healthcare-travel-costs-scheme-htcs/",
+      "act": "How to claim",
+      "worthChecking": "Only for appointments you were referred to",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "eng"
+          },
+          "expr": "lives in England",
+          "txt": "Lives in England",
+          "fail": "Scotland, Wales and Northern Ireland have their own travel help"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
     }
   ]
 }

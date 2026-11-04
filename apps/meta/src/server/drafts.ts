@@ -39,6 +39,10 @@ const DERIVED_DOC: Record<(typeof DERIVED_KEYS)[number], string> = {
   ctax: "true if pays council tax (from ctax)",
   bereaved: '"no" | "partner" | "funeral" (from bereaved)',
   housing: '"social" | "private" | "own" | "family" (from housing)',
+  uc: "true if gets Universal Credit (from benefits)",
+  pc: "true if gets Pension Credit (from benefits)",
+  bornOn: "date of birth as a YYYYMMDD number, only when the exact date is known (from dob)",
+  childBornOn: "youngest child's date of birth as a YYYYMMDD number (from child)",
 };
 
 const SYSTEM = `You turn one official UK page into a draft rule for Beacon, a screening tool. UK English, plain words, "you" voice, never the word "eligible", regular hyphens only.

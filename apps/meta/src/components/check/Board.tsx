@@ -5,13 +5,13 @@
 
 import { useEffect } from "react";
 import { Icon } from "@/components/Icon";
-import { byId } from "@/engine/rules";
+import { byId, howFor, nationOf } from "@/engine/rules";
 import { theyify } from "@/engine/facts";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 
 
 export function SchemeSheet() {
-  const { selected, select, states, subject } = useCheck();
+  const { selected, select, states, subject, answers } = useCheck();
   useEffect(() => {
     if (!selected) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && select(null);
@@ -72,7 +72,7 @@ export function SchemeSheet() {
         {s.opens ? (
           <p className="hint">Once awarded, it also opens: {s.opens.map((o) => byId[o]?.name).join(", ")}.</p>
         ) : null}
-        <p className="hint">{s.how}</p>
+        <p className="hint">{theyify(howFor(s, typeof answers.postcode === "string" ? nationOf(answers.postcode) : null), subject)}</p>
         <a className="btn ghost small" href={s.url} target="_blank" rel="noreferrer">
           Official page <Icon name="link" size={16} />
         </a>

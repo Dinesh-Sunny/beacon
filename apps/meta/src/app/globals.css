@@ -2713,6 +2713,18 @@ button {
   background: transparent;
   border: 1.5px dashed var(--chain);
 }
+.dots i.have {
+  background: var(--ink);
+  opacity: 0.55;
+}
+.tile.have {
+  background: var(--surface);
+  color: var(--muted);
+}
+.tile.have i {
+  background: var(--ink);
+  opacity: 0.55;
+}
 .dots i.out {
   opacity: 0.3;
 }

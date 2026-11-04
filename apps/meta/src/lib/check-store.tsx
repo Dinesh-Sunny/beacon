@@ -58,6 +58,7 @@ export const STATUS_TXT: Record<Status, string> = {
   check: "Worth checking",
   unlock: "Unlocks next",
   out: "Ruled out",
+  have: "Already getting",
 };
 
 interface Ctx {

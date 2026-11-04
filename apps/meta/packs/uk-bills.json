@@ -17,7 +17,7 @@
       "topic": "home",
       "by": "Your electricity supplier",
       "gives": "£150 off your electricity bill this winter.",
-      "how": "In England and Wales it's usually automatic and a letter arrives between late October and early January. Your name or your partner's needs to be on the electricity bill. In Scotland, ask your supplier.",
+      "how": "It's usually automatic and a letter arrives between late October and early January. Your name or your partner's needs to be on the electricity bill.",
       "url": "https://www.gov.uk/the-warm-home-discount-scheme",
       "timing": "No letter by early January? Contact the scheme.",
       "auto": [
@@ -57,7 +57,10 @@
           "fail": "Needs Universal Credit or Pension Credit"
         }
       ],
-      "act": "Ask your supplier"
+      "act": "Ask your supplier",
+      "howIn": {
+        "sco": "In Scotland you may need to ask your electricity supplier for it, so contact them this winter."
+      }
     },
     {
       "id": "bsoc",

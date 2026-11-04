@@ -196,8 +196,9 @@ export function theyify(text: string, sub: Subject): string {
     .replace(/\byour\b/g, "their")
     .replace(/\byou're\b/g, "they're")
     .replace(/\bYou\b/g, "They")
-    .replace(/\bstops you\b/g, "stops them")
-    .replace(/\bfor you\b/g, "for them")
+    // "you" as an object becomes "them": after a verb or preposition, or before punctuation.
+    .replace(/\b(add|adds|help|helps|to|for|with|give|gives|tell|ask|let|contact|call|send|pay|pays|protect|protects|stop|stops|reach|support|supports|from|about) you\b/g, "$1 them")
+    .replace(/\byou(?=[.,;:!?])/g, "them")
     .replace(/\byou\b/g, "they");
 }
 

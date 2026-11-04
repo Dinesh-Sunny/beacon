@@ -116,6 +116,21 @@
           "how": {
             "type": "string"
           },
+          "howIn": {
+            "type": "object",
+            "propertyNames": {
+              "type": "string",
+              "enum": [
+                "eng",
+                "sco",
+                "wal",
+                "ni"
+              ]
+            },
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
           "phone": {
             "type": "string",
             "pattern": "^0\\d{3} \\d{2,3} \\d{4}$"
@@ -220,7 +235,11 @@
                         "careHours",
                         "ctax",
                         "bereaved",
-                        "housing"
+                        "housing",
+                        "uc",
+                        "pc",
+                        "bornOn",
+                        "childBornOn"
                       ]
                     },
                     "line": {
@@ -340,7 +359,11 @@
                 "careHours",
                 "ctax",
                 "bereaved",
-                "housing"
+                "housing",
+                "uc",
+                "pc",
+                "bornOn",
+                "childBornOn"
               ]
             },
             "op": {
@@ -409,7 +432,11 @@
                 "careHours",
                 "ctax",
                 "bereaved",
-                "housing"
+                "housing",
+                "uc",
+                "pc",
+                "bornOn",
+                "childBornOn"
               ]
             },
             "op": {

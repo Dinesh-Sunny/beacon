@@ -1,0 +1,163 @@
+{
+  "$schema": "./pack.schema.json",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "id": "uk-scotland",
+  "topics": [],
+  "schemes": [
+    {
+      "id": "scp",
+      "name": "Scottish Child Payment",
+      "topic": "fam",
+      "by": "Social Security Scotland",
+      "gives": "A weekly payment for every child under 16 you look after, paid every 4 weeks.",
+      "how": "Apply online or call Social Security Scotland. One form covers all five family payments.",
+      "phone": "0800 182 2222",
+      "url": "https://www.mygov.scot/scottish-child-payment",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "sco"
+          },
+          "expr": "lives in Scotland",
+          "txt": "Lives in Scotland",
+          "fail": "Only in Scotland"
+        },
+        {
+          "needs": [
+            "child"
+          ],
+          "test": {
+            "f": "childAge",
+            "op": "lte",
+            "v": 15
+          },
+          "expr": "a child under 16",
+          "txt": "A child under 16",
+          "fail": "No child under 16"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
+    },
+    {
+      "id": "bsg",
+      "name": "Best Start Grant and Best Start Foods",
+      "topic": "fam",
+      "by": "Social Security Scotland",
+      "gives": "Payments for pregnancy, the early years and starting school, and money on a card for healthy food until your child is 3.",
+      "how": "Apply on the same form as Scottish Child Payment, from 24 weeks of pregnancy.",
+      "phone": "0800 182 2222",
+      "url": "https://www.mygov.scot/best-start-grant-best-start-foods",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "sco"
+          },
+          "expr": "lives in Scotland",
+          "txt": "Lives in Scotland",
+          "fail": "Only in Scotland. England, Wales and Northern Ireland have the Sure Start Maternity Grant and Healthy Start"
+        },
+        {
+          "needs": [
+            "child",
+            "pregnant"
+          ],
+          "test": {
+            "any": [
+              {
+                "f": "pregnant",
+                "op": "eq",
+                "v": true
+              },
+              {
+                "f": "childAge",
+                "op": "lte",
+                "v": 5
+              }
+            ]
+          },
+          "expr": "pregnant, or a child under 6",
+          "txt": "Pregnant, or a child under school age",
+          "fail": "Not pregnant and no young child"
+        },
+        {
+          "needs": [
+            "benefits"
+          ],
+          "gate": true,
+          "test": {
+            "f": "gateway",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "gets Universal Credit or Pension Credit",
+          "txt": "Gets Universal Credit or Pension Credit",
+          "fail": "Needs Universal Credit or Pension Credit"
+        }
+      ]
+    },
+    {
+      "id": "pawhp",
+      "name": "Pension Age Winter Heating Payment",
+      "topic": "low",
+      "by": "Social Security Scotland",
+      "gives": "Between £105.55 and £316.70 a year towards heating, in place of the Winter Fuel Payment.",
+      "how": "Most people get it without applying and a letter confirms it. HMRC takes it back if individual income is over £35,000.",
+      "url": "https://www.mygov.scot/pension-age-winter-heating-payment",
+      "auto": true,
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "sco"
+          },
+          "expr": "lives in Scotland",
+          "txt": "Lives in Scotland",
+          "fail": "Only in Scotland. Elsewhere it's the Winter Fuel Payment"
+        },
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "spa",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "reached State Pension age",
+          "txt": "Reached State Pension age",
+          "fail": "Under State Pension age"
+        }
+      ]
+    }
+  ]
+}
