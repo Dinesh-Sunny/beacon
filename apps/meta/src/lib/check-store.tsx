@@ -5,7 +5,7 @@
 // exactly what each agent did and why.
 
 import { createContext, type ReactNode, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
-import { type Answers, FACTS, type FactId, formatAnswer, ME, type Subject, UNSURE } from "@/engine/facts";
+import { type Answers, FACTS, type FactId, ME, ORDER, showAnswer, type Subject, UNSURE } from "@/engine/facts";
 import {
   byId,
   derive,
@@ -145,18 +145,19 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   logRef.current = log;
 
   const apply = useCallback((patch: Answers, source: Source) => {
-    const keys = (Object.keys(patch) as FactId[]).filter((k) => patch[k] !== undefined);
+    const keys = ORDER.filter((k) => patch[k] !== undefined);
     if (!keys.length) return;
     const prev = ansRef.current;
     const before = evaluate(prev);
     const after: Answers = { ...prev, ...patch };
+    if (patch.dob !== undefined && !patch.dobApprox) delete after.dobApprox;
     const st = evaluate(after);
     const d = derive(after);
     const items: Omit<LogItem, "id">[] = [];
     items.push({
       kind: "you",
       who: SOURCE_WHO[source],
-      text: keys.map((k) => `${FACTS[k].label}: ${formatAnswer(k, after[k])}`).join(" · "),
+      text: keys.map((k) => `${FACTS[k].label}: ${showAnswer(after, k)}`).join(" · "),
     });
     const chips = keys.flatMap((k) => (after[k] === UNSURE ? [] : derivedChips(k, d)));
     if (chips.length) items.push({ kind: "derive", who: "Fact deriver", text: chips.join(" · ") });
@@ -244,7 +245,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     save({});
   }, []);
 
-  const asked = Object.keys(answers).length;
+  const asked = ORDER.filter((k) => answers[k] !== undefined).length;
   const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current, subject, setSubject };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }

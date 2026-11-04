@@ -104,7 +104,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
     const parsed = FactPatch.safeParse(args);
     if (!parsed.success) return JSON.stringify({ error: "Some fields were not valid", issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")) });
     const patch = toAnswers(parsed.data);
-    const keys = Object.keys(patch);
+    const keys = Object.keys(patch).filter((k) => k !== "dobApprox");
     Object.assign(saved, patch);
     const after = { ...answers, ...saved };
     const st = evaluate(after);
@@ -174,11 +174,12 @@ export async function runAgent(
         ? `The person is checking for someone they help: "${(subject.label ?? "them").replace(/[^\w '-]/g, "")}". Talk about that person in the third person and save facts about them, not about the helper. If the chat makes clear it's for someone else, call them that.`
         : "The person may be checking for themselves or for someone they help. If they say it's for someone else, talk about that person in the third person.",
   });
-  const known = Object.keys(answers).length;
+  const known = Object.keys(answers).filter((k) => k !== "dobApprox").length;
   messages.push({
     role: "system",
     content: known
       ? `Already saved on this device: ${Object.keys(answers)
+          .filter((k) => k !== "dobApprox")
           .map((k) => FACTS[k as keyof typeof FACTS].label)
           .join(", ")}. Don't ask for these again.`
       : "Nothing is saved yet.",

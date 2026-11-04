@@ -20,5 +20,6 @@ export const AnswersSchema = z
     careHours: z.union([z.number().min(0).max(168), unsure]),
     ctax: z.enum(["yes", "no", "unsure"]),
     bereaved: z.enum(["no", "partner", "funeral", "unsure"]),
+    dobApprox: z.boolean(),
   })
   .partial();

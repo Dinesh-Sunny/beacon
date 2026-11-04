@@ -31,8 +31,10 @@ export interface Answers {
   careHours?: number | Unsure;
   ctax?: YesNo | Unsure;
   bereaved?: Bereaved | Unsure;
+  /** True when the date of birth was worked out from an age, so it reads back as an age. */
+  dobApprox?: boolean;
 }
-export type FactId = keyof Answers;
+export type FactId = Exclude<keyof Answers, "dobApprox">;
 
 export type FactType =
   | "postcode"
@@ -219,6 +221,18 @@ const WORK_TXT: Record<WorkStatus, string> = {
   none: "Not working",
   sick: "Off sick",
 };
+
+/** Reads back an answer using everything known, so an age stays an age. */
+export function showAnswer(a: Answers, f: FactId): string {
+  if (f === "dob" && a.dobApprox && typeof a.dob === "string" && a.dob !== UNSURE) {
+    const b = new Date(a.dob);
+    const now = new Date();
+    let age = now.getFullYear() - b.getFullYear();
+    if (now.getMonth() < b.getMonth() || (now.getMonth() === b.getMonth() && now.getDate() < b.getDate())) age--;
+    return `About ${age}`;
+  }
+  return formatAnswer(f, a[f]);
+}
 
 /** How an answer reads back to the person. */
 export function formatAnswer(f: FactId, v: unknown): string {

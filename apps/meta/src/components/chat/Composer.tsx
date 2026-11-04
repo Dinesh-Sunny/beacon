@@ -154,6 +154,21 @@ export function Composer({
                 </b>
                 <span>Best on a phone</span>
               </button>
+              <button
+                type="button"
+                role="menuitem"
+                data-testid="sample-letter"
+                onClick={async () => {
+                  setMenu(false);
+                  const blob = await fetch("/samples/sample-council-tax-bill.jpg").then((r) => r.blob());
+                  onPhoto(new File([blob], "sample-council-tax-bill.jpg", { type: "image/jpeg" }));
+                }}
+              >
+                <b>
+                  <Icon name="doc" size={18} /> Try a sample letter
+                </b>
+                <span>A made-up council tax bill</span>
+              </button>
             </div>
           )}
         </div>

@@ -5,7 +5,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon, Logo } from "@/components/Icon";
-import { type Answers, ask, FACTS, type FactId, formatAnswer } from "@/engine/facts";
+import { type Answers, ask, FACTS, type FactId, formatAnswer, ORDER, showAnswer } from "@/engine/facts";
 import { count, evaluate, SCHEMES } from "@/engine/rules";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { useCheck } from "@/lib/check-store";
@@ -271,7 +271,7 @@ export function ChatPanel() {
 function Message({ m }: { m: Msg }) {
   const [rated, setRated] = useState<"up" | "down" | null>(null);
   const [copied, setCopied] = useState(false);
-  const savedKeys = Object.keys(m.saved ?? {}) as FactId[];
+  const savedKeys = ORDER.filter((k) => m.saved?.[k] !== undefined);
   if (m.role === "user")
     return (
       <div className="msg me">
@@ -304,7 +304,7 @@ function Message({ m }: { m: Msg }) {
         <div className="facts">
           {savedKeys.map((k) => (
             <span key={k} className="fact-chip">
-              {FACTS[k].label}: {formatAnswer(k, m.saved?.[k])}
+              {FACTS[k].label}: {showAnswer(m.saved ?? {}, k)}
             </span>
           ))}
         </div>

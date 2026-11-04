@@ -77,7 +77,10 @@ export function toAnswers(p: FactPatch, today = new Date()): Answers {
     if (POSTCODE_RE.test(pc)) a.postcode = pc;
   }
   if (p.date_of_birth && !Number.isNaN(Date.parse(p.date_of_birth)) && new Date(p.date_of_birth) < today) a.dob = p.date_of_birth;
-  else if (p.age_years != null) a.dob = dobFromAge(p.age_years, today);
+  else if (p.age_years != null) {
+    a.dob = dobFromAge(p.age_years, today);
+    a.dobApprox = true;
+  }
   if (p.already_gets?.length) a.benefits = [...new Set(p.already_gets)];
   else if (p.already_gets_none) a.benefits = [];
   if (p.income_amount != null) a.income = { amt: p.income_amount, per: p.income_period ?? "week" };
