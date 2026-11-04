@@ -100,30 +100,37 @@ const csv = gunzipSync(
   await readFile("catalog/harvest/raw/local-links.csv.gz"),
 ).toString("utf8");
 
-// RFC 4180 rows: quoted fields may hold commas.
-function* rows(text: string): Generator<string[]> {
+// RFC 4180 rows: quoted fields may hold commas, quotes and line breaks.
+function parseCsv(text: string): string[][] {
+  const out: string[][] = [];
   let row: string[] = [];
-  let f = "";
-  let q = false;
+  let field = "";
+  let quoted = false;
   for (let i = 0; i < text.length; i++) {
     const c = text[i];
-    if (q) {
-      if (c === '"' && text[i + 1] === '"') (f += '"'), i++;
-      else if (c === '"') q = false;
-      else f += c;
-    } else if (c === '"') q = true;
-    else if (c === ",") row.push(f), (f = "");
-    else if (c === "\n" || c === "\r") {
+    if (quoted) {
+      if (c === '"' && text[i + 1] === '"') {
+        field += '"';
+        i++;
+      } else if (c === '"') quoted = false;
+      else field += c;
+    } else if (c === '"') quoted = true;
+    else if (c === ",") {
+      row.push(field);
+      field = "";
+    } else if (c === "\n" || c === "\r") {
       if (c === "\r" && text[i + 1] === "\n") i++;
-      row.push(f);
-      yield row;
-      (row = []), (f = "");
-    } else f += c;
+      row.push(field);
+      out.push(row);
+      row = [];
+      field = "";
+    } else field += c;
   }
-  if (f || row.length) yield [...row, f];
+  if (field || row.length) out.push([...row, field]);
+  return out;
 }
 
-const [head, ...body] = [...rows(csv)];
+const [head, ...body] = parseCsv(csv);
 const col = (name: string) => head?.indexOf(name) ?? -1;
 const [NAME, GSS, LGSL, LINK] = ["Authority Name", "GSS", "LGSL", "URL"].map(
   col,
@@ -138,9 +145,13 @@ for (const r of body) {
   const url = r[LINK]?.trim();
   const gss = r[GSS]?.trim();
   if (!SERVICES[code] || !gss || !url || !URL.canParse(url)) continue;
-  const c = (councils[gss] ??= { name: r[NAME] ?? gss, links: {} });
+  councils[gss] ??= { name: r[NAME] ?? gss, links: {} };
+  const c = councils[gss];
   // Some services have several interactions (apply, find out); the first link stands for them.
-  if (!c.links[code]) (c.links[code] = url), links++;
+  if (!c.links[code]) {
+    c.links[code] = url;
+    links++;
+  }
 }
 await writeFile(
   "src/data/council-links.json",
