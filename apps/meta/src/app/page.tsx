@@ -15,13 +15,19 @@ import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
 import COUNTS from "@/data/data-counts.json";
-import { COVERED_NATIONS_TXT, SCHEMES, TOPICS } from "@/engine/rules";
+import { COVERED_NATIONS, SCHEMES, TOPICS } from "@/engine/rules";
+import { getLocale, getT } from "@/i18n/server";
 
 export const metadata: Metadata = {
   title: { absolute: "Beacon - find the support that's already yours" },
 };
 
-export default function Home() {
+export default async function Home() {
+  const t = await getT();
+  const locale = await getLocale();
+  const nations = new Intl.ListFormat(locale, { type: "conjunction" }).format(
+    COVERED_NATIONS.map((n) => t(`nations.${n}`)),
+  );
   return (
     <div className="site mk-page">
       <SiteHeader />
@@ -30,15 +36,11 @@ export default function Home() {
         <section className="mk-wrap mk-hero" aria-labelledby="hero-h">
           <div className="mk-hero-copy">
             <p className="mk-pill">
-              <span className="dot" aria-hidden="true" /> Free ·{" "}
-              {SCHEMES.length} kinds of help · {COVERED_NATIONS_TXT}
+              <span className="dot" aria-hidden="true" />{" "}
+              {t("site.pill", { count: SCHEMES.length, nations })}
             </p>
-            <h1 id="hero-h">Find the support that's already yours.</h1>
-            <p className="mk-lead">
-              Tell Beacon about your life, or the life of someone you look
-              after. It shows the help that's likely yours and gets you ready to
-              claim it.
-            </p>
+            <h1 id="hero-h">{t("site.h1")}</h1>
+            <p className="mk-lead">{t("site.lead")}</p>
             <HomeStart />
           </div>
           <ChatDemo />
@@ -51,12 +53,10 @@ export default function Home() {
           <Reveal className="mk-stat-in">
             <p className="mk-stat-num">
               <Ticker value={24.1} decimals={1} prefix="£" suffix="bn" />
-              <span>a year</span>
+              <span>{t("site.perYear")}</span>
             </p>
             <p className="mk-stat-text">
-              That's how much income-related support and social tariffs goes
-              unclaimed in Great Britain each year. Beacon helps you find your
-              share.{" "}
+              {t("site.statText")}{" "}
               <a href={SOURCE_URL} target="_blank" rel="noreferrer">
                 Policy in Practice, Missing Out 2025
               </a>
@@ -122,8 +122,8 @@ export default function Home() {
                 title={`${SCHEMES.length} kinds of help across ${TOPICS.length} areas of life`}
                 center
               >
-                From Pension Credit to Healthy Start, in {COVERED_NATIONS_TXT}.
-                Plus {COUNTS.councilLinks.links.toLocaleString("en-GB")} council
+                From Pension Credit to Healthy Start, in {nations}. Plus{" "}
+                {COUNTS.councilLinks.links.toLocaleString("en-GB")} council
                 pages and {COUNTS.charityFunds.funds.toLocaleString("en-GB")}{" "}
                 grant-giving charities, matched to your postcode.
               </SectionHead>
@@ -148,10 +148,7 @@ export default function Home() {
           </Reveal>
         </section>
 
-        <FinalCta
-          title="Check for yourself, or for someone you love"
-          text="Start with a few words about the person. Beacon asks the rest, one small question at a time."
-        />
+        <FinalCta />
       </main>
       <SiteFooter />
     </div>

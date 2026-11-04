@@ -432,5 +432,26 @@
   "read": {
     "aloud": "Read aloud",
     "stop": "Stop reading"
+  },
+  "site": {
+    "how": "How it works",
+    "start": "Start a check",
+    "pill": "Free · {count} kinds of help · {nations}",
+    "h1": "Find the support that's already yours.",
+    "lead": "Tell Beacon about your life, or the life of someone you look after. It shows the help that's likely yours and gets you ready to claim it.",
+    "inputLabel": "Tell Beacon about your situation",
+    "inputHint": "For example: my mum is 78, lives alone in Wembley and finds stairs hard",
+    "alsoSpeak": "You can also speak or add a letter",
+    "go": "Start",
+    "watch": "or watch Margaret's check",
+    "statText": "That's how much income-related support and social tariffs goes unclaimed in Great Britain each year. Beacon helps you find your share.",
+    "perYear": "a year",
+    "ctaTitle": "Check for yourself, or for someone you love",
+    "ctaText": "Start with a few words about the person. Beacon asks the rest, one small question at a time.",
+    "factBrowser": "Answers stay in your browser",
+    "factNoId": "No name, National Insurance number or bank details",
+    "factFree": "Free to use",
+    "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
+    "code": "Code on GitHub"
   }
 }

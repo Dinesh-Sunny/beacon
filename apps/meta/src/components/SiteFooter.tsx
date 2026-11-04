@@ -1,22 +1,20 @@
 import Link from "next/link";
+import { getT } from "@/i18n/server";
 
-export function SiteFooter() {
+export async function SiteFooter() {
+  const t = await getT();
   return (
     <footer className="site-foot">
-      <p>
-        Beacon gives general information, not advice. The organisation that runs
-        each scheme makes the decision, and every result links to its official
-        page.
-      </p>
+      <p>{t("site.footer")}</p>
       <nav>
-        <Link href="/check">Start a check</Link>
-        <Link href="/how">How it works</Link>
+        <Link href="/check">{t("site.start")}</Link>
+        <Link href="/how">{t("site.how")}</Link>
         <a
           href="https://github.com/Dinesh-Sunny/beacon"
           target="_blank"
           rel="noreferrer"
         >
-          Code on GitHub
+          {t("site.code")}
         </a>
       </nav>
     </footer>

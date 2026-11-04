@@ -1,26 +1,33 @@
 import Link from "next/link";
 import { Icon } from "@/components/Icon";
+import { getT } from "@/i18n/server";
 
-export function FinalCta({ title, text }: { title: string; text: string }) {
+export async function FinalCta({
+  title,
+  text,
+}: {
+  title?: string;
+  text?: string;
+}) {
+  const t = await getT();
   return (
     <section className="mk-wrap mk-section" aria-labelledby="cta-h">
       <div className="mk-cta">
         <div className="mk-cta-glow" aria-hidden="true" />
-        <h2 id="cta-h">{title}</h2>
-        <p className="mk-lead">{text}</p>
+        <h2 id="cta-h">{title ?? t("site.ctaTitle")}</h2>
+        <p className="mk-lead">{text ?? t("site.ctaText")}</p>
         <Link href="/check" className="btn mk-cta-btn">
-          Start a check <Icon name="arrow" size={18} />
+          {t("site.start")} <Icon name="arrow" size={18} />
         </Link>
         <ul className="mk-cta-facts">
           <li>
-            <Icon name="lock" size={18} /> Answers stay in your browser
+            <Icon name="lock" size={18} /> {t("site.factBrowser")}
           </li>
           <li>
-            <Icon name="shield" size={18} /> No name, National Insurance number
-            or bank details
+            <Icon name="shield" size={18} /> {t("site.factNoId")}
           </li>
           <li>
-            <Icon name="check" size={18} /> Free to use
+            <Icon name="check" size={18} /> {t("site.factFree")}
           </li>
         </ul>
       </div>

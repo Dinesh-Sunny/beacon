@@ -6,9 +6,11 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 
 export function HomeStart() {
+  const tr = useTranslations("site");
   const [text, setText] = useState("");
   const router = useRouter();
   const go = () => {
@@ -30,12 +32,12 @@ export function HomeStart() {
         }}
       >
         <label htmlFor="home-input" className="sr-only">
-          Tell Beacon about your situation
+          {tr("inputLabel")}
         </label>
         <textarea
           id="home-input"
           rows={2}
-          placeholder="For example: my mum is 78, lives alone in Wembley and finds stairs hard"
+          placeholder={tr("inputHint")}
           value={text}
           onChange={(e) => setText(e.target.value)}
           onKeyDown={(e) => {
@@ -46,15 +48,15 @@ export function HomeStart() {
           }}
         />
         <div className="row">
-          <span className="hint">You can also speak or add a letter</span>
+          <span className="hint">{tr("alsoSpeak")}</span>
           <span className="spacer" />
-          <button type="submit" className="send" aria-label="Start">
+          <button type="submit" className="send" aria-label={tr("go")}>
             <Icon name="arrow" size={20} />
           </button>
         </div>
       </form>
       <Link href="/check#example=margaret" className="quiet-link">
-        or watch Margaret's check <Icon name="arrow" size={16} />
+        {tr("watch")} <Icon name="arrow" size={16} />
       </Link>
     </div>
   );

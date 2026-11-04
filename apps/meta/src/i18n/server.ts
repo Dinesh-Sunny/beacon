@@ -2,6 +2,7 @@ import "server-only";
 
 // The reader's language for server-rendered pages: the cookie the language menu sets, else English.
 import { cookies } from "next/headers";
+import { createTranslator } from "use-intl/core";
 import {
   DEFAULT_LOCALE,
   isLocale,
@@ -36,3 +37,9 @@ export const invites = (): Invites =>
       ];
     }),
   ) as Invites;
+
+/** A translator for server components, in the reader's language. */
+export async function getT() {
+  const locale = await getLocale();
+  return createTranslator({ locale, messages: MESSAGES[locale] });
+}
