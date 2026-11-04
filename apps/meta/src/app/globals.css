@@ -3504,6 +3504,7 @@ details.constellation[open] > summary::after {
 /* First look in a narrow canvas (Details open, small screens): drop the beams, keep the three parts */
 .first-look {
   container-type: inline-size;
+  width: 100%;
 }
 @container (max-width: 520px) {
   .fl-map {
