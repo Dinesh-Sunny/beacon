@@ -181,6 +181,16 @@ export interface Subject {
 }
 export const ME: Subject = { who: "me" };
 
+const RELATION = /^(my |a |mum|dad|mom|nan|gran|grandma|grandad|friend|partner|husband|wife|son|daughter|brother|sister|aunt|uncle)/i;
+
+/** How the caller names the person: "my mum" for a relationship, the name itself for a name like "Fiona". */
+export function callerPhrase(sub: Subject): string {
+  const label = (sub.label ?? "").replace(/[^\p{L} '-]/gu, "").trim();
+  if (sub.who === "me") return "I";
+  if (!label) return "my relative";
+  return RELATION.test(label) ? `my ${label.toLowerCase().replace(/^(my|a) /, "")}` : label;
+}
+
 export function ask(f: FactId, sub: Subject): string {
   const fact = FACTS[f];
   if (sub.who === "me") return fact.q;

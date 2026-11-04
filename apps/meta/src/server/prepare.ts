@@ -5,7 +5,7 @@ import "server-only";
 // come from code, never from the model.
 
 import { z } from "zod";
-import { type Answers, FACTS, type FactId, formatAnswer } from "@/engine/facts";
+import { type Answers, callerPhrase, FACTS, type FactId, formatAnswer } from "@/engine/facts";
 import { byId, evaluate, REGISTRY } from "@/engine/rules";
 import { cached, keyOf, Lru } from "./cache";
 import { chat } from "./meta";
@@ -42,7 +42,7 @@ export async function prepareCall(schemeId: string, answers: Answers, subject: {
     .filter((f) => answers[f] !== undefined)
     .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
   // Same scheme, same rule pack, same relevant answers and same "who": same notes.
-  const key = keyOf({ s: s.id, v: REGISTRY.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
+  const key = keyOf({ p: 2, s: s.id, v: REGISTRY.version, facts, who: subject.who, label: subject.label?.toLowerCase() ?? null });
   const { value, hit } = await cached(notes, inflight, key, () => writeNotes(schemeId, answers, subject, facts));
   return value ? { ...value, cached: hit } : null;
 }
@@ -56,13 +56,13 @@ async function writeNotes(schemeId: string, answers: Answers, subject: { who: "m
       {
         role: "system",
         content:
-          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists practical things for this kind of claim, like a National Insurance number, bank details for payment, or recent letters about income. Don't promise an outcome: the organisation decides. No phone numbers or web links.",
+          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links.",
       },
       {
         role: "user",
         content: `Scheme: ${s.name}, run by ${s.by}. What it gives: ${s.gives}. How to claim: ${s.how}. ${s.timing ?? ""}
 Conditions: ${s.rule.map((r, i) => `${r.txt} (${st?.marks[i] === true ? "met" : st?.marks[i] === false ? "not met" : "not known"})`).join("; ")}.
-Who it's for: ${subject.who === "me" ? "the caller themselves (write 'I', 'my')" : `the caller's ${(subject.label ?? "relative").replace(/[^\p{L} '-]/gu, "")}, so the caller is phoning on their behalf (write 'my ${(subject.label ?? "relative").toLowerCase().replace(/^my /, "")}', 'she' or 'he' only if clear, otherwise 'they')`}.
+Who it's for: ${subject.who === "me" ? "the caller themselves (write 'I', 'my')" : `someone the caller is helping, so the caller is phoning on their behalf (call them '${callerPhrase(subject)}', then 'they')`}.
 Their answers: ${facts.join("; ") || "none yet"}.
 Write the call notes.`,
       },

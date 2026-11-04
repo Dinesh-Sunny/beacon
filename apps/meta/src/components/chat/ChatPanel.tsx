@@ -5,7 +5,7 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon, Logo } from "@/components/Icon";
-import { type Answers, ask, FACTS, type FactId, formatAnswer, ORDER, showAnswer } from "@/engine/facts";
+import { type Answers, ask, callerPhrase, FACTS, type FactId, formatAnswer, ORDER, showAnswer } from "@/engine/facts";
 import { count, evaluate, SCHEMES } from "@/engine/rules";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { useCheck } from "@/lib/check-store";
@@ -386,9 +386,7 @@ function AskChips({ onAsk }: { onAsk: (q: string) => void }) {
   const { states, subject } = useCheck();
   const top = SCHEMES.find((s) => states[s.id]?.status === "likely");
   if (!top) return null;
-  const label = subject.label ?? "";
-  const relation = /^(my |mum|dad|mom|nan|gran|grandma|grandad|a friend|partner|son|daughter|brother|sister|aunt|uncle)/i.test(label);
-  const who = subject.who === "me" ? "I" : relation ? `my ${label.toLowerCase().replace(/^(my|a) /, "")}` : label;
+  const who = callerPhrase(subject);
   const asks = [
     "What should we claim first?",
     `Explain ${top.name} in plain words`,
