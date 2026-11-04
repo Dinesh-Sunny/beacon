@@ -70,7 +70,7 @@ export default function Home() {
         <section className="mk-wrap mk-section" aria-labelledby="steps-h">
           <Reveal>
             <SectionHead tag="Eight steps" id="steps-h" title="The same eight steps for every person">
-              The first four work today. The other four are where Beacon is going.
+              Seven work today. Keeping help safe through changes is next.
             </SectionHead>
           </Reveal>
           <Reveal>

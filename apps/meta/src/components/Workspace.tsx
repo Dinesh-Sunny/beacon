@@ -15,6 +15,7 @@ import { Results } from "@/components/results/Results";
 import { UNSURE } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
 import { CheckProvider, useCheck } from "@/lib/check-store";
+import { WatchNotice } from "@/components/check/WatchNotice";
 import { ClaimsProvider } from "@/lib/claims";
 import { EXAMPLES, type Example } from "@/lib/examples";
 
@@ -203,6 +204,7 @@ function Shell() {
       <aside className="chat" aria-label="Chat with Beacon">
         <div className="chat-inner">
           <ChatPanel playing={Boolean(playing)} />
+          <WatchNotice />
         </div>
       </aside>
 

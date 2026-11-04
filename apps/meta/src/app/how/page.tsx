@@ -128,7 +128,7 @@ export default function How() {
         <section className="mk-wrap mk-section" aria-labelledby="loop-h">
           <Reveal>
             <SectionHead tag="Eight steps" id="loop-h" title="Eight steps for every person">
-              The first four run in Beacon today. The rest is where it's going.
+              Seven run in Beacon today. Keeping help safe through life changes is next.
             </SectionHead>
           </Reveal>
           <Reveal>
