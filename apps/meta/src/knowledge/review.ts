@@ -117,6 +117,14 @@ export function review(drafts: DraftFile, packs: Pack[]): Reviewed[] {
     let id = d.id;
     for (let n = 2; seen.has(id); n++) id = `${d.id.replace(/\d+$/, "")}${"abcdefghij"[n] ?? "z"}`;
     seen.add(id);
+    // Quality gates: a real name, a real offer, and at least one condition that targets someone.
+    // Help everyone gets (a library card, a recycling bin) is a service, not something to find.
+    const gates = [
+      d.name.trim().length < 4 && "name is missing",
+      d.gives.trim().length < 12 && "doesn't say what it gives",
+      !d.conditions.length && !d.worthChecking && "applies to everyone, so it's a service rather than help to find",
+    ].filter((x): x is string => Boolean(x));
+    if (gates.length) return { ...out, status: "invalid", issues: gates };
     const scheme = SchemeSchema.safeParse(toScheme({ ...d, id }, row.url, base.provider));
     if (!scheme.success) return { ...out, status: "invalid", issues: scheme.error.issues.map((i) => `${i.path.join(".")}: ${i.message}`) };
     return { ...out, status: specific.length ? "needsFacts" : "ready", scheme: scheme.data };
