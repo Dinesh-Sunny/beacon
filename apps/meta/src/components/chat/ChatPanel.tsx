@@ -54,7 +54,7 @@ const nextId = () => {
 };
 
 export function ChatPanel() {
-  const { answers, apply, note, setBusy, subject, setSubject, next } = useCheck();
+  const { answers, apply, note, setBusy, subject, setSubject, next, resets } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -67,6 +67,11 @@ export function ChatPanel() {
   useEffect(() => {
     end.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [msgs.length, working, next?.f]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: clear the chat when the check starts again
+  useEffect(() => {
+    if (resets) setMsgs([]);
+  }, [resets]);
 
   const push = useCallback((m: Omit<Msg, "id">) => setMsgs((list) => [...list, { ...m, id: nextId() }]), []);
 

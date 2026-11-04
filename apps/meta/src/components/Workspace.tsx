@@ -40,12 +40,17 @@ function Shell() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: run once after answers load
   useEffect(() => {
     if (!hydrated) return;
-    const m = /example=(\w+)/.exec(window.location.hash);
-    const ex = EXAMPLES.find((e) => e.id === m?.[1]);
-    if (ex) {
-      history.replaceState(null, "", "/check");
-      play(ex);
-    }
+    const check = () => {
+      const m = /example=(\w+)/.exec(window.location.hash);
+      const ex = EXAMPLES.find((e) => e.id === m?.[1]);
+      if (ex) {
+        history.replaceState(null, "", "/check");
+        play(ex);
+      }
+    };
+    check();
+    window.addEventListener("hashchange", check);
+    return () => window.removeEventListener("hashchange", check);
   }, [hydrated]);
   useEffect(() => {
     if (editing) {
