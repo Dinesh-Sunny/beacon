@@ -5,7 +5,7 @@
 // Intl data in the reader's language. Only countries with a rule pack can be checked; for the
 // rest Beacon says so plainly instead of guessing.
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useMemo, useRef, useState } from "react";
 import { useLocale, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import {
@@ -39,15 +39,14 @@ export function CountryChip() {
   };
   const close = () => dialog.current?.close();
 
-  // First visit with a browser that suggests another country: ask once.
-  useEffect(() => {
-    if (country) return;
-    const s = suggestedCountry();
-    if (s && s !== "GB") {
+  // Opening the picker for the first time offers the browser's country, then the full list.
+  const start = () => {
+    const s = country ? null : suggestedCountry();
+    if (s && s !== code) {
       setPick(s);
       open("suggest");
-    }
-  }, [country]);
+    } else open("list");
+  };
 
   const all = useMemo(
     () =>
@@ -88,7 +87,7 @@ export function CountryChip() {
       <button
         type="button"
         className="btn ghost small country-chip"
-        onClick={() => open("list")}
+        onClick={start}
         aria-label={t("chip", { country: name(code) })}
         data-testid="country"
       >
@@ -216,7 +215,7 @@ export function CountryChip() {
             </div>
           </>
         )}
-        {(step === "list" || step === "suggest") && code === "GB" && (
+        {step === "list" && code === "GB" && (
           <p className="hint pp-foot">{t("ukPlace")}</p>
         )}
       </dialog>
