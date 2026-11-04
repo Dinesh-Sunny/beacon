@@ -54,7 +54,7 @@ const nextId = () => {
 };
 
 export function ChatPanel() {
-  const { answers, apply, note, setBusy, subject, setSubject, next, resets } = useCheck();
+  const { answers, apply, note, setBusy, subject, setSubject, next, resets, announcement } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -72,6 +72,11 @@ export function ChatPanel() {
   useEffect(() => {
     if (resets) setMsgs([]);
   }, [resets]);
+
+  // biome-ignore lint/correctness/useExhaustiveDependencies: show each announcement once
+  useEffect(() => {
+    if (announcement) setMsgs((list) => [...list, { id: nextId(), role: "bot", text: announcement.text }]);
+  }, [announcement?.id]);
 
   const push = useCallback((m: Omit<Msg, "id">) => setMsgs((list) => [...list, { ...m, id: nextId() }]), []);
 

@@ -31,7 +31,7 @@ function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
   const [details, setDetails] = useState(false);
   const [view, setView] = useState<MobileView>("chat");
-  const { reset, hydrated, next, apply, asked, editing, subject } = useCheck();
+  const { reset, hydrated, next, apply, asked, editing, subject, announce } = useCheck();
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
 
@@ -64,6 +64,7 @@ function Shell() {
     if (!playing) return;
     if (!next) {
       setPlaying(null);
+      announce("That's every answer that matters for this example. Try your own whenever you're ready, or ask me anything about these results.");
       return;
     }
     const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -75,6 +76,7 @@ function Shell() {
     setMenu(false);
     reset();
     setPlaying(ex);
+    setTimeout(() => announce(`Here's a made-up example: ${ex.name}. ${ex.line} Watch the results light up as each answer goes in.`), 50);
     setView("canvas");
   };
 

@@ -83,6 +83,8 @@ interface Ctx {
   skip: (f: FactId) => void;
   current: FactId | null;
   resets: number;
+  announcement: { id: number; text: string } | null;
+  announce: (text: string) => void;
   subject: Subject;
   setSubject: (s: Subject) => void;
   setBusy: (agent: string, on: boolean) => void;
@@ -110,6 +112,8 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
   const [skipped, setSkipped] = useState<FactId[]>([]);
   const [resets, setResets] = useState(0);
+  const [announcement, setAnnouncement] = useState<{ id: number; text: string } | null>(null);
+  const announce = useCallback((text: string) => setAnnouncement({ id: Date.now(), text }), []);
   const [busy, setBusyMap] = useState<Record<string, boolean>>({});
   const setBusy = useCallback((agent: string, on: boolean) => setBusyMap((b) => ({ ...b, [agent]: on })), []);
   const seq = useRef(0);
@@ -255,7 +259,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
   }, []);
 
   const asked = ORDER.filter((k) => answers[k] !== undefined).length;
-  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current, subject, setSubject, resets };
+  const value: Ctx = { answers, states, next, log, changed, selected, asked, hydrated, select, apply, back, reset, note, busy, setBusy, sources, editing, edit, forget, skipped, skip, current, subject, setSubject, resets, announcement, announce };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
 
