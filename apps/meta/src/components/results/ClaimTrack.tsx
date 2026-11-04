@@ -4,6 +4,7 @@
 // grows only when used: applied shows what to expect, refused shows how to challenge, and an
 // award of a gateway benefit opens the help that was waiting on it.
 
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { theyify } from "@/engine/facts";
 import {
@@ -16,13 +17,8 @@ import {
 import { useCheck } from "@/lib/check-store";
 import { type ClaimState, useClaims } from "@/lib/claims";
 
-const LABEL: Record<ClaimState, string> = {
-  applied: "Applied",
-  awarded: "Awarded",
-  refused: "Refused",
-};
-
 export function ClaimTrack({ id }: { id: string }) {
+  const t = useTranslations("track");
   const { claims, setClaim, setFresh } = useClaims();
   const { answers, apply, subject, announce } = useCheck();
   const s = byId[id];
@@ -51,8 +47,12 @@ export function ClaimTrack({ id }: { id: string }) {
       apply({ benefits: next.benefits }, "form");
       announce(
         opened.length
-          ? `${s.name} awarded. It opened ${opened.length} more: ${opened.map((k) => byId[k]?.name).join(", ")}.`
-          : `${s.name} awarded.`,
+          ? t("awardedOpened", {
+              name: s.name,
+              count: opened.length,
+              names: opened.map((k) => byId[k]?.name).join(", "),
+            })
+          : t("awardedOnly", { name: s.name }),
       );
     }
   };
@@ -68,10 +68,10 @@ export function ClaimTrack({ id }: { id: string }) {
         >
           <Icon name="check" size={16} />{" "}
           {s.act
-            ? "Mark as done"
+            ? t("markDone")
             : subject.who === "me"
-              ? "I've applied"
-              : "They've applied"}
+              ? t("iApplied")
+              : t("theyApplied")}
         </button>
       </div>
     );
@@ -82,10 +82,10 @@ export function ClaimTrack({ id }: { id: string }) {
       <div className="track on awarded" data-testid={`track-${id}`}>
         <div className="track-row">
           <span className="done">
-            <Icon name="check" size={16} /> Done
+            <Icon name="check" size={16} /> {t("done")}
           </span>
           <button type="button" className="linkbtn" onClick={() => mark(null)}>
-            Undo
+            {t("undo")}
           </button>
         </div>
       </div>
@@ -94,7 +94,9 @@ export function ClaimTrack({ id }: { id: string }) {
   return (
     <div className={`track on ${claim.state}`} data-testid={`track-${id}`}>
       <fieldset className="track-row">
-        <legend className="sr-only">Progress with {s.name}</legend>
+        <legend className="sr-only">
+          {t("progressWith", { name: s.name })}
+        </legend>
         {(["applied", "awarded", "refused"] as const).map((k) => (
           <button
             key={k}
@@ -102,31 +104,24 @@ export function ClaimTrack({ id }: { id: string }) {
             aria-pressed={claim.state === k}
             onClick={() => mark(k)}
           >
-            {claim.state === k && <Icon name="check" size={14} />} {LABEL[k]}
+            {claim.state === k && <Icon name="check" size={14} />} {t(k)}
           </button>
         ))}
         <button type="button" className="linkbtn" onClick={() => mark(null)}>
-          Undo
+          {t("undo")}
         </button>
       </fieldset>
-      {claim.state === "applied" && (
-        <p className="hint">
-          Keep the letters they send. If a decision hasn't come in a few weeks,
-          call and ask where it is.
-        </p>
-      )}
+      {claim.state === "applied" && <p className="hint">{t("appliedHint")}</p>}
       {claim.state === "awarded" && (
         <p className="hint">
-          {BENEFIT_OF[id]
-            ? "Good news. The help it opens is now checked again above."
-            : "Good news. Check the first payment is right when it arrives."}
+          {BENEFIT_OF[id] ? t("awardedOpens") : t("awardedPay")}
         </p>
       )}
       {claim.state === "awarded" && keep && (
         <p className="hint keep">
-          <b>To keep it:</b> {theyify(keep.text, subject)}{" "}
+          <b>{t("toKeep")}</b> {theyify(keep.text, subject)}{" "}
           <a href={keep.url} target="_blank" rel="noreferrer">
-            More
+            {t("more")}
           </a>
         </p>
       )}
@@ -135,14 +130,11 @@ export function ClaimTrack({ id }: { id: string }) {
           <p className="hint">
             {theyify(challenge.text, subject)}{" "}
             <a href={challenge.url} target="_blank" rel="noreferrer">
-              How to challenge
+              {t("challenge")}
             </a>
           </p>
         ) : (
-          <p className="hint">
-            The refusal letter says how to ask for a review. Citizens Advice can
-            help for free.
-          </p>
+          <p className="hint">{t("refusedHint")}</p>
         ))}
     </div>
   );

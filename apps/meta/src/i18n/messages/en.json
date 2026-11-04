@@ -400,5 +400,37 @@
     "someoneElse": "Someone else",
     "someoneElseHint": "Someone else, like Nan",
     "use": "Use"
+  },
+  "track": {
+    "applied": "Applied",
+    "awarded": "Awarded",
+    "refused": "Refused",
+    "markDone": "Mark as done",
+    "iApplied": "I've applied",
+    "theyApplied": "They've applied",
+    "done": "Done",
+    "undo": "Undo",
+    "progressWith": "Progress with {name}",
+    "appliedHint": "Keep the letters they send. If a decision hasn't come in a few weeks, call and ask where it is.",
+    "awardedOpens": "Good news. The help it opens is now checked again above.",
+    "awardedPay": "Good news. Check the first payment is right when it arrives.",
+    "toKeep": "To keep it:",
+    "more": "More",
+    "challenge": "How to challenge",
+    "refusedHint": "The refusal letter says how to ask for a review. Citizens Advice can help for free.",
+    "awardedOpened": "{name} awarded. It opened {count} more: {names}.",
+    "awardedOnly": "{name} awarded."
+  },
+  "share": {
+    "button": "Share",
+    "titleMe": "My Beacon check",
+    "titleThey": "Beacon check for {name}",
+    "text": "What looks likely, and the plan to claim it.",
+    "copied": "Link copied. Anyone with it can see these answers, so send it only to people you trust.",
+    "failed": "Couldn't share from this browser. Save or print works instead."
+  },
+  "read": {
+    "aloud": "Read aloud",
+    "stop": "Stop reading"
   }
 }
