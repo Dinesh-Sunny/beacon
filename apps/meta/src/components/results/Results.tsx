@@ -161,9 +161,10 @@ export function Results() {
                 .join(" and ")}
             </b>{" "}
             <span className="hint">
-              from the {worth.count} Beacon can price
+              from {worth.count} {worth.count === 1 ? "result" : "results"} with
+              a published amount
               {likely > worth.count
-                ? `, plus ${likely - worth.count} more where the amount depends on ${subject.who === "me" ? "you" : "them"}`
+                ? `, plus ${likely - worth.count} where the amount depends on ${subject.who === "me" ? "you" : "them"}`
                 : ""}
               . Each organisation decides the final amount.
             </span>

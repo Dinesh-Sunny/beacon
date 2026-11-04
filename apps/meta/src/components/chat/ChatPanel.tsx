@@ -349,14 +349,16 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
 
   // Answers given on the question card in the chat read back as a chat turn.
   const onAnswer = useCallback(
-    (f: FactId, v: Answers[FactId]) => {
+    (f: FactId, v: Answers[FactId], extra: Answers = {}) => {
+      const next = { ...answersRef.current, [f]: v, ...extra };
       const before = evaluate(answersRef.current);
-      const after = evaluate({ ...answersRef.current, [f]: v });
-      apply({ [f]: v }, "form");
+      const after = evaluate(next);
+      apply({ [f]: v, ...extra }, "form");
+      const said = showAnswer(next, f);
       push({
         role: "user",
-        text: formatAnswer(f, v),
-        qa: { q: ask(f, subjectRef.current), a: formatAnswer(f, v) },
+        text: said,
+        qa: { q: ask(f, subjectRef.current), a: said },
       });
       const gained = SCHEMES.filter(
         (s) =>

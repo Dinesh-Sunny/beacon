@@ -118,7 +118,7 @@ export function QuestionCard({
   inChat,
 }: {
   f: FactId;
-  onAnswer?: (f: FactId, v: Answers[FactId]) => void;
+  onAnswer?: (f: FactId, v: Answers[FactId], extra?: Answers) => void;
   inChat?: boolean;
 }) {
   const { answers, apply, states, edit, skip, skipped, subject } = useCheck();
@@ -149,10 +149,22 @@ export function QuestionCard({
     setDraft((d) => ({ ...d, ...patch }));
   };
   const r = readDraft(f, draft);
+  // A new postcode is previewed on its own letters, not the nation looked up for the old one.
   const preview =
-    "v" in r ? derivedChips(f, derive({ ...answers, [f]: r.v })) : [];
+    "v" in r
+      ? derivedChips(
+          f,
+          derive({
+            ...answers,
+            ...(f === "postcode" ? { nation: undefined } : {}),
+            [f]: r.v,
+          }),
+        )
+      : [];
+  // A birth year without a month is kept as approximate, so it reads back as an age.
+  const extra: Answers = f === "dob" && !draft.m ? { dobApprox: true } : {};
   const save = (v: Answers[FactId]) =>
-    onAnswer ? onAnswer(f, v) : apply({ [f]: v }, "form");
+    onAnswer ? onAnswer(f, v, extra) : apply({ [f]: v, ...extra }, "form");
   const submit = (value?: Answers[FactId]) => {
     if (value !== undefined) return save(value);
     if ("err" in r) return setErr(r.err);
