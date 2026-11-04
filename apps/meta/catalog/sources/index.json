@@ -1,0 +1,240 @@
+{
+ "https://www.gov.uk/apply-blue-badge": {
+  "hash": "f762f036900040cb",
+  "file": "gov-uk-apply-blue-badge.md",
+  "checked": "2026-11-04",
+  "updated": "2016-04-06T16:38:36+01:00",
+  "title": "Apply for or renew a Blue Badge"
+ },
+ "https://www.gov.uk/apply-council-tax-reduction": {
+  "hash": "79e9e6e002f06158",
+  "file": "gov-uk-apply-council-tax-reduction.md",
+  "checked": "2026-11-04",
+  "updated": "2022-05-27T08:44:02+01:00",
+  "title": "Apply for Council Tax Reduction"
+ },
+ "https://www.gov.uk/apply-for-elderly-person-bus-pass": {
+  "hash": "8522b2b32587fda8",
+  "file": "gov-uk-apply-for-elderly-person-bus-pass.md",
+  "checked": "2026-11-04",
+  "updated": "2014-11-28T16:43:01+00:00",
+  "title": "Apply for an older person's bus pass"
+ },
+ "https://www.gov.uk/attendance-allowance/how-to-claim": {
+  "hash": "723f9ca2b40bfe68",
+  "file": "gov-uk-attendance-allowance-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-21T12:29:59+01:00",
+  "title": "Attendance Allowance"
+ },
+ "https://www.gov.uk/bereavement-support-payment/how-to-claim": {
+  "hash": "483b03b329940473",
+  "file": "gov-uk-bereavement-support-payment-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-09T00:01:05+00:00",
+  "title": "Bereavement Support Payment"
+ },
+ "https://www.gov.uk/carers-allowance/eligibility": {
+  "hash": "226f9eb1bf1a86f3",
+  "file": "gov-uk-carers-allowance-eligibility.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-17T11:36:05+01:00",
+  "title": "Carer's Allowance"
+ },
+ "https://www.gov.uk/carers-allowance/how-to-claim": {
+  "hash": "226f9eb1bf1a86f3",
+  "file": "gov-uk-carers-allowance-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-17T11:36:05+01:00",
+  "title": "Carer's Allowance"
+ },
+ "https://www.gov.uk/child-benefit/how-to-claim": {
+  "hash": "4cd5ac4f22782c07",
+  "file": "gov-uk-child-benefit-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-22T11:57:33+00:00",
+  "title": "Child Benefit"
+ },
+ "https://www.gov.uk/cold-weather-payment": {
+  "hash": "cf2ab2312c56df51",
+  "file": "gov-uk-cold-weather-payment.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-01T00:01:00+00:00",
+  "title": "Cold Weather Payment"
+ },
+ "https://www.gov.uk/employment-support-allowance/how-to-claim": {
+  "hash": "924873a6dacefa04",
+  "file": "gov-uk-employment-support-allowance-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-12-10T11:36:25+00:00",
+  "title": "Employment and Support Allowance (ESA)"
+ },
+ "https://www.gov.uk/free-discount-tv-licence": {
+  "hash": "b70bfdfd13772cf1",
+  "file": "gov-uk-free-discount-tv-licence.md",
+  "checked": "2026-11-04",
+  "updated": "2017-04-01T00:01:13+01:00",
+  "title": "Get a free or discounted TV licence"
+ },
+ "https://www.gov.uk/funeral-payments/how-to-claim": {
+  "hash": "4be1965afd32a9ee",
+  "file": "gov-uk-funeral-payments-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2015-01-12T14:56:21+00:00",
+  "title": "Get help with funeral costs (Funeral Expenses Payment)"
+ },
+ "https://www.gov.uk/government/news/1-billion-resilience-fund-and-next-step-towards-removal-of-two-child-limit-provide-safety-net-for-families": {
+  "hash": "c645a2196f41b223",
+  "file": "gov-uk-government-news-1-billion-resilience-fund-and-next-step-towards-removal-of-two-child-limit-provide-safety-net-for.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "£1 billion resilience fund and next step towards removal of two-child limit provide safety net for families - GOV.UK"
+ },
+ "https://www.gov.uk/housing-benefit/eligibility": {
+  "hash": "14b2ef93a80ffdcc",
+  "file": "gov-uk-housing-benefit-eligibility.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-17T15:05:33+01:00",
+  "title": "Housing Benefit"
+ },
+ "https://www.gov.uk/jobseekers-allowance/how-to-claim": {
+  "hash": "bf2bd56798055ed8",
+  "file": "gov-uk-jobseekers-allowance-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2025-01-01T00:01:04+00:00",
+  "title": "Jobseeker's Allowance (JSA)"
+ },
+ "https://www.gov.uk/maternity-allowance/how-to-claim": {
+  "hash": "4232fd2afd1f0865",
+  "file": "gov-uk-maternity-allowance-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2025-02-11T13:20:23+00:00",
+  "title": "Maternity Allowance"
+ },
+ "https://www.gov.uk/pension-credit/how-to-claim": {
+  "hash": "2c45b03c2bd96a4c",
+  "file": "gov-uk-pension-credit-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-14T11:06:35+01:00",
+  "title": "Pension Credit"
+ },
+ "https://www.gov.uk/pension-credit/what-youll-get": {
+  "hash": "2c45b03c2bd96a4c",
+  "file": "gov-uk-pension-credit-what-youll-get.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-14T11:06:35+01:00",
+  "title": "Pension Credit"
+ },
+ "https://www.gov.uk/pip/how-to-claim": {
+  "hash": "3ab7010ae142c65d",
+  "file": "gov-uk-pip-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-06T10:53:35+00:00",
+  "title": "Personal Independence Payment (PIP)"
+ },
+ "https://www.gov.uk/sure-start-maternity-grant/how-to-claim": {
+  "hash": "14d8cfc9604f08b2",
+  "file": "gov-uk-sure-start-maternity-grant-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2015-01-12T15:06:41+00:00",
+  "title": "Sure Start Maternity Grant"
+ },
+ "https://www.gov.uk/tax-free-childcare": {
+  "hash": "07ccec35eb3aaccb",
+  "file": "gov-uk-tax-free-childcare.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-08T18:10:18+00:00",
+  "title": "Tax-Free Childcare"
+ },
+ "https://www.gov.uk/the-warm-home-discount-scheme": {
+  "hash": "830ea393944a9483",
+  "file": "gov-uk-the-warm-home-discount-scheme.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-14T08:45:44+01:00",
+  "title": "Warm Home Discount Scheme"
+ },
+ "https://www.gov.uk/universal-credit/eligibility": {
+  "hash": "bcb613a91de0e126",
+  "file": "gov-uk-universal-credit-eligibility.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-17T10:58:14+01:00",
+  "title": "Universal Credit"
+ },
+ "https://www.gov.uk/universal-credit/how-to-claim": {
+  "hash": "bcb613a91de0e126",
+  "file": "gov-uk-universal-credit-how-to-claim.md",
+  "checked": "2026-11-04",
+  "updated": "2024-10-17T10:58:14+01:00",
+  "title": "Universal Credit"
+ },
+ "https://www.gov.uk/winter-fuel-payment": {
+  "hash": "2c9c1246867c4405",
+  "file": "gov-uk-winter-fuel-payment.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-04T10:27:07+00:00",
+  "title": "Winter Fuel Payment"
+ },
+ "https://www.healthystart.nhs.uk/how-to-apply/": {
+  "hash": "0ffb98a0cd3d3cd5",
+  "file": "healthystart-nhs-uk-how-to-apply.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "How to apply &#8211; Get help to buy food and milk (Healthy Start)"
+ },
+ "https://www.mygov.scot/adult-disability-payment": {
+  "hash": "1e1844d1a1517d90",
+  "file": "mygov-scot-adult-disability-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Adult Disability Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/carer-support-payment": {
+  "hash": "9a8f66a3e1042c41",
+  "file": "mygov-scot-carer-support-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Carer Support Payment - mygov.scot"
+ },
+ "https://www.nhs.uk/nhs-services/dentists/who-is-entitled-to-free-nhs-dental-treatment-in-england/": {
+  "hash": "6a5b6b7025fb20cc",
+  "file": "nhs-uk-nhs-services-dentists-who-is-entitled-to-free-nhs-dental-treatment-in-england.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Who can get free NHS dental treatment or help with dental costs - NHS"
+ },
+ "https://www.nhs.uk/nhs-services/help-with-health-costs/nhs-low-income-scheme-lis/": {
+  "hash": "b36c6a7c18d61f08",
+  "file": "nhs-uk-nhs-services-help-with-health-costs-nhs-low-income-scheme-lis.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "NHS Low Income Scheme (LIS) - NHS"
+ },
+ "https://www.nhs.uk/nhs-services/opticians/free-nhs-eye-tests-and-optical-vouchers/": {
+  "hash": "417c1e0fc8adf710",
+  "file": "nhs-uk-nhs-services-opticians-free-nhs-eye-tests-and-optical-vouchers.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Free NHS eye tests and optical vouchers - NHS"
+ },
+ "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs/free-nhs-prescriptions": {
+  "hash": "2224886e487e62b6",
+  "file": "nhsbsa-nhs-uk-help-nhs-prescription-costs-free-nhs-prescriptions.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Free NHS prescriptions | NHSBSA"
+ },
+ "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs": {
+  "hash": "4d00d5dcdfd5088c",
+  "file": "ofcom-org-uk-phones-and-broadband-saving-money-social-tariffs.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Social tariffs: Cheaper broadband and phone packages"
+ },
+ "https://www.ofgem.gov.uk/consumers/household-gas-and-electricity-guide/extra-help-energy-services/priority-services-register-people-need": {
+  "hash": "32438490f775eb18",
+  "file": "ofgem-gov-uk-consumers-household-gas-and-electricity-guide-extra-help-energy-services-priority-services-register-people-.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Join your supplier’s Priority Services Register | Ofgem"
+ }
+}
