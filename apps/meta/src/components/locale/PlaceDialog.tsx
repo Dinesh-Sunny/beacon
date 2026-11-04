@@ -115,6 +115,8 @@ export function PlaceDialog({
 
   useEffect(() => {
     ref.current?.showModal();
+    // Open on the search, like a command palette (showModal would focus the first tab).
+    ref.current?.querySelector<HTMLInputElement>(".pd-search input")?.focus();
   }, []);
   // A new tab or search starts at the top of the list.
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset on tab or query change
@@ -314,6 +316,11 @@ export function PlaceDialog({
               setTab(k);
               setQ("");
               setGap(null);
+              requestAnimationFrame(() =>
+                ref.current
+                  ?.querySelector<HTMLInputElement>(".pd-search input")
+                  ?.focus(),
+              );
             }}
             data-testid={`pd-tab-${k}`}
           >
@@ -359,8 +366,6 @@ export function PlaceDialog({
           <div className="pd-search">
             <Icon name="search" size={18} />
             <input
-              // biome-ignore lint/a11y/noAutofocus: the dialog opens to search, like a command palette
-              autoFocus
               aria-label={
                 tab === "place" ? t("searchPlace") : t("searchLanguage")
               }
