@@ -88,6 +88,7 @@ export async function readLetter(dataUrl: string) {
       schema: { name: "letter_reading", schema: SCHEMA },
       effort: "low",
       maxTokens: 3000,
+      cacheKey: "beacon-letter-v1",
     }),
   ]);
   if (read.status === "rejected") throw read.reason;

@@ -60,6 +60,7 @@ export type ContentPart = { type: "text"; text: string } | { type: "image_url"; 
 export interface Usage {
   prompt_tokens: number;
   completion_tokens: number;
+  prompt_tokens_details?: { cached_tokens?: number };
 }
 
 export async function chat(opts: {
@@ -69,6 +70,8 @@ export async function chat(opts: {
   effort?: Effort;
   maxTokens?: number;
   timeoutMs?: number;
+  /** Groups requests that share a long fixed prefix so Meta's automatic prompt cache hits more often. */
+  cacheKey?: string;
 }): Promise<{ message: { content: string | null; tool_calls?: ToolCall[] }; usage?: Usage }> {
   const body: Record<string, unknown> = {
     model: META.text,
@@ -77,6 +80,7 @@ export async function chat(opts: {
     max_completion_tokens: opts.maxTokens ?? 1500,
   };
   if (opts.tools?.length) body.tools = opts.tools;
+  if (opts.cacheKey) body.prompt_cache_key = opts.cacheKey;
   if (opts.schema) body.response_format = { type: "json_schema", json_schema: { name: opts.schema.name, schema: opts.schema.schema } };
   const started = Date.now();
   const res = await call(
@@ -89,7 +93,7 @@ export async function chat(opts: {
   if (!message) throw new MetaError(502, "Empty reply");
   // Cost telemetry: model, tokens and time only, never content.
   console.info(
-    JSON.stringify({ evt: "model_call", model: META.text, tools: Boolean(opts.tools?.length), in: json.usage?.prompt_tokens ?? 0, out: json.usage?.completion_tokens ?? 0, ms: Date.now() - started }),
+    JSON.stringify({ evt: "model_call", job: opts.cacheKey ?? "other", model: META.text, tools: Boolean(opts.tools?.length), in: json.usage?.prompt_tokens ?? 0, cached: json.usage?.prompt_tokens_details?.cached_tokens ?? 0, out: json.usage?.completion_tokens ?? 0, ms: Date.now() - started }),
   );
   return { message, usage: json.usage };
 }

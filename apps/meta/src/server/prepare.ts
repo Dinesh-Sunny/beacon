@@ -70,6 +70,7 @@ Write the call notes.`,
     schema: { name: "call_prep", schema: SCHEMA },
     effort: "low",
     maxTokens: 2000,
+    cacheKey: "beacon-prepare-v1",
   });
   const out = Out.parse(JSON.parse(message.content ?? "{}"));
   const clean = (t: string) => t.replace(NO_DIGITS_LONG, "").replace(/—/g, "-");

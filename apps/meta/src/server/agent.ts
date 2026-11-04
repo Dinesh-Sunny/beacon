@@ -192,7 +192,7 @@ export async function runAgent(
   const who: { value: Who | null } = { value: null };
   const usage: Usage = { prompt_tokens: 0, completion_tokens: 0 };
   for (let round = 0; round < 5; round++) {
-    const { message, usage: u } = await chat({ messages, tools: TOOLS, effort: "low", maxTokens: 2500 });
+    const { message, usage: u } = await chat({ messages, tools: TOOLS, effort: "low", maxTokens: 2500, cacheKey: "beacon-agent-v1" });
     usage.prompt_tokens += u?.prompt_tokens ?? 0;
     usage.completion_tokens += u?.completion_tokens ?? 0;
     if (!message.tool_calls?.length) {
