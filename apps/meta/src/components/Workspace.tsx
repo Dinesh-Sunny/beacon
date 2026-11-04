@@ -199,7 +199,7 @@ function Canvas() {
   return (
     <>
       <Activity />
-      {asked === 0 && !found ? (
+      {!found ? (
         <div className="calm" data-testid="calm">
           <div className="lamp" aria-hidden="true">
             <i />
@@ -207,7 +207,7 @@ function Canvas() {
             <i />
             <span />
           </div>
-          <p>Your results light up here as you answer.</p>
+          <p>{asked === 0 ? "Your results light up here as you answer." : `${settled} of ${SCHEMES.length} checked. Keep going, results light up here.`}</p>
         </div>
       ) : (
         <>
