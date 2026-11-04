@@ -1592,3 +1592,235 @@ button {
   color: var(--check);
   font-weight: 700;
 }
+
+/* ---------- Results ---------- */
+.results {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: var(--r-lg);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  box-shadow: var(--shadow);
+  animation: rise 0.4s ease both;
+}
+.results.empty {
+  padding: 24px;
+  gap: 8px;
+}
+.banner {
+  aspect-ratio: 1792 / 640;
+  background: linear-gradient(120deg, var(--beam-soft), var(--surface-2) 60%, var(--chain-soft));
+  position: relative;
+  overflow: hidden;
+}
+.banner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  animation: fade 1.2s ease both;
+}
+.banner-glow {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at 70% 40%, rgba(245, 165, 36, 0.35), transparent 55%);
+  animation: blink 2.4s ease-in-out infinite;
+}
+.res-head {
+  padding: 22px 24px 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.res-head h2 {
+  font-size: clamp(1.7rem, 3vw, 2.3rem);
+}
+.res-actions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+.warns {
+  padding: 8px 24px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.warn {
+  display: grid;
+  grid-template-columns: 20px minmax(0, 1fr);
+  gap: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  font-size: 0.95rem;
+}
+.warn.warn {
+  background: var(--gate-bg);
+  color: var(--ink);
+}
+.warn.warn .icon {
+  color: var(--gate);
+}
+.warn.boost {
+  background: var(--good-soft);
+}
+.warn.boost .icon {
+  color: var(--good);
+}
+.plan {
+  list-style: none;
+  margin: 0;
+  padding: 18px 24px 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.plan .step {
+  display: grid;
+  grid-template-columns: 36px minmax(0, 1fr);
+  gap: 14px;
+  position: relative;
+  padding-bottom: 22px;
+}
+.plan .step:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: 17px;
+  top: 38px;
+  bottom: 4px;
+  width: 2px;
+  background: var(--line);
+}
+.plan .num {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-weight: 700;
+  background: var(--beam);
+  color: #202020;
+}
+.plan .step.check .num {
+  background: var(--check-soft);
+  color: var(--check);
+  border: 1.5px solid var(--check);
+}
+.plan .step.unlock .num {
+  background: var(--chain-soft);
+  color: var(--chain);
+}
+.step-body {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+.step-body h3 {
+  font-size: 1.3rem;
+}
+.step-top {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.when {
+  font-size: 0.8rem;
+  font-weight: 700;
+  border-radius: 999px;
+  padding: 2px 10px;
+  background: var(--surface-2);
+}
+.when.now {
+  background: var(--beam);
+  color: #202020;
+}
+.chip.likely {
+  border-color: var(--good);
+  color: var(--good);
+}
+.chip.check {
+  border-color: var(--check);
+  color: var(--check);
+}
+.chip.unlock {
+  border-color: var(--chain);
+  color: var(--chain);
+}
+.timing {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  color: var(--check);
+  font-weight: 700;
+  font-size: 0.95rem;
+}
+.step-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+.prep {
+  margin-top: 6px;
+  background: var(--surface-2);
+  border-radius: 14px;
+  padding: 14px 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  animation: rise 0.3s ease both;
+}
+.prep .opening {
+  font-family: var(--f-display);
+  font-style: italic;
+  font-size: 1.15rem;
+}
+.prep ul {
+  margin: 0 0 6px;
+  padding-left: 20px;
+}
+.ruled-out {
+  border-top: 1px solid var(--line);
+  padding: 14px 24px 20px;
+}
+.ruled-out summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+.ruled-out ul {
+  margin: 10px 0 0;
+  padding-left: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+@media print {
+  .strip,
+  .chat,
+  .details-col,
+  .tabbar,
+  .board,
+  .panel,
+  .progress,
+  .res-actions,
+  .step-actions,
+  .banner {
+    display: none !important;
+  }
+  .ws {
+    display: block;
+    height: auto;
+  }
+  .canvas {
+    background: #fff;
+    overflow: visible;
+  }
+  .results {
+    box-shadow: none;
+    border: 0;
+  }
+}

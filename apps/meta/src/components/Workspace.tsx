@@ -197,8 +197,17 @@ function Canvas() {
           </span>
         </div>
       </div>
-      <AgentPanel />
-      {next ? null : <Results />}
+      {next ? (
+        <>
+          <AgentPanel />
+          <Results />
+        </>
+      ) : (
+        <>
+          <Results />
+          <AgentPanel />
+        </>
+      )}
       <Board />
     </>
   );

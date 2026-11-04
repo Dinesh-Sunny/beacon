@@ -3,6 +3,7 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   reactCompiler: true,
   poweredByHeader: false,
+  devIndicators: false,
   headers: async () => [
     {
       source: "/:path*",
