@@ -4,7 +4,7 @@ import { isLocale, localeInfo } from "@/i18n/locales";
 import { runAgent } from "@/server/agent";
 import { guard } from "@/server/guard";
 import { failure, json } from "@/server/http";
-import { redact } from "@/server/private";
+import { openWeightsName, redact } from "@/server/private";
 
 export const runtime = "nodejs";
 export const maxDuration = 60;
@@ -68,8 +68,8 @@ export async function POST(req: Request) {
             type: "step",
             name: "privacy",
             text:
-              privacy.by === "glimmer"
-                ? "Personal details removed on Muse Glimmer, Meta's open-weights model"
+              privacy.by === "open"
+                ? `Personal details removed on ${openWeightsName}, Meta's open-weights model`
                 : "Personal details removed before your words reached Muse Spark",
           });
         const out = await runAgent(

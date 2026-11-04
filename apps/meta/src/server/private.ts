@@ -1,17 +1,30 @@
 import "server-only";
 
 // The privacy step before anything reaches a hosted model. Each new message from the person is
-// first passed through Muse Glimmer, Meta's open-weights model, served on infrastructure we run
-// (any OpenAI-compatible host: vLLM on Modal, Baseten, Together or Fireworks). It removes names,
+// first passed through one of Meta's open-weights models on a host we choose: Muse Spark Open on
+// Baseten by default (BASETEN_API_KEY), or any OpenAI-compatible host serving Muse Glimmer or
+// Muse Spark Open (vLLM on Modal, Fireworks) through the OPEN_WEIGHTS_* settings. It removes names,
 // street addresses, ID and account numbers, phone numbers and emails, and keeps what a check
 // needs (ages, postcode or ZIP code, amounts, relationships). Without that host configured, the
 // same rules run as plain code, so nothing personal leaves in either case.
 
-const OPEN = {
-  base: process.env.OPEN_WEIGHTS_BASE_URL,
-  key: process.env.OPEN_WEIGHTS_API_KEY,
-  model: process.env.OPEN_WEIGHTS_MODEL || "meta-models/Muse-Glimmer-30B",
-};
+const custom = Boolean(process.env.OPEN_WEIGHTS_BASE_URL);
+const OPEN = custom
+  ? {
+      base: process.env.OPEN_WEIGHTS_BASE_URL,
+      key: process.env.OPEN_WEIGHTS_API_KEY,
+      model: process.env.OPEN_WEIGHTS_MODEL || "muse-glimmer",
+      name: process.env.OPEN_WEIGHTS_NAME || "Muse Glimmer",
+    }
+  : {
+      base: "https://inference.baseten.co/v1",
+      key: process.env.BASETEN_API_KEY,
+      model: process.env.BASETEN_MODEL || "meta-models/muse-spark-open-1026",
+      name: "Muse Spark Open on Baseten",
+    };
+
+/** Which open-weights model runs the privacy step, for the steps the person sees. */
+export const openWeightsName = OPEN.name;
 
 // Shapes that are never needed for a check: UK National Insurance, US Social Security, card
 // and account numbers, sort codes, phone numbers, emails.
@@ -35,10 +48,10 @@ export const openWeightsOn = (): boolean => Boolean(OPEN.base && OPEN.key);
 const SYSTEM =
   "Rewrite the user's message with personal identifiers removed, and change nothing else. Replace people's names with their relationship if it is clear (my mum, my dad) or with [name]. Replace a street address with [address] but keep a postcode or ZIP code. Replace National Insurance, Social Security, card, bank account and sort code numbers, phone numbers and emails with [removed]. Keep ages, dates of birth by month and year, amounts of money, health needs, places like towns, and everything else exactly as written. Reply with the rewritten message only.";
 
-/** One message through Muse Glimmer (open weights), then the code rules as a safety net. */
+/** One message through the open-weights model, then the code rules as a safety net. */
 export async function redact(
   text: string,
-): Promise<{ text: string; by: "glimmer" | "code" }> {
+): Promise<{ text: string; by: "open" | "code" }> {
   if (!openWeightsOn()) return { text: scrubText(text), by: "code" };
   try {
     const res = await fetch(`${OPEN.base}/chat/completions`, {
@@ -54,20 +67,28 @@ export async function redact(
           { role: "user", content: text },
         ],
         temperature: 0,
-        max_tokens: 800,
+        max_tokens: 1200,
       }),
       signal: AbortSignal.timeout(8000),
       cache: "no-store",
     });
-    if (!res.ok) throw new Error(String(res.status));
+    if (!res.ok)
+      throw new Error(`${res.status} ${(await res.text()).slice(0, 200)}`);
     const json = (await res.json()) as {
       choices?: { message?: { content?: string } }[];
     };
     const out = json.choices?.[0]?.message?.content?.trim();
     if (!out) throw new Error("empty");
     // The code rules run on the model's output too: two independent layers.
-    return { text: scrubText(out), by: "glimmer" };
-  } catch {
+    return { text: scrubText(out), by: "open" };
+  } catch (err) {
+    console.warn(
+      JSON.stringify({
+        evt: "open_weights_failed",
+        model: OPEN.model,
+        err: String(err).slice(0, 200),
+      }),
+    );
     return { text: scrubText(text), by: "code" };
   }
 }
