@@ -1,0 +1,242 @@
+{
+  "source": "https://www.360giving.org/",
+  "read": "2026-11-04",
+  "funders": [
+    {
+      "name": "Barnwood Trust",
+      "url": "http://www.barnwoodtrust.org/",
+      "typical": 1502,
+      "latest": "2025-02-06",
+      "programmes": [
+        "Grants for You",
+        "Grants for Your Home",
+        "Grants for Individuals 2023"
+      ],
+      "national": false,
+      "places": [
+        "Cam East",
+        "Stroud",
+        "Dursley",
+        "Newent & Taynton",
+        "Forest of Dean",
+        "Tewkesbury South",
+        "Tewkesbury",
+        "Matson, Robinswood and White City"
+      ],
+      "licence": "Creative Commons Public Domain Dedication 1.0 Universal"
+    },
+    {
+      "name": "Buttle UK",
+      "url": "https://www.buttleuk.org/",
+      "typical": 200,
+      "latest": "2026-03-26",
+      "programmes": ["Chances for Children", "School Fees Grant"],
+      "national": true,
+      "places": [
+        "Wakefield East",
+        "Wakefield",
+        "Eccleshill",
+        "Bradford",
+        "Ham, Petersham & Richmond Riverside",
+        "Richmond upon Thames",
+        "Great Bridge",
+        "Sandwell"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Community Foundation in Wales",
+      "url": "https://www.communityfoundationwales.org.uk",
+      "typical": 1500,
+      "latest": "2025-10-17",
+      "programmes": [
+        "Thomas John Jones Memorial Fund",
+        "Cardiff Education Trust",
+        "Education Trust of John Vaughan"
+      ],
+      "national": false,
+      "places": [
+        "Powys",
+        "Blaenau Gwent",
+        "Vale of Glamorgan",
+        "Monmouthshire",
+        "Carmarthenshire",
+        "Pembrokeshire",
+        "Caerphilly",
+        "Wrexham"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Foothold",
+      "url": "https://www.myfoothold.org/",
+      "typical": 500,
+      "latest": "2022-12-09",
+      "programmes": ["Speirs Fund", "Lord Hirst Fund", "Wilde Fund"],
+      "national": true,
+      "places": [
+        "Beauchief and Greenhill",
+        "Spain",
+        "Moulton",
+        "Brixton Acre Lane",
+        "Holgate",
+        "Newtown",
+        "South Beddington & Roundshaw",
+        "Bordesley & Highgate"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Freemasons’ Charity",
+      "url": "https://freemasonscharity.org.uk/",
+      "typical": 720,
+      "latest": "2026-08-24",
+      "programmes": [
+        "Daily living costs",
+        "Health, care and wellbeing",
+        "Children, young people and education"
+      ],
+      "national": true,
+      "places": [
+        "London",
+        "Monmouthshire",
+        "Hampshire and Isle of Wight",
+        "Herefordshire",
+        "Surrey",
+        "Leicestershire and Rutland",
+        "Devonshire",
+        "Sussex"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Hampton Fund",
+      "url": "https://www.hamptonfund.co.uk/",
+      "typical": 520,
+      "latest": "2023-09-07",
+      "programmes": ["Individual Grants"],
+      "national": false,
+      "places": [
+        "Whitton",
+        "Richmond upon Thames",
+        "Teddington",
+        "Fulwell & Hampton Hill",
+        "Heathfield",
+        "St Margarets & North Twickenham",
+        "Hampton",
+        "Twickenham Riverside"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Imperial Health Charity",
+      "url": "https://www.imperialcharity.org.uk/",
+      "typical": 474,
+      "latest": "2025-06-14",
+      "programmes": ["Patient Hardship", "Research Fellowship"],
+      "national": false,
+      "places": ["London"],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Longleigh Foundation",
+      "url": "https://www.longleigh.org",
+      "typical": 913.97,
+      "latest": "2024-03-06",
+      "programmes": [
+        "Hardship Grant",
+        "Critical Incident Grant",
+        "Flooring Grant"
+      ],
+      "national": true,
+      "places": [
+        "Tilehurst",
+        "Reading",
+        "Warwick All Saints & Woodloes",
+        "Warwick",
+        "Cauldwell",
+        "Bedford",
+        "Fordingbridge, Godshill & Hyde",
+        "New Forest"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Somerset Community Foundation",
+      "url": "https://www.somersetcf.org.uk",
+      "typical": 100,
+      "latest": "2026-02-11",
+      "programmes": [],
+      "national": false,
+      "places": [
+        "Comeytrowe & Trull",
+        "Somerset",
+        "Taunton South",
+        "Taunton East",
+        "Taunton North",
+        "Bishop's Hull & Taunton West",
+        "Lydeard",
+        "Rowbarton & Staplegrove"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "St. Martin-in-the-Fields Charity",
+      "url": "https://www.smitfc.org/",
+      "typical": 435.59,
+      "latest": "2024-06-28",
+      "programmes": ["Accessing accommodation", "Preventing eviction"],
+      "national": true,
+      "places": [
+        "Wakefield",
+        "Plymouth",
+        "Bath and North East Somerset",
+        "County Durham",
+        "Kirklees",
+        "Denbighshire (Sir Ddinbych)",
+        "Stoke-on-Trent",
+        "Amber Valley"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "The Greggs Foundation",
+      "url": "https://www.greggsfoundation.org.uk",
+      "typical": 100,
+      "latest": "2025-11-18",
+      "programmes": ["Hardship Grants"],
+      "national": true,
+      "places": [
+        "Higham Hill",
+        "Waltham Forest",
+        "Boulsworth & Foulridge",
+        "Pendle",
+        "Ayr North",
+        "South Ayrshire",
+        "Calton",
+        "Glasgow City"
+      ],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "The Eaton Fund",
+      "url": "http://www.eatonfund.org.uk",
+      "typical": 350,
+      "latest": "2024-05-01",
+      "programmes": [],
+      "national": true,
+      "places": [],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    },
+    {
+      "name": "Barking & Dagenham Giving",
+      "url": "https://bdgiving.org.uk/",
+      "typical": 300,
+      "latest": "2025-06-16",
+      "programmes": ["Renew Fund", "Rapid Response Fund", "Communities' Pot"],
+      "national": false,
+      "places": ["East London"],
+      "licence": "Creative Commons Attribution 4.0 International (CC BY 4.0)"
+    }
+  ]
+}

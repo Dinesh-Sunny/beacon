@@ -128,7 +128,7 @@ export const SchemeSchema = z.strictObject({
   /** What to do to keep it once awarded (the Framework's Keep step), when it differs from the provider's usual duty. */
   keep: z.string().optional(),
   /** A live list to show under the scheme, from a harvested source (see src/components/results/lists). */
-  list: z.enum(["socialTariffs"]).optional(),
+  list: z.enum(["socialTariffs", "charityGrants"]).optional(),
   /** GOV.UK local service slug (e.g. "apply-council-tax-reduction"): with a council, it links straight to that council's page. */
   council: z
     .string()

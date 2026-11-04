@@ -2,6 +2,7 @@
 
 // Live lists a pack can attach to a scheme with its "list" field.
 import type { Nation, Scheme } from "@/engine/rules";
+import { CharityGrants } from "./CharityGrants";
 import { SocialTariffs } from "./SocialTariffs";
 
 export function SchemeList({
@@ -12,5 +13,6 @@ export function SchemeList({
   nation: Nation | null;
 }) {
   if (s.list === "socialTariffs") return <SocialTariffs nation={nation} />;
+  if (s.list === "charityGrants") return <CharityGrants />;
   return null;
 }

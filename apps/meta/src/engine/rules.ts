@@ -3,6 +3,7 @@
 // It runs in the browser, so a check costs the server nothing until someone asks a model for help.
 
 import ukBills from "../../packs/uk-bills.json";
+import ukCharity from "../../packs/uk-charity.json";
 import ukCore from "../../packs/uk-core.json";
 import ukCouncil from "../../packs/uk-council.json";
 import ukFamily from "../../packs/uk-family.json";
@@ -240,6 +241,7 @@ export const REGISTRY = RegistrySchema.parse([
   ukWorkCare,
   ukUnclaimed,
   ukHousehold,
+  ukCharity,
 ]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
