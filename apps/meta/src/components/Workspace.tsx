@@ -32,7 +32,7 @@ function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
   const [details, setDetails] = useState(false);
   const [view, setView] = useState<MobileView>("chat");
-  const { reset, hydrated, next, apply, asked, editing, subject, announce, states } = useCheck();
+  const { reset, hydrated, next, apply, asked, editing, subject, announce, states, setSubject, edit } = useCheck();
   const found = count(states, "likely") + count(states, "check");
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
@@ -57,6 +57,13 @@ function Shell() {
     return () => window.removeEventListener("hashchange", check);
   }, [hydrated]);
   useEffect(() => {
+    try {
+      setExampleName(localStorage.getItem("beacon:example"));
+    } catch {
+      /* fine */
+    }
+  }, []);
+  useEffect(() => {
     if (editing) {
       setDetails(true);
       setView("details");
@@ -80,7 +87,14 @@ function Shell() {
     setMenu(false);
     reset();
     setPlaying(ex);
-    setExampleName(ex.name.split(",")[0] ?? ex.name);
+    const name = ex.name.split(",")[0] ?? ex.name;
+    setExampleName(name);
+    try {
+      localStorage.setItem("beacon:example", name);
+    } catch {
+      /* fine */
+    }
+    setSubject({ who: "other", label: name });
     setTimeout(() => announce(`Here's a made-up example: ${ex.name}. ${ex.line} Watch the results light up as each answer goes in.`), 50);
     setView("canvas");
   };
@@ -122,9 +136,15 @@ function Shell() {
         ) : (
           <>
             <div className="menu-wrap">
-              <button type="button" className="btn ghost small" aria-expanded={menu} onClick={() => setMenu((m) => !m)} data-testid="examples">
+              <button
+                type="button"
+                className="btn ghost small"
+                aria-expanded={menu}
+                onClick={() => (playing ? setPlaying(null) : setMenu((m) => !m))}
+                data-testid="examples"
+              >
                 <Icon name={playing ? "stop" : "play"} size={16} />
-                <span>{playing ? "Playing" : "Example"}</span>
+                <span>{playing ? "Stop" : "Example"}</span>
               </button>
               {menu && (
                 <div className="menu" role="menu">
@@ -179,7 +199,7 @@ function Shell() {
 
       <aside className="chat" aria-label="Chat with Beacon">
         <div className="chat-inner">
-          <ChatPanel />
+          <ChatPanel playing={Boolean(playing)} />
         </div>
       </aside>
 
@@ -193,6 +213,7 @@ function Shell() {
             onClose={() => {
               setDetails(false);
               setView("canvas");
+              edit(null);
             }}
           />
         ) : null}

@@ -146,7 +146,7 @@ export function derivedChips(f: FactId, d: Derived): string[] {
 // Results within NEAR of a line come back as "Worth checking" instead of a guess.
 export const LINES = {
   ucIncomeWeek: { value: 500, source: "https://www.gov.uk/universal-credit/eligibility" },
-  pcIncomeWeek: { value: 240, source: "https://www.gov.uk/pension-credit/what-youll-get" },
+  pcIncomeWeek: { value: 238, source: "https://www.gov.uk/pension-credit/what-youll-get" },
   ctrIncomeWeek: { value: 350, source: "https://www.gov.uk/apply-council-tax-reduction" },
   savingsCap: { value: 16000, source: "https://www.gov.uk/universal-credit/eligibility" },
   careHours: { value: 35, source: "https://www.gov.uk/carers-allowance/eligibility" },
@@ -227,6 +227,8 @@ export interface Scheme {
   timing?: string;
   /** Paid without a claim once the conditions are met. */
   auto?: boolean;
+  /** Start today: the claim date matters. */
+  urgent?: boolean;
   rule: Cond[];
   opens?: string[];
 }
@@ -240,7 +242,7 @@ export const SCHEMES: Scheme[] = [
   { id: "tv", name: "Free TV licence", topic: "low", by: "TV Licensing", gives: "A free TV licence.", how: "Apply to TV Licensing once you get Pension Credit.", url: "https://www.gov.uk/free-discount-tv-licence", rule: [c(["dob"], (d) => (d.age ?? 0) >= 75, "aged 75 or over", "Aged 75 or over", "Under 75"), gate()] },
   { id: "pip", name: "Personal Independence Payment", topic: "dis", by: "DWP", gives: "Help with the extra costs of a condition, not based on income.", how: "Start your claim by phone.", phone: "0800 917 2222", url: "https://www.gov.uk/pip/how-to-claim", rule: [notSco("Scotland has Adult Disability Payment instead"), underSpa, hasCondition] },
   { id: "adp", name: "Adult Disability Payment", topic: "dis", by: "Social Security Scotland", gives: "Help with the extra costs of a condition, not based on income.", how: "Apply online or by phone.", phone: "0800 182 2222", url: "https://www.mygov.scot/adult-disability-payment", rule: [onlySco, underSpa, hasCondition] },
-  { id: "aa", name: "Attendance Allowance", topic: "dis", by: "DWP", gives: "A weekly payment if you need help with personal care, not based on income.", how: "Ask for the claim form by phone, or print it.", phone: "0800 731 0122", url: "https://www.gov.uk/attendance-allowance/how-to-claim", timing: "It can't be backdated, so ask for the form today.", rule: [notSco("Scotland has Pension Age Disability Payment instead"), atSpa, c(["difficulties"], (d) => d.health === "care", "needs personal care or supervision", "Needs help with personal care or supervision", "Doesn't need personal care or supervision")] },
+  { id: "aa", name: "Attendance Allowance", topic: "dis", by: "DWP", gives: "A weekly payment if you need help with personal care, not based on income.", how: "Ask for the claim form by phone, or print it.", phone: "0800 731 0122", url: "https://www.gov.uk/attendance-allowance/how-to-claim", timing: "The claim can start from the day of the call if the form goes back within 6 weeks, so phone today.", urgent: true, rule: [notSco("Scotland has Pension Age Disability Payment instead"), atSpa, c(["difficulties"], (d) => d.health === "care", "needs personal care or supervision", "Needs help with personal care or supervision", "Doesn't need personal care or supervision")] },
   { id: "bb", name: "Blue Badge", topic: "dis", by: "Your council", gives: "Park closer to where you need to go.", how: "Apply online to your council.", url: "https://www.gov.uk/apply-blue-badge", rule: [c(["difficulties"], (d) => Boolean(d.move) || d.health === "care", "difficulty walking or needs care", "Difficulty getting around", "No difficulty getting around")] },
   { id: "ca", name: "Carer's Allowance", topic: "care", by: "DWP", gives: "A weekly payment for caring 35 hours or more.", how: "Claim online.", url: "https://www.gov.uk/carers-allowance/how-to-claim", timing: "Can be backdated up to 3 months.", rule: [notSco("Scotland has Carer Support Payment instead"), care35, earnUnder] },
   { id: "csp", name: "Carer Support Payment", topic: "care", by: "Social Security Scotland", gives: "A weekly payment for caring 35 hours or more.", how: "Apply online or by phone.", phone: "0800 182 2222", url: "https://www.mygov.scot/carer-support-payment", rule: [onlySco, care35, earnUnder] },
@@ -248,17 +250,18 @@ export const SCHEMES: Scheme[] = [
   { id: "tfc", name: "Tax-Free Childcare", topic: "fam", by: "HMRC", gives: "Up to £2 back for every £8 you spend on childcare.", how: "Apply online.", url: "https://www.gov.uk/tax-free-childcare", rule: [c(["child"], (d) => (d.childAge ?? 99) < 12, "youngest child under 12", "Has a child under 12", "No child under 12"), c(["work"], (d) => d.work === "self" || (d.work === "employed" && (d.hours ?? 0) >= 16), "working", "Working", "Needs to be working")] },
   { id: "ma", name: "Maternity Allowance", topic: "fam", by: "DWP", gives: "Weekly pay around the birth if you can't get Statutory Maternity Pay.", how: "Claim with form MA1.", url: "https://www.gov.uk/maternity-allowance/how-to-claim", rule: [c(["pregnant"], (d) => Boolean(d.pregnant), "expecting a baby", "Expecting a baby", "No one is expecting"), c(["work"], (d) => d.work === "employed" || d.work === "self", "employed or self-employed", "Working recently", "Needs recent work")] },
   { id: "ssmg", name: "Sure Start Maternity Grant", topic: "fam", by: "DWP", gives: "A one-off £500 for your first baby.", how: "Claim with form SF100.", url: "https://www.gov.uk/sure-start-maternity-grant/how-to-claim", timing: "Claim from 11 weeks before the due date until the baby is 6 months.", rule: [notSco("Scotland has the Best Start Grant instead"), any([c(["pregnant"], (d) => Boolean(d.pregnant), "expecting", "", ""), c(["child"], (d) => (d.childAge ?? 99) < 1, "youngest under 1", "", "")], "Baby due or under 1", "No baby due or under 1"), gate()] },
-  { id: "hs", name: "Healthy Start", topic: "fam", by: "NHS", gives: "A card for milk, fruit, vegetables and vitamins.", how: "Apply online.", url: "https://www.healthystart.nhs.uk/how-to-apply/", rule: [notSco("Scotland has Best Start Foods instead"), any([c(["pregnant"], (d) => Boolean(d.pregnant), "expecting", "", ""), c(["child"], (d) => (d.childAge ?? 99) < 4, "youngest under 4", "", "")], "Expecting or child under 4", "No pregnancy or child under 4"), gate()] },
+  { id: "hs", name: "Healthy Start", topic: "fam", by: "NHS", gives: "A card for milk, fruit, vegetables and vitamins. On Universal Credit, take-home pay needs to be £408 a month or less.", how: "Apply online.", url: "https://www.healthystart.nhs.uk/how-to-apply/", rule: [notSco("Scotland has Best Start Foods instead"), any([c(["pregnant"], (d) => Boolean(d.pregnant), "expecting", "", ""), c(["child"], (d) => (d.childAge ?? 99) < 4, "youngest under 4", "", "")], "Expecting or child under 4", "No pregnancy or child under 4"), gate()] },
   { id: "jsa", name: "New Style Jobseeker's Allowance", topic: "work", by: "DWP", gives: "A fortnightly payment while you look for work, based on your contributions.", how: "Claim online.", url: "https://www.gov.uk/jobseekers-allowance/how-to-claim", rule: [workingAge, c(["work"], (d) => d.work === "none" || (d.work === "employed" && (d.hours ?? 0) < 16), "not working or under 16 hours", "Not working or under 16 hours", "Working 16 hours or more"), c(["ni"], (d) => Boolean(d.ni), "paid National Insurance in the last 2 to 3 years", "Paid National Insurance", "Not enough National Insurance paid")] },
   { id: "esa", name: "New Style ESA", topic: "sick", by: "DWP", gives: "A payment if a condition stops you working, based on your contributions.", how: "Claim online.", url: "https://www.gov.uk/employment-support-allowance/how-to-claim", rule: [underSpa, hasCondition, lowWork, c(["ni"], (d) => Boolean(d.ni), "paid National Insurance in the last 2 to 3 years", "Paid National Insurance", "Not enough National Insurance paid")] },
-  { id: "bsp", name: "Bereavement Support Payment", topic: "death", by: "DWP", gives: "A first payment and monthly payments for 18 months.", how: "Claim by phone or post.", url: "https://www.gov.uk/bereavement-support-payment/how-to-claim", timing: "Claim within 3 months of the death to get the full amount.", rule: [c(["bereaved"], (d) => d.bereaved === "partner", "partner has died", "Partner has died", "Partner hasn't died"), underSpa] },
-  { id: "fep", name: "Funeral Expenses Payment", topic: "death", by: "DWP", gives: "Help towards funeral costs.", how: "Claim by phone or post.", url: "https://www.gov.uk/funeral-payments/how-to-claim", timing: "Claim within 6 months of the funeral.", rule: [notSco("Scotland has Funeral Support Payment instead"), c(["bereaved"], (d) => d.bereaved === "partner" || d.bereaved === "funeral", "paying for a funeral", "Paying for a funeral", "Not paying for a funeral"), gate()] },
+  { id: "bsp", name: "Bereavement Support Payment", topic: "death", by: "DWP", gives: "A first payment and monthly payments for 18 months.", how: "Claim online, by phone or by post.", phone: "0800 151 2012", url: "https://www.gov.uk/bereavement-support-payment/how-to-claim", timing: "Claim within 3 months of the death to get the full amount.", rule: [c(["bereaved"], (d) => d.bereaved === "partner", "partner has died", "Partner has died", "Partner hasn't died"), underSpa] },
+  { id: "fep", name: "Funeral Expenses Payment", topic: "death", by: "DWP", gives: "Help towards funeral costs, for people on certain benefits.", how: "Claim by phone or post. You can claim before the funeral with the invoice.", phone: "0800 151 2012", url: "https://www.gov.uk/funeral-payments/how-to-claim", timing: "Claim within 6 months of the funeral.", rule: [notSco("Scotland has Funeral Support Payment instead"), c(["bereaved"], (d) => d.bereaved === "partner" || d.bereaved === "funeral", "paying for a funeral", "Paying for a funeral", "Not paying for a funeral"), gate()] },
 ];
 
 export const byId: Record<string, Scheme> = Object.fromEntries(SCHEMES.map((s) => [s.id, s]));
 export const GATEWAYS = ["pc", "uc"];
 
 // ---------- Evaluation ----------
+export const RANK: Record<"likely" | "check" | "unlock" | "open" | "out", number> = { likely: 0, check: 1, unlock: 2, open: 3, out: 4 };
 export type Status = "open" | "likely" | "check" | "unlock" | "out";
 export interface SchemeState {
   status: Status;
@@ -305,6 +308,10 @@ export function evaluate(A: Answers, today = new Date()): States {
     let status: Status;
     let reason = "";
     const unk = [...new Set(unknown)];
+    if (d.nation === "ni") {
+      st[id] = { status: "out", reason: "Northern Ireland runs its own version: see nidirect.gov.uk", marks, unknown: [] };
+      continue;
+    }
     if (fail && isNear) {
       status = "check";
       reason = "Close to the line, worth a proper check";
@@ -360,7 +367,7 @@ export function claimOrder(st: States): PlanStep[] {
   for (const g of GATEWAYS) if (yes(g)) steps.push({ id: g, when: "Start now", status: st[g]?.status ?? "likely" });
   for (const s of SCHEMES)
     if (!GATEWAYS.includes(s.id) && yes(s.id))
-      steps.push({ id: s.id, when: s.timing?.includes("can't be backdated") ? "Start now" : "This week", status: st[s.id]?.status ?? "likely" });
+      steps.push({ id: s.id, when: s.urgent ? "Start now" : "This week", status: st[s.id]?.status ?? "likely" });
   for (const s of SCHEMES)
     if (st[s.id]?.status === "unlock") steps.push({ id: s.id, when: "After the first award", status: "unlock" });
   return steps;
@@ -380,7 +387,7 @@ const CLASHES: { ids: string[]; tone: Warning["tone"]; text: string; when?: (d: 
   { ids: ["jsa", "uc"], tone: "warn", text: "New Style JSA counts as income for Universal Credit." },
   { ids: ["esa", "uc"], tone: "warn", text: "New Style ESA counts as income for Universal Credit." },
   { ids: ["ma", "uc"], tone: "warn", text: "Maternity Allowance counts as income for Universal Credit." },
-  { ids: ["wfp"], tone: "warn", text: "Income over £35,000 a year means the Winter Fuel Payment is taken back through tax.", when: (d) => (d.incWeek ?? 0) * 52 > 30_000 },
+  { ids: ["wfp"], tone: "warn", text: "Income over £35,000 a year means the Winter Fuel Payment is taken back through tax.", when: (d) => (d.incWeek ?? 0) * 52 > 35_000 },
 ];
 
 export function warnings(st: States, A: Answers = {}): Warning[] {

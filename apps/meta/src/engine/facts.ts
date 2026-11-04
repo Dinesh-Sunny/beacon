@@ -187,6 +187,19 @@ export function ask(f: FactId, sub: Subject): string {
   return fact.qThey.replaceAll("{n}", sub.label?.trim() || "the person");
 }
 
+/** Turns "you" copy into "they" copy when the check is for someone else. */
+export function theyify(text: string, sub: Subject): string {
+  if (sub.who === "me") return text;
+  return text
+    .replace(/\bYour\b/g, "Their")
+    .replace(/\byour\b/g, "their")
+    .replace(/\byou're\b/g, "they're")
+    .replace(/\bYou\b/g, "They")
+    .replace(/\bstops you\b/g, "stops them")
+    .replace(/\bfor you\b/g, "for them")
+    .replace(/\byou\b/g, "they");
+}
+
 /** Option wording that changes with who the check is for. */
 export function optLabel(label: string, sub: Subject): string {
   if (sub.who === "me") return label;

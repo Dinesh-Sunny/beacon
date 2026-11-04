@@ -5,74 +5,13 @@
 
 import { useEffect } from "react";
 import { Icon } from "@/components/Icon";
-import { byId, SCHEMES, type Status, TOPICS } from "@/engine/rules";
+import { byId } from "@/engine/rules";
+import { theyify } from "@/engine/facts";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 
-const RANK: Record<Status, number> = { likely: 0, check: 1, unlock: 2, open: 3, out: 4 };
-
-export function Board() {
-  const { states, changed, select } = useCheck();
-  return (
-    <section className="board" aria-labelledby="board-h" data-testid="board">
-      <div className="board-head">
-        <h3 id="board-h">Everything Beacon is checking</h3>
-        <div className="legend" aria-hidden="true">
-          <span>
-            <i style={{ border: "1.5px solid var(--line)" }} />
-            Still open
-          </span>
-          <span>
-            <i style={{ background: "var(--good)" }} />
-            Likely
-          </span>
-          <span>
-            <i style={{ background: "var(--check)" }} />
-            Worth checking
-          </span>
-          <span>
-            <i style={{ background: "var(--chain)" }} />
-            Unlocks next
-          </span>
-        </div>
-      </div>
-      <div className="topics">
-        {TOPICS.map(([t, name]) => {
-          const list = SCHEMES.filter((s) => s.topic === t).sort(
-            (a, b) => RANK[states[a.id]?.status ?? "open"] - RANK[states[b.id]?.status ?? "open"],
-          );
-          return (
-            <div className="topic" key={t}>
-              <h4>{name}</h4>
-              <div className="cards">
-                {list.map((s) => {
-                  const st = states[s.id];
-                  const status = st?.status ?? "open";
-                  return (
-                    <button
-                      type="button"
-                      key={s.id}
-                      className={`sc ${status}${changed.includes(s.id) ? " flash" : ""}`}
-                      onClick={() => select(s.id)}
-                      data-testid={`scheme-${s.id}`}
-                      data-status={status}
-                    >
-                      <span className="nm">{s.name}</span>
-                      <span className="chip">{STATUS_TXT[status]}</span>
-                      {st?.reason && status !== "open" ? <span className="rs">{st.reason}</span> : null}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
-          );
-        })}
-      </div>
-    </section>
-  );
-}
 
 export function SchemeSheet() {
-  const { selected, select, states } = useCheck();
+  const { selected, select, states, subject } = useCheck();
   useEffect(() => {
     if (!selected) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && select(null);
@@ -107,7 +46,7 @@ export function SchemeSheet() {
             <Icon name="close" />
           </button>
         </div>
-        <p>{s.gives}</p>
+        <p>{theyify(s.gives, subject)}</p>
         <div className={`sc ${st.status}`} style={{ cursor: "default" }}>
           <span className="nm">{STATUS_TXT[st.status]}</span>
           {st.reason ? <span className="rs">{st.reason}</span> : null}
@@ -119,7 +58,7 @@ export function SchemeSheet() {
             return (
               <li key={r.expr}>
                 <span className={`m ${m === true ? "t" : m === false ? "f" : "u"}`} aria-hidden="true">
-                  {m === true ? "✓" : m === false ? "–" : "?"}
+                  {m === true ? "✓" : m === false ? "×" : "?"}
                 </span>
                 <span>
                   {r.txt}

@@ -4,7 +4,7 @@
 // Each row is either answered (value, where it came from, change or forget) or still open
 // (the question, and Answer). Answering here opens the same question card as the chat.
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon } from "@/components/Icon";
 import { type Answers, ask, FACTS, type FactId, ORDER, showAnswer } from "@/engine/facts";
@@ -30,9 +30,19 @@ const FROM: Record<Source, string> = {
 const PEOPLE = ["Mum", "Dad", "My partner", "My son", "My daughter", "A friend"];
 
 export function DetailsPanel({ onClose }: { onClose: () => void }) {
-  const { answers, states, edit, subject, editing, sources, forget, apply } = useCheck();
+  const { answers, states, edit, subject, editing, sources, forget, apply, resets } = useCheck();
   const [picking, setPicking] = useState(false);
   const [undo, setUndo] = useState<{ f: FactId; v: Answers[FactId] } | null>(null);
+  useEffect(() => {
+    if (!undo) return;
+    const t = setTimeout(() => setUndo(null), 6000);
+    return () => clearTimeout(t);
+  }, [undo]);
+  // biome-ignore lint/correctness/useExhaustiveDependencies: clear on start again
+  useEffect(() => {
+    setUndo(null);
+    setPicking(false);
+  }, [resets]);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
   const settled = SCHEMES.length - count(states, "open");
   const groupTitle = (t: string) => (subject.who === "me" ? t.replace("they live", "you live").replace("them", "you") : t);

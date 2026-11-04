@@ -7,8 +7,8 @@
 import { useEffect, useState } from "react";
 import { Icon } from "@/components/Icon";
 import { byId, claimOrder, count, SCHEMES, type Status, warnings } from "@/engine/rules";
-import { errorText } from "@/components/chat/ChatPanel";
-import { useCheck } from "@/lib/check-store";
+import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { theyify } from "@/engine/facts";
 
 interface Prep {
   opening: string;
@@ -100,7 +100,6 @@ export function Results() {
 }
 
 const WHEN_TONE: Record<string, string> = { "Start now": "now", "This week": "week", "After the first award": "later" };
-const STATUS_TXT: Partial<Record<Status, string>> = { likely: "Likely", check: "Worth checking", unlock: "Unlocks next" };
 
 function PlanStep({ id, n, when, status, answers }: { id: string; n: number; when: string; status: Status; answers: unknown }) {
   const s = byId[id];
@@ -127,7 +126,7 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
       setPrep(data);
       note("model", "Call coach", `Wrote a call script for ${s.name}`);
     } catch (e) {
-      setErr(errorText((e as Error).message));
+      setErr((e as Error).message === "offline" ? "Call notes need the reading tools, which are resting right now. The number and the official page above still work." : "Those notes didn't come through. Try again in a moment.");
     } finally {
       setLoading(false);
       setBusy("Call coach", false);
@@ -148,13 +147,13 @@ function PlanStep({ id, n, when, status, answers }: { id: string; n: number; whe
           {status !== "likely" && <span className={`chip ${status}`}>{STATUS_TXT[status]}</span>}
         </div>
         <h3>{s.name}</h3>
-        <p>{s.gives}</p>
+        <p>{theyify(s.gives, subject)}</p>
         {status === "check" && states[id]?.reason && <p className="hint">{states[id]?.reason}</p>}
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
-        {s.auto && status !== "unlock" && <p className="hint">{s.how}</p>}
+        {s.auto && status !== "unlock" && <p className="hint">{theyify(s.how, subject)}</p>}
         {s.timing && status !== "unlock" && (
           <p className="timing">
-            <Icon name="clock" size={16} /> {s.timing}
+            <Icon name="clock" size={16} /> {theyify(s.timing, subject)}
           </p>
         )}
         {status !== "unlock" && (

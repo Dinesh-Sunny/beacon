@@ -129,7 +129,7 @@ export default function Home() {
               <Icon name="shield" /> Beacon never asks for a name, a National Insurance number or bank details.
             </p>
             <p>
-              <Icon name="doc" /> Letters are read once. Names and reference numbers are taken out before anything is shown.
+              <Icon name="doc" /> Beacon doesn't copy names, National Insurance or account numbers from letters, and keeps nothing after reading.
             </p>
           </div>
           <Link href="/check" className="btn">

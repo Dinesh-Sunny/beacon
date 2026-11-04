@@ -5,7 +5,7 @@
 
 import { useEffect, useRef, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { type Answers, ask, FACTS, type FactId, optLabel, type Period, UNSURE, type WorkStatus } from "@/engine/facts";
+import { type Answers, ask, FACTS, type FactId, type Money, optLabel, type Period, theyify, UNSURE, type Work, type WorkStatus } from "@/engine/facts";
 import { derive, derivedChips, POSTCODE_RE, SCHEMES } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
@@ -89,7 +89,7 @@ export function QuestionCard({
   const first = useRef(true);
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the question changes
   useEffect(() => {
-    setDraft({});
+    setDraft(editing ? toDraft(f, answers[f]) : {});
     setErr("");
     // Move focus to the new question after an answer, not on first load.
     if (first.current) first.current = false;
@@ -97,9 +97,7 @@ export function QuestionCard({
   }, [f]);
 
   const fact = FACTS[f];
-  const hits = SCHEMES.filter((s) =>
-    editing ? s.rule.some((r) => r.needs.includes(f)) : states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f),
-  );
+  const hits = SCHEMES.filter((s) => states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f));
   const set = (patch: Draft) => {
     setErr("");
     setDraft((d) => ({ ...d, ...patch }));
@@ -126,12 +124,14 @@ export function QuestionCard({
     <section className={`qcard${inChat ? " in-chat" : ""}`} aria-labelledby={inChat ? "q-chat" : "q-title"} data-testid={inChat ? "chat-question" : "question"} data-fact={f}>
       <div className="qtop">
         {editing ? <span className="eyebrow">{answers[f] === undefined ? "Answer here" : "Change an answer"}</span> : <span />}
-        <span className="unlocks" data-testid="unlocks">
-          <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
-        </span>
+        {hits.length > 0 && (
+          <span className="unlocks" data-testid="unlocks">
+            <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
+          </span>
+        )}
       </div>
       <h2 id={inChat ? "q-chat" : "q-title"}>{ask(f, subject)}</h2>
-      <p className="why">{fact.why}</p>
+      <p className="why">{theyify(fact.why, subject)}</p>
 
       <div ref={body} onKeyDown={onKey} className="qbody">
         <Input f={f} idp={inChat ? "c" : "d"} draft={draft} set={set} submit={submit} />
@@ -166,6 +166,23 @@ export function QuestionCard({
       </div>
     </section>
   );
+}
+
+/** Fills the card with the saved answer when someone changes it. */
+function toDraft(f: FactId, v: unknown): Draft {
+  if (v === undefined || v === UNSURE) return {};
+  const t = FACTS[f].type;
+  if (t === "postcode") return { pc: String(v) };
+  if ((t === "date" || t === "childDate") && typeof v === "string" && v !== "none") {
+    const [y, m, d] = v.split("-");
+    return { y, m: String(Number(m)), d: String(Number(d)) };
+  }
+  if (t === "money") return { amt: String(v) };
+  if (t === "moneyPeriod") return { amt: String((v as Money).amt), per: (v as Money).per };
+  if (t === "checklist") return { sel: v as string[] };
+  if (t === "work") return { status: (v as Work).status, hours: (v as Work).hours ? String((v as Work).hours) : undefined };
+  if (t === "hours") return { h: String(v) };
+  return {};
 }
 
 function emptyHint(t: string): string {

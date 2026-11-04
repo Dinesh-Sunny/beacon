@@ -40,10 +40,10 @@ export interface LetterView {
 }
 
 const ERRORS: Record<string, string> = {
-  offline: "My reading tools are resting right now. The questions on the right still work, and every answer counts.",
+  offline: "My reading tools are resting right now. My questions here still work, and every answer counts.",
   busy: "Lots of people are checking at once. Give it a minute and try again.",
-  slow: "That took longer than usual. Try once more, or carry on with the questions on the right.",
-  model: "I couldn't finish that one. Try saying it a different way, or use the questions on the right.",
+  slow: "That took longer than usual. Try once more, or carry on with my questions.",
+  model: "I couldn't finish that one. Try saying it a different way, or carry on with my questions.",
 };
 export const errorText = (code?: string) => ERRORS[code ?? "model"] ?? ERRORS.model;
 
@@ -53,11 +53,18 @@ const nextId = () => {
   return seq;
 };
 
-export function ChatPanel() {
+export function ChatPanel({ playing = false }: { playing?: boolean }) {
   const { answers, apply, note, setBusy, subject, setSubject, next, resets, announcement } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
-  const [msgs, setMsgs] = useState<Msg[]>([]);
+  const [msgs, setMsgsState] = useState<Msg[]>([]);
+  const msgsRef = useRef<Msg[]>([]);
+  const setMsgs = useCallback((next: Msg[] | ((list: Msg[]) => Msg[])) => {
+    msgsRef.current = typeof next === "function" ? next(msgsRef.current) : next;
+    setMsgsState(msgsRef.current);
+  }, []);
+  // Replies that arrive after "Start again" or a new example belong to the old check: drop them.
+  const epoch = useRef(0);
   const [working, setWorking] = useState<string | null>(null);
   const end = useRef<HTMLDivElement>(null);
   const answersRef = useRef(answers);
@@ -70,7 +77,10 @@ export function ChatPanel() {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: clear the chat when the check starts again
   useEffect(() => {
-    if (resets) setMsgs([]);
+    if (resets) {
+      epoch.current += 1;
+      setMsgs([]);
+    }
   }, [resets]);
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: show each announcement once
@@ -85,14 +95,12 @@ export function ChatPanel() {
       const clean = text.trim();
       if (!clean) return;
       const mine: Msg = { id: nextId(), role: "user", text: clean, via };
-      let history: { role: "user" | "assistant"; content: string }[] = [];
-      setMsgs((list) => {
-        history = [...list, mine]
-          .filter((m) => !m.error)
-          .slice(-12)
-          .map((m) => ({ role: m.role === "user" ? "user" : "assistant", content: m.text }));
-        return [...list, mine];
-      });
+      const history = [...msgsRef.current, mine]
+        .filter((m) => !m.error && m.text.trim())
+        .slice(-12)
+        .map((m) => ({ role: m.role === "user" ? ("user" as const) : ("assistant" as const), content: m.text.slice(0, 4000) }));
+      setMsgs((list) => [...list, mine]);
+      const myEpoch = epoch.current;
       setWorking("Reading what you said");
       setBusy("Muse Spark agent", true);
       try {
@@ -109,6 +117,7 @@ export function ChatPanel() {
           error?: string;
         };
         if (!res.ok || data.error) throw new Error(data.error ?? "model");
+        if (myEpoch !== epoch.current) return;
         if (data.subject) setSubject(data.subject);
         const saved = data.saved ?? {};
         if (Object.keys(saved).length) apply(saved, "chat");
@@ -168,6 +177,7 @@ export function ChatPanel() {
         return;
       }
       push({ role: "user", text: "Here's a letter", image: img.dataUrl });
+      const myEpoch = epoch.current;
       setWorking("Finding the letter in your photo");
       setBusy("SAM 3.1", true);
       setBusy("Letter reader", true);
@@ -185,6 +195,7 @@ export function ChatPanel() {
           error?: string;
         };
         if (!res.ok || data.error) throw new Error(data.error ?? "model");
+        if (myEpoch !== epoch.current) return;
         if (data.box) note("model", "SAM 3.1", "Found the letter in the photo");
         if (!data.readable || !data.reading) {
           push({ role: "bot", text: "I couldn't read that one. A flat, well-lit photo of the whole page works best.", error: true });
@@ -260,7 +271,7 @@ export function ChatPanel() {
         {msgs.map((m, i) => (
           <Message key={m.id} m={m} last={i === msgs.length - 1} />
         ))}
-        {!working && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
+        {!working && !playing && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
         {!working && !next && <AskChips onAsk={(q) => void send(q)} />}
         {working && (
           <div className="working" role="status">
@@ -274,7 +285,7 @@ export function ChatPanel() {
         )}
         <div ref={end} />
       </div>
-      <Composer onSend={(t) => void send(t)} onVoice={(w) => void onVoice(w)} onPhoto={(f) => void onPhoto(f)} busy={Boolean(working)} />
+      <Composer onSend={(t) => void send(t)} onVoice={(w) => void onVoice(w)} onPhoto={(f) => void onPhoto(f)} busy={Boolean(working) || playing} />
     </>
   );
 }

@@ -122,6 +122,8 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     const a = load();
     setAnswers(a);
     try {
+      const src = localStorage.getItem("beacon:sources");
+      if (src) setSources(JSON.parse(src));
       const sub = localStorage.getItem("beacon:subject");
       if (sub) setSubjectState(JSON.parse(sub) as Subject);
     } catch {
@@ -195,6 +197,11 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     setSources((src) => {
       const copy = { ...src };
       for (const k of keys) copy[k] = { source, at: Date.now() };
+      try {
+        localStorage.setItem("beacon:sources", JSON.stringify(copy));
+      } catch {
+        /* memory only */
+      }
       return copy;
     });
     edit(null);
@@ -252,6 +259,8 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     setSubjectState(ME);
     try {
       localStorage.removeItem("beacon:subject");
+      localStorage.removeItem("beacon:sources");
+      localStorage.removeItem("beacon:example");
     } catch {
       /* fine */
     }

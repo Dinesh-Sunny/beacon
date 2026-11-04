@@ -60,10 +60,10 @@ const LOOP = [
 ] as const;
 
 const RULES = [
-  "Code decides eligibility. Models read, ask and explain.",
+  "Code decides each result. Models read, ask and explain.",
   "Nothing a model writes reaches the rules until code has checked it.",
-  "Letters and web pages are read in quarantine and become typed data before any agent that can act sees them.",
-  "Beacon never asks for a name, a National Insurance number or bank details, and strips them from letters.",
+  "Letters are read in quarantine and become typed data before any agent that can act sees them.",
+  "Beacon never asks for a name, a National Insurance number or bank details, and doesn't copy them from letters.",
   "Answers live in your browser. The server forgets them when the request ends.",
   "Every scheme links to its official page. The organisation that runs it decides.",
 ];
@@ -176,7 +176,7 @@ export default function How() {
         <section aria-labelledby="cover-h">
           <h2 id="cover-h">What it checks today</h2>
           <p className="lead">
-            {SCHEMES.length} kinds of help across {TOPICS.length} areas of life in England, Scotland, Wales and Northern Ireland,
+            {SCHEMES.length} kinds of help across {TOPICS.length} areas of life in England, Scotland and Wales,
             from Pension Credit to Healthy Start. Income lines are screening estimates, so anything close comes back as worth
             checking.
           </p>

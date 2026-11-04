@@ -10,7 +10,7 @@ Beacon is a chat. You tell it about your life, or the life of someone you look a
 
 ## How Meta's models are used
 
-Each model has one job. Plain code makes every eligibility decision, so the same answers always give the same result.
+Each model has one job. Plain code makes every decision, so the same answers always give the same result.
 
 | Model | ID | What it does in Beacon |
 | --- | --- | --- |

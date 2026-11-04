@@ -120,7 +120,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
       saved: keys.map((k) => FACTS[k as keyof typeof FACTS].label),
       likely: SCHEMES.filter((s) => st[s.id]?.status === "likely").map((s) => s.name),
       worth_checking: SCHEMES.filter((s) => st[s.id]?.status === "check").map((s) => s.name),
-      next_question: nx ? { fact: nx.f, ask: FACTS[nx.f].q, why: FACTS[nx.f].why, settles: nx.hits.length } : null,
+      more_questions_to_come: Boolean(nx),
     });
   }
   const st = evaluate(now);
@@ -203,5 +203,5 @@ export async function runAgent(
       messages.push({ role: "tool", tool_call_id: call.id, content: runTool(call.function.name, call.function.arguments, answers, saved, notes, who) });
     }
   }
-  return { reply: "I've saved what you told me. Have a look at the questions on the right whenever you're ready.", saved, notes, usage, subject: who.value };
+  return { reply: "I've saved what you told me. My next question is just below.", saved, notes, usage, subject: who.value };
 }

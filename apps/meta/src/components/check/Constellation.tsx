@@ -3,10 +3,9 @@
 // Every kind of help Beacon checks, as small tiles that start faint and light up as answers
 // settle them. Tap one to see each condition and how it stands.
 
-import { SCHEMES, type Status, TOPICS } from "@/engine/rules";
+import { RANK, SCHEMES, TOPICS } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 
-const RANK: Record<Status, number> = { likely: 0, check: 1, unlock: 2, open: 3, out: 4 };
 
 export function Constellation() {
   const { states, changed, select } = useCheck();
