@@ -1,11 +1,17 @@
 // Every language's words, with English underneath so a missing key reads in English rather
 // than as a key name.
 import type { Locale } from "../locales";
+import ar from "./ar.json";
+import bn from "./bn.json";
+import cy from "./cy.json";
 import en from "./en.json";
+import es from "./es.json";
+import pl from "./pl.json";
+import ur from "./ur.json";
 
 export type Messages = typeof en;
 
-const OTHERS: Partial<Record<Locale, unknown>> = {};
+const OTHERS: Partial<Record<Locale, unknown>> = { cy, pl, es, bn, ur, ar };
 
 function merge<T>(base: T, over: unknown): T {
   if (!over || typeof over !== "object" || typeof base !== "object" || !base)
