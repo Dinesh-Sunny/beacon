@@ -54,6 +54,22 @@ Big registers come in as one download each, never page by page:
 | Council service pages (GOV.UK Local Links Manager) | `councils` | `scripts/council-links.ts` | `/api/council` |
 | Grant-giving charities (Charity Commission register) | `charitycommission` | `scripts/charity-funds.ts` | `/api/charities` |
 
+## Next.js 16 features in use
+
+| Feature | Where |
+| --- | --- |
+| Server Action with `cookies()` and `refresh()` | `src/i18n/actions.ts` switches language |
+| `experimental.useOffline` + `useOffline` | `src/components/OfflineNotice.tsx`; Next retries navigations when back online |
+| React `ViewTransition` + Link `transitionTypes` | `src/components/PageTransition.tsx`, forward into the check, back to the site |
+| `typedRoutes` | every `href` is checked against real routes |
+| `generateMetadata`, `metadataBase`, JSON-LD | pages, in the reader's language |
+| `opengraph-image` with `next/og` `ImageResponse` | `src/app/opengraph-image.tsx`, drawn from live counts |
+| `manifest`, `robots`, `sitemap` metadata routes | `src/app/` |
+| `error`, `not-found`, `global-error`, `loading` | `src/app/`, `src/app/check/loading.tsx` |
+| React Compiler | `reactCompiler: true` |
+
+Not used, on purpose: `cacheComponents` / `use cache` (the language lives in a cookie, so every page renders per request and the static shell would be empty; the council lookups use an in-memory cache instead), and `next/font` (it can't split one family by unicode range, and Fontsource already self-hosts Fraunces and Atkinson with Latin Extended for Welsh and Polish).
+
 ## Growing from here
 
 - **Shared cache.** The in-process cache keeps the same keys when it moves to a shared store (Redis or a runtime cache), so hits work across every instance.
