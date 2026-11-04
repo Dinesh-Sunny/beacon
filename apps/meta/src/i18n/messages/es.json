@@ -478,7 +478,12 @@
     "footer": "Beacon da información general, no asesoramiento. El organismo que gestiona cada ayuda toma la decisión, y cada resultado enlaza a su página oficial.",
     "code": "Código en GitHub",
     "skip": "Saltar al contenido",
-    "pillAll": "Gratis · {count} tipos de ayuda · Reino Unido y EE. UU. · {languages} idiomas"
+    "pillAll": "Gratis · {count} tipos de ayuda · Reino Unido y EE. UU. · {languages} idiomas",
+    "starter1": "Mi madre tiene 78 años y le cuestan las escaleras",
+    "starter2": "Acabo de perder mi trabajo y tengo que pagar el alquiler",
+    "starter3": "Padre soltero en Texas con dos hijos",
+    "startersLabel": "Prueba un ejemplo",
+    "factNoIdShort": "Nunca pide documentos de identidad ni datos bancarios"
   },
   "status": {
     "open": "Aún abierto",

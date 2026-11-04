@@ -478,7 +478,12 @@
     "footer": "Mae Beacon yn rhoi gwybodaeth gyffredinol, nid cyngor. Y sefydliad sy'n rhedeg pob cynllun sy'n gwneud y penderfyniad, ac mae pob canlyniad yn cysylltu â'i dudalen swyddogol.",
     "code": "Cod ar GitHub",
     "skip": "Neidio i'r cynnwys",
-    "pillAll": "Am ddim · {count} math o help · y DU ac UDA · {languages} iaith"
+    "pillAll": "Am ddim · {count} math o help · y DU ac UDA · {languages} iaith",
+    "starter1": "Mae Mam yn 78 ac yn ei chael hi'n anodd gyda'r grisiau",
+    "starter2": "Rwyf newydd golli fy swydd ac mae'r rhent yn ddyledus",
+    "starter3": "Tad sengl yn Texas gyda dau o blant",
+    "startersLabel": "Rhowch gynnig ar enghraifft",
+    "factNoIdShort": "Byth yn gofyn am ddogfennau adnabod na manylion banc"
   },
   "status": {
     "open": "Yn dal ar agor",

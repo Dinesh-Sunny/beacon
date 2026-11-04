@@ -478,7 +478,12 @@
     "footer": "Beacon podaje ogólne informacje, nie porady. Decyzję podejmuje instytucja, która prowadzi dany program, a każdy wynik prowadzi do jej oficjalnej strony.",
     "code": "Kod na GitHubie",
     "skip": "Przejdź do treści",
-    "pillAll": "Za darmo · rodzaje pomocy: {count} · Wielka Brytania i USA · języki: {languages}"
+    "pillAll": "Za darmo · rodzaje pomocy: {count} · Wielka Brytania i USA · języki: {languages}",
+    "starter1": "Moja mama ma 78 lat i trudno jej chodzić po schodach",
+    "starter2": "Właśnie straciłem pracę, a czynsz trzeba zapłacić",
+    "starter3": "Samotny tata w Teksasie z dwójką dzieci",
+    "startersLabel": "Wypróbuj przykład",
+    "factNoIdShort": "Nigdy nie pyta o dokumenty ani dane bankowe"
   },
   "status": {
     "open": "Nadal otwarte",

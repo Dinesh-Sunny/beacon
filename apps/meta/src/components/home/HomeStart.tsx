@@ -5,13 +5,15 @@
 
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 
 export function HomeStart() {
   const tr = useTranslations("site");
   const [text, setText] = useState("");
+  const box = useRef<HTMLTextAreaElement>(null);
+  const starters = [tr("starter1"), tr("starter2"), tr("starter3")];
   const router = useRouter();
   const go = () => {
     const t = text.trim();
@@ -35,6 +37,7 @@ export function HomeStart() {
           {tr("inputLabel")}
         </label>
         <textarea
+          ref={box}
           id="home-input"
           rows={2}
           placeholder={tr("inputHint")}
@@ -55,6 +58,22 @@ export function HomeStart() {
           </button>
         </div>
       </form>
+      {/* Starters fill the box rather than sending, so the person can make it theirs first. */}
+      <ul className="hero-starters" aria-label={tr("startersLabel")}>
+        {starters.map((s) => (
+          <li key={s}>
+            <button
+              type="button"
+              onClick={() => {
+                setText(s);
+                box.current?.focus();
+              }}
+            >
+              {s}
+            </button>
+          </li>
+        ))}
+      </ul>
       <Link
         href="/check#example=margaret"
         className="quiet-link"

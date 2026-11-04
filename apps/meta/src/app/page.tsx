@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import { PageTransition } from "@/components/PageTransition";
 import "./marketing.css";
 import { HomeStart } from "@/components/home/HomeStart";
+import { Icon } from "@/components/Icon";
 import { BeaconMap } from "@/components/marketing/BeaconMap";
-import { ChatDemo } from "@/components/marketing/ChatDemo";
 import { Countries } from "@/components/marketing/Countries";
 import { SOURCE_URL } from "@/components/marketing/content";
 import { FinalCta } from "@/components/marketing/FinalCta";
 import { Growth, Plans } from "@/components/marketing/Growth";
+import { HeroSky } from "@/components/marketing/HeroSky";
 import { HowToday } from "@/components/marketing/HowToday";
 import { Reveal } from "@/components/marketing/Reveal";
 import { SchemeMarquee } from "@/components/marketing/SchemeMarquee";
@@ -61,8 +62,9 @@ export default async function Home() {
         <SiteHeader />
 
         <main id="main">
-          <section className="mk-wrap mk-hero" aria-labelledby="hero-h">
-            <div className="mk-hero-copy">
+          <section className="mk-hero" aria-labelledby="hero-h">
+            <HeroSky />
+            <div className="mk-wrap mk-hero-copy">
               <p className="mk-pill">
                 <span className="dot" aria-hidden="true" />{" "}
                 {t("site.pillAll", {
@@ -73,8 +75,18 @@ export default async function Home() {
               <h1 id="hero-h">{t("site.h1")}</h1>
               <p className="mk-lead">{t("site.lead")}</p>
               <HomeStart />
+              <ul className="mk-trust">
+                <li>
+                  <Icon name="lock" size={16} /> {t("site.factBrowser")}
+                </li>
+                <li>
+                  <Icon name="shield" size={16} /> {t("site.factNoIdShort")}
+                </li>
+                <li>
+                  <Icon name="spark" size={16} /> {t("site.factFree")}
+                </li>
+              </ul>
             </div>
-            <ChatDemo />
           </section>
 
           <section className="mk-wrap mk-stat" aria-label={t("home.statLabel")}>

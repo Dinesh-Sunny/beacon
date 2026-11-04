@@ -478,7 +478,12 @@
     "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
     "code": "Code on GitHub",
     "skip": "Skip to content",
-    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages"
+    "pillAll": "Free · {count} kinds of help · UK and US · {languages} languages",
+    "starter1": "My mum is 78 and finds stairs hard",
+    "starter2": "I just lost my job and rent is due",
+    "starter3": "Single dad in Texas with two kids",
+    "startersLabel": "Try an example",
+    "factNoIdShort": "Never asks for ID or bank details"
   },
   "status": {
     "open": "Still open",
