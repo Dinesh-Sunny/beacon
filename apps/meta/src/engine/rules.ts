@@ -312,6 +312,16 @@ export function warnings(st: States, A: Answers = {}): Warning[] {
     .map((w) => ({ tone: w.tone, text: w.text, ids: w.ids }));
 }
 
+/** One short, honest progress line after an answer. Early on nothing is settled, so it says how much is still in play rather than "0 likely". */
+export function progressLine(st: States): string {
+  const likely = count(st, "likely");
+  const check = count(st, "check");
+  const open = count(st, "open");
+  const parts = [likely && `${likely} look likely`, check && `${check} worth checking`].filter(Boolean);
+  if (parts.length) return `${parts.join(", ")}${open ? `, ${open} still to check` : ""}`;
+  return open ? `${open} kinds of help still in play` : "Nothing matches yet";
+}
+
 /** Compact summary used by the agent tools and the plan writer. Holds no personal values. */
 export function summarise(A: Answers, st: States) {
   const pick = (k: Status) =>

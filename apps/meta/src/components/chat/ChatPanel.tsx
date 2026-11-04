@@ -6,7 +6,7 @@
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon, Logo } from "@/components/Icon";
 import { type Answers, ask, callerPhrase, FACTS, type FactId, formatAnswer, ORDER, showAnswer } from "@/engine/facts";
-import { count, evaluate, SCHEMES } from "@/engine/rules";
+import { evaluate, progressLine, SCHEMES } from "@/engine/rules";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { useCheck } from "@/lib/check-store";
 import { shrink } from "@/lib/image";
@@ -259,7 +259,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         role: "bot",
         text: "",
         notes: [
-          `Saved. Checked ${SCHEMES.length} schemes: ${count(after, "likely")} likely${gained.length ? `, new: ${gained.join(", ")}` : ""}.`,
+          `Saved. ${progressLine(after)}${gained.length ? `. New: ${gained.join(", ")}` : ""}.`,
         ],
       });
     },

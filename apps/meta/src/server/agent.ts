@@ -7,7 +7,7 @@ import "server-only";
 import type { Answers } from "@/engine/facts";
 import { FACTS } from "@/engine/facts";
 import { FACT_PATCH_JSON, FactPatch, toAnswers } from "@/engine/patch";
-import { byId, claimOrder, count, evaluate, plan, SCHEMES, summarise, warnings } from "@/engine/rules";
+import { byId, claimOrder, evaluate, plan, progressLine, SCHEMES, summarise, warnings } from "@/engine/rules";
 import { type ChatMessage, chat, type Usage } from "./meta";
 
 const SYSTEM = `You are Beacon, a calm and kind helper in the UK. You help people find the money and support they are already entitled to, often for an older parent or someone they care for.
@@ -113,7 +113,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
     notes.push({
       name,
       text: keys.length
-        ? `Saved ${keys.length} ${keys.length === 1 ? "detail" : "details"}. Checked ${SCHEMES.length} schemes: ${count(st, "likely")} likely.`
+        ? `Saved ${keys.length} ${keys.length === 1 ? "detail" : "details"}. ${progressLine(st)}.`
         : "Nothing new to save",
     });
     return JSON.stringify({
@@ -125,7 +125,7 @@ function runTool(name: string, rawArgs: string, answers: Answers, saved: Answers
   }
   const st = evaluate(now);
   if (name === "check_results") {
-    notes.push({ name, text: `Checked ${SCHEMES.length} schemes: ${count(st, "likely")} likely, ${count(st, "check")} worth checking` });
+    notes.push({ name, text: `${progressLine(st)}.` });
     const s = summarise(now, st);
     return JSON.stringify({ ...s, next_question: s.nextQuestion ? FACTS[s.nextQuestion].q : null });
   }

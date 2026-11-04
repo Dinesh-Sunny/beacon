@@ -21,16 +21,16 @@ jobs:
       - uses: actions/checkout@v5
       - uses: actions/setup-node@v5
         with:
-          node-version: 22
+          node-version: 24
       - id: watch
-        run: node scripts/watch-sources.mjs
+        run: node scripts/watch-sources.ts
       - uses: peter-evans/create-pull-request@v7
         with:
-          branch: knowledge/uk-core
-          commit-message: "chore(meta): knowledge watch for uk-core"
-          title: "Knowledge watch: official pages changed for uk-core"
+          branch: knowledge/watch
+          commit-message: "chore(meta): knowledge watch"
+          title: "Knowledge watch: official pages changed"
           body: |
             The daily knowledge watch found ${{ steps.watch.outputs.changed }} changed official page(s).
             Re-check the rules that cite them in `apps/meta/packs/*.json` before merging.
             See the run summary for the list.
-          add-paths: apps/meta/packs/*.sources.json
+          add-paths: apps/meta/catalog/sources/**
