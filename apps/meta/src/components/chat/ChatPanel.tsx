@@ -104,6 +104,8 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll on new messages
   useEffect(() => {
+    // A fresh check stays at the top, so the welcome and first question read in order.
+    if (!msgs.length) return;
     end.current?.scrollIntoView({ block: "end", behavior: "smooth" });
   }, [msgs.length, working, next?.f]);
 
@@ -402,6 +404,12 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
             letter.
           </p>
         </div>
+        {msgs.map((m, i) => (
+          <Message key={m.id} m={m} last={i === msgs.length - 1} />
+        ))}
+        {!working && !playing && next && (
+          <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />
+        )}
         {!msgs.length && !asked && !playing && (
           <div className="life-events">
             <span className="hint">Or start from what's changed</span>
@@ -420,12 +428,6 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
               ))}
             </div>
           </div>
-        )}
-        {msgs.map((m, i) => (
-          <Message key={m.id} m={m} last={i === msgs.length - 1} />
-        ))}
-        {!working && !playing && next && (
-          <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />
         )}
         {!working && !next && <AskChips onAsk={(q) => void send(q)} />}
         {working && (
