@@ -6,7 +6,7 @@
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { ChatPanel } from "@/components/chat/ChatPanel";
-import { AgentPanel } from "@/components/check/AgentPanel";
+import { Activity } from "@/components/check/Activity";
 import { Board, SchemeSheet } from "@/components/check/Board";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
@@ -191,39 +191,41 @@ function Shell() {
 }
 
 function Canvas() {
-  const { next, states } = useCheck();
+  const { states, asked } = useCheck();
+  const [all, setAll] = useState(false);
   const open = count(states, "open");
   const settled = SCHEMES.length - open;
+  const found = count(states, "likely") + count(states, "check") + count(states, "unlock");
   return (
     <>
-      <div className="progress">
-        <div className="meter" role="progressbar" aria-label="Schemes checked" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
-          <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
+      <Activity />
+      {asked === 0 && !found ? (
+        <div className="calm" data-testid="calm">
+          <div className="lamp" aria-hidden="true">
+            <i />
+            <i />
+            <i />
+            <span />
+          </div>
+          <p>Your results light up here as you answer.</p>
         </div>
-        <div className="stats" data-testid="stats">
-          <span className="stat likely">
-            <b>{count(states, "likely")}</b> likely
-          </span>
-          <span className="stat">
-            <b>{count(states, "check")}</b> worth checking
-          </span>
-          <span className="stat">
-            <b>{open}</b> still open
-          </span>
-        </div>
-      </div>
-      {next ? (
-        <>
-          <AgentPanel />
-          <Results />
-        </>
       ) : (
         <>
+          <div className="progress">
+            <div className="meter" role="progressbar" aria-label="Schemes checked" aria-valuemin={0} aria-valuemax={SCHEMES.length} aria-valuenow={settled}>
+              <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
+            </div>
+            <span className="hint" data-testid="stats">
+              {settled} of {SCHEMES.length} checked
+            </span>
+          </div>
           <Results />
-          <AgentPanel />
         </>
       )}
-      <Board />
+      <button type="button" className="linkbtn see-all" onClick={() => setAll((a) => !a)} aria-expanded={all} data-testid="see-all">
+        {all ? "Hide the full list" : `See all ${SCHEMES.length} kinds of help Beacon checks`}
+      </button>
+      {all && <Board />}
     </>
   );
 }

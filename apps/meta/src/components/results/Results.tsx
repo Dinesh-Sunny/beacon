@@ -50,7 +50,7 @@ export function Results() {
           {likely} likely, {check} worth checking{unlock ? `, and ${unlock} more once your first claim is awarded` : ""}. The
           organisation that runs each one makes the final decision.
         </p>
-        <div className="res-actions">
+        <div className="res-actions" hidden={!done}>
           <button type="button" className="btn ghost small" onClick={() => window.print()}>
             <Icon name="download" size={16} /> Save or print
           </button>
@@ -77,7 +77,7 @@ export function Results() {
       {out.length > 0 && (
         <details className="ruled-out">
           <summary>
-            {out.length} not for you right now <span className="hint">and why</span>
+            {out.length} not for {subject.who === "me" ? "you" : subject.label} right now <span className="hint">and why</span>
           </summary>
           <ul>
             {out.map((s) => (
@@ -244,10 +244,10 @@ function Banner({ done, likely }: { done: boolean; likely: number }) {
       alive = false;
     };
   }, [done, key]);
-  if (!done || !likely) return null;
+  if (!done || !likely || !img) return null;
   return (
-    <div className={`banner${img ? " ready" : ""}`} aria-hidden="true" data-testid="banner">
-      {img ? <img src={img} alt="" /> : <span className="banner-glow" />}
+    <div className="banner" aria-hidden="true" data-testid="banner">
+      <img src={img} alt="" />
     </div>
   );
 }
