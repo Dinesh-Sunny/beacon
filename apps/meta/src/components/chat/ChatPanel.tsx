@@ -546,17 +546,18 @@ function Message({ m, last }: { m: Msg; last: boolean }) {
 
 function AskChips({ onAsk }: { onAsk: (q: string) => void }) {
   const { states, subject } = useCheck();
+  const t = useTranslations("chat");
   const top = SCHEMES.find((s) => states[s.id]?.status === "likely");
   if (!top) return null;
   const who = callerPhrase(subject);
   const asks = [
-    "What should we claim first?",
-    `Explain ${top.name} in plain words`,
-    `Could claiming one thing lower another for ${who === "I" ? "me" : who}?`,
+    t("askFirst"),
+    t("askExplain", { name: top.name }),
+    who === "I" ? t("askClashMe") : t("askClashThey", { who }),
   ];
   return (
     <div className="ask-chips">
-      <span className="hint">Ask me about the results</span>
+      <span className="hint">{t("askTitle")}</span>
       {asks.map((q) => (
         <button key={q} type="button" onClick={() => onAsk(q)}>
           {q}

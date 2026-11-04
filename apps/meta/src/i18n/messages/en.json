@@ -92,7 +92,12 @@
     "takePhotoHint": "Best on a phone",
     "sample": "Try a sample letter",
     "sampleHint": "A made-up council tax bill",
-    "saidAloud": "Said aloud"
+    "saidAloud": "Said aloud",
+    "askTitle": "Ask me about the results",
+    "askFirst": "What should we claim first?",
+    "askExplain": "Explain {name} in plain words",
+    "askClashMe": "Could claiming one thing lower another for me?",
+    "askClashThey": "Could claiming one thing lower another for {who}?"
   },
   "events": {
     "job": "Lost a job or hours",
