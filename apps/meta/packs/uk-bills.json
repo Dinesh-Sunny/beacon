@@ -63,6 +63,12 @@
           "how": "In Scotland you may need to ask your electricity supplier for it, so contact them this winter.",
           "timing": ""
         }
+      },
+      "worth": {
+        "max": 150,
+        "per": "once",
+        "source": "https://www.gov.uk/the-warm-home-discount-scheme",
+        "year": "2026/27"
       }
     },
     {

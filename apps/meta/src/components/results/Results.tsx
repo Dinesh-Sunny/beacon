@@ -18,6 +18,8 @@ import {
   type Status,
   timingFor,
   warnings,
+  worthLabel,
+  worthTotals,
 } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
@@ -59,6 +61,7 @@ export function Results() {
     ) : null;
   }
   const total = likely + check;
+  const worth = worthTotals(states, answers);
   return (
     <section className="results" data-testid="results" aria-labelledby="res-h">
       <Banner done={done} likely={likely} />
@@ -79,22 +82,26 @@ export function Results() {
             .join(", ")}
           .
         </p>
+        {worth.yearly + worth.once > 0 && (
+          <p className="worth" data-testid="worth">
+            <b>
+              Up to £{worth.yearly.toLocaleString("en-GB")} a year
+              {worth.once
+                ? ` and £${worth.once.toLocaleString("en-GB")} in one-off payments`
+                : ""}
+            </b>{" "}
+            <span className="hint">
+              at the published rates, from {worth.count} of these. Each
+              organisation decides the amount.
+            </span>
+          </p>
+        )}
         {have.length > 0 && (
           <p className="hint">Already getting: {have.join(", ")}.</p>
         )}
       </div>
 
-      {warns.length > 0 && (
-        <div className="good-to-know">
-          <span className="eyebrow">Good to know</span>
-          {warns.map((w) => (
-            <p key={w.text} className={`gtk ${w.tone}`}>
-              <Icon name={w.tone === "boost" ? "spark" : "warn"} size={16} />
-              <span>{w.text}</span>
-            </p>
-          ))}
-        </div>
-      )}
+      {warns.length > 0 && <GoodToKnow warns={warns} />}
 
       <ol className="plan" aria-label="Your claim plan">
         {order.map((p, i) => (
@@ -141,6 +148,38 @@ export function Results() {
         </details>
       )}
     </section>
+  );
+}
+
+/** Clash warnings first, then the boosts; two show, the rest wait behind one quiet button. */
+function GoodToKnow({ warns }: { warns: ReturnType<typeof warnings> }) {
+  const [all, setAll] = useState(false);
+  const sorted = [...warns].sort((a, b) =>
+    a.tone === b.tone ? 0 : a.tone === "warn" ? -1 : 1,
+  );
+  const shown = all ? sorted : sorted.slice(0, 2);
+  return (
+    <div className="good-to-know">
+      <span className="eyebrow">Good to know</span>
+      {shown.map((w) => (
+        <p key={w.text} className={`gtk ${w.tone}`}>
+          <Icon name={w.tone === "boost" ? "spark" : "warn"} size={16} />
+          <span>{w.text}</span>
+        </p>
+      ))}
+      {sorted.length > 2 && (
+        <button
+          type="button"
+          className="linkbtn"
+          onClick={() => setAll((a) => !a)}
+          aria-expanded={all}
+        >
+          {all
+            ? "Show fewer"
+            : `${sorted.length - 2} more ${sorted.length - 2 === 1 ? "note" : "notes"}`}
+        </button>
+      )}
+    </div>
   );
 }
 
@@ -225,6 +264,14 @@ function PlanStep({
         </div>
         <h3>{s.name}</h3>
         <p>{theyify(s.gives, subject)}</p>
+        {worthLabel(s, answers) && status !== "unlock" && (
+          <p className="amount">
+            {theyify(worthLabel(s, answers) ?? "", subject)}{" "}
+            <a href={s.worth?.source} target="_blank" rel="noreferrer">
+              {s.worth?.year} rates
+            </a>
+          </p>
+        )}
         {status === "check" && states[id]?.reason && (
           <p className="hint">{states[id]?.reason}</p>
         )}

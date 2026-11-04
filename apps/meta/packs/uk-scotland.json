@@ -157,7 +157,14 @@
           "txt": "Reached State Pension age",
           "fail": "Under State Pension age"
         }
-      ]
+      ],
+      "worth": {
+        "min": 105.55,
+        "max": 316.7,
+        "per": "year",
+        "source": "https://www.mygov.scot/pension-age-winter-heating-payment",
+        "year": "2026/27"
+      }
     }
   ]
 }

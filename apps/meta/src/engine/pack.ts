@@ -113,8 +113,23 @@ export const SchemeSchema = z.strictObject({
     .optional(),
   /** Screening can't settle it, so the best result is "Worth checking", with this reason. */
   worthChecking: z.string().optional(),
+  /** What it's worth at the published rates. Shown as a range; the organisation decides the amount. */
+  worth: z
+    .strictObject({
+      min: z.number().positive().optional(),
+      max: z.number().positive(),
+      per: z.enum(["week", "month", "year", "once"]),
+      /** A top-up to a weekly line: the amount is the line minus their weekly income. */
+      topUpTo: z.strictObject({ line: z.string() }).optional(),
+      source: z.url(),
+      year: z.string().regex(/^\d{4}\/\d{2}$/),
+    })
+    .optional(),
   /** GOV.UK local service slug (e.g. "apply-council-tax-reduction"): with a council, it links straight to that council's page. */
-  council: z.string().regex(/^[a-z0-9-]+$/).optional(),
+  council: z
+    .string()
+    .regex(/^[a-z0-9-]+$/)
+    .optional(),
   /** Label for the official link when it isn't a claim form, like "Ask your provider". */
   act: z.string().optional(),
   urgent: z.boolean().optional(),

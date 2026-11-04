@@ -265,6 +265,69 @@ export const timingFor = (
   return local !== undefined ? local || undefined : s.timing;
 };
 
+// ---------- Value ----------
+const gbp = (n: number) =>
+  `£${n.toLocaleString("en-GB", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
+const PER_TXT = {
+  week: " a week",
+  month: " a month",
+  year: " a year",
+  once: " in total",
+} as const;
+
+/** A scheme's amount for this person: a top-up worked out from their income, or the published range. */
+export function worthFor(
+  s: Scheme,
+  A: Answers,
+): {
+  min?: number;
+  max: number;
+  per: "week" | "month" | "year" | "once";
+  topUp: boolean;
+} | null {
+  const w = s.worth;
+  if (!w) return null;
+  if (w.topUpTo) {
+    const line = LINES[w.topUpTo.line]?.value;
+    const inc = derive(A).incWeek;
+    if (line === undefined || inc === undefined || inc >= line) return null;
+    return {
+      max: Math.round((line - inc) * 100) / 100,
+      per: "week",
+      topUp: true,
+    };
+  }
+  return { min: w.min, max: w.max, per: w.per, topUp: false };
+}
+
+/** "£76.70 to £114.60 a week", or "About £28 a week" for a top-up from their own income. */
+export function worthLabel(s: Scheme, A: Answers = {}): string | null {
+  const w = worthFor(s, A);
+  if (!w) return null;
+  if (w.topUp)
+    return `About ${gbp(w.max)}${PER_TXT[w.per]}, from what you told Beacon`;
+  return `${w.min ? `${gbp(w.min)} to ` : "Up to "}${gbp(w.max)}${PER_TXT[w.per]}`;
+}
+
+/** The most the likely regular payments add up to in a year, and one-off sums on top. */
+export function worthTotals(
+  st: States,
+  A: Answers = {},
+): { yearly: number; once: number; count: number } {
+  let yearly = 0;
+  let once = 0;
+  let count = 0;
+  for (const s of SCHEMES) {
+    if (st[s.id]?.status !== "likely") continue;
+    const w = worthFor(s, A);
+    if (!w) continue;
+    count++;
+    if (w.per === "once") once += w.max;
+    else yearly += w.max * { week: 52, month: 12, year: 1 }[w.per];
+  }
+  return { yearly: Math.round(yearly), once: Math.round(once), count };
+}
+
 // ---------- Evaluation ----------
 export const RANK: Record<
   "have" | "likely" | "check" | "unlock" | "open" | "out",

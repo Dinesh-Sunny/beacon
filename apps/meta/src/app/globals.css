@@ -3119,3 +3119,30 @@ fieldset.track-row {
   padding: 0;
   min-width: 0;
 }
+
+/* Money: what the likely help adds up to, and each scheme's published rate */
+.res-head .worth {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 4px 8px;
+  margin: 2px 0 0;
+}
+.res-head .worth b {
+  font-family: var(--f-display, inherit);
+  font-size: 1.15rem;
+  color: var(--good);
+  font-variant-numeric: tabular-nums;
+}
+.step-body .amount {
+  margin: 0;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+}
+.step-body .amount a {
+  font-weight: 400;
+  font-size: 0.82rem;
+  color: var(--muted);
+  margin-left: 6px;
+}

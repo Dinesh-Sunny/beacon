@@ -122,7 +122,16 @@
         "cwp",
         "tv",
         "fep"
-      ]
+      ],
+      "worth": {
+        "max": 238,
+        "per": "week",
+        "topUpTo": {
+          "line": "pcIncomeWeek"
+        },
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "uc",
@@ -342,7 +351,14 @@
           "txt": "Reached State Pension age",
           "fail": "Under State Pension age"
         }
-      ]
+      ],
+      "worth": {
+        "min": 100,
+        "max": 300,
+        "per": "year",
+        "source": "https://www.gov.uk/winter-fuel-payment/how-much-youll-get",
+        "year": "2026/27"
+      }
     },
     {
       "id": "tv",
@@ -440,7 +456,14 @@
           "txt": "A condition affects daily life",
           "fail": "No condition affecting daily life"
         }
-      ]
+      ],
+      "worth": {
+        "min": 30.3,
+        "max": 194.6,
+        "per": "week",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "adp",
@@ -553,7 +576,14 @@
           "txt": "Needs help with personal care or supervision",
           "fail": "Doesn't need personal care or supervision"
         }
-      ]
+      ],
+      "worth": {
+        "min": 76.7,
+        "max": 114.6,
+        "per": "week",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "bb",
@@ -651,7 +681,13 @@
           "txt": "Earnings likely under the limit",
           "fail": "Earnings likely over the limit"
         }
-      ]
+      ],
+      "worth": {
+        "max": 86.45,
+        "per": "week",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "csp",
@@ -836,7 +872,13 @@
           "txt": "Working recently",
           "fail": "Needs recent work"
         }
-      ]
+      ],
+      "worth": {
+        "max": 194.32,
+        "per": "week",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "ssmg",
@@ -1036,7 +1078,14 @@
           "txt": "Paid National Insurance",
           "fail": "Not enough National Insurance paid"
         }
-      ]
+      ],
+      "worth": {
+        "min": 75.65,
+        "max": 95.55,
+        "per": "week",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "esa",
@@ -1156,7 +1205,14 @@
           "txt": "Aged 16 to State Pension age",
           "fail": "Over State Pension age"
         }
-      ]
+      ],
+      "worth": {
+        "min": 4300,
+        "max": 9800,
+        "per": "once",
+        "source": "https://www.gov.uk/government/publications/benefit-and-pension-rates-2026-to-2027/proposed-benefit-and-pension-rates-2026-to-2027",
+        "year": "2026/27"
+      }
     },
     {
       "id": "fep",
