@@ -3,7 +3,7 @@
 // Keeps the nation exact for postcodes near a border. The postcode's letters give a first
 // guess straight away; the lookup confirms it, and if it differs Beacon re-checks and says so.
 
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import { NATION, nationOf } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 import { usePlace } from "@/lib/council";
@@ -13,8 +13,18 @@ import { useUsPlace } from "@/lib/usplace";
 export function PlaceSync() {
   const { answers, refine, announce } = useCheck();
   const { nation } = usePlace(answers.postcode);
-  const { country } = useCountry();
+  const { country, setCountry } = useCountry();
   const us = useUsPlace(answers.zip);
+  // A newly given ZIP code or postcode says which country the person lives in.
+  const zip = typeof answers.zip === "string" ? answers.zip : null;
+  const pc = typeof answers.postcode === "string" ? answers.postcode : null;
+  const where = useRef({ zip, pc });
+  useEffect(() => {
+    const before = where.current;
+    where.current = { zip, pc };
+    if (zip && zip !== before.zip && country !== "US") setCountry("US");
+    else if (pc && pc !== before.pc && country !== "GB") setCountry("GB");
+  }, [zip, pc, country, setCountry]);
   // The place dialog's country decides whose rules the check uses.
   useEffect(() => {
     const c = country === "US" ? "US" : "GB";
