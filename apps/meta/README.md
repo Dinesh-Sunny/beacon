@@ -16,7 +16,8 @@ Each model has one job. Plain code makes every decision, so the same answers alw
 | --- | --- | --- |
 | Muse Spark 1.3 | `muse-spark-1.3` | The agent in the chat. It never edits the check directly: it calls tools (`set_who`, `save_details`, `check_results`, `explain_scheme`, `plan_claims`) and code validates every argument before the rules run. |
 | Muse Spark 1.3, vision + structured output | `muse-spark-1.3` | The letter reader. It reads a photo of a council or DWP letter into a fixed JSON schema and can't take any action. Code checks the schema and strips anything shaped like a National Insurance number, account number or email. |
-| Muse Spark 1.3, structured output | `muse-spark-1.3` | The call coach: what to say, what to have ready and what they may ask, for one scheme, from that scheme's rules and the answers those rules read. |
+| Muse Wonder | `muse-wonder-1.0` | The call coach: what to say, what to have ready and what they may ask, for one scheme, from that scheme's rules and the answers those rules read. Falls back to Muse Spark if Wonder is unavailable. |
+| Muse Spark Open (open weights) on Baseten, Muse Glimmer on Fireworks | `meta-models/muse-spark-open-1026`, `accounts/fireworks/models/muse-glimmer-30b` | The privacy step: every message is rewritten without names, numbers, addresses or emails before it reaches the hosted API. Hosts are tried in order, and the same rules run again as code on the output, so nothing personal leaves even if every host is down. |
 | Muse Voice Transcribe | `muse-voice-transcribe-1.0` | Speech to text. The browser records 16 kHz mono WAV directly, so nothing is converted on a server. |
 | SAM 3.1 | `sam-3.1` | Finds the letter in the photo and outlines it, so the person sees exactly what was read. |
 | Muse Image | `muse-image-1.0` | Paints a warm banner for the results. The prompt carries life areas only, never answers. |
@@ -28,7 +29,7 @@ flowchart LR
   U[Person: type, speak, snap, answer] --> V[Muse Voice Transcribe]
   U --> S[SAM 3.1]
   U --> R[Muse Spark letter reader]
-  U --> A[Muse Spark agent]
+  U --> P[Open-weights privacy step: Muse Spark Open / Muse Glimmer] --> A[Muse Spark agent]
   V --> A
   S --> R
   R -->|fixed schema| Z[zod validation]
@@ -41,7 +42,7 @@ flowchart LR
   P --> U
   C --> UI[Results, plan, warnings]
   O --> UI
-  UI --> K[Muse Spark call coach]
+  UI --> K[Muse Wonder call coach]
   UI --> I[Muse Image banner]
 ```
 

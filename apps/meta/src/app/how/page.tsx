@@ -24,6 +24,8 @@ export async function generateMetadata(): Promise<Metadata> {
 // Model names and ids are official names, so they stay in English; each job lives in messages.
 const MODELS = [
   ["Muse Spark 1.3", "muse-spark-1.3", "spark"],
+  ["Muse Wonder", "muse-wonder-1.0", "wonder"],
+  ["Muse Spark Open / Muse Glimmer", "open weights", "open"],
   ["Muse Voice Transcribe", "muse-voice-transcribe-1.0", "voice"],
   ["SAM 3.1", "sam-3.1", "sam"],
   ["Muse Image", "muse-image-1.0", "image"],
