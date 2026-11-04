@@ -265,6 +265,28 @@ export const timingFor = (
   return local !== undefined ? local || undefined : s.timing;
 };
 
+// ---------- Framework groups ----------
+/** Which of the Beacon Framework's people groups the answers place someone in. */
+export function peopleGroups(A: Answers): string[] {
+  const d = derive(A);
+  const g: string[] = [];
+  if (d.spa) g.push("older");
+  if (d.health && d.health !== "none") g.push("disabled");
+  if ((d.careHours ?? 0) > 0) g.push("carers");
+  if ((d.childAge !== undefined && d.childAge !== NO_CHILD) || d.pregnant)
+    g.push("families");
+  if (d.age !== undefined && d.age < 25) g.push("young");
+  if (d.work === "none" || d.work === "sick") g.push("outofwork");
+  if (
+    d.gateway ||
+    (d.incWeek !== undefined && d.incWeek < (LINES.ucIncomeWeek?.value ?? 0)) ||
+    d.debt
+  )
+    g.push("lowpay");
+  if (d.bereaved && d.bereaved !== "no") g.push("events");
+  return g;
+}
+
 // ---------- Value ----------
 const gbp = (n: number) =>
   `£${n.toLocaleString("en-GB", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;

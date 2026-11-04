@@ -24,6 +24,7 @@ import {
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
 import { ClaimTrack } from "./ClaimTrack";
+import { MoreHelp } from "./MoreHelp";
 import { ReadAloud } from "./ReadAloud";
 
 interface Prep {
@@ -135,6 +136,7 @@ export function Results() {
           />
         ))}
       </ol>
+      <MoreHelp />
 
       <div className="res-foot">
         <p className="hint">
