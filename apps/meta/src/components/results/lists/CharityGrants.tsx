@@ -36,7 +36,8 @@ const title = (s: string) =>
     .toLowerCase()
     .replace(/\b([a-z])/g, (c) => c.toUpperCase())
     .replace(/\b(And|Of|The|For|In|To)\b/g, (w) => w.toLowerCase())
-    .replace(/^./, (c) => c.toUpperCase());
+    .replace(/^./, (c) => c.toUpperCase())
+    .replace(/\b(Cio|Uk|Nhs|Raf|Ymca|Ywca)\b/g, (w) => w.toUpperCase());
 
 export function CharityGrants() {
   const { answers } = useCheck();
