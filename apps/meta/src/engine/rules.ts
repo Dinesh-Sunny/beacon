@@ -248,6 +248,21 @@ export type { Cond, Topic };
 export const LINES = REGISTRY.lines;
 export const TOPICS = REGISTRY.topics;
 export const SCHEMES: Scheme[] = REGISTRY.schemes;
+
+/** "A, B and C". */
+export const listJoin = (xs: string[]): string =>
+  xs.length < 2
+    ? (xs[0] ?? "")
+    : `${xs.slice(0, -1).join(", ")} and ${xs.at(-1)}`;
+
+/** Nations where most schemes apply (a pack's notCovered sends a nation elsewhere), so copy
+ * that names the nations stays true as packs grow. */
+export const COVERED_NATIONS = (Object.keys(NATION) as Nation[]).filter(
+  (n) => SCHEMES.filter((s) => !s.notCovered[n]).length > SCHEMES.length / 2,
+);
+export const COVERED_NATIONS_TXT = listJoin(
+  COVERED_NATIONS.map((n) => NATION[n]),
+);
 export const byId: Record<string, Scheme> = Object.fromEntries(
   SCHEMES.map((s) => [s.id, s]),
 );

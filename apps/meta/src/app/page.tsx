@@ -14,7 +14,8 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SCHEMES, TOPICS } from "@/engine/rules";
+import COUNTS from "@/data/data-counts.json";
+import { COVERED_NATIONS_TXT, SCHEMES, TOPICS } from "@/engine/rules";
 
 export const metadata: Metadata = {
   title: { absolute: "Beacon - find the support that's already yours" },
@@ -30,7 +31,7 @@ export default function Home() {
           <div className="mk-hero-copy">
             <p className="mk-pill">
               <span className="dot" aria-hidden="true" /> Free ·{" "}
-              {SCHEMES.length} kinds of help · England, Scotland and Wales
+              {SCHEMES.length} kinds of help · {COVERED_NATIONS_TXT}
             </p>
             <h1 id="hero-h">Find the support that's already yours.</h1>
             <p className="mk-lead">
@@ -121,8 +122,10 @@ export default function Home() {
                 title={`${SCHEMES.length} kinds of help across ${TOPICS.length} areas of life`}
                 center
               >
-                From Pension Credit to Healthy Start, in England, Scotland and
-                Wales.
+                From Pension Credit to Healthy Start, in {COVERED_NATIONS_TXT}.
+                Plus {COUNTS.councilLinks.links.toLocaleString("en-GB")} council
+                pages and {COUNTS.charityFunds.funds.toLocaleString("en-GB")}{" "}
+                grant-giving charities, matched to your postcode.
               </SectionHead>
             </Reveal>
           </div>

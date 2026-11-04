@@ -9,7 +9,13 @@ import { SiteHeader } from "@/components/marketing/SiteHeader";
 import { StepsRail } from "@/components/marketing/StepsRail";
 import { Ticker } from "@/components/marketing/Ticker";
 import { SiteFooter } from "@/components/SiteFooter";
-import { SCHEMES, TOPICS } from "@/engine/rules";
+import COUNTS from "@/data/data-counts.json";
+import {
+  COVERED_NATIONS,
+  COVERED_NATIONS_TXT,
+  SCHEMES,
+  TOPICS,
+} from "@/engine/rules";
 
 export const metadata: Metadata = {
   title: "How it works",
@@ -132,7 +138,19 @@ export default function How() {
             <div>
               <dt>Nations covered</dt>
               <dd>
-                <Ticker value={3} />
+                <Ticker value={COVERED_NATIONS.length} />
+              </dd>
+            </div>
+            <div>
+              <dt>Council pages</dt>
+              <dd>
+                <Ticker value={COUNTS.councilLinks.links} />
+              </dd>
+            </div>
+            <div>
+              <dt>Grant-giving charities</dt>
+              <dd>
+                <Ticker value={COUNTS.charityFunds.funds} />
               </dd>
             </div>
             <div>
@@ -235,9 +253,9 @@ export default function How() {
               title="What it checks today"
             >
               {SCHEMES.length} kinds of help across {TOPICS.length} areas of
-              life in England, Scotland and Wales, from Pension Credit to
-              Healthy Start. Income lines are screening estimates, so anything
-              close comes back as worth checking.
+              life in {COVERED_NATIONS_TXT}, from Pension Credit to Healthy
+              Start. Income lines are screening estimates, so anything close
+              comes back as worth checking.
             </SectionHead>
           </Reveal>
           <Reveal>

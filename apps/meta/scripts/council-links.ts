@@ -5,6 +5,7 @@
 // Usage: node scripts/council-links.ts
 import { readFile, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
+import { setCount } from "./data-counts.ts";
 
 /** LGSL code -> how Beacon names the service, who it's for (Beacon Framework people groups),
  * and the pack scheme it matches, if one already checks it. An empty people list keeps the link
@@ -161,3 +162,8 @@ await writeFile(
 console.log(
   `src/data/council-links.json: ${links} links across ${Object.keys(councils).length} councils, ${Object.keys(SERVICES).length} services`,
 );
+await setCount("councilLinks", {
+  links,
+  councils: Object.keys(councils).length,
+  services: Object.keys(SERVICES).length,
+});

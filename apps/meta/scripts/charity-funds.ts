@@ -5,6 +5,7 @@
 // Usage: node scripts/charity-funds.ts
 import { readFile, writeFile } from "node:fs/promises";
 import { gunzipSync } from "node:zlib";
+import { setCount } from "./data-counts.ts";
 
 interface Raw {
   number: string;
@@ -112,3 +113,8 @@ await writeFile(
 console.log(
   `src/data/charity-funds.json: ${funds.length} of ${raw.charities.length} charities, ${funds.filter((f) => f.local.length).length} local`,
 );
+await setCount("charityFunds", {
+  funds: funds.length,
+  local: funds.filter((f) => f.local.length).length,
+  read: raw.read,
+});

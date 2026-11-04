@@ -47,7 +47,10 @@ export function Ticker({
   return (
     <span ref={ref} className="mk-ticker">
       {prefix}
-      {n.toFixed(decimals)}
+      {n.toLocaleString("en-GB", {
+        minimumFractionDigits: decimals,
+        maximumFractionDigits: decimals,
+      })}
       {suffix}
     </span>
   );
