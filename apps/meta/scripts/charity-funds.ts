@@ -38,7 +38,11 @@ const WHO: Record<string, string> = {
   "People With Disabilities": "d",
   "Children/Young People": "c",
   "The General Public/mankind": "g",
+  // Funds limited to a profession, faith, ethnic or other defined group: real, but narrow.
+  "Other Defined Groups": "o",
+  "People Of A Particular Ethnic Or Racial Origin": "o",
 };
+const UK = new Set(["Scotland", "Northern Ireland", "England", "Wales"]);
 /** Wide areas the register uses, and the nations they cover. */
 const WIDE: Record<string, string> = {
   "Throughout England And Wales": "eng wal",
@@ -68,6 +72,16 @@ for (const c of raw.charities) {
     !who ||
     !(c.income && c.income > 0) ||
     (c.yearEnd ?? "") < "2023"
+  )
+    continue;
+  // Overseas aid and worship-first charities rarely help someone here with a bill or a crisis.
+  const overseas = c.areas.some((a) => a.type === "Country" && !UK.has(a.name));
+  const worship =
+    (c.what ?? []).includes("Religious Activities") && !what.includes("p");
+  if (
+    overseas ||
+    worship ||
+    (c.what ?? []).includes("Overseas Aid/famine Relief")
   )
     continue;
   const local = c.areas

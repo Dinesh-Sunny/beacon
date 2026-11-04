@@ -26,7 +26,7 @@ const FIT: Record<string, { who: string; what: string }> = {
   older: { who: "e", what: "p" },
   disabled: { who: "d", what: "dh" },
   carers: { who: "d", what: "dh" },
-  families: { who: "c", what: "pt" },
+  families: { who: "c", what: "p" },
   young: { who: "c", what: "t" },
   outofwork: { who: "", what: "pa" },
   lowpay: { who: "", what: "pa" },
@@ -41,7 +41,10 @@ for (const f of FUNDS)
   }
 
 function score(f: Fund, groups: string[]): number {
-  let s = f.need ? 3 : 0;
+  let s =
+    (f.need ? 3 : 0) +
+    (f.what.includes("p") ? 2 : 0) -
+    (f.who.includes("o") ? 3 : 0);
   for (const g of groups) {
     const fit = FIT[g];
     if (!fit) continue;
@@ -50,6 +53,15 @@ function score(f: Fund, groups: string[]): number {
   }
   return s;
 }
+
+const fitsGroup = (f: Fund, g: string) => {
+  const fit = FIT[g];
+  return (
+    !!fit &&
+    ([...fit.who].some((c) => f.who.includes(c)) ||
+      [...fit.what].some((c) => f.what.includes(c)))
+  );
+};
 
 export interface Where {
   areas: string[];
@@ -65,7 +77,7 @@ export function fundsFor(
   const rank = (list: Fund[]) =>
     list
       .map((f) => ({ f, s: score(f, groups) }))
-      .filter((x) => x.s > (x.f.need ? 3 : 0))
+      .filter((x) => x.s > 0 && groups.some((g) => fitsGroup(x.f, g)))
       // Closest fit first, then the larger funds, which tend to give more often.
       .sort((a, b) => b.s - a.s || b.f.income - a.f.income)
       .map((x) => x.f);
