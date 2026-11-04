@@ -89,8 +89,7 @@ export function DisplayTab({ onDone }: { onDone: () => void }) {
                 <li key={p}>
                   <button
                     type="button"
-                    role="checkbox"
-                    aria-checked={
+                    aria-pressed={
                       state === "on"
                         ? true
                         : state === "partly"
@@ -135,13 +134,12 @@ export function DisplayTab({ onDone }: { onDone: () => void }) {
         <>
           <div className="pd-line">
             <span id="pd-size">{t("textSize")}</span>
-            <div className="seg" role="radiogroup" aria-labelledby="pd-size">
+            <fieldset className="seg" aria-labelledby="pd-size">
               {([0, 1, 2, 3] as const).map((s) => (
                 <button
                   key={s}
                   type="button"
-                  role="radio"
-                  aria-checked={display.size === s}
+                  aria-pressed={display.size === s}
                   aria-label={t(`size.${s}`)}
                   onClick={() => set({ ...display, size: s })}
                   style={{ fontSize: `${0.75 + s * 0.15}rem` }}
@@ -149,15 +147,14 @@ export function DisplayTab({ onDone }: { onDone: () => void }) {
                   A
                 </button>
               ))}
-            </div>
+            </fieldset>
           </div>
           <ul className="pd-tiles">
             {SETTINGS.map((s: Setting) => (
               <li key={s}>
                 <button
                   type="button"
-                  role="checkbox"
-                  aria-checked={display.on.includes(s)}
+                  aria-pressed={display.on.includes(s)}
                   className={`pd-tile${display.on.includes(s) ? " on" : ""}`}
                   onClick={() => toggle(s)}
                   data-testid={`setting-${s}`}
@@ -180,19 +177,18 @@ export function DisplayTab({ onDone }: { onDone: () => void }) {
           </ul>
           <div className="pd-line">
             <span id="pd-speed">{t("speed")}</span>
-            <div className="seg" role="radiogroup" aria-labelledby="pd-speed">
+            <fieldset className="seg" aria-labelledby="pd-speed">
               {(Object.keys(SPEEDS) as Speed[]).map((s) => (
                 <button
                   key={s}
                   type="button"
-                  role="radio"
-                  aria-checked={display.speed === s}
+                  aria-pressed={display.speed === s}
                   onClick={() => set({ ...display, speed: s })}
                 >
                   {t(`speeds.${s}`)}
                 </button>
               ))}
-            </div>
+            </fieldset>
           </div>
         </>
       )}

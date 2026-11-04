@@ -9,6 +9,7 @@ import { Icon } from "@/components/Icon";
 import { theyify } from "@/engine/facts";
 import {
   BENEFIT_OF,
+  BENEFIT_OF_US,
   byId,
   challengeFor,
   evaluate,
@@ -29,11 +30,14 @@ export function ClaimTrack({ id }: { id: string }) {
 
   const mark = (state: ClaimState | null) => {
     setClaim(id, state);
-    const b = BENEFIT_OF[id];
+    const us = s.country === "US";
+    const b = (us ? BENEFIT_OF_US : BENEFIT_OF)[id];
     if (state === "awarded" && b) {
-      const have = Array.isArray(answers.benefits) ? answers.benefits : [];
-      if (have.includes(b as never)) return;
-      const next = { ...answers, benefits: [...have, b] as typeof have };
+      const field = us ? "benefitsUs" : "benefits";
+      const cur = answers[field];
+      const have: string[] = Array.isArray(cur) ? cur : [];
+      if (have.includes(b)) return;
+      const next = { ...answers, [field]: [...have, b] } as typeof answers;
       // Name what the award opened, and mark it New, so success is visible where it happened.
       const before = evaluate(answers);
       const after = evaluate(next);
@@ -114,7 +118,9 @@ export function ClaimTrack({ id }: { id: string }) {
       {claim.state === "applied" && <p className="hint">{t("appliedHint")}</p>}
       {claim.state === "awarded" && (
         <p className="hint">
-          {BENEFIT_OF[id] ? t("awardedOpens") : t("awardedPay")}
+          {(s.country === "US" ? BENEFIT_OF_US : BENEFIT_OF)[id]
+            ? t("awardedOpens")
+            : t("awardedPay")}
         </p>
       )}
       {claim.state === "awarded" && keep && (

@@ -499,7 +499,13 @@
     "local": "Rada lokalna i transport",
     "nhs": "Koszty NHS",
     "debt": "Długi i zaległości",
-    "found": "Pieniądze, które już są Twoje"
+    "found": "Pieniądze, które już są Twoje",
+    "food": "Jedzenie",
+    "health": "Opieka zdrowotna",
+    "tax": "Ulgi podatkowe i rozliczenia",
+    "vets": "Weterani",
+    "rent": "Mieszkanie",
+    "learn": "Studia"
   },
   "board": {
     "seeAll": "Zobacz wszystkie rodzaje pomocy sprawdzone przez Beacon ({count})",
@@ -607,6 +613,7 @@
     "noMatch": "Nic nie pasuje. Spróbuj innej pisowni.",
     "lookingUp": "Szukamy Twojego samorządu…",
     "placeNote": "Kod pocztowy służy tylko do znalezienia Twojego samorządu i kraju. Beacon nigdy nie pyta o Twój adres.",
+    "zipNote": "Kod ZIP służy tylko do ustalenia stanu i hrabstwa. Beacon nigdy nie pyta o Twój adres.",
     "machine": "tłumaczenie maszynowe",
     "gapTitle": "Beacon nie może jeszcze sprawdzić zasad dla kraju {country}",
     "gapBody": "Pomoc, którą Beacon dziś sprawdza, jest dla osób w Wielkiej Brytanii i w USA. Jeśli mieszkasz w kraju {country}, wyniki nie będą do Ciebie pasować, więc Beacon nie będzie zgadywać.",

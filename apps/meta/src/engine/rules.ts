@@ -12,6 +12,7 @@ import ukHousehold from "../../packs/uk-household.json";
 import ukScotland from "../../packs/uk-scotland.json";
 import ukUnclaimed from "../../packs/uk-unclaimed.json";
 import ukWorkCare from "../../packs/uk-work-care.json";
+import usFederal from "../../packs/us-federal.json";
 import {
   type Answers,
   FACTS,
@@ -314,6 +315,7 @@ export const REGISTRY = RegistrySchema.parse([
   ukUnclaimed,
   ukHousehold,
   ukCharity,
+  usFederal,
 ]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
@@ -381,8 +383,6 @@ export function peopleGroups(A: Answers): string[] {
 }
 
 // ---------- Value ----------
-const gbp = (n: number) =>
-  `£${n.toLocaleString("en-GB", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
 const PER_TXT = {
   week: " a week",
   month: " a month",
@@ -462,6 +462,18 @@ const ALREADY: Record<string, string[]> = {
 export const BENEFIT_OF: Record<string, string> = Object.fromEntries(
   Object.entries(ALREADY).flatMap(([b, ids]) => ids.map((id) => [id, b])),
 );
+/** The same for US programs (the benefitsUs answer); each option is its own scheme id. */
+const ALREADY_US: Record<string, string[]> = {
+  snap: ["snap"],
+  medicaid: ["medicaid"],
+  ssi: ["ssi"],
+  tanf: ["tanf"],
+  wic: ["wic"],
+  ssdi: ["ssdi"],
+};
+export const BENEFIT_OF_US: Record<string, string> = Object.fromEntries(
+  Object.entries(ALREADY_US).flatMap(([b, ids]) => ids.map((id) => [id, b])),
+);
 
 /** How to challenge a refusal for this scheme, if the packs say. */
 export const challengeFor = (s: Scheme) => REGISTRY.challenges[s.by] ?? null;
@@ -515,11 +527,14 @@ export function evaluate(A: Answers, today = new Date()): States {
     ...GATEWAYS.filter(here),
     ...SCHEMES.map((s) => s.id).filter((i) => !GATEWAYS.includes(i) && here(i)),
   ];
-  const have = new Set(
-    known(A, "benefits")
+  const have = new Set([
+    ...(known(A, "benefits")
       ? (A.benefits as string[]).flatMap((b) => ALREADY[b] ?? [])
-      : [],
-  );
+      : []),
+    ...(known(A, "benefitsUs")
+      ? (A.benefitsUs as string[]).flatMap((b) => ALREADY_US[b] ?? [])
+      : []),
+  ]);
   for (const id of ids) {
     const s = byId[id] as Scheme;
     if (have.has(id)) {

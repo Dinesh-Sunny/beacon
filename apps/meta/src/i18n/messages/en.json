@@ -499,7 +499,13 @@
     "local": "Council and travel",
     "nhs": "NHS costs",
     "debt": "Debt and arrears",
-    "found": "Money already yours"
+    "found": "Money already yours",
+    "food": "Food",
+    "health": "Health care",
+    "tax": "Tax credits and filing",
+    "vets": "Veterans",
+    "rent": "Housing",
+    "learn": "College"
   },
   "board": {
     "seeAll": "See all {count} kinds of help Beacon checked",
@@ -607,6 +613,7 @@
     "noMatch": "Nothing matches. Try another spelling.",
     "lookingUp": "Looking up your council…",
     "placeNote": "Your postcode only finds your council and nation. Beacon never asks for your address.",
+    "zipNote": "Your ZIP code only finds your state and county. Beacon never asks for your address.",
     "machine": "machine translated",
     "gapTitle": "Beacon can't check {country}'s rules yet",
     "gapBody": "The help Beacon checks today is for people in the UK and the US. If you live in {country}, the results won't fit you, so Beacon won't guess.",

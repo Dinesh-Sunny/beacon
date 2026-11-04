@@ -499,7 +499,13 @@
     "local": "Cyngor a theithio",
     "nhs": "Costau'r GIG",
     "debt": "Dyledion ac ôl-ddyledion",
-    "found": "Arian sydd eisoes yn eiddo i chi"
+    "found": "Arian sydd eisoes yn eiddo i chi",
+    "food": "Bwyd",
+    "health": "Gofal iechyd",
+    "tax": "Credydau treth a ffeilio",
+    "vets": "Cyn-filwyr",
+    "rent": "Tai",
+    "learn": "Coleg"
   },
   "board": {
     "seeAll": "Gweld pob un o'r {count} math o help a wiriodd Beacon",
@@ -607,6 +613,7 @@
     "noMatch": "Does dim yn cyfateb. Rhowch gynnig ar sillafiad arall.",
     "lookingUp": "Wrthi'n chwilio am eich cyngor…",
     "placeNote": "Dim ond eich cyngor a'ch gwlad y mae eich cod post yn eu canfod. Dydy Beacon byth yn gofyn am eich cyfeiriad.",
+    "zipNote": "Dim ond eich talaith a'ch sir y mae eich cod ZIP yn eu canfod. Fydd Beacon byth yn gofyn am eich cyfeiriad.",
     "machine": "cyfieithiad peiriant",
     "gapTitle": "Dydy Beacon ddim yn gallu gwirio rheolau {country} eto",
     "gapBody": "Mae'r help y mae Beacon yn ei wirio heddiw ar gyfer pobl yn y DU a'r Unol Daleithiau. Os ydych chi'n byw yn {country}, fydd y canlyniadau ddim yn addas i chi, felly fydd Beacon ddim yn dyfalu.",

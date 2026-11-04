@@ -10,7 +10,6 @@ import {
   type ReactNode,
   useEffect,
   useId,
-  useMemo,
   useRef,
   useState,
 } from "react";
@@ -18,7 +17,7 @@ import { useLocale, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { POSTCODE_RE } from "@/engine/rules";
 import { COVERED, flagOf } from "@/i18n/countries";
-import { fromBrowser, intlTag, LOCALES, type Locale } from "@/i18n/locales";
+import { fromBrowser, LOCALES, type Locale } from "@/i18n/locales";
 import { useCountries, useSetLocale } from "@/i18n/Provider";
 import { savePostcodeForLater, useMaybeCheck } from "@/lib/check-store";
 import { shortCouncil, usePlace } from "@/lib/council";
@@ -295,25 +294,27 @@ export function PlaceDialog({
   ];
 
   const renderRow = (r: Row, i: number) => (
-    <li
+    // Options in a combobox: focus stays in the search box (aria-activedescendant), so rows
+    // take tabIndex -1 rather than joining the tab order.
+    <div
       key={r.id}
       id={`${listId}-${i}`}
       role="option"
+      tabIndex={-1}
       aria-selected={i === active}
       className={`pd-row${i === active ? " active" : ""}`}
       onPointerMove={() => setActive(i)}
       onClick={r.pick}
-      onKeyDown={undefined}
+      onKeyDown={(e) => e.key === "Enter" && r.pick()}
     >
       <span className="pd-label">{r.label}</span>
       {r.aside && <span className="pd-aside">{r.aside}</span>}
       {r.current && <Icon name="check" size={16} label={t("current")} />}
       {i === active && <kbd>enter</kbd>}
-    </li>
+    </div>
   );
 
   return (
-    // biome-ignore lint/a11y/useKeyWithClickEvents: Escape closes via the dialog's own cancel event
     <dialog
       ref={ref}
       className="place-dialog"
@@ -414,33 +415,37 @@ export function PlaceDialog({
             />
             <kbd>esc</kbd>
           </div>
-          <ul
+          <div
             id={listId}
             role="listbox"
             className="pd-list"
             aria-label={t("results")}
           >
             {suggested.length > 0 && (
-              <li role="presentation" className="pd-group">
+              <div role="presentation" className="pd-group">
                 {tab === "place" && isPostcode
                   ? t("yourCouncil")
                   : t("suggested")}
-              </li>
+              </div>
             )}
             {suggested.map((r, i) => renderRow(r, i))}
             {all.length > 0 && (
-              <li role="presentation" className="pd-group">
+              <div role="presentation" className="pd-group">
                 {tab === "place" ? t("allCountries") : t("allLanguages")}
-              </li>
+              </div>
             )}
             {all.map((r, i) => renderRow(r, suggested.length + i))}
             {!rows.length && (
-              <li role="presentation" className="pd-empty">
-                {isPostcode ? t("lookingUp") : t("noMatch")}
-              </li>
+              <div role="presentation" className="pd-empty">
+                {isPostcode || isZip ? t("lookingUp") : t("noMatch")}
+              </div>
             )}
-          </ul>
-          {tab === "place" && <p className="pd-note">{t("placeNote")}</p>}
+          </div>
+          {tab === "place" && (
+            <p className="pd-note">
+              {t(isZip || code === "US" ? "zipNote" : "placeNote")}
+            </p>
+          )}
         </>
       )}
       {tab !== "display" && (

@@ -815,6 +815,9 @@ button {
   font-variant-numeric: tabular-nums;
 }
 .seg {
+  /* also a <fieldset>: drop its default frame */
+  min-inline-size: 0;
+  margin: 0;
   display: inline-flex;
   border: 1.5px solid var(--line);
   border-radius: 12px;
@@ -3948,7 +3951,7 @@ details.constellation[open] > summary::after {
   flex-wrap: wrap;
   font-weight: 700;
 }
-.pd-line .seg button[aria-checked="true"] {
+.pd-line .seg button[aria-pressed="true"] {
   background: var(--surface);
   box-shadow: var(--shadow);
 }

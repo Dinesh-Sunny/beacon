@@ -9,5 +9,5 @@ export async function setCount(key: string, value: Record<string, unknown>) {
     await readFile(FILE, "utf8").catch(() => "{}"),
   ) as Record<string, unknown>;
   all[key] = value;
-  await writeFile(FILE, `${JSON.stringify(all, null, 1)}\n`);
+  await writeFile(FILE, `${JSON.stringify(all, null, 2)}\n`);
 }

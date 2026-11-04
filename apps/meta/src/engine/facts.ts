@@ -310,14 +310,14 @@ const DATE_FMT: Intl.DateTimeFormatOptions = {
 export const monthOnly = (iso: string): string => `${iso.slice(0, 7)}-15`;
 
 export const gbp = (n: number): string =>
-  `£${Number(n).toLocaleString("en-GB", { maximumFractionDigits: 2 })}`;
+  `£${Number(n).toLocaleString("en-GB", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`;
 /** The currency for a country whose rules Beacon checks: dollars for the US, else pounds. */
 export const currencyOf = (country?: string): "USD" | "GBP" =>
   country === "US" ? "USD" : "GBP";
 /** An amount in the country's currency, for plain-English text. */
 export const moneyText = (n: number, country?: string): string =>
   country === "US"
-    ? `$${Number(n).toLocaleString("en-US", { maximumFractionDigits: 2 })}`
+    ? `$${Number(n).toLocaleString("en-US", { minimumFractionDigits: n % 1 ? 2 : 0, maximumFractionDigits: 2 })}`
     : gbp(n);
 
 const WORK_TXT: Record<WorkStatus, string> = {

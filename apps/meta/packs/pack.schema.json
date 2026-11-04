@@ -142,7 +142,7 @@
           },
           "phone": {
             "type": "string",
-            "pattern": "^0\\d{3} \\d{2,3} \\d{4}$"
+            "pattern": "^(0\\d{3} \\d{2,3} \\d{4}|1-\\d{3}-\\d{3}-\\d{4})$"
           },
           "url": {
             "type": "string",
@@ -269,7 +269,11 @@
                       "housing",
                       "household",
                       "debt",
-                      "bereaved"
+                      "bereaved",
+                      "zip",
+                      "people",
+                      "benefitsUs",
+                      "veteran"
                     ]
                   }
                 },
@@ -316,7 +320,16 @@
                         "childBornOn",
                         "livesAlone",
                         "couple",
-                        "debt"
+                        "debt",
+                        "country",
+                        "state",
+                        "people",
+                        "fplPct",
+                        "usGateway",
+                        "snap",
+                        "medicaid",
+                        "ssi",
+                        "veteran"
                       ]
                     },
                     "line": {
@@ -491,7 +504,16 @@
                 "childBornOn",
                 "livesAlone",
                 "couple",
-                "debt"
+                "debt",
+                "country",
+                "state",
+                "people",
+                "fplPct",
+                "usGateway",
+                "snap",
+                "medicaid",
+                "ssi",
+                "veteran"
               ]
             },
             "op": {
@@ -567,7 +589,16 @@
                 "childBornOn",
                 "livesAlone",
                 "couple",
-                "debt"
+                "debt",
+                "country",
+                "state",
+                "people",
+                "fplPct",
+                "usGateway",
+                "snap",
+                "medicaid",
+                "ssi",
+                "veteran"
               ]
             },
             "op": {

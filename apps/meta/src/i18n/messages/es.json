@@ -499,7 +499,13 @@
     "local": "Ayuntamiento y transporte",
     "nhs": "Gastos del NHS",
     "debt": "Deudas y atrasos",
-    "found": "Dinero que ya es tuyo"
+    "found": "Dinero que ya es tuyo",
+    "food": "Comida",
+    "health": "Atención médica",
+    "tax": "Créditos fiscales y declaración",
+    "vets": "Veteranos",
+    "rent": "Vivienda",
+    "learn": "Universidad"
   },
   "board": {
     "seeAll": "Ver los {count} tipos de ayuda que revisó Beacon",
@@ -607,6 +613,7 @@
     "noMatch": "No hay coincidencias. Prueba a escribirlo de otra forma.",
     "lookingUp": "Buscando tu ayuntamiento…",
     "placeNote": "Tu código postal solo sirve para encontrar tu ayuntamiento y tu nación. Beacon nunca te pide tu dirección.",
+    "zipNote": "Tu código ZIP solo sirve para saber tu estado y condado. Beacon nunca te pide tu dirección.",
     "machine": "traducción automática",
     "gapTitle": "Beacon aún no puede revisar las normas de {country}",
     "gapBody": "La ayuda que Beacon revisa hoy es para personas en el Reino Unido y en Estados Unidos. Si vives en {country}, los resultados no encajarán contigo, así que Beacon no va a adivinar.",

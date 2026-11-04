@@ -10,14 +10,10 @@ import { Icon, Logo } from "@/components/Icon";
 import { isFactId } from "@/engine/answers-schema";
 import {
   type Answers,
-  ask,
   callerPhrase,
-  FACTS,
   type FactId,
-  formatAnswer,
   LIFE_EVENTS,
   ORDER,
-  showAnswer,
 } from "@/engine/facts";
 import { evaluate, SCHEMES } from "@/engine/rules";
 import { intlTag } from "@/i18n/locales";
@@ -302,7 +298,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         });
       }
     },
-    [note, push, send, setBusy],
+    [note, push, send, setBusy, tc],
   );
 
   const onPhoto = useCallback(
@@ -380,7 +376,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
         setBusy("Letter reader", false);
       }
     },
-    [apply, note, push, setBusy],
+    [apply, note, push, setBusy, tc],
   );
 
   // Answers given on the question card in the chat read back as a chat turn.
