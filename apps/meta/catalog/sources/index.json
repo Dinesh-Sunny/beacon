@@ -1,4 +1,53 @@
 {
+ "https://britishgasenergytrust.org.uk/": {
+  "hash": "da5cb14b0daa01b6",
+  "file": "britishgasenergytrust-org-uk.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Independent fuel debt advice – British Gas Energy Trust"
+ },
+ "https://buttleuk.org/grants/grant-criteria/": {
+  "hash": "5e09bc1d06613b67",
+  "file": "buttleuk-org-grants-grant-criteria.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Grant criteria - Buttle"
+ },
+ "https://www.ccw.org.uk/news/help-for-households-that-cannot-afford-their-water-bill/": {
+  "hash": "c12b3dcd7da3e347",
+  "file": "ccw-org-uk-news-help-for-households-that-cannot-afford-their-water-bill.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Help for customers struggling to afford their water bills - CCW"
+ },
+ "https://www.energyombudsman.org/": {
+  "hash": "d5a1f43836f373b0",
+  "file": "energyombudsman-org.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Resolve Energy Complaints | Energy Ombudsman"
+ },
+ "https://www.familyfund.org.uk/eligibility": {
+  "hash": "474ee9feb4a2f3b0",
+  "file": "familyfund-org-uk-eligibility.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Are we eligible? - Family Fund"
+ },
+ "https://www.financial-ombudsman.org.uk/consumers/how-to-complain": {
+  "hash": "fb11a2365de9a131",
+  "file": "financial-ombudsman-org-uk-consumers-how-to-complain.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "How to complain &ndash; Financial Ombudsman service"
+ },
+ "https://www.fscs.org.uk/check/": {
+  "hash": "bc13cc4d316f8199",
+  "file": "fscs-org-uk-check.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Check your money&#39;s protection | FSCS | FSCS"
+ },
  "https://www.gov.uk/1619-bursary-fund": {
   "hash": "93b51123c4bf854e",
   "file": "gov-uk-1619-bursary-fund.md",
@@ -1861,6 +1910,13 @@
   "updated": "2017-08-24T10:12:53+01:00",
   "title": "Check how much Income Tax you paid last year"
  },
+ "https://www.gov.uk/check-legal-aid": {
+  "hash": "e3b0c44298fc1c14",
+  "file": "gov-uk-check-legal-aid.md",
+  "checked": "2026-11-04",
+  "updated": "2026-03-19T09:46:23+00:00",
+  "title": null
+ },
  "https://www.gov.uk/check-mot-history": {
   "hash": "91a7623c58519cc7",
   "file": "gov-uk-check-mot-history.md",
@@ -2141,6 +2197,13 @@
   "updated": "2014-11-27T13:56:55+00:00",
   "title": "Child Trust Fund"
  },
+ "https://www.gov.uk/child-trust-funds/find-a-child-trust-fund": {
+  "hash": "5aecc05e19eab501",
+  "file": "gov-uk-child-trust-funds-find-a-child-trust-fund.md",
+  "checked": "2026-11-04",
+  "updated": "2014-11-27T13:56:55+00:00",
+  "title": "Child Trust Fund"
+ },
  "https://www.gov.uk/child-under-10-breaks-law": {
   "hash": "6559a4b4599306b2",
   "file": "gov-uk-child-under-10-breaks-law.md",
@@ -2203,6 +2266,13 @@
   "checked": "2026-11-04",
   "updated": "2015-02-19T13:45:13+00:00",
   "title": "Claim and deal with Child Benefit for someone else"
+ },
+ "https://www.gov.uk/claim-compensation-criminal-injury": {
+  "hash": "c5e2feb7dd3e7e8d",
+  "file": "gov-uk-claim-compensation-criminal-injury.md",
+  "checked": "2026-11-04",
+  "updated": "2018-05-29T15:56:49+01:00",
+  "title": "Claim compensation if you were the victim of a violent crime"
  },
  "https://www.gov.uk/claim-compensation-if-affected-by-hs2": {
   "hash": "7b528291a492129a",
@@ -2693,6 +2763,20 @@
   "checked": "2026-11-04",
   "updated": "2015-01-14T13:47:41+00:00",
   "title": "Check your Council Tax band"
+ },
+ "https://www.gov.uk/council-tax/discounts-for-disabled-people": {
+  "hash": "f66b552d2e28d626",
+  "file": "gov-uk-council-tax-discounts-for-disabled-people.md",
+  "checked": "2026-11-04",
+  "updated": "2025-02-05T14:40:44+00:00",
+  "title": "How Council Tax works"
+ },
+ "https://www.gov.uk/council-tax/who-has-to-pay": {
+  "hash": "f66b552d2e28d626",
+  "file": "gov-uk-council-tax-who-has-to-pay.md",
+  "checked": "2026-11-04",
+  "updated": "2025-02-05T14:40:44+00:00",
+  "title": "How Council Tax works"
  },
  "https://www.gov.uk/county-court-judgments-ccj-for-debt": {
   "hash": "7a91bef6d80fef99",
@@ -4101,6 +4185,13 @@
   "updated": "2024-10-10T17:22:55+01:00",
   "title": "Get help with savings if you’re on a low income (Help to Save)"
  },
+ "https://www.gov.uk/get-help-with-court-fees": {
+  "hash": "0b12a1b3168cd222",
+  "file": "gov-uk-get-help-with-court-fees.md",
+  "checked": "2026-11-04",
+  "updated": "2016-09-20T13:44:03+01:00",
+  "title": "Get help paying court and tribunal fees"
+ },
  "https://www.gov.uk/get-information-about-property-and-land": {
   "hash": "d76108ce0df773d0",
   "file": "gov-uk-get-information-about-property-and-land.md",
@@ -4205,6 +4296,27 @@
   "checked": "2026-11-04",
   "updated": null,
   "title": "£1 billion resilience fund and next step towards removal of two-child limit provide safety net for families - GOV.UK"
+ },
+ "https://www.gov.uk/government/publications/debt-respite-scheme-breathing-space-guidance": {
+  "hash": "fb772162e8dea333",
+  "file": "gov-uk-government-publications-debt-respite-scheme-breathing-space-guidance.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Debt Respite Scheme (Breathing Space) guidance - GOV.UK"
+ },
+ "https://www.gov.uk/government/publications/local-welfare-provision-review": {
+  "hash": "c6cd651a46521a3b",
+  "file": "gov-uk-government-publications-local-welfare-provision-review.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Local welfare provision review - GOV.UK"
+ },
+ "https://www.gov.uk/government/publications/mortgage-charter": {
+  "hash": "3063b716d8ca8eb4",
+  "file": "gov-uk-government-publications-mortgage-charter.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Mortgage Charter - GOV.UK"
  },
  "https://www.gov.uk/grant-bursary-adult-learners": {
   "hash": "286aec1b9fec3a58",
@@ -4377,6 +4489,13 @@
  "https://www.gov.uk/help-with-childcare-costs": {
   "hash": "af277b2d8731e622",
   "file": "gov-uk-help-with-childcare-costs.md",
+  "checked": "2026-11-04",
+  "updated": "2015-03-24T16:22:50+00:00",
+  "title": "Help paying for childcare"
+ },
+ "https://www.gov.uk/help-with-childcare-costs/free-childcare-2-year-olds": {
+  "hash": "af277b2d8731e622",
+  "file": "gov-uk-help-with-childcare-costs-free-childcare-2-year-olds.md",
   "checked": "2026-11-04",
   "updated": "2015-03-24T16:22:50+00:00",
   "title": "Help paying for childcare"
@@ -5711,6 +5830,13 @@
   "updated": "2024-11-08T16:00:57+00:00",
   "title": "Options for dealing with your debts"
  },
+ "https://www.gov.uk/options-for-paying-off-your-debts/debt-relief-orders": {
+  "hash": "e3b0c44298fc1c14",
+  "file": "gov-uk-options-for-paying-off-your-debts-debt-relief-orders.md",
+  "checked": "2026-11-04",
+  "updated": "2023-06-20T16:21:05+01:00",
+  "title": null
+ },
  "https://www.gov.uk/options-if-youre-owed-money": {
   "hash": "9b382efe172629a0",
   "file": "gov-uk-options-if-youre-owed-money.md",
@@ -6414,6 +6540,13 @@
  "https://www.gov.uk/redundancy-your-rights": {
   "hash": "b879464b7ad98b2f",
   "file": "gov-uk-redundancy-your-rights.md",
+  "checked": "2026-11-04",
+  "updated": "2024-11-08T15:45:22+00:00",
+  "title": "Redundancy: your rights"
+ },
+ "https://www.gov.uk/redundancy-your-rights/redundancy-pay": {
+  "hash": "b879464b7ad98b2f",
+  "file": "gov-uk-redundancy-your-rights-redundancy-pay.md",
   "checked": "2026-11-04",
   "updated": "2024-11-08T15:45:22+00:00",
   "title": "Redundancy: your rights"
@@ -9071,12 +9204,54 @@
   "updated": "2024-11-05T13:34:49+00:00",
   "title": "Zero emission vehicles eligible for a grant"
  },
+ "https://www.gov.wales/discretionary-assistance-fund-daf": {
+  "hash": "9a7402f1beea0e23",
+  "file": "gov-wales-discretionary-assistance-fund-daf.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Discretionary Assistance Fund (DAF) | GOV.WALES"
+ },
+ "https://www.gov.wales/get-help-school-costs": {
+  "hash": "4db56f62238ef57e",
+  "file": "gov-wales-get-help-school-costs.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Get help with school costs | GOV.WALES"
+ },
+ "https://www.gov.wales/nest": {
+  "hash": "11035cce2c1e65d6",
+  "file": "gov-wales-nest.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Nest Warm Homes Programme | GOV.WALES"
+ },
  "https://www.healthystart.nhs.uk/how-to-apply/": {
   "hash": "0ffb98a0cd3d3cd5",
   "file": "healthystart-nhs-uk-how-to-apply.md",
   "checked": "2026-11-04",
   "updated": null,
   "title": "How to apply &#8211; Get help to buy food and milk (Healthy Start)"
+ },
+ "https://www.homeenergyscotland.org/": {
+  "hash": "6d0102394fe52fbb",
+  "file": "homeenergyscotland-org.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Home Energy Scotland"
+ },
+ "https://www.lgo.org.uk/": {
+  "hash": "7c7c245c6f031307",
+  "file": "lgo-org-uk.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Home - Local Government and Social Care Ombudsman"
+ },
+ "https://www.macmillan.org.uk/cancer-information-and-support/get-help/financial-help/macmillan-grants": {
+  "hash": "a5949424f5624329",
+  "file": "macmillan-org-uk-cancer-information-and-support-get-help-financial-help-macmillan-grants.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Macmillan Grants | Macmillan Cancer Support"
  },
  "https://www.mygov.scot/adult-disability-payment": {
   "hash": "1e1844d1a1517d90",
@@ -9085,6 +9260,13 @@
   "updated": null,
   "title": "Adult Disability Payment - mygov.scot"
  },
+ "https://www.mygov.scot/best-start-grant-best-start-foods": {
+  "hash": "ab80ab15915ae1e9",
+  "file": "mygov-scot-best-start-grant-best-start-foods.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Best Start Grant and Best Start Foods - mygov.scot"
+ },
  "https://www.mygov.scot/carer-support-payment": {
   "hash": "9a8f66a3e1042c41",
   "file": "mygov-scot-carer-support-payment.md",
@@ -9092,12 +9274,89 @@
   "updated": null,
   "title": "Carer Support Payment - mygov.scot"
  },
+ "https://www.mygov.scot/child-disability-payment": {
+  "hash": "9feac703d11ca230",
+  "file": "mygov-scot-child-disability-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Child Disability Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/child-winter-heating-payment": {
+  "hash": "af9f2a552902d61e",
+  "file": "mygov-scot-child-winter-heating-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Child Winter Heating Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/job-start-payment": {
+  "hash": "bb35577cb03e023c",
+  "file": "mygov-scot-job-start-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Job Start Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/pension-age-winter-heating-payment": {
+  "hash": "7d8194a602b1a8ea",
+  "file": "mygov-scot-pension-age-winter-heating-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Pension Age Winter Heating Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/school-meals": {
+  "hash": "e72207bb62f00204",
+  "file": "mygov-scot-school-meals.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Free school meals - mygov.scot"
+ },
+ "https://www.mygov.scot/scottish-child-payment": {
+  "hash": "6bbf2e6563ac7ede",
+  "file": "mygov-scot-scottish-child-payment.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Scottish Child Payment - mygov.scot"
+ },
+ "https://www.mygov.scot/scottish-welfare-fund": {
+  "hash": "2ca53e5d001641c8",
+  "file": "mygov-scot-scottish-welfare-fund.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Scottish Welfare Fund - help with living costs - mygov.scot"
+ },
+ "https://www.mygov.scot/young-carer-grant": {
+  "hash": "714794ea07340167",
+  "file": "mygov-scot-young-carer-grant.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Young Carer Grant - mygov.scot"
+ },
+ "https://www.mylostaccount.org.uk/": {
+  "hash": "5330d77b89a531ec",
+  "file": "mylostaccount-org-uk.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Home"
+ },
+ "https://www.nhs.uk/conditions/social-care-and-support-guide/money-work-and-benefits/nhs-continuing-healthcare/": {
+  "hash": "64677dc41f74653a",
+  "file": "nhs-uk-conditions-social-care-and-support-guide-money-work-and-benefits-nhs-continuing-healthcare.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "NHS continuing healthcare - Social care and support guide - NHS"
+ },
  "https://www.nhs.uk/nhs-services/dentists/who-is-entitled-to-free-nhs-dental-treatment-in-england/": {
   "hash": "6a5b6b7025fb20cc",
   "file": "nhs-uk-nhs-services-dentists-who-is-entitled-to-free-nhs-dental-treatment-in-england.md",
   "checked": "2026-11-04",
   "updated": null,
   "title": "Who can get free NHS dental treatment or help with dental costs - NHS"
+ },
+ "https://www.nhs.uk/nhs-services/help-with-health-costs/healthcare-travel-costs-scheme-htcs/": {
+  "hash": "91a3cd8286832d2c",
+  "file": "nhs-uk-nhs-services-help-with-health-costs-healthcare-travel-costs-scheme-htcs.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Healthcare Travel Costs Scheme (HTCS) - NHS"
  },
  "https://www.nhs.uk/nhs-services/help-with-health-costs/nhs-low-income-scheme-lis/": {
   "hash": "b36c6a7c18d61f08",
@@ -9113,12 +9372,61 @@
   "updated": null,
   "title": "Free NHS eye tests and optical vouchers - NHS"
  },
+ "https://www.nhs.uk/nhs-services/prescriptions/save-money-with-a-prescription-prepayment-certificate-ppc/": {
+  "hash": "cbcd7d98fec7b735",
+  "file": "nhs-uk-nhs-services-prescriptions-save-money-with-a-prescription-prepayment-certificate-ppc.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Save money with a prescription prepayment certificate (PPC) - NHS"
+ },
+ "https://www.nhsbsa.nhs.uk/exemption-certificates/maternity-exemption-certificates": {
+  "hash": "160e6a5aa9b366df",
+  "file": "nhsbsa-nhs-uk-exemption-certificates-maternity-exemption-certificates.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Maternity exemption certificates | NHSBSA"
+ },
+ "https://www.nhsbsa.nhs.uk/exemption-certificates/medical-exemption-certificates": {
+  "hash": "6c4b5127c28454c0",
+  "file": "nhsbsa-nhs-uk-exemption-certificates-medical-exemption-certificates.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Medical exemption certificates | NHSBSA"
+ },
  "https://www.nhsbsa.nhs.uk/help-nhs-prescription-costs/free-nhs-prescriptions": {
   "hash": "2224886e487e62b6",
   "file": "nhsbsa-nhs-uk-help-nhs-prescription-costs-free-nhs-prescriptions.md",
   "checked": "2026-11-04",
   "updated": null,
   "title": "Free NHS prescriptions | NHSBSA"
+ },
+ "https://www.nidirect.gov.uk/articles/disabled-persons-allowance": {
+  "hash": "75b80566cb78f481",
+  "file": "nidirect-gov-uk-articles-disabled-persons-allowance.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Disabled Persons Allowance | nidirect"
+ },
+ "https://www.nidirect.gov.uk/articles/discretionary-support": {
+  "hash": "322af1b99b594a63",
+  "file": "nidirect-gov-uk-articles-discretionary-support.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Discretionary Support | nidirect"
+ },
+ "https://www.nidirect.gov.uk/articles/lone-pensioner-allowance": {
+  "hash": "84b79644b42e7eff",
+  "file": "nidirect-gov-uk-articles-lone-pensioner-allowance.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Lone Pensioner Allowance | nidirect"
+ },
+ "https://www.nsandi.com/prize-checker": {
+  "hash": "354d91670205eeec",
+  "file": "nsandi-com-prize-checker.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Premium Bonds Prize Checker | Check if you have won | NS&amp;I"
  },
  "https://www.ofcom.org.uk/phones-and-broadband/saving-money/social-tariffs": {
   "hash": "4d00d5dcdfd5088c",
@@ -9133,5 +9441,19 @@
   "checked": "2026-11-04",
   "updated": null,
   "title": "Join your supplier’s Priority Services Register | Ofgem"
+ },
+ "https://www.ofgem.gov.uk/environmental-and-social-schemes/energy-company-obligation-eco": {
+  "hash": "b2a20af41214e383",
+  "file": "ofgem-gov-uk-environmental-and-social-schemes-energy-company-obligation-eco.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Energy Company Obligation (ECO) | Ofgem"
+ },
+ "https://www.slab.org.uk/": {
+  "hash": "65d38647a6a5d978",
+  "file": "slab-org-uk.md",
+  "checked": "2026-11-04",
+  "updated": null,
+  "title": "Home - Scottish Legal Aid Board"
  }
 }
