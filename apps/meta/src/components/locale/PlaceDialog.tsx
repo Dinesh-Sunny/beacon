@@ -112,6 +112,7 @@ export function PlaceDialog({
   const pcGuess = q.trim().toUpperCase();
   const isPostcode = tab === "place" && POSTCODE_RE.test(pcGuess);
   const found = usePlace(isPostcode ? pcGuess : undefined);
+  const mine = usePlace(check?.answers.postcode).council;
 
   useEffect(() => {
     ref.current?.showModal();
@@ -244,9 +245,7 @@ export function PlaceDialog({
       ?.scrollIntoView({ block: "nearest" });
   }, [active, listId]);
 
-  const placeLabel = check?.answers.postcode
-    ? undefined
-    : countryName(code, locale);
+  const placeLabel = mine ? shortCouncil(mine.name) : countryName(code, locale);
   const tabs: [Tab, ReactNode][] = [
     [
       "place",
@@ -415,10 +414,12 @@ export function PlaceDialog({
           {tab === "place" && <p className="pd-note">{t("placeNote")}</p>}
         </>
       )}
-      <div className="pd-foot" aria-hidden="true">
-        <kbd>arrows</kbd> {t("move")} <kbd>enter</kbd> {t("choose")}{" "}
-        <kbd>esc</kbd> {t("closeKey")}
-      </div>
+      {tab !== "display" && (
+        <div className="pd-foot" aria-hidden="true">
+          <kbd>arrows</kbd> {t("move")} <kbd>enter</kbd> {t("choose")}{" "}
+          <kbd>esc</kbd> {t("closeKey")}
+        </div>
+      )}
     </dialog>
   );
 }
