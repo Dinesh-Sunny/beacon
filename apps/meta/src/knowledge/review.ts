@@ -30,8 +30,6 @@ const GENERIC = /resid|immigra|nationalit|right to work|living in the uk|notice|
 
 /** Proposed new questions (from catalog/coverage.json) and the words that point at each. */
 export const FACT_HINTS: Record<string, RegExp> = {
-  livesAlone: /lives? alone|single occupant|only adult/i,
-  married: /married|civil partner|couple|partner/i,
   childDisabled: /disabled child|child.*(disab|dla|pip)/i,
   childCount: /(two|three|3|2|number of) (or more )?child/i,
   inEducation: /full-time (education|study)|student|studying|course|college|university|school/i,
@@ -42,7 +40,6 @@ export const FACT_HINTS: Record<string, RegExp> = {
   redundant: /redundan|lost (your|their) job|dismiss/i,
   sickOff: /off sick|sick pay|unable to work/i,
   workInjury: /injur(y|ed) at work|industrial (disease|injur)/i,
-  debt: /debt|arrears|owe/i,
   pensionPot: /pension (pot|scheme)|workplace pension|lost pension/i,
   oldAccounts: /dormant|old (bank|account)|child trust fund/i,
   crimeVictim: /victim of (a )?crime|criminal injur/i,

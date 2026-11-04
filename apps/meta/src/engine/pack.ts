@@ -32,6 +32,9 @@ export const DERIVED_KEYS = [
   "pc",
   "bornOn",
   "childBornOn",
+  "livesAlone",
+  "couple",
+  "debt",
 ] as const;
 export type DerivedKey = (typeof DERIVED_KEYS)[number];
 

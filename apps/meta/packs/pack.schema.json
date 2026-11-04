@@ -195,6 +195,8 @@
                       "careHours",
                       "ctax",
                       "housing",
+                      "household",
+                      "debt",
                       "bereaved"
                     ]
                   }
@@ -239,7 +241,10 @@
                         "uc",
                         "pc",
                         "bornOn",
-                        "childBornOn"
+                        "childBornOn",
+                        "livesAlone",
+                        "couple",
+                        "debt"
                       ]
                     },
                     "line": {
@@ -387,7 +392,10 @@
                 "uc",
                 "pc",
                 "bornOn",
-                "childBornOn"
+                "childBornOn",
+                "livesAlone",
+                "couple",
+                "debt"
               ]
             },
             "op": {
@@ -460,7 +468,10 @@
                 "uc",
                 "pc",
                 "bornOn",
-                "childBornOn"
+                "childBornOn",
+                "livesAlone",
+                "couple",
+                "debt"
               ]
             },
             "op": {

@@ -15,6 +15,7 @@ export const Benefit = z.enum(["uc", "pc", "pip", "cb"]);
 export const Difficulty = z.enum(["wash", "night", "cook", "move"]);
 export const Bereaved = z.enum(["no", "partner", "funeral"]);
 export const Housing = z.enum(["social", "private", "own", "family"]);
+export const Household = z.enum(["alone", "children", "partner", "adults"]);
 
 export const Money = z.object({ amt: z.number().min(0), per: Period });
 export const Work = z.object({ status: WorkStatus, hours: z.number().min(0).max(168).optional() });
@@ -34,6 +35,8 @@ export const AnswersSchema = z
     careHours: orUnsure(z.number().min(0).max(168)),
     ctax: orUnsure(YesNo),
     housing: orUnsure(Housing),
+    household: orUnsure(Household),
+    debt: orUnsure(YesNo),
     bereaved: orUnsure(Bereaved),
     /** True when the date of birth was worked out from an age, so it reads back as an age. */
     dobApprox: z.boolean(),

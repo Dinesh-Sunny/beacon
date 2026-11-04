@@ -2,7 +2,7 @@
 // with zod and turns it into typed Answers. Nothing a model writes reaches the rules unchecked.
 
 import { z } from "zod";
-import { type Answers, Benefit, Bereaved, Difficulty, Housing, IsoDate, Period, WorkStatus, YesNo } from "./answers-schema.ts";
+import { type Answers, Benefit, Bereaved, Difficulty, Household, Housing, IsoDate, Period, WorkStatus, YesNo } from "./answers-schema.ts";
 import { POSTCODE_RE } from "./rules.ts";
 
 const opt = <T extends z.ZodType>(t: T, description?: string) => {
@@ -30,6 +30,8 @@ export const FactPatch = z.strictObject({
   caring_hours: opt(z.number().min(0).max(168), "Hours a week caring for someone"),
   pays_council_tax: opt(YesNo),
   housing: opt(Housing, "social = rents from council or housing association; private = rents privately; own = owns their home; family = lives with family or friends"),
+  lives_with: opt(Household, "alone = lives alone; children = only with children under 18; partner = with a partner; adults = with other adults"),
+  behind_on_bills: opt(YesNo, "yes if behind on bills, rent, council tax or other payments"),
   bereaved: opt(Bereaved, "partner = husband, wife or civil partner died; funeral = paying for someone else's funeral"),
 });
 export type FactPatch = z.infer<typeof FactPatch>;
@@ -73,6 +75,8 @@ export function toAnswers(p: FactPatch, today = new Date()): Answers {
   if (p.caring_hours != null) a.careHours = p.caring_hours;
   if (p.pays_council_tax) a.ctax = p.pays_council_tax;
   if (p.housing) a.housing = p.housing;
+  if (p.lives_with) a.household = p.lives_with;
+  if (p.behind_on_bills) a.debt = p.behind_on_bills;
   if (p.bereaved) a.bereaved = p.bereaved;
   return a;
 }

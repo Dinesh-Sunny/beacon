@@ -12,9 +12,9 @@ import { count, SCHEMES } from "@/engine/rules";
 import { type Source, useCheck } from "@/lib/check-store";
 
 const GROUPS: { title: string; icon: string; facts: FactId[] }[] = [
-  { title: "Where they live", icon: "pin", facts: ["postcode", "housing", "ctax"] },
+  { title: "Where they live", icon: "pin", facts: ["postcode", "housing", "household", "ctax"] },
   { title: "About them", icon: "person", facts: ["dob", "difficulties"] },
-  { title: "Money", icon: "spark", facts: ["income", "savings", "benefits"] },
+  { title: "Money", icon: "spark", facts: ["income", "savings", "benefits", "debt"] },
   { title: "Work", icon: "doc", facts: ["work", "ni"] },
   { title: "Family and caring", icon: "shield", facts: ["child", "pregnant", "careHours", "bereaved"] },
 ];

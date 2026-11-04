@@ -1,0 +1,242 @@
+{
+  "$schema": "./pack.schema.json",
+  "id": "uk-household",
+  "country": "GB",
+  "version": "2026.11.04",
+  "checked": "2026-11-04",
+  "topics": [
+    [
+      "debt",
+      "Debt and arrears"
+    ]
+  ],
+  "schemes": [
+    {
+      "id": "ctsingle",
+      "name": "Council Tax single person discount",
+      "topic": "low",
+      "by": "Your council",
+      "gives": "25% off your council tax bill when no other adults live with you.",
+      "how": "Ask your council for the single person discount. Children under 18 don't count as adults.",
+      "url": "https://www.gov.uk/council-tax/who-has-to-pay",
+      "act": "Ask your council",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England or Scotland or Wales",
+          "txt": "Lives in England or Scotland or Wales",
+          "fail": "Northern Ireland has rates instead of council tax"
+        },
+        {
+          "needs": [
+            "ctax"
+          ],
+          "test": {
+            "f": "ctax",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "pays council tax",
+          "txt": "Pays council tax",
+          "fail": "Doesn't pay council tax"
+        },
+        {
+          "needs": [
+            "household"
+          ],
+          "test": {
+            "f": "livesAlone",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "no other adults at home",
+          "txt": "No other adults at home",
+          "fail": "Other adults live there"
+        }
+      ]
+    },
+    {
+      "id": "lpa",
+      "name": "Lone Pensioner Allowance",
+      "topic": "low",
+      "by": "Land & Property Services",
+      "gives": "20% off your rates if you're 70 or over and live alone.",
+      "how": "Homeowners apply to Land & Property Services. Tenants apply to the Housing Executive.",
+      "phone": "0344 892 0902",
+      "url": "https://www.nidirect.gov.uk/articles/lone-pensioner-allowance",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "eq",
+            "v": "ni"
+          },
+          "expr": "lives in Northern Ireland",
+          "txt": "Lives in Northern Ireland",
+          "fail": "Only in Northern Ireland"
+        },
+        {
+          "needs": [
+            "dob"
+          ],
+          "test": {
+            "f": "age",
+            "op": "gte",
+            "v": 70
+          },
+          "expr": "aged 70 or over",
+          "txt": "Aged 70 or over",
+          "fail": "Under 70"
+        },
+        {
+          "needs": [
+            "household"
+          ],
+          "test": {
+            "f": "livesAlone",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "no other adults at home",
+          "txt": "No other adults at home",
+          "fail": "Other adults live there"
+        }
+      ]
+    },
+    {
+      "id": "dal",
+      "name": "Free debt advice",
+      "topic": "debt",
+      "by": "MoneyHelper",
+      "gives": "Free, confidential help to sort out debts, from an adviser who can also check for benefits.",
+      "how": "Find a free adviser online or by phone. Never pay a company for debt advice.",
+      "url": "https://www.moneyhelper.org.uk/en/money-troubles/dealing-with-debt/debt-advice-locator",
+      "act": "Find a free adviser",
+      "urgent": true,
+      "rule": [
+        {
+          "needs": [
+            "debt"
+          ],
+          "test": {
+            "f": "debt",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "behind on bills or payments",
+          "txt": "Behind on bills or payments",
+          "fail": "Not behind on bills"
+        }
+      ]
+    },
+    {
+      "id": "bspace",
+      "name": "Breathing Space",
+      "topic": "debt",
+      "by": "Your debt adviser",
+      "gives": "Legal protection from creditors while you get debt advice, so most interest, charges and chasing are paused.",
+      "how": "A free debt adviser starts it for you, so speak to one first.",
+      "url": "https://www.gov.uk/government/publications/debt-respite-scheme-breathing-space-guidance",
+      "act": "About Breathing Space",
+      "worthChecking": "A debt adviser checks it's right for you",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "wal"
+            ]
+          },
+          "expr": "lives in England or Wales",
+          "txt": "Lives in England or Wales",
+          "fail": "Scotland has its own scheme: ask a free debt adviser"
+        },
+        {
+          "needs": [
+            "debt"
+          ],
+          "test": {
+            "f": "debt",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "behind on bills or payments",
+          "txt": "Behind on bills or payments",
+          "fail": "Not behind on bills"
+        }
+      ]
+    },
+    {
+      "id": "bget",
+      "name": "British Gas Energy Trust grant",
+      "topic": "debt",
+      "by": "British Gas Energy Trust",
+      "gives": "A grant to clear gas and electricity debt, with any supplier, not just British Gas.",
+      "how": "Apply online when grants are open, ideally with help from a free adviser.",
+      "url": "https://britishgasenergytrust.org.uk/",
+      "act": "Apply for a grant",
+      "worthChecking": "The Trust decides, and grants open and close",
+      "rule": [
+        {
+          "needs": [
+            "postcode"
+          ],
+          "test": {
+            "f": "nation",
+            "op": "in",
+            "v": [
+              "eng",
+              "sco",
+              "wal"
+            ]
+          },
+          "expr": "lives in England or Scotland or Wales",
+          "txt": "Lives in England or Scotland or Wales",
+          "fail": "Not offered in Northern Ireland"
+        },
+        {
+          "needs": [
+            "debt"
+          ],
+          "test": {
+            "f": "debt",
+            "op": "eq",
+            "v": true
+          },
+          "expr": "behind on bills or payments",
+          "txt": "Behind on bills or payments",
+          "fail": "Not behind on bills"
+        }
+      ]
+    }
+  ],
+  "clashes": [
+    {
+      "ids": [
+        "ctsingle",
+        "ctr"
+      ],
+      "tone": "boost",
+      "text": "The single person discount and Council Tax Reduction can both come off the same bill."
+    }
+  ]
+}

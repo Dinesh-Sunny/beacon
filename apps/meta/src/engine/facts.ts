@@ -149,6 +149,26 @@ export const FACTS: Record<FactId, Fact> = {
       ["family", "Live with family or friends"],
     ],
   },
+  household: {
+    type: "choice",
+    q: "Who lives with you?",
+    qThey: "Who lives with {n}?",
+    why: "Living alone can take money off the council tax bill.",
+    label: "Lives with",
+    opts: [
+      ["alone", "Nobody, I live alone"],
+      ["children", "Only children under 18"],
+      ["partner", "A partner"],
+      ["adults", "Other adults"],
+    ],
+  },
+  debt: {
+    type: "yesno",
+    q: "Are you behind on any bills or payments?",
+    qThey: "Is {n} behind on any bills or payments?",
+    why: "There's free help with debt, and grants that clear energy debts.",
+    label: "Behind on bills",
+  },
   bereaved: {
     type: "choice",
     q: "Has someone close to you died recently?",

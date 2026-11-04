@@ -43,6 +43,9 @@ const DERIVED_DOC: Record<(typeof DERIVED_KEYS)[number], string> = {
   pc: "true if gets Pension Credit (from benefits)",
   bornOn: "date of birth as a YYYYMMDD number, only when the exact date is known (from dob)",
   childBornOn: "youngest child's date of birth as a YYYYMMDD number (from child)",
+  livesAlone: "true if no other adults live there; children under 18 don't count (from household)",
+  couple: "true if lives with a partner (from household)",
+  debt: "true if behind on bills or payments (from debt)",
 };
 
 const SYSTEM = `You turn one official UK page into a draft rule for Beacon, a screening tool. UK English, plain words, "you" voice, never the word "eligible", regular hyphens only.

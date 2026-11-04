@@ -7,6 +7,7 @@ import ukCore from "../../packs/uk-core.json";
 import ukCouncil from "../../packs/uk-council.json";
 import ukFamily from "../../packs/uk-family.json";
 import ukHealth from "../../packs/uk-health.json";
+import ukHousehold from "../../packs/uk-household.json";
 import ukScotland from "../../packs/uk-scotland.json";
 import ukUnclaimed from "../../packs/uk-unclaimed.json";
 import ukWorkCare from "../../packs/uk-work-care.json";
@@ -98,6 +99,10 @@ export interface Derived {
   /** Dates as YYYYMMDD numbers, so rules can test birth date windows like the Child Trust Fund's. */
   bornOn?: number;
   childBornOn?: number;
+  /** No other adults at home (children under 18 don't count, as for the council tax discount). */
+  livesAlone?: boolean;
+  couple?: boolean;
+  debt?: boolean;
 }
 
 const dateNum = (iso: string) => Number(iso.slice(0, 10).replaceAll("-", ""));
@@ -146,6 +151,11 @@ export function derive(A: Answers, today = new Date()): Derived {
   if (isSet(A.ctax)) d.ctax = A.ctax === "yes";
   if (isSet(A.bereaved)) d.bereaved = A.bereaved;
   if (isSet(A.housing)) d.housing = A.housing;
+  if (isSet(A.household)) {
+    d.livesAlone = A.household === "alone" || A.household === "children";
+    d.couple = A.household === "partner";
+  }
+  if (isSet(A.debt)) d.debt = A.debt === "yes";
   return d;
 }
 
@@ -174,7 +184,7 @@ export function derivedChips(f: FactId, d: Derived): string[] {
 // ---------- The packs ----------
 // Load order is layer order: the core benefits first, then each group of help built on them.
 // Adding a group is a new JSON file here; the registry check fails the build on any bad reference.
-export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth, ukCouncil, ukFamily, ukScotland, ukWorkCare, ukUnclaimed]);
+export const REGISTRY = RegistrySchema.parse([ukCore, ukBills, ukHealth, ukCouncil, ukFamily, ukScotland, ukWorkCare, ukUnclaimed, ukHousehold]);
 export type Scheme = PackedScheme;
 export type { Cond, Topic };
 export const LINES = REGISTRY.lines;
