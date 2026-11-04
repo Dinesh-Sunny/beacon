@@ -4,7 +4,7 @@ The developer guide to `apps/meta`. For the overview, screenshots and what each 
 
 **Find the support that's already yours.**
 
-This page is for judges of the Meta Global AI Developer Hackathon (Startup track, "Build for Your World") and for anyone who wants to run Beacon.
+This page is for judges of the Meta Global AI Developer Hackathon (Indie developer track, "Build for Your World") and for anyone who wants to run Beacon.
 
 About £24.1bn a year of income-related benefits and social tariffs goes unclaimed in Great Britain ([Policy in Practice, Missing Out 2025](https://policyinpractice.co.uk/publication/missing-out-2025)). In the US, the IRS estimates about 1 in 5 people who could get the Earned Income Tax Credit don't claim it ([Taxpayer Advocate Service, 2026](https://www.taxpayeradvocate.irs.gov/news/nta-blog/eitc-awareness-day-is-january-23/2026/01)). Most people miss out because they don't know what exists, the rules are hard to read, or they're checking for a parent and don't know where to start.
 
