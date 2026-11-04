@@ -2655,6 +2655,82 @@ button {
   gap: 10px;
   padding-top: 8px;
 }
+.areas {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid var(--line);
+}
+.area {
+  border-bottom: 1px solid var(--line);
+}
+.area summary {
+  display: grid;
+  grid-template-columns: minmax(120px, 190px) minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 2px;
+  cursor: pointer;
+  list-style: none;
+  font-size: 0.9rem;
+}
+.area summary::-webkit-details-marker {
+  display: none;
+}
+.area summary:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
+.area-name {
+  color: var(--ink);
+  font-weight: 600;
+}
+.area-count {
+  color: var(--muted);
+  font-size: 0.82rem;
+  white-space: nowrap;
+}
+.dots {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
+.dots i {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--line);
+  transition: background 0.5s ease, box-shadow 0.5s ease;
+}
+.dots i.likely {
+  background: var(--good);
+  box-shadow: 0 0 0 3px var(--good-soft);
+}
+.dots i.check {
+  background: var(--check);
+}
+.dots i.unlock {
+  background: transparent;
+  border: 1.5px dashed var(--chain);
+}
+.dots i.out {
+  opacity: 0.3;
+}
+.dots i.flash {
+  animation: flash 0.9s ease;
+}
+.area[open] .tiles {
+  padding: 2px 0 14px;
+}
+@media (max-width: 560px) {
+  .area summary {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+  .area summary .dots {
+    grid-column: 1 / -1;
+    order: 3;
+  }
+}
 .tiles {
   display: flex;
   flex-wrap: wrap;
