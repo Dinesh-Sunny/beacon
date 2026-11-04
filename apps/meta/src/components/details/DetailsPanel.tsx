@@ -5,57 +5,46 @@
 // (the question, and Answer). Answering here opens the same question card as the chat.
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "use-intl";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon } from "@/components/Icon";
-import {
-  type Answers,
-  ask,
-  FACTS,
-  type FactId,
-  ORDER,
-  showAnswer,
-} from "@/engine/facts";
+import { type Answers, type FactId, ORDER } from "@/engine/facts";
 import { count, SCHEMES } from "@/engine/rules";
+import { useFactText } from "@/i18n/useFactText";
 import { type Source, useCheck } from "@/lib/check-store";
 import { useCouncil } from "@/lib/council";
 
-const GROUPS: { title: string; icon: string; facts: FactId[] }[] = [
+/** Title keys: [for me, for someone else]. */
+const GROUPS = [
   {
-    title: "Where they live",
+    title: ["whereMe", "whereThey"],
     icon: "pin",
     facts: ["postcode", "housing", "household", "ctax"],
   },
-  { title: "About them", icon: "person", facts: ["dob", "difficulties"] },
   {
-    title: "Money",
+    title: ["aboutMe", "aboutThey"],
+    icon: "person",
+    facts: ["dob", "difficulties"],
+  },
+  {
+    title: ["money", "money"],
     icon: "spark",
     facts: ["income", "savings", "benefits", "debt"],
   },
-  { title: "Work", icon: "doc", facts: ["work", "ni"] },
+  { title: ["work", "work"], icon: "doc", facts: ["work", "ni"] },
   {
-    title: "Family and caring",
+    title: ["family", "family"],
     icon: "shield",
     facts: ["child", "pregnant", "careHours", "bereaved"],
   },
-];
+] as const satisfies {
+  title: readonly [string, string];
+  icon: string;
+  facts: readonly FactId[];
+}[];
 
-const FROM: Record<Source, string> = {
-  form: "You answered",
-  chat: "From the chat",
-  voice: "From what you said",
-  letter: "Read from a letter",
-  example: "From the example",
-  link: "From a shared link",
-};
-
-const PEOPLE = [
-  "Mum",
-  "Dad",
-  "My partner",
-  "My son",
-  "My daughter",
-  "A friend",
-];
+const PEOPLE = ["mum", "dad", "partner", "son", "daughter", "friend"] as const;
+type From = Source;
 
 export function DetailsPanel({ onClose }: { onClose: () => void }) {
   const {
@@ -69,6 +58,8 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
     apply,
     resets,
   } = useCheck();
+  const t = useTranslations("details");
+  const ft = useFactText();
   const [picking, setPicking] = useState(false);
   const council = useCouncil(answers.postcode);
   const [undo, setUndo] = useState<{ f: FactId; v: Answers[FactId] } | null>(
@@ -86,20 +77,18 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
   }, [resets]);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
   const settled = SCHEMES.length - count(states, "open");
-  const groupTitle = (t: string) =>
-    subject.who === "me"
-      ? t.replace("they live", "you live").replace("them", "you")
-      : t;
+  const groupTitle = (k: readonly [string, string]) =>
+    t((subject.who === "me" ? k[0] : k[1]) as "money");
 
   return (
     <div className="details" data-testid="details">
       <div className="details-head">
-        <h2>Details</h2>
+        <h2>{t("title")}</h2>
         <button
           type="button"
           className="iconbtn"
           onClick={onClose}
-          aria-label="Close details"
+          aria-label={t("close")}
         >
           <Icon name="close" />
         </button>
@@ -117,8 +106,8 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
             <div className="who-line">
               <b data-testid="who">
                 {subject.who === "me"
-                  ? "Checking for you"
-                  : `Checking for ${subject.label}`}
+                  ? t("checkingMe")
+                  : t("checkingThey", { name: subject.label ?? "" })}
               </b>
               <button
                 type="button"
@@ -126,7 +115,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                 onClick={() => setPicking((p) => !p)}
                 aria-expanded={picking}
               >
-                Change
+                {t("change")}
               </button>
             </div>
             {picking && <WhoPicker onDone={() => setPicking(false)} />}
@@ -134,8 +123,11 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
               <i style={{ width: `${(settled / SCHEMES.length) * 100}%` }} />
             </div>
             <span className="hint">
-              {settled} of {SCHEMES.length} checked · {saved}{" "}
-              {saved === 1 ? "detail" : "details"} saved on this device
+              {t("progress", {
+                done: settled,
+                total: SCHEMES.length,
+                count: saved,
+              })}
             </span>
           </div>
         </div>
@@ -144,7 +136,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
 
         {undo && (
           <div className="toast" role="status">
-            Forgotten.
+            {t("forgotten")}
             <button
               type="button"
               className="linkbtn"
@@ -153,22 +145,24 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                 setUndo(null);
               }}
             >
-              Undo
+              {t("undo")}
             </button>
           </div>
         )}
 
         {GROUPS.map((g) => {
-          const facts = g.facts.filter((f) => f !== editing);
+          const facts = (g.facts as readonly FactId[]).filter(
+            (f) => f !== editing,
+          );
           if (!facts.length) return null;
           const done = facts.filter((f) => answers[f] !== undefined).length;
           return (
-            <section key={g.title} className="group">
+            <section key={g.title[0]} className="group">
               <div className="group-head">
                 <Icon name={g.icon} size={16} />
                 <b>{groupTitle(g.title)}</b>
                 <span className="hint">
-                  {done} of {facts.length}
+                  {t("groupCount", { done, total: facts.length })}
                 </span>
               </div>
               {facts.map((f) => {
@@ -187,23 +181,25 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                   >
                     <div>
                       <span className="hint">
-                        {has ? FACTS[f].label : ask(f, subject)}
+                        {has ? ft.label(f) : ft.ask(f, subject)}
                       </span>
                       {has ? (
                         <>
                           <b>
-                            {showAnswer(answers, f)}
+                            {ft.show(answers, f)}
                             {f === "postcode" && council
                               ? ` · ${council.name}`
                               : ""}
                           </b>
                           <span className="src">
-                            {src ? FROM[src.source] : "Saved on this device"}
+                            {src
+                              ? t(`from.${src.source as From}`)
+                              : t("savedHere")}
                           </span>
                         </>
                       ) : opens ? (
                         <span className="opens">
-                          Checks {opens} {opens === 1 ? "scheme" : "schemes"}
+                          {t("checksN", { count: opens })}
                         </span>
                       ) : null}
                     </div>
@@ -211,9 +207,11 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                       type="button"
                       className="linkbtn"
                       onClick={() => edit(f)}
-                      aria-label={`${has ? "Change" : "Answer"} ${FACTS[f].label}`}
+                      aria-label={t(has ? "changeLabel" : "answerLabel", {
+                        label: ft.label(f),
+                      })}
                     >
-                      {has ? "Change" : "Answer"}
+                      {has ? t("change") : t("answer")}
                     </button>
                     {has && (
                       <button
@@ -223,7 +221,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
                           setUndo({ f, v: answers[f] });
                           forget(f);
                         }}
-                        aria-label={`Forget ${FACTS[f].label}`}
+                        aria-label={t("forget", { label: ft.label(f) })}
                         data-testid={`forget-${f}`}
                       >
                         <Icon name="close" size={16} />
@@ -242,6 +240,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
 
 function WhoPicker({ onDone }: { onDone: () => void }) {
   const { subject, setSubject } = useCheck();
+  const t = useTranslations("details");
   const [other, setOther] = useState("");
   const pick = (label?: string) => {
     setSubject(label ? { who: "other", label } : { who: "me" });
@@ -249,25 +248,28 @@ function WhoPicker({ onDone }: { onDone: () => void }) {
   };
   return (
     <div className="who-picker" data-testid="who-picker">
-      <span className="hint">Who is this check for?</span>
+      <span className="hint">{t("whoFor")}</span>
       <div className="who-chips">
         <button
           type="button"
           aria-pressed={subject.who === "me"}
           onClick={() => pick()}
         >
-          Me
+          {t("me")}
         </button>
-        {PEOPLE.map((p) => (
-          <button
-            key={p}
-            type="button"
-            aria-pressed={subject.label === p}
-            onClick={() => pick(p)}
-          >
-            {p}
-          </button>
-        ))}
+        {PEOPLE.map((k) => {
+          const p = t(`people.${k}`);
+          return (
+            <button
+              key={k}
+              type="button"
+              aria-pressed={subject.label === p}
+              onClick={() => pick(p)}
+            >
+              {p}
+            </button>
+          );
+        })}
       </div>
       <form
         className="who-other"
@@ -277,18 +279,18 @@ function WhoPicker({ onDone }: { onDone: () => void }) {
         }}
       >
         <label htmlFor="who-other" className="sr-only">
-          Someone else
+          {t("someoneElse")}
         </label>
         <input
           id="who-other"
           className="txt"
-          placeholder="Someone else, like Nan"
+          placeholder={t("someoneElseHint")}
           value={other}
           maxLength={20}
           onChange={(e) => setOther(e.target.value)}
         />
         <button type="submit" className="btn small" disabled={!other.trim()}>
-          Use
+          {t("use")}
         </button>
       </form>
     </div>

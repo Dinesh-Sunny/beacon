@@ -1,0 +1,289 @@
+{
+  "header": {
+    "home": "Strona główna Beacon",
+    "showChat": "Pokaż czat",
+    "fullView": "Pełny widok",
+    "hideChat": "Ukryj czat",
+    "yourCheck": "Twoje sprawdzenie",
+    "checkFor": "Sprawdzenie dla: {name}",
+    "exampleOf": "Przykład: {name}",
+    "exitFull": "Zamknij pełny widok",
+    "example": "Przykład",
+    "stop": "Zatrzymaj",
+    "exampleReplaces": "Przykład zastąpi odpowiedzi zapisane na tym urządzeniu.",
+    "startAgain": "Zacznij od nowa",
+    "startAgainAsk": "Zacząć od nowa? To usunie wszystkie odpowiedzi z tego urządzenia.",
+    "keepAnswers": "Zachowaj moje odpowiedzi",
+    "details": "Szczegóły",
+    "chat": "Czat",
+    "results": "Wyniki",
+    "views": "Widoki",
+    "chatWith": "Porozmawiaj z Beacon",
+    "checked": "Sprawdzono {done} z {total}",
+    "checkedLabel": "Sprawdzone rodzaje pomocy"
+  },
+  "lang": {
+    "button": "Język: {name}",
+    "menu": "Wybierz język",
+    "checked": "Sprawdzone przez człowieka",
+    "machine": "Tłumaczenie maszynowe - pomóż nam je sprawdzić",
+    "suggestTitle": "Czytać Beacon w języku: {name}?",
+    "suggestYes": "Tak, {name}",
+    "keepEnglish": "Zostań przy angielskim (English)",
+    "suggestWhy": "Na podstawie ustawień języka w Twojej przeglądarce - nigdy na podstawie tego, gdzie jesteś.",
+    "switched": "Beacon jest teraz w języku: {name}. Możesz to zmienić w każdej chwili przyciskiem z globusem na górze.",
+    "back": "Wróć do angielskiego (English)",
+    "official": "Oficjalne nazwy i zasady zostają po angielsku, tak jak zapisuje je dana instytucja."
+  },
+  "place": {
+    "chip": "Kraj: {country}",
+    "step": "Twoje miejsce - krok {n} z {total}",
+    "suggest": "Wygląda na to, że Twój kraj to {country} (na podstawie języka przeglądarki). Czy to się zgadza?",
+    "never": "Używamy tylko Twojego kraju i obszaru Twojej rady lokalnej (council) - nigdy Twojego adresu.",
+    "yes": "Tak, zgadza się",
+    "other": "Wybierz inny kraj",
+    "which": "W jakim kraju jesteś?",
+    "search": "Wyszukaj swój kraj",
+    "withPack": "Kraje, których zasady sprawdza Beacon",
+    "others": "Inne kraje",
+    "noneTitle": "Beacon nie sprawdza jeszcze zasad dla kraju: {country}",
+    "noneBody": "Beacon zna dziś tylko zasady dla: {covered}. Wyniki nie pasowałyby do kraju {country}, więc nie będziemy zgadywać.",
+    "useUk": "Mimo to sprawdź zasady w UK",
+    "back": "Wybierz ponownie",
+    "close": "Zamknij",
+    "packBadge": "Pakiet zasad",
+    "packLine": "Zasady odczytane z oficjalnych stron. Beacon może napisać „Prawdopodobne”.",
+    "noneBadge": "Jeszcze nie",
+    "noneLine": "Na razie brak zasad dla tego kraju.",
+    "confirm": "Wybierz: {country}",
+    "ukPlace": "Twój kod pocztowy pokazuje Beacon Twój kraj w UK i Twoją radę lokalną."
+  },
+  "first": {
+    "you": "Ty lub ktoś, kim się opiekujesz",
+    "givers": "Rząd, rady lokalne, NHS, organizacje charytatywne",
+    "mapLabel": "Ty po jednej stronie, wszyscy, którzy dają pomoc, po drugiej, a pośrodku Beacon, który was łączy.",
+    "headline": "{names} i jeszcze {more}",
+    "lead": "W miarę jak odpowiadasz, tutaj pojawia się to, co może Ci przysługiwać, razem z oficjalną zasadą, na której się opiera.",
+    "example": "Zobacz przykład",
+    "stillPossible": "{live} z {total} nadal możliwe"
+  },
+  "chat": {
+    "hello": "Cześć, jestem Beacon. Sprawdzam, z jakiej pomocy możesz nie korzystać - Ty albo ktoś, kim się opiekujesz.",
+    "howTo": "Opowiedz mi własnymi słowami, co się dzieje, albo odpowiedz na pytania poniżej. Możesz też mówić albo dodać zdjęcie listu.",
+    "startFrom": "Albo zacznij od tego, co się zmieniło",
+    "placeholder": "Albo opowiedz Beacon własnymi słowami",
+    "placeholderAfter": "Opowiedz Beacon o swojej sytuacji",
+    "add": "Dodaj",
+    "send": "Wyślij",
+    "speak": "Mów",
+    "saved": "Zapisano. {progress}.",
+    "savedNew": "Zapisano. {progress}. Nowe: {names}.",
+    "likelySoFar": "{count, plural, one {# wynik wygląda na prawdopodobny} few {# wyniki wyglądają na prawdopodobne} many {# wyników wygląda na prawdopodobne} other {# wyniku wygląda na prawdopodobne}} jak dotąd",
+    "checkSoFar": "Warto sprawdzić jak dotąd: {count}",
+    "appearAsYouAnswer": "Wyniki pojawiają się w miarę odpowiadania",
+    "nothingYet": "Na razie nic nie pasuje",
+    "examplePlay": "Oto wymyślony przykład: {name}. {line} Zobacz, jak wyniki zapalają się z każdą odpowiedzią.",
+    "exampleDone": "To wszystkie odpowiedzi, które mają znaczenie w tym przykładzie. Spróbuj ze swoimi, kiedy zechcesz, albo zapytaj mnie o cokolwiek w sprawie tych wyników.",
+    "shared": "Ktoś udostępnił Ci to sprawdzenie. Zmień, co chcesz, w Szczegółach - zmiany zostaną na tym urządzeniu."
+  },
+  "events": {
+    "job": "Utrata pracy lub godzin",
+    "baby": "Ciąża lub narodziny dziecka",
+    "death": "Śmierć bliskiej osoby",
+    "health": "Problem ze zdrowiem",
+    "caring": "Opieka nad kimś",
+    "money": "Brakuje pieniędzy"
+  },
+  "q": {
+    "answerHere": "Odpowiedz tutaj",
+    "change": "Zmień odpowiedź",
+    "unsure": "Nie wiem na pewno",
+    "save": "Zapisz i dalej",
+    "cancel": "Anuluj",
+    "skip": "Pomiń na razie",
+    "postcode": "Kod pocztowy",
+    "month": "Miesiąc",
+    "year": "Rok",
+    "notSure": "Nie wiem",
+    "noChildren": "Brak dzieci",
+    "amount": "Kwota",
+    "amountAfterTax": "Kwota po opodatkowaniu",
+    "howOften": "Jak często",
+    "per": "{per, select, week {tygodniowo} month {miesięcznie} year {rocznie} other {}}",
+    "workSituation": "Sytuacja zawodowa",
+    "employed": "Praca u pracodawcy",
+    "self": "Samozatrudnienie",
+    "none": "Nie pracuję",
+    "sick": "Na zwolnieniu lekarskim",
+    "hoursWeek": "Godziny tygodniowo",
+    "onCall": "Wlicz też czas dyżuru.",
+    "yes": "Tak",
+    "no": "Nie",
+    "fewer": "{n} mniej",
+    "more": "{n} więcej",
+    "errFit": "Ta odpowiedź nie pasuje. Spróbuj jeszcze raz.",
+    "errPostcode": "Wpisz pełny kod pocztowy, np. HA9 0WS",
+    "errYear": "Wpisz rok, np. 1948",
+    "errFuture": "To dopiero przed nami. Wybierz miesiąc z przeszłości.",
+    "errAmount": "Wpisz kwotę w funtach, np. 4000",
+    "errHours": "Ile godzin tygodniowo, mniej więcej?",
+    "errHoursRange": "Wpisz liczbę godzin od 0 do 168",
+    "emptyChecklist": "Zaznacz te, które pasują, albo „Żadne z tych”",
+    "emptyWork": "Wybierz to, co pasuje najlepiej",
+    "emptyOther": "Dodaj odpowiedź albo wybierz „Nie wiem na pewno”"
+  },
+  "chips": {
+    "livesIn": "Kraj w UK: {nation}",
+    "age": "Wiek: {age}",
+    "spa": "Wiek State Pension: {age}",
+    "pensionAge": "Osiągnięty wiek emerytalny",
+    "workingAge": "Wiek produkcyjny",
+    "perWeek": "£{amount} tygodniowo",
+    "noHelp": "Bez potrzeby codziennej pomocy",
+    "dailyHelp": "Pomoc w codziennym życiu",
+    "careHelp": "Pomoc w higienie i opiece osobistej",
+    "opens": "Otwiera powiązaną pomoc",
+    "noLinked": "Na razie brak powiązanej pomocy",
+    "lowWork": "Poniżej 16 godzin lub brak pracy",
+    "fullWork": "16 godzin lub więcej",
+    "noChildren": "Brak dzieci",
+    "youngest": "Wiek najmłodszego dziecka: {age}",
+    "care35": "35 godzin lub więcej",
+    "careUnder": "Poniżej 35 godzin"
+  },
+  "nations": {
+    "eng": "Anglia",
+    "sco": "Szkocja",
+    "wal": "Walia",
+    "ni": "Irlandia Północna"
+  },
+  "facts": {
+    "postcode": {
+      "q": "Jaki jest Twój kod pocztowy?",
+      "qThey": "Jaki jest kod pocztowy osoby {n}?",
+      "why": "Od Twojego kraju w UK i rady lokalnej zależy wiele programów pomocy.",
+      "label": "Kod pocztowy"
+    },
+    "dob": {
+      "q": "Kiedy się urodziłeś lub urodziłaś?",
+      "qThey": "Kiedy urodziła się osoba {n}?",
+      "why": "Wystarczy miesiąc i rok. Od wieku zależy wiele, np. wiek State Pension.",
+      "label": "Data urodzenia"
+    },
+    "benefits": {
+      "q": "Które z tych świadczeń już otrzymujesz?",
+      "qThey": "Które z tych świadczeń już otrzymuje osoba {n}?",
+      "why": "Niektóre formy pomocy otwierają drogę do kolejnych.",
+      "label": "Już otrzymuje",
+      "opts": {
+        "uc": "Universal Credit",
+        "pc": "Pension Credit",
+        "pip": "PIP lub Attendance Allowance",
+        "cb": "Child Benefit"
+      },
+      "none": "Żadne z tych"
+    },
+    "income": {
+      "q": "Ile pieniędzy wpływa do Twojego domu?",
+      "qThey": "Ile pieniędzy wpływa do domu osoby {n}?",
+      "why": "Wlicz wynagrodzenia, emerytury i świadczenia, po opodatkowaniu.",
+      "label": "Dochód"
+    },
+    "savings": {
+      "q": "Ile masz oszczędności?",
+      "qThey": "Ile oszczędności ma osoba {n}?",
+      "why": "Niektóre formy pomocy mają limit oszczędności, często £16,000.",
+      "label": "Oszczędności"
+    },
+    "difficulties": {
+      "q": "Z czym masz trudność na co dzień z powodu stanu zdrowia?",
+      "qThey": "Z czym osoba {n} ma trudność na co dzień z powodu stanu zdrowia?",
+      "why": "To otwiera świadczenia z tytułu niepełnosprawności i pomoc w poruszaniu się.",
+      "label": "Pomoc na co dzień",
+      "opts": {
+        "wash": "Mycie, ubieranie się lub korzystanie z toalety",
+        "night": "Bezpieczne przebywanie w pojedynkę, w dzień lub w nocy",
+        "cook": "Gotowanie lub pilnowanie leków",
+        "move": "Chodzenie lub poruszanie się"
+      },
+      "none": "Żadne z tych"
+    },
+    "work": {
+      "q": "Jaka jest Twoja sytuacja zawodowa?",
+      "qThey": "Jaką sytuację zawodową ma osoba {n}?",
+      "why": "Od tego zależy pomoc związana z pracą, chorobą, opieką nad kimś i opieką nad dziećmi.",
+      "label": "Praca"
+    },
+    "ni": {
+      "q": "Czy w ciągu ostatnich 2 do 3 lat płaciłeś lub płaciłaś National Insurance?",
+      "qThey": "Czy osoba {n} płaciła National Insurance w ciągu ostatnich 2 do 3 lat?",
+      "why": "New Style JSA i ESA zależą od składek, a nie od dochodu.",
+      "label": "Płacone National Insurance"
+    },
+    "child": {
+      "q": "Kiedy urodziło się Twoje najmłodsze dziecko?",
+      "qThey": "Kiedy urodziło się najmłodsze dziecko osoby {n}?",
+      "why": "Wystarczy miesiąc i rok. Pomoc dla rodzin zależy od wieku dziecka.",
+      "label": "Najmłodsze dziecko"
+    },
+    "pregnant": {
+      "q": "Czy ktoś w Twoim domu spodziewa się dziecka?",
+      "qThey": "Czy ktoś w domu osoby {n} spodziewa się dziecka?",
+      "why": "To otwiera pomoc związaną z macierzyństwem i wczesnym dzieciństwem.",
+      "label": "Oczekiwanie na dziecko"
+    },
+    "careHours": {
+      "q": "Ile godzin tygodniowo opiekujesz się kimś?",
+      "qThey": "Ile godzin tygodniowo osoba {n} opiekuje się kimś?",
+      "why": "Świadczenia dla opiekunów zaczynają się od 35 godzin tygodniowo.",
+      "label": "Godziny opieki"
+    },
+    "ctax": {
+      "q": "Czy płacisz council tax (podatek lokalny)?",
+      "qThey": "Czy osoba {n} płaci council tax?",
+      "why": "Twoja rada lokalna może go obniżyć.",
+      "label": "Płaci council tax"
+    },
+    "housing": {
+      "q": "Gdzie mieszkasz?",
+      "qThey": "Gdzie mieszka osoba {n}?",
+      "why": "Wynajem może otworzyć pomoc w opłacaniu czynszu.",
+      "label": "Mieszkanie",
+      "opts": {
+        "social": "Wynajem od rady lokalnej lub housing association",
+        "private": "Wynajem prywatny",
+        "own": "Własne mieszkanie lub dom",
+        "family": "Mieszkanie u rodziny lub znajomych"
+      }
+    },
+    "household": {
+      "q": "Kto z Tobą mieszka?",
+      "qThey": "Kto mieszka z osobą {n}?",
+      "why": "Mieszkanie w pojedynkę może obniżyć rachunek za council tax.",
+      "label": "Mieszka z",
+      "opts": {
+        "alone": "Nikt",
+        "children": "Tylko dzieci poniżej 18 lat",
+        "partner": "Partner lub partnerka",
+        "adults": "Inni dorośli"
+      }
+    },
+    "debt": {
+      "q": "Czy zalegasz z jakimiś rachunkami lub płatnościami?",
+      "qThey": "Czy osoba {n} zalega z jakimiś rachunkami lub płatnościami?",
+      "why": "Jest bezpłatna pomoc w sprawie długów i dotacje, które spłacają długi za energię.",
+      "label": "Zaległe rachunki"
+    },
+    "bereaved": {
+      "q": "Czy ktoś Ci bliski niedawno zmarł?",
+      "qThey": "Czy ktoś bliski osobie {n} niedawno zmarł?",
+      "why": "To otwiera pomoc po stracie bliskiej osoby i pomoc w kosztach pogrzebu.",
+      "label": "Żałoba",
+      "opts": {
+        "no": "Nie",
+        "partner": "Mój mąż, moja żona lub mój civil partner",
+        "funeral": "Ktoś inny, a ja płacę za pogrzeb"
+      }
+    }
+  }
+}

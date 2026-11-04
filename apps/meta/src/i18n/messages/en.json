@@ -355,5 +355,50 @@
     "moreHelp": "More help to look at",
     "coverage": "Rules pack · {country}",
     "coverageLine": "Rules read from the official pages. Beacon can say Likely."
+  },
+  "details": {
+    "title": "Details",
+    "close": "Close details",
+    "whereMe": "Where you live",
+    "whereThey": "Where they live",
+    "aboutMe": "About you",
+    "aboutThey": "About them",
+    "money": "Money",
+    "work": "Work",
+    "family": "Family and caring",
+    "from": {
+      "form": "You answered",
+      "chat": "From the chat",
+      "voice": "From what you said",
+      "letter": "Read from a letter",
+      "example": "From the example",
+      "link": "From a shared link"
+    },
+    "savedHere": "Saved on this device",
+    "checkingMe": "Checking for you",
+    "checkingThey": "Checking for {name}",
+    "change": "Change",
+    "answer": "Answer",
+    "forget": "Forget {label}",
+    "changeLabel": "Change {label}",
+    "answerLabel": "Answer {label}",
+    "progress": "{done} of {total} checked · {count, plural, one {# detail} other {# details}} saved on this device",
+    "groupCount": "{done} of {total}",
+    "forgotten": "Forgotten.",
+    "undo": "Undo",
+    "checksN": "{count, plural, one {Checks # scheme} other {Checks # schemes}}",
+    "whoFor": "Who is this check for?",
+    "me": "Me",
+    "people": {
+      "mum": "Mum",
+      "dad": "Dad",
+      "partner": "My partner",
+      "son": "My son",
+      "daughter": "My daughter",
+      "friend": "A friend"
+    },
+    "someoneElse": "Someone else",
+    "someoneElseHint": "Someone else, like Nan",
+    "use": "Use"
   }
 }
