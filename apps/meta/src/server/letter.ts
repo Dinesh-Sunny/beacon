@@ -58,9 +58,22 @@ const Reading = z.object({
 const SCRUB = [/\b[A-CEGHJ-PR-TW-Z]{2}\s?\d{2}\s?\d{2}\s?\d{2}\s?[A-D]\b/gi, /\b\d{8,}\b/g, /\S+@\S+\.\S+/g];
 const scrub = (t: string | null) => (t ? SCRUB.reduce((s, re) => s.replace(re, "[removed]"), t) : t);
 
+// SAM 3.1 takes one short noun phrase. Try the words most likely to match a page, in order.
+const PAGE_WORDS = ["paper", "document", "sheet of paper", "letter"];
+export const samTried: string[] = [];
+async function findPage(dataUrl: string) {
+  samTried.length = 0;
+  for (const word of PAGE_WORDS) {
+    const boxes = await segment(dataUrl, word);
+    samTried.push(`${word}:${boxes.length}`);
+    if (boxes.length) return boxes;
+  }
+  return [];
+}
+
 export async function readLetter(dataUrl: string) {
   const [sam, read] = await Promise.allSettled([
-    segment(dataUrl, "letter"),
+    findPage(dataUrl),
     chat({
       messages: [
         { role: "system", content: READER },
@@ -90,7 +103,7 @@ export async function readLetter(dataUrl: string) {
   const saved = parsed.readable ? toAnswers(parsed.facts) : {};
   const debug =
     process.env.NODE_ENV !== "production"
-      ? { sam: sam.status === "fulfilled" ? `${sam.value.length} boxes; raw: ${lastSamRaw}` : String((sam.reason as Error)?.message ?? sam.reason).slice(0, 400) }
+      ? { sam: sam.status === "fulfilled" ? `${sam.value.length} boxes; tried ${samTried.join(" ")}; last: ${lastSamRaw.slice(0, 200)}` : String((sam.reason as Error)?.message ?? sam.reason).slice(0, 400) }
       : undefined;
   return {
     debug,
