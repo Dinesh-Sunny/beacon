@@ -25,7 +25,7 @@ export async function generateMetadata(): Promise<Metadata> {
 const MODELS = [
   ["Muse Spark 1.3", "muse-spark-1.3", "spark"],
   ["Muse Wonder", "muse-wonder-1.0", "wonder"],
-  ["Muse Spark Open / Muse Glimmer", "open weights", "open"],
+  ["Muse Spark Open", "muse-spark-open-1026", "open"],
   ["Muse Voice Transcribe", "muse-voice-transcribe-1.0", "voice"],
   ["SAM 3.1", "sam-3.1", "sam"],
   ["Muse Image", "muse-image-1.0", "image"],

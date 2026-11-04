@@ -1005,7 +1005,7 @@
         "sam": "Marca el contorno de la carta en una foto para que veas qué se leyó",
         "image": "Pinta el banner de resultados solo a partir de áreas de la vida, nunca de datos personales",
         "wonder": "Escribe las notas para la llamada: qué decir y qué tener a mano",
-        "open": "Modelo de pesos abiertos en Baseten o Fireworks que quita nombres, números y direcciones antes de que tus palabras lleguen a un modelo alojado"
+        "open": "Modelo de pesos abiertos en Baseten que quita nombres, números y direcciones antes de que tus palabras lleguen a un modelo alojado"
       }
     },
     "rules": {

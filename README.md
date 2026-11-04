@@ -1,161 +1,158 @@
----
-title: Beacon
-emoji: 🧭
-colorFrom: yellow
-colorTo: indigo
-sdk: docker
-app_port: 7860
-license: apache-2.0
-short_description: Find the UK support that's already yours, on Beam
-tags:
-  - beam
-  - agents
-  - tool-calling
-  - long-context
-  - public-services
-models:
-  - reflection/Beam-1.0-501B-A23B
----
+<p align="center">
+  <img src="docs/images/logo.svg" width="72" height="72" alt="Beacon logo">
+</p>
 
-# Beacon
+<h1 align="center">Beacon</h1>
 
-**Find the support that's already yours.**
+<p align="center">
+  <b>Find the support that's already yours.</b><br>
+  Tell Beacon about your life, or the life of someone you look after, in your own words and your own language.<br>
+  It shows the help that's likely yours, with the official rule behind every answer, and gets you ready to claim it.
+</p>
 
-> **Meta Global AI Developer Hackathon:** the entry is the app in [`apps/meta`](apps/meta/README.md), built on Muse Spark, Muse Voice Transcribe, SAM 3.1 and Muse Image. The rest of this page describes the earlier Beam version.
+<p align="center">
+  <a href="https://beacon-support.vercel.app"><b>Open the live app</b></a> ·
+  <a href="https://beacon-support.vercel.app/check#example=margaret">Watch a 60-second example check</a> ·
+  <a href="https://beacon-support.vercel.app/how">How it works</a> ·
+  <a href="apps/meta/README.md">Run it yourself</a>
+</p>
 
-This page is for anyone trying Beacon, judging it, or running it for their own residents or clients (councils, charities, advisers).
+<p align="center">
+  Built for the <b>Meta Global AI Developer Hackathon 2026</b> · Startup track · Problem statement: <i>Build for Your World</i><br>
+  Muse Spark · Muse Wonder · Muse Image · Muse Voice Transcribe · SAM 3.1 · Muse Spark Open (open weights, on Baseten)
+</p>
 
-Beacon is a private benefits finder for the UK. You answer a few short questions (bands only, never your name or exact amounts), and Beacon reads the official GOV.UK rules for ten kinds of support, from Pension Credit to Healthy Start. For each one it tells you in plain words whether it is **Likely**, **Worth checking** or **Unlikely right now**, shows the exact line from the official page that the answer rests on, and tells you the next step: who to call, what to say, where to apply. It runs on Beam, Reflection AI's open model, so a council or charity can run the whole thing on its own servers and keep residents' answers in-house.
+![Beacon home page: "Find the support that's already yours", with a chat box and a live product window](docs/images/hero.jpg)
 
-An estimated £24.1bn of income-related benefits and social tariffs goes unclaimed in Great Britain in 2025/26, across more than 7 million households ([Policy in Practice, Missing Out 2025](https://policyinpractice.co.uk/publication/missing-out-2025)). Most people miss out because they don't know, the rules are hard to read, or they feel awkward asking. Beacon takes on the first two and is gentle about the third.
+## Why this exists
 
-### A sample check (made up, not a real person)
+Every year, billions in support goes to nobody.
 
-Margaret was born in 1952. She lives alone in a council flat in Brent, her State Pension is her only income, she has a little in savings, and her knees make stairs hard. She has never claimed anything because she assumed "it's not for people like me".
+- **£24.1bn** of income-related benefits and social tariffs goes unclaimed in Great Britain in 2025/26, across more than 7 million households ([Policy in Practice, Missing Out 2025](https://policyinpractice.co.uk/publication/missing-out-2025)).
+- **About 1 in 5** people who could get the US Earned Income Tax Credit don't claim it ([IRS Taxpayer Advocate Service](https://www.taxpayeradvocate.irs.gov/news/nta-blog/eitc-awareness-day-is-january-23/2026/01)).
 
-She answers a short set of questions. Beacon skips the ones that can't change anything for her (work, pregnancy, her birth month) and says why. Code settles the hard rules first: Universal Credit and Healthy Start are not for her age, and the free TV licence starts at 75. Then Beam reads the Pension Credit, Housing Benefit, Council Tax Reduction, Attendance Allowance and Warm Home Discount pages in full and records a finding for each. The rules point to Pension Credit as Likely for her, so she should see it at the top, with the GOV.UK sentence about State Pension age and weekly income quoted underneath, the claim line number, and a note that Pension Credit can open the door to help with rent, council tax and her energy bill.
+People miss out for three reasons: they don't know the help exists, the rules are written for lawyers, and asking feels awkward. The people who miss out most are the ones with the least time to research it: older people, carers, new parents and people who've just lost someone.
 
-## How Beam is used
+Beacon is the friend who has read every rule. You talk to it the way you'd talk to a person ("my dad is 74, lives alone and his Medicare costs keep going up"). It asks only the questions that can still change an answer. It never asks for a name, an ID number or bank details. And it tells you what's likely yours, why, what it's worth, and exactly what to say when you call.
 
-Beam does the reading and judging. Code does everything that can be settled without judgement, and has the last word on every answer.
+## Try it in 60 seconds
 
-| Step | What happens | Beam reasoning effort |
+1. Open **[beacon-support.vercel.app](https://beacon-support.vercel.app)**. Beacon picks the UK or the US from your browser's language settings. Change it at any time with the country button.
+2. Type one sentence about someone, for example *"My mum is 78, lives alone in Wembley HA9 and finds washing hard"*, or press the microphone and say it.
+3. Watch the chat ask a few short questions while the results light up on the right.
+4. Open **What to say** on any result to get call notes written by Muse Wonder.
+5. Press **+** in the chat and try the sample letter. SAM 3.1 outlines the page and Muse Spark reads it.
+6. Short on time? Press **Example** in the top bar. Margaret (UK) or Walter (US) answers every question for you.
+
+<table>
+  <tr>
+    <td width="68%"><img src="docs/images/check-uk.png" alt="A UK check: 11 things look like Margaret's, worth up to £7,715 a year, with Pension Credit first"></td>
+    <td width="32%"><img src="docs/images/phone-results.png" alt="A US check on a phone: 13 things look like Walter's, with SNAP first"></td>
+  </tr>
+  <tr>
+    <td><sub>UK check: the chat on the left, results that light up on the right, with a claim plan, real amounts and "Good to know" notes.</sub></td>
+    <td><sub>US check on a phone: the same rules engine, on US rules, in dollars.</sub></td>
+  </tr>
+</table>
+
+## How Beacon uses Meta's models
+
+Each model has one job. **Plain code makes every decision**, so the same answers always give the same result, and nothing a model says reaches the person until code has checked it.
+
+| Model | Job in Beacon | Code |
 | --- | --- | --- |
-| 1. Pre-check | Code settles hard rules from the answers (age lines, nation, savings caps, benefits you already get). No model call. | none |
-| 2. Shortlist | Beam looks at the situation and the open schemes and picks what to read first. | **low** |
-| 3. Read | Each open scheme's GOV.UK pages go into the context **whole**, every guide part in one read. Beam's 1M-token window means no chunking, no retrieval, no missed exception three parts down. | - |
-| 4. Judge | Beam must answer through a **forced tool call**, `record_finding`: verdict, a one-line reason, the exact quoted rule line, the answers it relied on, and what's missing. | **high** |
-| 5. Verify | **Code, not the model**, checks the quote is really on the page (`verifyQuote`, after folding spaces, curly quotes and dashes). No verified quote, no Likely: code downgrades it to Worth checking. | none |
-| 6. Explain | Beam writes the next steps in plain English: who to contact, what to say. | **medium** |
-
-- **Effort where it pays.** Sorting is cheap, judging the rules is where mistakes cost people money, so effort goes up only for the judge step. Every model step reports its tokens, and the result screen has a token meter ("How Beacon worked this out") that shows the input and output tokens per step and effort level.
-- **Tools, not free text.** Findings only reach the person through `record_finding` and `settleFinding`, so the shape is fixed and the verdict can be checked. The same tools are offered to other agents over MCP at `/api/mcp` (`list_schemes`, `get_rules`, `check_eligibility`).
-- **Long context instead of retrieval.** Rule pages are read whole, which is what makes the quote checker fair: the line Beam quotes has to exist in exactly what it read.
-- **Open, so it can be private.** The model client is OpenAI-compatible and the endpoint and model name come from environment variables. Point it at the Hugging Face router (default), a provider directly, or your own vLLM server running Beam's open weights. Nothing else changes.
-
-## Architecture
+| **Muse Spark 1.3** (tool calling) | The agent in the chat. It never edits the check directly: it calls five tools (`set_who`, `save_details`, `check_results`, `explain_scheme`, `plan_claims`), and code validates every argument with zod before the rules run. Steps stream to the chat as they happen. | [`server/agent.ts`](apps/meta/src/server/agent.ts) |
+| **Muse Spark 1.3** (vision + structured output) | The letter reader. It reads a photo of a council or benefits letter into a fixed JSON schema. It is quarantined: it can't call tools or take any action, the text in the photo is treated as data, and code strips anything shaped like an ID number, account number or email on the way out. | [`server/letter.ts`](apps/meta/src/server/letter.ts) |
+| **SAM 3.1** | Finds the letter in the photo and outlines it, so the person sees exactly what was read. | [`server/meta.ts`](apps/meta/src/server/meta.ts) |
+| **Muse Wonder** | The call coach: what to say, what to have ready and what they may ask, for one scheme, built from that scheme's rules. Falls back to Muse Spark if Wonder is unavailable. | [`server/prepare.ts`](apps/meta/src/server/prepare.ts) |
+| **Muse Voice Transcribe** | Speech to text. The browser records 16 kHz mono WAV itself, so audio is never converted on a server. | [`lib/wav.ts`](apps/meta/src/lib/wav.ts) |
+| **Muse Image** | Paints a warm banner for the results, of a UK or US home. The prompt carries areas of life only ("food", "health"), never answers. One banner per mix, cached, so it costs nothing after the first person. | [`api/card`](apps/meta/src/app/api/card/route.ts) |
+| **Muse Spark Open** (open weights, on Baseten) | The privacy step. Every message is rewritten without names, street addresses, phone numbers, emails or ID numbers **before** it reaches any hosted model, and the chat says so. Code runs the same rules again on the output, so nothing personal leaves even if the host is down. Any OpenAI-compatible host (vLLM on Modal, a Muse Glimmer deployment on Fireworks) plugs in through settings. | [`server/private.ts`](apps/meta/src/server/private.ts) |
 
 ```mermaid
 flowchart LR
-  P[Person in the browser<br/>answers as bands] -->|answers, never stored| API["/api/check<br/>(Next.js on the Space)"]
-  API --> PC["precheck()<br/>hard rules in code"]
-  PC -->|ruled out / already get| S
-  PC -->|open schemes| SL["Shortlist<br/>Beam, effort low"]
-  SL --> RD["Read whole GOV.UK pages<br/>Content API or dated snapshot"]
-  RD --> J["Judge<br/>Beam, effort high<br/>forced record_finding"]
-  J --> V["settleFinding()<br/>quote checker in code"]
-  V --> EX["Explain next steps<br/>Beam, effort medium"]
-  EX --> S["NDJSON stream<br/>findings + token usage"]
-  S --> P
-  MCP["/api/mcp<br/>other agents"] --> PC
-  GOV[(GOV.UK Content API)] --> RD
-  SNAP[(rules snapshot<br/>Hub dataset)] --> RD
-  BEAM{{"Beam 1.0<br/>HF router or self-hosted"}} -.-> SL & J & EX
+  P["Person<br/>types, speaks, snaps a letter"] --> V[Muse Voice Transcribe]
+  P --> S[SAM 3.1 + Muse Spark vision<br/>letter reader]
+  P --> O["Muse Spark Open on Baseten<br/>removes personal details"]
+  V --> O
+  O --> A["Muse Spark agent<br/>5 tools"]
+  S --> C
+  A -->|validated tool calls| C["Rules engine in the browser<br/>79 schemes, 11 packs"]
+  C --> R["Results, claim plan,<br/>Good to know"]
+  R --> W[Muse Wonder<br/>call notes]
+  R --> I[Muse Image<br/>banner]
+  C -.->|answers never leave the browser| P
 ```
 
-More detail, including the stream contract and what lives where: [docs/architecture.md](docs/architecture.md). Decisions: [docs/adr/](docs/adr/).
+## What makes it hard
 
-## Privacy
+The parts of Beacon that took the most engineering, and where to find them.
 
-- **Nothing is stored.** An anonymous check keeps your answers in your browser only (page state and the link fragment, which browsers never send to the server). The server holds them for the length of the check and then forgets them.
-- **Bands, not numbers.** Income is "under, around or well over the official line", savings are cut at the rule edges (£6,000, £10,000, £16,000). Beacon never asks for your name, full address, National Insurance number, bank details, exact amounts or full date of birth. Birth year is enough, and the month is asked only for people born in 1960 or 1961, where State Pension age depends on it.
-- **Questions you can skip.** Every money question has "I'd rather not say". Beacon then says Worth checking instead of guessing.
-- **Traces without inputs.** Optional LangSmith tracing never logs the answers.
-- **Self-hostable.** Run it with your own Beam and nothing leaves your servers except reads of public GOV.UK pages.
+1. **A rules engine that runs in the browser.** 79 schemes (51 UK, 28 US) in 11 versioned JSON rule packs, validated by zod on load. `evaluate` settles every scheme as Likely, Worth checking, Unlocks next, Already getting or Ruled out. `derive` works out ages, State Pension age, weekly income and the 2026 HHS poverty line. A near miss only softens its own condition, so being £3 over one line never hides everything else. [`engine/rules.ts`](apps/meta/src/engine/rules.ts), [`engine/pack.ts`](apps/meta/src/engine/pack.ts), [`packs/`](apps/meta/packs)
+2. **A question planner that asks less.** After every answer it picks the next question that can still change a result, and skips any question that can't change anything, so a person only answers what matters for them. `plan` in [`engine/rules.ts`](apps/meta/src/engine/rules.ts)
+3. **Claim chains and clashes.** Some help opens the door to more (Pension Credit opens Housing Benefit, Council Tax Reduction and the Warm Home Discount). Beacon orders claims so the door-openers come first. It warns when one claim can lower another, and says when two don't clash at all. When the person records an award, the help it unlocks moves from "Unlocks next" to "Likely". [`lib/claims.tsx`](apps/meta/src/lib/claims.tsx), `claimOrder` and `warnings` in [`engine/rules.ts`](apps/meta/src/engine/rules.ts)
+4. **A tool-calling agent that can't break the rules.** Muse Spark talks, code decides. Every tool call is parsed against one answers schema ([`engine/answers-schema.ts`](apps/meta/src/engine/answers-schema.ts)) before the engine sees it. The agent can switch the whole check to "Checking for Mum", and replies in the person's language, or in simple words when asked.
+5. **Two layers of privacy before any hosted model.** Muse Spark Open on Baseten rewrites the message, then code patterns catch UK National Insurance numbers, US Social Security numbers, card and account numbers, sort codes, phones and emails. Hosts are tried in order, each with a time limit, so one slow host never holds up a check. [`server/private.ts`](apps/meta/src/server/private.ts)
+6. **A quarantined letter reader.** SAM 3.1 and Muse Spark run in parallel. SAM's one-phrase prompts are tried in order ("paper", "document", "sheet of paper", "letter") because "letter" alone finds nothing. The schema is fixed, and every field is scrubbed before it reaches the check. [`server/letter.ts`](apps/meta/src/server/letter.ts)
+7. **Checks you can share with no server storage.** Answers are compressed with the browser's own `CompressionStream` and put in the link's `#fragment`, which browsers never send to a server. Opening a link validates everything against the schema first. [`lib/share.ts`](apps/meta/src/lib/share.ts)
+8. **Real local help, at scale.** Connectors pull open data once, keep it filtered and gzipped, and serve a slice by postcode or ZIP code: 7,165 council service pages (GOV.UK Local Links Manager), 12,231 grant-giving charities (Charity Commission register), 13,275 US community health centres (HRSA), 3,774 housing agencies and 1,286 housing counsellors (HUD). [`knowledge/connectors/`](apps/meta/src/knowledge/connectors)
+9. **A knowledge pipeline that keeps rules honest.** It harvests GOV.UK and stores each page once (1,279 pages), then Muse Spark tags them (300 pages of help) and drafts new schemes that must pass the live schema before a person reviews them. A daily GitHub Action re-reads the official page behind every rule and opens a pull request when one changes. [`knowledge/`](apps/meta/src/knowledge), [`.github/workflows/`](.github/workflows)
+10. **Two countries, one engine.** The country comes from the browser's languages until the person chooses one. A postcode sets nation and council (postcodes.io), and a ZIP code sets state and county. Currency, amounts, examples, wording and even the results banner follow the country. [`lib/country.ts`](apps/meta/src/lib/country.ts), [`i18n/server.ts`](apps/meta/src/i18n/server.ts)
+11. **Seven languages, right to left included.** English, Welsh, Polish, Spanish, Bengali, Urdu and Arabic, with 850 message keys each, checked for parity and ICU syntax by [`scripts/check-messages.ts`](apps/meta/scripts/check-messages.ts).
+12. **Display presets by need.** Eight comfort presets (easier to read, clearer colours, bigger and bolder, listen to it, calmer, fewer distractions, simple words, easier to tap) switch groups of settings at once. They're applied as data attributes on `<html>`, so plain CSS adapts every page, and the person's own system settings always win. [`lib/display.ts`](apps/meta/src/lib/display.ts)
+13. **A hero with no library.** One full-screen triangle and a WebGL2 fragment shader draw beacon-amber light that opens from the middle and rolls slowly. It pauses off screen and in background tabs, shows a single still frame for reduced motion, and falls back to CSS where WebGL is missing. [`marketing/HeroBeams.tsx`](apps/meta/src/components/marketing/HeroBeams.tsx)
+14. **Built to survive a public demo.** A per-IP rate limit, a daily cap and same-origin checks on every model route ([`server/guard.ts`](apps/meta/src/server/guard.ts)). In-flight requests are de-duplicated and answers cached ([`server/cache.ts`](apps/meta/src/server/cache.ts)), with prompt-cache keys on long fixed prompts. Cost telemetry logs model, tokens and time, never content. Vercel Web Analytics and Speed Insights see page paths only, never the answers in a link.
 
-## Accuracy
+## Private by design
 
-Beacon is measured on **BenefitsBench**, 30 made-up situations (no real people) with the verdict the official rules give for each of the ten schemes, written from the rules and not from Beacon's output. It covers people over and under State Pension age, mixed-age couples, the Pension Credit passport, Universal Credit, carers, Healthy Start, Scotland and Northern Ireland, savings edges and the Winter Fuel cut-off. Dataset and card: [`packages/evals/`](packages/evals/), published on the Hub as `beacon-benefitsbench`.
+- **Nothing about a person is stored on a server.** Answers live in the browser, and a shared link carries them in the `#fragment`.
+- **Beacon never asks for** a name, a full address, an ID number, bank details, exact amounts or a full date of birth. Month and year are enough.
+- **Personal details are removed on open weights** before anything reaches a hosted model, and the chat tells you when it happens.
+- **Logs hold numbers, not words:** model, tokens and milliseconds.
 
-**Code-settled half (no model).** Every scheme that code rules out or marks as "you already get this" is checked against `precheck()` on every commit: 301 of 302 checks agree. The one gap is known and listed in the dataset (Housing Benefit for a mixed-age couple when the older partner asks; the rules say Universal Credit covers rent instead).
+<p align="center">
+  <img src="docs/images/display.png" width="520" alt="The Display panel with eight comfort presets: easier to read, clearer colours, bigger and bolder, listen to it, calmer, fewer distractions">
+</p>
 
-**Beam half.** Filled in from `packages/evals/results/summary.md` after a real run. No numbers are written here until they have been measured.
+## Built during the hackathon
 
-| Effort (judge step) | Accuracy, all schemes | Accuracy, Beam-judged schemes | Avg tokens per check | Quote verified |
-| --- | --- | --- | --- | --- |
-| low | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` |
-| medium | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` |
-| high | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` | run `pnpm eval` |
-
-A verdict counts as right when it is the expected one or one a careful adviser would also accept from the same answers (for example Likely or Worth checking when a deciding question has not been asked yet).
-
-## Limits
-
-- **Not advice.** Beacon says what the official rules suggest. The service that runs each scheme makes the decision. Every card links to the official page.
-- **Ten schemes, mostly England.** Scotland and Northern Ireland run their own versions of several schemes; Beacon says so and points to them rather than judging them.
-- **Bands are blunt.** Answers near a line come back as Worth checking. That's on purpose.
-- **Amounts are not calculated.** Beacon never states a figure the rule page doesn't state.
-- **Rules change.** Money lines live in one config file with their sources and are uprated each April. The snapshot date is shown with every result.
-- **English only for now.** Beam is mainly an English model.
-- **Council Tax Reduction differs by council.** The working-age example uses Brent's scheme.
+Everything in [`apps/meta`](apps/meta) was built for this hackathon, between 27 October and 4 November 2026. This repository was created on 30 October 2026. [`apps/web`](apps/web) and [`packages/`](packages) hold an earlier, separate entry (Beacon on Reflection's Beam model, described in [`docs/beam/README.md`](docs/beam/README.md)). The Meta app doesn't import or depend on them. The full list of what was built is in [`apps/meta/README.md`](apps/meta/README.md#built-during-the-hackathon).
 
 ## Run it yourself
 
-You need Node 22.18 or newer and pnpm 12 (`corepack enable` sets it up).
+You need Node 22 or newer and pnpm (`corepack enable`).
 
 ```bash
+git clone https://github.com/Dinesh-Sunny/beacon.git && cd beacon
 pnpm install
-cp apps/web/.env.example apps/web/.env.local   # then fill in the values
-pnpm dev                                        # http://localhost:7860
+cp apps/meta/.env.example apps/meta/.env.local   # add MODEL_API_KEY from https://dev.meta.ai
+pnpm --filter meta dev                            # http://localhost:3100
 ```
 
-The model settings live in `apps/web/.env.example` (names only, never commit values):
+`BASETEN_API_KEY` turns on the open-weights privacy step. Without any keys, the questions, rules, results, examples and local help still work. The chat, voice, letter reader, call notes and banner each say calmly that they're off.
 
-- `HF_TOKEN` - a Hugging Face token with Inference Providers access. With only this set, Beacon uses the HF router and `reflection/Beam-1.0-501B-A23B:auto`.
-- `BEAM_BASE_URL`, `BEAM_MODEL`, `BEAM_API_KEY` - point Beacon at any OpenAI-compatible endpoint instead, such as your own vLLM server running Beam's open weights (`vllm serve reflection/Beam-1.0-501B-A23B --tensor-parallel-size 16`) or a provider's endpoint.
+## Repository map
 
-### On a Hugging Face Space
-
-Duplicate the Space, add `HF_TOKEN` as a secret, and it builds from the `Dockerfile`: it installs, refreshes the rules snapshot from GOV.UK (keeping the committed one if GOV.UK can't be reached), builds the web app and serves it on port 7860 as user 1000.
-
-### With Docker anywhere else
-
-```bash
-docker build -t beacon .
-docker run -p 7860:7860 -e HF_TOKEN beacon
+```
+apps/meta/                 The Meta hackathon app (Next.js 16, React 19, TypeScript)
+  packs/                   11 rule packs as data: every line, amount and date with its source link
+  src/engine/              Rules engine, question planner, answers schema
+  src/server/              Meta model client, agent, letter reader, call coach, privacy step, guard
+  src/knowledge/           Harvest, triage and draft pipeline, open-data connectors
+  src/components/          Chat, check, results, details, place and display, marketing
+  src/i18n/                Seven languages
+  catalog/                 What Beacon covers, and the stored source pages
+docs/                      Images, architecture notes, the earlier Beam entry
+.github/workflows/         Daily rule watch, weekly harvest
 ```
 
-## Local development
+## Limits
 
-| Task | Command |
-| --- | --- |
-| Install | `pnpm install` |
-| Dev server | `pnpm dev` (http://localhost:7860) |
-| Build | `pnpm build` |
-| Lint / format | `pnpm lint` / `pnpm format` |
-| Type-check | `pnpm typecheck` |
-| Tests | `pnpm test` |
-| Refresh the rules snapshot | `pnpm snapshot` |
-| Run BenefitsBench on Beam | `pnpm eval` (needs `HF_TOKEN`; `--effort low,high`, `--cases id,id`, `--limit 5`) |
+- **Beacon isn't advice.** The organisation that runs each scheme decides, and every result links to its official page.
+- Income lines are screening estimates for one adult, not the official calculation.
+- Council and state schemes vary, so Beacon links to the person's own council or state office rather than guessing local rules.
+- Translations other than English were drafted with help and checked for completeness, but not yet by native speakers.
 
-Layout: `apps/web` (the Next.js app, `/api/check` and `/api/mcp`), `packages/rules` (questions, schemes, age lines, pre-check, quote checker, GOV.UK reader, snapshot), `packages/brain` (the agent on Beam), `packages/evals` (BenefitsBench).
+## License
 
-## Hub artefacts
-
-- **Space:** this app.
-- **Dataset `beacon-benefitsbench`:** the 30 situations, expected verdicts and Beam results per effort level ([card](packages/evals/hub/README.md)).
-- **Dataset `beacon-uk-rules-snapshot`:** the exact GOV.UK text Beam read, dated ([card](packages/rules/snapshot/README.md)).
-
-## Licence
-
-Apache 2.0, the same as Beam. See [LICENSE](LICENSE).
+[Apache 2.0](LICENSE). Rule text is quoted from official public sources, each linked from the pack it's in.
