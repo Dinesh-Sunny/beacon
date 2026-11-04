@@ -1,58 +1,75 @@
 import "server-only";
 
-// Postcode to council, through GOV.UK's local authority lookup. Councils run hundreds of local
-// services, and GOV.UK routes each one to the right council's own page, so knowing the council
-// turns "ask your council" into a direct link for every council in the country.
-// Cached by a hash of the postcode for a day; nothing about the person is stored.
+// Postcode to place: the council (GOV.UK's local authority lookup) and the nation (postcodes.io,
+// which knows the exact country for postcodes near a border). Councils run hundreds of local
+// services and GOV.UK routes each one to the right council's own page, so knowing the council
+// turns "ask your council" into a direct link. Cached by a hash of the postcode for a day;
+// nothing about the person is stored.
 
 import { z } from "zod";
+import type { Nation } from "@/engine/rules";
 import { cached, keyOf, Lru } from "./cache";
 
-const Authority = z.object({
-  name: z.string(),
-  slug: z.string(),
-  homepage_url: z.string().optional(),
-  tier: z.string().optional(),
-});
-const Reply = z.object({
-  local_authority: Authority.optional(),
-  addresses: z
-    .array(z.object({ name: z.string(), slug: z.string() }))
+const UA = "Beacon (+https://github.com/Dinesh-Sunny/beacon)";
+const GovUk = z.object({
+  local_authority: z
+    .object({
+      name: z.string(),
+      slug: z.string(),
+      homepage_url: z.string().optional(),
+    })
     .optional(),
 });
+const PostcodesIo = z.object({
+  result: z.object({ country: z.string() }).nullable(),
+});
+const COUNTRY: Record<string, Nation> = {
+  England: "eng",
+  Scotland: "sco",
+  Wales: "wal",
+  "Northern Ireland": "ni",
+};
+
 export type Council = { name: string; slug: string; homepage?: string };
+export type Place = { council: Council | null; nation: Nation | null };
 
-const cache = new Lru<Council | null>(5000, 24 * 60 * 60 * 1000);
-const inflight = new Map<string, Promise<Council | null>>();
+const cache = new Lru<Place>(5000, 24 * 60 * 60 * 1000);
+const inflight = new Map<string, Promise<Place>>();
 
-export async function councilFor(
-  postcode: string,
-): Promise<{ council: Council | null; cached: boolean }> {
+async function getJson(url: string): Promise<unknown> {
+  const res = await fetch(url, {
+    headers: { Accept: "application/json", "User-Agent": UA },
+    signal: AbortSignal.timeout(8000),
+  });
+  if (res.status === 404 || res.status === 400) return null;
+  if (!res.ok) throw new Error(`${res.status} ${new URL(url).host}`);
+  return res.json();
+}
+
+export async function placeFor(postcode: string): Promise<Place> {
   const pc = postcode.replace(/\s+/g, "").toUpperCase();
-  const { value, hit } = await cached(
-    cache,
-    inflight,
-    keyOf({ pc }),
-    async () => {
-      const res = await fetch(
+  const { value } = await cached(cache, inflight, keyOf({ pc }), async () => {
+    // Either source can be down; each answer stands on its own.
+    const [gov, pio] = await Promise.allSettled([
+      getJson(
         `https://www.gov.uk/api/local-authority?postcode=${encodeURIComponent(pc)}`,
-        {
-          headers: {
-            Accept: "application/json",
-            "User-Agent": "Beacon (+https://github.com/Dinesh-Sunny/beacon)",
-          },
-          signal: AbortSignal.timeout(8000),
-        },
-      );
-      if (res.status === 404 || res.status === 400) return null;
-      if (!res.ok) throw new Error(`council lookup ${res.status}`);
-      const r = Reply.parse(await res.json());
-      // A postcode split across councils comes back as a list; the person picks later, so say nothing.
-      const a = r.local_authority;
-      return a
+      ),
+      getJson(`https://api.postcodes.io/postcodes/${encodeURIComponent(pc)}`),
+    ]);
+    const a =
+      gov.status === "fulfilled"
+        ? GovUk.safeParse(gov.value).data?.local_authority
+        : undefined;
+    const country =
+      pio.status === "fulfilled"
+        ? PostcodesIo.safeParse(pio.value).data?.result?.country
+        : undefined;
+    return {
+      council: a
         ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
-        : null;
-    },
-  );
-  return { council: value, cached: hit };
+        : null,
+      nation: (country && COUNTRY[country]) || null,
+    };
+  });
+  return value;
 }

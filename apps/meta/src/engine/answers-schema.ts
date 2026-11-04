@@ -43,11 +43,15 @@ export const AnswersSchema = z
     bereaved: orUnsure(Bereaved),
     /** True when the date of birth was worked out from an age, so it reads back as an age. */
     dobApprox: z.boolean(),
+    /** The nation from a postcode lookup, for postcodes near a border; never asked. */
+    nation: z.enum(["eng", "sco", "wal", "ni"]),
   })
   .partial();
 
 export type Answers = z.infer<typeof AnswersSchema>;
-export type FactId = Exclude<keyof Answers, "dobApprox">;
-export const FACT_IDS = AnswersSchema.keyof().options.filter(
-  (k): k is FactId => k !== "dobApprox",
-);
+/** Keys that describe answers rather than being questions. */
+const META_KEYS = ["dobApprox", "nation"] as const;
+export type FactId = Exclude<keyof Answers, (typeof META_KEYS)[number]>;
+export const isFactId = (k: string): k is FactId =>
+  !(META_KEYS as readonly string[]).includes(k) && k in AnswersSchema.shape;
+export const FACT_IDS = AnswersSchema.keyof().options.filter(isFactId);

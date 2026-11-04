@@ -10,38 +10,43 @@ export interface Council {
   slug: string;
 }
 
-const known = new Map<string, Promise<Council | null>>();
+export type PlaceNation = "eng" | "sco" | "wal" | "ni";
+export interface Place {
+  council: Council | null;
+  nation: PlaceNation | null;
+}
 
-function lookup(postcode: string): Promise<Council | null> {
+const known = new Map<string, Promise<Place>>();
+const NONE: Place = { council: null, nation: null };
+
+function lookup(postcode: string): Promise<Place> {
   const key = postcode.replace(/\s+/g, "").toUpperCase();
   let p = known.get(key);
   if (!p) {
     p = fetch(`/api/council?postcode=${encodeURIComponent(key)}`)
-      .then((r) =>
-        r.ok
-          ? (r.json() as Promise<{ council: Council | null }>)
-          : { council: null },
-      )
-      .then((j) => j.council)
-      .catch(() => null);
+      .then((r) => (r.ok ? (r.json() as Promise<Place>) : NONE))
+      .catch(() => NONE);
     known.set(key, p);
   }
   return p;
 }
 
-export function useCouncil(postcode: unknown): Council | null {
-  const [council, setCouncil] = useState<Council | null>(null);
+export function usePlace(postcode: unknown): Place {
+  const [place, setPlace] = useState<Place>(NONE);
   useEffect(() => {
-    setCouncil(null);
+    setPlace(NONE);
     if (typeof postcode !== "string" || postcode === "unsure") return;
     let live = true;
-    void lookup(postcode).then((c) => live && setCouncil(c));
+    void lookup(postcode).then((p) => live && setPlace(p));
     return () => {
       live = false;
     };
   }, [postcode]);
-  return council;
+  return place;
 }
+
+export const useCouncil = (postcode: unknown): Council | null =>
+  usePlace(postcode).council;
 
 /** "London Borough of Brent" reads as "Brent" on a button. */
 export const shortCouncil = (name: string) =>

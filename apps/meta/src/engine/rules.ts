@@ -136,7 +136,8 @@ const isSet = <T>(v: T | undefined | typeof UNSURE): v is T =>
 
 export function derive(A: Answers, today = new Date()): Derived {
   const d: Derived = {};
-  if (isSet(A.postcode)) d.nation = nationOf(A.postcode);
+  // A looked-up nation wins over the postcode letters, which can be wrong near a border.
+  if (isSet(A.postcode)) d.nation = A.nation ?? nationOf(A.postcode);
   if (isSet(A.dob)) {
     const b = new Date(A.dob);
     d.age = ageOn(b, today);
@@ -190,6 +191,9 @@ export function derive(A: Answers, today = new Date()): Derived {
   if (isSet(A.debt)) d.debt = A.debt === "yes";
   return d;
 }
+
+/** The nation someone lives in: a looked-up one if there is, else from the postcode. */
+export const nationIn = (A: Answers): Nation | null => derive(A).nation ?? null;
 
 /** Plain-English facts worked out from one answer, shown under the input as you type. */
 export function derivedChips(f: FactId, d: Derived): string[] {

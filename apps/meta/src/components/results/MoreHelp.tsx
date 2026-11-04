@@ -6,7 +6,7 @@
 
 import { useMemo, useState } from "react";
 import { Icon } from "@/components/Icon";
-import { type Nation, nationOf, peopleGroups } from "@/engine/rules";
+import { type Nation, nationIn, peopleGroups } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
 interface Row {
@@ -39,8 +39,7 @@ export function MoreHelp() {
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
   const groups = useMemo(() => peopleGroups(answers), [answers]);
-  const nation: Nation | null =
-    typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const nation: Nation | null = nationIn(answers);
 
   const matches = useMemo(() => {
     if (!rows) return [];

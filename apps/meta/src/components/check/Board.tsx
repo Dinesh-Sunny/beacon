@@ -6,7 +6,7 @@
 import { useEffect } from "react";
 import { Icon } from "@/components/Icon";
 import { theyify } from "@/engine/facts";
-import { byId, howFor, nationOf } from "@/engine/rules";
+import { byId, howFor, nationIn } from "@/engine/rules";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 
 export function SchemeSheet() {
@@ -88,17 +88,7 @@ export function SchemeSheet() {
             {s.opens.map((o) => byId[o]?.name).join(", ")}.
           </p>
         ) : null}
-        <p className="hint">
-          {theyify(
-            howFor(
-              s,
-              typeof answers.postcode === "string"
-                ? nationOf(answers.postcode)
-                : null,
-            ),
-            subject,
-          )}
-        </p>
+        <p className="hint">{theyify(howFor(s, nationIn(answers)), subject)}</p>
         <a
           className="btn ghost small"
           href={s.url}

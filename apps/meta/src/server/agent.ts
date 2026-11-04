@@ -4,6 +4,7 @@ import "server-only";
 // facts to code, which validates them and runs the rules engine. Every result the person sees
 // comes from code; the model explains it in plain words.
 
+import { isFactId } from "@/engine/answers-schema";
 import type { Answers } from "@/engine/facts";
 import { FACTS } from "@/engine/facts";
 import { FACT_PATCH_JSON, FactPatch, toAnswers } from "@/engine/patch";
@@ -155,7 +156,7 @@ function runTool(
         issues: parsed.error.issues.slice(0, 3).map((i) => i.path.join(".")),
       });
     const patch = toAnswers(parsed.data);
-    const keys = Object.keys(patch).filter((k) => k !== "dobApprox");
+    const keys = Object.keys(patch).filter(isFactId);
     Object.assign(saved, patch);
     const after = { ...answers, ...saved };
     const st = evaluate(after);
@@ -246,13 +247,13 @@ export async function runAgent(
         ? `The person is checking for someone they help: "${(subject.label ?? "them").replace(/[^\w '-]/g, "")}". Talk about that person in the third person and save facts about them, not about the helper. If the chat makes clear it's for someone else, call them that.`
         : "The person may be checking for themselves or for someone they help. If they say it's for someone else, talk about that person in the third person.",
   });
-  const known = Object.keys(answers).filter((k) => k !== "dobApprox").length;
+  const known = Object.keys(answers).filter(isFactId).length;
   messages.push({
     role: "system",
     content: known
       ? `Already saved on this device: ${Object.keys(answers)
-          .filter((k) => k !== "dobApprox")
-          .map((k) => FACTS[k as keyof typeof FACTS].label)
+          .filter(isFactId)
+          .map((k) => FACTS[k].label)
           .join(", ")}. Don't ask for these again.`
       : "Nothing is saved yet.",
   });

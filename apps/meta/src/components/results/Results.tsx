@@ -14,7 +14,7 @@ import {
   howFor,
   isAuto,
   keepFor,
-  nationOf,
+  nationIn,
   SCHEMES,
   type Status,
   timingFor,
@@ -46,8 +46,7 @@ export function Results() {
   const likely = count(states, "likely");
   const check = count(states, "check");
   const unlock = count(states, "unlock");
-  const nation =
-    typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const nation = nationIn(answers);
   const order = claimOrder(states, nation);
   const warns = warnings(states, answers);
   const out = SCHEMES.filter((s) => states[s.id]?.status === "out");
@@ -301,8 +300,7 @@ function PlanStep({
       setBusy("Call coach", false);
     }
   };
-  const nation =
-    typeof answers.postcode === "string" ? nationOf(answers.postcode) : null;
+  const nation = nationIn(answers);
   const auto = isAuto(s, nation);
   const timing = timingFor(s, nation);
   // Council services go straight to this person's council page when the postcode is known.
@@ -342,15 +340,7 @@ function PlanStep({
         {status === "unlock" && <p className="hint">{states[id]?.reason}</p>}
         {(auto || s.act) && status !== "unlock" && (
           <p className="hint">
-            {theyify(
-              howFor(
-                s,
-                typeof answers.postcode === "string"
-                  ? nationOf(answers.postcode)
-                  : null,
-              ),
-              subject,
-            )}
+            {theyify(howFor(s, nationIn(answers)), subject)}
           </p>
         )}
         {timing && status !== "unlock" && (

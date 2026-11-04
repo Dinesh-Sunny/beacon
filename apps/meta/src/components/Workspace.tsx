@@ -9,6 +9,7 @@ import { ChatPanel } from "@/components/chat/ChatPanel";
 import { Activity } from "@/components/check/Activity";
 import { SchemeSheet } from "@/components/check/Board";
 import { Constellation } from "@/components/check/Constellation";
+import { PlaceSync } from "@/components/check/PlaceSync";
 import { WatchNotice } from "@/components/check/WatchNotice";
 import { DetailsPanel } from "@/components/details/DetailsPanel";
 import { Icon, Logo } from "@/components/Icon";
@@ -304,6 +305,7 @@ function Shell() {
         <div className="chat-inner">
           <ChatPanel playing={Boolean(playing)} />
           <WatchNotice />
+          <PlaceSync />
         </div>
       </aside>
 

@@ -1,6 +1,6 @@
 import { z } from "zod";
 import { POSTCODE_RE } from "@/engine/rules";
-import { councilFor } from "@/server/council";
+import { placeFor } from "@/server/council";
 import { guard } from "@/server/guard";
 import { json } from "@/server/http";
 
@@ -16,9 +16,8 @@ export async function GET(req: Request) {
   });
   if (!q.success) return json({ error: "postcode" }, 400);
   try {
-    const { council } = await councilFor(q.data.postcode);
-    return json({ council });
+    return json(await placeFor(q.data.postcode));
   } catch {
-    return json({ council: null, error: "lookup" }, 502);
+    return json({ council: null, nation: null, error: "lookup" }, 502);
   }
 }

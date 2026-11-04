@@ -86,6 +86,7 @@ interface Ctx {
   next: ReturnType<typeof plan>;
   /** Questions to ask first, from the life event someone started with. */
   setFocus: (f: FactId[]) => void;
+  refine: (patch: Pick<Answers, "nation">) => void;
   log: LogItem[];
   changed: string[];
   selected: string | null;
@@ -195,6 +196,9 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     const before = evaluate(prev);
     const after: Answers = { ...prev, ...patch };
     if (patch.dob !== undefined && !patch.dobApprox) delete after.dobApprox;
+    // A new postcode needs a new lookup before its nation can be trusted.
+    if (patch.postcode !== undefined && patch.nation === undefined)
+      delete after.nation;
     const st = evaluate(after);
     const d = derive(after);
     const items: Omit<LogItem, "id">[] = [];
@@ -301,10 +305,19 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     save(copy);
   }, [hist]);
 
+  /** Sets what a lookup worked out (like the nation for a border postcode), without a log entry. */
+  const refine = useCallback((patch: Pick<Answers, "nation">) => {
+    const copy = { ...ansRef.current, ...patch };
+    ansRef.current = copy;
+    setAnswers(copy);
+    save(copy);
+  }, []);
+
   const forget = useCallback(
     (f: FactId) => {
       const copy = { ...ansRef.current };
       delete copy[f];
+      if (f === "postcode") delete copy.nation;
       ansRef.current = copy;
       setAnswers(copy);
       setSources((src) => {
@@ -376,6 +389,7 @@ export function CheckProvider({ children }: { children: ReactNode }) {
     announcement,
     announce,
     setFocus,
+    refine,
   };
   return <CheckCtx.Provider value={value}>{children}</CheckCtx.Provider>;
 }
