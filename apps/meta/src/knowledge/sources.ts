@@ -8,6 +8,8 @@ import { createHash } from "node:crypto";
 import { mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 
+export type FetchLike = (url: string, init?: RequestInit) => Promise<Response>;
+
 export interface SourceEntry {
   hash: string;
   file: string;
@@ -58,7 +60,7 @@ export const htmlToText = (html: string): string =>
     .trim();
 
 /** GOV.UK pages come from the Content API as structured JSON; other sites as the page's main text. */
-export async function fetchSource(url: string, fetchFn: typeof fetch = fetch): Promise<{ text: string; updated: string | null; title: string | null }> {
+export async function fetchSource(url: string, fetchFn: FetchLike = fetch): Promise<{ text: string; updated: string | null; title: string | null }> {
   const u = new URL(url);
   if (u.hostname === "www.gov.uk" && !u.pathname.startsWith("/government/")) {
     const base = u.pathname.split("/").slice(0, 2).join("/");
@@ -100,7 +102,7 @@ async function readIndex(file: string): Promise<SourceIndex> {
  * Saves each page into `dir`. By default only pages not stored yet are fetched, so nothing is
  * downloaded twice; `refresh` re-fetches everything (the daily watch) and reports real changes.
  */
-export async function snapshot(urls: string[], opts: { dir: string; refresh?: boolean; today?: string; fetchFn?: typeof fetch }): Promise<SnapshotResult> {
+export async function snapshot(urls: string[], opts: { dir: string; refresh?: boolean; today?: string; fetchFn?: FetchLike }): Promise<SnapshotResult> {
   const { dir, refresh = false, fetchFn = fetch } = opts;
   const today = opts.today ?? new Date().toISOString().slice(0, 10);
   const indexFile = path.join(dir, "index.json");
