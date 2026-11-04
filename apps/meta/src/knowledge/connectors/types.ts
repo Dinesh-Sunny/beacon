@@ -6,6 +6,8 @@ export interface HarvestContext {
   log: (line: string) => void;
   /** Writes a JSON file under catalog/harvest/. */
   save: (file: string, data: unknown) => Promise<void>;
+  /** Keeps a raw download gzipped under catalog/harvest/raw/, so later builds never re-download it. */
+  saveRaw: (file: string, text: string) => Promise<void>;
   /** Keeps a text copy of each page in catalog/sources/, skipping pages already kept. */
   store: (urls: string[]) => Promise<SnapshotResult>;
 }

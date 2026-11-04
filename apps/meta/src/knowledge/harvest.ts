@@ -3,6 +3,7 @@
 
 import { mkdir, writeFile } from "node:fs/promises";
 import path from "node:path";
+import { gzipSync } from "node:zlib";
 import { CONNECTORS } from "./connectors/index.ts";
 import { createFetcher } from "./fetcher.ts";
 import { snapshot } from "./sources.ts";
@@ -59,6 +60,10 @@ export async function harvest(
         },
         save: (file, data) =>
           writeFile(path.join(dir, file), `${JSON.stringify(data, null, 1)}\n`),
+        saveRaw: async (file, text) => {
+          await mkdir(path.join(dir, "raw"), { recursive: true });
+          await writeFile(path.join(dir, "raw", `${file}.gz`), gzipSync(text));
+        },
         store: (urls) =>
           snapshot(urls, {
             dir: path.join(root, "catalog/sources"),
