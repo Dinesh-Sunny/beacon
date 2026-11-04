@@ -71,12 +71,20 @@ function readDraft(f: FactId, x: Draft, today = new Date()): Read {
   return { empty: true };
 }
 
-export function QuestionCard() {
-  const { current, answers, asked, apply, states, editing, edit, skip, skipped, subject } = useCheck();
+export function QuestionCard({
+  f,
+  onAnswer,
+  inChat,
+}: {
+  f: FactId;
+  onAnswer?: (f: FactId, v: Answers[FactId]) => void;
+  inChat?: boolean;
+}) {
+  const { answers, asked, apply, states, edit, skip, skipped, subject } = useCheck();
+  const editing = !inChat;
   const [draft, setDraft] = useState<Draft>({});
   const [err, setErr] = useState("");
   const body = useRef<HTMLDivElement>(null);
-  const f = current;
 
   // biome-ignore lint/correctness/useExhaustiveDependencies: reset when the question changes
   useEffect(() => {
@@ -85,7 +93,6 @@ export function QuestionCard() {
     body.current?.querySelector<HTMLElement>("input, button")?.focus({ preventScroll: true });
   }, [f]);
 
-  if (!f) return null;
   const fact = FACTS[f];
   const hits = SCHEMES.filter((s) =>
     editing ? s.rule.some((r) => r.needs.includes(f)) : states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f),
@@ -96,11 +103,12 @@ export function QuestionCard() {
   };
   const r = readDraft(f, draft);
   const preview = "v" in r ? derivedChips(f, derive({ ...answers, [f]: r.v })) : [];
+  const save = (v: Answers[FactId]) => (onAnswer ? onAnswer(f, v) : apply({ [f]: v }, "form"));
   const submit = (value?: Answers[FactId]) => {
-    if (value !== undefined) return apply({ [f]: value }, "form");
+    if (value !== undefined) return save(value);
     if ("err" in r) return setErr(r.err);
     if ("empty" in r) return setErr(emptyHint(fact.type));
-    apply({ [f]: r.v }, "form");
+    save(r.v);
   };
   const onKey = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" && (e.target as HTMLElement).tagName === "INPUT") {
@@ -112,18 +120,18 @@ export function QuestionCard() {
   const canSkip = !editing && !skipped.includes(f);
 
   return (
-    <section className="qcard" aria-labelledby="q-title" data-testid="question" data-fact={f}>
+    <section className={`qcard${inChat ? " in-chat" : ""}`} aria-labelledby={inChat ? "q-chat" : "q-title"} data-testid={inChat ? "chat-question" : "question"} data-fact={f}>
       <div className="qtop">
-        <span className="qstep">{editing ? "Change an answer" : `Question ${asked + 1}`}</span>
+        <span className="qstep">{editing ? (answers[f] === undefined ? "Answer here" : "Change an answer") : `Question ${asked + 1}`}</span>
         <span className="unlocks" data-testid="unlocks">
           <Icon name="search" size={14} /> Checks {hits.length} {hits.length === 1 ? "scheme" : "schemes"}
         </span>
       </div>
-      <h2 id="q-title">{ask(f, subject)}</h2>
+      <h2 id={inChat ? "q-chat" : "q-title"}>{ask(f, subject)}</h2>
       <p className="why">{fact.why}</p>
 
       <div ref={body} onKeyDown={onKey} className="qbody">
-        <Input f={f} draft={draft} set={set} submit={submit} />
+        <Input f={f} idp={inChat ? "c" : "d"} draft={draft} set={set} submit={submit} />
       </div>
 
       {!instant && (
@@ -165,11 +173,13 @@ function emptyHint(t: string): string {
 
 function Input({
   f,
+  idp,
   draft,
   set,
   submit,
 }: {
   f: FactId;
+  idp: string;
   draft: Draft;
   set: (p: Draft) => void;
   submit: (v?: Answers[FactId]) => void;
@@ -180,9 +190,9 @@ function Input({
     case "postcode":
       return (
         <div className="field">
-          <label htmlFor="in-pc">Postcode</label>
+          <label htmlFor={`${idp}-pc`}>Postcode</label>
           <input
-            id="in-pc"
+            id={`${idp}-pc`}
             className="txt"
             style={{ maxWidth: "12ch", textTransform: "uppercase" }}
             autoComplete="postal-code"
@@ -211,9 +221,9 @@ function Input({
               ] as const
             ).map(([k, label, len]) => (
               <div key={k} className={`field${k === "y" ? " y" : ""}`}>
-                <label htmlFor={`in-${k}`}>{label}</label>
+                <label htmlFor={`${idp}-${k}`}>{label}</label>
                 <input
-                  id={`in-${k}`}
+                  id={`${idp}-${k}`}
                   className="txt"
                   inputMode="numeric"
                   maxLength={len}
@@ -222,7 +232,7 @@ function Input({
                     const v = e.target.value.replace(/\D/g, "");
                     set({ [k]: v });
                     if (v.length === len && k !== "y")
-                      document.getElementById(k === "d" ? "in-m" : "in-y")?.focus();
+                      document.getElementById(`${idp}-${k === "d" ? "m" : "y"}`)?.focus();
                   }}
                 />
               </div>
@@ -235,11 +245,11 @@ function Input({
       return (
         <>
           <div className="field">
-            <label htmlFor="in-amt">{fact.type === "moneyPeriod" ? "Amount after tax" : "Amount"}</label>
+            <label htmlFor={`${idp}-amt`}>{fact.type === "moneyPeriod" ? "Amount after tax" : "Amount"}</label>
             <div className="money">
               <span>£</span>
               <input
-                id="in-amt"
+                id={`${idp}-amt`}
                 className="txt"
                 inputMode="decimal"
                 value={draft.amt ?? ""}
@@ -309,14 +319,14 @@ function Input({
             ))}
           </div>
           {draft.status === "employed" && (
-            <Stepper id="in-hours" label="Hours a week" value={draft.hours ?? ""} step={1} onChange={(v) => set({ hours: v })} />
+            <Stepper id={`${idp}-hours`} label="Hours a week" value={draft.hours ?? ""} step={1} onChange={(v) => set({ hours: v })} />
           )}
         </>
       );
     case "hours":
       return (
         <>
-          <Stepper id="in-h" label="Hours a week" value={draft.h ?? "0"} step={5} onChange={(v) => set({ h: v })} />
+          <Stepper id={`${idp}-h`} label="Hours a week" value={draft.h ?? "0"} step={5} onChange={(v) => set({ h: v })} />
           <p className="hint">Count time on call too.</p>
         </>
       );

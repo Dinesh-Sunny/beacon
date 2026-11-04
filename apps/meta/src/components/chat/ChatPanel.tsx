@@ -5,8 +5,9 @@
 
 import { useCallback, useEffect, useRef, useState } from "react";
 import { Icon, Logo } from "@/components/Icon";
-import type { Answers } from "@/engine/facts";
-import { FACTS, type FactId, formatAnswer } from "@/engine/facts";
+import { type Answers, ask, FACTS, type FactId, formatAnswer } from "@/engine/facts";
+import { count, evaluate, SCHEMES } from "@/engine/rules";
+import { QuestionCard } from "@/components/check/QuestionCard";
 import { useCheck } from "@/lib/check-store";
 import { shrink } from "@/lib/image";
 import { Composer } from "./Composer";
@@ -22,6 +23,7 @@ export interface Msg {
   agent?: string;
   error?: boolean;
   via?: "voice";
+  qa?: { q: string; a: string };
   letter?: LetterView;
 }
 
@@ -36,12 +38,6 @@ export interface LetterView {
   action: string | null;
   deadlines: { what: string; date: string | null }[];
 }
-
-const STARTERS = [
-  "My mum is 78, lives alone in Wembley and gets her State Pension",
-  "I care for my brother about 50 hours a week",
-  "We've just had a baby and I work part time",
-];
 
 const ERRORS: Record<string, string> = {
   offline: "My reading tools are resting right now. The questions on the right still work, and every answer counts.",
@@ -58,7 +54,7 @@ const nextId = () => {
 };
 
 export function ChatPanel() {
-  const { answers, apply, note, setBusy, subject, setSubject } = useCheck();
+  const { answers, apply, note, setBusy, subject, setSubject, next } = useCheck();
   const subjectRef = useRef(subject);
   subjectRef.current = subject;
   const [msgs, setMsgs] = useState<Msg[]>([]);
@@ -70,7 +66,7 @@ export function ChatPanel() {
   // biome-ignore lint/correctness/useExhaustiveDependencies: scroll on new messages
   useEffect(() => {
     end.current?.scrollIntoView({ block: "end", behavior: "smooth" });
-  }, [msgs.length, working]);
+  }, [msgs.length, working, next?.f]);
 
   const push = useCallback((m: Omit<Msg, "id">) => setMsgs((list) => [...list, { ...m, id: nextId() }]), []);
 
@@ -206,6 +202,25 @@ export function ChatPanel() {
     [apply, note, push, setBusy],
   );
 
+  // Answers given on the question card in the chat read back as a chat turn.
+  const onAnswer = useCallback(
+    (f: FactId, v: Answers[FactId]) => {
+      const before = evaluate(answersRef.current);
+      const after = evaluate({ ...answersRef.current, [f]: v });
+      apply({ [f]: v }, "form");
+      push({ role: "user", text: formatAnswer(f, v), qa: { q: ask(f, subjectRef.current), a: formatAnswer(f, v) } });
+      const gained = SCHEMES.filter((s) => after[s.id]?.status === "likely" && before[s.id]?.status !== "likely").map((s) => s.name);
+      push({
+        role: "bot",
+        text: "",
+        notes: [
+          `Saved. Checked ${SCHEMES.length} schemes: ${count(after, "likely")} likely${gained.length ? `, new: ${gained.join(", ")}` : ""}.`,
+        ],
+      });
+    },
+    [apply, push],
+  );
+
   // A first message typed on the home page arrives here once.
   useEffect(() => {
     try {
@@ -225,14 +240,17 @@ export function ChatPanel() {
         <div className="msg bot welcome">
           <Logo size={30} />
           <p className="bubble plain">
-            Hi, I'm Beacon. Tell me a little about your life, or the life of someone you look after, and I'll find the support
-            that's already yours.
+            Hi, I'm Beacon. I'll find the support that's already yours, or yours to claim for someone you look after.
           </p>
-          <p className="hint">Type, speak, or add a photo of a letter. It all stays on this device.</p>
+          <p className="bubble plain">
+            Tell me about your situation in your own words, or answer my questions one at a time. You can type, speak or add a photo
+            of a letter.
+          </p>
         </div>
         {msgs.map((m) => (
           <Message key={m.id} m={m} />
         ))}
+        {!working && next && <QuestionCard key={next.f} f={next.f} onAnswer={onAnswer} inChat />}
         {working && (
           <div className="working" role="status">
             <Logo size={16} /> {working}
@@ -245,15 +263,6 @@ export function ChatPanel() {
         )}
         <div ref={end} />
       </div>
-      {msgs.length === 0 && !working && (
-        <div className="suggest" aria-label="Try saying">
-          {STARTERS.map((s) => (
-            <button key={s} type="button" onClick={() => void send(s)}>
-              {s}
-            </button>
-          ))}
-        </div>
-      )}
       <Composer onSend={(t) => void send(t)} onVoice={(w) => void onVoice(w)} onPhoto={(f) => void onPhoto(f)} busy={Boolean(working)} />
     </>
   );
@@ -267,7 +276,16 @@ function Message({ m }: { m: Msg }) {
     return (
       <div className="msg me">
         {m.image && <img className="thumb" src={m.image} alt="Your letter" />}
-        <div className="bubble">{m.text}</div>
+        <div className="bubble">
+          {m.qa ? (
+            <>
+              <span className="qa-q">{m.qa.q}</span>
+              {m.qa.a}
+            </>
+          ) : (
+            m.text
+          )}
+        </div>
         {m.via === "voice" && (
           <span className="who">
             <Icon name="mic" size={12} /> Said aloud
@@ -292,8 +310,8 @@ function Message({ m }: { m: Msg }) {
         </div>
       )}
       {m.letter && <LetterCard l={m.letter} />}
-      <p className="bubble plain">{m.text}</p>
-      {!m.error && (
+      {m.text && <p className="bubble plain">{m.text}</p>}
+      {!m.error && m.text && (
         <div className="msg-actions">
           <button type="button" className="iconbtn sm" aria-label="Helpful" aria-pressed={rated === "up"} onClick={() => setRated("up")}>
             <Icon name="thumbup" size={16} />

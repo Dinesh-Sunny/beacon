@@ -29,15 +29,24 @@ export function Workspace() {
 
 function Shell() {
   const [chat, setChat] = useState<ChatMode>("open");
-  const [details, setDetails] = useState(true);
-  const [view, setView] = useState<MobileView>("details");
+  const [details, setDetails] = useState(false);
+  const [view, setView] = useState<MobileView>("chat");
   const { reset, hydrated, next, apply, asked, editing, subject } = useCheck();
   const [playing, setPlaying] = useState<Example | null>(null);
   const [menu, setMenu] = useState(false);
 
+
+  // Deep link: /check#example=margaret plays that example.
+  // biome-ignore lint/correctness/useExhaustiveDependencies: run once after answers load
   useEffect(() => {
-    if (window.matchMedia("(max-width: 1200px)").matches) setChat("hidden");
-  }, []);
+    if (!hydrated) return;
+    const m = /example=(\w+)/.exec(window.location.hash);
+    const ex = EXAMPLES.find((e) => e.id === m?.[1]);
+    if (ex) {
+      history.replaceState(null, "", "/check");
+      play(ex);
+    }
+  }, [hydrated]);
   useEffect(() => {
     if (editing) {
       setDetails(true);

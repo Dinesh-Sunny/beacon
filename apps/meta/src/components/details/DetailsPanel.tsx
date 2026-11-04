@@ -7,7 +7,7 @@
 import { useState } from "react";
 import { QuestionCard } from "@/components/check/QuestionCard";
 import { Icon } from "@/components/Icon";
-import { type Answers, FACTS, type FactId, formatAnswer, ORDER } from "@/engine/facts";
+import { type Answers, ask, FACTS, type FactId, formatAnswer, ORDER } from "@/engine/facts";
 import { byId, count, SCHEMES } from "@/engine/rules";
 import { type Source, useCheck } from "@/lib/check-store";
 
@@ -29,7 +29,7 @@ const FROM: Record<Source, string> = {
 
 export function DetailsPanel({ onClose }: { onClose: () => void }) {
   const [tab, setTab] = useState<"fill" | "see">("fill");
-  const { answers, states, current, edit, subject } = useCheck();
+  const { answers, states, current, edit, subject, editing } = useCheck();
   const [picking, setPicking] = useState(false);
   const saved = ORDER.filter((f) => answers[f] !== undefined).length;
   const open = count(states, "open");
@@ -51,7 +51,7 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
           See details
         </button>
         <button type="button" role="tab" aria-selected={tab === "fill"} onClick={() => setTab("fill")} data-testid="tab-fill">
-          Fill in
+          All questions
         </button>
       </div>
       <div className="details-body">
@@ -78,8 +78,8 @@ export function DetailsPanel({ onClose }: { onClose: () => void }) {
         </div>
         {tab === "fill" ? (
           <>
-            {current ? <QuestionCard /> : <AllSet />}
-            <Answered answers={answers} onChange={change} />
+            {editing ? <QuestionCard key={editing} f={editing} /> : current ? null : <AllSet />}
+            <AllQuestions onPick={change} />
             <Locked />
           </>
         ) : (
@@ -146,25 +146,27 @@ function AllSet() {
   );
 }
 
-function Answered({ answers, onChange }: { answers: Answers; onChange: (f: FactId) => void }) {
-  const { editing } = useCheck();
-  const list = ORDER.filter((f) => answers[f] !== undefined && f !== editing);
-  if (!list.length) return null;
+function AllQuestions({ onPick }: { onPick: (f: FactId) => void }) {
+  const { answers, editing, states, subject } = useCheck();
   return (
     <div className="answered">
-      <span className="eyebrow">Your answers</span>
-      {list.map((f) => (
-        <div key={f} className="ans">
-          <Icon name="check" size={16} />
-          <div>
-            <span className="hint">{FACTS[f].label}</span>
-            <b>{formatAnswer(f, answers[f])}</b>
+      <span className="hint">Answer in the chat, or pick any question here.</span>
+      {ORDER.filter((f) => f !== editing).map((f) => {
+        const done = answers[f] !== undefined;
+        const opens = SCHEMES.filter((s) => states[s.id]?.status === "open" && states[s.id]?.unknown.includes(f)).length;
+        return (
+          <div key={f} className={`ans${done ? "" : " todo"}`}>
+            <Icon name={done ? "check" : "dots"} size={16} />
+            <div>
+              <span className="hint">{done ? FACTS[f].label : ask(f, subject)}</span>
+              {done ? <b>{formatAnswer(f, answers[f])}</b> : opens ? <span className="opens">Checks {opens} {opens === 1 ? "scheme" : "schemes"}</span> : null}
+            </div>
+            <button type="button" className="linkbtn" onClick={() => onPick(f)} aria-label={`${done ? "Change" : "Answer"} ${FACTS[f].label}`}>
+              {done ? "Change" : "Answer"}
+            </button>
           </div>
-          <button type="button" className="linkbtn" onClick={() => onChange(f)} aria-label={`Change ${FACTS[f].label}`}>
-            Change
-          </button>
-        </div>
-      ))}
+        );
+      })}
     </div>
   );
 }
