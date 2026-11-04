@@ -1,0 +1,289 @@
+{
+  "header": {
+    "home": "Hafan Beacon",
+    "showChat": "Dangos y sgwrs",
+    "fullView": "Golwg lawn",
+    "hideChat": "Cuddio'r sgwrs",
+    "yourCheck": "Eich gwiriad",
+    "checkFor": "Gwiriad ar gyfer {name}",
+    "exampleOf": "Enghraifft {name}",
+    "exitFull": "Gadael y golwg lawn",
+    "example": "Enghraifft",
+    "stop": "Stopio",
+    "exampleReplaces": "Mae enghraifft yn cymryd lle'r atebion ar y ddyfais hon.",
+    "startAgain": "Dechrau eto",
+    "startAgainAsk": "Dechrau eto? Bydd hyn yn clirio pob ateb ar y ddyfais hon.",
+    "keepAnswers": "Cadw fy atebion",
+    "details": "Manylion",
+    "chat": "Sgwrs",
+    "results": "Canlyniadau",
+    "views": "Golygfeydd",
+    "chatWith": "Sgwrsio gyda Beacon",
+    "checked": "{done} o {total} wedi'u gwirio",
+    "checkedLabel": "Mathau o help wedi'u gwirio"
+  },
+  "lang": {
+    "button": "Iaith: {name}",
+    "menu": "Dewiswch iaith",
+    "checked": "Wedi'i wirio gan berson",
+    "machine": "Cyfieithiad peiriant - helpwch ni i'w wirio",
+    "suggestTitle": "Darllen Beacon yn eich iaith chi: {name}?",
+    "suggestYes": "Ie, {name}",
+    "keepEnglish": "Aros yn Saesneg (English)",
+    "suggestWhy": "Wedi'i awgrymu o osodiad iaith eich porwr - byth o ble rydych chi.",
+    "switched": "Iaith Beacon nawr: {name}. Gallwch ei newid unrhyw bryd gyda botwm y glôb ar y brig.",
+    "back": "Yn ôl i'r Saesneg (English)",
+    "official": "Mae enwau a rheolau swyddogol yn aros yn Saesneg, fel mae'r sefydliad yn eu hysgrifennu."
+  },
+  "place": {
+    "chip": "Gwlad: {country}",
+    "step": "Eich lle - cam {n} o {total}",
+    "suggest": "Mae'n edrych fel mai {country} yw eich gwlad (o iaith eich porwr). Ydy hynny'n iawn?",
+    "never": "Dim ond eich gwlad ac ardal eich cyngor rydyn ni'n eu defnyddio - byth eich cyfeiriad.",
+    "yes": "Ydy, mae hynny'n iawn",
+    "other": "Dewis gwlad arall",
+    "which": "Ym mha wlad ydych chi?",
+    "search": "Chwilio am eich gwlad",
+    "withPack": "Gwledydd lle mae Beacon yn gwirio'r rheolau",
+    "others": "Gwledydd eraill",
+    "noneTitle": "Dyw Beacon ddim yn gwirio rheolau {country} eto",
+    "noneBody": "Dim ond rheolau {covered} mae Beacon yn eu gwybod heddiw. Fyddai'r canlyniadau ddim yn addas ar gyfer {country}, felly wnawn ni ddim dyfalu.",
+    "useUk": "Gwirio rheolau'r DU beth bynnag",
+    "back": "Dewis eto",
+    "close": "Cau",
+    "packBadge": "Pecyn rheolau",
+    "packLine": "Rheolau wedi'u darllen o'r tudalennau swyddogol. Gall Beacon ddweud \"Tebygol\".",
+    "noneBadge": "Dim eto",
+    "noneLine": "Dim rheolau ar gyfer y wlad hon eto.",
+    "confirm": "Defnyddio {country}",
+    "ukPlace": "Mae eich cod post yn dweud wrth Beacon eich cenedl a'ch cyngor."
+  },
+  "first": {
+    "you": "Chi, neu rywun rydych chi'n gofalu amdano",
+    "givers": "Llywodraeth, cynghorau, GIG, elusennau",
+    "mapLabel": "Chi ar un ochr, pawb sy'n rhoi help ar yr ochr arall, a Beacon yn cysylltu'r ddau.",
+    "headline": "{names}, a {more} arall",
+    "lead": "Wrth i chi ateb, bydd yr help a allai fod yn eiddo i chi yn ymddangos yma, gyda'r rheol swyddogol y tu ôl iddo.",
+    "example": "Gweld enghraifft",
+    "stillPossible": "{live} o {total} yn dal yn bosibl"
+  },
+  "chat": {
+    "hello": "Helo, Beacon ydw i. Rydw i'n gwirio pa help y gallech fod yn ei golli, i chi neu i rywun rydych chi'n gofalu amdano.",
+    "howTo": "Dywedwch wrtha i beth sy'n digwydd yn eich geiriau eich hun, neu atebwch y cwestiynau isod. Gallwch hefyd siarad, neu ychwanegu llun o lythyr.",
+    "startFrom": "Neu dechreuwch o beth sydd wedi newid",
+    "placeholder": "Neu dywedwch wrth Beacon yn eich geiriau eich hun",
+    "placeholderAfter": "Dywedwch wrth Beacon am eich sefyllfa",
+    "add": "Ychwanegu",
+    "send": "Anfon",
+    "speak": "Siarad",
+    "saved": "Wedi'i gadw. {progress}.",
+    "savedNew": "Wedi'i gadw. {progress}. Newydd: {names}.",
+    "likelySoFar": "{count, plural, zero {Dim un yn edrych yn debygol hyd yn hyn} one {# yn edrych yn debygol hyd yn hyn} two {# yn edrych yn debygol hyd yn hyn} few {# yn edrych yn debygol hyd yn hyn} many {# yn edrych yn debygol hyd yn hyn} other {# yn edrych yn debygol hyd yn hyn}}",
+    "checkSoFar": "{count} yn werth eu gwirio hyd yn hyn",
+    "appearAsYouAnswer": "Mae canlyniadau'n ymddangos wrth i chi ateb",
+    "nothingYet": "Does dim byd yn cyfateb eto",
+    "examplePlay": "Dyma enghraifft ddychmygol: {name}. {line} Gwyliwch y canlyniadau'n goleuo wrth i bob ateb fynd i mewn.",
+    "exampleDone": "Dyna bob ateb sy'n bwysig i'r enghraifft hon. Rhowch gynnig ar eich un chi pryd bynnag rydych chi'n barod, neu gofynnwch unrhyw beth i mi am y canlyniadau hyn.",
+    "shared": "Cafodd y gwiriad hwn ei rannu gyda chi. Newidiwch unrhyw beth yn Manylion, ac mae'n aros ar y ddyfais hon."
+  },
+  "events": {
+    "job": "Wedi colli swydd neu oriau",
+    "baby": "Yn disgwyl babi neu wedi cael babi",
+    "death": "Mae rhywun agos wedi marw",
+    "health": "Cyflwr iechyd",
+    "caring": "Gofalu am rywun",
+    "money": "Mae arian yn brin"
+  },
+  "q": {
+    "answerHere": "Atebwch yma",
+    "change": "Newid ateb",
+    "unsure": "Dydw i ddim yn siŵr",
+    "save": "Cadw a pharhau",
+    "cancel": "Canslo",
+    "skip": "Hepgor am nawr",
+    "postcode": "Cod post",
+    "month": "Mis",
+    "year": "Blwyddyn",
+    "notSure": "Ddim yn siŵr",
+    "noChildren": "Dim plant",
+    "amount": "Swm",
+    "amountAfterTax": "Swm ar ôl treth",
+    "howOften": "Pa mor aml",
+    "per": "{per, select, week {yr wythnos} month {y mis} year {y flwyddyn} other {}}",
+    "workSituation": "Sefyllfa waith",
+    "employed": "Cyflogedig",
+    "self": "Hunangyflogedig",
+    "none": "Ddim yn gweithio",
+    "sick": "I ffwrdd yn sâl",
+    "hoursWeek": "Oriau'r wythnos",
+    "onCall": "Cyfrifwch amser ar alwad hefyd.",
+    "yes": "Ie",
+    "no": "Na",
+    "fewer": "{n} yn llai",
+    "more": "{n} yn fwy",
+    "errFit": "Dyw'r ateb yna ddim yn ffitio. Rhowch gynnig arall arni.",
+    "errPostcode": "Rhowch gynnig ar y cod post llawn, fel HA9 0WS",
+    "errYear": "Rhowch gynnig ar flwyddyn, fel 1948",
+    "errFuture": "Mae hynny eto i ddod. Rhowch gynnig ar fis sydd wedi bod.",
+    "errAmount": "Rhowch gynnig ar swm mewn punnoedd, fel 4000",
+    "errHours": "Faint o oriau'r wythnos, yn fras?",
+    "errHoursRange": "Rhowch nifer o oriau rhwng 0 a 168",
+    "emptyChecklist": "Ticiwch unrhyw rai sy'n addas, neu 'Dim un o'r rhain'",
+    "emptyWork": "Dewiswch yr un sy'n addas orau",
+    "emptyOther": "Ychwanegwch ateb, neu dewiswch 'Dydw i ddim yn siŵr'"
+  },
+  "chips": {
+    "livesIn": "Gwlad: {nation}",
+    "age": "Oed {age}",
+    "spa": "Oed State Pension: {age}",
+    "pensionAge": "Wedi cyrraedd oed pensiwn",
+    "workingAge": "Oed gweithio",
+    "perWeek": "£{amount} yr wythnos",
+    "noHelp": "Dim angen help bob dydd",
+    "dailyHelp": "Help gyda bywyd bob dydd",
+    "careHelp": "Help gyda gofal personol",
+    "opens": "Yn agor help cysylltiedig",
+    "noLinked": "Dim help cysylltiedig eto",
+    "lowWork": "Llai na 16 awr neu ddim yn gweithio",
+    "fullWork": "16 awr neu fwy",
+    "noChildren": "Dim plant",
+    "youngest": "Oed yr ieuengaf: {age}",
+    "care35": "35 awr neu fwy",
+    "careUnder": "Llai na 35 awr"
+  },
+  "nations": {
+    "eng": "Lloegr",
+    "sco": "Yr Alban",
+    "wal": "Cymru",
+    "ni": "Gogledd Iwerddon"
+  },
+  "facts": {
+    "postcode": {
+      "q": "Beth yw eich cod post?",
+      "qThey": "Beth yw cod post {n}?",
+      "why": "Mae eich cenedl a'ch cyngor yn penderfynu llawer o gynlluniau.",
+      "label": "Cod post"
+    },
+    "dob": {
+      "q": "Pryd cawsoch chi eich geni?",
+      "qThey": "Beth yw mis a blwyddyn geni {n}?",
+      "why": "Mae mis a blwyddyn yn ddigon. Mae oed yn penderfynu llawer, fel oed State Pension.",
+      "label": "Ganwyd"
+    },
+    "benefits": {
+      "q": "Pa rai o'r rhain ydych chi'n eu cael yn barod?",
+      "qThey": "Pa rai o'r rhain mae {n} yn eu cael yn barod?",
+      "why": "Mae rhywfaint o help yn agor y drws i fwy o help.",
+      "label": "Yn cael yn barod",
+      "opts": {
+        "uc": "Universal Credit",
+        "pc": "Pension Credit",
+        "pip": "PIP neu Attendance Allowance",
+        "cb": "Child Benefit"
+      },
+      "none": "Dim un o'r rhain"
+    },
+    "income": {
+      "q": "Faint o arian sy'n dod i mewn i'ch cartref?",
+      "qThey": "Faint o arian sy'n dod i mewn i gartref {n}?",
+      "why": "Cynhwyswch gyflogau, pensiynau a budd-daliadau, ar ôl treth.",
+      "label": "Incwm"
+    },
+    "savings": {
+      "q": "Faint sydd gennych chi mewn cynilion?",
+      "qThey": "Faint sydd gan {n} mewn cynilion?",
+      "why": "Mae terfyn cynilion ar rywfaint o help, yn aml £16,000.",
+      "label": "Cynilion"
+    },
+    "difficulties": {
+      "q": "Oherwydd cyflwr iechyd, beth sy'n teimlo'n anodd o ddydd i ddydd?",
+      "qThey": "Oherwydd cyflwr iechyd, beth mae {n} yn ei gael yn anodd o ddydd i ddydd?",
+      "why": "Mae hyn yn agor taliadau anabledd a help i fynd o gwmpas.",
+      "label": "Help o ddydd i ddydd",
+      "opts": {
+        "wash": "Ymolchi, gwisgo neu ddefnyddio'r toiled",
+        "night": "Bod yn ddiogel ar eich pen eich hun, ddydd neu nos",
+        "cook": "Coginio neu reoli meddyginiaethau",
+        "move": "Cerdded neu fynd o gwmpas"
+      },
+      "none": "Dim un o'r rhain"
+    },
+    "work": {
+      "q": "Beth yw eich sefyllfa waith?",
+      "qThey": "Beth yw sefyllfa waith {n}?",
+      "why": "Mae'n penderfynu help gyda swyddi, salwch, gofalu a gofal plant.",
+      "label": "Gwaith"
+    },
+    "ni": {
+      "q": "Ydych chi wedi talu National Insurance yn y 2 i 3 blynedd diwethaf?",
+      "qThey": "Ydy {n} wedi talu National Insurance yn y 2 i 3 blynedd diwethaf?",
+      "why": "Mae New Style JSA ac ESA yn dibynnu ar gyfraniadau, nid incwm.",
+      "label": "Wedi talu National Insurance"
+    },
+    "child": {
+      "q": "Pryd cafodd eich plentyn ieuengaf ei eni?",
+      "qThey": "Pryd cafodd plentyn ieuengaf {n} ei eni?",
+      "why": "Mae mis a blwyddyn yn ddigon. Mae help i deuluoedd yn dibynnu ar oed eich plentyn.",
+      "label": "Plentyn ieuengaf"
+    },
+    "pregnant": {
+      "q": "Oes unrhyw un yn eich cartref yn disgwyl babi?",
+      "qThey": "Oes unrhyw un yng nghartref {n} yn disgwyl babi?",
+      "why": "Mae'n agor help mamolaeth a help blynyddoedd cynnar.",
+      "label": "Yn disgwyl babi"
+    },
+    "careHours": {
+      "q": "Sawl awr yr wythnos ydych chi'n gofalu am rywun?",
+      "qThey": "Sawl awr yr wythnos mae {n} yn gofalu am rywun?",
+      "why": "Mae taliadau gofalwyr yn dechrau ar 35 awr yr wythnos.",
+      "label": "Oriau gofalu"
+    },
+    "ctax": {
+      "q": "Ydych chi'n talu treth gyngor?",
+      "qThey": "Ydy {n} yn talu treth gyngor?",
+      "why": "Gall eich cyngor ei lleihau.",
+      "label": "Yn talu treth gyngor"
+    },
+    "housing": {
+      "q": "Ble rydych chi'n byw?",
+      "qThey": "Ble mae {n} yn byw?",
+      "why": "Gall rhentu agor help gyda'r rhent.",
+      "label": "Cartref",
+      "opts": {
+        "social": "Rhentu gan y cyngor neu gymdeithas dai",
+        "private": "Rhentu'n breifat",
+        "own": "Yn berchen ar y cartref",
+        "family": "Byw gyda theulu neu ffrindiau"
+      }
+    },
+    "household": {
+      "q": "Pwy sy'n byw gyda chi?",
+      "qThey": "Pwy sy'n byw gyda {n}?",
+      "why": "Gall byw ar eich pen eich hun dynnu arian oddi ar y bil treth gyngor.",
+      "label": "Yn byw gyda",
+      "opts": {
+        "alone": "Neb",
+        "children": "Plant dan 18 yn unig",
+        "partner": "Partner",
+        "adults": "Oedolion eraill"
+      }
+    },
+    "debt": {
+      "q": "Ydych chi ar ei hôl hi gydag unrhyw filiau neu daliadau?",
+      "qThey": "Ydy {n} ar ei hôl hi gydag unrhyw filiau neu daliadau?",
+      "why": "Mae help am ddim gyda dyledion, a grantiau sy'n clirio dyledion ynni.",
+      "label": "Ar ei hôl hi gyda biliau"
+    },
+    "bereaved": {
+      "q": "Ydy rhywun agos atoch chi wedi marw yn ddiweddar?",
+      "qThey": "Ydy rhywun agos at {n} wedi marw yn ddiweddar?",
+      "why": "Mae'n agor help profedigaeth a help gyda chostau angladd.",
+      "label": "Profedigaeth",
+      "opts": {
+        "no": "Na",
+        "partner": "Fy ngŵr, fy ngwraig neu fy mhartner sifil",
+        "funeral": "Rhywun arall, ac rydw i'n talu am yr angladd"
+      }
+    }
+  }
+}

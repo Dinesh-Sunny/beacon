@@ -3653,3 +3653,10 @@ details.constellation[open] > summary::after {
 [dir="rtl"] .strip .spacer {
   margin-inline-start: auto;
 }
+.res-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 8px;
+  flex-wrap: wrap;
+}

@@ -5,6 +5,7 @@
 // opened, so the results stay calm and the page stays light.
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { type Nation, nationIn, peopleGroups } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
@@ -35,6 +36,7 @@ const KIND: Record<string, string> = {
 
 export function MoreHelp() {
   const { answers } = useCheck();
+  const t = useTranslations("results");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -77,7 +79,7 @@ export function MoreHelp() {
         data-testid="more-help"
       >
         <Icon name="search" size={16} />{" "}
-        <span id="more-h">More help to look at</span>
+        <span id="more-h">{t("moreHelp")}</span>
       </button>
       {open && rows && (
         <div className="more-body">

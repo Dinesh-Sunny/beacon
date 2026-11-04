@@ -9,8 +9,10 @@ export const COVERED: Record<string, { nations: string; coverage: Coverage }> =
     GB: { nations: "England, Scotland, Wales", coverage: "pack" },
   };
 
-// Region codes that name groups or placeholders rather than a country.
-const NOT_COUNTRIES = new Set(["EU", "EZ", "UN", "QO", "ZZ", "XA", "XB"]);
+// Region codes that name groups, territories filed under another country, or test placeholders.
+const NOT_COUNTRIES = new Set(
+  "AC CP CQ DG EA IC TA EU EZ UN QO XA XB ZZ".split(" "),
+);
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
 
 let cache: string[] | null = null;
@@ -25,7 +27,10 @@ export function countryCodes(): string[] {
   for (const a of LETTERS)
     for (const b of LETTERS) {
       const code = a + b;
-      if (!NOT_COUNTRIES.has(code) && dn.of(code)) out.push(code);
+      if (NOT_COUNTRIES.has(code) || !dn.of(code)) continue;
+      // Old aliases (UK, BU, DD...) canonicalise to today's code; keep only today's.
+      if (Intl.getCanonicalLocales(`und-${code}`)[0]?.split("-")[1] === code)
+        out.push(code);
     }
   cache = out;
   return out;

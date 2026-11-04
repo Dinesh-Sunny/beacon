@@ -5,6 +5,7 @@
 // the call scripts and Muse Image paints the banner.
 
 import { useEffect, useState } from "react";
+import { useFormatter, useLocale, useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { type Answers, theyify } from "@/engine/facts";
 import {
@@ -23,6 +24,7 @@ import {
   worthLabel,
   worthTotals,
 } from "@/engine/rules";
+import { countryName } from "@/i18n/countries";
 import { STATUS_TXT, useCheck } from "@/lib/check-store";
 import { useClaims } from "@/lib/claims";
 import { councilServiceUrl, shortCouncil, useCouncil } from "@/lib/council";
@@ -44,7 +46,21 @@ interface Prep {
 
 export function Results() {
   const { states, next, answers, subject } = useCheck();
-  const whose = subject.who === "me" ? "yours" : `${subject.label}'s`;
+  const t = useTranslations("results");
+  const tl = useTranslations("lang");
+  const locale = useLocale();
+  const fmt = useFormatter();
+  const gbp = (n: number) =>
+    fmt.number(n, {
+      style: "currency",
+      currency: "GBP",
+      maximumFractionDigits: 0,
+    });
+  const me = subject.who === "me";
+  const headline = (count: number) =>
+    me
+      ? t("headlineMe", { count })
+      : t("headlineThey", { count, name: subject.label ?? "" });
   const done = !next;
   const likely = count(states, "likely");
   const check = count(states, "check");
@@ -58,11 +74,8 @@ export function Results() {
   if (!likely && !check && !unlock) {
     return done ? (
       <section className="results empty" data-testid="results">
-        <h2>Nothing stands out right now</h2>
-        <p className="why">
-          That can change when life does. Come back after a change in work,
-          health, money or family.
-        </p>
+        <h2>{t("nothingTitle")}</h2>
+        <p className="why">{t("nothingBody")}</p>
       </section>
     ) : null;
   }
@@ -95,27 +108,27 @@ export function Results() {
   const rest = order.filter((p) => !firstIds.has(p.id));
   const groups = [
     {
-      title: "Do these first",
+      title: t("first"),
       fold: false,
       steps: ranked.slice(0, 3),
     },
     {
-      title: "Then",
+      title: t("then"),
       fold: true,
       steps: rest.filter((p) => p.status === "likely" && !autoHere(p.id)),
     },
     {
-      title: "Worth checking",
+      title: t("worth"),
       fold: true,
       steps: rest.filter((p) => p.status === "check" && !autoHere(p.id)),
     },
     {
-      title: "Comes by itself",
+      title: t("auto"),
       fold: true,
       steps: rest.filter((p) => p.status !== "unlock" && autoHere(p.id)),
     },
     {
-      title: "After the first award",
+      title: t("later"),
       fold: true,
       steps: rest.filter((p) => p.status === "unlock"),
     },
@@ -127,18 +140,20 @@ export function Results() {
     <section className="results" data-testid="results" aria-labelledby="res-h">
       <Banner done={done} likely={likely} />
       <div className="res-head">
-        <span className="eyebrow">
-          {done ? "Your results" : "Found so far"}
-        </span>
-        <h2 id="res-h">
-          {total} {total === 1 ? "thing looks" : "things look"} like {whose}
-        </h2>
+        <div className="res-top">
+          <span className="eyebrow">{done ? t("yours") : t("soFar")}</span>
+          <span className="badge-pack" title={t("coverageLine")}>
+            {t("coverage", { country: countryName("GB", locale) })}
+          </span>
+        </div>
+        <h2 id="res-h">{headline(total)}</h2>
+        {locale !== "en" && <p className="hint">{tl("official")}</p>}
         {(check > 0 || unlock > 0) && (
           <p className="why">
             {[
-              `${likely} likely`,
-              check ? `${check} worth checking` : "",
-              unlock ? `${unlock} more once a first claim is awarded` : "",
+              t("likelyN", { count: likely }),
+              check ? t("checkN", { count: check }) : "",
+              unlock ? t("unlockN", { count: unlock }) : "",
             ]
               .filter(Boolean)
               .join(", ")}
@@ -148,46 +163,42 @@ export function Results() {
         {worth.yearly + worth.once > 0 && (
           <p className="worth" data-testid="worth">
             <b>
-              Worth up to{" "}
-              {[
-                worth.yearly
-                  ? `£${worth.yearly.toLocaleString("en-GB")} a year`
-                  : "",
-                worth.once
-                  ? `£${worth.once.toLocaleString("en-GB")} in one-off payments`
-                  : "",
-              ]
-                .filter(Boolean)
-                .join(" and ")}
+              {t("worthUpTo", {
+                amounts: [
+                  worth.yearly
+                    ? t("perYear", { amount: gbp(worth.yearly) })
+                    : "",
+                  worth.once ? t("oneOff", { amount: gbp(worth.once) }) : "",
+                ]
+                  .filter(Boolean)
+                  .join(t("and")),
+              })}
             </b>{" "}
             <span className="hint">
-              from {worth.count} {worth.count === 1 ? "result" : "results"} with
-              a published amount
+              {t("worthFrom", { count: worth.count })}
               {likely > worth.count
-                ? `, plus ${likely - worth.count} where the amount depends on ${subject.who === "me" ? "you" : "them"}`
+                ? t(me ? "worthPlusMe" : "worthPlusThey", {
+                    count: likely - worth.count,
+                  })
                 : ""}
-              . Each organisation decides the final amount.
+              {t("worthDecides")}
             </span>
           </p>
         )}
         {have.length > 0 && <Keeping schemes={haveSchemes} />}
         <ReadAloud
           lines={[
-            `${total} ${total === 1 ? "thing looks" : "things look"} like ${whose}.`,
+            `${headline(total)}.`,
             ...(worth.yearly
-              ? [
-                  `Up to ${worth.yearly.toLocaleString("en-GB")} pounds a year at the published rates.`,
-                ]
+              ? [t("readUpTo", { amount: gbp(worth.yearly) })]
               : []),
             ...order
               .filter((p) => p.status !== "unlock")
               .map(
                 (p, i) =>
-                  `${i + 1}. ${byId[p.id]?.name}. ${p.when}. ${theyify(byId[p.id]?.gives ?? "", subject)}`,
+                  `${i + 1}. ${byId[p.id]?.name}. ${whenText(t, p.when)}. ${theyify(byId[p.id]?.gives ?? "", subject)}`,
               ),
-            ...(unlock
-              ? [`And ${unlock} more once a first claim is awarded.`]
-              : []),
+            ...(unlock ? [t("readAnd", { count: unlock })] : []),
           ]}
         />
       </div>
@@ -216,9 +227,7 @@ export function Results() {
       <MoreHelp />
 
       <div className="res-foot">
-        <p className="hint">
-          The organisation that runs each one makes the final decision.
-        </p>
+        <p className="hint">{t("finalDecision")}</p>
         {done && (
           <div className="res-actions">
             <ShareCheck />
@@ -227,7 +236,7 @@ export function Results() {
               className="btn ghost small"
               onClick={() => window.print()}
             >
-              <Icon name="download" size={16} /> Save or print
+              <Icon name="download" size={16} /> {t("print")}
             </button>
           </div>
         )}
@@ -236,8 +245,13 @@ export function Results() {
       {out.length > 0 && (
         <details className="ruled-out">
           <summary>
-            {out.length} not for {subject.who === "me" ? "you" : subject.label}{" "}
-            right now <span className="hint">and why</span>
+            {me
+              ? t("outMe", { count: out.length })
+              : t("outThey", {
+                  count: out.length,
+                  name: subject.label ?? "",
+                })}{" "}
+            <span className="hint">{t("andWhy")}</span>
           </summary>
           <ul>
             {out.map((s) => (
@@ -256,27 +270,25 @@ export function Results() {
 /** What they already get, folded: open it to see what keeping each one needs (the Keep step). */
 function Keeping({ schemes }: { schemes: typeof SCHEMES }) {
   const { subject } = useCheck();
+  const t = useTranslations("results");
+  const names = schemes.map((s) => s.name).join(", ");
   const withKeep = schemes
     .map((s) => ({ s, keep: keepFor(s) }))
     .filter((x) => x.keep);
   if (!withKeep.length)
-    return (
-      <p className="hint">
-        Already getting: {schemes.map((s) => s.name).join(", ")}.
-      </p>
-    );
+    return <p className="hint">{t("already", { names })}</p>;
   return (
     <details className="keeping">
       <summary className="hint">
-        Already getting: {schemes.map((s) => s.name).join(", ")}.{" "}
-        <span className="linkbtn">How to keep it</span>
+        {t("already", { names })}{" "}
+        <span className="linkbtn">{t("howKeep")}</span>
       </summary>
       <ul>
         {withKeep.map(({ s, keep }) => (
           <li key={s.id}>
             <b>{s.name}</b> {theyify(keep?.text ?? "", subject)}{" "}
             <a href={keep?.url} target="_blank" rel="noreferrer">
-              More
+              {t("more")}
             </a>
           </li>
         ))}
@@ -287,6 +299,7 @@ function Keeping({ schemes }: { schemes: typeof SCHEMES }) {
 
 /** Clash warnings first, then the boosts; two show, the rest wait behind one quiet button. */
 function GoodToKnow({ warns }: { warns: ReturnType<typeof warnings> }) {
+  const t = useTranslations("results");
   const [all, setAll] = useState(false);
   const sorted = [...warns].sort((a, b) =>
     a.tone === b.tone ? 0 : a.tone === "warn" ? -1 : 1,
@@ -294,7 +307,7 @@ function GoodToKnow({ warns }: { warns: ReturnType<typeof warnings> }) {
   const shown = all ? sorted : sorted.slice(0, 2);
   return (
     <div className="good-to-know">
-      <span className="eyebrow">Good to know</span>
+      <span className="eyebrow">{t("goodToKnow")}</span>
       {shown.map((w) => (
         <p key={w.text} className={`gtk ${w.tone}`}>
           <Icon name={w.tone === "boost" ? "spark" : "warn"} size={16} />
@@ -308,14 +321,26 @@ function GoodToKnow({ warns }: { warns: ReturnType<typeof warnings> }) {
           onClick={() => setAll((a) => !a)}
           aria-expanded={all}
         >
-          {all
-            ? "Show fewer"
-            : `${sorted.length - 2} more ${sorted.length - 2 === 1 ? "note" : "notes"}`}
+          {all ? t("fewer") : t("moreNotes", { count: sorted.length - 2 })}
         </button>
       )}
     </div>
   );
 }
+
+/** The engine's timing words, in the reader's language. */
+const WHEN_KEY = {
+  "Start now": "startNow",
+  "This week": "thisWeek",
+  "After the first award": "afterFirst",
+} as const;
+const whenText = (
+  t: ReturnType<typeof useTranslations<"results">>,
+  when: string,
+) => {
+  const k = WHEN_KEY[when as keyof typeof WHEN_KEY];
+  return k ? t(k) : when;
+};
 
 const WHEN_TONE: Record<string, string> = {
   "Start now": "now",
@@ -340,6 +365,7 @@ function PlanStep({
   fold?: boolean;
 }) {
   const s = byId[id];
+  const t = useTranslations("results");
   const { states, note, setBusy, subject } = useCheck();
   const council = useCouncil(answers.postcode);
   const { fresh } = useClaims();
@@ -366,11 +392,7 @@ function PlanStep({
       setPrep(data);
       note("model", "Call coach", `Wrote a call script for ${s.name}`);
     } catch (e) {
-      setErr(
-        (e as Error).message === "offline"
-          ? "Call notes need the reading tools, which are resting right now. The number and the official page above still work."
-          : "Those notes didn't come through. Try again in a moment.",
-      );
+      setErr((e as Error).message === "offline" ? t("offline") : t("failed"));
     } finally {
       setLoading(false);
       setBusy("Call coach", false);
@@ -392,19 +414,21 @@ function PlanStep({
       <div className="step-body">
         {when === "Start now" && (
           <div className="step-top">
-            <span className={`when ${WHEN_TONE[when] ?? ""}`}>{when}</span>
+            <span className={`when ${WHEN_TONE[when] ?? ""}`}>
+              {whenText(t, when)}
+            </span>
           </div>
         )}
         <h3>
           {s.name}
-          {fresh.includes(id) && <span className="chip new">New</span>}
+          {fresh.includes(id) && <span className="chip new">{t("new")}</span>}
         </h3>
         <p>{theyify(s.gives, subject)}</p>
         {worthLabel(s, answers) && status !== "unlock" && (
           <p className="amount">
             {theyify(worthLabel(s, answers) ?? "", subject)}{" "}
             <a href={s.worth?.source} target="_blank" rel="noreferrer">
-              {s.worth?.year} rates
+              {t("rates", { year: s.worth?.year ?? "" })}
             </a>
           </p>
         )}
@@ -416,10 +440,10 @@ function PlanStep({
             aria-expanded={false}
           >
             {status === "unlock"
-              ? "Why it waits"
+              ? t("whyWaits")
               : auto
-                ? "How it arrives"
-                : "How to claim"}
+                ? t("howArrives")
+                : t("howClaim")}
           </button>
         )}
         {shown && (
@@ -457,12 +481,12 @@ function PlanStep({
                   rel="noreferrer"
                 >
                   {localUrl && council
-                    ? `Apply to ${shortCouncil(council.name)}`
+                    ? t("applyTo", { council: shortCouncil(council.name) })
                     : auto
-                      ? "Official page"
+                      ? t("officialPage")
                       : s.act
                         ? theyify(s.act, subject)
-                        : "Claim online"}{" "}
+                        : t("claimOnline")}{" "}
                   <Icon name="link" size={16} />
                 </a>
                 {!auto && (
@@ -474,7 +498,7 @@ function PlanStep({
                     data-testid={`prep-${id}`}
                   >
                     <Icon name="spark" size={16} />{" "}
-                    {open ? "Hide what to say" : "What to say"}
+                    {open ? t("hideWhatToSay") : t("whatToSay")}
                   </button>
                 )}
               </div>
@@ -485,14 +509,14 @@ function PlanStep({
             {status !== "unlock" && !auto && <ClaimTrack id={id} />}
             {open && (
               <div className="prep" aria-live="polite">
-                {loading && <p className="hint">Writing your call notes…</p>}
+                {loading && <p className="hint">{t("writing")}</p>}
                 {err && <p className="hint">{err}</p>}
                 {prep && (
                   <>
                     <p className="opening">"{prep.opening}"</p>
                     {prep.mention.length > 0 && (
                       <>
-                        <span className="eyebrow">Worth saying</span>
+                        <span className="eyebrow">{t("sayThis")}</span>
                         <ul>
                           {prep.mention.map((m) => (
                             <li key={m}>{m}</li>
@@ -502,7 +526,7 @@ function PlanStep({
                     )}
                     {prep.have_ready.length > 0 && (
                       <>
-                        <span className="eyebrow">Have these to hand</span>
+                        <span className="eyebrow">{t("haveReady")}</span>
                         <ul>
                           {prep.have_ready.map((m) => (
                             <li key={m}>{m}</li>
@@ -512,7 +536,7 @@ function PlanStep({
                     )}
                     {prep.they_may_ask.length > 0 && (
                       <>
-                        <span className="eyebrow">They may ask</span>
+                        <span className="eyebrow">{t("mayAsk")}</span>
                         <ul>
                           {prep.they_may_ask.map((m) => (
                             <li key={m}>{m}</li>

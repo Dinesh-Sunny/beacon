@@ -5,6 +5,7 @@
 // one button; services a scheme above already checks are left out.
 
 import { useMemo, useState } from "react";
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { peopleGroups } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
@@ -13,6 +14,7 @@ import { shortCouncil, usePlace } from "@/lib/council";
 export function LocalHelp() {
   const { answers } = useCheck();
   const { local } = usePlace(answers.postcode);
+  const t = useTranslations("results");
   const [open, setOpen] = useState(false);
   const [all, setAll] = useState(false);
   const groups = useMemo(() => peopleGroups(answers), [answers]);
@@ -35,8 +37,7 @@ export function LocalHelp() {
       >
         <Icon name="pin" size={16} />{" "}
         <span id="local-h">
-          {list.length} {list.length === 1 ? "service" : "services"} from {by}{" "}
-          that may fit
+          {t("localServices", { count: list.length, council: by })}
         </span>
       </button>
       {open && (
@@ -56,11 +57,11 @@ export function LocalHelp() {
               className="linkbtn"
               onClick={() => setAll(true)}
             >
-              Show all {list.length}
+              {t("showAll", { count: list.length })}
             </button>
           )}
           <p className="hint">
-            Each link goes to the council's own page, listed on{" "}
+            {t("localNote")}{" "}
             <a
               href="https://local-links-manager.publishing.service.gov.uk/"
               target="_blank"
