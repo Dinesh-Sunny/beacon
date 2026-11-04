@@ -41,6 +41,19 @@ Both sides grow independently. New people arrive through new channels (chat, voi
 | Claim tracking and Watch | Browser (localStorage) | Free |
 | Health (`/api/health`) | Serverless | Uptime checks |
 
+## Bulk open data
+
+Big registers come in as one download each, never page by page:
+
+1. A connector in `src/knowledge/connectors/` downloads the file on a machine that can reach it (the dev route `POST /api/dev/harvest` or the weekly GitHub Action) and keeps a filtered raw copy, gzipped, in `catalog/harvest/raw/`.
+2. A builder in `scripts/` turns the raw copy into an app file in `src/data/`. Changing what Beacon keeps means editing the builder and running it again, with no new download.
+3. Large files stay on the server (`src/server/`) and the browser asks for just its slice by postcode: `/api/council` returns the council's own pages, `/api/charities` the grant-giving charities for that area.
+
+| Dataset | Connector | Builder | Served by |
+| --- | --- | --- | --- |
+| Council service pages (GOV.UK Local Links Manager) | `councils` | `scripts/council-links.ts` | `/api/council` |
+| Grant-giving charities (Charity Commission register) | `charitycommission` | `scripts/charity-funds.ts` | `/api/charities` |
+
 ## Growing from here
 
 - **Shared cache.** The in-process cache keeps the same keys when it moves to a shared store (Redis or a runtime cache), so hits work across every instance.
