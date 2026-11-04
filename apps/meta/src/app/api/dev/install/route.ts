@@ -16,9 +16,13 @@ export async function POST() {
   if (!pnpm || !/pnpm/.test(pnpm))
     return json({ error: "dev server was not started with pnpm" }, 400);
   try {
+    // pnpm may be a script (run with node) or a standalone binary (run directly).
+    const [cmd, args] = /\.(c|m)?js$/.test(pnpm)
+      ? [process.execPath, [pnpm]]
+      : [pnpm, []];
     const { stdout, stderr } = await run(
-      process.execPath,
-      [pnpm, "install", "--frozen-lockfile"],
+      cmd,
+      [...args, "install", "--frozen-lockfile"],
       { cwd: path.resolve(process.cwd(), "../.."), timeout: 300_000 },
     );
     return json({ ok: true, out: `${stdout}\n${stderr}`.slice(-2000) });
