@@ -56,7 +56,7 @@ async function writeNotes(schemeId: string, answers: Answers, subject: { who: "m
       {
         role: "system",
         content:
-          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links.",
+          "You help someone in the UK get ready to phone about a claim. Write call notes in plain, warm UK English, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links. Never use the words eligible or eligibility.",
       },
       {
         role: "user",
