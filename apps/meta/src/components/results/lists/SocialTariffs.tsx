@@ -4,19 +4,21 @@
 // Ofcom connector. Three show; the rest wait behind one button.
 
 import { useState } from "react";
+import { useFormatter, useTranslations } from "use-intl";
 import data from "@/data/social-tariffs.json";
 import type { Nation } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
-const readOn = new Date(data.read).toLocaleDateString("en-GB", {
-  day: "numeric",
-  month: "long",
-  year: "numeric",
-});
-
 export function SocialTariffs({ nation }: { nation: Nation | null }) {
   const [all, setAll] = useState(false);
   const { subject } = useCheck();
+  const t = useTranslations("lists");
+  const fmt = useFormatter();
+  const readOn = fmt.dateTime(new Date(data.read), {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
   const list = data.tariffs.filter(
     (t) => !nation || t.nations.includes(nation),
   );
@@ -25,7 +27,7 @@ export function SocialTariffs({ nation }: { nation: Nation | null }) {
   return (
     <div className="mini-list">
       <span className="eyebrow">
-        Cheapest where {subject.who === "me" ? "you live" : "they live"}
+        {subject.who === "me" ? t("cheapest") : t("cheapestThey")}
       </span>
       <ul>
         {shown.map((t) => (
@@ -37,11 +39,14 @@ export function SocialTariffs({ nation }: { nation: Nation | null }) {
         ))}
       </ul>
       <p className="hint">
-        A month, from{" "}
-        <a href={data.source} target="_blank" rel="noreferrer">
-          Ofcom's list
-        </a>{" "}
-        read on {readOn}.{" "}
+        {t.rich("tariffNote", {
+          date: readOn,
+          link: (c) => (
+            <a href={data.source} target="_blank" rel="noreferrer">
+              {c}
+            </a>
+          ),
+        })}{" "}
         {list.length > 3 && (
           <button
             type="button"
@@ -49,7 +54,7 @@ export function SocialTariffs({ nation }: { nation: Nation | null }) {
             onClick={() => setAll((a) => !a)}
             aria-expanded={all}
           >
-            {all ? "Show fewer" : `All ${list.length}`}
+            {all ? t("fewer") : t("all", { count: list.length })}
           </button>
         )}
       </p>

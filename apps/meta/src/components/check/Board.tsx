@@ -4,13 +4,17 @@
 // Tapping a scheme opens its sheet with each condition and how it stands right now.
 
 import { useEffect } from "react";
+import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
 import { theyify } from "@/engine/facts";
 import { byId, howFor, nationIn } from "@/engine/rules";
-import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { useStatusText } from "@/i18n/useStatusText";
+import { useCheck } from "@/lib/check-store";
 
 export function SchemeSheet() {
   const { selected, select, states, subject, answers } = useCheck();
+  const t = useTranslations("board");
+  const statusText = useStatusText();
   useEffect(() => {
     if (!selected) return;
     const onKey = (e: KeyboardEvent) => e.key === "Escape" && select(null);
@@ -45,17 +49,17 @@ export function SchemeSheet() {
             type="button"
             className="iconbtn"
             onClick={() => select(null)}
-            aria-label="Close"
+            aria-label={t("close")}
           >
             <Icon name="close" />
           </button>
         </div>
         <p>{theyify(s.gives, subject)}</p>
         <div className={`sc ${st.status}`} style={{ cursor: "default" }}>
-          <span className="nm">{STATUS_TXT[st.status]}</span>
+          <span className="nm">{statusText(st.status)}</span>
           {st.reason ? <span className="rs">{st.reason}</span> : null}
         </div>
-        <span className="eyebrow">How each condition stands</span>
+        <span className="eyebrow">{t("conditions")}</span>
         <ul className="rule">
           {s.rule.map((r, i) => {
             const m = st.marks[i];
@@ -73,11 +77,12 @@ export function SchemeSheet() {
                     ? r.expr.charAt(0).toUpperCase() + r.expr.slice(1)
                     : r.txt}
                   <span className="sr-only">
+                    {" "}
                     {m === true
-                      ? " (met)"
+                      ? t("met")
                       : m === false
-                        ? " (not met)"
-                        : " (not known yet)"}
+                        ? t("notMet")
+                        : t("unknown")}
                   </span>
                 </span>
               </li>
@@ -86,8 +91,9 @@ export function SchemeSheet() {
         </ul>
         {s.opens ? (
           <p className="hint">
-            Once awarded, it also opens:{" "}
-            {s.opens.map((o) => byId[o]?.name).join(", ")}.
+            {t("opens", {
+              names: s.opens.map((o) => byId[o]?.name).join(", "),
+            })}
           </p>
         ) : null}
         <p className="hint">{theyify(howFor(s, nationIn(answers)), subject)}</p>
@@ -97,7 +103,7 @@ export function SchemeSheet() {
           target="_blank"
           rel="noreferrer"
         >
-          Official page <Icon name="link" size={16} />
+          {t("officialPage")} <Icon name="link" size={16} />
         </a>
       </div>
     </div>

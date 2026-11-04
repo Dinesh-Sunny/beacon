@@ -19,24 +19,10 @@ interface Row {
   nations: string[];
 }
 
-const KIND: Record<string, string> = {
-  payment: "Payment",
-  grant: "Grant",
-  discount: "Discount",
-  free: "Free",
-  loan: "Loan",
-  tax: "Tax relief",
-  credit: "Credit",
-  register: "Register",
-  concession: "Concession",
-  compensation: "Compensation",
-  unclaimed: "Unclaimed money",
-  advice: "Advice",
-};
-
 export function MoreHelp() {
   const { answers } = useCheck();
   const t = useTranslations("results");
+  const tm = useTranslations("more");
   const [rows, setRows] = useState<Row[] | null>(null);
   const [open, setOpen] = useState(false);
   const [q, setQ] = useState("");
@@ -83,19 +69,16 @@ export function MoreHelp() {
       </button>
       {open && rows && (
         <div className="more-body">
-          <p className="hint">
-            Found on GOV.UK for people in a similar situation. Beacon can't
-            check these for you yet, so each links to its official page.
-          </p>
+          <p className="hint">{tm("intro")}</p>
           {all && (
             <>
               <label htmlFor="more-q" className="sr-only">
-                Search more help
+                {tm("search")}
               </label>
               <input
                 id="more-q"
                 className="txt"
-                placeholder="Search, like energy or school"
+                placeholder={tm("searchHint")}
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
               />
@@ -108,7 +91,11 @@ export function MoreHelp() {
                   {r.name}
                 </a>
                 {r.kind && (
-                  <span className="kind">{KIND[r.kind] ?? r.kind}</span>
+                  <span className="kind">
+                    {tm.has(`kind.${r.kind}` as "kind.grant")
+                      ? tm(`kind.${r.kind}` as "kind.grant")
+                      : r.kind}
+                  </span>
                 )}
               </li>
             ))}
@@ -119,13 +106,16 @@ export function MoreHelp() {
               className="linkbtn"
               onClick={() => setAll(true)}
             >
-              Show all {matches.length}
+              {tm("showAll", { count: matches.length })}
             </button>
           ) : (
             <p className="hint">
               {matches.length
-                ? `${Math.min(matches.length, 60)} of ${matches.length} shown`
-                : "Nothing matches that search."}
+                ? tm("shown", {
+                    shown: Math.min(matches.length, 60),
+                    total: matches.length,
+                  })
+                : tm("noMatch")}
             </p>
           )}
         </div>

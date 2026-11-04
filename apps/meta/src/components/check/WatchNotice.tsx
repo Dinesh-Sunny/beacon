@@ -5,6 +5,7 @@
 // have grown or changed, Beacon says what's new for them, once.
 
 import { useEffect, useRef } from "react";
+import { useTranslations } from "use-intl";
 import { byId, REGISTRY } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
 
@@ -12,6 +13,7 @@ const KEY = "beacon:seen:v1";
 
 export function WatchNotice() {
   const { hydrated, states, answers, announce } = useCheck();
+  const t = useTranslations("watch");
   const done = useRef(false);
   useEffect(() => {
     if (!hydrated || done.current || !Object.keys(answers).length) return;
@@ -29,10 +31,7 @@ export function WatchNotice() {
           .filter((id) => !seen.ids.includes(id))
           .map((id) => byId[id]?.name)
           .filter(Boolean);
-        if (fresh.length)
-          announce(
-            `Since your last check, Beacon has learned more rules. New for you: ${fresh.join(", ")}.`,
-          );
+        if (fresh.length) announce(t("newRules", { names: fresh.join(", ") }));
       }
       localStorage.setItem(
         KEY,
@@ -41,7 +40,7 @@ export function WatchNotice() {
     } catch {
       /* nothing to compare */
     }
-  }, [hydrated, states, answers, announce]);
+  }, [hydrated, states, answers, announce, t]);
   // Keep the record current as answers change, so the next visit compares like with like.
   useEffect(() => {
     if (!hydrated || !done.current) return;

@@ -5,6 +5,7 @@
 // them. Then funders from 360Giving's open grant data that gave grants to people recently.
 
 import { useEffect, useMemo, useState } from "react";
+import { useFormatter, useTranslations } from "use-intl";
 import data from "@/data/charity-grants.json";
 import { peopleGroups } from "@/engine/rules";
 import { useCheck } from "@/lib/check-store";
@@ -22,8 +23,6 @@ interface Funds {
   source: string;
 }
 
-const month = (iso: string) =>
-  new Date(iso).toLocaleDateString("en-GB", { month: "long", year: "numeric" });
 const link = (f: Fund) =>
   f.web
     ? /^https?:\/\//i.test(f.web)
@@ -41,6 +40,10 @@ const title = (s: string) =>
 
 export function CharityGrants() {
   const { answers } = useCheck();
+  const t = useTranslations("lists");
+  const fmt = useFormatter();
+  const month = (iso: string) =>
+    fmt.dateTime(new Date(iso), { month: "long", year: "numeric" });
   const groups = useMemo(() => peopleGroups(answers).join(","), [answers]);
   const postcode =
     typeof answers.postcode === "string" && answers.postcode !== "unsure"
@@ -71,7 +74,7 @@ export function CharityGrants() {
     <div className="mini-list">
       {register.length > 0 && (
         <>
-          <span className="eyebrow">Charities that give grants near you</span>
+          <span className="eyebrow">{t("charitiesNear")}</span>
           <ul className="funds">
             {shown.map((f) => (
               <li key={f.n}>
@@ -82,17 +85,20 @@ export function CharityGrants() {
                   {f.does && <span className="hint fund-does">{f.does}</span>}
                 </span>
                 <span className="hint">
-                  {funds?.local.includes(f) ? "Local" : ""}
+                  {funds?.local.includes(f) ? t("local") : ""}
                 </span>
               </li>
             ))}
           </ul>
           <p className="hint">
-            From the{" "}
-            <a href={funds?.source} target="_blank" rel="noreferrer">
-              Charity Commission register
-            </a>
-            , {month(funds?.read ?? data.read)}. Each sets its own rules.{" "}
+            {t.rich("fromRegister", {
+              date: month(funds?.read ?? data.read),
+              link: (c) => (
+                <a href={funds?.source} target="_blank" rel="noreferrer">
+                  {c}
+                </a>
+              ),
+            })}{" "}
             {register.length > 4 && (
               <button
                 type="button"
@@ -100,7 +106,7 @@ export function CharityGrants() {
                 onClick={() => setAll((a) => !a)}
                 aria-expanded={all}
               >
-                {all ? "Show fewer" : `All ${register.length}`}
+                {all ? t("fewer") : t("all", { count: register.length })}
               </button>
             )}
           </p>
@@ -108,7 +114,7 @@ export function CharityGrants() {
       )}
       {national.length > 0 && (
         <>
-          <span className="eyebrow">Gave grants to people recently</span>
+          <span className="eyebrow">{t("gaveRecently")}</span>
           <ul>
             {national.map((f) => (
               <li key={f.name}>
@@ -131,11 +137,14 @@ export function CharityGrants() {
             ))}
           </ul>
           <p className="hint">
-            Typical grant, from{" "}
-            <a href={data.source} target="_blank" rel="noreferrer">
-              360Giving
-            </a>{" "}
-            open data, read {month(data.read)}.
+            {t.rich("typical", {
+              date: month(data.read),
+              link: (c) => (
+                <a href={data.source} target="_blank" rel="noreferrer">
+                  {c}
+                </a>
+              ),
+            })}
           </p>
         </>
       )}

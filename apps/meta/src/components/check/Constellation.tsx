@@ -4,6 +4,7 @@
 // light up as answers settle them, so the canvas stays calm with hundreds of schemes. Open an
 // area to see its tiles; tap a tile to see each condition and how it stands.
 
+import { useTranslations } from "use-intl";
 import {
   RANK,
   SCHEMES,
@@ -11,18 +12,22 @@ import {
   type Status,
   TOPICS,
 } from "@/engine/rules";
-import { STATUS_TXT, useCheck } from "@/lib/check-store";
+import { useStatusText } from "@/i18n/useStatusText";
+import { useCheck } from "@/lib/check-store";
 
 const SHOWN: Status[] = ["likely", "check", "unlock", "have"];
-const COUNT_TXT: Partial<Record<Status, string>> = {
-  likely: "likely",
-  check: "worth checking",
-  unlock: "unlock later",
-  have: "already getting",
-};
+const COUNT_KEY = {
+  likely: "countLikely",
+  check: "countCheck",
+  unlock: "countUnlock",
+  have: "countHave",
+} as const;
 
 export function Constellation() {
   const { states, changed, select } = useCheck();
+  const t = useTranslations("board");
+  const tt = useTranslations("topics");
+  const statusText = useStatusText();
   const status = (s: Scheme): Status => states[s.id]?.status ?? "open";
   const areas = TOPICS.map(([t, name]) => {
     const list = SCHEMES.filter((s) => s.topic === t).sort(
@@ -41,20 +46,20 @@ export function Constellation() {
   return (
     <details className="constellation" data-testid="board">
       <summary className="eyebrow">
-        See all {SCHEMES.length} kinds of help Beacon checked
+        {t("seeAll", { count: SCHEMES.length })}
       </summary>
       <p className="legend hint" aria-hidden="true">
         <span>
-          <i className="likely" /> Likely
+          <i className="likely" /> {t("legendLikely")}
         </span>
         <span>
-          <i className="check" /> Worth checking
+          <i className="check" /> {t("legendCheck")}
         </span>
         <span>
-          <i className="unlock" /> Opens after a first award
+          <i className="unlock" /> {t("legendUnlock")}
         </span>
         <span>
-          <i className="have" /> Already getting
+          <i className="have" /> {t("legendHave")}
         </span>
       </p>
       <div className="areas">
@@ -65,7 +70,9 @@ export function Constellation() {
           return (
             <details key={a.t} className="area" data-testid={`area-${a.t}`}>
               <summary>
-                <span className="area-name">{a.name}</span>
+                <span className="area-name">
+                  {tt.has(a.t as "home") ? tt(a.t as "home") : a.name}
+                </span>
                 <span className="dots" aria-hidden="true">
                   {a.list.map((s) => (
                     <i
@@ -76,10 +83,19 @@ export function Constellation() {
                 </span>
                 <span className="area-count">
                   {counts.length
-                    ? counts.map(([k, n]) => `${n} ${COUNT_TXT[k]}`).join(" · ")
+                    ? counts
+                        .map(([k, n]) =>
+                          t(COUNT_KEY[k as keyof typeof COUNT_KEY], {
+                            count: n,
+                          }),
+                        )
+                        .join(" · ")
                     : a.list.some((s) => status(s) === "open")
-                      ? `${a.list.filter((s) => status(s) === "open").length} to check`
-                      : "None fit yet"}
+                      ? t("toCheck", {
+                          count: a.list.filter((s) => status(s) === "open")
+                            .length,
+                        })
+                      : t("noneFit")}
                 </span>
               </summary>
               <div className="tiles">
@@ -96,11 +112,11 @@ export function Constellation() {
                         onClick={() => select(s.id)}
                         data-testid={`scheme-${s.id}`}
                         data-status={st}
-                        title={`${s.name}: ${STATUS_TXT[st]}`}
+                        title={`${s.name}: ${statusText(st)}`}
                       >
                         <i aria-hidden="true" />
                         {s.name}
-                        <span className="sr-only">: {STATUS_TXT[st]}</span>
+                        <span className="sr-only">: {statusText(st)}</span>
                       </button>
                     );
                   })}

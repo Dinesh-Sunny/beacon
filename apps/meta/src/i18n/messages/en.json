@@ -453,5 +453,84 @@
     "factFree": "Free to use",
     "footer": "Beacon gives general information, not advice. The organisation that runs each scheme makes the decision, and every result links to its official page.",
     "code": "Code on GitHub"
+  },
+  "status": {
+    "open": "Still open",
+    "likely": "Likely",
+    "check": "Worth checking",
+    "unlock": "Unlocks next",
+    "out": "Ruled out",
+    "have": "Already getting"
+  },
+  "topics": {
+    "home": "Energy and broadband",
+    "low": "Money and bills",
+    "dis": "Health and disability",
+    "care": "Caring for someone",
+    "fam": "Families",
+    "work": "Looking for work",
+    "sick": "Unable to work",
+    "death": "When someone dies",
+    "local": "Council and travel",
+    "nhs": "NHS costs",
+    "debt": "Debt and arrears",
+    "found": "Money already yours"
+  },
+  "board": {
+    "seeAll": "See all {count} kinds of help Beacon checked",
+    "legendLikely": "Likely",
+    "legendCheck": "Worth checking",
+    "legendUnlock": "Opens after a first award",
+    "legendHave": "Already getting",
+    "countLikely": "{count} likely",
+    "countCheck": "{count} worth checking",
+    "countUnlock": "{count} unlock later",
+    "countHave": "{count} already getting",
+    "toCheck": "{count} to check",
+    "noneFit": "None fit yet",
+    "close": "Close",
+    "conditions": "How each condition stands",
+    "met": "(met)",
+    "notMet": "(not met)",
+    "unknown": "(not known yet)",
+    "opens": "Once awarded, it also opens: {names}.",
+    "officialPage": "Official page"
+  },
+  "more": {
+    "intro": "Found on GOV.UK for people in a similar situation. Beacon can't check these for you yet, so each links to its official page.",
+    "search": "Search more help",
+    "searchHint": "Search, like energy or school",
+    "showAll": "Show all {count}",
+    "shown": "{shown} of {total} shown",
+    "noMatch": "Nothing matches that search.",
+    "kind": {
+      "payment": "Payment",
+      "grant": "Grant",
+      "discount": "Discount",
+      "free": "Free",
+      "loan": "Loan",
+      "tax": "Tax relief",
+      "credit": "Credit",
+      "register": "Register",
+      "concession": "Concession",
+      "compensation": "Compensation",
+      "unclaimed": "Unclaimed money",
+      "advice": "Advice"
+    }
+  },
+  "lists": {
+    "local": "Local",
+    "fewer": "Show fewer",
+    "all": "All {count}",
+    "charitiesNear": "Charities that give grants near you",
+    "fromRegister": "From the <link>Charity Commission register</link>, {date}. Each sets its own rules.",
+    "gaveRecently": "Gave grants to people recently",
+    "typical": "Typical grant, from <link>360Giving</link> open data, read {date}.",
+    "cheapest": "Cheapest where you live",
+    "cheapestThey": "Cheapest where they live",
+    "tariffNote": "A month, from <link>Ofcom's list</link>, read on {date}."
+  },
+  "watch": {
+    "newRules": "Since your last check, Beacon has learned more rules. New for you: {names}."
   }
 }
