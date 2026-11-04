@@ -24,7 +24,7 @@ import { Composer } from "./Composer";
 import { LetterCard } from "./LetterCard";
 
 export interface Msg {
-  id: number;
+  id: string;
   role: "user" | "bot";
   text: string;
   notes?: string[];
@@ -67,11 +67,8 @@ const ERRORS: Record<string, string> = {
 export const errorText = (code?: string) =>
   ERRORS[code ?? "model"] ?? ERRORS.model;
 
-let seq = 0;
-const nextId = () => {
-  seq += 1;
-  return seq;
-};
+// Random ids stay unique even when the module reloads while messages are on screen.
+const nextId = () => crypto.randomUUID();
 
 export function ChatPanel({ playing = false }: { playing?: boolean }) {
   const {

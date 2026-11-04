@@ -19,6 +19,7 @@ import {
   type Status,
   timingFor,
   warnings,
+  worthFor,
   worthLabel,
   worthTotals,
 } from "@/engine/rules";
@@ -71,20 +72,31 @@ export function Results() {
     const s = byId[id];
     return s ? isAuto(s, nationIn(answers)) : false;
   };
-  const firstIds = new Set(
-    (order.some((p) => p.when === "Start now")
-      ? order.filter((p) => p.when === "Start now")
-      : order.filter((p) => p.status === "likely" && !autoHere(p.id))
-    )
-      .slice(0, 3)
-      .map((p) => p.id),
+  // First: gateway and time-sensitive claims, then the best-paying likely claims; advice and
+  // registers come first only when there's nothing to claim.
+  const value = (id: string) => {
+    const s = byId[id];
+    const w = s ? worthFor(s, answers) : null;
+    return w ? w.max * { week: 52, month: 12, year: 1, once: 1 }[w.per] : 0;
+  };
+  const claimable = order.filter(
+    (p) => p.status === "likely" && !autoHere(p.id),
   );
+  const isClaim = (id: string) => !byId[id]?.act;
+  const ranked = [
+    ...claimable.filter((p) => p.when === "Start now" && isClaim(p.id)),
+    ...claimable
+      .filter((p) => p.when !== "Start now" && isClaim(p.id))
+      .sort((a, b) => value(b.id) - value(a.id)),
+    ...claimable.filter((p) => !isClaim(p.id)),
+  ];
+  const firstIds = new Set(ranked.slice(0, 3).map((p) => p.id));
   const rest = order.filter((p) => !firstIds.has(p.id));
   const groups = [
     {
       title: "Do these first",
       fold: false,
-      steps: order.filter((p) => firstIds.has(p.id)),
+      steps: ranked.slice(0, 3),
     },
     {
       title: "Then",
