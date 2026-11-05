@@ -157,7 +157,10 @@ Write the call notes.`,
       : `Hello, I'm phoning to ask about ${s.name} for ${who}, please.`;
   // "Worth saying" must come from the answers: drop any line that shares no word with them.
   const said = new Set(
-    facts.join(" ").toLowerCase().match(/[a-z0-9£$]{3,}/g) ?? [],
+    facts
+      .join(" ")
+      .toLowerCase()
+      .match(/[a-z0-9£$]{3,}/g) ?? [],
   );
   const grounded = (line: string) =>
     (line.toLowerCase().match(/[a-z0-9£$]{3,}/g) ?? []).some((w) =>
