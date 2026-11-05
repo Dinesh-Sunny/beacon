@@ -75,10 +75,12 @@ export async function prepareCall(
   const needs = [...new Set(s.rule.flatMap((r) => r.needs))] as FactId[];
   const facts = needs
     .filter((f) => answers[f] !== undefined)
-    .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
+    .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`)
+    // Amounts read back in pounds; a US scheme talks in dollars.
+    .map((x) => (s.country === "US" ? x.replaceAll("£", "$") : x));
   // Same scheme, same rule pack, same relevant answers and same "who": same notes.
   const key = keyOf({
-    p: 4,
+    p: 5,
     s: s.id,
     v: REGISTRY.version,
     facts,
