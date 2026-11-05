@@ -1,3 +1,5 @@
+<a name="top"></a>
+
 <p align="center">
   <img src="docs/images/logo.svg" width="72" height="72" alt="Beacon logo">
 </p>
@@ -27,6 +29,7 @@
   <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-111?style=flat-square&logo=nextdotjs">
   <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white">
   <img alt="7 languages" src="https://img.shields.io/badge/languages-7-2f855a?style=flat-square">
+  <a href="https://github.com/Dinesh-Sunny/beacon/actions/workflows/ci.yml"><img alt="CI" src="https://img.shields.io/github/actions/workflow/status/Dinesh-Sunny/beacon/ci.yml?branch=main&style=flat-square&label=checks"></a>
   <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-555?style=flat-square"></a>
 </p>
 
@@ -39,6 +42,26 @@
 </p>
 
 <p align="center"><sub>A daughter checks for her mum, a confusing letter gets read, Walter in Ohio finds his help, and you see the six Meta models doing their jobs. <a href="https://x.com/_dineshsunny/status/2118151441051226599">Share it on X</a> if you know someone it could help.</sub></p>
+
+<details>
+<summary><b>Contents</b></summary>
+
+- [The help is there. People just never hear about it.](#the-help-is-there-people-just-never-hear-about-it)
+- [Beacon is the friend who has read every rule](#beacon-is-the-friend-who-has-read-every-rule)
+- [Try it in 60 seconds](#try-it-in-60-seconds)
+- [Where Beacon works](#where-beacon-works)
+- [Under the hood](#under-the-hood)
+  - [Seven jobs for Meta's models](#seven-jobs-for-metas-models)
+  - [One message, step by step](#one-message-step-by-step)
+  - [The hard parts](#the-hard-parts)
+  - [Tech stack](#tech-stack)
+- [What comes next](#what-comes-next)
+- [Run it yourself](#run-it-yourself)
+- [Questions people ask](#questions-people-ask)
+- [Limits](#limits)
+- [Contributing, security and citing](#contributing-security-and-citing)
+- [Thank you](#thank-you)
+</details>
 
 ## The help is there. People just never hear about it.
 
@@ -54,6 +77,8 @@ She's wrong. Run her life through Beacon and **11 kinds of help** light up, wort
 That's rent paid on time, a warm flat in January, a carer who gets a break. The people who miss out most have the least time and energy to look: older people living alone, carers, new parents, people who've just lost someone, people reading forms in their second language.
 
 The rules are written for lawyers. Advice lines have queues. Asking feels like admitting you're struggling. So the money stays where it is.
+
+<p align="right"><a href="#top">Back to top</a></p>
 
 ## Beacon is the friend who has read every rule
 
@@ -91,6 +116,11 @@ Beacon asks a few gentle questions, only the ones that can still change an answe
 - **Your answers stay in your browser.** Nothing about you is stored on a server. Even a shared check carries its answers in the part of the link browsers never send.
 - **Personal details are removed before any hosted model sees them,** by one of Meta's open-weights models. The chat tells you when it happens.
 
+> [!NOTE]
+> Beacon never asks for a name, full address, ID number, bank details, exact amounts or a full date of birth, and it never takes a cut of anything you're awarded.
+
+<p align="right"><a href="#top">Back to top</a></p>
+
 ## Try it in 60 seconds
 
 1. Open **[beacon-support.vercel.app](https://beacon-support.vercel.app)**. Beacon picks the UK or the US from your browser's language. Switch at any time.
@@ -101,6 +131,30 @@ Beacon asks a few gentle questions, only the ones that can still change an answe
 6. In a hurry? Press **Example**. Margaret (UK) or Walter (US) answers everything for you.
 
 ---
+
+> [!TIP]
+> Seven example people are built in, one for each place on the map below. Press **Example** on the check page to watch one answer everything for you.
+
+<p align="right"><a href="#top">Back to top</a></p>
+
+## Where Beacon works
+
+Beacon covers the UK (England, Wales and Scotland, with Scotland's own benefits) and the US (federal programs, with state and local help found by ZIP code). Each pin is one of the built-in example checks. The map is interactive: zoom and click a pin.
+
+```geojson
+{
+  "type": "FeatureCollection",
+  "features": [
+    {"type": "Feature", "properties": {"title": "Margaret, 78, Wembley", "description": "Lives alone on her State Pension. Pension Credit opens the door to more."}, "geometry": {"type": "Point", "coordinates": [-0.2796, 51.5560]}},
+    {"type": "Feature", "properties": {"title": "Aled, 32, Cardiff", "description": "An example check in Wales."}, "geometry": {"type": "Point", "coordinates": [-3.1791, 51.4816]}},
+    {"type": "Feature", "properties": {"title": "Fiona, 46, Glasgow", "description": "An example check with Scotland's own benefits."}, "geometry": {"type": "Point", "coordinates": [-4.2514, 55.8609]}},
+    {"type": "Feature", "properties": {"title": "Kirsty, 23, Dundee", "description": "An example check with Scotland's own benefits."}, "geometry": {"type": "Point", "coordinates": [-2.9707, 56.4620]}},
+    {"type": "Feature", "properties": {"title": "Walter, 74, Columbus", "description": "13 things, from SNAP to Medicare Savings."}, "geometry": {"type": "Point", "coordinates": [-82.9988, 39.9612]}},
+    {"type": "Feature", "properties": {"title": "Rosa, 31, Houston", "description": "A US example check in Texas."}, "geometry": {"type": "Point", "coordinates": [-95.3698, 29.7604]}},
+    {"type": "Feature", "properties": {"title": "Dwayne, 58, Phoenix", "description": "A US example check in Arizona."}, "geometry": {"type": "Point", "coordinates": [-112.0740, 33.4484]}}
+  ]
+}
+```
 
 ## Under the hood
 
@@ -131,6 +185,28 @@ flowchart LR
   R --> W[Muse Wonder<br/>call notes]
   R --> I[Muse Image<br/>banner]
   C -.->|answers never leave the browser| P
+```
+
+### One message, step by step
+
+```mermaid
+sequenceDiagram
+  autonumber
+  actor You
+  participant B as Your browser
+  participant O as Muse Spark Open<br/>(open weights, Baseten)
+  participant A as Muse Spark agent
+  participant R as Rules engine<br/>(plain code)
+  You->>B: "Mum is 78 and finds stairs hard"
+  B->>O: message
+  O-->>B: same message, personal details removed
+  B->>A: clean message + current answers
+  A->>A: decides which tool to call
+  A-->>B: save_details(age band, needs care)
+  B->>R: validated answers only
+  R-->>B: Likely, Worth checking, Unlocks next
+  B-->>You: results light up, each with its official rule line
+  Note over B,R: Answers stay in your browser. Code settles every verdict.
 ```
 
 ### The hard parts
@@ -190,6 +266,21 @@ flowchart LR
 24. **Measured without watching anyone.** Cost logs record model, tokens and milliseconds, never words. Vercel Web Analytics and Speed Insights see page paths only, never the answers in a link.
 </details>
 
+### Tech stack
+
+| Layer | What we use | Why |
+| --- | --- | --- |
+| App | Next.js 16 (App Router), React 19 with the React Compiler, TypeScript strict | Streaming chat, server routes for model calls, one codebase |
+| Models | Muse Spark 1.3, Muse Wonder, Muse Image, Muse Voice Transcribe, SAM 3.1 on Meta Model API | Each model does one job it's best at |
+| Open weights | Muse Spark Open on Baseten, any OpenAI-compatible host | Personal details removed before any hosted model sees them |
+| Rules | 11 JSON rule packs, 79 schemes, validated with zod | Every amount and date has a source link and can be reviewed like code |
+| Languages | use-intl, 7 languages including right to left | People read best in their own language |
+| Type | Fraunces and Atkinson Hyperlegible | Warm headings, body text designed for low vision |
+| Hosting | Vercel, with Web Analytics and Speed Insights (paths only) | Fast everywhere, measures nothing personal |
+| Automation | GitHub Actions: CI, daily rule watch, weekly harvest | Rule changes arrive as pull requests for review |
+
+<p align="right"><a href="#top">Back to top</a></p>
+
 ## What comes next
 
 Today the free check helps people and families in the UK and the US. From one family to a worldwide network:
@@ -205,6 +296,8 @@ Beacon will never take a cut of anything you're awarded.
 ## Built during the hackathon
 
 Everything in [`apps/meta`](apps/meta) was built for this hackathon, between 27 October and 4 November 2026. This repository was created on 30 October 2026. [`apps/web`](apps/web) and [`packages/`](packages) hold an earlier, separate entry (Beacon on Reflection's Beam model, described in [`docs/beam/README.md`](docs/beam/README.md)). The Meta app doesn't import or depend on them. The full list is in [`apps/meta/README.md`](apps/meta/README.md#built-during-the-hackathon).
+
+<p align="right"><a href="#top">Back to top</a></p>
 
 ## Run it yourself
 
@@ -236,12 +329,1337 @@ docs/                      Images, architecture notes, the earlier Beam entry
 ```
 </details>
 
+<p align="right"><a href="#top">Back to top</a></p>
+
+## Questions people ask
+
+<details>
+<summary><b>Is Beacon free?</b></summary>
+
+Yes. The check is free. Beacon will never take a cut of anything you're awarded.
+</details>
+
+<details>
+<summary><b>Does Beacon decide if I get something?</b></summary>
+
+No. The organisation that runs each scheme decides. Beacon shows what's likely yours and why, with the official rule line, and links to the real place to claim.
+</details>
+
+<details>
+<summary><b>Where do my answers go?</b></summary>
+
+They stay in your browser. Nothing about you is stored on a server, and a shared check keeps its answers in the part of the link browsers never send.
+</details>
+
+<details>
+<summary><b>Can I check for someone else?</b></summary>
+
+Yes. Say "check for Mum" or "my dad" and the whole check turns to them.
+</details>
+
+<details>
+<summary><b>Why do the models never make the final call?</b></summary>
+
+People rely on these answers in hard moments, so they have to be the same every time. Models listen, read and explain. Plain code compares the answers with the rules and settles every verdict.
+</details>
+
 ## Limits
 
-- **Beacon isn't advice.** The organisation that runs each scheme decides, and every result links to its official page.
+> [!IMPORTANT]
+> **Beacon isn't advice.** The organisation that runs each scheme decides, and every result links to its official page.
+
 - Income lines are screening estimates, not the official calculation.
 - Council and state schemes vary, so Beacon links to your own council or state office rather than guessing local rules.
 - Translations other than English were drafted with help and checked for completeness, but not yet by native speakers.
+
+## Contributing, security and citing
+
+- **Help out:** check a rule, improve a translation or add local help. Start with [CONTRIBUTING.md](CONTRIBUTING.md) and the issue forms.
+- **Found a security problem?** Please report it privately, as described in [SECURITY.md](SECURITY.md).
+- **Be kind:** everyone here follows the [Code of Conduct](CODE_OF_CONDUCT.md).
+- **Citing Beacon:** use **Cite this repository** in the sidebar, generated from [CITATION.cff](CITATION.cff).
+
+## The beacon, in 3D
+
+A small light kept on for whoever needs it. Drag to turn it. The model is [`docs/3d/beacon.stl`](docs/3d/beacon.stl).
+
+```stl
+solid beacon
+facet normal 0.95 0.31 0
+outer loop
+vertex 6 0 0
+vertex 4.85 3.53 0
+vertex 4.85 3.53 1.5
+endloop
+endfacet
+facet normal 0.95 0.31 -0
+outer loop
+vertex 6 0 0
+vertex 4.85 3.53 1.5
+vertex 6 0 1.5
+endloop
+endfacet
+facet normal 0.59 0.81 0
+outer loop
+vertex 4.85 3.53 0
+vertex 1.85 5.71 0
+vertex 1.85 5.71 1.5
+endloop
+endfacet
+facet normal 0.59 0.81 -0
+outer loop
+vertex 4.85 3.53 0
+vertex 1.85 5.71 1.5
+vertex 4.85 3.53 1.5
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 1.85 5.71 0
+vertex -1.85 5.71 0
+vertex -1.85 5.71 1.5
+endloop
+endfacet
+facet normal 0 1 -0
+outer loop
+vertex 1.85 5.71 0
+vertex -1.85 5.71 1.5
+vertex 1.85 5.71 1.5
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -1.85 5.71 0
+vertex -4.85 3.53 0
+vertex -4.85 3.53 1.5
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -1.85 5.71 0
+vertex -4.85 3.53 1.5
+vertex -1.85 5.71 1.5
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -4.85 3.53 0
+vertex -6 0 0
+vertex -6 0 1.5
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -4.85 3.53 0
+vertex -6 0 1.5
+vertex -4.85 3.53 1.5
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -6 0 0
+vertex -4.85 -3.53 0
+vertex -4.85 -3.53 1.5
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -6 0 0
+vertex -4.85 -3.53 1.5
+vertex -6 0 1.5
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -4.85 -3.53 0
+vertex -1.85 -5.71 0
+vertex -1.85 -5.71 1.5
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -4.85 -3.53 0
+vertex -1.85 -5.71 1.5
+vertex -4.85 -3.53 1.5
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -1.85 -5.71 0
+vertex 1.85 -5.71 0
+vertex 1.85 -5.71 1.5
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -1.85 -5.71 0
+vertex 1.85 -5.71 1.5
+vertex -1.85 -5.71 1.5
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 1.85 -5.71 0
+vertex 4.85 -3.53 0
+vertex 4.85 -3.53 1.5
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 1.85 -5.71 0
+vertex 4.85 -3.53 1.5
+vertex 1.85 -5.71 1.5
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 4.85 -3.53 0
+vertex 6 0 0
+vertex 6 0 1.5
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 4.85 -3.53 0
+vertex 6 0 1.5
+vertex 4.85 -3.53 1.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex 4.85 3.53 0
+vertex 6 0 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex 1.85 5.71 0
+vertex 4.85 3.53 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex -1.85 5.71 0
+vertex 1.85 5.71 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex -4.85 3.53 0
+vertex -1.85 5.71 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex -6 0 0
+vertex -4.85 3.53 0
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex 0 0 0
+vertex -4.85 -3.53 0
+vertex -6 0 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex -1.85 -5.71 0
+vertex -4.85 -3.53 0
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex 0 0 0
+vertex 1.85 -5.71 0
+vertex -1.85 -5.71 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex 4.85 -3.53 0
+vertex 1.85 -5.71 0
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0 0 0
+vertex 6 0 0
+vertex 4.85 -3.53 0
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 6 0 1.5
+vertex 4.85 3.53 1.5
+vertex 3.72 2.7 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 6 0 1.5
+vertex 3.72 2.7 1.5
+vertex 4.6 0 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 4.85 3.53 1.5
+vertex 1.85 5.71 1.5
+vertex 1.42 4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 4.85 3.53 1.5
+vertex 1.42 4.37 1.5
+vertex 3.72 2.7 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.85 5.71 1.5
+vertex -1.85 5.71 1.5
+vertex -1.42 4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.85 5.71 1.5
+vertex -1.42 4.37 1.5
+vertex 1.42 4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.85 5.71 1.5
+vertex -4.85 3.53 1.5
+vertex -3.72 2.7 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.85 5.71 1.5
+vertex -3.72 2.7 1.5
+vertex -1.42 4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -4.85 3.53 1.5
+vertex -6 0 1.5
+vertex -4.6 0 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -4.85 3.53 1.5
+vertex -4.6 0 1.5
+vertex -3.72 2.7 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -6 0 1.5
+vertex -4.85 -3.53 1.5
+vertex -3.72 -2.7 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -6 0 1.5
+vertex -3.72 -2.7 1.5
+vertex -4.6 0 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -4.85 -3.53 1.5
+vertex -1.85 -5.71 1.5
+vertex -1.42 -4.37 1.5
+endloop
+endfacet
+facet normal -0 0 1
+outer loop
+vertex -4.85 -3.53 1.5
+vertex -1.42 -4.37 1.5
+vertex -3.72 -2.7 1.5
+endloop
+endfacet
+facet normal -0 0 1
+outer loop
+vertex -1.85 -5.71 1.5
+vertex 1.85 -5.71 1.5
+vertex 1.42 -4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.85 -5.71 1.5
+vertex 1.42 -4.37 1.5
+vertex -1.42 -4.37 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.85 -5.71 1.5
+vertex 4.85 -3.53 1.5
+vertex 3.72 -2.7 1.5
+endloop
+endfacet
+facet normal 0 -0 1
+outer loop
+vertex 1.85 -5.71 1.5
+vertex 3.72 -2.7 1.5
+vertex 1.42 -4.37 1.5
+endloop
+endfacet
+facet normal 0 -0 1
+outer loop
+vertex 4.85 -3.53 1.5
+vertex 6 0 1.5
+vertex 4.6 0 1.5
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 4.85 -3.53 1.5
+vertex 4.6 0 1.5
+vertex 3.72 -2.7 1.5
+endloop
+endfacet
+facet normal 0.95 0.31 0.08
+outer loop
+vertex 4.6 0 1.5
+vertex 3.72 2.7 1.5
+vertex 2.43 1.76 20
+endloop
+endfacet
+facet normal 0.95 0.31 0.08
+outer loop
+vertex 4.6 0 1.5
+vertex 2.43 1.76 20
+vertex 3 0 20
+endloop
+endfacet
+facet normal 0.59 0.81 0.08
+outer loop
+vertex 3.72 2.7 1.5
+vertex 1.42 4.37 1.5
+vertex 0.93 2.85 20
+endloop
+endfacet
+facet normal 0.59 0.81 0.08
+outer loop
+vertex 3.72 2.7 1.5
+vertex 0.93 2.85 20
+vertex 2.43 1.76 20
+endloop
+endfacet
+facet normal 0 1 0.08
+outer loop
+vertex 1.42 4.37 1.5
+vertex -1.42 4.37 1.5
+vertex -0.93 2.85 20
+endloop
+endfacet
+facet normal 0 1 0.08
+outer loop
+vertex 1.42 4.37 1.5
+vertex -0.93 2.85 20
+vertex 0.93 2.85 20
+endloop
+endfacet
+facet normal -0.59 0.81 0.08
+outer loop
+vertex -1.42 4.37 1.5
+vertex -3.72 2.7 1.5
+vertex -2.43 1.76 20
+endloop
+endfacet
+facet normal -0.59 0.81 0.08
+outer loop
+vertex -1.42 4.37 1.5
+vertex -2.43 1.76 20
+vertex -0.93 2.85 20
+endloop
+endfacet
+facet normal -0.95 0.31 0.08
+outer loop
+vertex -3.72 2.7 1.5
+vertex -4.6 0 1.5
+vertex -3 0 20
+endloop
+endfacet
+facet normal -0.95 0.31 0.08
+outer loop
+vertex -3.72 2.7 1.5
+vertex -3 0 20
+vertex -2.43 1.76 20
+endloop
+endfacet
+facet normal -0.95 -0.31 0.08
+outer loop
+vertex -4.6 0 1.5
+vertex -3.72 -2.7 1.5
+vertex -2.43 -1.76 20
+endloop
+endfacet
+facet normal -0.95 -0.31 0.08
+outer loop
+vertex -4.6 0 1.5
+vertex -2.43 -1.76 20
+vertex -3 0 20
+endloop
+endfacet
+facet normal -0.59 -0.81 0.08
+outer loop
+vertex -3.72 -2.7 1.5
+vertex -1.42 -4.37 1.5
+vertex -0.93 -2.85 20
+endloop
+endfacet
+facet normal -0.59 -0.81 0.08
+outer loop
+vertex -3.72 -2.7 1.5
+vertex -0.93 -2.85 20
+vertex -2.43 -1.76 20
+endloop
+endfacet
+facet normal -0 -1 0.08
+outer loop
+vertex -1.42 -4.37 1.5
+vertex 1.42 -4.37 1.5
+vertex 0.93 -2.85 20
+endloop
+endfacet
+facet normal -0 -1 0.08
+outer loop
+vertex -1.42 -4.37 1.5
+vertex 0.93 -2.85 20
+vertex -0.93 -2.85 20
+endloop
+endfacet
+facet normal 0.59 -0.81 0.08
+outer loop
+vertex 1.42 -4.37 1.5
+vertex 3.72 -2.7 1.5
+vertex 2.43 -1.76 20
+endloop
+endfacet
+facet normal 0.59 -0.81 0.08
+outer loop
+vertex 1.42 -4.37 1.5
+vertex 2.43 -1.76 20
+vertex 0.93 -2.85 20
+endloop
+endfacet
+facet normal 0.95 -0.31 0.08
+outer loop
+vertex 3.72 -2.7 1.5
+vertex 4.6 0 1.5
+vertex 3 0 20
+endloop
+endfacet
+facet normal 0.95 -0.31 0.08
+outer loop
+vertex 3.72 -2.7 1.5
+vertex 3 0 20
+vertex 2.43 -1.76 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 3 0 20
+vertex 2.43 1.76 20
+vertex 3.56 2.59 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 3 0 20
+vertex 3.56 2.59 20
+vertex 4.4 0 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.43 1.76 20
+vertex 0.93 2.85 20
+vertex 1.36 4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.43 1.76 20
+vertex 1.36 4.18 20
+vertex 3.56 2.59 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.93 2.85 20
+vertex -0.93 2.85 20
+vertex -1.36 4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.93 2.85 20
+vertex -1.36 4.18 20
+vertex 1.36 4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -0.93 2.85 20
+vertex -2.43 1.76 20
+vertex -3.56 2.59 20
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex -0.93 2.85 20
+vertex -3.56 2.59 20
+vertex -1.36 4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -2.43 1.76 20
+vertex -3 0 20
+vertex -4.4 0 20
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex -2.43 1.76 20
+vertex -4.4 0 20
+vertex -3.56 2.59 20
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex -3 0 20
+vertex -2.43 -1.76 20
+vertex -3.56 -2.59 20
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex -3 0 20
+vertex -3.56 -2.59 20
+vertex -4.4 0 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -2.43 -1.76 20
+vertex -0.93 -2.85 20
+vertex -1.36 -4.18 20
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex -2.43 -1.76 20
+vertex -1.36 -4.18 20
+vertex -3.56 -2.59 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -0.93 -2.85 20
+vertex 0.93 -2.85 20
+vertex 1.36 -4.18 20
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex -0.93 -2.85 20
+vertex 1.36 -4.18 20
+vertex -1.36 -4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.93 -2.85 20
+vertex 2.43 -1.76 20
+vertex 3.56 -2.59 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.93 -2.85 20
+vertex 3.56 -2.59 20
+vertex 1.36 -4.18 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.43 -1.76 20
+vertex 3 0 20
+vertex 4.4 0 20
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.43 -1.76 20
+vertex 4.4 0 20
+vertex 3.56 -2.59 20
+endloop
+endfacet
+facet normal 0.95 0.31 0
+outer loop
+vertex 4.4 0 20
+vertex 3.56 2.59 20
+vertex 3.56 2.59 21.2
+endloop
+endfacet
+facet normal 0.95 0.31 -0
+outer loop
+vertex 4.4 0 20
+vertex 3.56 2.59 21.2
+vertex 4.4 0 21.2
+endloop
+endfacet
+facet normal 0.59 0.81 0
+outer loop
+vertex 3.56 2.59 20
+vertex 1.36 4.18 20
+vertex 1.36 4.18 21.2
+endloop
+endfacet
+facet normal 0.59 0.81 -0
+outer loop
+vertex 3.56 2.59 20
+vertex 1.36 4.18 21.2
+vertex 3.56 2.59 21.2
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 1.36 4.18 20
+vertex -1.36 4.18 20
+vertex -1.36 4.18 21.2
+endloop
+endfacet
+facet normal 0 1 -0
+outer loop
+vertex 1.36 4.18 20
+vertex -1.36 4.18 21.2
+vertex 1.36 4.18 21.2
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -1.36 4.18 20
+vertex -3.56 2.59 20
+vertex -3.56 2.59 21.2
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -1.36 4.18 20
+vertex -3.56 2.59 21.2
+vertex -1.36 4.18 21.2
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -3.56 2.59 20
+vertex -4.4 0 20
+vertex -4.4 0 21.2
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -3.56 2.59 20
+vertex -4.4 0 21.2
+vertex -3.56 2.59 21.2
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -4.4 0 20
+vertex -3.56 -2.59 20
+vertex -3.56 -2.59 21.2
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -4.4 0 20
+vertex -3.56 -2.59 21.2
+vertex -4.4 0 21.2
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -3.56 -2.59 20
+vertex -1.36 -4.18 20
+vertex -1.36 -4.18 21.2
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -3.56 -2.59 20
+vertex -1.36 -4.18 21.2
+vertex -3.56 -2.59 21.2
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -1.36 -4.18 20
+vertex 1.36 -4.18 20
+vertex 1.36 -4.18 21.2
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -1.36 -4.18 20
+vertex 1.36 -4.18 21.2
+vertex -1.36 -4.18 21.2
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 1.36 -4.18 20
+vertex 3.56 -2.59 20
+vertex 3.56 -2.59 21.2
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 1.36 -4.18 20
+vertex 3.56 -2.59 21.2
+vertex 1.36 -4.18 21.2
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 3.56 -2.59 20
+vertex 4.4 0 20
+vertex 4.4 0 21.2
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 3.56 -2.59 20
+vertex 4.4 0 21.2
+vertex 3.56 -2.59 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 4.4 0 21.2
+vertex 3.56 2.59 21.2
+vertex 2.1 1.53 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 4.4 0 21.2
+vertex 2.1 1.53 21.2
+vertex 2.6 0 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 3.56 2.59 21.2
+vertex 1.36 4.18 21.2
+vertex 0.8 2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 3.56 2.59 21.2
+vertex 0.8 2.47 21.2
+vertex 2.1 1.53 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.36 4.18 21.2
+vertex -1.36 4.18 21.2
+vertex -0.8 2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.36 4.18 21.2
+vertex -0.8 2.47 21.2
+vertex 0.8 2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.36 4.18 21.2
+vertex -3.56 2.59 21.2
+vertex -2.1 1.53 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.36 4.18 21.2
+vertex -2.1 1.53 21.2
+vertex -0.8 2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -3.56 2.59 21.2
+vertex -4.4 0 21.2
+vertex -2.6 0 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -3.56 2.59 21.2
+vertex -2.6 0 21.2
+vertex -2.1 1.53 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -4.4 0 21.2
+vertex -3.56 -2.59 21.2
+vertex -2.1 -1.53 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -4.4 0 21.2
+vertex -2.1 -1.53 21.2
+vertex -2.6 0 21.2
+endloop
+endfacet
+facet normal -0 0 1
+outer loop
+vertex -3.56 -2.59 21.2
+vertex -1.36 -4.18 21.2
+vertex -0.8 -2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -3.56 -2.59 21.2
+vertex -0.8 -2.47 21.2
+vertex -2.1 -1.53 21.2
+endloop
+endfacet
+facet normal -0 0 1
+outer loop
+vertex -1.36 -4.18 21.2
+vertex 1.36 -4.18 21.2
+vertex 0.8 -2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex -1.36 -4.18 21.2
+vertex 0.8 -2.47 21.2
+vertex -0.8 -2.47 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 1.36 -4.18 21.2
+vertex 3.56 -2.59 21.2
+vertex 2.1 -1.53 21.2
+endloop
+endfacet
+facet normal 0 -0 1
+outer loop
+vertex 1.36 -4.18 21.2
+vertex 2.1 -1.53 21.2
+vertex 0.8 -2.47 21.2
+endloop
+endfacet
+facet normal 0 -0 1
+outer loop
+vertex 3.56 -2.59 21.2
+vertex 4.4 0 21.2
+vertex 2.6 0 21.2
+endloop
+endfacet
+facet normal 0 0 1
+outer loop
+vertex 3.56 -2.59 21.2
+vertex 2.6 0 21.2
+vertex 2.1 -1.53 21.2
+endloop
+endfacet
+facet normal 0.95 0.31 0
+outer loop
+vertex 2.6 0 21.2
+vertex 2.1 1.53 21.2
+vertex 2.1 1.53 25.5
+endloop
+endfacet
+facet normal 0.95 0.31 -0
+outer loop
+vertex 2.6 0 21.2
+vertex 2.1 1.53 25.5
+vertex 2.6 0 25.5
+endloop
+endfacet
+facet normal 0.59 0.81 0
+outer loop
+vertex 2.1 1.53 21.2
+vertex 0.8 2.47 21.2
+vertex 0.8 2.47 25.5
+endloop
+endfacet
+facet normal 0.59 0.81 -0
+outer loop
+vertex 2.1 1.53 21.2
+vertex 0.8 2.47 25.5
+vertex 2.1 1.53 25.5
+endloop
+endfacet
+facet normal 0 1 0
+outer loop
+vertex 0.8 2.47 21.2
+vertex -0.8 2.47 21.2
+vertex -0.8 2.47 25.5
+endloop
+endfacet
+facet normal 0 1 -0
+outer loop
+vertex 0.8 2.47 21.2
+vertex -0.8 2.47 25.5
+vertex 0.8 2.47 25.5
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -0.8 2.47 21.2
+vertex -2.1 1.53 21.2
+vertex -2.1 1.53 25.5
+endloop
+endfacet
+facet normal -0.59 0.81 0
+outer loop
+vertex -0.8 2.47 21.2
+vertex -2.1 1.53 25.5
+vertex -0.8 2.47 25.5
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -2.1 1.53 21.2
+vertex -2.6 0 21.2
+vertex -2.6 0 25.5
+endloop
+endfacet
+facet normal -0.95 0.31 0
+outer loop
+vertex -2.1 1.53 21.2
+vertex -2.6 0 25.5
+vertex -2.1 1.53 25.5
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -2.6 0 21.2
+vertex -2.1 -1.53 21.2
+vertex -2.1 -1.53 25.5
+endloop
+endfacet
+facet normal -0.95 -0.31 0
+outer loop
+vertex -2.6 0 21.2
+vertex -2.1 -1.53 25.5
+vertex -2.6 0 25.5
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -2.1 -1.53 21.2
+vertex -0.8 -2.47 21.2
+vertex -0.8 -2.47 25.5
+endloop
+endfacet
+facet normal -0.59 -0.81 0
+outer loop
+vertex -2.1 -1.53 21.2
+vertex -0.8 -2.47 25.5
+vertex -2.1 -1.53 25.5
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -0.8 -2.47 21.2
+vertex 0.8 -2.47 21.2
+vertex 0.8 -2.47 25.5
+endloop
+endfacet
+facet normal -0 -1 0
+outer loop
+vertex -0.8 -2.47 21.2
+vertex 0.8 -2.47 25.5
+vertex -0.8 -2.47 25.5
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 0.8 -2.47 21.2
+vertex 2.1 -1.53 21.2
+vertex 2.1 -1.53 25.5
+endloop
+endfacet
+facet normal 0.59 -0.81 0
+outer loop
+vertex 0.8 -2.47 21.2
+vertex 2.1 -1.53 25.5
+vertex 0.8 -2.47 25.5
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 2.1 -1.53 21.2
+vertex 2.6 0 21.2
+vertex 2.6 0 25.5
+endloop
+endfacet
+facet normal 0.95 -0.31 0
+outer loop
+vertex 2.1 -1.53 21.2
+vertex 2.6 0 25.5
+vertex 2.1 -1.53 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.6 0 25.5
+vertex 2.1 1.53 25.5
+vertex 2.51 1.82 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.6 0 25.5
+vertex 2.51 1.82 25.5
+vertex 3.1 0 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.1 1.53 25.5
+vertex 0.8 2.47 25.5
+vertex 0.96 2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.1 1.53 25.5
+vertex 0.96 2.95 25.5
+vertex 2.51 1.82 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.8 2.47 25.5
+vertex -0.8 2.47 25.5
+vertex -0.96 2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.8 2.47 25.5
+vertex -0.96 2.95 25.5
+vertex 0.96 2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -0.8 2.47 25.5
+vertex -2.1 1.53 25.5
+vertex -2.51 1.82 25.5
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex -0.8 2.47 25.5
+vertex -2.51 1.82 25.5
+vertex -0.96 2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -2.1 1.53 25.5
+vertex -2.6 0 25.5
+vertex -3.1 0 25.5
+endloop
+endfacet
+facet normal -0 0 -1
+outer loop
+vertex -2.1 1.53 25.5
+vertex -3.1 0 25.5
+vertex -2.51 1.82 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -2.6 0 25.5
+vertex -2.1 -1.53 25.5
+vertex -2.51 -1.82 25.5
+endloop
+endfacet
+facet normal -0 -0 -1
+outer loop
+vertex -2.6 0 25.5
+vertex -2.51 -1.82 25.5
+vertex -3.1 0 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -2.1 -1.53 25.5
+vertex -0.8 -2.47 25.5
+vertex -0.96 -2.95 25.5
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex -2.1 -1.53 25.5
+vertex -0.96 -2.95 25.5
+vertex -2.51 -1.82 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex -0.8 -2.47 25.5
+vertex 0.8 -2.47 25.5
+vertex 0.96 -2.95 25.5
+endloop
+endfacet
+facet normal 0 -0 -1
+outer loop
+vertex -0.8 -2.47 25.5
+vertex 0.96 -2.95 25.5
+vertex -0.96 -2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.8 -2.47 25.5
+vertex 2.1 -1.53 25.5
+vertex 2.51 -1.82 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 0.8 -2.47 25.5
+vertex 2.51 -1.82 25.5
+vertex 0.96 -2.95 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.1 -1.53 25.5
+vertex 2.6 0 25.5
+vertex 3.1 0 25.5
+endloop
+endfacet
+facet normal 0 0 -1
+outer loop
+vertex 2.1 -1.53 25.5
+vertex 3.1 0 25.5
+vertex 2.51 -1.82 25.5
+endloop
+endfacet
+facet normal 0.77 0.25 0.59
+outer loop
+vertex 3.1 0 25.5
+vertex 2.51 1.82 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal 0.47 0.65 0.59
+outer loop
+vertex 2.51 1.82 25.5
+vertex 0.96 2.95 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal 0 0.8 0.59
+outer loop
+vertex 0.96 2.95 25.5
+vertex -0.96 2.95 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal -0.47 0.65 0.59
+outer loop
+vertex -0.96 2.95 25.5
+vertex -2.51 1.82 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal -0.77 0.25 0.59
+outer loop
+vertex -2.51 1.82 25.5
+vertex -3.1 0 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal -0.77 -0.25 0.59
+outer loop
+vertex -3.1 0 25.5
+vertex -2.51 -1.82 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal -0.47 -0.65 0.59
+outer loop
+vertex -2.51 -1.82 25.5
+vertex -0.96 -2.95 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal -0 -0.8 0.59
+outer loop
+vertex -0.96 -2.95 25.5
+vertex 0.96 -2.95 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal 0.47 -0.65 0.59
+outer loop
+vertex 0.96 -2.95 25.5
+vertex 2.51 -1.82 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+facet normal 0.77 -0.25 0.59
+outer loop
+vertex 2.51 -1.82 25.5
+vertex 3.1 0 25.5
+vertex 0 0 29.5
+endloop
+endfacet
+endsolid beacon
+```
+
+## Thank you
+
+To **Meta** for the Muse models and the open weights that keep people's details private, to **Cerebral Valley** for running the hackathon, to **Baseten** for hosting Muse Spark Open, and to **Vercel** for hosting Beacon. Rule sources include GOV.UK, the Scottish Government, the IRS, USDA, CMS and HHS. The unclaimed figures come from Policy in Practice and the IRS Taxpayer Advocate Service.
+
+Built solo by [Dinesh Potluru](https://github.com/Dinesh-Sunny).
+
+<a href="https://star-history.com/#Dinesh-Sunny/beacon&Date">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/svg?repos=Dinesh-Sunny/beacon&type=Date&theme=dark">
+    <img alt="Star history of Beacon" src="https://api.star-history.com/svg?repos=Dinesh-Sunny/beacon&type=Date" width="600">
+  </picture>
+</a>
 
 <p align="center">
   <br>
