@@ -1,0 +1,5 @@
+blank_issues_enabled: true
+contact_links:
+  - name: Try Beacon
+    url: https://beacon-support.vercel.app
+    about: Run a free check in your browser

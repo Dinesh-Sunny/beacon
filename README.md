@@ -20,7 +20,25 @@
   Muse Spark · Muse Wonder · Muse Image · Muse Voice Transcribe · SAM 3.1 · Muse Spark Open on Baseten</sub>
 </p>
 
+<p align="center">
+  <a href="https://beacon-support.vercel.app"><img alt="Live demo" src="https://img.shields.io/badge/live%20demo-beacon--support.vercel.app-e8892b?style=flat-square"></a>
+  <a href="https://youtu.be/hBQzm3mHWHY"><img alt="3 minute demo video" src="https://img.shields.io/badge/demo%20video-3%20minutes-c4302b?style=flat-square&logo=youtube&logoColor=white"></a>
+  <img alt="Built on Meta Muse models" src="https://img.shields.io/badge/built%20on-Meta%20Muse-0866ff?style=flat-square&logo=meta&logoColor=white">
+  <img alt="Next.js 16" src="https://img.shields.io/badge/Next.js-16-111?style=flat-square&logo=nextdotjs">
+  <img alt="TypeScript" src="https://img.shields.io/badge/TypeScript-strict-3178c6?style=flat-square&logo=typescript&logoColor=white">
+  <img alt="7 languages" src="https://img.shields.io/badge/languages-7-2f855a?style=flat-square">
+  <a href="LICENSE"><img alt="Apache 2.0" src="https://img.shields.io/badge/license-Apache%202.0-555?style=flat-square"></a>
+</p>
+
 ![Beacon home page: "Find the support that's already yours", with a chat box and a live product window](docs/images/hero.jpg)
+
+## Watch the 3-minute demo
+
+<p align="center">
+  <a href="https://youtu.be/hBQzm3mHWHY"><img src="docs/images/video-thumbnail.png" width="720" alt="Watch the Beacon demo: £24 billion goes unclaimed every year. Is some of it yours?"></a>
+</p>
+
+<p align="center"><sub>A daughter checks for her mum, a confusing letter gets read, Walter in Ohio finds his help, and you see the six Meta models doing their jobs. <a href="https://x.com/_dineshsunny/status/2118151441051226599">Share it on X</a> if you know someone it could help.</sub></p>
 
 ## The help is there. People just never hear about it.
 
@@ -171,6 +189,18 @@ flowchart LR
 23. **Built to survive a public demo.** A per-IP rate limit, a daily cap and same-origin checks on every model route ([`guard.ts`](apps/meta/src/server/guard.ts)). In-flight requests are de-duplicated and answers cached ([`cache.ts`](apps/meta/src/server/cache.ts)), with prompt-cache keys on long fixed prompts.
 24. **Measured without watching anyone.** Cost logs record model, tokens and milliseconds, never words. Vercel Web Analytics and Speed Insights see page paths only, never the answers in a link.
 </details>
+
+## What comes next
+
+Today the free check helps people and families in the UK and the US. From one family to a worldwide network:
+
+- **Pro keeps watching after you claim:** the decision, the first payment, changes to report and new rules.
+- **Funded Pro.** Councils, housing associations and employers can pay for Pro for the people they serve.
+- **Businesses and organisations** find the support they can claim, the same way.
+- **More countries.** Each new country brings its own official rules, as a rule pack with a source link on every line.
+- **A worldwide network** where providers refer people to each other through Beacon.
+
+Beacon will never take a cut of anything you're awarded.
 
 ## Built during the hackathon
 

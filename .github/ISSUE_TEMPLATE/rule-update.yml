@@ -1,0 +1,24 @@
+name: A rule or amount is out of date
+description: Tell us about a scheme, amount, age or date that has changed
+labels: [rules]
+body:
+  - type: input
+    id: scheme
+    attributes:
+      label: Which scheme?
+      placeholder: Pension Credit, SNAP, Council Tax Reduction ...
+    validations:
+      required: true
+  - type: textarea
+    id: change
+    attributes:
+      label: What has changed?
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Official source link
+      description: A GOV.UK, state or agency page that shows the new rule
+    validations:
+      required: true
