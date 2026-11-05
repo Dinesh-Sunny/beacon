@@ -204,7 +204,7 @@ function Shell() {
           <>
             <span className="divider wide-only" aria-hidden="true" />
             <span className="title wide-only">
-              {exampleName
+              {exampleName && subject.label === exampleName
                 ? t("exampleOf", { name: exampleName })
                 : subject.who === "me"
                   ? t("yourCheck")
