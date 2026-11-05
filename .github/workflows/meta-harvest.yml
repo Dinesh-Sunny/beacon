@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 24
       - run: node scripts/harvest.ts ${{ inputs.connectors }}
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@v8
         with:
           branch: knowledge/harvest
           commit-message: "chore(meta): weekly harvest"
