@@ -24,7 +24,7 @@ jobs:
           node-version: 24
       - id: watch
         run: node scripts/watch-sources.ts
-      - uses: peter-evans/create-pull-request@v7
+      - uses: peter-evans/create-pull-request@v8
         with:
           branch: knowledge/watch
           commit-message: "chore(meta): knowledge watch"
