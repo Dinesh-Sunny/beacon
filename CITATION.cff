@@ -1,0 +1,20 @@
+cff-version: 1.2.0
+message: "If you use Beacon in your work, please cite it like this."
+title: "Beacon: find the support that's already yours"
+abstract: "A private assistant that shows the UK or US support that's likely yours, with the official rule behind every answer. Built on Meta's Muse models; plain code makes every decision."
+type: software
+authors:
+  - family-names: Potluru
+    given-names: Dinesh
+repository-code: "https://github.com/Dinesh-Sunny/beacon"
+url: "https://beacon-support.vercel.app"
+license: Apache-2.0
+date-released: "2026-11-05"
+version: "1.0.0"
+keywords:
+  - benefits
+  - public services
+  - accessibility
+  - privacy
+  - agents
+  - meta
