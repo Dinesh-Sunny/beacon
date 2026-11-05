@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-python@v7
         with: { python-version: "3.12" }
       - run: python3 .claude/scripts/ctx.py check
-      - uses: astral-sh/setup-uv@v10.3.0
+      - uses: astral-sh/setup-uv@v10.3.3
       - name: Stack registry guards (N1-N5)
         run: if [ -f .claude/stacks/README.md ]; then .claude/skills/feature/scripts/stacks.sh guards; fi
       - name: Freshness report (non-blocking)
