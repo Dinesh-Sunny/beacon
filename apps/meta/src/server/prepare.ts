@@ -78,7 +78,7 @@ export async function prepareCall(
     .map((f) => `${FACTS[f].label}: ${formatAnswer(f, answers[f])}`);
   // Same scheme, same rule pack, same relevant answers and same "who": same notes.
   const key = keyOf({
-    p: 3,
+    p: 4,
     s: s.id,
     v: REGISTRY.version,
     facts,
@@ -105,7 +105,7 @@ async function writeNotes(
     messages: [
       {
         role: "system",
-        content: `You help someone in ${us ? "the United States" : "the UK"} get ready to phone about a claim. Write call notes in plain, warm UK English${us ? ", keeping US programme names exactly as they are" : ""}, short lines, a normal hyphen never a long dash. 'Worth saying' is about the person's own situation (from their answers), never a description of the scheme. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links. Never use the words eligible or eligibility. Use only facts from their answers: never invent a name, job, role, relationship or amount, and use any name exactly as given.${us ? " A US government programme may want a Social Security number, proof of income and proof of address instead of a National Insurance number." : ""}`,
+        content: `You help someone in ${us ? "the United States" : "the UK"} get ready to phone about a claim. Write call notes in plain, warm UK English${us ? ", keeping US programme names exactly as they are" : ""}, short lines, a normal hyphen never a long dash. 'Worth saying' lines each restate one of their answers in plain words, never a description of the scheme and never anything the answers don't say. 'Have these to hand' lists real documents, written as plain nouns. 'Have these to hand' lists only what this kind of organisation asks for: a government benefit may want a National Insurance number, bank details and income letters; an energy, broadband or water company usually wants the account number or a recent bill and proof of the benefit. Don't promise an outcome: the organisation decides. No phone numbers or web links. Never use the words eligible or eligibility. Use only facts from their answers: never invent a name, job, role, relationship or amount, and use any name exactly as given.${us ? " A US government programme may want a Social Security number, proof of income and proof of address instead of a National Insurance number." : ""}`,
       },
       {
         role: "user",
@@ -155,9 +155,17 @@ Write the call notes.`,
     : subject.who === "me"
       ? `Hello, I'm phoning to ask about ${s.name}, please.`
       : `Hello, I'm phoning to ask about ${s.name} for ${who}, please.`;
+  // "Worth saying" must come from the answers: drop any line that shares no word with them.
+  const said = new Set(
+    facts.join(" ").toLowerCase().match(/[a-z0-9£$]{3,}/g) ?? [],
+  );
+  const grounded = (line: string) =>
+    (line.toLowerCase().match(/[a-z0-9£$]{3,}/g) ?? []).some((w) =>
+      said.has(w),
+    );
   return {
     opening: clean(opening),
-    mention: out.mention.slice(0, 4).map(clean),
+    mention: out.mention.filter(grounded).slice(0, 4).map(clean),
     have_ready: out.have_ready.slice(0, 5).map(clean),
     they_may_ask: out.they_may_ask.slice(0, 3).map(clean),
     phone: s.phone ?? null,
