@@ -167,8 +167,8 @@ importers:
   .:
     devDependencies:
       '@biomejs/biome':
-        specifier: 2.6.3
-        version: 2.6.3
+        specifier: 2.6.4
+        version: 2.6.4
 
   apps/meta:
     dependencies:
@@ -180,13 +180,13 @@ importers:
         version: 5.3.0
       '@vercel/analytics':
         specifier: 2.0.1
-        version: 2.0.1(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        version: 2.0.1(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       '@vercel/speed-insights':
         specifier: 2.0.0
-        version: 2.0.0(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
+        version: 2.0.0(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)
       next:
         specifier: 16.4.3
-        version: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -204,8 +204,8 @@ importers:
         version: 4.6.7
     devDependencies:
       '@types/node':
-        specifier: 26.6.5
-        version: 26.6.5
+        specifier: 26.6.6
+        version: 26.6.6
       '@types/react':
         specifier: 19.3.0
         version: 19.3.0
@@ -234,20 +234,20 @@ importers:
         specifier: 5.3.0
         version: 5.3.0
       '@modelcontextprotocol/server':
-        specifier: 2.3.1
-        version: 2.3.1
+        specifier: 2.4.0
+        version: 2.4.0
       '@t3-oss/env-nextjs':
         specifier: 0.13.11
         version: 0.13.11(typescript@7.0.2)(zod@4.6.7)
       deepagents:
-        specifier: 1.16.0
-        version: 1.16.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7)))
+        specifier: 1.16.2
+        version: 1.16.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7)))
       mcp-handler:
         specifier: 2.3.0
-        version: 2.3.0(@modelcontextprotocol/server@2.3.1)(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
+        version: 2.3.0(@modelcontextprotocol/server@2.4.0)(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))
       next:
         specifier: 16.4.3
-        version: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react:
         specifier: 19.3.1
         version: 19.3.1
@@ -268,8 +268,8 @@ importers:
         specifier: 4.3.3
         version: 4.3.3
       '@types/node':
-        specifier: 26.6.5
-        version: 26.6.5
+        specifier: 26.6.6
+        version: 26.6.6
       '@types/react':
         specifier: 19.3.0
         version: 19.3.0
@@ -292,27 +292,27 @@ importers:
         specifier: workspace:*
         version: link:../rules
       '@langchain/core':
-        specifier: 1.3.1
-        version: 1.3.1(openai@7.45.1(zod@4.6.7))
+        specifier: 1.3.2
+        version: 1.3.2(openai@7.45.1(zod@4.6.7))
       '@langchain/langgraph':
-        specifier: 1.5.3
-        version: 1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
+        specifier: 1.6.0
+        version: 1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
       '@langchain/openai':
-        specifier: 1.7.1
-        version: 1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))
+        specifier: 1.8.0
+        version: 1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))
       deepagents:
-        specifier: 1.16.0
-        version: 1.16.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7)))
+        specifier: 1.16.2
+        version: 1.16.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7)))
       langchain:
         specifier: 1.6.0
-        version: 1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+        version: 1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       zod:
         specifier: 4.6.7
         version: 4.6.7
     devDependencies:
       '@types/node':
-        specifier: 26.6.5
-        version: 26.6.5
+        specifier: 26.6.6
+        version: 26.6.6
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -327,8 +327,8 @@ importers:
         version: link:../rules
     devDependencies:
       '@types/node':
-        specifier: 26.6.5
-        version: 26.6.5
+        specifier: 26.6.6
+        version: 26.6.6
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -340,8 +340,8 @@ importers:
         version: 4.6.7
     devDependencies:
       '@types/node':
-        specifier: 26.6.5
-        version: 26.6.5
+        specifier: 26.6.6
+        version: 26.6.6
       typescript:
         specifier: 7.0.2
         version: 7.0.2
@@ -364,71 +364,71 @@ packages:
     resolution: {integrity: sha512-WCsemW40Cpc6gouC1SrY6PBaZ+oLRlEVY9XBvZBI7il/HyUrb2nJ505wE1MHEFyDZNnrWDEuy4jL50WVHfTTSQ==}
     engines: {node: '>=6.9.0'}
 
-  '@biomejs/biome@2.6.3':
-    resolution: {integrity: sha512-va/0xPku7wnfzv+D8Zpdm5uKiGJWiV8neqoEPnRjvNQQwhl4tVXS4fETs4H0CCB2rGeqJ4cu9y4iOZOnOYKAUA==}
+  '@biomejs/biome@2.6.4':
+    resolution: {integrity: sha512-8sKKwaNW4ot22awZ3lBjwWLHnUFXgXnrBPYS2gNlBAXRbDC++7kqjK2H7dR/FgCDtPvO1xfKpgEhJkGxAKYkxA==}
     engines: {node: '>=14.21.3'}
     hasBin: true
 
-  '@biomejs/cli-android-arm64@2.6.3':
-    resolution: {integrity: sha512-5JD7QQDEHxdeEb4sftEHG+lsuUyu8Cob/hVLqRELbgGlFl68Rldv/PPi2k4dRjERZ/EItJ3O6Xmv8lqsEtUBiw==}
+  '@biomejs/cli-android-arm64@2.6.4':
+    resolution: {integrity: sha512-jwrwigP4tBcHxzuV8izioX/BOUhJL/4e2rNSOE5nCjBkVC018LQAQUGiH+CNkFYvLtQ1dcZo5/xXERmaAGc7JQ==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [android]
 
-  '@biomejs/cli-android-x64@2.6.3':
-    resolution: {integrity: sha512-70WOGKCgpT+Uqg6LFdTLqefV54/DypdZg+LnBQDO6AWvkgXO+9xhVClajQyDsIHYjnXMtI1pRO5sP+zMXlS/bw==}
+  '@biomejs/cli-android-x64@2.6.4':
+    resolution: {integrity: sha512-HdGInPJ4nZFwHxzvEtcp2nmSBtUyJrurmtIK43upFckuS3+ZqVM05HtsxQWnqGsuy/pxckIAjyKWlEKRlBXUyA==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [android]
 
-  '@biomejs/cli-darwin-arm64@2.6.3':
-    resolution: {integrity: sha512-ezf+XEKeyJ2yYlBhrzyEEHLvfRYrhtNKc6maLzR/WcAcBccb4RVDeFxsymjBve2LO0bpIMRUAiS90D4bUBRT0A==}
+  '@biomejs/cli-darwin-arm64@2.6.4':
+    resolution: {integrity: sha512-0VvcUz46wbg59Q4TZ59KkIjDJrxEyu4Eoe79+F4SChxoWe+W7AEyIp6F5r72C9+p6MsB6dIovnZt1D30lGM3XA==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [darwin]
 
-  '@biomejs/cli-darwin-x64@2.6.3':
-    resolution: {integrity: sha512-Lg2tFdg4elJo+7i707PpLMs6N1hATVt4kqDo6MD/q/VnPs8rsKReKXsz1TA5GNdfRVAQNJ5GRiyK2EwNptK+MA==}
+  '@biomejs/cli-darwin-x64@2.6.4':
+    resolution: {integrity: sha512-fxmvkF81srlS3DiMyfm+aG3J0eG+6/BjaxRyjy57KbLSafnq0PO+hHfVWmtH2ty0S7nm6yDXBRwySfFeaRJKRQ==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [darwin]
 
-  '@biomejs/cli-linux-arm64-musl@2.6.3':
-    resolution: {integrity: sha512-dYU70A89OFHzakQPE9VOPbE60JNcQt4mtxvUGQl+EgTkGtqCFxLD2RUn1SbiMu8Mu5xFscS1bfYDpoasaUrqNA==}
+  '@biomejs/cli-linux-arm64-musl@2.6.4':
+    resolution: {integrity: sha512-31ZaH/MHqPX+O+evRwRrCHQ8W5/9adY+/eMytGGWZnRx1T41QsWIF09+/WujynLBhWZUxNGS5CtsWLwgOFTAyg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-arm64@2.6.3':
-    resolution: {integrity: sha512-8Stcvq98n1gs9VyLKuaWrnsd8kbXE2nKDAHtuLHGSYdGyNWN5JIIm5a28xdnmgdKzKHmiDgYyATetkEv7+zGow==}
+  '@biomejs/cli-linux-arm64@2.6.4':
+    resolution: {integrity: sha512-6+bK1Y/evmIUiJr7auertuMbiaYVicJhqA1bZyL47lCMWugv8l0gFQCqvR/gN1vZMHYm+HwoTKgeMxdNFCoQTg==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-linux-x64-musl@2.6.3':
-    resolution: {integrity: sha512-j6eFjUcWSphmgVTbrobEMA0wdbfNHKrGi8hRsFkc17jeS1n7nHwFACxp6jWqe9sxQqyFAeyOgt2/1bOGVcbATA==}
+  '@biomejs/cli-linux-x64-musl@2.6.4':
+    resolution: {integrity: sha512-bomSa2XdQAGGj6Cwdm4M13qE+lN9+AOlW8KtI4hdyVyRRF/Z71qPAi95T4wtdZK0QpBbkTW8hgbZZCwPi4xzIw==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [musl]
 
-  '@biomejs/cli-linux-x64@2.6.3':
-    resolution: {integrity: sha512-CShmx0bO6BngywT3minv8K1xsQX1ig1vsBqYTLnmDY3mBiDYHlaLRIsdHoM1pEU9dV3BN5a0uiH0IGDtYh9TWA==}
+  '@biomejs/cli-linux-x64@2.6.4':
+    resolution: {integrity: sha512-tbFZMdL6dP/ws4edXxYG9WhvaVa1ZDzL4G5DzahnWW7Psib9H+VTdyU4XXVxpJk5j/nYZroSbvSNyYlpW3yCIw==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [linux]
     libc: [glibc]
 
-  '@biomejs/cli-win32-arm64@2.6.3':
-    resolution: {integrity: sha512-00SthDxBPwNiT7IL/mOneif6fiEU1PXK875zhr+InpeZjovY1mF5tCuDhXo1Hh0GYyiKHKzLbItzn58SAyLhJQ==}
+  '@biomejs/cli-win32-arm64@2.6.4':
+    resolution: {integrity: sha512-eCsqt8Ma3eVap+oyJCDnJZH60SIU464B66n3y38EUTJdM1T/HfZol1FJC9vb+sHToX0ix8XzqPcwJnOzyAJz0g==}
     engines: {node: '>=14.21.3'}
     cpu: [arm64]
     os: [win32]
 
-  '@biomejs/cli-win32-x64@2.6.3':
-    resolution: {integrity: sha512-GhtOPphBWlnCepqpNk/w5eGN5oGRCzL20EbAkL1XCIpyboeVC9R642noyT43l8LSenGS4qz9IL8sKPfwY37V/Q==}
+  '@biomejs/cli-win32-x64@2.6.4':
+    resolution: {integrity: sha512-pYsMy5AThiHFOZAsngg8qN4PurM6nInKBhVX7sbj3eNpRQqo1Hb0MgCwPL7VqVMrmcEEMj9Ks3qbkallR65e8g==}
     engines: {node: '>=14.21.3'}
     cpu: [x64]
     os: [win32]
@@ -638,20 +638,20 @@ packages:
   '@jridgewell/trace-mapping@0.3.31':
     resolution: {integrity: sha512-zzNR+SdQSDJzc8joaeP8QQoCQr8NuYx2dIIytl1QeBEZHJ9uW6hebsrYgbz8hJwUQao3TWCMtmfV8Nu1twOLAw==}
 
-  '@langchain/core@1.3.1':
-    resolution: {integrity: sha512-jt0miXWxNi+rbZLeSeZkc7BBYKnWopksoJSpB+P3zaYgzMMNwkAPWqnd1zSClfYGwLZPXQbbTtaqv8ZFXmE3FA==}
+  '@langchain/core@1.3.2':
+    resolution: {integrity: sha512-kXI5wkIRy6MVNBFzFdN4MyNAGPTsodVZFQ9BRQTyOCNnKy+qPuipMCl+qaybtN6rQ+0YrJvfTxYd+u4goAHtFQ==}
     engines: {node: '>=20'}
 
-  '@langchain/langgraph-checkpoint@1.2.1':
-    resolution: {integrity: sha512-RD01mi9fYfpIq5fWrW/j2iY7MRUoqKvh1Nj6TMRDBoTGE18E2du75zKDugNxb57N8FWCojaiWGB9Enssnx9Hyg==}
+  '@langchain/langgraph-checkpoint@1.2.2':
+    resolution: {integrity: sha512-KL3nzi7I61ll5nANCQe5RoJ5SqTFrE+si9IK6k7IIj9OrPkIKT/Dz0w8CyJF+K7OEuJfA33HvPrZqfzzW1DXDA==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': ^1.1.48
 
-  '@langchain/langgraph-sdk@1.12.8':
-    resolution: {integrity: sha512-MYbACC5+l6XlcqCRZD5mz2KD01bdXxzJVEHs259g2R1pLbVEB2V+n2rk5kxGx4l2chAPjdNuNXihtwFBsFCT+Q==}
+  '@langchain/langgraph-sdk@1.12.9':
+    resolution: {integrity: sha512-A1LkLPVu00dj+9aErXPBLhmFURHtnnRO9KRFST+xAwurqQTa+LxC9ixxF7p+ZMo5P70qMFoaP8Ud2wuZmYD4xw==}
     peerDependencies:
-      '@langchain/core': ^1.1.48
+      '@langchain/core': ^1.2.18
       react: ^18 || ^19
       react-dom: ^18 || ^19
     peerDependenciesMeta:
@@ -660,28 +660,28 @@ packages:
       react-dom:
         optional: true
 
-  '@langchain/langgraph@1.5.3':
-    resolution: {integrity: sha512-cuqswNgfoF/J3/r9K5Qm7EnQc2f0mz7uWlAAs751KWhoK8sKfmuLABghF4b1LYq1NpK72XG1x8lWPyg45M8BOA==}
+  '@langchain/langgraph@1.6.0':
+    resolution: {integrity: sha512-7ka7uXNhi9Rxt8LcIJm63+lE3J/MD4tU5TzjiAOcwpLh/2CBe5JKuvFah0MSQnD7onwBcxcEkcaGj9Omfbkxkg==}
     engines: {node: '>=18'}
     peerDependencies:
       '@langchain/core': ^1.1.48
       zod: ^3.25.32 || ^4.2.0
 
-  '@langchain/openai@1.7.1':
-    resolution: {integrity: sha512-pkoW+aKB0SYZnaF/oIZljryh5Sld2cMncWoZAsXQ6dFXx3tiLQw0S6qyjZsoWFkvx0YMaDIrMxtvM/hzlU7PZQ==}
+  '@langchain/openai@1.8.0':
+    resolution: {integrity: sha512-HstN9V0rUkNnOyzMSylP2e5z6VbyuZXyoliuepO2Tf59bezrhvB/sljLfREN1lAGsy4YysD5hUeCN/2ynAZKjQ==}
     engines: {node: '>=22'}
     peerDependencies:
-      '@langchain/core': ^1.3.0
+      '@langchain/core': ^1.3.1
 
   '@langchain/protocol@0.0.20':
     resolution: {integrity: sha512-sxlkDG2/HGyjDFLTJ8B/o3oglRjOv8iLCFgrV0550/Vym3V6RZ0SUjAQFe8jrLQw8ZXjERy3swJp5OODBSrUYA==}
 
-  '@modelcontextprotocol/core@2.3.1':
-    resolution: {integrity: sha512-laVmIhPGpWi7rG9q+0UigblRN0Hws/Yjlb6qLFtVqryXVLkc4h+yN8z731POD2LnAGQlFe7/tXhUm7Bi0YB91g==}
+  '@modelcontextprotocol/core@2.4.0':
+    resolution: {integrity: sha512-z8QBKqdfXLPzkLQuG4xp8hrVEMm1PZ1IgxMN2sMbJiFiAKOWXnAzogXn2W4aqIBlP1ea6U5yiqVquvUNM1Cj6Q==}
     engines: {node: '>=20'}
 
-  '@modelcontextprotocol/server@2.3.1':
-    resolution: {integrity: sha512-e59MfWuSssj6DoQ96JCTqdW1AXT5/XtnTl0WWd6MU1Ka434fFUGGosCLJbGNySDhHGvxQWoRWK137FXYFkYNWw==}
+  '@modelcontextprotocol/server@2.4.0':
+    resolution: {integrity: sha512-rgR9yxSaAJ+bcsi/XroT/S2AfPiIWloXAnrdfYSCms9ivVju0ishu/wW0J21Ho6+ZOR1r7RyeRbjiRuF87ix5Q==}
     engines: {node: '>=20'}
 
   '@next/env@16.4.3':
@@ -894,8 +894,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/node@26.6.5':
-    resolution: {integrity: sha512-uMzsv9stDdofIZBx4UGh4Z9ZgXnGC9seRDscilBcTHAeOFk67MZg/k9bWVfO+bk4qZmG+l52hRnLwUiH2LnJTg==}
+  '@types/node@26.6.6':
+    resolution: {integrity: sha512-MzQj+8Kx3XI40OmUAE6Qoh58ZMNstNNMwn2nfd3qWsfe7nDNSqJNzes4njhz6AHwrSHOffSLwXU6yb474Q4aog==}
 
   '@types/react-dom@19.3.0':
     resolution: {integrity: sha512-ZI7bU42mZXXKHn/qNLEw2IrbiINU7X5+vfgdixBHkCNpYWXjKgfQ/P+uyGb5CjOLB9UcnTeg3rylQtV2hym44Q==}
@@ -1112,11 +1112,11 @@ packages:
   csstype@3.2.3:
     resolution: {integrity: sha512-z1HGKcYy2xA8AGQfwrn0PAy+PB7X/GSj3UVJW9qKyn43xWa+gl5nXmU4qqLMRzWVLFC8KusUX8T/0kCiOYpAIQ==}
 
-  deepagents@1.16.0:
-    resolution: {integrity: sha512-aOSxYuQqsUNKi/3MLcU5+V1PbPQCr7mNpqAWe6sQdDynms1Xl7uZNIrgHLJOuSvGHqdTz1XMNrpdieu3d+Ktjw==}
+  deepagents@1.16.2:
+    resolution: {integrity: sha512-4+pxGWLkpwcwAY4g8upAWMxMJN0RsZPURlkhCCjIKaxOOmFuC7Y7A0qbcLLJx+nxFDLd/zOYo1tbWiONVGu73g==}
     peerDependencies:
       '@langchain/anthropic': ^1.5.12
-      '@langchain/core': ^1.2.14
+      '@langchain/core': ^1.3.2
       '@langchain/langgraph': ^1.4.10
       '@langchain/langgraph-checkpoint': ^1.1.5
       '@langchain/langgraph-sdk': ^1.9.23
@@ -1546,47 +1546,47 @@ snapshots:
       '@babel/helper-string-parser': 7.29.11
       '@babel/helper-validator-identifier': 7.29.7
 
-  '@biomejs/biome@2.6.3':
+  '@biomejs/biome@2.6.4':
     optionalDependencies:
-      '@biomejs/cli-android-arm64': 2.6.3
-      '@biomejs/cli-android-x64': 2.6.3
-      '@biomejs/cli-darwin-arm64': 2.6.3
-      '@biomejs/cli-darwin-x64': 2.6.3
-      '@biomejs/cli-linux-arm64': 2.6.3
-      '@biomejs/cli-linux-arm64-musl': 2.6.3
-      '@biomejs/cli-linux-x64': 2.6.3
-      '@biomejs/cli-linux-x64-musl': 2.6.3
-      '@biomejs/cli-win32-arm64': 2.6.3
-      '@biomejs/cli-win32-x64': 2.6.3
+      '@biomejs/cli-android-arm64': 2.6.4
+      '@biomejs/cli-android-x64': 2.6.4
+      '@biomejs/cli-darwin-arm64': 2.6.4
+      '@biomejs/cli-darwin-x64': 2.6.4
+      '@biomejs/cli-linux-arm64': 2.6.4
+      '@biomejs/cli-linux-arm64-musl': 2.6.4
+      '@biomejs/cli-linux-x64': 2.6.4
+      '@biomejs/cli-linux-x64-musl': 2.6.4
+      '@biomejs/cli-win32-arm64': 2.6.4
+      '@biomejs/cli-win32-x64': 2.6.4
 
-  '@biomejs/cli-android-arm64@2.6.3':
+  '@biomejs/cli-android-arm64@2.6.4':
     optional: true
 
-  '@biomejs/cli-android-x64@2.6.3':
+  '@biomejs/cli-android-x64@2.6.4':
     optional: true
 
-  '@biomejs/cli-darwin-arm64@2.6.3':
+  '@biomejs/cli-darwin-arm64@2.6.4':
     optional: true
 
-  '@biomejs/cli-darwin-x64@2.6.3':
+  '@biomejs/cli-darwin-x64@2.6.4':
     optional: true
 
-  '@biomejs/cli-linux-arm64-musl@2.6.3':
+  '@biomejs/cli-linux-arm64-musl@2.6.4':
     optional: true
 
-  '@biomejs/cli-linux-arm64@2.6.3':
+  '@biomejs/cli-linux-arm64@2.6.4':
     optional: true
 
-  '@biomejs/cli-linux-x64-musl@2.6.3':
+  '@biomejs/cli-linux-x64-musl@2.6.4':
     optional: true
 
-  '@biomejs/cli-linux-x64@2.6.3':
+  '@biomejs/cli-linux-x64@2.6.4':
     optional: true
 
-  '@biomejs/cli-win32-arm64@2.6.3':
+  '@biomejs/cli-win32-arm64@2.6.4':
     optional: true
 
-  '@biomejs/cli-win32-x64@2.6.3':
+  '@biomejs/cli-win32-x64@2.6.4':
     optional: true
 
   '@cfworker/json-schema@4.1.1': {}
@@ -1740,7 +1740,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  '@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))':
+  '@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))':
     dependencies:
       '@cfworker/json-schema': 4.1.1
       '@standard-schema/spec': 1.1.0
@@ -1756,13 +1756,13 @@ snapshots:
       - openai
       - ws
 
-  '@langchain/langgraph-checkpoint@1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))':
+  '@langchain/langgraph-checkpoint@1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))':
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
 
-  '@langchain/langgraph-sdk@1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
+  '@langchain/langgraph-sdk@1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)':
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
       '@langchain/protocol': 0.0.20
       '@types/json-schema': 7.0.15
       p-queue: 9.3.5
@@ -1771,11 +1771,11 @@ snapshots:
       react: 19.3.1
       react-dom: 19.3.1(react@19.3.1)
 
-  '@langchain/langgraph@1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)':
+  '@langchain/langgraph@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)':
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
-      '@langchain/langgraph-checkpoint': 1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))
-      '@langchain/langgraph-sdk': 1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
+      '@langchain/langgraph-checkpoint': 1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))
+      '@langchain/langgraph-sdk': 1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       '@langchain/protocol': 0.0.20
       '@standard-schema/spec': 1.1.0
       zod: 4.6.7
@@ -1783,9 +1783,9 @@ snapshots:
       - react
       - react-dom
 
-  '@langchain/openai@1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))':
+  '@langchain/openai@1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))':
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
       js-tiktoken: 1.0.21
       openai: 7.45.1(zod@4.6.7)
       zod: 4.6.7
@@ -1799,13 +1799,13 @@ snapshots:
 
   '@langchain/protocol@0.0.20': {}
 
-  '@modelcontextprotocol/core@2.3.1':
+  '@modelcontextprotocol/core@2.4.0':
     dependencies:
       zod: 4.6.7
 
-  '@modelcontextprotocol/server@2.3.1':
+  '@modelcontextprotocol/server@2.4.0':
     dependencies:
-      '@modelcontextprotocol/core': 2.3.1
+      '@modelcontextprotocol/core': 2.4.0
       zod: 4.6.7
 
   '@next/env@16.4.3': {}
@@ -1941,7 +1941,7 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/node@26.6.5':
+  '@types/node@26.6.6':
     dependencies:
       undici-types: 8.9.0
 
@@ -2013,14 +2013,14 @@ snapshots:
   '@typescript/typescript-win32-x64@7.0.2':
     optional: true
 
-  '@vercel/analytics@2.0.1(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+  '@vercel/analytics@2.0.1(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
     optionalDependencies:
-      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
 
-  '@vercel/speed-insights@2.0.0(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
+  '@vercel/speed-insights@2.0.0(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(react@19.3.1)':
     optionalDependencies:
-      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       react: 19.3.1
 
   babel-plugin-react-compiler@1.0.0:
@@ -2045,20 +2045,20 @@ snapshots:
 
   csstype@3.2.3: {}
 
-  deepagents@1.16.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7))):
+  deepagents@1.16.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(@langchain/langgraph-checkpoint@1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(@langchain/langgraph-sdk@1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(@langchain/langgraph@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7))(@langchain/openai@1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7))))(langchain@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1))(langsmith@0.9.0(openai@7.45.1(zod@4.6.7))):
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
-      '@langchain/langgraph': 1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
-      '@langchain/langgraph-checkpoint': 1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))
-      '@langchain/langgraph-sdk': 1.12.8(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
+      '@langchain/langgraph': 1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
+      '@langchain/langgraph-checkpoint': 1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))
+      '@langchain/langgraph-sdk': 1.12.9(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       fast-glob: 3.3.3
-      langchain: 1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      langchain: 1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
       langsmith: 0.9.0(openai@7.45.1(zod@4.6.7))
       micromatch: 4.0.8
       yaml: 2.9.1
       zod: 4.6.7
     optionalDependencies:
-      '@langchain/openai': 1.7.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))
+      '@langchain/openai': 1.8.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))
 
   detect-libc@2.1.2: {}
 
@@ -2118,11 +2118,11 @@ snapshots:
     dependencies:
       base64-js: 1.5.1
 
-  langchain@1.6.0(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  langchain@1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(openai@7.45.1(zod@4.6.7))(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
-      '@langchain/core': 1.3.1(openai@7.45.1(zod@4.6.7))
-      '@langchain/langgraph': 1.5.3(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
-      '@langchain/langgraph-checkpoint': 1.2.1(@langchain/core@1.3.1(openai@7.45.1(zod@4.6.7)))
+      '@langchain/core': 1.3.2(openai@7.45.1(zod@4.6.7))
+      '@langchain/langgraph': 1.6.0(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))(react-dom@19.3.1(react@19.3.1))(react@19.3.1)(zod@4.6.7)
+      '@langchain/langgraph-checkpoint': 1.2.2(@langchain/core@1.3.2(openai@7.45.1(zod@4.6.7)))
       langsmith: 0.11.5(openai@7.45.1(zod@4.6.7))
       zod: 4.6.7
     transitivePeerDependencies:
@@ -2199,13 +2199,13 @@ snapshots:
     dependencies:
       '@jridgewell/sourcemap-codec': 1.6.0
 
-  mcp-handler@2.3.0(@modelcontextprotocol/server@2.3.1)(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
+  mcp-handler@2.3.0(@modelcontextprotocol/server@2.4.0)(next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)):
     dependencies:
-      '@modelcontextprotocol/server': 2.3.1
+      '@modelcontextprotocol/server': 2.4.0
       chalk: 5.6.2
       commander: 11.1.0
     optionalDependencies:
-      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
+      next: 16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1)
 
   merge2@1.4.1: {}
 
@@ -2218,7 +2218,7 @@ snapshots:
 
   nanoid@3.3.20: {}
 
-  next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.5)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
+  next@16.4.3(@playwright/test@1.64.1)(@types/node@26.6.6)(babel-plugin-react-compiler@1.0.0)(react-dom@19.3.1(react@19.3.1))(react@19.3.1):
     dependencies:
       '@next/env': 16.4.3
       '@swc/helpers': 0.5.23
@@ -2239,7 +2239,7 @@ snapshots:
       '@next/swc-win32-x64-msvc': 16.4.3
       '@playwright/test': 1.64.1
       babel-plugin-react-compiler: 1.0.0
-      sharp: 0.35.5(@types/node@26.6.5)
+      sharp: 0.35.5(@types/node@26.6.6)
     transitivePeerDependencies:
       - '@babel/core'
       - '@types/node'
@@ -2315,7 +2315,7 @@ snapshots:
 
   server-only@0.0.1: {}
 
-  sharp@0.35.5(@types/node@26.6.5):
+  sharp@0.35.5(@types/node@26.6.6):
     dependencies:
       '@img/colour': 1.1.0
       detect-libc: 2.1.2
@@ -2346,7 +2346,7 @@ snapshots:
       '@img/sharp-win32-arm64': 0.35.5
       '@img/sharp-win32-ia32': 0.35.5
       '@img/sharp-win32-x64': 0.35.5
-      '@types/node': 26.6.5
+      '@types/node': 26.6.6
     optional: true
 
   source-map-js@1.2.2: {}
