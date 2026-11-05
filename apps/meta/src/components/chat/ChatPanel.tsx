@@ -19,6 +19,7 @@ import { evaluate, SCHEMES } from "@/engine/rules";
 import { intlTag } from "@/i18n/locales";
 import { useFactText } from "@/i18n/useFactText";
 import { useCheck } from "@/lib/check-store";
+import { useCountry } from "@/lib/country";
 import { isOn, useDisplay } from "@/lib/display";
 import { shrink } from "@/lib/image";
 import { speak } from "@/lib/speech";
@@ -412,8 +413,13 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     [apply, push, ft, tc],
   );
 
-  // A first message typed on the home page arrives here once.
+  // A first message typed on the home page arrives here once, after the check has taken on the
+  // visitor's country, so a US visitor's first words are read against US rules.
+  const { country } = useCountry();
+  const countryReady =
+    (answers.country ?? "GB") === (country === "US" ? "US" : "GB");
   useEffect(() => {
+    if (!countryReady) return;
     try {
       const first = sessionStorage.getItem("beacon:first");
       if (first) {
@@ -423,7 +429,7 @@ export function ChatPanel({ playing = false }: { playing?: boolean }) {
     } catch {
       /* storage blocked */
     }
-  }, [send]);
+  }, [send, countryReady]);
 
   return (
     <>
