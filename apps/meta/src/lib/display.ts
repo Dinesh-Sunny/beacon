@@ -131,9 +131,14 @@ export function useDisplay() {
     const on = turnOn
       ? [...new Set([...d.on, ...settings])]
       : d.on.filter((s) => !settings.includes(s));
-    const size =
-      turnOn && PRESET_SIZE[p] !== undefined
-        ? Math.max(d.size, PRESET_SIZE[p])
+    // Turning a preset off undoes the text size it set, unless another preset still on needs it.
+    const still = (Object.keys(PRESETS) as Preset[])
+      .filter((x) => x !== p && PRESETS[x].every((s) => on.includes(s)))
+      .map((x) => PRESET_SIZE[x] ?? STANDARD.size);
+    const size = turnOn
+      ? Math.max(d.size, PRESET_SIZE[p] ?? d.size)
+      : PRESET_SIZE[p] !== undefined && d.size === PRESET_SIZE[p]
+        ? Math.max(STANDARD.size, ...still)
         : d.size;
     write({ ...d, on, size: size as Display["size"] });
   };

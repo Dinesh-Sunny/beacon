@@ -203,6 +203,8 @@ button {
   font-size: 1.2rem;
   text-decoration: none;
   padding-right: 6px;
+  /* A comfortable tap target on phones without changing how it looks. */
+  min-height: 40px;
 }
 .chat-tools {
   display: flex;

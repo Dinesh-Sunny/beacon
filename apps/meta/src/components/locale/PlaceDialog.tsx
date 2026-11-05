@@ -185,6 +185,18 @@ export function PlaceDialog({
         ),
         pick: () => savePostcode(pcGuess),
       });
+    else if (isPostcode && found.nation)
+      // No council name came back, but the nation did: the postcode still works.
+      suggested.push({
+        id: "council",
+        label: (
+          <>
+            {pcGuess}
+            <small> {t(`nation.${found.nation}`)}</small>
+          </>
+        ),
+        pick: () => savePostcode(pcGuess),
+      });
     if (isZip && foundZip.state)
       suggested.push({
         id: "zip",

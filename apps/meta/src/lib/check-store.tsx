@@ -425,6 +425,18 @@ export function savePostcodeForLater(postcode: string) {
   }
 }
 
+/** A new message from the home page starts a fresh check when the saved one is only an example,
+ *  so the person's own words never land on top of Margaret's answers. A real check is kept. */
+export function clearExampleCheck() {
+  try {
+    if (!localStorage.getItem("beacon:example")) return;
+    for (const k of [KEY, "beacon:subject", "beacon:sources", "beacon:example"])
+      localStorage.removeItem(k);
+  } catch {
+    /* storage blocked */
+  }
+}
+
 export function useCheck(): Ctx {
   const c = useContext(CheckCtx);
   if (!c) throw new Error("useCheck needs CheckProvider");

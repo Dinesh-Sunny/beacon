@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
 import { useTranslations } from "use-intl";
 import { Icon } from "@/components/Icon";
+import { clearExampleCheck } from "@/lib/check-store";
 
 export function HomeStart({ country = "GB" }: { country?: "GB" | "US" }) {
   const tr = useTranslations("site");
@@ -19,7 +20,10 @@ export function HomeStart({ country = "GB" }: { country?: "GB" | "US" }) {
   const go = () => {
     const t = text.trim();
     try {
-      if (t) sessionStorage.setItem("beacon:first", t);
+      if (t) {
+        clearExampleCheck();
+        sessionStorage.setItem("beacon:first", t);
+      }
     } catch {
       /* storage blocked: the check still opens */
     }

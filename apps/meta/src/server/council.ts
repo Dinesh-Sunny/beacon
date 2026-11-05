@@ -149,10 +149,27 @@ export async function placeFor(postcode: string): Promise<Place> {
           ? PostcodesIo.safeParse(pio.value).data?.result
           : undefined;
       const country = r?.country;
+      // GOV.UK's lookup sometimes refuses cloud hosts. postcodes.io still names the district, and
+      // GOV.UK's council slugs follow the district name ("Leeds" is /leeds), so use that instead.
+      const district = r?.admin_district;
+      const fallback = district
+        ? {
+            name:
+              (r?.codes?.admin_district &&
+                COUNCILS[r.codes.admin_district]?.name) ||
+              BY_NAME.get(nameKey(district))?.name ||
+              district,
+            slug: district
+              .toLowerCase()
+              .replace(/&/g, "and")
+              .replace(/[^a-z0-9]+/g, "-")
+              .replace(/^-|-$/g, ""),
+          }
+        : null;
       return {
         council: a
           ? { name: a.name, slug: a.slug, homepage: a.homepage_url }
-          : null,
+          : fallback,
         nation: (country && COUNTRY[country]) || null,
         areas: [
           { code: r?.codes?.admin_district, name: r?.admin_district },
